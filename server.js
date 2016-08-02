@@ -11,6 +11,8 @@ const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
 
+var router = express.Router();
+
 if (isDeveloping) {
   const compiler = webpack(config);
   const middleware = webpackMiddleware(compiler, {
@@ -25,7 +27,8 @@ if (isDeveloping) {
       modules: false
     }
   });
-
+  app.use(router);
+  require('./api')(app);
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
   app.get('*', function response(req, res) {
