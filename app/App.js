@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Menu from '../components/menu.js'
 
-import styles from './App.css';
+import styles from './App.sass';
 
 class App extends Component {
     constructor(props) {

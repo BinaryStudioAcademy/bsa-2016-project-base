@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import styles from './single.css'
+import styles from './single.sass'
 
 class Single extends Component {
     render() {

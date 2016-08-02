@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 
-import styles from './menu.css'
+import styles from './menu.sass'
 
 class Menu extends Component {
     render() {

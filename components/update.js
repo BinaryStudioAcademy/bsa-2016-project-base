@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import styles from './update.css'
+import styles from './update.sass'
 
 class Update extends Component {
     render() {
