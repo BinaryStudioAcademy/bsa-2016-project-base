@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styles from './App.css';
 
-export default class App extends React.Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {test: 'foo'};
@@ -14,3 +14,5 @@ export default class App extends React.Component {
     );
   }
 }
+
+export default App;
