@@ -1,10 +1,5 @@
-.app {
-  background-color: green;
-  height: 50px;
-  border: 1px solid blue;
-}
-
-.bap {
-  background-color: red;
-  height: 25px;
+.container {
+  padding: 20px;
+  border-top: 2px solid #fff;
+  background: #333;
 }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
-import styles from './chart.css'
+import styles from './completed.css'
 
-class Chart extends Component {
+class Completed extends Component {
     render() {
         return (
             <div className={styles.alert} >
@@ -12,4 +12,4 @@ class Chart extends Component {
     }
 }
 
-export default Chart;
+export default Completed;
