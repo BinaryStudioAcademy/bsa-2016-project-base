@@ -51,6 +51,9 @@ module.exports = {
     }, {
       test: /\.css$/,
       loader: ExtractTextPlugin.extract('style', 'css?modules&localIdentName=[name]---[local]---[hash:base64:5]!postcss')
+    }, {
+      test: /\.sass$/,
+      loader: "style!css?localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass"
     }]
   },
   postcss: [
