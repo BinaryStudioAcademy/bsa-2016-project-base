@@ -3,6 +3,8 @@ var sectionRoutes = require('./sectionRoutes');
 var techologieRoutes = require('./technologieRoutes');
 var projectRoutes = require('./projectRoutes');
 var conditionRoutes =require('./conditionRoutes');
+var featureRoutes = require('./featureRoutes');
+var tagRoutes = require('./tagRoutes');
 module.exports = function(app) {
 	return {
 		userRoutes: userRoutes(app),
@@ -10,5 +12,8 @@ module.exports = function(app) {
 		sectionRoutes: sectionRoutes(app),
 		projectRoutes: projectRoutes(app),
 		conditionRoutes:conditionRoutes(app),
+		featureRoutes: featureRoutes(app),
+		tagRoutes: tagRoutes(app)
+
 	};
 };
