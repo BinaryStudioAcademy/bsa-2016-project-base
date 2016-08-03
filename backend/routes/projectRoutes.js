@@ -1,5 +1,5 @@
 var apiResponse = require('express-api-response');
-var projectRepository = require('../repositories/technologieRepository');
+var projectRepository = require('../repositories/projectRepository');
 
 
 module.exports = function(app) {
