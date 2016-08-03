@@ -13,7 +13,7 @@ module.exports = function(app) {
 	},apiResponse);
 
 	app.get('/api/project/:id', function(req, res, next) {
-		technologieRepository.getById(req.params.id, function(err, data) {
+		projectRepository.getById(req.params.id, function(err, data) {
 			res.data = data;
 			res.err = err;
 			res.json(data);
@@ -22,7 +22,7 @@ module.exports = function(app) {
 	}, apiResponse);
 
 	app.post('/api/project/', function(req, res, next) {
-		technologieRepository.add(req.body, function(err, data) {
+		projectRepository.add(req.body, function(err, data) {
 			res.data = data;
 			res.err = err;
 			res.json(data);
