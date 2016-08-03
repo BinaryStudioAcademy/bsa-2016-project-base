@@ -1,8 +1,10 @@
 var userRoutes = require('./userRoutes');
 var sectionRoutes = require('./sectionRoutes');
+var techologieRoutes = require('./technologieRoutes');
 module.exports = function(app) {
 	return {
 		userRoutes: userRoutes(app),
+		techologieRoutes: techologieRoutes(app),
 		sectionRoutes: sectionRoutes(app)
 	};
 };
