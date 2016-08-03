@@ -1,81 +1,56 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var ObjectId = mongoose.Types.ObjectId;
 
 var Project = new Schema({
-    users: {
-        users:[{							            // Related to ‘UsersCollection’
-            userNameLink: ObjectId                      //Schema.UsersCollection._id
-        }],
-        required: true
-    },
-    owners: {
-        users:[{							            // Related to ‘UsersCollection’
-            userNameLink: ObjectId                      //Schema.UsersCollection._id
-        }],
-        required: true
-    },
 
-    technologies: [{					               // Related to ‘TechnologiesCollection’
-        techNameLink: ObjectId                          //Schema.TechnologiesCollection._id,
-        required: true
-    }],
+    users: [ {type: Schema.Types.ObjectId, ref: 'User', required: true} ],
 
-    projectName: {type: String, required: true},			// Unique
+    owners: [ {type: Schema.Types.ObjectId, ref: 'User', required: true} ],
 
-    isCompleted: Boolean,								//020816 Updated
+    technologies: [{type: Schema.Types.ObjectId, ref: 'Technologie', required: true}],
 
-    description: [{										//020816 Updated
+    projectName: {type: String, required: true},
+
+    isCompleted: {type: Boolean, required: true},
+
+    description: [{
         date: {type: Date, default: Date.now},
-		descrText: String,
-		attachments: [{
-			name: String,
-			date: {type: Date, default: Date.now},
-			att: Buffer
-		}]
+        descrText: String,
+        attachments: [{
+            name: String,
+            date: {type: Date, default: Date.now},
+            attach: Buffer
+        }]
     }],
 
     screenShots: [{
-        internal: Boolean,							//Internal: true, External: false
-        linkToSource: String,						// if ‘internal’ == false
-        shot: Buffer
+        internal: Boolean,
+        linkToExternalShot: String,
+        internalShot: Buffer
     }],
 
-    timeBegin:{
-        type: Date,
-        default: Date.now,
-        required: true
-    },
-    timeEnd:{
-        type: Date,
-        required: true
-    },
+    timeBegin:{ type: Date, default: Date.now, required: true },
 
-    tags: [{											// Related to ‘TagsCollection’
-        tagNameLink: ObjectId                           //Schema.TagsCollection._id,  // if ‘fromCollection’ is ‘true’
-        tagName: String
-    }],
+    timeEnd: Date,
 
-    stage: {											// Related to ‘StagesCollection’
-        stageNameLink: ObjectId                         //Schema.StagesCollection._id
-    },
+    tags: [ {type: Schema.Types.ObjectId, ref: 'Tag'} ],
+        
+    stage: {type: Schema.Types.ObjectId, ref: 'Stage'},
 
-    condition: {						              // Related to ‘ConditionCollection’
-        name: String,					              // InProgress, Estimated
-        conditionNameLink: ObjectId                   //Schema.ConditionCollection._id,
-        required: true
-    },
+    condition: {type: Schema.Types.ObjectId, ref: 'Condition'},
 
     questions:[{
         question:{
-            author: ObjectId                           //Schema.UserCollection._id,	 //020816 Updated
+            author: {type: Schema.Types.ObjectId, ref: 'User'},
             text: String
         },
-        answer: [{
-        	author: ObjectId                           //Schema.UserCollection._id,	 //020816 Updated
-        	text: String
+        answers: [{
+         author: {type: Schema.Types.ObjectId, ref: 'User'},
+         text: String
         }],
         isPrivate: Boolean
-    }]
+    }],
 
     rating: [{
         value: Number,
@@ -83,7 +58,7 @@ var Project = new Schema({
         description: String
     }],
 
-    features: [ObjectId]                            //[Schema.FeatureCollection._id]	//020816 Edited as prosition
+    features: [{type: Schema.Types.ObjectId, ref: 'Feature'}]
 });
 
 module.exports = mongoose.model('Project', Project);
