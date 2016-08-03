@@ -26,7 +26,10 @@
     "jscs": "jscs ."
   },
   "dependencies": {
+    "async": "^2.0.1",
     "babel-cli": "^6.4.0",
+    "mongoose": "^4.5.8",
+    "nconf": "^0.8.4",
     "react": "^0.14.3",
     "react-dom": "^0.14.3"
   },
