@@ -6,12 +6,13 @@ const webpack = require('webpack');
 const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require('./webpack.config.js');
-
+const bodyParser = require('body-parser');
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
-
-var router = express.Router();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+var routes = require('./backend/routes/routes')(app);
 
 if (isDeveloping) {
   const compiler = webpack(config);
@@ -27,8 +28,7 @@ if (isDeveloping) {
       modules: false
     }
   });
-  app.use(router);
-  require('./api')(app);
+
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
   app.get('*', function response(req, res) {
