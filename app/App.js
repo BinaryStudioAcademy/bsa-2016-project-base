@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Menu from '../components/menu.js'
+import Navbar from '../components/navbar/Navbar'
 
 import styles from './App.sass';
 
@@ -10,7 +10,7 @@ class App extends Component {
     render() {
         return (
             <div>
-                <Menu />
+                <Navbar/>
                 <div className={styles.container} >{this.props.children}</div>
             </div>
         )
