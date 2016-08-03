@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import styles from './admin.sass'
+import styles from './sass/admin.sass'
 
 class Admin extends Component {
     render() {

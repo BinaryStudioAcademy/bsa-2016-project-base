@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import styles from './completed.sass'
+import styles from './sass/completed.sass'
 
 class Completed extends Component {
     render() {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import styles from './chart.sass'
+import styles from './sass/chart.sass'
 
 class Chart extends Component {
     render() {
