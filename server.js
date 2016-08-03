@@ -12,9 +12,7 @@ const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-var apiRouter = express.Router();
-app.use('/api', apiRouter);
-var routes = require('./backend/routes/routes')(apiRouter);
+var routes = require('./backend/routes/routes')(app);
 
 if (isDeveloping) {
   const compiler = webpack(config);
