@@ -7,7 +7,7 @@ module.exports = function(app) {
 	return {
 		userRoutes: userRoutes(app),
 		techologieRoutes: techologieRoutes(app),
-		sectionRoutes: sectionRoutes(app)
+		sectionRoutes: sectionRoutes(app),
 		projectRoutes: projectRoutes(app),
 	};
 };
