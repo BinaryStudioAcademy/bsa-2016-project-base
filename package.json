@@ -1,23 +1,25 @@
 {
-  "name": "webpack-express-boilerplate",
+  "name": "bsa-2016-project-base",
   "version": "0.1.0",
-  "description": "A boilerplate for running a Webpack workflow in Node express",
+  "description": "A study project during Binary Studio Summer Academy 2016 in JavaScript group",
   "main": "server.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/christianalfoni/webpack-express-boilerplate.git"
+    "url": "https://github.com/BinaryStudioAcademy/bsa-2016-project-base.git"
   },
   "keywords": [
     "express",
     "webpack",
-    "node"
+    "node",
+    "react",
+    "redux"
   ],
-  "author": "Christian Alfoni",
+  "author": "bsa16js",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/christianalfoni/webpack-express-boilerplate/issues"
+    "url": "https://github.com/BinaryStudioAcademy/bsa-2016-project-base/issues"
   },
-  "homepage": "https://github.com/christianalfoni/webpack-express-boilerplate",
+  "homepage": "https://github.com/BinaryStudioAcademy/bsa-2016-project-base",
   "scripts": {
     "test": "",
     "start": "node server",
@@ -26,14 +28,19 @@
     "jscs": "jscs ."
   },
   "dependencies": {
-    "express-api-response": "^0.3.0",
-    "mongoose": "^4.5.8",
     "babel-cli": "^6.11.4",
     "babel-polyfill": "^6.9.1",
+    "express-api-response": "^0.3.0",
+    "i": "^0.3.5",
+    "install": "^0.8.1",
+    "mongoose": "^4.5.8",
+    "npm": "^3.10.5",
     "react": "^15.3.0",
+    "react-bootstrap": "^0.30.1",
     "react-dom": "^15.3.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.6.1",
+    "react-router-bootstrap": "^0.23.1",
     "redux": "^3.5.2"
   },
   "devDependencies": {
