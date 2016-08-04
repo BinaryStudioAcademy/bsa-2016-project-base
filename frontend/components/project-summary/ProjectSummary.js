@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Users from './users-component/users';
+import Users from './users-component/';
 import styles from './project-summary.sass';
 
 class ProjectSummary extends Component {
@@ -10,7 +10,7 @@ class ProjectSummary extends Component {
 	    return (
             <div>
 	    	  <div className={styles.alert}>Here you can read project summary</div>
-                <Users />
+              <Users />
             </div>
 	    )
 	}
