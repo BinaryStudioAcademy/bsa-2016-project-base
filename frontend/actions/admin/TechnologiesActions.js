@@ -2,30 +2,25 @@
  * Created by razorka on 26.07.16.
  */
 import fetch from 'isomorphic-fetch';
-export function initTechnology() {
-    // return dispatch => {
-    //    return fetch('/api/technologie')
-    //         .then(response => response.json())
-    //         .then(json => {
-    //             const action = {
-    //                 type: 'INIT_TECHNOLOGY',
-    //                 listOfTechnologies: json,
-    //             }
-    //         })
-    //
-    // };
-    let result;
-    const promise = fetch('/api/technologie');
-    promise.then(function (response) {
-        result = response.json();
-        console.log(result);
-    });
-    console.log(result);
-    const action ={
-        type: 'INIT_TECHNOLOGY',
-    }
-    return action;
+export function sendRequest() {
+    return dispatch => {
+       return fetch('/api/technologie')
+            .then(response => response.json())
+            .then(json => {
+                console.log(json);
+                   initTechnology(json)
+            })
+    };
 
+
+}
+export  function initTechnology(data) {
+    console.log(data);
+    const action = {
+        type: 'INIT_TECHOLOGY',
+        listOfTechnologies: [],
+    };
+    return action;
 }
 export function saveTechology(params) {
 

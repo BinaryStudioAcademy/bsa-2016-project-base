@@ -13,7 +13,7 @@ class Technologies extends Component {
 
     }
     componentWillMount(){
-        this.props.initTechnology();
+        this.props.sendRequest();
     }
 
     render() {
