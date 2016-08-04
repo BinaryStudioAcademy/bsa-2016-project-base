@@ -36,21 +36,21 @@ render(
         <Router history={browserHistory}>
           <Route path="/" component={App}>
             <IndexRoute component={Home}/>
-            <Route path="projects" component={ProjectsList}/> 
+            <Route path="projects" component={ProjectsList}/>
             <Route path="project-summary/:id" component={ProjectSummary}/>
-            <Route path="project-upsert" component={UpsertProject}/>  
-            <Route path="admin" component={Admin} > 
+            <Route path="project-upsert" component={UpsertProject}/>
+            <Route path="admin" component={Admin} >
               <Route path="rights" component={Rights} />
               <Route path="features" component={Features} />
               <Route path="tags" component={Tags} />
               <Route path="tech" component={Tech} />
               <Route path="techscope" component={TechScope} />
             </Route>
-            <Route path="stats" component={Stats} /> 
-            <Route path="review" component={Review} /> 
+            <Route path="stats" component={Stats} />
+            <Route path="review" component={Review} />
             <Route path='*' component={NotFound} />
           </Route>
         </Router>
-      </Provider>) 
+      </Provider>)
 , document.getElementById('root')
 );
