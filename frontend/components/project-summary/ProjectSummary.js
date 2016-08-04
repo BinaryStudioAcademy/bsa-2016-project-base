@@ -1,15 +1,27 @@
 import React, { Component } from 'react';
 import styles from './project-summary.sass';
+import { Grid, Row, Col } from 'react-bootstrap';
+import DetailsFeatures from './features/DetailsFeatures';
 
 class ProjectSummary extends Component {
-	constructor(props) {
-	    super(props);
-	}
+
  	render() {
+		let a = 2;
 	    return (
-	    	<div className={styles.alert}>Here you can read project summary</div>
+			<div>
+	    		<div>Here you can read project summary
+				</div>
+				<Grid>
+					<Row>
+						<Col sm={6}>
+							<DetailsFeatures />
+						</Col>
+						<Col sm={6}> lala </Col>
+					</Row>
+				</Grid>
+			</div>
 	    )
 	}
-};
+}
 
 export default ProjectSummary;
