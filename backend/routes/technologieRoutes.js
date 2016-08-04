@@ -2,7 +2,7 @@ var apiResponse = require('express-api-response');
 var technologieRepository = require('../repositories/technologieRepository');
 
 module.exports = function(router) {
-	router.get('/api/technologie/:id', function(req, res, next) {
+	router.get('/api/technologies/:id', function(req, res, next) {
 		technologieRepository.getById(req.params.id, function(err, data) {
 			res.data = data;
 			res.err = err;
@@ -10,7 +10,7 @@ module.exports = function(router) {
 		});
 	}, apiResponse);
 
-	router.put('/api/technologie/:id', function(req, res, next) {
+	router.put('/api/technologies/:id', function(req, res, next) {
 		technologieRepository.update(req.params.id,req.body,function(err, data) {
 			res.data = data;
 			res.err = err;
@@ -18,7 +18,7 @@ module.exports = function(router) {
 		});
 	}, apiResponse);
 
-	router.delete('/api/technologie/:id', function(req, res, next) {
+	router.delete('/api/technologies/:id', function(req, res, next) {
 		technologieRepository.delete(req.params.id,function(err, data) {
 			res.data = data;
 			res.err = err;
@@ -27,7 +27,7 @@ module.exports = function(router) {
 	}, apiResponse);
 
 
-	router.post('/api/technologie/', function(req, res, next) {
+	router.post('/api/technologies/', function(req, res, next) {
 		technologieRepository.add(req.body, function(err, data) {
 			res.data = data;
 			res.err = err;
@@ -35,7 +35,7 @@ module.exports = function(router) {
 		});
 	}, apiResponse);
 
-	router.get('/api/technologie/',function (req,res,next) {
+	router.get('/api/technologies/',function (req,res,next) {
 		technologieRepository.getAll(function (err,data) {
 			res.data = data;
 			res.err = err;

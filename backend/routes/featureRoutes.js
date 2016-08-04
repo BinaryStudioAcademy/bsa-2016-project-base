@@ -3,7 +3,7 @@ var featureRepository = require('../repositories/featureRepository');
 
 module.exports = function(app) {
 	
-	app.get('/api/feature/:id', function(req, res, next) {
+	app.get('/api/features/:id', function(req, res, next) {
 		featureRepository.getById(req.params.id, function(err, data) {
 			res.data = data;
 			res.err = err;
@@ -12,7 +12,7 @@ module.exports = function(app) {
 		});
 	}, apiResponse);
 
-	app.get('/api/feature/',function (req,res,next) {
+	app.get('/api/features/',function (req,res,next) {
 		featureRepository.getAll(function (err,data) {
 			res.data = data;
 			res.err = err;
@@ -21,7 +21,7 @@ module.exports = function(app) {
 		});
 	},apiResponse);
 	
-	app.put('/api/feature/:id', function(req, res, next) {
+	app.put('/api/features/:id', function(req, res, next) {
 		featureRepository.update(req.params.id,req.body,function(err, data) {
 			res.data = data;
 			// res.json(data);//0408
@@ -30,7 +30,7 @@ module.exports = function(app) {
 		});
 	}, apiResponse);
 
-	app.post('/api/feature/', function(req, res, next) {
+	app.post('/api/features/', function(req, res, next) {
 		featureRepository.add(req.body, function(err, data) {
 			res.data = data;
 			res.err = err;
@@ -39,7 +39,7 @@ module.exports = function(app) {
 		});
 	}, apiResponse);
 	
-	app.delete('/api/feature/:id', function(req, res, next) {
+	app.delete('/api/features/:id', function(req, res, next) {
 		featureRepository.delete(req.params.id,function(err, data) {
 			res.data = data;
 			// res.json(data);//0408
