@@ -29,10 +29,9 @@ class UserList extends Component {
                         }
                         else {
                             <div className='ownerCheckBox'>
-                                <input type='checkbox' checked />owner
+                                <input type='checkbox' />owner
                             </div>
                         }
-                    
                 </ListGroupItem>
             );
         })
