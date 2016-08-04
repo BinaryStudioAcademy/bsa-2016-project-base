@@ -91,4 +91,3 @@ let TechTabConnected = connect(mapStateToProps, mapDispatchToProps)(Technologies
 export default TechTabConnected;
 
 
-
