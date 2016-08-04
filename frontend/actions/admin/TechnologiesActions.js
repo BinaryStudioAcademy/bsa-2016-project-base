@@ -7,15 +7,17 @@ export function sendRequest() {
        return fetch('/api/technologie')
             .then(response => response.json())
             .then(json => {
-                console.log(json);
-                   initTechnology(json)
+                const action = {
+                    type: 'INIT_TECHOLOGY',
+                    listOfTechnologies: json,
+                };
+                dispatch(action);
             })
     };
 
 
 }
 export  function initTechnology(data) {
-    console.log(data);
     const action = {
         type: 'INIT_TECHOLOGY',
         listOfTechnologies: [],
