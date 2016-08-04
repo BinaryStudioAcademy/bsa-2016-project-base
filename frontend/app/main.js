@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { IndexRoute, Route, Router, browserHistory } from 'react-router';
 
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers,applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 
 import App from './App.js';
@@ -15,6 +15,7 @@ import Home from '../components/home/Home';
 import Stats from '../components/stats/Stats';
 import Review from '../components/review/Review';
 import NotFound from '../components/not-found/NotFound';
+import thunk from 'redux-thunk'
 
 //import {AdminReducer} from '../reducers/index';
 
@@ -28,7 +29,8 @@ const rootReducer = combineReducers({	//Add other reducers later
 
 const store = createStore(
   rootReducer,
-  window.devToolsExtension && window.devToolsExtension()
+    window.devToolsExtension && window.devToolsExtension(),
+    applyMiddleware(thunk)            //04\08\2016 by IliaVolk
 );
 
 render(

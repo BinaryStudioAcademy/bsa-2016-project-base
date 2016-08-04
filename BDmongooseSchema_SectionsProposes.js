@@ -80,7 +80,7 @@ var ProjectEntity = new Schema({
         	text: String
         }],
         isPrivate: Boolean
-    }]
+    }],
 
     rating: [{
         value: Number,
@@ -141,7 +141,7 @@ var Section = new Schema({					//020816 Edited as prosition
 var Feature = new Schema({
 		_id: ObjectId,
 		featureName: String,
-		section: {type: Schema.SectionCollection._id, required: true}		//020816 Edited as prosition
+		section: {type: Schema.SectionCollection._id, required: true},		//020816 Edited as prosition
 		featureOrder: String,
 		isNecessary: Boolean,							// 'true' == Necessary, 'false' == Desirable
 		featureDescription: {
