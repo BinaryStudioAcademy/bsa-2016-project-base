@@ -45,4 +45,3 @@ export function removeSelectedTechs(){
         type: "REMOVE_SELECTED_TECHS"
     }
 }
-
