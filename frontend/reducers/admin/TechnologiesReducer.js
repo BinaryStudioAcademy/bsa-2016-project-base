@@ -3,15 +3,15 @@
  */
 const initialState = {
     listOfTechnologies: [],
-    listOfTechnologiesFiltered:[]
+    listOfTechnologiesFiltered:[],
+    listOfTechnologiesToDelete:[],
 };
 
 
 export default function patentDetailsReducer(state = initialState, action) {
-    console.log(action);
+
     switch (action.type) {
         case 'INIT_TECHNOLOGY': {
-            console.log(action);
             const {listOfTechnologies} = action;
             return Object.assign({}, state, {
                 listOfTechnologies

@@ -1,14 +1,24 @@
 import React, { Component, PropTypes } from 'react';
 
-class TechnologiesTab extends Component {
+class TechnologiesSearch extends Component {
 	constructor(props) {
 	    super(props);
+		this.state = {
+			item: '',
+		};
+		this.onChange = this.onChange.bind(this);
+	}
+	onChange(e){
+		this.setState(
+			{
+				item: e.target.value
+			}
+		);
+		this.props.technologiesSearch(e.target.value);
 	}
  	render() {
 	    return (
-	    	<div className="technologiesTab">
-	    		<h2>Search</h2>
-	    	</div>
+	    	<input type="text" onChange={this.onChange}  value={this.state.item}/>
 	    )
 	}
 };
@@ -20,4 +30,4 @@ class TechnologiesTab extends Component {
 };*/
 
 
-export default TechnologiesTab;
+export default TechnologiesSearch;

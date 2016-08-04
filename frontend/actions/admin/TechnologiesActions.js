@@ -1,36 +1,37 @@
 /**
  * Created by razorka on 26.07.16.
  */
-import fetch from 'isomorphic-fetch';
-export function sendRequest() {
+var request = require('superagent-bluebird-promise');
+export  function initTechnology() {
     return dispatch => {
-       return fetch('/api/technologie')
-            .then(response => response.json())
-            .then(json => {
+        return request.get('/api/technologie')
+            .then(function(res) {
                 const action = {
-                    type: 'INIT_TECHOLOGY',
-                    listOfTechnologies: json,
+                    type: 'INIT_TECHNOLOGY',
+                    listOfTechnologies: res.body,
                 };
                 dispatch(action);
-            })
-    };
+            }, function(error) {
+                const action = {
+                    type: 'INIT_TECHNOLOGY',
+                    listOfTechnologies: [],
+                };
+                dispatch(action);
+            });
 
-
-}
-export  function initTechnology(data) {
-    const action = {
-        type: 'INIT_TECHOLOGY',
-        listOfTechnologies: [],
     };
-    return action;
-}
+};
 export function saveTechology(params) {
+    return dispatch => {
+        return request.post('/api/technologie')
+            .send(params)
+            .end(function(err,res) {    
+                if(!err) {
+                    dispatch(initTechnology())
+                }
+            });
 
-    const action = {
-        type: 'SAVE_TECHNOLOGY',
-        listOfTechnologies: params.listOfTechnologies,
     };
-    return action;
 
 }
 
@@ -40,13 +41,14 @@ export function deleteTechnology(params) {
         listOfTechnologies: params.listOfTechnologies,
     };
     return action;
-}
+};
 
 export function searchTechnology(params) {
+    console.log(params);
     const action = {
         type: 'SEARCH_TECHNOLOGY',
         listOfTechnologies: params.listOfTechnologies,
         listOfTechnologiesFiltered: params.listOfTechnologiesFiltered
     };
     return action;
-}
+};
