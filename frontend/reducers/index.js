@@ -1,3 +1,3 @@
 export {default as AdminReducer} from './AdminReducer';
 export {default as ProjectReducer} from './ProjectReducer';
-export {default as TechAdminReducer} from './TechnologiesReducer'
+export {default as TechnologiesReducer} from './TechnologiesReducer'
