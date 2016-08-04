@@ -26,10 +26,11 @@
     "jscs": "jscs ."
   },
   "dependencies": {
-    "express-api-response": "^0.3.0",
-    "mongoose": "^4.5.8",
     "babel-cli": "^6.11.4",
     "babel-polyfill": "^6.9.1",
+    "body-parser": "^1.15.2",
+    "express-api-response": "^0.3.0",
+    "mongoose": "^4.5.8",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
     "react-redux": "^4.4.5",

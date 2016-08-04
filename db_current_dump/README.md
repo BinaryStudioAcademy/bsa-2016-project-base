@@ -1,2 +1,2 @@
-Unpack archive and execute:  mongorestore -d projects-base
+Unpack archive and execute:  mongorestore ./projects-base
 
