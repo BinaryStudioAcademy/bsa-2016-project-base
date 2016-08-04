@@ -28,9 +28,12 @@ module.exports = function(router) {
 
 
 	router.post('/api/technologies/', function(req, res, next) {
+		console.log('route req', req);
 		technologieRepository.add(req.body, function(err, data) {
 			res.data = data;
+			//console.log("router.post('/api/technologies/') acquire data: ", data);
 			res.err = err;
+			//console.log("router.post('/api/technologies/') generate error: ", err);
 			next();
 		});
 	}, apiResponse);
