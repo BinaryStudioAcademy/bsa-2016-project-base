@@ -19,5 +19,4 @@ class TechnologiesTab extends Component {
   	removeTag: PropTypes.func.isRequired
 };*/
 
-
 export default TechnologiesTab;
