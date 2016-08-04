@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from "./actions/adminActions";
-import styles from './sass/admin.sass';
-
+import * as actions from "../../actions/AdminActions";
+import styles from './admin.sass';
 
 class AdminPage extends Component {
 	constructor(props) {
@@ -13,7 +12,6 @@ class AdminPage extends Component {
  	render() {
 	    return (
 	    	<div className={styles.adminPage}>
-		        <h1>AdminPage</h1>
 		        <div className={styles.tabs}>
 		        	<div className={styles.tab}>
 		        		<Link to="/admin/rights">Users Rights</Link>
