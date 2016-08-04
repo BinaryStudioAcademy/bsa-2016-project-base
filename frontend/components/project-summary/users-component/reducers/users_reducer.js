@@ -36,5 +36,6 @@ const users = () => {
             owner: true 
         }
     ];
-}
+};
+
 export default users;

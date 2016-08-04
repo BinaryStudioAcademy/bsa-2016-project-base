@@ -9,8 +9,8 @@ class ProjectSummary extends Component {
  	render() {
 	    return (
             <div>
-	    	  <div className={styles.alert}>Here you can read project summary</div>
-              <Users />
+	    	    <div className={styles.alert}>Here you can read project summary</div>
+                <Users />
             </div>
 	    )
 	}
