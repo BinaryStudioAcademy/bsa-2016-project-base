@@ -1,8 +1,7 @@
 /**
  * Created by razor on 04.08.16.
  */
-import fetch from 'isomorphic-fetch'
-
+import techService from "./../services/TechnologieService"
 export function addTechToList(tech) {
     return {
         type: "ADD_TECH",
@@ -11,23 +10,15 @@ export function addTechToList(tech) {
 }
 export function getTeches() {
     return dispatch=> {
-        //TODO: GET URL FROM CONFIG!!!!!!!
-        fetch(`http://localhost:3000/api/technologie/`)
+        techService.getAllTechnologies()
             .then(response => response.json())
             .then(json => dispatch(updateTechs(json)))
     }
 }
 export function addTech(tech) {
     return dispatch=> {
-        //TODO: GET URL FROM CONFIG!!!!!!!
-        fetch("http://localhost:3000/api/technologie/", {
-            method: 'POST',
-            body: JSON.stringify(tech),
-            headers: ({
-                'Content-Type': 'application/json',
-                Accept: 'application/json'
-            })
-        }).then(response => response.json())
+        techService.addTechnologie(tech)
+            .then(response => response.json())
             .then(json=> {
                 dispatch(addTechToList(json))
             })
@@ -74,10 +65,8 @@ export function removeSelectedTechs() {
         let techs = getState().TechnologiesReducer.techs;
         techs.forEach(tech=> {
             if (tech.isSelected) {
-                //TODO: get url from config
-                fetch(`http://localhost:3000/api/technologie/${tech._id}`, {
-                    method: 'DELETE'
-                }).then(dispatch(removeTechFromList(tech._id)))
+                techService.deleteTechnologie(tech)
+                .then(dispatch(removeTechFromList(tech._id)))
             }
         });
     }

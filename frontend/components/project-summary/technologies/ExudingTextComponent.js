@@ -13,7 +13,7 @@ export default class ExudingTextComponent extends React.Component {
         }
     }
 
-    getComponent() {
+    getText() {
         let {pattern, text} = this.props;
         if (!pattern) return text;
         let textArray = text.replace(new RegExp(`(${pattern})`, "gi"), " $1 ");
@@ -22,10 +22,11 @@ export default class ExudingTextComponent extends React.Component {
                 return <span className={styles.exudingText}>{partOfText}</span>;
             return <span>{partOfText}</span>
         });
+        debugger
         return textArrayJsx;
     }
 
     render() {
-        return <span>{this.getComponent()}</span>
+        return <span>{this.getText()}</span>
     }
 }

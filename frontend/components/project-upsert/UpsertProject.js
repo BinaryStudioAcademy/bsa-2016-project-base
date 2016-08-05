@@ -8,7 +8,6 @@ class UpsertProject extends Component {
  	render() {
 	    return (
 	    	<div className={styles.alert}>Here you can add/update project</div>
-	    	
 	    )
 	}
 };
