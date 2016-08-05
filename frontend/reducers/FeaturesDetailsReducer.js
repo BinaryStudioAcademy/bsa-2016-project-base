@@ -33,7 +33,9 @@ const initialState = {
             "childFeatures": []
         }
     ],
-    search: ''
+    search: '',
+    showFeaturesDetailsModal: false,
+    showFeaturesDetailsId: null
 };
 
 export default function FeaturesDetailsReducer(state = initialState, action) {
@@ -46,8 +48,22 @@ export default function FeaturesDetailsReducer(state = initialState, action) {
                 search: search
             });
 
+        case 'FEATURES_DETAILS_MODAL_OPEN':
+            return Object.assign({}, state, {
+                showFeaturesDetailsModal: true,
+                showFeaturesDetailsId: action.id
+            });
+
+        case 'FEATURES_DETAILS_MODAL_CLOSE':
+            return Object.assign({}, state, {
+                showFeaturesDetailsModal: false,
+                showFeaturesDetailsId: null
+            });
+        // case 'SHOW_DETAILS_IN_MODAL':
+        //     return Object.assign({}, state, {
+        //         showFeaturesDetails: action.id
+        //     });
         default:
             return state;
     }
-
 };
