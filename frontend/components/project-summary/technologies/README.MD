@@ -19,7 +19,7 @@ import AddTechnologieView from "./AddTechnologieView"
 View for see only project technologies (can take onSelectListener)
 
 ```javascript
-import BacisTechnologieView fro, "./BacisTechnologieView"
+import BacisTechnologieView from "./BacisTechnologieView"
 
 <BacisTechnologieView
     techs={[
