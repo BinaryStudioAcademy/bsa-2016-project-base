@@ -31,8 +31,7 @@ class AdminPage extends Component {
 		        </div>
 		       
 		        <div className={styles.tabHolder}>
-		       		<h3>{this.props.children || 
-		       			'In this section you can manage predefined stuff and users rights'}</h3>
+		       		{this.props.children}
 		        </div>
 	    	</div>
 	    )
