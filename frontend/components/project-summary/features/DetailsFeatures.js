@@ -9,6 +9,11 @@ import { Row, Col, ListGroup, ListGroupItem, FormControl, FormGroup, InputGroup,
 
 class DetailsFeatures extends Component {
 
+    componentDidMount() {
+        this.props.getAllFeatures();
+    }
+    
+
     filterFeatures(e) {
         this.props.filterFeaturesDetails(e.target.value);
     }

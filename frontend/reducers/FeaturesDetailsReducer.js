@@ -59,6 +59,23 @@ export default function FeaturesDetailsReducer(state = initialState, action) {
                 showFeaturesDetailsModal: false,
                 showFeaturesDetailsId: null
             });
+        case 'FEATURES_DETAILS_GET_ALL_START_LOADING': {
+            return Object.assign({}, state, {
+                isLoading: true
+            });    
+        }
+        case 'FEATURES_DETAILS_GET_ALL_SUCCESS': {
+            return Object.assign({}, state, {
+                isLoading: false,
+                data: action.data
+            });    
+        }
+        case 'FEATURES_DETAILS_GET_ALL_ERROR': {
+            return Object.assign({}, state, {
+                isLoading: false,
+                error: action.error
+            });    
+        }
         // case 'SHOW_DETAILS_IN_MODAL':
         //     return Object.assign({}, state, {
         //         showFeaturesDetails: action.id
