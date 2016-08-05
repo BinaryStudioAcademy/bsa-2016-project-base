@@ -1,23 +1,9 @@
 var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
-var StageSchema = new Schema({	
-
-//неправильно, но отдаёт корректные данные	
-   
-    // stageName: String,
-    // commisioned: {type: Date, required: true},
-    // decomissioned: Date
-
-//правильно, но отдаёт некорректные данные	
-	// stageName: String,
- //    commissioned: {type: Date, required: true},
- //    decommissioned: Date
-
- //третий вариант
+var StageSchema = new Schema({
 	stageName: String,
-    commisioned: {type: Date},
-    decommisioned: {type: Date}
-
+  commisioned: {type: Date},
+  decommisioned: {type: Date}
 })
 module.exports = mongoose.model('Stage', StageSchema);
