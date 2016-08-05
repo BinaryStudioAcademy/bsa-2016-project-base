@@ -4,6 +4,11 @@ class TechnologiesTab extends Component {
     constructor(props) {
         super(props);
         this.setAllChecked = this.setAllChecked.bind(this);
+        this.sendDeleteRequest = this.sendDeleteRequest.bind(this);
+    }
+
+    sendDeleteRequest(){
+        this.props.deleteChecked();
     }
 
     setAllChecked(e){
@@ -17,7 +22,7 @@ class TechnologiesTab extends Component {
                 <label htmlFor="delete_all">
                     <input onChange={this.setAllChecked} id="delete_all" type="checkbox"/>Check all
                 </label>
-                <button className="btn btn-warning">Delete all checked</button>
+                <button onClick={this.sendDeleteRequest} className="btn btn-warning">Delete all checked</button>
             </div>
         )
     }

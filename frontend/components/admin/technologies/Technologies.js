@@ -13,6 +13,7 @@ class Technologies extends Component {
         this.technologiesSearch = this.technologiesSearch.bind(this);
         this.saveTechnologie = this.saveTechnologie.bind(this);
         this.setAllChecked = this.setAllChecked.bind(this);
+        this.deleteChecked = this.deleteChecked.bind(this);
     }
     componentWillMount(){
         this.props.getTechnologies();
@@ -47,6 +48,11 @@ class Technologies extends Component {
         }
         this.props.selectAllTechs(data_ids,action);
     }
+    deleteChecked(){
+        const {listOfTechnologiesChecked} = this.props.stateFromReducer.TechnologiesReducer;
+        this.props.removeSelectedTechs(listOfTechnologiesChecked);
+    }
+
 
     saveTechnologie(data){
        this.props.saveTechology(data);
@@ -65,7 +71,7 @@ class Technologies extends Component {
             <div className="technologiesTab">
                 <nav className="technologiesnav nav">
                     <TechnologiesSearch technologiesSearch={this.technologiesSearch}/>
-                    <TechnologiesControl   setAllChecked={this.setAllChecked}/>
+                    <TechnologiesControl deleteChecked={this.deleteChecked}   setAllChecked={this.setAllChecked}/>
                 </nav>
                 <TechnologiesList listOfTechnologies={list} allChecked={allChecked}/>
                 <TechnologiesAddForm saveTechnologie={this.saveTechnologie}/>

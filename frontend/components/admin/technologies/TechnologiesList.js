@@ -38,7 +38,6 @@ class TechnologiesList extends Component {
              action = 'remove';
              e.target.checked = 'checked';
         }
-        console.log(e);
     }
     render() {
 

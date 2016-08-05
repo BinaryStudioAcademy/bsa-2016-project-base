@@ -10,10 +10,11 @@ export function getTechnologies() {
             .then(json => dispatch(initTechnology(json)))
     }
 }
-export function initTechnology(listOfTechnologies) {
+export function initTechnology(listOfTechno) {
+    let listOfTechnologies = listOfTechno || [];
     return {
         type: 'INIT_TECHNOLOGY' ,
-        listOfTechnologies
+        listOfTechnologies : listOfTechnologies
     }
 }
 export function saveTechology(params) {
@@ -38,13 +39,6 @@ export function searchTechnology(params) {
     };
     return action;
 };
-
-export function toggleTechSelect(tech) {
-    return {
-        type: "TOGGLE_TECH_SELECT",
-        tech
-    }
-}
 export function selectAllTechs(technologies,action) {
     let allChecked;
     if(action != 'add'){
@@ -58,24 +52,14 @@ export function selectAllTechs(technologies,action) {
         allChecked : allChecked
     }
 }
-export function removeTechFromList(id) {
-    return {
-        type: "REMOVE_TECH",
-        id
-    }
-}
-
-export function removeSelectedTechs() {
+export function removeSelectedTechs(technologies) {
     return (dispatch, getState)=> {
-        let techs = getState().TechnologiesReducer.techs;
-        techs.forEach(tech=> {
-            if (tech.isSelected) {
-                //TODO: get url from config
-                fetch(`/api/technologie/${tech._id}`, {
+        technologies.forEach(tech=> {
+                fetch(`/api/technologie/${tech}`, {
                     method: 'DELETE'
-                }).then(dispatch(removeTechFromList(tech._id)))
-            }
+                })
         });
+        dispatch(initTechnology())
     }
 }
 
