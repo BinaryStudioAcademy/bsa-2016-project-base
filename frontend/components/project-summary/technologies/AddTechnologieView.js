@@ -12,7 +12,6 @@ var TabConstants = {
 export default class AddTechnologieView extends React.Component {
     constructor() {
         super()
-        this.updateFromServer();
         //TODO: this state should be in reducer
         this.state = {
             currentTab: TabConstants.LOCAL,
@@ -23,8 +22,43 @@ export default class AddTechnologieView extends React.Component {
         }
     }
 
+    static get propTypes() {
+        return {
+            techs: PropTypes.array.isRequired,
+            /**
+             * @param {Array<tech>})techs
+             */
+            selectedTechsModified: PropTypes.func,
+            /**
+             * @param {Error}error
+             */
+            failedLoadGlobalTechs: PropTypes.func,
+            startLoadGlobalTechs: PropTypes.func,
+            successfullyLoadGlobalTechs: PropTypes.func,
+            /**
+             * @param {Error}error
+             */
+            failedAddNewTech: PropTypes.func,
+            startAddNewTech: PropTypes.func,
+            successfullyAddNewTech: PropTypes.func
+        }
+    }
+
+    componentDidMount() {
+        this.updateFromServer();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.techs) {
+            this.setState({
+                selectedTechs: nextProps.techs
+            });
+        }
+    }
     updateFromServer() {
         var self = this;
+        let {failedLoadGlobalTechs, startLoadGlobalTechs, successfullyLoadGlobalTechs} = this.props;
+        startLoadGlobalTechs && startLoadGlobalTechs();
         techService.getAllTechnologies()
             .then(res=>res.json())
             .then(techs=> {
@@ -33,20 +67,16 @@ export default class AddTechnologieView extends React.Component {
                     globalEternalTechs: techs,
                     selectedTechs: self.props.techs
                 }, ()=> {
-                    self.filterGlobal()
+                    self.filterGlobal();
+                    successfullyLoadGlobalTechs && successfullyLoadGlobalTechs();
                 })
+            })
+            .catch(err=> {
+                failedLoadGlobalTechs && failedLoadGlobalTechs(err)
             })
     }
 
-    static get propTypes() {
-        return {
-            techs: PropTypes.array.isRequired,
-            /**
-             * @param {Array<tech>})
-             */
-            selectedTechsModified: PropTypes.func
-        }
-    }
+
 
     deleteTech(tech) {
         let newTechs = this.state.selectedTechs.filter(t=>t._id !== tech._id);
@@ -57,15 +87,23 @@ export default class AddTechnologieView extends React.Component {
     }
 
     addTechToGlobal(tech) {
-        //TODO: should post new tech on server
-        let newGlobalTechs = this.state.globalEternalTechs.concat(tech)
-        this.setState({
-            globalEternalTechs: newGlobalTechs,
-            newTech: {techName: "", techDescription: ""}
-        }, ()=> {
-            this.filterGlobal()
-        })
-        this.props.addNewTech(tech)
+        let {failedAddNewTech, startAddNewTech, successfullyAddNewTech} = this.props;
+        startAddNewTech && startAddNewTech();
+        techService.addTechnologie(tech)
+            .then(()=> {
+                let newGlobalTechs = this.state.globalEternalTechs.concat(tech)
+                this.setState({
+                    globalEternalTechs: newGlobalTechs,
+                    newTech: {techName: "", techDescription: ""}
+                }, ()=> {
+                    this.filterGlobal()
+                    successfullyAddNewTech && successfullyAddNewTech()
+                })
+            })
+            .catch(err=> {
+                failedAddNewTech && failedAddNewTech(err)
+            })
+
     }
 
     addTech(tech) {

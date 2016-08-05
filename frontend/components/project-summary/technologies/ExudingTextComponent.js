@@ -22,7 +22,6 @@ export default class ExudingTextComponent extends React.Component {
                 return <span className={styles.exudingText}>{partOfText}</span>;
             return <span>{partOfText}</span>
         });
-        debugger
         return textArrayJsx;
     }
 

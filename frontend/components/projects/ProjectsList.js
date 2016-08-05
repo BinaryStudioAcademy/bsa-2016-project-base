@@ -12,12 +12,19 @@ class ProjectsList extends Component {
 		    <div className={styles.alert}>Here you can find list of completed/required projects</div>
 				<Tech
 						techs={[
- 	    				{_id: 1,techName:"ReactJs", techDescription:"WEB"},
- 	    				{_id: 2,techName:"HTML", techDescription:"WEB"},
- 	    				{_id: 3,techName:"Ruby", techDescription:"Backend"}
- 					]}
+ 	    					{_id: 1,techName:"ReactJs", techDescription:"WEB"},
+ 	    					{_id: 2,techName:"HTML", techDescription:"WEB"},
+ 	    					{_id: 3,techName:"Ruby", techDescription:"Backend"}
+ 						]}
 						selectedTechsModified={(techs)=>{console.log(`new selected techs `, techs)}}
-						addNewTech={tech=>console.log(`add tech to global`, tech)}/>
+
+						failedLoadGlobalTechs={(err)=>console.log(`failed load techs from server cos ${err}`)}
+						startLoadGlobalTechs={()=>console.log(`start load global techs`)}
+						successfullyLoadGlobalTechs={()=>console.log(`global techs loaded successfully`)}
+
+						failedAddNewTech={(err=>console.log(`failed add new tech cos ${err}`))}
+						startAddNewTech={()=>console.log(`start add new tech`)}
+						successfullyAddNewTech={()=>console.log(`successfully add new tech`)}/>
 			</div>
 	    )
 	}
