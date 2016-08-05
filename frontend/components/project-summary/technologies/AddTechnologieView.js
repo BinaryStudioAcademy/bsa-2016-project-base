@@ -144,12 +144,10 @@ export default class AddTechnologieView extends React.Component {
         let {globalTechs, selectedTechs, newTech} = this.state,
             globalTab =
                 <div>
-                    <h2>Global Techs</h2>
                     <BasicTechnologieView techs={globalTechs} selectTech={this.addTechToSelected.bind(this)}/>
                 </div>,
             localTab =
                 <div>
-                    <h2>Your Techs</h2>
                     <AddTechComponent
                         newTech={newTech}
                         modifyTech={this.modifyTech.bind(this)}

@@ -22,6 +22,7 @@ export default class BasicTechnologieView extends React.Component {
 
     getHeaderComponentChildren() {
         return [
+            <h2 className={styles.flex_items}>Technologies</h2>,
             <input type="text"
                    className="form-control"
                    placeholder="Search for..."
@@ -31,11 +32,7 @@ export default class BasicTechnologieView extends React.Component {
 
     getHeaderComponent() {
         return <div class={[styles.technologySearch, "row"]}>
-            <div class="col-md-6">
-                <div class="input-group">
                     {this.getHeaderComponentChildren()}
-                </div>
-            </div>
         </div>
 
     }
