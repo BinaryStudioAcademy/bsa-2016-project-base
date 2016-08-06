@@ -3,8 +3,9 @@ import React from 'react';
 import { render } from 'react-dom';
 import { IndexRoute, Route, Router, browserHistory } from 'react-router';
 
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose  } from 'redux';
 import { Provider } from 'react-redux';
+import thunk from "redux-thunk";
 
 import App from './App.js';
 import {Admin, Rights, Features, Tags, Tech, TechScope} from '../components/admin/index';
@@ -22,13 +23,14 @@ import * as reducers from '../reducers/';
 
 
 const rootReducer = combineReducers({	//Add other reducers later
-  ...reducers
+    ...reducers
 });
 
 
 const store = createStore(
   rootReducer,
-  window.devToolsExtension && window.devToolsExtension()
+  {},
+  compose(applyMiddleware(thunk),window.devToolsExtension ? window.devToolsExtension() : f => f)
 );
 
 render(

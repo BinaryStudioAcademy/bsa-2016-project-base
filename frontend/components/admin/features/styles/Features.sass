@@ -1,0 +1,261 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700)
+
+.text-select-input, .textareaInput
+  background-color: #fff
+  border: 1px solid #eeeeee
+  border-radius: 1px
+  box-sizing: border-box
+  font-size: 1.5rem
+  height: 3rem
+  outline: none !important
+  width: 80%
+  padding: 0 1.5rem
+
+
+.textareaInput
+  height: 10rem
+  min-height: 10rem
+  max-height: 10rem
+  padding-top: 5px
+
+.form
+  padding-top: 50px
+
+.text
+  font-family: "Open Sans"
+  font-size: 16px
+  color: #000
+
+.featureComponent
+  margin-top: 400px
+
+.Tabs
+  font-family: "Open Sans"
+  font-size: 16px
+  margin: 0 auto
+  color: #000
+
+.Tabs a
+  font-family: "Open Sans"
+  font-size: 16px
+  margin: 0 auto
+  color: #000
+
+.btn
+  margin-top: 20px
+
+.features-tool-bar
+  height: 100px
+  background: #EFEFEF
+  display: flex
+  align-items: center
+  justify-content: center
+  text-align: center
+  color: #555
+  font-family: 'Open Sans', arial
+
+
+.features-tool-bar button:active,
+.features-tool-bar button:hover
+  outline: none !important
+  box-shadow: none
+  border: none
+  color: white
+
+.button-feature-remove,
+.button-feature-remove:focus,
+.button-feature-remove:hover,
+.button-feature-remove:active
+  background-color: #F97E76 !important
+  border-bottom: 2px solid #B75C58
+
+.button-feature-add,
+.button-feature-add:focus,
+.button-feature-add:hover,
+.button-feature-add:active
+  background-color: #C1CFD9 !important
+  border-bottom: 2px solid #939EA5
+
+.features-tool-bar button:focus
+  outline: 0
+  color: white
+
+.features-tool-bar button
+  border: none
+  color: white
+  border-radius: 0
+  height: 40px
+  font-weight: bold
+
+.search-input-border
+  position: relative
+  display: block
+
+.search-input-border:before ,
+.search-input-border:after
+  width: 0
+  content: ''
+  height: 2.5px
+  position: absolute
+  background: #9EB2C0
+  transition: 0.3s ease all
+
+.search-input-border:before
+  left: 50%
+
+.search-input-border:after
+  right: 50%
+
+input[type="text"]
+  border: none
+  padding: 13px
+  font-size: 14px
+  width: 100%
+  border-radius: 0
+
+input[type="text"]:focus
+  box-shadow: none
+
+.section-input:focus  .sections-list
+  display: block
+
+.sections-list
+  display: none
+  height: 150px
+  width: 100%
+  background: white
+  z-index: 3
+  position: absolute
+
+.search-input:focus
+  border-color: transparent
+  outline: none
+
+.select-features
+  border: none
+  background: white
+  width: 20%
+  padding: 5px
+  height: 42px
+  cursor: pointer
+
+.select-all-checkbox,
+.select-feature-checkbox
+  position: absolute
+  z-index: -1000
+  left: -1000px
+  clip: rect(0 0 0 0)
+  height: 1px
+  width: 1px
+  margin: -1px
+  padding: 0
+  border: 0
+
+.select-all-checkbox + .select-all-label
+  margin: 3px 0px 0px 20px
+  padding: 0px 10px 0px 40px
+  height: 30px
+  line-height: 25px
+
+.select-feature-checkbox + .select-feature-label
+  padding-left: 21px
+  height: 16px
+  line-height: 16px
+
+.select-all-checkbox + .select-all-label,
+.select-feature-checkbox + .select-feature-label
+  display: inline-block
+  background-repeat: no-repeat
+  background-position: 0 0
+  vertical-align: middle
+  cursor: pointer
+
+.select-all-checkbox:checked + .select-all-label
+  background-position: 0 -30px
+
+.select-feature-checkbox:checked + .select-feature-label
+  background-position: 0 -16px
+
+.select-all-label
+  background-image: url(http://csscheckbox.com/checkboxes/u/csscheckbox_b5478ce038d0182679c6e07d0ac4f6dd.png)
+
+.select-feature-label
+  background-image: url(http://csscheckbox.com/checkboxes/u/csscheckbox_84d5db31bde6d14cf3610dde3534e162.png)
+
+.select-feature-label,
+.select-all-label
+  color: #656565
+  font-family: 'Open Sans', arial
+
+.select-feature-label:hover,
+.select-all-label:hover
+  color: #303030
+
+.select-all-label,.select-feature-label
+  user-select: none
+
+.select-features > *
+  border-bottom: 1px solid grey
+  height: 20px
+
+.select-features:focus
+  outline: none
+
+.search-input:focus ~ .search-input-border:before,
+.search-input:focus ~ .search-input-border:after
+  width: 50%
+
+.list-container
+  margin: 5px 0px 25px 0px
+  width: 100%
+  max-height: 300px
+  overflow-y: auto
+  border-bottom: 3px solid #E9F0F4
+  color: #303030
+
+.list-container > div,
+.list-item-navigation
+  min-height: 70px
+
+.list-item-navigation
+  margin: 20px 10px 15px 10px
+  text-align: center
+
+.list-item-navigation > div:last-child
+  margin-top: 10px
+
+.list-item-navigation > div:last-child > *
+  font-size: 14px
+
+.list-item-navigation > div:last-child > span
+  color: #656565
+
+.list-item-navigation > div:last-child > label
+  color: cadetblue
+
+.list-container > div
+  border-bottom: 1px solid #E9F0F4
+
+.list-container > div:last-child
+  border-bottom: none
+
+.list-container > div > div:last-child
+  padding: 20px
+
+.list-container > div:nth-child(n)
+  background-color: #FAFDFE
+
+.list-container > div:nth-child(2n)
+  background-color: white
+
+.list-container > div.selected
+  background: #E9F0F4
+
+.list-container::-webkit-scrollbar
+  width: 7px
+
+.list-container::-webkit-scrollbar-track
+  background: rgba(0, 0, 0, 0.1)
+
+.list-container::-webkit-scrollbar-thumb
+  background: rgba(0, 0, 0, 0.5)
