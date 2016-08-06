@@ -11,7 +11,7 @@ export default class TechnologieList extends React.Component {
         return {
             techs: PropTypes.array.isRequired,
             pattern: PropTypes.string,
-            selectTech: PropTypes.func.isRequired
+            selectTech: PropTypes.func
         }
     }
 

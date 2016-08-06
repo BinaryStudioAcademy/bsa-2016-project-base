@@ -98,17 +98,13 @@ export default class AddTechnologieView extends React.Component {
                 }, ()=> {
                     this.filterGlobal()
                     successfullyAddNewTech && successfullyAddNewTech()
+                    this.addTechToSelected(tech)
                 })
             })
             .catch(err=> {
                 failedAddNewTech && failedAddNewTech(err)
             })
 
-    }
-
-    addTech(tech) {
-        this.addTechToGlobal(tech)
-        this.addTechToSelected(tech)
     }
 
     addTechToSelected(tech) {
@@ -151,7 +147,7 @@ export default class AddTechnologieView extends React.Component {
                     <AddTechComponent
                         newTech={newTech}
                         modifyTech={this.modifyTech.bind(this)}
-                        addTech={this.addTech.bind(this)}
+                        addTech={this.addTechToGlobal.bind(this)}
                     />
                     <EditTechnologieView techs={selectedTechs} deleteTech={this.deleteTech.bind(this)}/>
                 </div>;
