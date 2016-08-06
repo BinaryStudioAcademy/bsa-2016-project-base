@@ -26,6 +26,14 @@ module.exports = function(app) {
 		});
 	}, apiResponse);
 
+	app.delete('/api/tags/', function(req, res, next) {
+		tagRepository.deleteMany(req.body, function(err, data) {
+			res.data = data;
+			res.err = err;
+			next();
+		});
+	}, apiResponse);
+
 	app.get('/api/tags', function(req, res, next) {
 		tagRepository.getAll(function(err, data) {
 			res.data = data;
