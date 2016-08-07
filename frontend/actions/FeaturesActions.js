@@ -6,55 +6,57 @@ export function filterFeaturesDetails(search) {
         search: search
     };
 }
-export function getAllFeatures(){
-    return {
-        type: 'GET_ALL_FEATURES'
-    }
-}
+
 export function getAllSections(){
     return {
         type: 'GET_ALL_SECTIONS'
     }
 }
+
 export function changeFeature(key){
     return {
         type: 'CHANGE_CHECKED_FEATURE',
         key: key
     }
 }
+
 export function markedAllFeatures(flag){
     return {
         type:  'MARKED_ALL_FEATURES',
         flag:flag
     }
 }
+
 export function filterFeatures(filter){
     return {
         type: 'FILTER_FEATURES',
         filter: filter
     }
 }
-/*
+
 export function getAllFeatures() {
     return dispatch => {
-        dispatch({
-            type:'FEATURES_DETAILS_GET_ALL_START_LOADING'
-        });
         return featureService.getAllFeatures()
-            .then( res =>  {
-                debugger;
-                dispatch({
-                    type: 'FEATURES_DETAILS_GET_ALL_SUCCESS',
-                    data: res
-                });
-            })
+            .then(res=>res.json())
+            .then(res=>{
+                dispatch ({
+                    type: 'GET_ALL_FEATURES',
+                    features: res,
+                })})
             .catch( err => {
                 dispatch({
-                    type: 'FEATURES_DETAILS_GET_ALL_ERROR',
+                    type: 'GET_ALL_FEATURES_LOADING_ERROR',
                     error: err
                 });
-            })
-        ;
+            });
     }
 }
-    */
+
+export function addNewFeature(features, newFeature) {
+    featureService.addNewFeature(newFeature);
+    return {
+        type: 'ADD_NEW_FEATURE',
+        features: features,
+        newFeature: newFeature
+    }
+}

@@ -1,11 +1,59 @@
-/**
- * Created by vvyst on 05.08.2016.
- */
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { Button, FieldGroup, ButtonToolbar, FormGroup, ControlLabel, FormControl, Col, Form, Tabs, Tab } from 'react-bootstrap';
 import styles from './styles/Features.sass';
+import promise from 'es6-promise';
+import * as actionsSection from "../../../actions/SectionsActions";
+import * as actionsFeature from "../../../actions/FeaturesActions";
+promise.polyfill();
 
-export default class InsertFeature extends Component {
+class InsertFeature extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            featureName: '',
+            featureDescription: '',
+            section: null
+        };
+        this.addFeature = this.addFeature.bind(this);
+        this.saveNameFeature = this.saveNameFeature.bind(this);
+        this.saveDescriptionFeature = this.saveDescriptionFeature.bind(this);
+        this.saveSelectedSection = this.saveSelectedSection.bind(this);
+    }
+
+    componentWillMount () {
+        this.props.getAllFeatures();
+    }
+
+    addFeature(e) {
+        if(this.state.featureName.replace(/\s/g, '') == '' ||
+            this.state.featureDescription.replace(/\s/g, '') == '') {
+            console.log("Please, input all field");
+            return;
+        }
+        const {features} = this.props.featuresData;
+        this.props.addNewFeature(features, {
+            featureName: this.state.featureName,
+            featureDescription: this.state.featureDescription,
+            section: this.state.section
+        });
+        e.preventDefault();
+    }
+
+    saveNameFeature(e) {
+        this.setState({featureName: e.target.value});
+    }
+
+    saveDescriptionFeature(e) {
+        this.state.featureDescription = e.target.value;
+    }
+
+    saveSelectedSection(e) {
+        this.state.section = e.target.value;
+        alert(this.state.section);
+    }
+
     render() {
         return (
             <Form horizontal className={styles['form']}>
@@ -19,7 +67,9 @@ export default class InsertFeature extends Component {
                             className={styles['text-select-input']}
                             id="nameFeature"
                             type="text"
+                            onBlur={this.saveNameFeature}
                             placeholder="Enter the name of feature"
+                            required
                         />
                     </Col>
                 </FormGroup>
@@ -30,8 +80,16 @@ export default class InsertFeature extends Component {
                     </Col>
 
                     <Col sm={8}>
-                        <FormControl componentClass="select" className={styles['text-select-input']} id="selectSection">
-                            <option value="select">select</option>
+                        <FormControl componentClass="select"  className={styles['text-select-input']} id="selectSection"
+                                     onChange={this.saveSelectedSection}>
+
+                            {
+                                this.props.sectionsData.sections.map(function(el, index) {
+                                    return (
+                                        <option key={index} value={el._id} >{el.name}</option>
+                                    )
+                                })
+                            }
                         </FormControl>
                     </Col>
                 </FormGroup>
@@ -45,31 +103,35 @@ export default class InsertFeature extends Component {
                         <FormControl
                             className={styles['textareaInput']}
                             id="DescriptionFeature"
+                            onBlur={this.saveDescriptionFeature}
                             componentClass="textarea"
                             placeholder="Enter the description"
-                        />
-                    </Col>
-                </FormGroup>
-
-                <FormGroup>
-                    <Col sm={4}>
-                        <ControlLabel className={styles['text']}>Files:</ControlLabel>
-                    </Col>
-
-                    <Col sm={8}>
-                        <FormControl
-                            className={styles['text']}
-                            id="uploadFilesFeature"
-                            type="file"
-                            placeholder="Enter text"
+                            required
                         />
                     </Col>
                 </FormGroup>
 
                 <Col sm={3} >
-                    <Button type="submit" bsStyle="primary" block className={styles['btn']} id="addFeature">Add</Button>
+                    <Button type="submit" bsStyle="primary" onClick={this.addFeature} block className={styles['btn']}
+                            id="addFeature">Add</Button>
                 </Col>
             </Form>
         )
     }
 }
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+            ...actionsSection,
+            ...actionsFeature}, dispatch)
+}
+
+function mapStateToProps(state) {
+    return {
+        sectionsData: state.SectionsReducer,
+        featuresData: state.FeaturesReducer,
+    }
+}
+
+const InsertFeatureConnected = connect(mapStateToProps, mapDispatchToProps)(InsertFeature);
+export default InsertFeatureConnected;

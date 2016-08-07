@@ -1,33 +1,47 @@
-/**
- * Created by vvyst on 05.08.2016.
- */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { Button, FieldGroup, FormGroup, ControlLabel, FormControl, Col, Form } from 'react-bootstrap';
 import styles from './styles/Features.sass';
-import promise from 'es6-promise';
-promise.polyfill();
-import fetch from 'isomorphic-fetch';
+import * as actions from "../../../actions/SectionsActions";
 
-export default class InsertSection extends Component {
+class InsertSection extends Component {
     constructor(props) {
         super(props);
-        this.addSection = this.addSection.bind(this);
         this.state = {
             name: '',
             description: ''
         };
+        this.addSection = this.addSection.bind(this);
+        this.saveNameSection = this.saveNameSection.bind(this);
+        this.saveDescriptionSection = this.saveDescriptionSection.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.getAllSections();
     }
 
     addSection(e) {
+        if(this.state.name.replace(/\s/g, '') == '' ||
+            this.state.description.replace(/\s/g, '') == '') {
+            console.log("Please, input all field");
+            return;
+        }
+        const {sections} = this.props.data;
+        this.props.addNewSection(sections, {
+               name: this.state.name,
+                description: this.state.description
+            });
+        this.props.getAllSections();
         e.preventDefault();
     }
 
     saveNameSection(e) {
-        alert(e.target.value);
+        this.setState({name: e.target.value});
     }
 
-    saveNameFeature(e) {
-        alert(e.target.value);
+    saveDescriptionSection(e) {
+        this.state.description = e.target.value;
     }
 
     render() {
@@ -46,6 +60,7 @@ export default class InsertSection extends Component {
                             onBlur={this.saveNameSection}
                             type="text"
                             placeholder="Enter the name of section"
+                            required
                         />
                     </Col>
                 </FormGroup>
@@ -60,9 +75,10 @@ export default class InsertSection extends Component {
                             className={styles['textareaInput']}
                             id="DescriptionSection"
                             ref="DescriptionSection"
-                            onBlur={this.saveNameFeature}
+                            onBlur={this.saveDescriptionSection}
                             componentClass="textarea"
                             placeholder="Enter the description"
+                            required
                         />
                     </Col>
                 </FormGroup>
@@ -74,6 +90,19 @@ export default class InsertSection extends Component {
         );
     }
 }
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(actions, dispatch)
+}
+
+function mapStateToProps(state) {
+    return {
+        data: state.SectionsReducer
+    }
+}
+
+const InsertSectionConnected = connect(mapStateToProps, mapDispatchToProps)(InsertSection);
+export default InsertSectionConnected;
 
 
 

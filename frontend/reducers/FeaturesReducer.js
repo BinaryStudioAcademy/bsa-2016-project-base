@@ -1,27 +1,5 @@
 const initialState = {
-    features : [
-        {
-            "id": "1",
-            "featureName": "Features 1"
-        },{
-            "id": "2",
-            "featureName": "Features 2"
-        },{
-            "id": "3",
-            "featureName": "Features 3"
-        },
-        {
-            "id": "4",
-            "featureName": "Features 4"
-        },{
-            "id": "5",
-            "featureName": "Features 5"
-        },{
-            "id": "6",
-            "featureName": "Features 6"
-        }
-    ],
-    filter: ""
+    features: []
 };
 
 export default function FeaturesReducer(state = initialState, action) {
@@ -39,6 +17,18 @@ export default function FeaturesReducer(state = initialState, action) {
             var newState = Object.assign({}, state);
             for(var i in newState.features) newState.features[i].checked = action['flag'];
             return newState;
+        case 'GET_ALL_FEATURES': {
+            const {features} = action;
+            return Object.assign({}, state, {features: features})
+        }
+        case 'GET_ALL_FEATURES_LOADING_ERROR': {
+            return Object.assign({}, state, {
+                error: action.error
+            });
+        }
+        case 'ADD_NEW_FEATURE':
+            const {features, newFeature} = action;
+            return Object.assign({}, state, {features: features.concat(newFeature)});
         default:
             return state;
     }
