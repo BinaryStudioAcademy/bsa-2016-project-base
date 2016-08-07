@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import styles from './styles.sass';
 
 class TechnologiesList extends Component {
     constructor(props) {
@@ -12,44 +13,47 @@ class TechnologiesList extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        //   console.log('componentWillReceiveProps', nextProps);
-
         this.setState({
-            listOfTechnologies: nextProps.listOfTechnologies,
-            allChecked: nextProps.allChecked
+            listOfTechnologies: nextProps.listOfTechnologies
         });
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps.listOfTechnologies.length !== this.props.listOfTechnologies.length ||nextProps.allChecked !== this.props.allChecked) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //
+    //
+    //     if (nextProps.listOfTechnologies.length !== this.props.listOfTechnologies.length || nextProps.allChecked !== this.props.allChecked) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
-    addTechnologiesToDeleteData(e){
+    addTechnologiesToDeleteData(e) {
         let id = e.target.id;
         let action;
-        if(e.target.checked){
-             action = 'add';
+        if (e.target.checked) {
+            action = 'add';
             e.target.checked = false;
-        }else{
-             action = 'remove';
-             e.target.checked = 'checked';
+        } else {
+            action = 'remove';
+            e.target.checked = 'checked';
         }
+        this.props.controlCheckeditems(id,action);
     }
+
     render() {
 
-        let {listOfTechnologies ,allChecked} = this.state;
+        let {listOfTechnologies} = this.state;
         return (
-            (listOfTechnologies.length > 0) ? <span>
+            (listOfTechnologies.length > 0) ? <div className={styles.techList + " col-md-12"}>
                 { listOfTechnologies.map((elem, index, array) => {
-                    return <label key={elem._id} htmlFor={elem._id}>
-                        <input onChange={this.addTechnologiesToDeleteData} checked={this.state.allChecked} type="checkbox" id={elem._id} value={elem.techName}/> {elem.techName}
+                    return <label className={styles.checkbox__wrapper} key={elem._id} htmlFor={elem._id}>
+                        <input onChange={this.addTechnologiesToDeleteData}  checked={elem.checked} type="checkbox"
+                               id={elem._id} value={elem.techName}/> {elem.techName}
+                        <i className={(elem.checked === 'checked')?'fa-check-square fa':'fa-square-o fa'} aria-hidden="true"></i>
                     </label>
                 })}
-            </span> : null
+            </div> : null
         )
     };
 }

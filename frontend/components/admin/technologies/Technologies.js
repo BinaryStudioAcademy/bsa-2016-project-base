@@ -6,6 +6,7 @@ import  TechnologiesList from "./TechnologiesList";
 import  TechnologiesSearch from "./TechnologiesSearch";
 import  TechnologiesControl from "./TechnologiesControl";
 import  TechnologiesAddForm from "./TechnologiesAddForm";
+import styles from './styles.sass';
 
 class Technologies extends Component {
     constructor() {
@@ -14,16 +15,19 @@ class Technologies extends Component {
         this.saveTechnologie = this.saveTechnologie.bind(this);
         this.setAllChecked = this.setAllChecked.bind(this);
         this.deleteChecked = this.deleteChecked.bind(this);
+        this.formAddControlState = this.formAddControlState.bind(this);
+        this.controlCheckeditems = this.controlCheckeditems.bind(this);
     }
-    componentWillMount(){
+
+    componentWillMount() {
         this.props.getTechnologies();
     }
 
-    technologiesSearch(text){
+    technologiesSearch(text) {
         let listOfTechnologiesFiltered = [];
         let listOfTechnologies = this.props.stateFromReducer.TechnologiesReducer.listOfTechnologies;
         listOfTechnologies.forEach(function (el, indx) {
-            if(text !== '') {
+            if (text !== '') {
                 if (el.techName.toUpperCase().indexOf(text.toUpperCase()) != -1) {
                     listOfTechnologiesFiltered = [...listOfTechnologiesFiltered, listOfTechnologies[indx]];
                 }
@@ -35,46 +39,83 @@ class Technologies extends Component {
         })
     }
 
-    setAllChecked(action){
+    setAllChecked(action) {
         const {listOfTechnologies}
             = this.props.stateFromReducer.TechnologiesReducer;
-        let data_ids = [];
-        if(action ==='add') {
+        if (action === 'add') {
             listOfTechnologies.forEach(function (el, indx) {
-                data_ids = [...data_ids, el._id];
+                listOfTechnologies[indx].checked = 'checked';
             });
-        }else{
-            data_ids = [];
+        } else {
+            listOfTechnologies.forEach(function (el, indx) {
+                listOfTechnologies[indx].checked = false;
+            });
         }
-        this.props.selectAllTechs(data_ids,action);
+        this.props.selectAllTechs(listOfTechnologies);
     }
-    deleteChecked(){
-        const {listOfTechnologiesChecked} = this.props.stateFromReducer.TechnologiesReducer;
-        this.props.removeSelectedTechs(listOfTechnologiesChecked);
+
+    deleteChecked() {
+        const {listOfTechnologies} = this.props.stateFromReducer.TechnologiesReducer;
+        this.props.removeSelectedTechs(listOfTechnologies);
+    }
+
+    formAddControlState(){
+        const {formState}
+            = this.props.stateFromReducer.TechnologiesReducer;
+        let state;
+        if(formState ==='hidden'){
+            state = 'visible';
+        }else{
+            state = 'hidden';
+        }
+        this.props.setAddFormState(state);
+    }
+
+    controlCheckeditems(id, action) {
+        const {listOfTechnologies}
+            = this.props.stateFromReducer.TechnologiesReducer;
+        if (action === 'add') {
+            listOfTechnologies.forEach(function (el, indx) {
+                if (el._id === id) {
+                    listOfTechnologies[indx].checked = 'checked';
+                }
+            });
+        } else {
+            listOfTechnologies.forEach(function (el, indx) {
+                if (el._id === id) {
+                    listOfTechnologies[indx].checked = false;
+                }
+            });
+        }
+        this.props.selectAllTechs(listOfTechnologies);
     }
 
 
-    saveTechnologie(data){
-       this.props.saveTechology(data);
+    saveTechnologie(data) {
+        this.props.saveTechology(data);
     }
 
     render() {
         let list;
-        const {listOfTechnologies,listOfTechnologiesFiltered,listOfTechnologiesChecked,allChecked}
-        = this.props.stateFromReducer.TechnologiesReducer;
-        if(listOfTechnologiesFiltered.length > 0){
+        const {listOfTechnologies, listOfTechnologiesFiltered,formState}
+            = this.props.stateFromReducer.TechnologiesReducer;
+        if (listOfTechnologiesFiltered.length > 0) {
             list = listOfTechnologiesFiltered;
-        }else{
+        } else {
             list = listOfTechnologies;
         }
         return (
-            <div className="technologiesTab">
-                <nav className="technologiesnav nav">
+            <div className={styles.technologiesTab + ' col-md-offset-3 col-md-9'}>
+
+                <div className={styles.technologiesnav}>
                     <TechnologiesSearch technologiesSearch={this.technologiesSearch}/>
-                    <TechnologiesControl deleteChecked={this.deleteChecked}   setAllChecked={this.setAllChecked}/>
-                </nav>
-                <TechnologiesList listOfTechnologies={list} allChecked={allChecked}/>
-                <TechnologiesAddForm saveTechnologie={this.saveTechnologie}/>
+                    <TechnologiesControl formState={formState} formAddControlState={this.formAddControlState}
+                                         deleteChecked={this.deleteChecked} setAllChecked={this.setAllChecked}/>
+                    <div className={styles.clear}></div>
+                </div>
+                    <TechnologiesList listOfTechnologies={list} controlCheckeditems={this.controlCheckeditems}/>
+                    <TechnologiesAddForm formState={formState} saveTechnologie={this.saveTechnologie}/>
+
             </div>
         )
     }

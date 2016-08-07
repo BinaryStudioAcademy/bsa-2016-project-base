@@ -39,33 +39,28 @@ export function searchTechnology(params) {
     };
     return action;
 };
-export function selectAllTechs(technologies,action) {
-    let allChecked;
-    if(action != 'add'){
-        allChecked = false;
-    }else{
-        allChecked = 'checked';
-    }
+export function selectAllTechs(technologies) {
     return {
         type: "SELECT_ALL_TECHS",
-        listOfTechnologiesChecked: technologies,
-        allChecked : allChecked
+        listOfTechnologies: technologies
+    }
+}
+export function setAddFormState(state) {
+    return {
+        type: "SET_ADD_FORM_STATE",
+        formState: state
     }
 }
 export function removeSelectedTechs(technologies) {
-    return (dispatch, getState)=> {
+    return dispatch=> {
         technologies.forEach(tech=> {
-                fetch(`/api/technologie/${tech}`, {
-                    method: 'DELETE'
-                })
+             if(tech.checked === 'checked') {
+                 fetch(`/api/technologie/${tech._id}`, {
+                     method: 'DELETE'
+                 })
+             }
         });
-        dispatch(initTechnology())
-    }
-}
-
-export function unselectAllTechs() {
-    return {
-        type: "UNSELECT_ALL_TECHS"
+       dispatch(getTechnologies())
     }
 }
 
