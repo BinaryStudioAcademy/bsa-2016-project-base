@@ -4,7 +4,8 @@
 const initialState = {
     listOfTechnologies: [],
     listOfTechnologiesFiltered:[],
-    listOfTechnologiesToDelete:[],
+    listOfTechnologiesChecked:[],
+    allChecked: false
 };
 
 
@@ -27,6 +28,14 @@ export default function patentDetailsReducer(state = initialState, action) {
             const {listOfTechnologies} = action;
             return Object.assign({}, state, {
                 listOfTechnologies
+            });
+        }
+        case 'SELECT_ALL_TECHS': {
+            console.log(action);
+            const {listOfTechnologiesChecked,allChecked} = action;
+            return Object.assign({}, state, {
+                listOfTechnologiesChecked,
+                allChecked
             });
         }
         case 'SEARCH_TECHNOLOGY': {

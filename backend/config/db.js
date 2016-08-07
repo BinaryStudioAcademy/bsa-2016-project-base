@@ -3,7 +3,7 @@ module.exports = {
 	uri: 'mongodb://localhost/projects-base',
 	mocked_db: false,
 	opts: {
-		server: { 
+		server: {
 			auto_reconnect: true,
 			poolSize: 40
 		},

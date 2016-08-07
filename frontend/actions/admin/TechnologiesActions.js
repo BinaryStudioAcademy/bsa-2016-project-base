@@ -1,50 +1,37 @@
 /**
- * Created by razorka on 26.07.16.
+ * Created by razor on 04.08.16.
  */
-var request = require('superagent-bluebird-promise');
-export  function initTechnology() {
-    return dispatch => {
-        return request.get('/api/technologie')
-            .then(function(res) {
-                const action = {
-                    type: 'INIT_TECHNOLOGY',
-                    listOfTechnologies: res.body,
-                };
-                dispatch(action);
-            }, function(error) {
-                const action = {
-                    type: 'INIT_TECHNOLOGY',
-                    listOfTechnologies: [],
-                };
-                dispatch(action);
-            });
+import fetch from 'isomorphic-fetch'
 
-    };
-};
-export function saveTechology(params) {
-    return dispatch => {
-        return request.post('/api/technologie')
-            .send(params)
-            .end(function(err,res) {    
-                if(!err) {
-                    dispatch(initTechnology())
-                }
-            });
-
-    };
-
+export function getTechnologies() {
+    return dispatch=> {
+        fetch(`/api/technologie/`)
+            .then(response => response.json())
+            .then(json => dispatch(initTechnology(json)))
+    }
 }
+export function initTechnology(listOfTechno) {
+    let listOfTechnologies = listOfTechno || [];
+    return {
+        type: 'INIT_TECHNOLOGY' ,
+        listOfTechnologies : listOfTechnologies
+    }
+}
+export function saveTechology(params) {
+    return dispatch=> {
+        fetch("/api/technologie/", {
+            method: 'POST',
+            body: JSON.stringify(params),
+            headers: ({
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            })
+        });
+            dispatch(getTechnologies());
 
-export function deleteTechnology(params) {
-    const action = {
-        type: 'DELETE_TECHNOLOGY',
-        listOfTechnologies: params.listOfTechnologies,
-    };
-    return action;
-};
-
+    }
+}
 export function searchTechnology(params) {
-    console.log(params);
     const action = {
         type: 'SEARCH_TECHNOLOGY',
         listOfTechnologies: params.listOfTechnologies,
@@ -52,3 +39,33 @@ export function searchTechnology(params) {
     };
     return action;
 };
+export function selectAllTechs(technologies,action) {
+    let allChecked;
+    if(action != 'add'){
+        allChecked = false;
+    }else{
+        allChecked = 'checked';
+    }
+    return {
+        type: "SELECT_ALL_TECHS",
+        listOfTechnologiesChecked: technologies,
+        allChecked : allChecked
+    }
+}
+export function removeSelectedTechs(technologies) {
+    return (dispatch, getState)=> {
+        technologies.forEach(tech=> {
+                fetch(`/api/technologie/${tech}`, {
+                    method: 'DELETE'
+                })
+        });
+        dispatch(initTechnology())
+    }
+}
+
+export function unselectAllTechs() {
+    return {
+        type: "UNSELECT_ALL_TECHS"
+    }
+}
+

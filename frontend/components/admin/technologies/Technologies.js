@@ -12,9 +12,11 @@ class Technologies extends Component {
         super();
         this.technologiesSearch = this.technologiesSearch.bind(this);
         this.saveTechnologie = this.saveTechnologie.bind(this);
+        this.setAllChecked = this.setAllChecked.bind(this);
+        this.deleteChecked = this.deleteChecked.bind(this);
     }
     componentWillMount(){
-        this.props.initTechnology();
+        this.props.getTechnologies();
     }
 
     technologiesSearch(text){
@@ -33,13 +35,32 @@ class Technologies extends Component {
         })
     }
 
+    setAllChecked(action){
+        const {listOfTechnologies}
+            = this.props.stateFromReducer.TechnologiesReducer;
+        let data_ids = [];
+        if(action ==='add') {
+            listOfTechnologies.forEach(function (el, indx) {
+                data_ids = [...data_ids, el._id];
+            });
+        }else{
+            data_ids = [];
+        }
+        this.props.selectAllTechs(data_ids,action);
+    }
+    deleteChecked(){
+        const {listOfTechnologiesChecked} = this.props.stateFromReducer.TechnologiesReducer;
+        this.props.removeSelectedTechs(listOfTechnologiesChecked);
+    }
+
+
     saveTechnologie(data){
        this.props.saveTechology(data);
     }
 
     render() {
         let list;
-        const {listOfTechnologies,listOfTechnologiesFiltered}
+        const {listOfTechnologies,listOfTechnologiesFiltered,listOfTechnologiesChecked,allChecked}
         = this.props.stateFromReducer.TechnologiesReducer;
         if(listOfTechnologiesFiltered.length > 0){
             list = listOfTechnologiesFiltered;
@@ -50,9 +71,9 @@ class Technologies extends Component {
             <div className="technologiesTab">
                 <nav className="technologiesnav nav">
                     <TechnologiesSearch technologiesSearch={this.technologiesSearch}/>
-                    <TechnologiesControl />
+                    <TechnologiesControl deleteChecked={this.deleteChecked}   setAllChecked={this.setAllChecked}/>
                 </nav>
-                <TechnologiesList listOfTechnologies={list}/>
+                <TechnologiesList listOfTechnologies={list} allChecked={allChecked}/>
                 <TechnologiesAddForm saveTechnologie={this.saveTechnologie}/>
             </div>
         )

@@ -26,6 +26,14 @@ module.exports = function(app) {
 		});
 	}, apiResponse);
 
+	// app.delete('/api/technologie/', function(req, res, next) {
+	// 	technologieRepository.deleteMany(req.body,function(err, data) {
+	// 		res.data = data;
+	// 		res.err = err;
+	// 		next();
+	// 	});
+	// }, apiResponse);
+
 
 	app.post('/api/technologie/', function(req, res, next) {
 		technologieRepository.add(req.body, function(err, data) {
