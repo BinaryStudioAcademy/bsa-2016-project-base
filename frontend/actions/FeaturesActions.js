@@ -3,23 +3,38 @@ import featureService from "../services/featureService";
 export function filterFeaturesDetails(search) {
     return {
         type: 'FILTER_FEATURES_DETAILS',
-        search
+        search: search
     };
 }
-
-export function openModal(id) {
+export function getAllFeatures(){
     return {
-        type: 'FEATURES_DETAILS_MODAL_OPEN',
-        id
+        type: 'GET_ALL_FEATURES'
     }
 }
-
-export function closeModal() {
+export function getAllSections(){
     return {
-        type: 'FEATURES_DETAILS_MODAL_CLOSE'
+        type: 'GET_ALL_SECTIONS'
     }
 }
-
+export function changeFeature(key){
+    return {
+        type: 'CHANGE_CHECKED_FEATURE',
+        key: key
+    }
+}
+export function markedAllFeatures(flag){
+    return {
+        type:  'MARKED_ALL_FEATURES',
+        flag:flag
+    }
+}
+export function filterFeatures(filter){
+    return {
+        type: 'FILTER_FEATURES',
+        filter: filter
+    }
+}
+/*
 export function getAllFeatures() {
     return dispatch => {
         dispatch({
@@ -41,5 +56,5 @@ export function getAllFeatures() {
             })
         ;
     }
-   
 }
+    */

@@ -116,11 +116,7 @@ input[type="text"]
 input[type="text"]:focus
   box-shadow: none
 
-.section-input:focus  .sections-list
-  display: block
-
 .sections-list
-  display: none
   height: 150px
   width: 100%
   background: white
@@ -140,7 +136,7 @@ input[type="text"]:focus
   cursor: pointer
 
 .select-all-checkbox,
-.select-feature-checkbox
+.select-checkbox
   position: absolute
   z-index: -1000
   left: -1000px
@@ -157,13 +153,13 @@ input[type="text"]:focus
   height: 30px
   line-height: 25px
 
-.select-feature-checkbox + .select-feature-label
+.select-checkbox + .select-label
   padding-left: 21px
   height: 16px
   line-height: 16px
 
 .select-all-checkbox + .select-all-label,
-.select-feature-checkbox + .select-feature-label
+.select-checkbox + .select-label
   display: inline-block
   background-repeat: no-repeat
   background-position: 0 0
@@ -173,25 +169,25 @@ input[type="text"]:focus
 .select-all-checkbox:checked + .select-all-label
   background-position: 0 -30px
 
-.select-feature-checkbox:checked + .select-feature-label
+.select-checkbox:checked + .select-label
   background-position: 0 -16px
 
 .select-all-label
   background-image: url(http://csscheckbox.com/checkboxes/u/csscheckbox_b5478ce038d0182679c6e07d0ac4f6dd.png)
 
-.select-feature-label
+.select-label
   background-image: url(http://csscheckbox.com/checkboxes/u/csscheckbox_84d5db31bde6d14cf3610dde3534e162.png)
 
-.select-feature-label,
+.select-label,
 .select-all-label
   color: #656565
   font-family: 'Open Sans', arial
 
-.select-feature-label:hover,
+.select-label:hover,
 .select-all-label:hover
   color: #303030
 
-.select-all-label,.select-feature-label
+.select-all-label,.select-label
   user-select: none
 
 .select-features > *
@@ -259,3 +255,23 @@ input[type="text"]:focus
 
 .list-container::-webkit-scrollbar-thumb
   background: rgba(0, 0, 0, 0.5)
+
+.multi-select
+  background: white
+  height: 33px
+  width: 100%
+  padding-top: 5px
+
+.multi-select > div:first-child,
+.multi-select > div:first-child > label
+  cursor: pointer
+
+.multi-select > div:last-child
+  border: none
+  border-radius: 0
+  padding: 10px
+  width: 100%
+  max-height: 300px
+
+.multi-select > div:last-child > div
+  margin: 10px 0px

@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import {Grid}  from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import FeaturesListItem from './FeaturesListItem';
-
 import styles from './styles/Features.sass';
 
 class FeaturesList extends  Component {
@@ -9,27 +10,24 @@ class FeaturesList extends  Component {
         super(props);
     }
     render() {
-        let items =[{
-            name :"Feature 1",
-            description: "",
-            section:"WEB"
-        },{
-            name :"Feature 2",
-            section:"Xamarine"
-        },{
-            name :"Feature 3",
-            section:"Xamarine",
-            description:"Съешь ещё этих мягких французских булок, да выпей же чаю"
-        }];
         let featuresItems = new Array();
-        for(var i in items) featuresItems.push(
-            <FeaturesListItem key={i} data-id={i}
-                              name={items[i].name}
-                              section={items[i].section}
-                              description={items[i].description}
-            />);
+        let {features,filter} = this.props.reduserState;
+        for(var i in features ) {
+            var flag = true;
+            if (filter && features[i].featureName.toLowerCase().indexOf(filter) == -1)  flag = false;
+            if (flag) featuresItems.push(<FeaturesListItem key={features[i].id} data-id={features[i].id}/>);
+        }
         return (<Grid className={styles['list-container']}>{featuresItems}</Grid>);
     }
 }
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({}, dispatch);
+}
 
-export default FeaturesList
+function mapStateToProps(state) {
+    return {
+        reduserState: state['FeaturesReducer']
+    };
+}
+const FeaturesListModifated = connect(mapStateToProps, mapDispatchToProps)(FeaturesList);
+export default FeaturesListModifated;
