@@ -63,12 +63,14 @@ export default class AddTechComponent extends React.Component {
                         <Modal.Title>Add new Technology</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
+                        <label>Name:</label>
                         <FormControl
                             type="text"
                             placeholder="Enter name"
                             value={techName}
                             onChange={this.nameInputHandler}
                         />
+                        <label>Description:</label>
                         <FormControl
                             type="text"
                             placeholder="Enter description"
