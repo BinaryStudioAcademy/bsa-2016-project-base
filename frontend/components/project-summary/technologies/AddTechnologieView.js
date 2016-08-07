@@ -5,6 +5,7 @@ import EditTechnologieView from "./EditTechnologieView"
 import techService from "./../../../services/TechnologieService"
 import AddTechComponent from "./AddTechComponent"
 import {Tab, Tabs} from "react-bootstrap"
+import styles from "./styles.sass"
 var TabConstants = {
     LOCAL: 1,
     GLOBAL: 2
@@ -20,6 +21,9 @@ export default class AddTechnologieView extends React.Component {
             selectedTechs: [],
             newTech: {techName: "", techDescription: ""}
         }
+        setTimeout(()=> {
+            this.updateFromServer()
+        }, 10)
     }
 
     static get propTypes() {
@@ -45,7 +49,6 @@ export default class AddTechnologieView extends React.Component {
     }
 
     componentDidMount() {
-        this.updateFromServer();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -144,11 +147,14 @@ export default class AddTechnologieView extends React.Component {
                 </div>,
             localTab =
                 <div>
-                    <AddTechComponent
-                        newTech={newTech}
-                        modifyTech={this.modifyTech.bind(this)}
-                        addTech={this.addTechToGlobal.bind(this)}
-                    />
+                    <div className={styles["pull-right"] + " " + styles["margin-height"]}>
+                        <AddTechComponent
+                            newTech={newTech}
+                            modifyTech={this.modifyTech.bind(this)}
+                            addTech={this.addTechToGlobal.bind(this)}
+                        />
+                    </div>
+
                     <EditTechnologieView techs={selectedTechs} deleteTech={this.deleteTech.bind(this)}/>
                 </div>;
         return (

@@ -22,13 +22,12 @@ export default class EditTechnologieList extends TechnologieList {
     }
 
     getTechComponentChildren(tech) {
-
         return super.getTechComponentChildren(tech).concat(
             [<div className={styles.flex_items}>
                 <a href="#" onClick={this.deleteClickHandler.bind(this, tech)}>
                     <img height="50px"
                          src="https://cdn2.iconfinder.com/data/icons/metro-uinvert-dock/128/Recycle_Bin_Full.png"
-                         className={styles["material-icons"] + " " + styles.delRed}/>
+                         className={styles["material-icons"] + " " + styles.delRed + " " + styles["hover-opacity"]}/>
 
 
                 </a>

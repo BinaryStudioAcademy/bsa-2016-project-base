@@ -24,7 +24,7 @@ export default class BasicTechnologieView extends React.Component {
         return [
             <h2 className={styles.flex_items}>Technologies</h2>,
             <input type="text"
-                   className="form-control"
+                   className={"form-control "+styles["margin-height"]}
                    placeholder="Search for..."
                    onChange={this.searchInputChangeHandler.bind(this)}/>
         ]
