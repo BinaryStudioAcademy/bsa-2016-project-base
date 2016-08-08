@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from "../../actions/AdminActions";
 import styles from './admin.sass';
 
-class AdminPage extends Component {
+class Admin extends Component {
 	constructor(props) {
 	    super(props);
 	}
@@ -40,14 +39,4 @@ class AdminPage extends Component {
 };
 
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(actions, dispatch);
-};
-
-function mapStateToProps(state) {
-    return {
-        store: state
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AdminPage);
+export default Admin;

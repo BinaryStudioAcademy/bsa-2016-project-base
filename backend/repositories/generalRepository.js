@@ -20,6 +20,14 @@ Repository.prototype.delete = function(id, callback){
 	query.exec(callback);
 };
 
+Repository.prototype.deleteMany = function(array, callback){
+	var model = this.model;
+	array.forEach(id => {
+		var query = model.remove({_id:id});
+		query.exec(callback);
+	});
+};
+
 Repository.prototype.getAll = function(callback){
 	var model = this.model;
 	var query = model.find();
