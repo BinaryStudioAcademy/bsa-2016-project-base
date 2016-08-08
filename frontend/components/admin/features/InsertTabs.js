@@ -7,12 +7,12 @@ import styles from './styles/Features.sass';
 export default class InsertTabs extends Component {
     render() {
         return (
-            <Col sm={8} smPush={2}>
-                <Tabs defaultActiveKey={1} animation={false} id="addTabs" className={styles['Tabs']}>
-                    <Tab eventKey={1} title="Add section" className={styles['text']}>
+            <Col sm={10} smPush={1}>
+                <Tabs defaultActiveKey={1} animation={false} id="addTabs" className={styles['feature-tabs']}>
+                    <Tab eventKey={1} title="Add section">
                         <InsertSection />
                     </Tab>
-                    <Tab eventKey={2} title="Add feature" className={styles['text']}>
+                    <Tab eventKey={2} title="Add feature">
                         <InsertFeature />
                     </Tab>
                 </Tabs>

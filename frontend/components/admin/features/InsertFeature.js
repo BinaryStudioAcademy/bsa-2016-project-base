@@ -58,13 +58,11 @@ class InsertFeature extends Component {
         return (
             <Form horizontal className={styles['form']}>
                 <FormGroup>
-                    <Col sm={4}>
-                        <ControlLabel className={styles['text']}>Name of feature:</ControlLabel>
+                    <Col sm={2} smPush={1}>
+                        <ControlLabel >Name of feature:</ControlLabel>
                     </Col>
-
-                    <Col sm={8}>
+                    <Col sm={8} smPush={1}>
                         <FormControl
-                            className={styles['text-select-input']}
                             id="nameFeature"
                             type="text"
                             onBlur={this.saveNameFeature}
@@ -73,17 +71,13 @@ class InsertFeature extends Component {
                         />
                     </Col>
                 </FormGroup>
-
                 <FormGroup>
-                    <Col sm={4}>
-                        <ControlLabel className={styles['text']}>Select section:</ControlLabel>
+                    <Col sm={2} smPush={1}>
+                        <ControlLabel >Select section:</ControlLabel>
                     </Col>
-
-                    <Col sm={8}>
+                    <Col sm={8} smPush={1}>
                         <FormControl componentClass="select"  className={styles['text-select-input']} id="selectSection"
-                                     onChange={this.saveSelectedSection}>
-
-                            {
+                                     onChange={this.saveSelectedSection}>{
                                 this.props.sectionsData.sections.map(function(el, index) {
                                     return (
                                         <option key={index} value={el._id} >{el.name}</option>
@@ -95,13 +89,11 @@ class InsertFeature extends Component {
                 </FormGroup>
 
                 <FormGroup>
-                    <Col sm={4}>
-                        <ControlLabel className={styles['text']}>Description:</ControlLabel>
+                    <Col sm={2} smPush={1}>
+                        <ControlLabel>Description:</ControlLabel>
                     </Col>
-
-                    <Col sm={8}>
+                    <Col sm={8} smPush={1}>
                         <FormControl
-                            className={styles['textareaInput']}
                             id="DescriptionFeature"
                             onBlur={this.saveDescriptionFeature}
                             componentClass="textarea"
@@ -110,10 +102,8 @@ class InsertFeature extends Component {
                         />
                     </Col>
                 </FormGroup>
-
-                <Col sm={3} >
-                    <Button type="submit" bsStyle="primary" onClick={this.addFeature} block className={styles['btn']}
-                            id="addFeature">Add</Button>
+                <Col sm={6} smPush={3}>
+                    <Button type="submit"  onClick={this.addFeature} block id="addFeature">Add</Button>
                 </Col>
             </Form>
         )
