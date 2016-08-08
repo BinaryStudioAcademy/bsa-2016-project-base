@@ -30,18 +30,21 @@ export default class DetailsFeature extends Component {
                     <p>{ feature.featureDescription.lists }</p>
 
                     {( !!subfeatures )? subfeatures.map( subfeature => {
-                        return (
-                            <div key = { subfeature._id }>
-                                <h4>
-                                    <Glyphicon glyph = {(subfeature.isImplemented)? "ok": "cog"} className={ (subfeature.isImplemented)? styles.glyphOk: styles.glyphRefresh } />&nbsp;
-                                    Subfeature: { subfeature.featureName }
-                                    <Glyphicon glyph = {(subfeature.isNecessary && !subfeature.isImplemented)? "asterisk": ""} className={ (subfeature.isNecessary)? styles.glyphRequire: '' } />&nbsp;
-                                </h4>
-                                <p>
-                                { subfeature.featureDescription.lists }
-                                </p>
-                            </div>
-                        )}
+                        if(subfeature) {
+                            return (
+                                <div key = { subfeature._id }>
+                                    <h4>
+                                        <Glyphicon glyph = {(subfeature.isImplemented)? "ok": "cog"} className={ (subfeature.isImplemented)? styles.glyphOk: styles.glyphRefresh } />&nbsp;
+                                        Subfeature: { subfeature.featureName }
+                                        <Glyphicon glyph = {(subfeature.isNecessary && !subfeature.isImplemented)? "asterisk": ""} className={ (subfeature.isNecessary)? styles.glyphRequire: '' } />&nbsp;
+                                    </h4>
+                                    <p>
+                                    { subfeature.featureDescription.lists }
+                                    </p>
+                                </div>
+                            )
+                        }
+                    }
                     ): null}
                 </Modal.Body>
                 <Modal.Footer className={ styles.modalFooter } >

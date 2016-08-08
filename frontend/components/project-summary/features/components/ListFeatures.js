@@ -31,11 +31,14 @@ export default class ListFeatures extends Component {
                             {(childFeatures && childFeatures.length > 0) ? childFeatures.map( id => {
                                 const subfeature = allFeatures.filter(feature => feature._id === id)[0];
 
-                            return (
-                                <span key={subfeature._id}>
-                                    <Label className={(subfeature.isImplemented)? styles.completed: styles.inprogress}>Subfeature: {subfeature.featureName}</Label>&nbsp;
-                                </span>
-                            );
+                                if (subfeature) {
+                                    return (
+                                        <span key={subfeature._id}>
+                                            <Label className={(subfeature.isImplemented)? styles.completed: styles.inprogress}>Subfeature: {subfeature.featureName}</Label>&nbsp;
+                                        </span>
+                                    )
+                                }
+
                         }) : <span>&nbsp;</span>}
                         </ListGroupItem>
                     );
