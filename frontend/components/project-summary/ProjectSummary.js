@@ -9,14 +9,10 @@ class ProjectSummary extends Component {
  	render() {
 		let a = 2;
 	    return (
-			<Row>
-				<Col xs={12} sm={6} >
-					<DetailsFeatures />
-				</Col>
-				<Col xs={12} sm={6} >
-					<DetailsFeatures />
-				</Col>
-			</Row>
+            	<div>
+	    	    	<div className={styles.alert}>Here you can read project summary</div>
+                	<Users />
+            	</div>
 	    )
 	}
 }

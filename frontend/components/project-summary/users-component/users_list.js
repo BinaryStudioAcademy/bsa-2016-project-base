@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ListGroupItem } from 'react-bootstrap';
-import { ListGroup } from 'react-bootstrap';
+import { bindActionCreators } from 'redux';
+import { fetchUsers } from './actions/index';
+console.log(fetchUsers);
+import CheckBox from './checkbox';
 import styles from './users.sass';
 
 class UserList extends Component {
@@ -13,11 +15,16 @@ class UserList extends Component {
         };
     }
 
+    componentWillMount() {
+        this.props.fetchUsers();
+    }
+
     updateSearch(event) {
         this.setState({search: event.target.value});
     }
 
     render() {
+        // console.log(this.props.users[0]);
         let search = (text, search) => {
             search = search.replace(/\ /g, '').toLowerCase();
             let tokens = text.split('');
@@ -40,22 +47,20 @@ class UserList extends Component {
         }
         
         let filteredUsers = this.props.users.filter(user => {
-            return search(user.name, this.state.search);
+            return search(user.userName, this.state.search);
         });
 
         let users = filteredUsers.map((user) => {
             return (
-                <li key={user.name}>
+                <li key={user._id} className={styles.listItem}>
                     <img src="https://placehold.it/50x70" />
-                    <div className={styles.userName}>{user.name}</div>
-                    <div className={styles.userPosition}>{user.position}</div>
-                    <div className={styles.ownerCheckBox}>
-                        <input type="checkbox" defaultChecked />owner
-                    </div>
+                    <div className={styles.userName}>{user.userName}</div>
+                    <div className={styles.userPosition}>Front-End Developer</div>
+                    <CheckBox isOwner = {user.isOwner}/>
                 </li>
             );
         });
-
+        
         return (
             <div className={styles.wrapper}>
                 <h1>Users</h1>
@@ -75,10 +80,14 @@ class UserList extends Component {
     }
 }
 
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ fetchUsers }, dispatch);
+}
+
 function mapStateToProps(state) {
     return {
         users: state.users
     };
 }
 
-export default connect(mapStateToProps)(UserList);
+export default connect(mapStateToProps, mapDispatchToProps)(UserList);
