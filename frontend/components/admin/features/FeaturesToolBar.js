@@ -45,12 +45,12 @@ class FeaturesToolBar extends Component {
                             <span className={styles['search-input-border']}></span>
                         </div>
                     </Col>
-                    <Col xs={12} sm={6} md={3} lg={3}>
+                    <Col xs={12} sm={6} md={4} lg={4}>
                         <MultiSelect title="Click for selecting sections ... ">
                             {sectionItems}
                         </MultiSelect>
                     </Col>
-                    <Col xs={12} sm={12} md={5} lg={5}>
+                    <Col xs={12} sm={12} md={4} lg={4}>
                         <FormControl type="checkbox" className={styles['select-all-checkbox']}
                              id="markAll"  onChange={(e)=>{
                                 this.props.markedAllFeatures(e.target.checked);
