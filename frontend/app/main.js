@@ -21,7 +21,7 @@ import NotFound from '../components/not-found/NotFound';
 //import {AdminReducer} from '../reducers/index';
 
 import * as reducers from '../reducers/';
-
+console.log('All reducers: ', reducers);
 
 const rootReducer = combineReducers({	//Add other reducers later
     ...reducers
