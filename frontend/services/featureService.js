@@ -9,6 +9,10 @@ class FeatureService {
         return fetch(`${API}projects/${projectId}/features`);
     }
 
+    getAllProjects() {
+        return fetch(`${API}projects`);
+    }
+
 }
 
 const featureService = new FeatureService();

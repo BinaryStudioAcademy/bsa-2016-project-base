@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Navbar from '../components/navbar/Navbar'
+import Home from '../components/home/Home'
 import {Grid} from 'react-bootstrap';
-
-import styles from './app.sass';
 
 class App extends Component {
     constructor(props) {
@@ -12,7 +11,7 @@ class App extends Component {
         return (
             <div>
                 <Navbar/>
-                <Grid>{this.props.children}</Grid>
+                <Grid>{this.props.children || <Home />}</Grid>
             </div>
         )
     }
