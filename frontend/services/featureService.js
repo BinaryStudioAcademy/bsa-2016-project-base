@@ -3,8 +3,6 @@ promise.polyfill();
 import fetch from 'isomorphic-fetch';
 import { API } from '../constants/Api';
 
-const apiHost = 'http://localhost:3000/';
-
 class FeatureService {
 
     getAllFeatures(projectId) {
