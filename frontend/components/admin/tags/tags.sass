@@ -1,0 +1,126 @@
+
+=border-box
+	box-sizing: border-box
+
+=default-btn
+	vertical-align: baseline  !important
+	border: 1px solid transparent !important
+	border-radius: 0px !important
+	background: #ededed !important
+	&:hover
+		transition: none !important
+	&:focus
+		outline: none !important
+	label
+		vertical-align: baseline  !important
+		word-break: break-all !important
+
+=reset-input
+	outline: none !important
+	border: 0 !important
+	margin: 0 !important
+	padding: 0 !important
+	border-radius: 0 !important
+	box-shadow: none !important
+	transition: none !important
+	border-bottom: 1px solid #ededed !important
+
+=default-panel
+	margin-bottom: 20px !important
+	border: 1px solid #eee !important
+	border-radius: 0 !important
+    box-shadow: none !important
+
+
+.tags-tab
+	+border-box
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-size: 18px
+	margin: 0 auto
+
+.tags-tools
+ 	+border-box
+
+.tags-search
+	margin: 5px
+
+.tags-deletion
+	margin: 5px
+
+.tags-creation
+	margin: 5px
+
+.tags-list
+	display: block
+	height: 400px
+	overflow-y: auto
+	display: flex
+	flex-wrap: wrap
+	align-content: flex-start
+
+.tags-item
+	+border-box
+	color: black
+	color: #333 !important
+	padding: 0px 5px 
+	margin: 4px 4px 4px 4px
+	background-color: #ededed
+	background-color: rgb(250, 250, 250)
+	min-width: 150px
+	height: 60px
+	vertical-align: middle
+	text-align: left
+	display: inline-flex
+	align-items: center
+	flex: 1 0 calc(25% - 10px);
+	border: 1px solid #eee !important
+
+.tags-checkbox
+	label
+		word-break: break-all !important
+
+.tags-panel-bottom
+	+default-panel
+	+ div
+    	padding: 0px 15px
+    	margin: 15px 0px 
+
+.tags-panel-top
+	margin-bottom: 20px !important
+	border: 1px solid #eee !important
+	background: rgb(250, 250, 250) !important
+	border-radius: 0 !important
+	box-shadow: none !important
+
+.tags-input-group
+	background-color: transparent !important
+
+.tags-input-group-btn
+	background-color: transparent !important
+
+
+.tags-btn
+	+default-btn
+
+.tags-btn-remove
+	+default-btn
+	background: #f53d3d !important
+	margin-left: 1px !important
+    
+.tags-add-btn
+	+default-btn
+	background: #79d236 !important
+
+input[type="text"] 
+	+reset-input
+	padding-left: 10px !important
+
+
+input[type="search"]
+	+reset-input
+	padding-left: 10px !important
+	
+span
+	border: 0 !important
+	border-radius: 0 !important
+	background-color: rgba(255, 186, 30, 0.47) !important
