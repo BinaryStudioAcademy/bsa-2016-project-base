@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Grid, Row } from 'react-bootstrap';
+import { Grid, Row, Panel } from 'react-bootstrap';
 import * as actions from '../../../actions/admin/AdminTagActions';
 import RemoveTags from './RemoveTags';
 import TagsSearch from './TagsSearch';
@@ -62,30 +62,37 @@ class Tags extends Component {
 				trash.push(tag._id);
 			}
 		});
-		this.props.deleteTags(trash);
-		this.props.selectAll(false);
+		if (trash.length) {
+			this.props.deleteTags(trash);
+			this.props.selectAll(false);
+		}
+		
 	}
  	render() {
  		let { tags, isAllChecked } = this.props.store.AdminTagReducer;
 	    return (
-	    	<div className={styles.tagsTab}>
-	    		<Grid>
-				    <Row className="show-grid">
-				      	<TagsSearch searchTag={this.searchTag}/>
-				      	<RemoveTags
-				      		selectAll={this.selectAll}
-				      		deleteMany={this.deleteMany}
-				      		isAllChecked={isAllChecked}
-				      	/>
-				     	<AddTag
-				     		setTagName={this.setTagName}
-				     		addTag={this.addTag}
-				     	/>
-				    </Row>
-				    <TagsList
-				    	tags={tags}
-				    	selectOne={this.selectOne}
-				    />
+	    	<div className={styles["tags-tab"]}>
+	    		<Grid fluid>
+	    			<Panel className={styles["tags-panel-top"]}>
+				    	<Row className={styles["tags-tools"]}>
+				    		<TagsSearch searchTag={this.searchTag}/>
+					      	<RemoveTags
+					      		selectAll={this.selectAll}
+					      		deleteMany={this.deleteMany}
+					      		isAllChecked={isAllChecked}
+					      	/>
+					     	<AddTag
+					     		setTagName={this.setTagName}
+					     		addTag={this.addTag}
+					     	/>
+				   		</Row>
+				    </Panel>
+				    <Panel className={styles["tags-panel-bottom"]}>
+					    <TagsList
+					    	tags={tags}
+					    	selectOne={this.selectOne}
+					    />
+				    </Panel>
 				 </Grid>
 	    	</div>
 	    )

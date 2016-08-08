@@ -34,7 +34,7 @@ module.exports = function(app) {
 		});
 	}, apiResponse);
 
-	app.get('/api/tags', function(req, res, next) {
+	app.get('/api/tags/', function(req, res, next) {
 		tagRepository.getAll(function(err, data) {
 			res.data = data;
 			res.err = err;

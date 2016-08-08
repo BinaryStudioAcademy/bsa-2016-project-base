@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
-import { Row, Col } from 'react-bootstrap';
 import TagItem from './TagItem';
-
+import styles from './tags.sass';
 
 const TagsList = ({tags, selectOne}) => {
 
@@ -23,11 +22,9 @@ const TagsList = ({tags, selectOne}) => {
 	}
 
 	return (
-		<Row className="show-grid">
-		  <Col xs={12} sm={12} md={12}>
-		  	 {list}
-		  </Col>
-		</Row>
+		<div className={styles["tags-list"]}>
+		   {list}
+		</div>
 	);
 };
 
