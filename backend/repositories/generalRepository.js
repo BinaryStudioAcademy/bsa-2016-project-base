@@ -32,4 +32,10 @@ Repository.prototype.getById = function(id, callback){
 	query.exec(callback);
 };
 
+Repository.prototype.getDetails = function(arrOfId, callback){
+	var model = this.model;
+	var query = model.find({_id: {$in: arrOfId}});
+	query.exec(callback);
+};
+
 module.exports = Repository; 
