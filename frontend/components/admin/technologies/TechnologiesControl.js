@@ -1,27 +1,29 @@
 import React, {Component, PropTypes} from 'react';
-import styles from './styles.sass';
+import {Grid, FormControl, Row, Col, Button} from 'react-bootstrap';
+import styles from  '../features/styles/Features.sass';
 class TechnologiesTab extends Component {
     constructor(props) {
         super(props);
         this.setAllChecked = this.setAllChecked.bind(this);
         this.sendDeleteRequest = this.sendDeleteRequest.bind(this);
         this.showAddForm = this.showAddForm.bind(this);
-        this.state ={
+        this.state = {
             checked: false,
             formState: this.props.formState
         }
     }
 
-    sendDeleteRequest(){
+    sendDeleteRequest() {
         this.props.deleteChecked();
     }
+
     componentWillReceiveProps(nextProps) {
         this.setState({
             formState: nextProps.formState
         });
     }
 
-    setAllChecked(e){
+    setAllChecked(e) {
         let action = e.target.checked ? 'add' : 'delete';
         this.setState(
             {
@@ -30,26 +32,27 @@ class TechnologiesTab extends Component {
         );
         this.props.setAllChecked(action);
     }
-    showAddForm(){
+
+    showAddForm() {
         this.props.formAddControlState();
     }
 
     render() {
         return (
-            <div className="control-wrapper col-md-7">
-                <div className="col-md-5">
-                <label className={styles.checkbox__wrapper} htmlFor="delete_all">
-                    <input onChange={this.setAllChecked} checked={this.state.checked} id="delete_all" type="checkbox"/>
-                    {(this.state.checked === true)?'Uncheck all':'Check all'}
-                    <i className={(this.state.checked === true)?'fa-check-square fa':'fa-square-o fa'} aria-hidden="true"></i>
-                </label>
-                    </div>
-                <div className={styles.btn__wrapper+" col-md-7 "}>
-                    <button onClick={this.showAddForm} className={"btn "+ styles['btn-orange']}>
-                        {(this.state.formState ==='hidden')?'Add':'Hide Form'}</button>
-                <button onClick={this.sendDeleteRequest} className={"btn "+ styles['btn-black']}>Delete all checked</button>
-                    </div>
-            </div>
+            <Col xs={12} sm={12} md={5} lg={5}>
+
+
+                <FormControl className={styles['select-all-checkbox']} onChange={this.setAllChecked} checked={this.state.checked} id="delete_all"
+                             type="checkbox"/>
+                <label htmlFor="delete_all"
+                       className={styles['select-all-label']}>{(this.state.checked === true) ? 'Uncheck all' : 'Check all'}</label>
+
+
+                <Button onClick={this.sendDeleteRequest} className={styles['button-feature-remove']}>Delete all checked</Button>
+                <Button  onClick={this.showAddForm} className={styles['button-feature-add']}>{(this.state.formState === 'hidden') ? 'Add' : 'Hide Form'}</Button>
+
+
+            </Col>
 
         )
     }

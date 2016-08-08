@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
-import styles from './styles.sass';
-
+import {Grid, FormControl, Row, Col, Button} from 'react-bootstrap';
+import styles from  '../features/styles/Features.sass';
+import techstyles from  './styles.sass';
 class TechnologiesList extends Component {
     constructor(props) {
         super(props);
@@ -45,15 +46,15 @@ class TechnologiesList extends Component {
 
         let {listOfTechnologies} = this.state;
         return (
-            (listOfTechnologies.length > 0) ? <div className={styles.techList + " col-md-12"}>
+            (listOfTechnologies.length > 0) ? <Grid className={styles['list-container']+ ' ' + techstyles['list-container']}>
                 { listOfTechnologies.map((elem, index, array) => {
-                    return <label className={styles.checkbox__wrapper} key={elem._id} htmlFor={elem._id}>
-                        <input onChange={this.addTechnologiesToDeleteData}  checked={elem.checked} type="checkbox"
-                               id={elem._id} value={elem.techName}/> {elem.techName}
-                        <i className={(elem.checked === 'checked')?'fa-check-square fa':'fa-square-o fa'} aria-hidden="true"></i>
-                    </label>
+                    return <span className={techstyles['list-item']} key={elem._id}>
+                        <input className={styles['select-all-checkbox']} onChange={this.addTechnologiesToDeleteData}  checked={elem.checked} type="checkbox"
+                               id={elem._id} value={elem.techName}/>
+                        <label className={styles['select-all-label']}  htmlFor={elem._id}>{elem.techName}</label>
+                        </span>
                 })}
-            </div> : null
+            </Grid> : null
         )
     };
 }

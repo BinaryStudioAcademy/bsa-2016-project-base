@@ -6,8 +6,9 @@ import  TechnologiesList from "./TechnologiesList";
 import  TechnologiesSearch from "./TechnologiesSearch";
 import  TechnologiesControl from "./TechnologiesControl";
 import  TechnologiesAddForm from "./TechnologiesAddForm";
-import styles from './styles.sass';
-
+//import styles from './styles.sass';
+import {Grid, FormControl, Row, Col, Button} from 'react-bootstrap';
+import styles from  '../features/styles/Features.sass';
 class Technologies extends Component {
     constructor() {
         super();
@@ -59,13 +60,13 @@ class Technologies extends Component {
         this.props.removeSelectedTechs(listOfTechnologies);
     }
 
-    formAddControlState(){
+    formAddControlState() {
         const {formState}
             = this.props.stateFromReducer.TechnologiesReducer;
         let state;
-        if(formState ==='hidden'){
+        if (formState === 'hidden') {
             state = 'visible';
-        }else{
+        } else {
             state = 'hidden';
         }
         this.props.setAddFormState(state);
@@ -97,7 +98,7 @@ class Technologies extends Component {
 
     render() {
         let list;
-        const {listOfTechnologies, listOfTechnologiesFiltered,formState}
+        const {listOfTechnologies, listOfTechnologiesFiltered, formState}
             = this.props.stateFromReducer.TechnologiesReducer;
         if (listOfTechnologiesFiltered.length > 0) {
             list = listOfTechnologiesFiltered;
@@ -105,18 +106,15 @@ class Technologies extends Component {
             list = listOfTechnologies;
         }
         return (
-            <div className={styles.technologiesTab + ' col-md-offset-3 col-md-9'}>
-
-                <div className={styles.technologiesnav}>
+            <Grid>
+                <Row className={styles['features-tool-bar']}>
                     <TechnologiesSearch technologiesSearch={this.technologiesSearch}/>
                     <TechnologiesControl formState={formState} formAddControlState={this.formAddControlState}
                                          deleteChecked={this.deleteChecked} setAllChecked={this.setAllChecked}/>
-                    <div className={styles.clear}></div>
-                </div>
-                    <TechnologiesList listOfTechnologies={list} controlCheckeditems={this.controlCheckeditems}/>
-                    <TechnologiesAddForm formState={formState} saveTechnologie={this.saveTechnologie}/>
-
-            </div>
+                </Row>
+                <TechnologiesList listOfTechnologies={list} controlCheckeditems={this.controlCheckeditems}/>
+                <TechnologiesAddForm formState={formState} saveTechnologie={this.saveTechnologie}/>
+            </Grid>
         )
     }
 }
