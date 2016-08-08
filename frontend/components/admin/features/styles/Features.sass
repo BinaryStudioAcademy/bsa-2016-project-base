@@ -71,6 +71,13 @@ $mainTextColor: #656565
 
 .feature-tabs .form
   padding-top: 50px
+
+.feature-tabs button
+  background-color: $mainTextColor
+
+.feature-tabs button:active
+  background-color: $lightCadetBlueColor !important
+
 /* Add Component */
 
 /* ToolBar Component */
@@ -78,6 +85,9 @@ $mainTextColor: #656565
   min-height: 100px
   text-align: center
   background: $toolBarColor
+
+.features-tool-bar > div
+  padding: 10px
 
 .features-tool-bar button:active,
 .features-tool-bar button:hover,
@@ -297,3 +307,9 @@ $mainTextColor: #656565
 
 ::-webkit-scrollbar-thumb
   background: rgba(0, 0, 0, 0.5)
+
+// !!!!
+@media all and (min-width: 992px)
+  .features-tool-bar
+    display: flex
+    align-items: center
