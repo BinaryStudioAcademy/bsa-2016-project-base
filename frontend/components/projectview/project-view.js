@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators, combineReducers} from 'redux';
 import { connect } from 'react-redux';
 import * as actions from "./project-view-actions.js";
+import SimpleSlider from './carousel.js'
 
 import styles from './project-view.sass';
 
@@ -74,7 +75,8 @@ class ProjectView extends Component {
         					<Panel className={styles.tabpanels}>
 	        					<Grid>
 									<Row>
-								 	<Col xs={6} md={3}>
+									<SimpleSlider />
+								 	{/*<Col xs={6} md={3}>
 								    	<Thumbnail href="#" alt="171x180" src="/assets/thumbnail.png" />
 									</Col>
 								 	<Col xs={6} md={3}>
@@ -82,7 +84,7 @@ class ProjectView extends Component {
 								 	</Col>
 								 	<Col xs={6} md={3}>
 								    	<Thumbnail href="#" alt="171x180" src="/assets/thumbnail.png" />
-								 	</Col>
+								 	</Col>*/}
 								  </Row>
 								</Grid>
         					</Panel></Tab>
