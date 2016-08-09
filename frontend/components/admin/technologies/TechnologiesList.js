@@ -39,23 +39,35 @@ class TechnologiesList extends Component {
             action = 'remove';
             e.target.checked = 'checked';
         }
-        this.props.controlCheckeditems(id,action);
+        this.props.controlCheckeditems(id, action);
     }
 
     render() {
 
         let {listOfTechnologies} = this.state;
         return (
-            (listOfTechnologies.length > 0) ? <Grid className={styles['list-container']+ ' ' + techstyles['list-container']}>
-                { listOfTechnologies.map((elem, index, array) => {
-                    return <span className={techstyles['list-item']} key={elem._id}>
-                        <input className={styles['select-all-checkbox']} onChange={this.addTechnologiesToDeleteData}  checked={elem.checked} type="checkbox"
+            (listOfTechnologies.length > 0) ?
+                <Grid className={styles['list-container'] + ' ' + techstyles['list-container']}>
+                    { listOfTechnologies.map((elem, index, array) => {
+                        return <span className={techstyles['list-item']} key={elem._id}>
+                        <input className={styles['select-all-checkbox']} onChange={this.addTechnologiesToDeleteData}
+                               checked={elem.checked} type="checkbox"
                                id={elem._id} value={elem.techName}/>
-                        <label className={styles['select-all-label']}  htmlFor={elem._id}>{elem.techName}</label>
-                        <img src={elem.techAvatar}/>
+                        <label className={styles['select-all-label']} htmlFor={elem._id}>{elem.techName}</label>
+
+                            <div className={techstyles['hidden_block']}>
+                                <div className={techstyles['img_wrapper']}>
+                                <img src={elem.techAvatar}/>
+                                    </div>
+                                <div className={techstyles['description_wrapper']}>
+                                {elem.techDescription}
+                                </div>
+                            </div>
+
+
                         </span>
-                })}
-            </Grid> : null
+                    })}
+                </Grid> : null
         )
     };
 }

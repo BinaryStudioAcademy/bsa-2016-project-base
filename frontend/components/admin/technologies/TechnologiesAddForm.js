@@ -23,9 +23,6 @@ class TechnologiesAddForm extends Component {
         var xhr = new XMLHttpRequest();
         var fd = new FormData();
         fd.append("afile", file);
-        xhr.upload.onprogress = function (event) {
-            console.log(event.loaded + ' / ' + event.total);
-        }
         xhr.open("POST", "/api/file/", true);
         xhr.send(fd);
         xhr.onreadystatechange = function () {
@@ -55,13 +52,11 @@ class TechnologiesAddForm extends Component {
 
         let form = e.target;
         var file = document.getElementById('file').files[0];
-
         let data = {
             techName: form.elements['techName'].value,
             techDescription: form.elements['techDescription'].value,
             techAvatar: form.elements['techAvatar'].value
         };
-        console.log(data);
         form.reset();
         this.props.saveTechnologie(data);
 
