@@ -1,32 +1,53 @@
 import React, { Component } from 'react';
-import { FormControl, FormGroup, InputGroup, Glyphicon, Col, DropdownButton, MenuItem } from 'react-bootstrap';
-import styles from './SearchHome';
+import { Form, FormGroup, InputGroup, FormControl, Button, Radio, Checkbox } from 'react-bootstrap';
+import styles from './SearchHome.sass';
 
 export default class SearchHome extends Component {
 
     render() {
 
         return (
-            <Col xs={12} sm={6} smOffset={3}>
-                <FormGroup>
+            <Form>
+                <FormGroup className={styles['form-group']} >
                     <InputGroup>
                         <FormControl
-                            className={ styles.search }
+                            className={ styles['form-control'] }
                             type="text"
-                            placeholder="Type to filter..."
-                            // onInput ={ filter }
-                            // value={ search }
+                            placeholder="Type to search..."
+                            /*onInput ={ filter }
+                             value={ search }*/
                         />
-                        <InputGroup.Addon className={ styles.searchSign }>
-                            <Glyphicon glyph="search" className={ styles.searchIcon } />
-                        </InputGroup.Addon>
-                        <DropdownButton title="Sort" id="bg-nested-dropdown">
-                            <MenuItem eventKey="1">Type</MenuItem>
-                            <MenuItem eventKey="2">Date modified</MenuItem>
-                        </DropdownButton>
+                        <InputGroup.Button>
+                            <Button className={["material-icons", styles['button-search']]} >search</Button>
+                        </InputGroup.Button>
                     </InputGroup>
                 </FormGroup>
-            </Col>
+
+                <div className={styles['display-flex']} >
+                    <FormGroup className={styles['choose-sort']} >
+                        Sort by:
+                        <input type="radio" name="sort" value="ranking" id="sort-by-ranking" defaultChecked />
+                        <label htmlFor="sort-by-ranking">ranking</label>
+                        <input type="radio" name="sort" value="update" id="sort-by-update" />
+                        <label htmlFor="sort-by-update">update date</label>
+                        <input type="radio" name="sort" value="download" id="sort-by-download" />
+                        <label htmlFor="sort-by-download">downloads</label>
+                    </FormGroup>
+
+                    <FormGroup className={styles['choose-platform']} >
+                        <input type="checkbox" name="platform" value="windows" id="platform-windows" defaultChecked />
+                        <label htmlFor="platform-windows">Windows</label>
+                        <input type="checkbox" name="platform" value="linux" id="platform-linux" defaultChecked />
+                        <label htmlFor="platform-linux">Linux</label>
+                        <input type="checkbox" name="platform" value="osx" id="platform-osx" />
+                        <label htmlFor="platform-osx">OS X</label>
+                        <input type="checkbox" name="platform" value="android" id="platform-android" />
+                        <label htmlFor="platform-android">Android</label>
+                        <input type="checkbox" name="platform" value="ios" id="platform-ios" />
+                        <label htmlFor="platform-ios">iOS</label>
+                    </FormGroup>
+                </div>
+            </Form>
         )
     }
 }

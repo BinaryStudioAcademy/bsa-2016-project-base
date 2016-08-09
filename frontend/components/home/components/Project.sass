@@ -1,0 +1,57 @@
+@import "../common"
+
+.list-group-item
+  border-width: 0 0 1px 1px
+  border-color: $light
+
+.list-group-item:first-child
+  border-radius: 0
+
+.list-group-item:not(:last-child)
+  margin-bottom: 10px
+
+.list-group-item > h4
+  margin-top: 0
+
+.list-group-item a
+  color: $medium
+
+.description
+  padding-top: 10px
+
+.labels > span:nth-of-type(odd)
+  border-top-right-radius: 0
+  border-bottom-right-radius: 0
+
+  background: $medium
+
+.labels > span:nth-of-type(even)
+  margin-right: 5px
+
+  border-top-left-radius: 0
+  border-bottom-left-radius: 0
+
+.label-ranking,
+.label-downloads
+  background: #d4081a
+
+.label-os
+  background: #AA22FF
+
+.label-version
+  background: #00A000
+
+.label-license
+  background: #3a33d1
+
+.label-language
+  background: #8BC34A
+
+.label-framework
+  background: #FF9800
+
+.label-library
+  background: #2196F3
+
+.label-database
+  background: #F44336

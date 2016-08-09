@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Row, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { ListGroup } from 'react-bootstrap';
 import Project from './Project';
-
-import styles from './ListProjects';
 
 export default class ListProjects extends Component {
 
@@ -15,13 +13,12 @@ export default class ListProjects extends Component {
 
         return (
                 (projects.length > 0) ?
-                <ListGroup componentClass="ul">
+                <ListGroup>
                     {projects.map( project =>
                         <Project
                             key={project._id}
                             data-id={project._id}
-                            project={project}
-                            className={styles.border} />
+                            project={project}/>
                     )}
                 </ListGroup> : null
         )

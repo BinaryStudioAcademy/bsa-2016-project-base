@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Row } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 
 import * as actions from "../../actions/HomeActions";
 import SearchHome from './components/SearchHome';
@@ -13,10 +13,6 @@ import styles from './home.sass';
 
 class Home extends Component {
 
-	static propTypes = {
-		
-	};
-
 	componentDidMount() {
 		this.props.getAllProjects();
 	}
@@ -25,18 +21,16 @@ class Home extends Component {
 		const { projects } = this.props.data;
 
 	    return (
-	    	<div>
-				<Row className={ styles.offset }>
+	    	<Row>
+				<Col lg={8} lgOffset={2} className={styles.bk}>
 					<SearchHome />
-				</Row>
-				<Row>
 					<GeneralInformation projects={ projects } />
-				</Row>
-				<ListProjects projects={ projects }/>
-				<Row>
-					<PaginationHome />
-				</Row>
-	    	</div>
+					<ListProjects projects={ projects }/>
+				</Col>
+				{/*<Row>*/}
+					{/*<PaginationHome />*/}
+				{/*</Row>*/}
+	    	</Row>
 	    )
 	}
 }

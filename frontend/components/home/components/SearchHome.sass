@@ -1,20 +1,74 @@
-.search
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons|Titillium+Web:200,400)
+@import "../common.sass"
+
+.form-group
+  margin-top: 30px
+
+.form-control
+  border: 0
+  border-bottom: 1px solid #aaa
+  border-radius: 0
+  color: #000
+  font-size: 21px
+  font-family: 'Titillium Web', sans-serif
+  font-weight: 400
+  box-shadow: none
+
+.form-control::-webkit-input-placeholder
+  font-family: 'Titillium Web', sans-serif
+  font-weight: 200
+  color: #aaa
+
+.form-control:-moz-placeholder
+  font-family: 'Titillium Web', sans-serif
+  color: #aaa
+
+.form-control::-moz-placeholder
+  font-family: 'Titillium Web', sans-serif
+  color: #aaa
+
+.form-control:-ms-input-placeholder
+  font-family: 'Titillium Web', sans-serif
+  color: #aaa
+
+.form-control:active,
+.form-control:focus
+  padding-bottom: 5px
+  border-bottom: 2px solid #000
+  box-shadow: none
+
+.button-search
+  padding-bottom: 4px
+  padding-top: 4px
   border: 0
   border-radius: 0
-  border-bottom: 1px solid black
-  box-shadow: none
-  font-family: 'Play'
-  outline-width: 0
+  background: #aaa
+  color: #fff
+  font-size: 25px
+  font-weight: 900
 
-.search:focus
-  border-bottom: 3px solid black
-  box-shadow: none
+.form-control:active + .button-search,
+.form-control:focus + .button-search
+  background: #000
 
-.searchSign
-  background: #fff
-  border: 0
-  color: #000
+.display-flex
+  display: flex
+  flex-flow: row wrap
+  justify-content: space-around
 
-.searchIcon
-  font-weight: 700
-  font-size: 16px
+input[type="radio"],
+input[type="checkbox"]
+  display: none
+
+label
+  margin: 0 3px
+  border: 1px solid #aaa
+  padding: 5px
+  color: #aaa
+  cursor: pointer
+
+input[type="radio"]:checked + label,
+input[type="checkbox"]:checked + label
+  border: 1px solid #000
+  background: #000
+  color: #fff
