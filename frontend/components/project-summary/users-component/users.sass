@@ -1,57 +1,85 @@
-@import url(https://fonts.googleapis.com/css?family=Lato:400,900,700);
+@import url(//fonts.googleapis.com/css?family=Russo+One)
+@import url(//fonts.googleapis.com/css?family=Play)
+
+@mixin border-radius($radius)
+ -webkit-border-radius: $radius
+ -moz-border-radius: $radius
+  border-radius: $radius
+
+@mixin box-shadow($left, $top, $blur, $color)
+ -moz-box-shadow: $left $top $blur $color
+ -webkit-box-shadow: $left $top $blur $color
+ box-shadow: $left $top $blur $color
 
 .wrapper
-    background-color: #E3E3E7
+
+    +border-radius(5px)
+    font-family: 'Play'
+    background-color: #fff
     width: 90%
-    margin: 50px auto 20px auto
-    padding: 0;
-    font-family: 'Lato', sans-serif;
-    font-size: 16px;
-    color: #CBCCD0;
-    border: 1px solid #CBCCD0;
-    border-radius: 10px;
-    box-shadow: 0px 6px 6px -5px #333;
+    margin: auto
+    padding: 1em
+    font-size: 18px
     h1
-        color: #C6C9CD
-        width: 100%
+        color: #000
+        width: 40%
         margin: 0 auto 20px auto
-        height: 70px;
-        // text-align: left;
-        // vertical-align: middle;
-        display: flex;
-        justify-content: left;
-        align-items: center;
-        border-radius: 10px 10px 0 0;
-        // border-bottom: 1px solid #707C82;
-        box-shadow: 0px 6px 6px -8px #C6D0DA;
-        font-size: 1.1em
-        font-weight: 700
-        padding-left: 2em
-        background-color: #FCFCFE
-    .inputContainer
         text-align: center
-        input
-            height: 25px
-            width: 50%
-            font-size: 1em
-            padding: 0.4em
-    .userList 
-        list-style: none
-        font-size: 1em
-        vertical-align: top;
-        background-color: #E3E3E7;
-    .userName, .userPosition, .ownerCheckBox
-        display: inline-block
-        vertical-align: middle
-        width: 25%
-    .userName
-        margin-left: 2em
-    .ownerCheckBox
-        margin-left: 2em
-    .listItem + .listItem
-        margin-top: 1em
+        font-family: 'Russo One'
+    .inputContainer
+         padding: 20px 20px 20px 0px
+         background: #ccc
+         input
+              height: 35px
+              width: 80%
+              font-size: 1.5em
+              padding: 0.1em
+              margin: 0px
+    .searchSign
+      background: orange
+      border: 0
+      color: #000
+    .wrapperSearch
+     margin-left: 15px
 
 
-    
+    .userList
+         list-style: none
+         padding: 40px
 
 
+    .listItem
+         display:flex
+         +box-shadow(2px, 2px, 2px,	#bebebe)
+         +border-radius(3px)
+         transition: all .3s ease-in-out
+         &:hover
+            cursor: pointer
+            background:	#E9F0F4
+            transform: scale(1.03)
+            +border-radius(5px)
+         .userName, .userPosition,.ownerCheckBox, .userImage
+              display: inline-flex
+              vertical-align: middle
+              width: 22%
+              background-size: 100%
+
+
+              label
+              display: inline-flex
+              vertical-align: middle
+              .graphic
+                display: none
+                + .labelText:after
+                  content: "not owner"
+                  opacity: 0.5
+                  text-decoration:line-through
+
+                &:checked + .labelText:after
+                  content: "\2714"
+                  font-size: 150%
+                  padding-left: 20px
+                  font-family: 'Play'
+                &:checked + .labelText:before
+                  content: "owner"
+                  font-family: 'Play'
