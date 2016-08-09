@@ -19,11 +19,6 @@ class FeaturesListItem extends Component {
         }
     }
     render() {
-        //var item = this.props['reduserState'].features[
-         //   this.props['reduserState'].features.findIndex(
-        //        (item)=>(this.props['data-id'] == item.id)
-         //   )
-        //];
         return (
             <Row>
                 <Col  xs={5} sm={3} md={3} lg={3}>

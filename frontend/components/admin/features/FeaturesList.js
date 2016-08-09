@@ -13,7 +13,6 @@ class FeaturesList extends  Component {
         this.checkSearchValue = this.checkSearchValue.bind(this);
     }
 
-
     checkSearchValue(filter, nameFeature) {
         if(filter.replace(/\s/g, '') == '') {
             return true;
@@ -25,7 +24,6 @@ class FeaturesList extends  Component {
         //let featuresItems = new Array();
         const {features,filter} = this.props.featuresData;
             var self = this;
-
         return (
             <Grid className={styles['list-container']}>
             { features.map(function(feature, index) {
@@ -41,7 +39,6 @@ class FeaturesList extends  Component {
             })}
             </Grid>
     );
-
         //for(var i in features ) {
 
         //}
