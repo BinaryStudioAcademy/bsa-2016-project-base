@@ -22,11 +22,11 @@ class FeaturesToolBar extends Component {
 
         let {listCheckedFeatures} = this.props.featuresData;
         this.props.removeFeature(listCheckedFeatures);
-        this.props.getAllFeatures();
+        this.props.getAllFeaturesOfAllProjects();
     }
 
     componentWillMount () {
-        this.props.getAllFeatures();
+        this.props.getAllFeaturesOfAllProjects();
     }
 
     markAllFeature(e) {

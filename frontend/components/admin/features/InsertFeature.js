@@ -26,7 +26,7 @@ class InsertFeature extends Component {
 
 
     componentWillMount () {
-        this.props.getAllFeatures();
+        this.props.getAllFeaturesOfAllProjects();
     }
 
     addFeature(e) {

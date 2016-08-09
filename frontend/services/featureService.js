@@ -1,8 +1,17 @@
 import promise from 'es6-promise';
 promise.polyfill();
 import fetch from 'isomorphic-fetch';
+import { API } from '../constants/Api';
 
 class FeatureService {
+
+    getAllFeatures(projectId) {
+        return fetch(`${API}projects/${projectId}/features`);
+}
+
+    getAllFeaturesOfAllProjects() {
+        return fetch('http://localhost:3000/api/features/')
+    }
 
     addNewFeature(featureObj) {
         return fetch("http://localhost:3000/api/features/", {
@@ -15,11 +24,7 @@ class FeatureService {
         })
     }
 
-    getAllFeatures() {
-        return fetch('http://localhost:3000/api/features/')
-    }
-
-    removeFeature(idFeature) {
+removeFeature(idFeature) {
         return fetch("http://localhost:3000/api/features/" + idFeature, {
             method: 'DELETE',
             headers: ({
@@ -30,5 +35,4 @@ class FeatureService {
     }
 }
 
-const featureService = new FeatureService();
-export default featureService;
+const featureService = new FeatureService();export default featureService;

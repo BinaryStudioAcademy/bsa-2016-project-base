@@ -1,38 +1,8 @@
+import * as types from '../constants/FeaturesActionTypes';
+
 const initialState = {
-    features : [
-        {
-            "id": 1,
-            "featureName": "Features 1",
-            "isItSubFeature": false,
-            "childFeatures": []
-        },{
-            "id": 2,
-            "featureName": "Features 2",
-            "isItSubFeature": false,
-            "childFeatures": []
-        },{
-            "id": 3,
-            "featureName": "Features 3",
-            "isItSubFeature": false,
-            "childFeatures": []
-        },
-        {
-            "id": 4,
-            "featureName": "Features 4",
-            "isItSubFeature": true,
-            "childFeatures": []
-        },{
-            "id": 5,
-            "featureName": "Features 5",
-            "isItSubFeature": false,
-            "childFeatures": [{"id": 4}]
-        },{
-            "id": 6,
-            "featureName": "Features 6",
-            "isItSubFeature": false,
-            "childFeatures": []
-        }
-    ],
+    features : [],
+    subfeatures: null,
     search: '',
     showFeaturesDetailsModal: false,
     showFeaturesDetailsId: null
@@ -41,45 +11,55 @@ const initialState = {
 export default function FeaturesDetailsReducer(state = initialState, action) {
     switch (action.type) {
 
-        case 'FILTER_FEATURES_DETAILS':
+        case types.FILTER_FEATURES_DETAILS:
             const { search } = action;
 
             return Object.assign({}, state, {
                 search: search
             });
 
-        case 'FEATURES_DETAILS_MODAL_OPEN':
+        case types.FEATURES_DETAILS_MODAL_OPEN:
+            const feature = state.features.filter(feature => feature._id === action.id)[0];
+            if (!feature.childFeatures) {
+                return Object.assign({}, state, {
+                    showFeaturesDetailsModal: true,
+                    showFeaturesDetailsId: action.id,
+                    subfeatures: null
+                });
+            }
+
+            const subFeaturesId = feature.childFeatures.map(id => state.features.filter(feature => feature._id === id)[0]);
             return Object.assign({}, state, {
                 showFeaturesDetailsModal: true,
-                showFeaturesDetailsId: action.id
+                showFeaturesDetailsId: action.id,
+                subfeatures: subFeaturesId
             });
 
-        case 'FEATURES_DETAILS_MODAL_CLOSE':
+        case types.FEATURES_DETAILS_MODAL_CLOSE:
             return Object.assign({}, state, {
                 showFeaturesDetailsModal: false,
-                showFeaturesDetailsId: null
+                showFeaturesDetailsId: null,
+                subfeatures: null
             });
-        case 'FEATURES_DETAILS_GET_ALL_START_LOADING': {
+        case types.FEATURES_DETAILS_GET_ALL_START_LOADING: {
             return Object.assign({}, state, {
                 isLoading: true
-            });
+            });    
         }
-        case 'FEATURES_DETAILS_GET_ALL_SUCCESS': {
+        case types.FEATURES_DETAILS_GET_ALL_SUCCESS: {
             return Object.assign({}, state, {
                 isLoading: false,
-                data: action.data
-            });
+                features: action.data
+            });    
         }
-        case 'FEATURES_DETAILS_GET_ALL_ERROR': {
+        case types.FEATURES_DETAILS_GET_ALL_ERROR: {
+            console.log(action.error);
             return Object.assign({}, state, {
                 isLoading: false,
                 error: action.error
-            });
+            });    
         }
-        // case 'SHOW_DETAILS_IN_MODAL':
-        //     return Object.assign({}, state, {
-        //         showFeaturesDetails: action.id
-        //     });
+
         default:
             return state;
     }

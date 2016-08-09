@@ -1,5 +1,6 @@
 var apiResponse = require('express-api-response');
 var projectRepository = require('../repositories/projectRepository');
+var featureRepository = require('../repositories/featureRepository');
 
 
 module.exports = function(app) {
@@ -18,6 +19,18 @@ module.exports = function(app) {
 			res.err = err;
 			//res.json(data);
 			next();
+		});
+	}, apiResponse);
+
+	app.get('/api/projects/:id/features', function(req, res, next) {
+		projectRepository.getById(req.params.id, function(err, data = {}) {
+			featureRepository.getDetails(data['features'], function (err, data) {
+
+				res.data = data;
+				//res.json(data);
+				res.err = err;
+				next();
+			});
 		});
 	}, apiResponse);
 

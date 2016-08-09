@@ -64,9 +64,9 @@ export function filterFeatures(filter){
     }
 }
 
-export function getAllFeatures() {
+export function getAllFeaturesOfAllProjects() {
     return dispatch => {
-        return featureService.getAllFeatures()
+        return featureService.getAllFeaturesOfAllProjects()
             .then(res=>res.json())
             .then(res=>{
                 dispatch ({
