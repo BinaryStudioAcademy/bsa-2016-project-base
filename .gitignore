@@ -4,4 +4,3 @@ dist
 *.log
 coverage
 .idea
-/upload
