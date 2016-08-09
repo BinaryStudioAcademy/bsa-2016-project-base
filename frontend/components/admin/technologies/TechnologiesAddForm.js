@@ -16,27 +16,38 @@ class TechnologiesAddForm extends Component {
     }
 
     upload(e) {
-
+        var error =  document.getElementById('error');
+        error.classList.add('hidden');
+        error.classList.remove('visible');
         var file = document.getElementById('file').files[0];
-
-
         var xhr = new XMLHttpRequest();
         var fd = new FormData();
         fd.append("afile", file);
-        xhr.onload = xhr.onerror = function () {
-            if (this.status == 200) {
-                console.log("success");
-            } else {
-                console.log("error " + this.status);
-            }
-        };
-
-        // обработчик для закачки
         xhr.upload.onprogress = function (event) {
             console.log(event.loaded + ' / ' + event.total);
         }
         xhr.open("POST", "/api/file/", true);
         xhr.send(fd);
+        xhr.onreadystatechange = function () {
+            if (this.readyState != 4) return;
+            if (this.status === 200) {
+                var result = JSON.parse(xhr.responseText);
+                if(result.type === 'success') {
+                    document.getElementById('file_path').value = result.file;
+                }else{
+                    error.classList.remove('hidden');
+                    error.classList.add('visible');
+                }
+            }
+        }
+
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps.filepath !== this.state.filepath) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     submitForm(e) {
@@ -48,8 +59,9 @@ class TechnologiesAddForm extends Component {
         let data = {
             techName: form.elements['techName'].value,
             techDescription: form.elements['techDescription'].value,
-            techAvatar: file
+            techAvatar: form.elements['techAvatar'].value
         };
+        console.log(data);
         form.reset();
         this.props.saveTechnologie(data);
 
@@ -57,7 +69,8 @@ class TechnologiesAddForm extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            formState: nextProps.formState
+            formState: nextProps.formState,
+            filepath: nextProps.filepath
         });
     }
 
@@ -93,7 +106,9 @@ class TechnologiesAddForm extends Component {
                                      required></FormControl>
                     </Col>
                 </FormGroup>
+                <input type="hidden" id="file_path"  name="techAvatar"  value=''/>
                 <Col sm={6} smPush={3}>
+                    <div id="error" className="error hidden">Wrong file formant</div>
                 <input type="file" id="file" name="afile" onChange={this.upload}/>
                 <Button block type="submit" >Send</Button>
 

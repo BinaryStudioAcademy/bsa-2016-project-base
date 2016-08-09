@@ -1,6 +1,7 @@
 var apiResponse = require('express-api-response');
-var multer  = require('multer');
-var upload = multer({ dest: 'upload/'});
+var multer = require('multer');
+var upload = multer({dest: 'upload/resources/tech/'});
+var fs = require('fs');
 var technologieRepository = require('../repositories/technologyRepository');
 
 module.exports = function (app) {
@@ -36,11 +37,26 @@ module.exports = function (app) {
     // }, apiResponse);
 
     app.post('/api/file/', upload.single('afile'), function (req, res, next) {
-        console.log(req.file);
-        // req.file is the `avatar` file
-        // req.body will hold the text fields, if there were any
-    });
+        if (req.file.mimetype.indexOf('image/') === 0) {
+            var tmp_path = req.file.path;
+            var target_path = 'upload/resources/tech/' + req.file.originalname;
+            var src = fs.createReadStream(tmp_path);
+            var dest = fs.createWriteStream(target_path);
 
+            src.pipe(dest);
+            fs.unlink(tmp_path);
+            //  fs.rename(tmp_path, req.file.originalname);
+            res.json({
+                'file': '/upload/resources/tech/' + req.file.originalname,
+                'type': 'success'
+            });
+        } else {
+            res.json({
+                'file': '',
+                'type': 'error'
+            });
+        }
+    });
 
 
     app.post('/api/technology/', function (req, res, next) {

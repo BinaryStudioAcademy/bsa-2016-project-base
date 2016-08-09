@@ -13,7 +13,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 var routes = require('./backend/routes/routes')(app);
-
+;
 if (isDeveloping) {
   const compiler = webpack(config);
   const middleware = webpackMiddleware(compiler, {
@@ -35,8 +35,10 @@ if (isDeveloping) {
     res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'dist/index.html')));
     res.end();
   });
+  app.use(express.static(path.join(__dirname, '/upload')))
 } else {
   app.use(express.static(__dirname + '/dist'));
+  app.use(express.static(path.join(__dirname, '/upload')))
   // app.get('*', function response(req, res) {
   //   res.sendFile(path.join(__dirname, 'dist/index.html'));
   // });

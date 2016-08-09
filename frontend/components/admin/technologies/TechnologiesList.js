@@ -52,6 +52,7 @@ class TechnologiesList extends Component {
                         <input className={styles['select-all-checkbox']} onChange={this.addTechnologiesToDeleteData}  checked={elem.checked} type="checkbox"
                                id={elem._id} value={elem.techName}/>
                         <label className={styles['select-all-label']}  htmlFor={elem._id}>{elem.techName}</label>
+                        <img src={elem.techAvatar}/>
                         </span>
                 })}
             </Grid> : null
