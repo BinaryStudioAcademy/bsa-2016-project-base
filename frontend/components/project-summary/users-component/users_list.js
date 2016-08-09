@@ -48,7 +48,7 @@ class UserList extends Component {
         }
 
         let filteredUsers = this.props.users.filter(user => {
-            return search(user.userName, this.state.search);
+            return search(user.userName + user.userSurname, this.state.search);
         });
 
         let users = filteredUsers.map((user) => {
