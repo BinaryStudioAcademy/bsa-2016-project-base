@@ -35,8 +35,7 @@ class TechnologiesAddForm extends Component {
         xhr.upload.onprogress = function (event) {
             console.log(event.loaded + ' / ' + event.total);
         }
-        console.log(file);
-        xhr.open("POST", "/api/technologie/file/", true);
+        xhr.open("POST", "/api/file/", true);
         xhr.send(fd);
     }
 
@@ -44,11 +43,12 @@ class TechnologiesAddForm extends Component {
         e.preventDefault();
 
         let form = e.target;
-
+        var file = document.getElementById('file').files[0];
 
         let data = {
             techName: form.elements['techName'].value,
-            techDescription: form.elements['techDescription'].value
+            techDescription: form.elements['techDescription'].value,
+            techAvatar: file
         };
         form.reset();
         this.props.saveTechnologie(data);
@@ -94,8 +94,9 @@ class TechnologiesAddForm extends Component {
                     </Col>
                 </FormGroup>
                 <Col sm={6} smPush={3}>
-                <input type="file" id="file" name="myfile" onChange={this.upload}/>
+                <input type="file" id="file" name="afile" onChange={this.upload}/>
                 <Button block type="submit" >Send</Button>
+
                 </Col>
             </Form>
                 </div>

@@ -1,4 +1,6 @@
 var apiResponse = require('express-api-response');
+var multer  = require('multer');
+var upload = multer({ dest: 'upload/'});
 var technologieRepository = require('../repositories/technologieRepository');
 
 module.exports = function (app) {
@@ -34,11 +36,11 @@ module.exports = function (app) {
     // 	});
     // }, apiResponse);
 
-    app.post('/api/technologie/file/', function (req, res, next) {
-        console.log(req);
+    app.post('/api/file/', upload.single('afile'), function (req, res, next) {
+        console.log(req.file);
         // req.file is the `avatar` file
         // req.body will hold the text fields, if there were any
-    })
+    });
 
 
 
