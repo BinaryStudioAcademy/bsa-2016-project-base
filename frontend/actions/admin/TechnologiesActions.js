@@ -5,7 +5,7 @@ import fetch from 'isomorphic-fetch'
 
 export function getTechnologies() {
     return dispatch=> {
-        fetch(`/api/technologie/`)
+        fetch(`/api/technology/`)
             .then(response => response.json())
             .then(json => dispatch(initTechnology(json)))
     }
@@ -19,7 +19,7 @@ export function initTechnology(listOfTechno) {
 }
 export function saveTechology(params) {
     return dispatch=> {
-        fetch("/api/technologie/", {
+        fetch("/api/technology/", {
             method: 'POST',
             body: JSON.stringify(params),
             headers: ({
@@ -55,7 +55,7 @@ export function removeSelectedTechs(technologies) {
     return dispatch=> {
         technologies.forEach(tech=> {
              if(tech.checked === 'checked') {
-                 fetch(`/api/technologie/${tech._id}`, {
+                 fetch(`/api/technology/${tech._id}`, {
                      method: 'DELETE'
                  })
              }

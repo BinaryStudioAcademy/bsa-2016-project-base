@@ -2,15 +2,15 @@
  * Created by razor on 03.08.16.
  */
 var Repository = require('./generalRepository');
-var Technogolie = require('../schemas/techologieSchema');
+var Technology = require('../schemas/techologySchema');
 
-function TechnologieRepository() {
+function TechnologyRepository() {
     Repository.prototype.constructor.call(this);
-    this.model = Technogolie;
+    this.model = Technology;
 }
 
 
-TechnologieRepository.prototype = new Repository();
+TechnologyRepository.prototype = new Repository();
 // TechnologieRepository.prototype.deleteMany = function(array, callback){
 //     var model = this.model;
 //     for(var i = 0; i < array.length; i++) {
@@ -18,4 +18,4 @@ TechnologieRepository.prototype = new Repository();
 //         query.exec(callback);
 //     }
 // };
-module.exports = new TechnologieRepository();
+module.exports = new TechnologyRepository();

@@ -1,10 +1,10 @@
 var apiResponse = require('express-api-response');
 var multer  = require('multer');
 var upload = multer({ dest: 'upload/'});
-var technologieRepository = require('../repositories/technologieRepository');
+var technologieRepository = require('../repositories/technologyRepository');
 
 module.exports = function (app) {
-    app.get('/api/technologie/:id', function (req, res, next) {
+    app.get('/api/technology/:id', function (req, res, next) {
         technologieRepository.getById(req.params.id, function (err, data) {
             res.data = data;
             res.err = err;
@@ -12,7 +12,7 @@ module.exports = function (app) {
         });
     }, apiResponse);
 
-    app.put('/api/technologie/:id', function (req, res, next) {
+    app.put('/api/technology/:id', function (req, res, next) {
         technologieRepository.update(req.params.id, req.body, function (err, data) {
             res.data = data;
             res.err = err;
@@ -20,14 +20,13 @@ module.exports = function (app) {
         });
     }, apiResponse);
 
-    app.delete('/api/technologie/:id', function (req, res, next) {
+    app.delete('/api/technology/:id', function (req, res, next) {
         technologieRepository.delete(req.params.id, function (err, data) {
             res.data = data;
             res.err = err;
             next();
         });
     }, apiResponse);
-
     // app.delete('/api/technologie/', function(req, res, next) {
     // 	technologieRepository.deleteMany(req.body,function(err, data) {
     // 		res.data = data;
@@ -44,7 +43,7 @@ module.exports = function (app) {
 
 
 
-    app.post('/api/technologie/', function (req, res, next) {
+    app.post('/api/technology/', function (req, res, next) {
         technologieRepository.add(req.body, function (err, data) {
             res.data = data;
             res.err = err;
@@ -52,7 +51,7 @@ module.exports = function (app) {
         });
     }, apiResponse);
 
-    app.get('/api/technologie/', function (req, res, next) {
+    app.get('/api/technology/', function (req, res, next) {
         technologieRepository.getAll(function (err, data) {
             res.data = data;
             res.err = err;
