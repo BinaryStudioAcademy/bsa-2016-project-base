@@ -47,14 +47,12 @@ class InsertSection extends Component {
     render() {
         return (
             <Form horizontal className={styles['form']}>
-                <FormGroup>
-                    <Col sm={4}>
-                        <ControlLabel className={styles['text']}>Name of section:</ControlLabel>
+                <FormGroup >
+                    <Col sm={2} smPush={1}>
+                        <ControlLabel>Name of section:</ControlLabel>
                     </Col>
-
-                    <Col sm={8}>
+                    <Col sm={8} smPush={1}>
                         <FormControl
-                            className={styles['text-select-input']}
                             id="nameSection"
                             ref="nameSection"
                             onBlur={this.saveNameSection}
@@ -64,15 +62,12 @@ class InsertSection extends Component {
                         />
                     </Col>
                 </FormGroup>
-
                 <FormGroup>
-                    <Col sm={4} >
-                        <ControlLabel className={styles['text']}>Description:</ControlLabel>
+                    <Col sm={2} smPush={1}>
+                        <ControlLabel>Description:</ControlLabel>
                     </Col>
-
-                    <Col sm={8}>
+                    <Col sm={8} smPush={1}>
                         <FormControl
-                            className={styles['textareaInput']}
                             id="DescriptionSection"
                             ref="DescriptionSection"
                             onBlur={this.saveDescriptionSection}
@@ -82,9 +77,8 @@ class InsertSection extends Component {
                         />
                     </Col>
                 </FormGroup>
-
-                <Col sm={3} >
-                    <Button type="submit" bsStyle="primary" block className={styles['btn']} id="addSection" onClick={this.addSection} >Add</Button>
+                <Col sm={6} smPush={3}>
+                    <Button type="submit"  block  id="addSection" onClick={this.addSection} >Add</Button>
                 </Col>
             </Form>
         );
@@ -94,13 +88,11 @@ class InsertSection extends Component {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(actions, dispatch)
 }
-
 function mapStateToProps(state) {
     return {
         data: state.SectionsReducer
     }
 }
-
 const InsertSectionConnected = connect(mapStateToProps, mapDispatchToProps)(InsertSection);
 export default InsertSectionConnected;
 
