@@ -1,4 +1,4 @@
-import sectionService from '../services/sectionService';
+import sectionService from '../../services/sectionService';
 
 export function getAllSections() {
     return dispatch => {

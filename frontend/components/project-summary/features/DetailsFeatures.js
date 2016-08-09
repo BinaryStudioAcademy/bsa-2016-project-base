@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from "../../../actions/FeaturesActions";
+import * as actions from "../../../actions/admin/FeaturesActions";
 import * as styles from "./DetailsFeatures.sass"
 
 import { Row, Col, ListGroup, ListGroupItem, FormControl, FormGroup, InputGroup, Modal, Label, Glyphicon, Button } from 'react-bootstrap';

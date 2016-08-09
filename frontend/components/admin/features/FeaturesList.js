@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import FeaturesListItem from './FeaturesListItem';
 import styles from './styles/Features.sass';
-import * as actionsSection from "../../../actions/SectionsActions";
-import * as actionsFeature from '../../../actions/FeaturesActions'
+import * as actionsSection from "../../../actions/admin/SectionsActions";
+import * as actionsFeature from '../../../actions/admin/FeaturesActions'
 
 class FeaturesList extends  Component {
     constructor(props) {
         super(props);
         this.checkSearchValue = this.checkSearchValue.bind(this);
+        this.checkSelectedSections = this.checkSelectedSections.bind(this);
     }
 
     checkSearchValue(filter, nameFeature) {
@@ -20,20 +21,34 @@ class FeaturesList extends  Component {
         return nameFeature.toLowerCase().indexOf(filter.toLowerCase()) == 0;
     }
 
+    checkSelectedSections(listCheckedSections, section) {
+        if(listCheckedSections.length == 0 || listCheckedSections.indexOf(section) != -1) {
+            return true;
+        }
+    }
+
     render() {
         //let featuresItems = new Array();
         const {features,filter} = this.props.featuresData;
             var self = this;
+
         return (
             <Grid className={styles['list-container']}>
             { features.map(function(feature, index) {
+                var check = false;
                 //var flag = true;
                 //if (filter && features[i].featureName.toLowerCase().indexOf(filter) == -1)  flag = false;
                 //if (flag) featuresItems.push(<FeaturesListItem key={features[i].id} data-id={features[i].id}/>);
-                if(self.checkSearchValue(filter, feature.featureName)) {
-
+                if(self.checkSearchValue(filter, feature.featureName)
+                    && self.checkSelectedSections(self.props.featuresData.listCheckedSections, feature.section)) {
+                    if(self.props.featuresData.listCheckedFeatures.indexOf(feature._id) != -1 || self.props.featuresData.allChecked) {
+                        check = true;
+                    }
+                    else {
+                        check = false;
+                    }
                     return (
-                        <FeaturesListItem feature={feature} key={feature._id} data-id={feature._id}/>
+                        <FeaturesListItem check={check} feature={feature} key={feature._id} data-id={feature._id}/>
                     )
                 }
             })}

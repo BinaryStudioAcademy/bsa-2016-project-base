@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Button, FieldGroup, FormGroup, ControlLabel, FormControl, Col, Form } from 'react-bootstrap';
 import styles from './styles/Features.sass';
-import * as actions from "../../../actions/SectionsActions";
+import * as actions from "../../../actions/admin/SectionsActions";
 
 class InsertSection extends Component {
     constructor(props) {

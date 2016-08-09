@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { Button, FieldGroup, ButtonToolbar, FormGroup, ControlLabel, FormControl, Col, Form, Tabs, Tab } from 'react-bootstrap';
 import styles from './styles/Features.sass';
 import promise from 'es6-promise';
-import * as actionsSection from "../../../actions/SectionsActions";
-import * as actionsFeature from "../../../actions/FeaturesActions";
+import * as actionsSection from "../../../actions/admin/SectionsActions";
+import * as actionsFeature from "../../../actions/admin/FeaturesActions";
 promise.polyfill();
 
 class InsertFeature extends Component {
@@ -14,13 +14,16 @@ class InsertFeature extends Component {
         this.state = {
             featureName: '',
             featureDescription: '',
-            section: null
+            section: ""
         };
         this.addFeature = this.addFeature.bind(this);
         this.saveNameFeature = this.saveNameFeature.bind(this);
         this.saveDescriptionFeature = this.saveDescriptionFeature.bind(this);
         this.saveSelectedSection = this.saveSelectedSection.bind(this);
     }
+
+
+
 
     componentWillMount () {
         this.props.getAllFeatures();
@@ -51,7 +54,6 @@ class InsertFeature extends Component {
 
     saveSelectedSection(e) {
         this.state.section = e.target.value;
-        alert(this.state.section);
     }
 
     render() {
@@ -76,8 +78,8 @@ class InsertFeature extends Component {
                         <ControlLabel >Select section:</ControlLabel>
                     </Col>
                     <Col sm={8} smPush={1}>
-                        <FormControl componentClass="select"  className={styles['text-select-input']} id="selectSection"
-                                     onChange={this.saveSelectedSection}>{
+                        <FormControl componentClass="select"  className={styles['text-select-input']} ref="ghjk" id="selectSection"
+                                     onChange={this.saveSelectedSection}   required>{
                                 this.props.sectionsData.sections.map(function(el, index) {
                                     return (
                                         <option key={index} value={el._id} >{el.name}</option>

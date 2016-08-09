@@ -4,8 +4,8 @@ import React, { Component, PropTypes } from 'react';
 
 import MultiSelect from './MultiSelect';
 import {Grid, FormControl, Row, Col, Button} from 'react-bootstrap';
-import * as actionsSection from "../../../actions/SectionsActions";
-import * as actionsFeature from "../../../actions/FeaturesActions";
+import * as actionsSection from "../../../actions/admin/SectionsActions";
+import * as actionsFeature from "../../../actions/admin/FeaturesActions";
 
 import styles from './styles/Features.sass';
 
@@ -13,12 +13,34 @@ class FeaturesToolBar extends Component {
     constructor(props) {
         super(props);
         this.removeChecked = this.removeChecked.bind(this);
+        this.markAllFeature = this.markAllFeature.bind(this);
+        this.handlerFilterFeatures = this.handlerFilterFeatures.bind(this);
+        this.handlerCheckedSection = this.handlerCheckedSection.bind(this);
     }
 
     removeChecked() {
+
         let {listCheckedFeatures} = this.props.featuresData;
         this.props.removeFeature(listCheckedFeatures);
+        this.props.getAllFeatures();
     }
+
+    componentWillMount () {
+        this.props.getAllFeatures();
+    }
+
+    markAllFeature(e) {
+        this.props.markedAllFeatures(this.props.featuresData.features, e.target.checked, this.props.featuresData.listCheckedFeatures);
+    }
+
+    handlerFilterFeatures(e) {
+        this.props.filterFeatures(e.target.value);
+    }
+
+    handlerCheckedSection(e) {
+        this.props.changeCheckedSections(this.props.featuresData.listCheckedSections, e.target.checked, e.target.id)
+    }
+
     render() {
         /*for(var i in items) sectionItems.push(
          <div key={items[i].id}>
@@ -30,17 +52,14 @@ class FeaturesToolBar extends Component {
          </div>
          );
          */
+        var self = this;
         return (
             <Grid>
                 <Row className={styles['features-tool-bar']}>
                     <Col xs={12} sm={6} md={4} lg={4}>
                         <div className={styles['search-input-container']}>
                             <FormControl className={styles['search-input']}
-                                         type="text" placeholder="Search" onChange={(e)=>{
-                                this.props.filterFeatures(
-                                    e.target.value.trim().replace(/['"]+/g,'').toLowerCase()
-                                );
-                            }}
+                                         type="text" placeholder="Search" onChange={this.handlerFilterFeatures}
                             />
                             <span className={styles['search-input-border']}></span>
                         </div>
@@ -53,9 +72,7 @@ class FeaturesToolBar extends Component {
                                     return (
                                         <div key={index}>
                                         <FormControl type="checkbox" className={styles['select-checkbox']}
-                                    id={el._id}  onChange={(e)=>{
-                                        alert(e.target.attr('id'));
-                                    }}/>
+                                    id={el._id}  onChange={self.handlerCheckedSection}/>
                                     <label htmlFor={el._id} className={styles['select-label']}>{el.name}</label>
                                     </div>
                                     )
@@ -65,9 +82,9 @@ class FeaturesToolBar extends Component {
                     </Col>
                     <Col xs={12} sm={12} md={4} lg={4}>
                         <FormControl type="checkbox" className={styles['select-all-checkbox']}
-                                     id="markAll"  onChange={(e)=>{
-                            this.props.markedAllFeatures(e.target.checked);
-                        }}
+                                     id="markAll"  onChange={this.markAllFeature}
+                                     checked={this.props.featuresData.features.length == this.props.featuresData.listCheckedFeatures.length
+                                     && this.props.featuresData.features.length != 0}
                         />
                         <label htmlFor="markAll" className={styles['select-all-label']}>Mark all</label>
                         <Button className={styles['button-feature-remove']} onClick={this.removeChecked}>Remove marked</Button>

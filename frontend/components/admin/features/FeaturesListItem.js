@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styles from './styles/Features.sass';
 
-import * as actions from '../../../actions/FeaturesActions'
+import * as actions from '../../../actions/admin/FeaturesActions'
 
 class FeaturesListItem extends Component {
     constructor(props) {
@@ -17,6 +17,9 @@ class FeaturesListItem extends Component {
         if(e.target.checked) {
            this.props.addCheckedFeature(this.props.featuresData.listCheckedFeatures, this.props.feature._id)
         }
+        else if(!e.target.checked) {
+            this.props.removeCheckedFeature(this.props.featuresData.listCheckedFeatures, this.props.feature._id)
+        }
     }
     render() {
         return (
@@ -26,7 +29,7 @@ class FeaturesListItem extends Component {
                         <div>
                             <FormControl type="checkbox" className={styles['select-checkbox']}
                                  name="checkbox" id={this.props.feature._id} /*checked={item['checked']}*/
-                                 onChange={this.changeCheckedFeature}
+                                 onChange={this.changeCheckedFeature} checked={this.props.check}
                             />
                             <label htmlFor={this.props.feature._id} className={styles['select-label']}>
                                 Name: {this.props.feature.featureName}
