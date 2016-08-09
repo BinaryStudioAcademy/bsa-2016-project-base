@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, InputGroup, FormControl, Button, Radio, Checkbox } from 'react-bootstrap';
+import Technologie from './Technologie';
 import styles from './SearchHome.sass';
 
 export default class SearchHome extends Component {
 
+    static propTypes = {
+        filter: React.PropTypes.func.isRequired,
+        search: React.PropTypes.string.isRequired
+    };
+
     render() {
 
+        const { filter, search, technologies, filterByTech } = this.props;
+        
         return (
             <Form>
                 <FormGroup className={styles['form-group']} >
@@ -14,8 +22,8 @@ export default class SearchHome extends Component {
                             className={ styles['form-control'] }
                             type="text"
                             placeholder="Type to search..."
-                            /*onInput ={ filter }
-                             value={ search }*/
+                            onInput ={ filter }
+                            value={ search }
                         />
                         <InputGroup.Button>
                             <Button className={["material-icons", styles['button-search']]} >search</Button>
@@ -34,18 +42,18 @@ export default class SearchHome extends Component {
                         <label htmlFor="sort-by-download">downloads</label>
                     </FormGroup>
 
-                    <FormGroup className={styles['choose-platform']} >
-                        <input type="checkbox" name="platform" value="windows" id="platform-windows" defaultChecked />
-                        <label htmlFor="platform-windows">Windows</label>
-                        <input type="checkbox" name="platform" value="linux" id="platform-linux" defaultChecked />
-                        <label htmlFor="platform-linux">Linux</label>
-                        <input type="checkbox" name="platform" value="osx" id="platform-osx" />
-                        <label htmlFor="platform-osx">OS X</label>
-                        <input type="checkbox" name="platform" value="android" id="platform-android" />
-                        <label htmlFor="platform-android">Android</label>
-                        <input type="checkbox" name="platform" value="ios" id="platform-ios" />
-                        <label htmlFor="platform-ios">iOS</label>
-                    </FormGroup>
+                    {(technologies.length) ?
+                    <FormGroup className={styles['choose-platform']}>
+                        {technologies.map((tech, key) => {
+                            return (
+                                <Technologie
+                                    key={key}
+                                    name={tech}
+                                    filter={filterByTech} />
+                            );
+                        })}
+                    </FormGroup> : null
+                    }
                 </div>
             </Form>
         )

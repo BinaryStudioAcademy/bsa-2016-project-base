@@ -2,13 +2,28 @@ import * as types from '../constants/HomeActionTypes';
 
 const initialState = {
     projects: [],
-    search: ''
+    search: '',
+    filterTech: []
 };
 
 export default function HomeReducer(state = initialState, action) {
     switch (action.type) {
 
-        case types.FILTER_FEATURES_DETAILS:
+        case types.FILTER_PROJECTS_BY_TECH_DETAILS:
+            const { filterTech, check } = action;
+            let filter = [];
+
+            if (!check){
+                filter = [...state.filterTech, filterTech];
+            } else {
+                filter = state.filterTech.filter(v => !~v.indexOf(filterTech));
+            }
+            
+            return Object.assign({}, state, {
+                filterTech: filter
+            });
+
+        case types.FILTER_PROJECTS_DETAILS:
             const { search } = action;
 
             return Object.assign({}, state, {

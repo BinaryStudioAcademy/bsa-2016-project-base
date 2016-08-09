@@ -24,13 +24,23 @@ export default class Project extends Component {
                     <Label>downloads</Label><Label className={styles['label-downloads']} >4,381</Label>
                     <Label>OS</Label><Label className={styles['label-os']} >Windows</Label>
                 </div>
-                <div className={styles.labels} >
+
+                {(project.technologies) ?
+                    <div className={styles.labels}>
+                        {project.technologies.map((tech) => {
+                            return (
+                                    <Label key={tech._id} className="tech">{tech.techName}</Label>
+                            );
+                        })}
+                    </div> : null
+                }
+                {/*<div className={styles.labels} >
                     <Label>JavaScript</Label><Label className={styles['label-language']} >2015</Label>
                     <Label>Bootstrap</Label><Label className={styles['label-framework']} >3.8.4</Label>
                     <Label>ReactJS</Label><Label className={styles['label-library']} >4.12.7</Label>
                     <Label>Redux</Label><Label className={styles['label-library']} >5.1.8</Label>
                     <Label>MongoDB</Label><Label className={styles['label-database']} >11.6.2</Label>
-                </div>
+                </div>*/}
                 <div className={styles.description} >
                     {project.description[0].descrText}
                 </div>

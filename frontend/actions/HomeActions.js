@@ -1,6 +1,21 @@
 import * as types from '../constants/HomeActionTypes';
 import featureService from '../services/featureService';
 
+export function filterProjectList(search) {
+    return {
+        type: types.FILTER_PROJECTS_DETAILS,
+        search
+    };
+}
+
+export function filterTech(filterTech, check) {
+    return {
+        type: types.FILTER_PROJECTS_BY_TECH_DETAILS,
+        filterTech,
+        check
+    };
+}
+
 export function getAllProjects() {
     return dispatch => {
         dispatch({

@@ -10,7 +10,7 @@ class FeatureService {
     }
 
     getAllProjects() {
-        return fetch(`${API}projects`);
+        return fetch(`${API}mainpage`);
     }
 
 }
