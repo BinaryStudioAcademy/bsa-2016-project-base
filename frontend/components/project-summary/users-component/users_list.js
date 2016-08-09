@@ -6,6 +6,7 @@ console.log(fetchUsers);
 import CheckBox from './checkbox';
 import styles from './users.sass';
 import { Row, Col, ListGroup, ListGroupItem, FormControl, FormGroup, InputGroup, Modal, Label, Glyphicon, Button } from 'react-bootstrap';
+import { Router, Route, Link, browserHistory } from 'react-router'
 
 class UserList extends Component {
     constructor(props) {
@@ -48,16 +49,18 @@ class UserList extends Component {
         }
 
         let filteredUsers = this.props.users.filter(user => {
-            return search(user.userName + user.userSurname, this.state.search);
+            return search(user.userName + user.userSurname + user.position, this.state.search);
         });
 
         let users = filteredUsers.map((user) => {
             return (
                 <li key={user._id} className={styles.listItem}>
-                    <div className={styles.userImage}><img src=" http://placehold.it/45x45" /></div>
-                    <div className={styles.userName}>{user.userName + " " + user.userSurname}</div>
-                    <div className={styles.userPosition}>Front-End Developer</div>
-                    <CheckBox isOwner = {user.isOwner}/>
+                    <Link to={`/api/users/${user._id}`} className={styles.link}>
+                        <div className={styles.userImage}><img src=" http://placehold.it/45x45" /></div>
+                        <div className={styles.userName}>{user.userName + " " + user.userSurname}</div>
+                        <div className={styles.userPosition}>{user.position}</div>
+                        <CheckBox isOwner = {user.isOwner}/>
+                    </Link>
                 </li>
             );
         });
