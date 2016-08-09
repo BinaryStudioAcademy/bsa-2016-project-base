@@ -63,7 +63,7 @@ class UserList extends Component {
         
         return (
             <div className={styles.wrapper}>
-                <h1>Users</h1>
+                <h1>users</h1>
                 <div className={styles.inputContainer}>
                     <input
                         type="text"

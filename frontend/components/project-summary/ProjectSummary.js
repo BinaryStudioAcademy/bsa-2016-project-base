@@ -7,9 +7,8 @@ import DetailsFeatures from './features/DetailsFeatures';
 class ProjectSummary extends Component {
 
  	render() {
-		let a = 2;
 	    return (
-            	<div>
+            	<div className={styles.c}>
 	    	    	<div className={styles.alert}>Here you can read project summary</div>
                 	<Users />
             	</div>

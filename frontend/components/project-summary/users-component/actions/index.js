@@ -1,7 +1,7 @@
 
 import fetch from 'isomorphic-fetch';
 import thunk from 'redux-thunk';
-require('es6-promise').polyfill();
+// require('es6-promise').polyfill();
 const ROOT_URL = 'http://localhost:3000/api/projects';
 export const FETCH_USERS = 'RECEIVE_USERS';
 
