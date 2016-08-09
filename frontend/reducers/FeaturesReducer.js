@@ -1,10 +1,12 @@
 const initialState = {
-    features: []
+    features: [],
+    filter: '',
+    listCheckedFeatures: []
 };
 
 export default function FeaturesReducer(state = initialState, action) {
     switch (action.type) {
-        case 'FILTER_FEATURES':
+       /* case 'FILTER_FEATURES':
             return Object.assign({}, state, {
                 filter: action['filter']
             });
@@ -17,6 +19,11 @@ export default function FeaturesReducer(state = initialState, action) {
             var newState = Object.assign({}, state);
             for(var i in newState.features) newState.features[i].checked = action['flag'];
             return newState;
+            */
+        case 'ADD_CHECKED_FEATURE' : {
+            const {listCheckedFeatures, newCheckedFeatures} = action;
+            return Object.assign({}, state, {listCheckedFeatures: listCheckedFeatures.concat(newCheckedFeatures)})
+        }
         case 'GET_ALL_FEATURES': {
             const {features} = action;
             return Object.assign({}, state, {features: features})
@@ -29,6 +36,8 @@ export default function FeaturesReducer(state = initialState, action) {
         case 'ADD_NEW_FEATURE':
             const {features, newFeature} = action;
             return Object.assign({}, state, {features: features.concat(newFeature)});
+        case 'REMOVE_SELECTED_FEATURES':
+            return Object.assign({}, state, {listCheckedFeatures: []});
         default:
             return state;
     }

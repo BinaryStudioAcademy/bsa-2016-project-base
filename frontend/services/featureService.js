@@ -18,6 +18,16 @@ class FeatureService {
     getAllFeatures() {
         return fetch('http://localhost:3000/api/features/')
     }
+
+    removeFeature(idFeature) {
+        return fetch("http://localhost:3000/api/features/" + idFeature, {
+            method: 'DELETE',
+            headers: ({
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            })
+        })
+    }
 }
 
 const featureService = new FeatureService();

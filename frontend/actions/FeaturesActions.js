@@ -7,12 +7,6 @@ export function filterFeaturesDetails(search) {
     };
 }
 
-export function getAllSections(){
-    return {
-        type: 'GET_ALL_SECTIONS'
-    }
-}
-
 export function changeFeature(key){
     return {
         type: 'CHANGE_CHECKED_FEATURE',
@@ -58,5 +52,23 @@ export function addNewFeature(features, newFeature) {
         type: 'ADD_NEW_FEATURE',
         features: features,
         newFeature: newFeature
+    }
+}
+
+export function addCheckedFeature(listCheckedFeatures, newCheckedFeatures) {
+    return {
+        type: 'ADD_CHECKED_FEATURE',
+        listCheckedFeatures: listCheckedFeatures,
+        newCheckedFeatures: newCheckedFeatures
+    }
+}
+
+export function removeFeature(listCheckedFeatures) {
+    listCheckedFeatures.forEach(function(el){
+        featureService.removeFeature(el);
+    });
+    return {
+        type: 'REMOVE_SELECTED_FEATURES',
+        listCheckedFeatures: listCheckedFeatures,
     }
 }

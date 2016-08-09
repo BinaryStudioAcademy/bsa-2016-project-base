@@ -35,7 +35,7 @@ class InsertFeature extends Component {
         const {features} = this.props.featuresData;
         this.props.addNewFeature(features, {
             featureName: this.state.featureName,
-            featureDescription: this.state.featureDescription,
+            featureDescription: {lists: [this.state.featureDescription]},
             section: this.state.section
         });
         e.preventDefault();
