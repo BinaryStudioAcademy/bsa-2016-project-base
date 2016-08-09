@@ -7,7 +7,8 @@ var userSchema = new Schema({
     userName: String,
     userSurname: String,
     avatar: Buffer,
-    rights: [String]
+    rights: [String],
+    position: String
 });
 
 module.exports = mongoose.model('User', userSchema); 
