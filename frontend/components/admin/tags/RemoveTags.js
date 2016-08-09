@@ -1,26 +1,24 @@
 import React, { PropTypes } from 'react';
-import { Col, Checkbox, Button, ButtonGroup } from 'react-bootstrap';
+import { Col, Checkbox, Button, InputGroup, FormControl } from 'react-bootstrap';
 import styles from './tags.sass';
 
 const RemoveTags = ({selectAll, deleteMany, isAllChecked}) => {
   	return (
 		<Col xs={12} sm={4} md={4}>
 			<div className={styles["tags-deletion"]}>
-    			<ButtonGroup>
-    				<Button className={styles["tags-btn"]}>
-					    <Checkbox
-							inline 
-							checked={isAllChecked} 
-							onChange={selectAll}>
-							Select all
-						</Checkbox>
-					</Button>
+    			<InputGroup className={styles["tags-input-group"]}>
+    				
+    					 <FormControl type="checkbox" checked={isAllChecked}  className={styles['select-all-checkbox']}
+                             id="markAll"  onChange={selectAll}
+                        />
+                        <label htmlFor="markAll" className={styles['select-all-label']}>Mark all</label>
+					
 					<Button 
 						className={styles["tags-btn-remove"]}
 						onClick={deleteMany}>
 						Remove
 					</Button>
-				</ButtonGroup>
+				</InputGroup>
 				
 			</div>
 		</Col>

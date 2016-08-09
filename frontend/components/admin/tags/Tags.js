@@ -87,12 +87,10 @@ class Tags extends Component {
 					     	/>
 				   		</Row>
 				    </Panel>
-				    <Panel className={styles["tags-panel-bottom"]}>
-					    <TagsList
-					    	tags={tags}
-					    	selectOne={this.selectOne}
-					    />
-				    </Panel>
+				    <TagsList
+				    	tags={tags}
+				    	selectOne={this.selectOne}
+				    />
 				 </Grid>
 	    	</div>
 	    )

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Grid, Row, Panel } from 'react-bootstrap';
 import styles from './admin.sass';
 
 class Admin extends Component {
@@ -11,6 +12,7 @@ class Admin extends Component {
  	render() {
 	    return (
 	    	<div className={styles.adminPage}>
+	    	<Grid fluid>
 		        <div className={styles.tabs}>
 		        	<div className={styles.tab}>
 		        		<Link to="/admin/rights">Users Rights</Link>
@@ -28,11 +30,11 @@ class Admin extends Component {
 		        		<Link to="/admin/techscope">Technologies Scope</Link>
 		        	</div>
 		        </div>
-		       
+		    </Grid>
 		        <div className={styles.tabHolder}>
-		       		<h3>{this.props.children || 
-		       			'In this section you can manage predefined stuff and users rights'}</h3>
+		       		{this.props.children || <h3>'In this section you can manage predefined stuff and users rights'</h3>}
 		        </div>
+
 	    	</div>
 	    )
 	}
