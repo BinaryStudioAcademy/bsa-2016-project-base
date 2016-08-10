@@ -45,7 +45,7 @@ class TechnologiesList extends Component {
         let {listOfTechnologies} = this.state;
         return (
             (listOfTechnologies.length > 0) ?
-                <div className={styles['list-container']}>
+                <div className={styles['list_container']}>
                     { listOfTechnologies.map((elem, index, array) => {
                         return <div className={styles['list-item']} key={elem._id}>
                         <input className={styles['select-all-checkbox']} onChange={this.addTechnologiesToDeleteData}

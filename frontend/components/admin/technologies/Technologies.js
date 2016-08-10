@@ -6,7 +6,6 @@ import  TechnologiesList from "./TechnologiesList";
 import  TechnologiesSearch from "./TechnologiesSearch";
 import  TechnologiesControl from "./TechnologiesControl";
 import  TechnologiesAddForm from "./TechnologiesAddForm";
-//import styles from './styles.sass';
 import { Grid, Row, Panel } from 'react-bootstrap';
 import styles from  './styles.sass';
 class Technologies extends Component {
