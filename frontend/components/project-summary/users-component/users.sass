@@ -11,76 +11,59 @@
  -webkit-box-shadow: $left $top $blur $color
  box-shadow: $left $top $blur $color
 
+$border-bottom-color: #DFE0E3
+
 .wrapper
 
-    +border-radius(5px)
-    font-family: 'Play'
-    background-color: #FBFBFB
-    background: #F3F4F8
-    width: 90%
-    // margin: auto
-    // padding: 1em
-    font-size: 16px
-    margin: 100px auto
+  +border-radius(5px)
+  font-family: 'Play'
+  background: #F3F4F8
+  width: 90%
+  font-size: 16px
+  margin: 100px auto
 
-    // border-radius: 10px
-    // padding: 1em
-    .link
-      display: block
-      text-decoration: none
-      color: inherit
-    h1
-        color: #C2C5CA
-        width: 100%
-        // margin: 0 auto 20px auto
-        text-align: left
-        margin: 0
-        font-size: 1em
-        font-family: 'Russo One'
-        font-family: 'Lato', sans-serif;
-        font-weight: 700
-        // margin-bottom: 15px
-        // box-shadow: 0 7px 2px -6px #777
-        // border-bottom: 1px solid #D1D1D1
-        padding: 1.5em
-        
-       
+  .link
+    display: block
+    text-decoration: none
+    color: inherit
 
-        background-color: #FBFBFD
-        border-bottom: 1px solid #DFE0E3
-        
-        // height: 50px
-        // border-radius: 10px 10px 0 0
-        border-left: 4px solid #ee7954
-        // box-shadow: -10px 0px 3px -7px #ee7954;
-    .inputContainer
-         padding: 2em 1.5em
-         border-bottom: 1px solid #DFE0E3
-         input
-              height: 45px
-              width: 100%
-              font-size: 1.1em
-              padding: 0.9em
-              margin: 0px
-              color: 
-         ::-webkit-input-placeholder
-            color: #DFE0E3
-         ::-moz-placeholder
-            color: #DFE0E3
+  h1
+    color: #C2C5CA
+    width: 100%
+    text-align: left
+    margin: 0
+    font-size: 1em
+    font-family: 'Russo One'
+    font-family: 'Lato', sans-serif;
+    font-weight: 700
+    padding: 1.5em
+    background-color: #FBFBFD
+    border-bottom: 1px solid $border-bottom-color
+    border-left: 4px solid #ee7954
+
+  .inputContainer
+    padding: 2em 1.5em
+    border-bottom: 1px solid $border-bottom-color
+    input
+      height: 45px
+      width: 100%
+      font-size: 1.1em
+      padding: 0.9em
+      margin: 0px 
+    ::-webkit-input-placeholder
+      color: $border-bottom-color
+    ::-moz-placeholder
+      color: $border-bottom-color
 
     .searchSign
       background: #FBC959
       border: 0
       color: #000
       width: 45px;
-    .wrapperSearch
-      // margin-left: 1.5em
-
-
-
-    .userList
-         list-style: none
-         padding: 0
+    
+  .userList
+    list-style: none
+    padding: 0
 
     .listItem:nth-child(odd)
       background-color: #F1F2F6
@@ -88,44 +71,39 @@
     .listItem:nth-child(even)
       background-color: #ECECF1
     .listItem
-         border-bottom: 1px solid #DFE0E3;
-         display:flex
-
-         +box-shadow(2px, 2px, 2px,	#bebebe)
-         // +border-radius(3px)
-         transition: all .3s ease-in-out
-         padding: 1.5em
-         &:hover
-            cursor: pointer
-            background:	#fff
-            transform: scale(1.03)
-            // +border-radius(5px)
-         .userName, .userPosition, .ownerCheckBox, .userImage
-              display: inline-flex
-              vertical-align: middle
-              width: 22%
-              background-size: 100%
-         .userPosition
-              margin-left: 2em
-         .ownerCheckBox
-              margin-left: 2em
-              padding-left: 1em
-
-              label
-              display: inline-flex
-              vertical-align: middle
-              .graphic
-                display: none
-                + .labelText:after
-                  content: "not owner"
-                  opacity: 0.5
-                  text-decoration:line-through
-
-                &:checked + .labelText:after
-                  content: "\2714"
-                  font-size: 150%
-                  padding-left: 20px
-                  font-family: 'Play'
-                &:checked + .labelText:before
-                  content: "owner"
-                  font-family: 'Play'
+      border-bottom: 1px solid $border-bottom-color
+      display:flex
+      +box-shadow(2px, 2px, 2px, #bebebe)
+      transition: all .3s ease-in-out
+      padding: 1.5em
+      &:hover
+        cursor: pointer
+        background:	#fff
+        transform: scale(1.03)
+      .userName, .userPosition, .ownerCheckBox, .userImage
+        display: inline-flex
+        vertical-align: middle
+        width: 22%
+        background-size: 100%
+      .userPosition
+        margin-left: 2em
+      .ownerCheckBox
+        margin-left: 2em
+        padding-left: 1em
+        label
+          display: inline-flex
+          vertical-align: middle
+          .graphic
+            display: none
+            + .labelText:after
+              content: "not owner"
+              opacity: 0.5
+              text-decoration:line-through
+            &:checked + .labelText:after
+              content: "\2714"
+              font-size: 150%
+              padding-left: 20px
+              font-family: 'Play'
+            &:checked + .labelText:before
+              content: "owner"
+              font-family: 'Play'
