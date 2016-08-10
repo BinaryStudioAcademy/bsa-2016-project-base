@@ -31,14 +31,11 @@ module.exports = function(app) {
 	}, apiResponse);
 
 	app.get('/api/projects/:id/features', function(req, res, next) {
-		projectRepository.getById(req.params.id, function(err, data = {}) {
-			featureRepository.getDetails(data['features'], function (err, data) {
-
-				res.data = data;
-				//res.json(data);
-				res.err = err;
-				next();
-			});
+		projectRepository.getByIdFeatures(req.params.id, function(err, data) {
+			res.data = data.features;
+			//res.json(data);
+			res.err = err;
+			next();
 		});
 	}, apiResponse);
 
