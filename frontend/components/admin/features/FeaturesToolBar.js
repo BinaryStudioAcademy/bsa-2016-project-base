@@ -42,16 +42,6 @@ class FeaturesToolBar extends Component {
     }
 
     render() {
-        /*for(var i in items) sectionItems.push(
-         <div key={items[i].id}>
-         <FormControl type="checkbox" className={styles['select-checkbox']}
-         id={items[i].id}  onChange={(e)=>{
-         alert(e.target.attr('id'));
-         }}/>
-         <label htmlFor={items[i].id} className={styles['select-label']}>{items[i].name}</label>
-         </div>
-         );
-         */
         var self = this;
         return (
             <Grid>
@@ -60,12 +50,13 @@ class FeaturesToolBar extends Component {
                         <div className={styles['search-input-container']}>
                             <FormControl className={styles['search-input']}
                                          type="text" placeholder="Search" onChange={this.handlerFilterFeatures}
+                                         id="FeatureSearchInput"
                             />
                             <span className={styles['search-input-border']}></span>
                         </div>
                     </Col>
                     <Col xs={12} sm={6} md={4} lg={4}>
-                        <MultiSelect title="Click for selecting sections ... ">
+                        <MultiSelect title="Click for selecting sections ... " id="multiSelectSections">
                             {
                                 //   <option key={index} value={el._id} >{el.name}</option>
                                 this.props.sectionsData.sections.map(function(el, index) {
@@ -87,8 +78,8 @@ class FeaturesToolBar extends Component {
                                      && this.props.featuresData.features.length != 0}
                         />
                         <label htmlFor="markAll" className={styles['select-all-label']}>Mark all</label>
-                        <Button className={styles['button-feature-remove']} onClick={this.removeChecked}>Remove marked</Button>
-                        <Button className={styles['button-feature-add']}>Add feature</Button>
+                        <Button className={styles['button-feature-remove']} onClick={this.removeChecked} id="buttonFeatureRemove">Remove marked</Button>
+                        <Button className={styles['button-feature-add']} id="buttonFeatureAdd">Add feature</Button>
                     </Col>
                 </Row>
             </Grid>

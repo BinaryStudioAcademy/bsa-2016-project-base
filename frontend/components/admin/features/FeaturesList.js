@@ -28,17 +28,13 @@ class FeaturesList extends  Component {
     }
 
     render() {
-        //let featuresItems = new Array();
         const {features,filter} = this.props.featuresData;
-            var self = this;
+        var self = this;
 
         return (
-            <Grid className={styles['list-container']}>
-            { features.map(function(feature, index) {
+            <Grid className={styles['list-container']} id="'list-container">
+            { features.map(function(feature) {
                 var check = false;
-                //var flag = true;
-                //if (filter && features[i].featureName.toLowerCase().indexOf(filter) == -1)  flag = false;
-                //if (flag) featuresItems.push(<FeaturesListItem key={features[i].id} data-id={features[i].id}/>);
                 if(self.checkSearchValue(filter, feature.featureName)
                     && self.checkSelectedSections(self.props.featuresData.listCheckedSections, feature.section)) {
                     if(self.props.featuresData.listCheckedFeatures.indexOf(feature._id) != -1 || self.props.featuresData.allChecked) {
@@ -48,16 +44,12 @@ class FeaturesList extends  Component {
                         check = false;
                     }
                     return (
-                        <FeaturesListItem check={check} feature={feature} key={feature._id} data-id={feature._id}/>
+                        <FeaturesListItem check={check} feature={feature} key={feature._id}/>
                     )
                 }
             })}
             </Grid>
     );
-        //for(var i in features ) {
-
-        //}
-        //return (<Grid className={styles['list-container']}>{featuresItems}</Grid>);
     }
 }
 function mapDispatchToProps(dispatch) {

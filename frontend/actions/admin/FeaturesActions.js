@@ -70,16 +70,16 @@ export function getAllFeaturesOfAllProjects() {
             .then(res=>res.json())
             .then(res=>{
                 dispatch ({
-                    type: 'GET_ALL_FEATURES',
+                    type: 'GET_ALL_FEATURES_OF_ALL_PROJECTS',
                     features: res,
                 })})
             .catch( err => {
                 dispatch({
-                    type: 'GET_ALL_FEATURES_LOADING_ERROR',
+                    type: 'GET_ALL_FEATURES_OF_ALL_PROJECTS_LOADING_ERROR',
                     error: err
                 });
                 dispatch ({
-                    type: 'GET_ALL_FEATURES',
+                    type: 'GET_ALL_FEATURES_OF_ALL_PROJECTS',
                     features: [],
                 })
             });

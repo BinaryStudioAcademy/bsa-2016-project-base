@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Button, FieldGroup, ButtonToolbar, FormGroup, ControlLabel, FormControl, Col, Form, Tabs, Tab } from 'react-bootstrap';
+import { Button, FormGroup, ControlLabel, FormControl, Col, Form } from 'react-bootstrap';
 import styles from './styles/Features.sass';
-import promise from 'es6-promise';
 import * as actionsSection from "../../../actions/admin/SectionsActions";
 import * as actionsFeature from "../../../actions/admin/FeaturesActions";
-promise.polyfill();
 
 class InsertFeature extends Component {
     constructor(props) {
@@ -22,17 +20,16 @@ class InsertFeature extends Component {
         this.saveSelectedSection = this.saveSelectedSection.bind(this);
     }
 
-
-
-
     componentWillMount () {
         this.props.getAllFeaturesOfAllProjects();
     }
 
     addFeature(e) {
         if(this.state.featureName.replace(/\s/g, '') == '' ||
-            this.state.featureDescription.replace(/\s/g, '') == '') {
+            this.state.featureDescription.replace(/\s/g, '') == '' ||
+            !this.state.section || this.state.section == "Select section"){
             console.log("Please, input all field");
+            e.preventDefault();
             return;
         }
         const {features} = this.props.featuresData;
@@ -78,8 +75,11 @@ class InsertFeature extends Component {
                         <ControlLabel >Select section:</ControlLabel>
                     </Col>
                     <Col sm={8} smPush={1}>
-                        <FormControl componentClass="select"  className={styles['text-select-input']} ref="ghjk" id="selectSection"
-                                     onChange={this.saveSelectedSection}   required>{
+                        <FormControl componentClass="select"  className={styles['text-select-input']} id="selectSection"
+                                     onChange={this.saveSelectedSection}   required>
+                            <option key={0} value="Select section" >Select section</option>
+                            {
+
                                 this.props.sectionsData.sections.map(function(el, index) {
                                     return (
                                         <option key={index} value={el._id} >{el.name}</option>

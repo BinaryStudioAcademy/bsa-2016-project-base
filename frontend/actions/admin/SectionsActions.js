@@ -26,17 +26,3 @@ export function addNewSection(sections, newSection) {
         newSection: newSection
     }
 }
-
-
-
-
-
-
-
-/*
- const action = {
- type: 'GET_ALL_SECTIONS',
- data: {f: "fs"}
- };
- return action;
- */

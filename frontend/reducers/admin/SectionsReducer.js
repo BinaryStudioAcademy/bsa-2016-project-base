@@ -5,7 +5,6 @@ const initialState = {
 export default function SectionsReducer(state = initialState, action) {
     switch (action.type) {
         case 'GET_ALL_SECTIONS': {
-            console.log("reducer");
             const {sections} = action;
             return Object.assign({}, state, {sections: sections})
         }
