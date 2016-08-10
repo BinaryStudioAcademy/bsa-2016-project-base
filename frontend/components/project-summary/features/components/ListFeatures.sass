@@ -1,6 +1,9 @@
 $success: green
 $inconpleted: #ffd176
 
+.over
+  overflow-x: hidden
+
 .listgroup
   border-radius: 0
   font-family: 'Play'
@@ -8,12 +11,14 @@ $inconpleted: #ffd176
   overflow: auto
 
 .completedF
+  @extend .over
   border-radius: 0
   border: 0
   border-left: 5px solid $success
   margin-top: 3px
 
 .incompletedF
+  @extend .over
   border-radius: 0
   border: 0
   border-left: 5px solid $inconpleted

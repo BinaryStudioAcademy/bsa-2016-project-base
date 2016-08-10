@@ -8,6 +8,17 @@ export default class ListProjects extends Component {
         projects: React.PropTypes.array.isRequired
     };
 
+    ranking(rating) {
+        let ranking = 0,
+            length = rating.length;
+
+        for(let i = 0; i < length; i++){
+            ranking += rating[i].value;
+        }
+
+        return (ranking/length).toFixed(1);
+    }
+
     render() {
         const { projects } = this.props;
 
@@ -18,7 +29,8 @@ export default class ListProjects extends Component {
                         <Project
                             key={project._id}
                             data-id={project._id}
-                            project={project}/>
+                            project={project}
+                            ranking={this.ranking(project.rating)}/>
                     )}
                 </ListGroup> : null
         )

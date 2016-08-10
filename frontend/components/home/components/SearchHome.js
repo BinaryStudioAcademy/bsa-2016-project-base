@@ -15,9 +15,12 @@ export default class SearchHome extends Component {
         const { filter, search, technologies, filterByTech } = this.props;
         
         return (
-            <Form>
+            <Form className={styles['search-form']} >
                 <FormGroup className={styles['form-group']} >
                     <InputGroup>
+                        <InputGroup.Button>
+                            <Button className={["material-icons", styles['button-search']]} >search</Button>
+                        </InputGroup.Button>
                         <FormControl
                             className={ styles['form-control'] }
                             type="text"
@@ -25,15 +28,12 @@ export default class SearchHome extends Component {
                             onInput ={ filter }
                             value={ search }
                         />
-                        <InputGroup.Button>
-                            <Button className={["material-icons", styles['button-search']]} >search</Button>
-                        </InputGroup.Button>
                     </InputGroup>
                 </FormGroup>
 
                 <div className={styles['display-flex']} >
                     <FormGroup className={styles['choose-sort']} >
-                        Sort by:
+                        <span className={styles['search-order-tooltip']} >Sort by:</span>
                         <input type="radio" name="sort" value="ranking" id="sort-by-ranking" defaultChecked />
                         <label htmlFor="sort-by-ranking">ranking</label>
                         <input type="radio" name="sort" value="update" id="sort-by-update" />

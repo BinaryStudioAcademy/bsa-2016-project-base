@@ -12,7 +12,6 @@ export default class Technologie extends Component {
                     type="checkbox"
                     value={name}
                     id={name}
-                    defaultChecked
                     onChange={filter} />
                 <label htmlFor={name}>{name}</label>
             </span>

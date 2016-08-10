@@ -1,10 +1,15 @@
+@import url(https://fonts.googleapis.com/icon?family=Rambla:400,700|Source+Sans+Pro:200,400)
 @import "../common"
 
 .list-group-item
-  border-width: 0 0 1px 1px
-  border-color: $light
+  //border-width: 0 0 1px 1px
+  //border-color: $light
+  border: 0
 
-.list-group-item:first-child
+  background: #efefef
+
+.list-group-item:first-child,
+.list-group-item:last-child
   border-radius: 0
 
 .list-group-item:not(:last-child)
@@ -12,24 +17,46 @@
 
 .list-group-item > h4
   margin-top: 0
+  margin-bottom: 7px
+
+  font-family: 'Rambla', sans-serif
+  font-weight: 700
+  font-size: 20px
 
 .list-group-item a
-  color: $medium
+  color: #555
 
 .description
-  padding-top: 10px
+  margin-top: 10px
 
-.labels > span:nth-of-type(odd)
-  border-top-right-radius: 0
-  border-bottom-right-radius: 0
+  padding: 10px
 
-  background: $medium
+  background: #fff
 
-.labels > span:nth-of-type(even)
-  margin-right: 5px
+  text-align: justify
+  font-family: 'Source Sans Pro', sans-serif
+  font-weight: 400
+  font-size: 16px
 
-  border-top-left-radius: 0
-  border-bottom-left-radius: 0
+.update-date
+  margin-top: 10px
+
+  font-family: 'Source Sans Pro', sans-serif
+  font-weight: 400
+
+.labels > span > span:nth-of-type(odd)
+  //border-top-right-radius: 0
+  //border-bottom-right-radius: 0
+  border-radius: 0
+
+  background: #555
+
+.labels > span > span:nth-of-type(even)
+  margin-right: 3px
+
+  //border-top-left-radius: 0
+  //border-bottom-left-radius: 0
+  border-radius: 0
 
 .label-ranking,
 .label-downloads

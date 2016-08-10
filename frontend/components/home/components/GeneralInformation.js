@@ -13,8 +13,8 @@ export default class GeneralInformation extends Component {
         return (
             <div className={styles.count}>
                 {(cnt)?
-                    <p>Found {(cnt > 1)?`${cnt} projects`: `${cnt} project`}</p>:
-                    <p>Projects not found</p>
+                    <span>Found {(cnt > 1)?`${cnt} projects`: `${cnt} project`}</span>:
+                    <span>Projects not found</span>
                 }
             </div>
         )
