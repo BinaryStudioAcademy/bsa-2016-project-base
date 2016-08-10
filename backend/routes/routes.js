@@ -1,6 +1,6 @@
 var userRoutes = require('./userRoutes');
 var sectionRoutes = require('./sectionRoutes');
-var techologieRoutes = require('./technologieRoutes');
+var techologieRoutes = require('./technologyRoutes');
 var projectRoutes = require('./projectRoutes');
 var conditionRoutes =require('./conditionRoutes');
 var featureRoutes = require('./featureRoutes');
