@@ -9,7 +9,7 @@ var Project = new Schema({
 
     owners: [ {type: Schema.Types.ObjectId, ref: 'User', required: true} ],
 
-    technologies: [{type: Schema.Types.ObjectId, ref: 'Technologie', required: true}],
+    technologies: [{type: Schema.Types.ObjectId, ref: 'Technologies', required: true}],
 
     projectName: {type: String, required: true},
 

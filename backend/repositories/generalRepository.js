@@ -9,6 +9,12 @@ Repository.prototype.add = function(data, callback){
 	newitem.save(callback);
 };
 
+Repository.prototype.getAllDataMainPage = function(callback){
+	var model = this.model;
+	var query = model.find().populate('technologies');
+	query.exec(callback);
+};
+
 Repository.prototype.update = function(id, body, callback){
 	var query = this.model.update({_id:id}, body);
 	query.exec(callback);
