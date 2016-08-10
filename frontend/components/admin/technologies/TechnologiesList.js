@@ -1,7 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {Grid, FormControl, Row, Col, Button} from 'react-bootstrap';
-import styles from  '../features/styles/Features.sass';
-import techstyles from  './styles.sass';
+import styles from  './styles.sass';
 class TechnologiesList extends Component {
     constructor(props) {
         super(props);
@@ -47,19 +45,19 @@ class TechnologiesList extends Component {
         let {listOfTechnologies} = this.state;
         return (
             (listOfTechnologies.length > 0) ?
-                <Grid className={styles['list-container'] + ' ' + techstyles['list-container']}>
+                <div className={styles['list-container']}>
                     { listOfTechnologies.map((elem, index, array) => {
-                        return <div className={techstyles['list-item']} key={elem._id}>
+                        return <div className={styles['list-item']} key={elem._id}>
                         <input className={styles['select-all-checkbox']} onChange={this.addTechnologiesToDeleteData}
                                checked={elem.checked} type="checkbox"
                                id={elem._id} value={elem.techName}/>
                         <label className={styles['select-all-label']} htmlFor={elem._id}>{elem.techName}</label>
 
-                            <div className={techstyles['hidden_block']}>
-                                <div className={techstyles['img_wrapper']}>
+                            <div className={styles['hidden_block']}>
+                                <div className={styles['img_wrapper']}>
                                 <img src={elem.techAvatar}/>
                                     </div>
-                                <div className={techstyles['description_wrapper']}>
+                                <div className={styles['description_wrapper']}>
                                 {elem.techDescription}
                                 </div>
                             </div>
@@ -67,7 +65,7 @@ class TechnologiesList extends Component {
 
                         </div>
                     })}
-                </Grid> : null
+                </div> : null
         )
     };
 }
