@@ -26,6 +26,11 @@ class Home extends Component {
 		this.props.filterTech(target.value, target.checked);
 	}
 
+	sortByParams(e) {
+		const target = e.target;
+		this.props.getAllProjectsSorted(target.value);
+	}
+
  	render() {
 		const { search } = this.props.data;
 		const { filteredProjects, technologies } = this.props.filtered;
@@ -36,10 +41,11 @@ class Home extends Component {
 					<SearchHome
 						filter = {::this.filterProject}
 						filterByTech = {::this.filterByTech}
+						orderBy = {::this.sortByParams}
 						search = {search}
 						technologies = {technologies} />
 					<GeneralInformation
-						projects={ filteredProjects } />
+						cnt={ filteredProjects.length } />
 					<ListProjects
 						projects={ filteredProjects } />
 				</Col>
@@ -49,6 +55,14 @@ class Home extends Component {
 	    	</Row>
 	    )
 	}
+}
+
+function getOnlySelectedTechProject (products, filterTech) {
+	if (!filterTech.length) return products;
+
+	return products.filter(product =>
+		product.technologies.filter(tech => !!~filterTech.indexOf(tech.techName)).length
+	);
 }
 
 function getFilteredProjects (allProducts, search) {
@@ -89,11 +103,12 @@ function getFilteredTechnologies (filteredProjects) {
 const HomeConnected = connect(
 
 	state => {
-		const allProducts = state.HomeReducer.projects,
-			search = state.HomeReducer.search;
-		const filteredProjects = getFilteredProjects(allProducts, search),
+		let allProducts = state.HomeReducer.projects,
+			{search, filterTech} = state.HomeReducer;
+		let filteredProjects = getFilteredProjects(allProducts, search),
 			technologies = getFilteredTechnologies(filteredProjects);
-		console.log('Filtered:', filteredProjects);
+		filteredProjects =  getOnlySelectedTechProject(filteredProjects, filterTech);
+
 		return {data: state.HomeReducer, filtered: {filteredProjects: filteredProjects, technologies: technologies}};
 	},
 	dispatch => bindActionCreators(actions, dispatch)

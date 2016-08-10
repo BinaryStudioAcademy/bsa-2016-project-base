@@ -1,5 +1,5 @@
 import * as types from '../constants/HomeActionTypes';
-import featureService from '../services/featureService';
+import homeService from '../services/homeService';
 
 export function filterProjectList(search) {
     return {
@@ -22,7 +22,30 @@ export function getAllProjects() {
             type: types.PROJECTS_GET_ALL_START_LOADING
         });
 
-        return featureService.getAllProjects()
+        return homeService.getAllProjects()
+            .then( res => res.json())
+            .then( data => {
+                console.log('Get:', data);
+                dispatch({
+                    type: types.PROJECTS_GET_ALL_SUCCESS,
+                    data: data
+                });
+            })
+            .catch( err => {
+                dispatch({
+                    type: types.PROJECTS_GET_ALL_ERROR,
+                    error: err
+                });
+            });
+    }
+}
+
+export function getAllProjectsSorted(orderBy) {
+    return dispatch => {
+        dispatch({
+            type: types.PROJECTS_GET_ALL_START_LOADING
+        });
+        return homeService.getAllFeaturesSorted(orderBy)
             .then( res => res.json())
             .then( data => {
                 console.log('Get:', data);

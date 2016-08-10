@@ -13,7 +13,7 @@ export default function HomeReducer(state = initialState, action) {
             const { filterTech, check } = action;
             let filter = [];
 
-            if (!check){
+            if (check){
                 filter = [...state.filterTech, filterTech];
             } else {
                 filter = state.filterTech.filter(v => !~v.indexOf(filterTech));
