@@ -11,38 +11,38 @@ class Screenshots extends React.Component {
 
 const PHOTO_SET = [
   {
-    src: 'http://lorempixel.com/250/150/nature/1/',
+    src: 'https://pp.vk.me/c626531/v626531333/1e765/W_r9UPDJrFY.jpg',   /*thumbnail*/
     width: 600,
-    height: 600,
+    height: 300,
     aspectRatio: 1.5,
     lightboxImage:{
-    src: 'http://lorempixel.com/1000/600/nature/1/',
+    src: '',
     srcset: [
-      'http://lorempixel.com/250/150/nature/1/'
+      'https://pp.vk.me/c626531/v626531333/1e765/W_r9UPDJrFY.jpg'
     ]
     }
   },
   {
-    src: 'http://lorempixel.com/250/150/nature/2/',
+    src: 'https://pp.vk.me/c626531/v626531333/1e76d/QkTuvShoWig.jpg',
     width: 600,
     height: 600,
-    aspectRatio: 1,
+    aspectRatio: 1.5,
     lightboxImage:{
-    src: 'http://lorempixel.com/1000/600/nature/2/',
+    src: '',
     srcset: [
-      'http://lorempixel.com/1000/600/nature/2/'
+      'https://pp.vk.me/c626531/v626531333/1e76d/QkTuvShoWig.jpg'
     ]
     }
   },
    {
-    src: 'http://lorempixel.com/250/150/nature/3/',
+    src: 'https://pp.vk.me/c626531/v626531333/1e77d/3_d1w3oYhv0.jpg',
     width: 600,
     height: 600,
-    aspectRatio: 1,
+    aspectRatio: 1.5,
     lightboxImage:{
-    src: 'http://lorempixel.com/1000/600/nature/3/',
+    src: '',
     srcset: [
-      'http://lorempixel.com/1000/600/nature/3/'
+      'https://pp.vk.me/c626531/v626531333/1e77d/3_d1w3oYhv0.jpg'
     ]
     }
   }
