@@ -1,3 +1,4 @@
+const User = require('./userSchema');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = mongoose.Types.ObjectId;
@@ -61,4 +62,8 @@ var Project = new Schema({
     features: [{type: Schema.Types.ObjectId, ref: 'Feature'}]
 });
 
+// let ProjectScehma = mongoose.model('Project', Project);
+// ProjectScehma.populate('owners');
+
 module.exports = mongoose.model('Project', Project);
+// module.exports = ProjectScehma;
