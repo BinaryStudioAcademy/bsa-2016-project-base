@@ -5,7 +5,14 @@ var Repository = function(){
 Repository.prototype.add = function(data, callback){
 	var model = this.model;
 	var newitem = new model(data);
+	console.log('Repository.prototype.add: ', data);
 	newitem.save(callback);
+};
+
+Repository.prototype.getAllDataMainPage = function(callback){
+	var model = this.model;
+	var query = model.find().populate('technologies');
+	query.exec(callback);
 };
 
 Repository.prototype.update = function(id, body, callback){
@@ -19,6 +26,14 @@ Repository.prototype.delete = function(id, callback){
 	query.exec(callback);
 };
 
+Repository.prototype.deleteMany = function(array, callback){
+	var model = this.model;
+	array.forEach(id => {
+		var query = model.remove({_id:id});
+		query.exec(callback);
+	});
+};
+
 Repository.prototype.getAll = function(callback){
 	var model = this.model;
 	var query = model.find();
@@ -28,6 +43,12 @@ Repository.prototype.getAll = function(callback){
 Repository.prototype.getById = function(id, callback){
 	var model = this.model;
 	var query = model.findOne({_id:id});
+	query.exec(callback);
+};
+
+Repository.prototype.getDetails = function(arrOfId, callback){
+	var model = this.model;
+	var query = model.find({_id: {$in: arrOfId}});
 	query.exec(callback);
 };
 

@@ -2,37 +2,36 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as actions from "../../actions/AdminActions";
+import { Nav, NavItem } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import styles from './admin.sass';
 
-class AdminPage extends Component {
+class Admin extends Component {
 	constructor(props) {
 	    super(props);
 	}
  	render() {
 	    return (
 	    	<div className={styles.adminPage}>
-		        <div className={styles.tabs}>
-		        	<div className={styles.tab}>
-		        		<Link to="/admin/rights">Users Rights</Link>
-		        	</div>
-		        	<div className={styles.tab}>
-		        		<Link to="/admin/features">Features</Link>
-		        	</div>
-		        	<div className={styles.tab}>
-		        		<Link to="/admin/tags">Tags</Link>
-		        	</div>
-		        	<div className={styles.tab}>
-		        		<Link to="/admin/tech">Technologies</Link>
-		        	</div>
-		        	<div className={styles.tab}>
-		        		<Link to="/admin/techscope">Technologies Scope</Link>
-		        	</div>
-		        </div>
-		       
-		        <div className={styles.tabHolder}>
-		       		<div>{this.props.children ||
-		       			'In this section you can manage predefined stuff and users rights'}</div>
+		         <Nav bsStyle="pills" justified className={styles["tab-bar"]}>
+				 	<LinkContainer to="/admin/rights" className={styles["tab-item"]}>
+				    	<NavItem eventKey={1}>Rights</NavItem>
+				  	</LinkContainer>
+				 	<LinkContainer to="/admin/features" className={styles["tab-item"]}>
+				    	<NavItem eventKey={2}>Features</NavItem>
+				  	</LinkContainer>
+			    	<LinkContainer to="/admin/tags" className={styles["tab-item"]}>
+			      		<NavItem eventKey={3}>Tags</NavItem>  
+			    	</LinkContainer>  
+			    	<LinkContainer to="/admin/tech" className={styles["tab-item"]}>
+			      		<NavItem eventKey={4}>Techs</NavItem>  
+			    	</LinkContainer>
+			    	<LinkContainer to="/admin/techscope" className={styles["tab-item"]}>
+			      		<NavItem eventKey={5}>Tech Scope</NavItem>  
+			    	</LinkContainer>      
+				</Nav>
+		        <div className={styles["tab-holder"]}>
+		       		{this.props.children || <h3>'In this section you can manage predefined stuff and users rights'</h3>}
 		        </div>
 	    	</div>
 	    )
@@ -40,14 +39,4 @@ class AdminPage extends Component {
 };
 
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(actions, dispatch);
-};
-
-function mapStateToProps(state) {
-    return {
-        store: state
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AdminPage);
+export default Admin;

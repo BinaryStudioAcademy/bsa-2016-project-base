@@ -7,8 +7,8 @@ import  TechnologiesSearch from "./TechnologiesSearch";
 import  TechnologiesControl from "./TechnologiesControl";
 import  TechnologiesAddForm from "./TechnologiesAddForm";
 //import styles from './styles.sass';
-import {Grid, FormControl, Row, Col, Button} from 'react-bootstrap';
-import styles from  '../features/styles/Features.sass';
+import { Grid, Row, Panel } from 'react-bootstrap';
+import styles from  './styles.sass';
 class Technologies extends Component {
     constructor() {
         super();
@@ -106,15 +106,17 @@ class Technologies extends Component {
             list = listOfTechnologies;
         }
         return (
-            <Grid>
-                <Row className={styles['features-tool-bar']}>
+            <div className={styles["technologies-tab"]}>
+                <Panel className={styles['technologies-tool-bar']}>
+                    <Row className={styles["technologies-tools"]}>
                     <TechnologiesSearch technologiesSearch={this.technologiesSearch}/>
                     <TechnologiesControl formState={formState} formAddControlState={this.formAddControlState}
                                          deleteChecked={this.deleteChecked} setAllChecked={this.setAllChecked}/>
-                </Row>
+                        </Row>
+                </Panel>
                 <TechnologiesList listOfTechnologies={list} controlCheckeditems={this.controlCheckeditems}/>
                 <TechnologiesAddForm formState={formState} saveTechnologie={this.saveTechnologie}/>
-            </Grid>
+            </div>
         )
     }
 }

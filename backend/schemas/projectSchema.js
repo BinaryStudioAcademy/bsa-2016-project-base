@@ -1,3 +1,4 @@
+const User = require('./userSchema');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = mongoose.Types.ObjectId;
@@ -8,7 +9,7 @@ var Project = new Schema({
 
     owners: [ {type: Schema.Types.ObjectId, ref: 'User', required: true} ],
 
-    technologies: [{type: Schema.Types.ObjectId, ref: 'Technologie', required: true}],
+    technologies: [{type: Schema.Types.ObjectId, ref: 'Technologies', required: true}],
 
     projectName: {type: String, required: true},
 
@@ -61,4 +62,8 @@ var Project = new Schema({
     features: [{type: Schema.Types.ObjectId, ref: 'Feature'}]
 });
 
+// let ProjectScehma = mongoose.model('Project', Project);
+// ProjectScehma.populate('owners');
+
 module.exports = mongoose.model('Project', Project);
+// module.exports = ProjectScehma;

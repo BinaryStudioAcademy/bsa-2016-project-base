@@ -81,7 +81,7 @@ class TechnologiesAddForm extends Component {
     render() {
 
         return (
-            <div className={styles['feature-tabs'] + ' '+this.state.formState}>
+            <div className={styles['technologies-tab'] + ' '+this.state.formState}>
             <Form horizontal className={styles['form']} onSubmit={this.submitForm}>
                 <FormGroup>
                     <Col sm={2} smPush={1}>

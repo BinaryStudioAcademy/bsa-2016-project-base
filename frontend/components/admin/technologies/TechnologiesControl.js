@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {Grid, FormControl, Row, Col, Button} from 'react-bootstrap';
-import styles from  '../features/styles/Features.sass';
+import styles from  './styles.sass';
 class TechnologiesTab extends Component {
     constructor(props) {
         super(props);
@@ -39,20 +39,23 @@ class TechnologiesTab extends Component {
 
     render() {
         return (
-            <Col xs={12} sm={12} md={5} lg={5}>
-
-
-                <FormControl className={styles['select-all-checkbox']} onChange={this.setAllChecked} checked={this.state.checked} id="delete_all"
-                             type="checkbox"/>
-                <label htmlFor="delete_all"
-                       className={styles['select-all-label']}>{(this.state.checked === true) ? 'Uncheck all' : 'Check all'}</label>
-
-
-                <Button onClick={this.sendDeleteRequest} className={styles['button-feature-remove']}>Delete all checked</Button>
-                <Button  onClick={this.showAddForm} className={styles['button-feature-add']}>{(this.state.formState === 'hidden') ? 'Add' : 'Hide Form'}</Button>
-
-
+            <Col xs={12} sm={12} md={8}>
+                <Col xs={12} sm={12} md={8}>
+                    <FormControl className={styles['select-all-checkbox']} onChange={this.setAllChecked}
+                                 checked={this.state.checked} id="delete_all"
+                                 type="checkbox"/>
+                    <label htmlFor="delete_all"
+                           className={styles['select-all-label']}>{(this.state.checked === true) ? 'Uncheck all' : 'Check all'}</label>
+                    <Button onClick={this.sendDeleteRequest} className={styles['button-feature-remove']}>Delete all
+                        checked</Button>
+                </Col>
+                <Col xs={12} sm={12} md={4}>
+                    <Button onClick={this.showAddForm}
+                            className={styles['button-feature-add']}>{(this.state.formState === 'hidden') ? 'Add' : 'Hide Form'}</Button>
+                </Col>
             </Col>
+
+
 
         )
     }

@@ -1,16 +1,108 @@
-@import "../common/styles/common.sass"
+@import "../common/styles/common"
+//@import url(//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css)
+
+
 
 h1
-	color: #fff
+	//color: #fff
 
 .adminPage
-	margin: 0 auto
-	text-align: center
+	//margin: 0 auto
+	//text-align: center
+	display: inline-block
+	margin: 0
 
-.tabHolder 
-	color: dodgerblue
-	text-align: center
+.tabs 
+	//color: dodgerblue
+	//text-align: center
+	//margin-bottom: 10px
+	//display: flex
+	//justify-content: space-between
+	//align-items: center
+	//align-content: center
+
+.tab-item
+	//flex: 1
+	//text-align: center
+	//background-color: #ce6d9f 
+	//padding: 5px
+	
 
 .tab 
 	display: inline-block
 	padding: 10px
+	background: dodgerblue
+	width: auto
+
+
+.tabs-grid
+
+
+
+.tab-holder
+	display: block
+
+.tab-bar
+	border-bottom: 1px solid #D8D0D0
+
+	margin-top: 20px
+	width: 100%
+	
+
+.tab-bar:first-child
+ 	//margin-left: 2px !important
+
+.tab-item
+	margin-left: 0px !important
+	//padding: 20px 0px !important
+
+
+//.tab-bar > li:nth-child(n)
+//	border-right: 2px solid #ededed 
+
+//.tab-bar > li:last-child
+//	border-right: none
+
+
+
+
+.tab-bar>li
+	//margin-left: -1px !important
+
+.tab-bar>li>a 
+	border-radius: 0 !important
+	color: #fff !important
+	background-color: #ce6d9f 
+	background-color: #337ab7
+
+
+.tab-bar>li>a:hover
+    text-decoration: none
+    background-color: #337ab7 
+
+.tab-bar>.active>a.focus
+	background-color: #efefef !important
+
+.tab-bar>li.active>a,
+.tab-bar>li.active>a:focus,
+.tab-bar>li.active>a:hover
+	color: #656565 !important
+	background-color: #efefef !important
+
+
+
+@media (max-width: 767px)
+	.tab-bar
+		margin-top: 0px
+		//color: red !important
+		//background-color: red !important
+	.tab-bar
+		&:nth-child(2)
+ 			//margin-left: -2px !important
+
+//@media(max-width:767px){}
+//@media(min-width:768px){}
+//@media(min-width:992px){}
+//@media(min-width:1200px){}
+
+

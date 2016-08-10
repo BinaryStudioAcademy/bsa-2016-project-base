@@ -49,7 +49,7 @@ class TechnologiesList extends Component {
             (listOfTechnologies.length > 0) ?
                 <Grid className={styles['list-container'] + ' ' + techstyles['list-container']}>
                     { listOfTechnologies.map((elem, index, array) => {
-                        return <span className={techstyles['list-item']} key={elem._id}>
+                        return <div className={techstyles['list-item']} key={elem._id}>
                         <input className={styles['select-all-checkbox']} onChange={this.addTechnologiesToDeleteData}
                                checked={elem.checked} type="checkbox"
                                id={elem._id} value={elem.techName}/>
@@ -65,7 +65,7 @@ class TechnologiesList extends Component {
                             </div>
 
 
-                        </span>
+                        </div>
                     })}
                 </Grid> : null
         )
