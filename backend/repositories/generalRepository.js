@@ -26,6 +26,14 @@ Repository.prototype.delete = function(id, callback){
 	query.exec(callback);
 };
 
+Repository.prototype.deleteMany = function(array, callback){
+	var model = this.model;
+	array.forEach(id => {
+		var query = model.remove({_id:id});
+		query.exec(callback);
+	});
+};
+
 Repository.prototype.getAll = function(callback){
 	var model = this.model;
 	var query = model.find();
@@ -45,6 +53,12 @@ Repository.prototype.getByIdWithStakeholders = function(id, callback){
 //				.populate('condition')
 				.populate('users')
 				.populate('owners');
+	query.exec(callback);
+};
+
+Repository.prototype.getDetails = function(arrOfId, callback){
+	var model = this.model;
+	var query = model.find({_id: {$in: arrOfId}});
 	query.exec(callback);
 };
 
