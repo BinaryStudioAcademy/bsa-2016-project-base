@@ -9,9 +9,22 @@ import {ScatterBrush} from 'react-d3-brush'; // do not work
 import PieChartComp from "./PieChart"
 import BarChartComp from "./BarChart"
 import LineChartComp from "./LineChart"
+
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Grid, Row, Panel } from 'react-bootstrap';
+import * as actions from '../../actions/ChartActions';
 class Stats extends Component {
     constructor(props) {
         super(props);
+        var self = this;
+        var f = (arr,i)=>{
+            if (!arr[i])i = 0;
+            self.props.changeChartType(arr[i])
+            self.props.loadData()
+            setTimeout(f.bind(null, arr, i+1), 5000);
+        }
+        setTimeout(f.bind(null, ["Circle","Bar","Linear"], 0), 2000);
     }
 
     getData() {
@@ -32,11 +45,13 @@ class Stats extends Component {
                 "value": 612463}
         ];
     }
+    componentDidMount(){
 
+
+    }
     render() {
 
-        let data = this.getData();
-
+        let data = this.props.store.ChartReducer.data;
         return (
             <div className={styles.statsPage}>
                 <div className={styles.alert}> Display some project stats</div>
@@ -55,7 +70,18 @@ class Stats extends Component {
     }
 }
 
-export default Stats;
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(actions, dispatch);
+}
+
+function mapStateToProps(state) {
+    return {
+        store: state
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Stats);
 
 
 /*
