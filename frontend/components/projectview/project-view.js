@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { bindActionCreators, combineReducers} from 'redux';
 import { connect } from 'react-redux';
 import * as actions from "./project-view-actions.js";
-import SimpleSlider from './carousel.js'
 import Screenshots from './gallery/gallery.js'
 
 import styles from './project-view.sass';

@@ -8,7 +8,6 @@ import thunk from "redux-thunk";
 import App from './App.js';
 import {Admin, Rights, Features, Tags, Tech, TechScope} from '../components/admin/';
 import ProjectsList from '../components/projects/ProjectsList';
-import SimpleSlider from '../components/projectview/carousel';
 import ProjectView from '../components/projectview/project-view';
 import ProjectSummary from '../components/project-summary/ProjectSummary';
 import UpsertProject from '../components/project-upsert/UpsertProject';
@@ -36,7 +35,6 @@ render(
           <Route path="/" component={App}>
             <IndexRoute component={Home}/>
             <Route path="projects" component={ProjectsList}/>
-            <Route path="carousel" component={SimpleSlider} />
             <Route path="projectview" component={ProjectView} />
             <Route path="project-summary/:id" component={ProjectSummary}/>
             <Route path="project-upsert" component={UpsertProject}/>  
