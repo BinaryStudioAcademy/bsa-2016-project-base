@@ -1,6 +1,5 @@
 var connection = require('../db/dbconnect');
 var Repository = require('./generalRepository');
-var Technology = require('../schemas/technologySchema');
 var Feature = require('../schemas/featureSchema');
 
 function FeatureRepository() {
