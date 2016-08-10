@@ -10,16 +10,18 @@ class ProjectSummary extends Component {
 
  	render() {
 	    return (
-			<Row>
-				<Col xs={12} sm={6} >
-					<DetailsFeatures projectId={projectId} />
-				</Col>
-				{/*<Col xs={12} sm={6} >*/}
-					{/*<DetailsFeatures projectId={projectId} />*/}
-				{/*</Col>*/}
+	    	<div>
+				<Row>
+					<Col xs={12} sm={6} >
+						<DetailsFeatures projectId={projectId} />
+					</Col>
+					{/*<Col xs={12} sm={6} >*/}
+						{/*<DetailsFeatures projectId={projectId} />*/}
+					{/*</Col>*/}
 
-			</Row>
-			<Users />
+				</Row>
+				<Users />
+			</div>
 	    )
 	}
 }
