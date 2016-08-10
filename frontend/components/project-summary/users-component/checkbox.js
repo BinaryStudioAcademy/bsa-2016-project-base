@@ -8,7 +8,7 @@ export default class CheckBox extends Component {
 
               <label >
               <input type="checkbox" defaultChecked className={styles.graphic} />
-              <span className={styles.labelText}></span>
+              <div className={styles.labelText}></div>
               </label>
 
               </div>
@@ -19,7 +19,7 @@ export default class CheckBox extends Component {
               <div className={styles.ownerCheckBox}>
               <label >
               <input type="checkbox"  className={styles.graphic} />
-              <span className={styles.labelText}></span>
+              <div className={styles.labelText}></div>
               </label>
               </div>
             );
