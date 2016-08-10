@@ -44,9 +44,9 @@ class FeaturesToolBar extends Component {
     render() {
         var self = this;
         return (
-            <Grid>
+            <div>
                 <Row className={styles['features-tool-bar']}>
-                    <Col xs={12} sm={6} md={4} lg={4}>
+                    <Col sm={4} >
                         <div className={styles['search-input-container']}>
                             <FormControl className={styles['search-input']}
                                          type="text" placeholder="Search" onChange={this.handlerFilterFeatures}
@@ -55,8 +55,8 @@ class FeaturesToolBar extends Component {
                             <span className={styles['search-input-border']}></span>
                         </div>
                     </Col>
-                    <Col xs={12} sm={6} md={4} lg={4}>
-                        <MultiSelect title="Click for selecting sections ... " id="multiSelectSections">
+                    <Col xs={12} sm={2}>
+                        <MultiSelect title="Sections" id="multiSelectSections">
                             {
                                 //   <option key={index} value={el._id} >{el.name}</option>
                                 this.props.sectionsData.sections.map(function(el, index) {
@@ -71,18 +71,19 @@ class FeaturesToolBar extends Component {
                             }
                         </MultiSelect>
                     </Col>
-                    <Col xs={12} sm={12} md={4} lg={4}>
+                    <Col xs={12} sm={2}>
                         <FormControl type="checkbox" className={styles['select-all-checkbox']}
                                      id="markAll"  onChange={this.markAllFeature}
                                      checked={this.props.featuresData.features.length == this.props.featuresData.listCheckedFeatures.length
                                      && this.props.featuresData.features.length != 0}
                         />
                         <label htmlFor="markAll" className={styles['select-all-label']}>Mark all</label>
+                    </Col>
                         <Button className={styles['button-feature-remove']} onClick={this.removeChecked} id="buttonFeatureRemove">Remove marked</Button>
                         <Button className={styles['button-feature-add']} id="buttonFeatureAdd">Add feature</Button>
-                    </Col>
+
                 </Row>
-            </Grid>
+            </div>
         )
     }
 }

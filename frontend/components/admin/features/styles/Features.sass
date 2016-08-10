@@ -126,9 +126,9 @@ $mainTextColor: #656565
   border-bottom: 2px solid #939EA5
 
 .multi-select
-  width: 100%
+
   height: 33px
-  padding-top: 5px
+
   background: white
   color: $mainTextColor
 
@@ -255,7 +255,6 @@ $mainTextColor: #656565
 
 /* List of features */
 .list-container
-  width: 100%
   overflow-y: auto
   color: $mainTextColor
   max-height: 300px
@@ -268,7 +267,7 @@ $mainTextColor: #656565
 
 .list-item-navigation
   margin: 20px 10px 15px 10px
-  text-align: center
+  text-align: left
 
 .list-item-navigation > div:last-child
   margin-top: 10px
@@ -309,8 +308,20 @@ $mainTextColor: #656565
 ::-webkit-scrollbar-thumb
   background: rgba(0, 0, 0, 0.5)
 
+.row
+  margin-right: 0
+  margin-left: 0
+
+.blockSelectCheckBox
+  position: relative
+
+.blockSelectCheckBox label
+  position: absolute
+  top: 50%
+
+
 // !!!!
-@media all and (min-width: 992px)
+@media all and (min-width: 768px)
   .features-tool-bar
     display: flex
     align-items: center
