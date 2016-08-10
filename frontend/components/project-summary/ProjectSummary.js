@@ -17,6 +17,7 @@ class ProjectSummary extends Component {
 				{/*<Col xs={12} sm={6} >*/}
 					{/*<DetailsFeatures projectId={projectId} />*/}
 				{/*</Col>*/}
+				<Users />
 			</Row>
 	    )
 	}
