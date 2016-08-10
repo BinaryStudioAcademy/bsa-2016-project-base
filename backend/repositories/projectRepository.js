@@ -7,4 +7,9 @@ function ProjectRepository() {
 }
 
 ProjectRepository.prototype = new Repository();
+Repository.prototype.getAll = function(callback){
+    var model = this.model;
+    var query = model.find().populate(['owners', 'users']);
+    query.exec(callback);
+};
 module.exports = new ProjectRepository();
