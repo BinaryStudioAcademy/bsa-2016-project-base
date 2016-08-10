@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var Technologies = new Schema({
 	techName: String,
-	techAvatar: Buffer,
+	techAvatar: String,
 	techDescription: String,
 	techVersion: String
 });

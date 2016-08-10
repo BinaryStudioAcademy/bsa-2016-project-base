@@ -3,9 +3,9 @@
  */
 import fetch from 'isomorphic-fetch'
 
-export function getTechnologies() {
+export function getTechnologies(id) {
     return dispatch=> {
-        fetch(`/api/technology/`)
+        fetch(`/api/technology/`+id)
             .then(response => (response.status !== 404)?response.json(): {  })
             .then(json => dispatch(initTechnology(json)))
     }
@@ -20,7 +20,7 @@ export function initTechnology(listOfTechno) {
 export function saveTechology(params) {
     return dispatch=> {
         fetch("/api/technology/", {
-            method: 'POST',
+            method: 'PUT',
             body: JSON.stringify(params),
             headers: ({
                 'Content-Type': 'application/json',
@@ -31,36 +31,10 @@ export function saveTechology(params) {
 
     }
 }
-export function searchTechnology(params) {
-    const action = {
-        type: 'SEARCH_TECHNOLOGY',
-        listOfTechnologies: params.listOfTechnologies,
-        listOfTechnologiesFiltered: params.listOfTechnologiesFiltered
-    };
-    return action;
-};
 export function selectAllTechs(technologies) {
     return {
         type: "SELECT_ALL_TECHS",
         listOfTechnologies: technologies
-    }
-}
-export function setAddFormState(state) {
-    return {
-        type: "SET_ADD_FORM_STATE",
-        formState: state
-    }
-}
-export function removeSelectedTechs(technologies) {
-    return dispatch=> {
-        technologies.forEach(tech=> {
-             if(tech.checked === 'checked') {
-                 fetch(`/api/technology/${tech._id}`, {
-                     method: 'DELETE'
-                 })
-             }
-        });
-       dispatch(getTechnologies())
     }
 }
 
