@@ -17,7 +17,6 @@ class DetailsFeatures extends Component {
 
     componentDidMount() {
         const {getAllFeatures, projectId} = this.props;
-        console.log(this.props);
         getAllFeatures(projectId);
     }
 

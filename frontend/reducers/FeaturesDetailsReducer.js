@@ -49,8 +49,8 @@ export default function FeaturesDetailsReducer(state = initialState, action) {
         case types.FEATURES_DETAILS_GET_ALL_SUCCESS: {
             return Object.assign({}, state, {
                 isLoading: false,
-                features: action.data
-            });    
+                features: action.data.features
+            });
         }
         case types.FEATURES_DETAILS_GET_ALL_ERROR: {
             console.log(action.error);
