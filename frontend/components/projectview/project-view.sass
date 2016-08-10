@@ -1,53 +1,98 @@
 @import "../common/styles/common";
+@import url(//fonts.googleapis.com/css?family=Russo+One)
+@import url(//fonts.googleapis.com/css?family=Play)
 
-.alert
-    width: 700px
-    padding: 20px
-    border: 2px solid #fff
-    margin: auto
+$tomatoColor: #F97E76
+$lightCadetBlueColor: #C1CFD9
+$toolBarColor: #EFEFEF
+$listItemColor: #FAFDFE
+$mainTextColor: #3C3C3C
+$activeBlue: #337ab7
 
-    background: blue
-    text-align: center
-    color: #fff
+body    
+    font-family: 'Play'   
+    color: $mainTextColor
 
+span
+    background-color: transparent !important    
 
-.tab 
-	display: inline-block
-	padding: 10px
+.component
+    margin: 20px auto    
+    font-size: 14pt
 
-.alert
-    width: 700px
-    padding: 20px
-    border: 2px solid #fff
-    margin: auto
-
-    background: $primary-color
-    text-align: center
-    color: #fff
 
 .info
     width: 1000px
     height: auto
     padding: 20px
-    border: 2px solid #fff
     margin: auto
-    background: $primary-color
     text-align: center
-    color: #9af66a
-    font-size: 2em
+    color: $mainTextColor
+
+.header
+    font-family: 'Russo One'
+    font-size: 1.5em    
+    color: $activeBlue
 
 .brief
+    text-align: center
+    color: $mainTextColor
+
+
+.row
     text-align: left
-    color: #3f4a51
+
+.cell
+    padding: 0 10px
+    line-height: 40px
+
+.tab 
+    display: inline-block
+    padding: 10px
+
+    &:hover
+      background-color: $activeBlue !important  
+
 
 .tabpanels
     text-align: left
-    font-size: 0.75em
+    font-size: 1em
+    background-color: $lightCadetBlueColor
+
+
+.questionPanel
+    background-color: $listItemColor    
+    font-size: .8em
+
+.questionHeader
+    font-family: 'Russo One'   
+    color: $activeBlue     
 
 .questions
     text-align: left
-    color: #3f4a51
-    font-size: 0.6em
+    color: $mainTextColor
+    cursor: pointer   
 
-.tdbut
+.questionItem
+    //font-size: 10pt
+
+.userName
+    color: $tomatoColor
+
+
+.btn
+    background-color: $lightCadetBlueColor
+    font-size: 0.9em
+    &:hover
+        background-color: $activeBlue
+        color: #fff
+
+.tdbut    
     text-align: center
+
+.gallery
+    width: 100%
+    height: 300px
+    overflow: auto
+    margin 0 auto
+
