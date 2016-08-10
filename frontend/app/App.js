@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Navbar from '../components/navbar/Navbar'
-import {Grid} from 'react-bootstrap';
+import {Grid, Row, Col} from 'react-bootstrap';
 
 import styles from './app.sass';
 
@@ -11,8 +11,16 @@ class App extends Component {
     render() {
         return (
             <div>
-                <Navbar/>
-                <Grid>{this.props.children}</Grid>
+                <Grid >
+                    <Row>
+                        <Col xs={12} sm={2} md={2}>
+                            <Navbar/>
+                        </Col>
+                        <Col xs={12} sm={10} md={10}>
+                            {this.props.children}
+                        </Col>
+                    </Row>
+               </Grid>
             </div>
         )
     }
