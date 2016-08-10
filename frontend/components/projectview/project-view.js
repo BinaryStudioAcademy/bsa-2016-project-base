@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators, combineReducers} from 'redux';
 import { connect } from 'react-redux';
-import * as actions from "./project-view-actions.js";
+import * as actions from './project-view-actions.js';
 
 import styles from './project-view.sass';
 
@@ -9,24 +9,53 @@ import { Accordion, Button, Panel, Nav, NavItem, Tabs, Tab, Table, Grid, Row, Co
 
 
 class ProjectView extends Component {
+	
     constructor(props){
-        super(props);
+        super(props);       
     }
-
 
     componentWillMount() {
         console.log('ProjectView: componentWillMount');
+        this.props.getProject();
     }
     
     componentDidMount() {
         console.log('ProjectView: componentDidMount');
     }
 
+    shouldComponentUpdate(){
+    	return true;
+    }
+
+    formatDate(date) {
+	  let dd = date.getDate();
+	  if (dd < 10) dd = '0' + dd;
+	  let mm = date.getMonth() + 1;
+	  if (mm < 10) mm = '0' + mm;
+	  //let yy = date.getFullYear() % 100;
+	  let yy = date.getFullYear();
+	  if (yy < 10) yy = '0' + yy;
+	  return dd + '-' + mm + '-' + yy;
+	}
 
     render() {
-    	const { projectsRestPath, selectedProjectId } = this.props.rootState.ProjectViewReducer;
-    	console.log("Selected property 'projectsRestPath' from central storage: ", projectsRestPath);
-    	console.log("Selected property 'selectedProjectId' from central storage: ", selectedProjectId);
+    	//const { projectsRestPath, selectedProjectId } = this.props.rootState.ProjectViewReducer;
+    	let currentProject = (this.props.rootState.ProjectViewReducer.currentProject) ? 
+    		this.props.rootState.ProjectViewReducer.currentProject : 'none';
+
+    	let viewProjectName = (currentProject == 'none') ? 'Loading... please wait!' : currentProject.projectName;
+    	let viewStageName = (currentProject == 'none') ? 'Loading... please wait!' : currentProject.stage.stageName;
+		let viewStartedDate = (currentProject == 'none') ? 'Loading... please wait!' : this.formatDate(new Date(currentProject.timeBegin));
+		let viewEndDate = (currentProject == 'none') ? 'Loading... please wait!' : this.formatDate(new Date(currentProject.timeEnd));
+		let viewCondition = (currentProject == 'none') ? 'Loading... please wait!' : currentProject.condition.conditionName;
+		//let viewUsers = (currentProject !== 'none') ? currentProject.users.toString() : 'Users list: Loading... please wait!';
+		let viewUsers = (currentProject == 'none') ? 'Users list: Loading... please wait!' : 'Users list: ...under develop.';
+		//let viewOwners = (currentProject !== 'none') ? currentProject.owners.toString() : 'Owners list: Loading... please wait!';
+		let viewOwners = (currentProject == 'none') ? 'Owners list: Loading... please wait!' : 'Owners list: ...under develop.';
+    	// console.log("Selected property 'projectsRestPath' from central storage: ", projectsRestPath);
+    	// console.log("Selected property 'selectedProjectId' from central storage: ", selectedProjectId);
+    	// console.log("Selected property 'listProjects' from central storage: ", this.props.rootState.ProjectViewReducer.projectList);
+    	console.log('ProjectView -> render() -> currentProject.projectName: ', currentProject.projectName);
     	return (
             <div>
 		    	<div className={styles.info}>
@@ -35,27 +64,27 @@ class ProjectView extends Component {
 						    <tbody>
 						      <tr>
 						        <td><u>Project Name:</u></td>
-						        <td>First Binary web-project</td>
+						        <td>{viewProjectName}</td>
 						        <td className={styles.tdbut}><Button bsStyle="success"><Glyphicon glyph="edit"/></Button></td>
 						      </tr>
 						      <tr>
 						        <td><u>Stage:</u></td>
-						        <td>Completed</td>
+						        <td>{viewStageName}</td>
 						        <td className={styles.tdbut}><Button bsStyle="success"><Glyphicon glyph="edit"/></Button></td>
 						      </tr>
 						      <tr>
 						        <td><u>Started:</u></td>
-						        <td>01.08.2016</td>
+						        <td>{viewStartedDate}</td>
 						        <td className={styles.tdbut}><Button bsStyle="success"><Glyphicon glyph="edit"/></Button></td>
 						      </tr>
 						      <tr>
 						        <td><u>Completed:</u></td>
-						        <td>15.09.2016</td>
+						        <td>{viewEndDate}</td>
 						        <td className={styles.tdbut}><Button bsStyle="success"><Glyphicon glyph="edit"/></Button></td>
 						      </tr>
 						      <tr>
 						        <td><u>Condition:</u></td>
-						        <td>In use</td>
+						        <td>{viewCondition}</td>
 						        <td className={styles.tdbut}><Button bsStyle="success"><Glyphicon glyph="edit"/></Button></td>
 						      </tr>
 						      <tr>
@@ -67,7 +96,7 @@ class ProjectView extends Component {
     				</Panel>
     				
     				<Tabs defaultActiveKey={1} className={styles.tabpanels}>
-    					<Tab eventKey={1} title="Users/Owners"><Panel className={styles.tabpanels}>Users/Owners list</Panel></Tab>
+    					<Tab eventKey={1} title="Users/Owners"><Panel className={styles.tabpanels}>{viewUsers}<br/>{viewOwners}</Panel></Tab>
     					<Tab eventKey={2} title="Technologies"><Panel className={styles.tabpanels}>Technologies list</Panel></Tab>
         				<Tab eventKey={3} title="Tags"><Panel className={styles.tabpanels}>List of Tags</Panel></Tab>
         				<Tab eventKey={4} title="Screenshots">
