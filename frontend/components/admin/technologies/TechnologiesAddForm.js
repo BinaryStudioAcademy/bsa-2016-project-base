@@ -5,6 +5,7 @@ import React, {Component, PropTypes} from 'react';
 // import styles from './styles.sass';
 import { Button, FieldGroup, ButtonToolbar, FormGroup, ControlLabel, FormControl, Col, Form, Tabs, Tab } from 'react-bootstrap';
 import styles from '../features/styles/Features.sass';
+import techstyles from  './styles.sass';
 class TechnologiesAddForm extends Component {
     constructor(props) {
         super(props);
@@ -103,7 +104,7 @@ class TechnologiesAddForm extends Component {
                 </FormGroup>
                 <input type="hidden" id="file_path"  name="techAvatar"  value=''/>
                 <Col sm={6} smPush={3}>
-                    <div id="error" className="error hidden">Wrong file formant</div>
+                    <div id="error" className={techstyles['error'] + " hidden"}>Wrong file formant</div>
                 <input type="file" id="file" name="afile" onChange={this.upload}/>
                 <Button block type="submit" >Send</Button>
 
