@@ -1,0 +1,92 @@
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons|Rajdhani:300,400)
+@import "../common.sass"
+
+.search-form
+  padding-top: 30px
+
+  background: #efefef
+
+.form-group
+  margin-right: 15px
+  margin-left: 15px
+
+.form-control
+  border: 0
+  border-bottom: 1px solid #d6d3d3
+  border-radius: 0
+  color: #555
+  font-size: 21px
+  font-family: 'Rajdhani', sans-serif
+  font-weight: 400
+  box-shadow: none
+
+.form-control::-webkit-input-placeholder
+  font-family: 'Rajdhani', sans-serif
+  font-weight: 200
+  color: #aaa
+
+.form-control:-moz-placeholder
+  font-family: 'Rajdhani', sans-serif
+  color: #aaa
+
+.form-control::-moz-placeholder
+  font-family: 'Rajdhani', sans-serif
+  color: #aaa
+
+.form-control:-ms-input-placeholder
+  font-family: 'Rajdhani', sans-serif
+  color: #aaa
+
+.form-control:active,
+.form-control:focus
+  //padding-bottom: 5px
+  //border-bottom: 2px solid #000
+  border-color: #555
+  box-shadow: none
+
+.button-search,
+.button-search:active,
+.button-search:hover,
+.button-search:focus
+  padding: 6px
+  border: 0
+  border-bottom: 1px solid #fbc959
+  border-radius: 0
+  background: #fbc959
+  color: #555
+  font-size: 21px
+  font-weight: 900
+
+//.form-control:active + .button-search,
+//.form-control:focus + .button-search
+  background: #000
+
+.display-flex
+  display: flex
+  flex-flow: row wrap
+  justify-content: space-around
+
+.search-order-tooltip
+  margin-right: 3px
+
+  //font-family: 'Titillium Web', sans-serif
+  font-weight: 700
+
+
+input[type="radio"],
+input[type="checkbox"]
+  display: none
+
+label
+  margin: 0 3px
+  //border: 1px solid #c1cfd9
+  padding: 5px
+  background: #fff
+  color: #555
+  cursor: pointer
+
+input[type="radio"]:checked + label,
+input[type="checkbox"]:checked + label
+  //border: 1px solid #c1cfd9
+  background: #c1cfd9
+  color: #fff

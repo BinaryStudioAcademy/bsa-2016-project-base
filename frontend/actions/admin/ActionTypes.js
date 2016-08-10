@@ -1,0 +1,14 @@
+export const GET_TAGS = 'GET_TAGS';
+export const GET_TAGS_ERROR = 'GET_TAGS_ERROR';
+export const GET_TAGS_SUCCESS = 'GET_TAGS_SUCCESS';
+export const POST_TAG = 'POST_TAG';
+export const POST_TAG_ERROR = 'POST_TAG_ERROR';
+export const POST_TAG_SUCCESS = 'POST_TAG_SUCCESS';
+export const DELETE_TAGS = 'DELETE_TAGS';
+export const DELETE_TAGS_ERROR = 'DELETE_TAGS_ERROR';
+export const DELETE_TAGS_SUCCESS = 'DELETE_TAGS_SUCCESS';
+export const SELECT_ALL = 'SELECT_ALL';
+export const SELECT_ONE = 'SELECT_ONE';
+export const FILTER_TAGS = 'FILTER_TAGS';
+export const SET_TAG_NAME = 'SET_TAG_NAME';
+export const SET_FILTER_TERM = 'SET_FILTER_TERM';
