@@ -4,7 +4,7 @@ import styles from './tags.sass';
 
 const AddTag = ({setTagName, addTag}) => {
   	return (
-		<Col xs={12} sm={4} md={4}>
+		<Col xs={12} sm={12} md={4}>
             <div className={styles["tags-creation"]}>
             <FormGroup>
                 <InputGroup className={styles["tags-input-group"]}>
