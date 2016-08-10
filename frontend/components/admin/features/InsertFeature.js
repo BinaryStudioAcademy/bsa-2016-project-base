@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Button, FieldGroup, ButtonToolbar, FormGroup, ControlLabel, FormControl, Col, Form, Tabs, Tab } from 'react-bootstrap';
+import { Button, FormGroup, ControlLabel, FormControl, Col, Form } from 'react-bootstrap';
 import styles from './styles/Features.sass';
-import promise from 'es6-promise';
-import * as actionsSection from "../../../actions/SectionsActions";
-import * as actionsFeature from "../../../actions/FeaturesActions";
-promise.polyfill();
+import * as actionsSection from "../../../actions/admin/SectionsActions";
+import * as actionsFeature from "../../../actions/admin/FeaturesActions";
 
 class InsertFeature extends Component {
     constructor(props) {
@@ -14,7 +12,7 @@ class InsertFeature extends Component {
         this.state = {
             featureName: '',
             featureDescription: '',
-            section: null
+            section: ""
         };
         this.addFeature = this.addFeature.bind(this);
         this.saveNameFeature = this.saveNameFeature.bind(this);
@@ -23,19 +21,21 @@ class InsertFeature extends Component {
     }
 
     componentWillMount () {
-        this.props.getAllFeatures();
+        this.props.getAllFeaturesOfAllProjects();
     }
 
     addFeature(e) {
         if(this.state.featureName.replace(/\s/g, '') == '' ||
-            this.state.featureDescription.replace(/\s/g, '') == '') {
+            this.state.featureDescription.replace(/\s/g, '') == '' ||
+            !this.state.section || this.state.section == "Select section"){
             console.log("Please, input all field");
+            e.preventDefault();
             return;
         }
         const {features} = this.props.featuresData;
         this.props.addNewFeature(features, {
             featureName: this.state.featureName,
-            featureDescription: this.state.featureDescription,
+            featureDescription: {lists: [this.state.featureDescription]},
             section: this.state.section
         });
         e.preventDefault();
@@ -51,7 +51,6 @@ class InsertFeature extends Component {
 
     saveSelectedSection(e) {
         this.state.section = e.target.value;
-        alert(this.state.section);
     }
 
     render() {
@@ -77,7 +76,10 @@ class InsertFeature extends Component {
                     </Col>
                     <Col sm={8} smPush={1}>
                         <FormControl componentClass="select"  className={styles['text-select-input']} id="selectSection"
-                                     onChange={this.saveSelectedSection}>{
+                                     onChange={this.saveSelectedSection}   required>
+                            <option key={0} value="Select section" >Select section</option>
+                            {
+
                                 this.props.sectionsData.sections.map(function(el, index) {
                                     return (
                                         <option key={index} value={el._id} >{el.name}</option>
