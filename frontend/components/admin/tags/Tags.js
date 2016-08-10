@@ -72,7 +72,7 @@ class Tags extends Component {
  		let { tags, isAllChecked } = this.props.store.AdminTagReducer;
 	    return (
 	    	<div className={styles["tags-tab"]}>
-	    		<Grid fluid>
+	    		
 	    			<Panel className={styles["tags-panel-top"]}>
 				    	<Row className={styles["tags-tools"]}>
 				    		<TagsSearch searchTag={this.searchTag}/>
@@ -91,7 +91,7 @@ class Tags extends Component {
 				    	tags={tags}
 				    	selectOne={this.selectOne}
 				    />
-				 </Grid>
+				 
 	    	</div>
 	    )
 	}
