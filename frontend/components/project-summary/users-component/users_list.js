@@ -26,6 +26,7 @@ class UserList extends Component {
     }
 
     render() {
+	console.log(this.props.users);
         // console.log(this.props.users[0]);
         let search = (text, search) => {
             search = search.replace(/\ /g, '').toLowerCase();
@@ -53,6 +54,7 @@ class UserList extends Component {
         });
 
         let users = filteredUsers.map((user) => {
+			console.log("user._id "+user._id)
             return (
                 <li key={user._id} className={styles.listItem}>
                     <Link to={`/api/users/${user._id}`} className={styles.link}>
