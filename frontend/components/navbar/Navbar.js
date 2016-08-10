@@ -26,7 +26,7 @@ class Navbar extends Component {
                     <i className={"fa fa-2x " + (this.state.isMenuActive ? "fa-times" : "fa-bars" )} aria-hidden="true"></i>
                 </div>
                 <Nav bsStyle="pills" stacked  navbar className={styles["menu-bar"] +" "+(this.state.isMenuActive ? "menu-bar-visible" : "" )}>
-                    <LinkContainer to="/home" className={styles["menu-item"]}>
+                    <LinkContainer to="/" className={styles["menu-item"]}>
                         <NavItem eventKey={1}>Home</NavItem>
                     </LinkContainer>
                     <LinkContainer to="/review" className={styles["menu-item"]}>
