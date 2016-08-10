@@ -4,3 +4,4 @@ export {default as AdminTagReducer} from './admin/AdminTagReducer';
 export {default as HomeReducer} from './HomeReducer';
 export {default as SectionsReducer} from './admin/SectionsReducer';
 export {default as FeaturesReducer} from './admin/FeaturesReducer';
+export {default as UsersReducer} from './UsersReducer';

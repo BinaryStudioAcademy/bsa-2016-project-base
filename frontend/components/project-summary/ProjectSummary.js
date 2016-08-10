@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Users from './users-component/';
+import UsersList from './users-component/users_list';
+console.log(UsersList);
 import styles from './project-summary.sass';
 import { Grid, Row, Col } from 'react-bootstrap';
 import DetailsFeatures from './features/DetailsFeatures';
@@ -20,7 +21,7 @@ class ProjectSummary extends Component {
 					{/*</Col>*/}
 
 				</Row>
-				<Users />
+				<UsersList />
 			</div>
 	    )
 	}

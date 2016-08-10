@@ -1,7 +1,7 @@
 var apiResponse = require('express-api-response');
 var projectRepository = require('../repositories/projectRepository');
 var featureRepository = require('../repositories/featureRepository');
-
+var userRepository = require('../repositories/userRepository')
 
 module.exports = function(app) {
 	app.get('/api/projects/', function (req,res,next) {
@@ -42,6 +42,33 @@ module.exports = function(app) {
 			});
 		});
 	}, apiResponse);
+
+
+	app.get('/api/projects/:id/users', function(req, res, next) {
+		projectRepository.getById(req.params.id, function(err, data = {}) {
+			userRepository.getDetails(data['users'], function (err, data) {
+
+				res.data = data;
+				//res.json(data);
+				res.err = err;
+				next();
+			});
+		});
+	}, apiResponse);
+
+	app.get('/api/projects/:id/owners', function(req, res, next) {
+		projectRepository.getById(req.params.id, function(err, data = {}) {
+			userRepository.getDetails(data['users'], function (err, data) {
+
+				res.data = data;
+				//res.json(data);
+				res.err = err;
+				next();
+			});
+		});
+	}, apiResponse);
+
+
 
 	app.post('/api/projects/', function(req, res, next) {
 		projectRepository.add(req.body, function(err, data) {
