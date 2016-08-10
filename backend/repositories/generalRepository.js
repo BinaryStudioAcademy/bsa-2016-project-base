@@ -26,14 +26,6 @@ Repository.prototype.delete = function(id, callback){
 	query.exec(callback);
 };
 
-Repository.prototype.deleteMany = function(array, callback){
-	var model = this.model;
-	array.forEach(id => {
-		var query = model.remove({_id:id});
-		query.exec(callback);
-	});
-};
-
 Repository.prototype.getAll = function(callback){
 	var model = this.model;
 	var query = model.find();
@@ -46,9 +38,13 @@ Repository.prototype.getById = function(id, callback){
 	query.exec(callback);
 };
 
-Repository.prototype.getDetails = function(arrOfId, callback){
+Repository.prototype.getByIdWithStakeholders = function(id, callback){
 	var model = this.model;
-	var query = model.find({_id: {$in: arrOfId}});
+	var query = model.findOne({_id:id})
+//				.populate('stage')
+//				.populate('condition')
+				.populate('users')
+				.populate('owners');
 	query.exec(callback);
 };
 
