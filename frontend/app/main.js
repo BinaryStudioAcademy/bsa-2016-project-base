@@ -2,13 +2,11 @@ import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { IndexRoute, Route, Router, browserHistory } from 'react-router';
-
 import { createStore, combineReducers, applyMiddleware, compose  } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from "redux-thunk";
-
 import App from './App.js';
-import {Admin, Rights, Features, Tags, Tech, TechScope} from '../components/admin/index';
+import {Admin, Rights, Features, Tags, Tech, TechScope} from '../components/admin/';
 import ProjectsList from '../components/projects/ProjectsList';
 import ProjectView from '../components/projectview/project-view';
 import ProjectSummary from '../components/project-summary/ProjectSummary';
@@ -17,13 +15,10 @@ import Home from '../components/home/Home';
 import Stats from '../components/stats/Stats';
 import Review from '../components/review/Review';
 import NotFound from '../components/not-found/NotFound';
-
-//import {AdminReducer} from '../reducers/index';
-
 import * as reducers from '../reducers/';
 console.log('All reducers: ', reducers);
 
-const rootReducer = combineReducers({	//Add other reducers later
+const rootReducer = combineReducers({
     ...reducers
 });
 
