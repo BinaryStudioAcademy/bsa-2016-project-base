@@ -7,7 +7,7 @@ class RightsTab extends Component {
  	render() {
 	    return (
 	    	<div className="rightsTab">
-	    		<h2>Edit Users Rigths</h2>
+	    		<h3>Edit Users Rigths</h3>
 	    	</div>
 	    )
 	}

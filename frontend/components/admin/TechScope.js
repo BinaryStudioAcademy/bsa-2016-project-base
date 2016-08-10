@@ -7,7 +7,7 @@ class TechScopeTab extends Component {
  	render() {
 	    return (
 	    	<div className="techScopeTab">
-	    		<h2>Add/Edit Technology Scopes</h2>
+	    		<h3>Add/Edit Technology Scopes</h3>
 	    	</div>
 	    )
 	}
