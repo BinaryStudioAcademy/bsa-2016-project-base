@@ -52,7 +52,8 @@ class UserList extends Component {
             return search(user.userName + user.userSurname + user.position, this.state.search);
         });
 
-        let users = filteredUsers.map((user) => {
+        let users = filteredUsers.map((user, index) => {
+            console.log(user._id);
             return (
                 <li key={user._id} className={styles.listItem}>
                     <Link to={`/api/users/${user._id}`} className={styles.link}>
