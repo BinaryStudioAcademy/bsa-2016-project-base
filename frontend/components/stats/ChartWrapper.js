@@ -12,7 +12,9 @@ export default class ChartWrapper extends React.Component {
 
     render() {
         return <div className={styles.chart}>
+			<h2> {this.props.title} </h2>
             {this.props.children}
             </div>
     }
 }
+

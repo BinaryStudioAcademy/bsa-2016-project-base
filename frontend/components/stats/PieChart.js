@@ -17,18 +17,19 @@ export default class PieChart extends AbstractChart {
     render() {
         const data = this.prepareData(this.props.data)
         const chartSeries = this.generateChartSeries(data);
-        const title = "PieChartTitle"
-        return <ChartWrapper>
+        const title = this.props.data.title;
+        return <ChartWrapper title= {title}>
             <PieTooltip
                 title= {title}
                 data= {data}
-                width= {400}
-                height= {400}
+                width= {600}
+                height= {500}
                 chartSeries= {chartSeries}
                 value = {this.valueMap}
                 name = {this.nameMap}
-                innerRadius = {10}
+                innerRadius = {60}
             />
         </ChartWrapper>
     }
 }
+

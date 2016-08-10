@@ -17,19 +17,20 @@ export default class BarChart extends AbstractChart {
 
     render() {
         const data = this.prepareData(this.props.data);
+        const title = this.props.data.title;
+
         const chartSeries = [{
                 field: 'value',
-                name: 'chartSeriesTooltip Mapped Value Bar'
+                name: title
             }
         ];
         const xScale = 'ordinal';
         const yTicks = [10, "d"];
-        const title = "Bar Chart Title"
-        return <ChartWrapper>
+        return <ChartWrapper title= {title}>
             <BarTooltip
                 title= {title}
                 data= {data}
-                width= {700}
+                width= {900}
                 height= {400}
                 chartSeries = {chartSeries}
                 x= {this.nameMap}

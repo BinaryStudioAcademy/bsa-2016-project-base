@@ -16,7 +16,7 @@ export default class AbstractChart extends React.Component {
     valueMap(item) {
         return item.value;
     }
-    generateChartSeries(data, itemToName = (item)=>{return item.name+" mappedName"}){
+    generateChartSeries(data, itemToName = (item)=>{return item.name}){
         return data.map(item=>{
             return {
                 field: item.name,

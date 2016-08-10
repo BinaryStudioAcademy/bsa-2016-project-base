@@ -31,6 +31,7 @@ export function loadData(){
                         .map(tech=>tech.split("")
                             .reduce((s,char)=>s+char.charCodeAt(0),0)%13+5)
                     dispatch(addData({
+                        title:"Modern IT Technologies used on projects",
                         names,
                         values
                     }))
@@ -40,15 +41,17 @@ export function loadData(){
             tagService.getAllTags()
                 .then(res=>res.json())
                 .then(tags=>{
-                    const names = tags.slice(0,10).map(tag=>tag.tagName).concat(["Other"])
-                    const values = [110,94,78,65,45,32,21,18,14,10,200]
+                    const names = tags.slice(0,9).map(tag=>tag.tagName).concat(["Other"])
+                    const values = [110,94,78,65,45,32,21,18,14,150]
                     dispatch(addData({
+                        title:"Most popular Tags on projects",
                         names,
                         values
                     }))
                 });
         }else if (type == "Linear"){
             dispatch(addData({
+                title: "Active projects quantity by the time",
                 names: ['1st January', '1st February', '1st March', '1st April', '1st May', '1st June', '1st July'],
                 values: [23,25,14,16,21,16,27]
             }));

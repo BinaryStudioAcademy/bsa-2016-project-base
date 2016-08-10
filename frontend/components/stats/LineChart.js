@@ -16,15 +16,16 @@ export default class LineChart extends AbstractChart {
 
     render() {
         const data = this.prepareData(this.props.data)
+        const title = this.props.data.title
         const chartSeries = [{
             field: 'value',
-            name: 'chartSeriesTooltip Mapped Value Line'
+            name: title
         }
         ];
-        const title = "LineChartTitle"
+
         const xScale = 'ordinal';
         const yTicks = [10, "d"];
-        return <ChartWrapper>
+        return <ChartWrapper title= {title}>
             <LineTooltip
                 title= {title}
                 data= {data}

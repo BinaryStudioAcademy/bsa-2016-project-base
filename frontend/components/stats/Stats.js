@@ -16,7 +16,7 @@ import { Grid, Row, Panel } from 'react-bootstrap';
 import * as actions from '../../actions/ChartActions';
 class Stats extends Component {
     constructor(props) {
-        super(props);
+        super(props);/*
         var self = this;
         var f = (arr,i)=>{
             if (!arr[i])i = 0;
@@ -24,7 +24,7 @@ class Stats extends Component {
             self.props.loadData()
             setTimeout(f.bind(null, arr, i+1), 5000);
         }
-        setTimeout(f.bind(null, ["Circle","Bar","Linear"], 0), 2000);
+        setTimeout(f.bind(null, ["Circle","Bar","Linear"], 0), 2000);*/
     }
 
     getData() {
@@ -45,9 +45,9 @@ class Stats extends Component {
                 "value": 612463}
         ];
     }
-    componentDidMount(){
-
-
+	componentDidMount(){
+        this.props.changeChartType("Bar");
+        this.props.loadData();
     }
     render() {
 
