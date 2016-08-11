@@ -105,7 +105,7 @@ class ProjectView extends Component {
 	    						</Panel>
 							</Tab>
 	    					<Tab className={styles.tabs} eventKey={2} title="Technologies"><Panel className={styles.tabpanels}>Technologies list</Panel></Tab>
-	        				<Tab eventKey={3} title="Tags"><Panel className={styles.tabpanels}>List of Tags</Panel></Tab>
+	    					<Tab eventKey={3} title="Tags"><Panel className={styles.tabpanels}>List of Tags</Panel></Tab>
 	        				<Tab eventKey={4} title="Screenshots">
 	        					<Panel className={styles.tabpanels}>
 	        					<div className={styles.gallery}>
