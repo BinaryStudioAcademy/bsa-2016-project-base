@@ -16,6 +16,13 @@ export function filterTech(filterTech, check) {
     };
 }
 
+export function setActionPage(activePage) {
+    return {
+        type: types.PAGINATION_ACTIVE_PAGE,
+        activePage
+    }
+}
+
 export function getAllProjects() {
     return dispatch => {
         dispatch({

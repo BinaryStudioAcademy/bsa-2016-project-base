@@ -17,7 +17,7 @@ export default class Project extends Component {
         return (
             <ListGroupItem className={styles['list-group-item']}>
                 <h4>
-                    <Link to={`/project-summary/1`} >{project.projectName}</Link>
+                    <Link to={`/project-view/${project._id}`} >{project.projectName}</Link>
                 </h4>
                 <div className={styles.labels} >
                     <span><Label>ranking</Label><Label className={styles['label-ranking']} >{ranking}/5.0</Label></span>

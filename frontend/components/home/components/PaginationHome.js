@@ -4,7 +4,14 @@ import styles from './PaginationHome.sass';
 
 export default class PaginationHome extends Component {
 
+    static propTypes = {
+        activePage: React.PropTypes.number.isRequired,
+        pageSelect: React.PropTypes.func.isRequired
+    };
+
     render() {
+
+        const {activePage, pageSelect} = this.props;
 
         return (
             <Col xs={12} className={styles.navigation}>
@@ -15,10 +22,10 @@ export default class PaginationHome extends Component {
                     last
                     ellipsis
                     boundaryLinks
-                    items={20}
-                    maxButtons={5}
-                    activePage={1}
-                    onSelect={this.handleSelect}/>
+                    items={2} //number of pages
+                    maxButtons={3}
+                    activePage={activePage}
+                    onSelect={pageSelect} />
             </Col>
         )
     }

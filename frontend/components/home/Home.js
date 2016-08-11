@@ -31,13 +31,23 @@ class Home extends Component {
 		this.props.getAllProjectsSorted(target.value);
 	}
 
+	pageSelect(e) {
+		const {setActionPage} = this.props;
+		const { countProjects, perpage, activePage } = this.props.data.pagination;
+
+		let pageCount = Math.ceil(countProjects / perpage),
+			startPosition = (activePage -1) * perpage;
+
+		setActionPage(e);
+	}
+
  	render() {
-		const { search } = this.props.data;
+		const { search, pagination } = this.props.data;
 		const { filteredProjects, technologies } = this.props.filtered;
 
 	    return (
 	    	<Row>
-				<Col lg={8} lgOffset={2} className={styles.bk}>
+				<Col className={styles.bk}>
 					<SearchHome
 						filter = {::this.filterProject}
 						filterByTech = {::this.filterByTech}
@@ -48,10 +58,8 @@ class Home extends Component {
 						cnt={ filteredProjects.length } />
 					<ListProjects
 						projects={ filteredProjects } />
+					{/*<PaginationHome activePage={ pagination.activePage } pageSelect = {::this.pageSelect}/>*/}
 				</Col>
-				{/*<Row>*/}
-					{/*<PaginationHome />*/}
-				{/*</Row>*/}
 	    	</Row>
 	    )
 	}
