@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import * as actions from "../../../../actions/admin/TechnologiesDetailActions";
 import styles from  '../styles.sass';
 import {Button, FormGroup, ControlLabel, FormControl, Col, Form} from 'react-bootstrap';
-
+import {Link} from 'react-router'
 class TechDetailPage extends Component {
     constructor() {
         super();
@@ -59,7 +59,7 @@ class TechDetailPage extends Component {
         };
         form.reset();
         this.props.updateData(this.props.routeParams.id,data);
-
+        document.getElementById('return_to_list').click();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -149,7 +149,7 @@ class TechDetailPage extends Component {
                                 : ''
                             }
                             <Button block type="submit">Send</Button>
-
+                            <Link id="return_to_list" to="/admin/tech/"></Link>
                         </Col>
                     </Form>
                 </div>
