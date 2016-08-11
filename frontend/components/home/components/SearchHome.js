@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, InputGroup, FormControl, Button, Radio, Checkbox } from 'react-bootstrap';
+import { Form, FormGroup, InputGroup, FormControl, Button } from 'react-bootstrap';
 import Technologie from './Technologie';
 import styles from './SearchHome.sass';
 
@@ -17,7 +17,7 @@ export default class SearchHome extends Component {
         const { filter, search, technologies, filterByTech, orderBy } = this.props;
 
         return (
-            <Form className={styles['search-form']} >
+            <Form id='search-home' className={styles['search-form']} >
                 <FormGroup className={styles['form-group']} >
                     <InputGroup>
                         <InputGroup.Button>
