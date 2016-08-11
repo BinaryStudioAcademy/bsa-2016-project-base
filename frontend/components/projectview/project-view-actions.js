@@ -39,14 +39,15 @@ export function getListUsers() {
 
 
 
-export function getProject() {
+export function getProject(projId) {
     return (dispatch, getState) => {
     	const state = getState().ProjectViewReducer;
 		console.log('action "getProject" state: ', state);
 		
 		const aquireProject = {
 		    type: 'PW_GET_PROJECT',
-		    selectedProjectId: state.selectedProjectId,
+		    // selectedProjectId: state.selectedProjectId,
+            selectedProjectId: projId,
 		    selectedProject: undefined
 		};
 
