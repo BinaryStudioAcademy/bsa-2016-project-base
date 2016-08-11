@@ -9,7 +9,7 @@ function FeatureRepository() {
 
 FeatureRepository.prototype = new Repository();
 
-Repository.prototype.getAll = function(callback){
+Repository.prototype.getAllFeaturesWithSection = function(callback){
     var model = this.model;
     var query = model.find().populate('section');
     query.exec(callback);

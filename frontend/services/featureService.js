@@ -10,7 +10,7 @@ class FeatureService {
 }
 
     getAllFeaturesOfAllProjects() {
-        return fetch('http://localhost:3000/api/features/')
+        return fetch('http://localhost:3000/api/featureswithsections/')
     }
 
     addNewFeature(featureObj) {
