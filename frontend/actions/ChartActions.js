@@ -64,9 +64,6 @@ export function loadData(){
                         datasets:[{
                             label:"Most popular Tags on projects",
                             data
-                        }, {
-                            label:"Label 2",
-                            data:data.map(data=>(data*43)%13+50)
                         }]
                     }))
                 });

@@ -4,7 +4,7 @@ import {Button} from "react-bootstrap"
 import PieChartComp from "./PieChart"
 import BarChartComp from "./BarChart"
 import LineChartComp from "./LineChart"
-import BagelChartComp from "./DoughnutChart"
+import DoughnutChartComp from "./DoughnutChart"
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Grid, Row, Panel } from 'react-bootstrap';
@@ -73,8 +73,6 @@ class Stats extends Component {
                     data={data}/>
                 <PieChartComp
                     data={data}/>
-                <BagelChartComp
-                    data={data}/>
             </div>
         }
         switch (chartType){
@@ -85,15 +83,13 @@ class Stats extends Component {
             case "Circle": return <div>
                 <PieChartComp
                     data={data}/>
-                <BagelChartComp
-                    data={data}/>
             </div>
         }
     }
     render() {
         let {chartType} = this.props.store.ChartReducer;
         return (
-            <div className={styles.statsPage}>
+            <div id="Charts" className={styles.statsPage}>
                 <ChartStatistic onChange={this.changeChartType()}
                                 chartType={chartType}
                                 selectAllChanged={this.selectAllChanged.bind(this)}
@@ -120,20 +116,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Stats);
-
-
-/*
-
- <ScatterBrush
- title= {"======="}
- data= {generalChartData}
- width= {width}
- height= {height}
- margins= {margins}
- chartSeries= {chartSeriesBrush}
- x= {x}
- xScale= {xScale}
- brushHeight= {brushHeight}
- />
-
- */

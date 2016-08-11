@@ -22,7 +22,7 @@ class InputFilter extends Component {
             ))
         }
         return (
-            <div className={styles.container} id={styles.inputFieldChartStatistic}>
+            <div className={styles.container + " "+styles.inputFieldChartStatistic}>
                 {buttons}
             </div>)
     }
@@ -32,7 +32,7 @@ class InputFilter extends Component {
         return (
             <div>
                 {this.getButtons()}
-                <div>
+                <div className={styles.inputFieldChartStatistic}>
                     <label><input type="checkbox" checked={selectAll}
                                   onChange={selectAllChanged}
                                   className={styles.checkbox}
