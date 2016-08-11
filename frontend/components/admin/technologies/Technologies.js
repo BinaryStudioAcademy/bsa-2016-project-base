@@ -105,7 +105,7 @@ class Technologies extends Component {
             list = listOfTechnologies;
         }
         return (
-            <div className={styles["technologies-tab"]}>
+            <div id="technologies" className={styles["technologies-tab"]}>
                 <Panel className={styles['technologies-tool-bar']}>
                     <Row className={styles["technologies-tools"]}>
                     <TechnologiesSearch technologiesSearch={this.technologiesSearch}/>

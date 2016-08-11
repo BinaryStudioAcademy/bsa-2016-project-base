@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import styles from  './styles.sass';
+import {Link} from 'react-router'
 class TechnologiesList extends Component {
     constructor(props) {
         super(props);
@@ -48,18 +49,22 @@ class TechnologiesList extends Component {
                 <div className={styles['list_container']}>
                     { listOfTechnologies.map((elem, index, array) => {
                         return <div className={styles['list-item']} key={elem._id}>
-                        <input className={styles['select-all-checkbox']} onChange={this.addTechnologiesToDeleteData}
-                               checked={elem.checked} type="checkbox"
-                               id={elem._id} value={elem.techName}/>
-                        <label className={styles['select-all-label']} htmlFor={elem._id}>{elem.techName}</label>
-                        <a href={'/admin/tech/'+elem._id}>Edit</a>
+                            <input className={styles['select-all-checkbox']} onChange={this.addTechnologiesToDeleteData}
+                                   checked={elem.checked} type="checkbox"
+                                   id={elem._id} value={elem.techName}/>
+                            <label className={styles['select-all-label']} htmlFor={elem._id}>{elem.techName}</label>
+                            <Link to={'/admin/tech/' + elem._id}>Edit</Link>
                             <div className={styles['hidden_block']}>
-                                <div className={styles['img_wrapper']}>
-                                <img src={elem.techAvatar}/>
+                                {(elem.techAvatar.length > 0) ?
+                                    <div className={styles['img_wrapper']}>
+                                        <img src={elem.techAvatar}/>
                                     </div>
-                                <div className={styles['description_wrapper']}>
-                                {elem.techDescription}
-                                </div>
+                                    : '' }
+                                {(elem.techDescription.length > 0) ?
+                                    <div className={styles['description_wrapper']}>
+                                        {elem.techDescription}
+                                    </div>
+                                    : ''}
                             </div>
 
 

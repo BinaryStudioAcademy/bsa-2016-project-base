@@ -87,7 +87,7 @@ class TechnologiesAddForm extends Component {
                         <ControlLabel >Name of technology:</ControlLabel>
                     </Col>
                     <Col sm={8} smPush={1}>
-                        <FormControl type="text" name="techName"/>
+                        <FormControl type="text" name="techName" required/>
                     </Col>
                 </FormGroup>
                 <FormGroup>

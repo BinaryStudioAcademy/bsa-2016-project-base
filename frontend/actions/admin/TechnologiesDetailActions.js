@@ -31,10 +31,31 @@ export function saveTechology(params) {
 
     }
 }
-export function selectAllTechs(technologies) {
-    return {
-        type: "SELECT_ALL_TECHS",
-        listOfTechnologies: technologies
+export function deleteImage(path,id) {
+    return dispatch => {
+        fetch('/api/file/',{
+            method: 'DELETE',
+            body: JSON.stringify({file:path}),
+            headers: ({
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            })
+        });
+
+        dispatch(getTechnologies(id));
     }
 }
+export function updateData(id,data){
+    return dispatch=> {
+        fetch(`/api/technology/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify(data),
+            headers: ({
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            })
+        });
+        dispatch(getTechnologies(id));
 
+    }
+}

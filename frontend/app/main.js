@@ -18,7 +18,6 @@ import Review from '../components/review/Review';
 import NotFound from '../components/not-found/NotFound';
 import * as reducers from '../reducers/';
 
-
 const rootReducer = combineReducers({
     ...reducers
 });
@@ -29,7 +28,6 @@ const store = createStore(
   {},
   compose(applyMiddleware(thunk),window.devToolsExtension ? window.devToolsExtension() : f => f)
 );
-
 render(
     (<Provider store={store}>
         <Router history={browserHistory}>
@@ -45,7 +43,7 @@ render(
               <Route path="tags" component={Tags} />
               <Route path="tech" component={Tech} />
               <Route path="tech/:id" component={TechDetail}/>
-              <Route path="techscope" component={TechScope} />
+              <Route path="techscope" component={TechScope}  />
             </Route>
             <Route path="stats" component={Stats} /> 
             <Route path="review" component={Review} /> 

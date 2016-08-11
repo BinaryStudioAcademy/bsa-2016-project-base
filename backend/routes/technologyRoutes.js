@@ -2,6 +2,7 @@ var apiResponse = require('express-api-response');
 var multer = require('multer');
 var upload = multer({dest: 'upload/resources/tech/'});
 var fs = require('fs');
+var path = require('path');
 var technologieRepository = require('../repositories/technologyRepository');
 
 module.exports = function (app) {
@@ -56,6 +57,13 @@ module.exports = function (app) {
                 'type': 'error'
             });
         }
+    });
+    app.delete('/api/file/', function (req, res, next) {
+        var file =  req.body.file.substring(1);
+        fs.unlink(file,function (err) {
+            console.log(err);
+        });
+        res.end();
     });
 
 
