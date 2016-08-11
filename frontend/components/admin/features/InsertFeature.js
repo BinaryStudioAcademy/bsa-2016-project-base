@@ -20,10 +20,6 @@ class InsertFeature extends Component {
         this.saveSelectedSection = this.saveSelectedSection.bind(this);
     }
 
-    componentWillMount () {
-        this.props.getAllFeaturesOfAllProjects();
-    }
-
     addFeature(e) {
         if(this.state.featureName.replace(/\s/g, '') == '' ||
             this.state.featureDescription.replace(/\s/g, '') == '' ||
@@ -38,6 +34,7 @@ class InsertFeature extends Component {
             featureDescription: {lists: [this.state.featureDescription]},
             section: this.state.section
         });
+        this.props.getAllFeaturesOfAllProjects();
         e.preventDefault();
     }
 

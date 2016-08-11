@@ -11,7 +11,7 @@ class FeaturesTab extends Component {
 	}
 	render() {
 		return (
-			<div>
+			<div id="Features">
 				<FeaturesToolBar />
 				<FeaturesList />
 				<InsertTabs className={styles['featureComponent']}/>

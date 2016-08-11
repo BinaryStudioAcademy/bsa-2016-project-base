@@ -1,6 +1,5 @@
 var apiResponse = require('express-api-response');
 var projectRepository = require('../repositories/projectRepository');
-var featureRepository = require('../repositories/featureRepository');
 
 
 module.exports = function(app) {
@@ -22,6 +21,15 @@ module.exports = function(app) {
 		});
 	},apiResponse);
 
+	app.get('/api/mainpage/:orderBy', function (req,res,next) {
+		projectRepository.getAllDataMainPageOrderBy(req.params.orderBy, function (err,data) {
+			res.data = data;
+			res.err = err;
+			//res.json(data);
+			next();
+		});
+	},apiResponse);
+
 	app.get('/api/projects/:id', function(req, res, next) {
 		projectRepository.getById(req.params.id, function(err, data) {
 			res.data = data;
@@ -32,16 +40,26 @@ module.exports = function(app) {
 	}, apiResponse);
 
 	app.get('/api/projects/:id/features', function(req, res, next) {
-		projectRepository.getById(req.params.id, function(err, data = {}) {
-			featureRepository.getDetails(data['features'], function (err, data) {
-
-				res.data = data;
-				//res.json(data);
-				res.err = err;
-				next();
-			});
+		projectRepository.getByIdFeatures(req.params.id, function(err, data) {
+			res.data = data.features;
+			//res.json(data);
+			res.err = err;
+			next();
 		});
 	}, apiResponse);
+
+// ------------------------------- | Test fragment | ---------------------------------
+	app.get('/api/projects/:id/users-owners/', function(req, res, next) {
+		projectRepository.getByIdWithStakeholders(req.params.id, function(err, data) {
+			res.data = data;
+			res.err = err;
+			//res.json(data);
+			next();
+		});
+	}, apiResponse);
+// ------------------------------- | Test fragment | ---------------------------------
+
+
 
 	app.post('/api/projects/', function(req, res, next) {
 		projectRepository.add(req.body, function(err, data) {

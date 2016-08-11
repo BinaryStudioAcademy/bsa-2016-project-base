@@ -4,11 +4,11 @@ import styles from './GeneralInformation.sass';
 export default class GeneralInformation extends Component {
 
     static propTypes = {
-        projects: React.PropTypes.array.isRequired
+        cnt: React.PropTypes.number.isRequired
     };
 
     render() {
-        const cnt = this.props.projects.length;
+        const { cnt } = this.props;
 
         return (
             <div className={styles.count}>

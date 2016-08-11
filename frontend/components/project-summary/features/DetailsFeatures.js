@@ -72,7 +72,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
     const { features, search, showFeaturesDetailsModal } = state.FeaturesDetailsReducer;
     const myReg = new RegExp('^' + search, "i");
-
+    console.log(state);
     let filtered = (!search) ? features: features.filter((feature) => myReg.test(feature.featureName));
 
     return {

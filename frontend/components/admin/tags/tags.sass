@@ -37,222 +37,223 @@
 	border-radius: 0 !important
     box-shadow: none !important
 
+#tags
 
-.tags-tab
-	+border-box
-	//font-family: Geneva, Arial, Helvetica, sans-serif;
-	//font-size: 18px
-	margin: 0 auto
-	font-family: "Open Sans" 
-  	font-size: 16px	
-  	font-weight: normal
-
-
-.tags-grid
-	//width: 90%
+	.tags-tab
+		+border-box
+		//font-family: Geneva, Arial, Helvetica, sans-serif;
+		//font-size: 18px
+		margin: 0 auto
+		font-family: "Open Sans" 
+	  	font-size: 16px	
+	  	font-weight: normal
 
 
-.tags-tools
- 	+border-box
-
-.tags-search
-	margin: 5px
-
-.tags-deletion
-	margin: 5px
+	.tags-grid
+		//width: 90%
 
 
-.tags-creation
-	margin: 5px
+	.tags-tools
+	 	+border-box
 
-.tags-list
-	display: block
-	height: 500px
-	//max-height: 20%
-	overflow-y: auto
-	display: flex
-	flex-wrap: wrap
-	align-content: flex-start
+	.tags-search
+		margin: 5px
 
-.tags-item
-	+border-box
-	color: black
-	color: #333 !important
-	padding: 0px 5px 
-	margin: 4px 4px 4px 4px
-	background-color: #ededed
-	background-color: rgb(250, 250, 250)
-	min-width: 150px
-	height: 60px
-	vertical-align: middle
-	text-align: left
-	display: inline-flex
-	align-items: center
-	flex: 1 0 calc(25% - 10px);
-	//border: 1px solid #eee !important
+	.tags-deletion
+		margin: 5px
 
-.tags-checkbox
-	label
-		word-break: break-all !important
+
+	.tags-creation
+		margin: 5px
+
+	.tags-list
+		display: block
+		height: 500px
+		//max-height: 20%
+		overflow-y: auto
+		display: flex
+		flex-wrap: wrap
+		align-content: flex-start
+
+	.tags-item
+		+border-box
+		color: black
+		color: #333 !important
+		padding: 0px 5px 
+		margin: 4px 4px 4px 4px
+		background-color: #ededed
+		background-color: rgb(250, 250, 250)
+		min-width: 150px
+		height: 60px
+		vertical-align: middle
+		text-align: left
+		display: inline-flex
+		align-items: center
+		flex: 1 0 calc(25% - 10px);
+		//border: 1px solid #eee !important
+
+	.tags-checkbox
+		label
+			word-break: break-all !important
+		input[type="checkbox"]
+			border: 0 !important
+			outline: 0 !important
+
+
 	input[type="checkbox"]
+		margin: 0 !important
+
+	.tags-panel-bottom
+		+default-panel
+		+ div
+	    	padding: 0px 15px
+	    	margin: 15px 0px 
+
+	.tags-panel-top
+		+default-panel
+		margin-bottom: 20px !important
+		//border: 1px solid #eee !important
+		//background: rgb(250, 250, 250) !important
+		background: #EFEFEF !important
+		border-radius: 0 !important
+		box-shadow: none !important
+
+	.tags-input-group
+		background-color: transparent !important
+		margin: 0 !important
+		padding: 0 !important
+		margin: 0 auto !important
+		//display: inline-block
+
+	.tags-input-group-btn
+		background-color: transparent !important
+
+
+	.tags-btn
+		+default-btn
+
+	.tags-btn-remove
+		+default-btn
+		//background: #f53d3d !important
+		background: #F97E76 !important
+		//margin-left: 1px !important
+		color: #fff !important
+	    
+	.tags-add-btn
+		+default-btn
+		//background: #79d236 !important
+		background: #C1CFD9 !important
+		color: #fff !important
+
+	input[type="text"] 
+		+reset-input
+		padding-left: 10px !important
+		&:focus
+			z-index: 0 !important
+
+
+	input[type="search"]
+		+reset-input
+		padding-left: 10px !important
+
+	span
 		border: 0 !important
-		outline: 0 !important
+		border-radius: 0 !important
+		background-color: rgba(255, 186, 30, 0.47) !important
+		//color: #fff !important
 
 
-input[type="checkbox"]
-	margin: 0 !important
+	.tags-list::-webkit-scrollbar
+		width: 7px
 
-.tags-panel-bottom
-	+default-panel
-	+ div
-    	padding: 0px 15px
-    	margin: 15px 0px 
+	.tags-list::-webkit-scrollbar-track
+		background: rgba(0, 0, 0, 0.1)
 
-.tags-panel-top
-	+default-panel
-	margin-bottom: 20px !important
-	//border: 1px solid #eee !important
-	//background: rgb(250, 250, 250) !important
-	background: #EFEFEF !important
-	border-radius: 0 !important
-	box-shadow: none !important
-
-.tags-input-group
-	background-color: transparent !important
-	margin: 0 !important
-	padding: 0 !important
-	margin: 0 auto !important
-	//display: inline-block
-
-.tags-input-group-btn
-	background-color: transparent !important
-
-
-.tags-btn
-	+default-btn
-
-.tags-btn-remove
-	+default-btn
-	//background: #f53d3d !important
-	background: #F97E76 !important
-	//margin-left: 1px !important
-	color: #fff !important
-    
-.tags-add-btn
-	+default-btn
-	//background: #79d236 !important
-	background: #C1CFD9 !important
-	color: #fff !important
-
-input[type="text"] 
-	+reset-input
-	padding-left: 10px !important
-	&:focus
-		z-index: 0 !important
-
-
-input[type="search"]
-	+reset-input
-	padding-left: 10px !important
-
-span
-	border: 0 !important
-	border-radius: 0 !important
-	background-color: rgba(255, 186, 30, 0.47) !important
-	//color: #fff !important
-
-
-.tags-list::-webkit-scrollbar
-	width: 7px
-
-.tags-list::-webkit-scrollbar-track
-	background: rgba(0, 0, 0, 0.1)
-
-.tags-list::-webkit-scrollbar-thumb
-	background: rgba(0, 0, 0, 0.5)
+	.tags-list::-webkit-scrollbar-thumb
+		background: rgba(0, 0, 0, 0.5)
 
 
 
-.tags-list > div
-	border-bottom: 1px solid #E9F0F4
+	.tags-list > div
+		border-bottom: 1px solid #E9F0F4
 
-.tags-list > div:last-child
-	//border-bottom: none
+	.tags-list > div:last-child
+		//border-bottom: none
 
-.tags-list > div > div:last-child
-	padding: 20px
+	.tags-list > div > div:last-child
+		padding: 20px
 
-.tags-list > div:nth-child(n)
-	background-color: #FAFDFE
+	.tags-list > div:nth-child(n)
+		background-color: #FAFDFE
 
-.tags-list > div:nth-child(2n)
-	background-color: white
+	.tags-list > div:nth-child(2n)
+		background-color: white
 
-.tags-list > div.selected
-	background: #E9F0F4
-
-
-.select-all-checkbox,
-.select-checkbox
-  position: absolute
-  z-index: -1000
-  left: -1000px
-  clip: rect(0 0 0 0)
-  height: 1px
-  width: 1px
-  margin: -1px
-  padding: 0
-  border: 0
-
-.select-all-checkbox + .select-all-label
-  //margin: 3px 0px 0px 0px !important
-  margin: 0px !important
-  margin-top: -2px !important
-  padding: 0px 10px 0px 40px
-  height: 34px
-  line-height: 34px
-
-.select-checkbox + .select-label
-  padding-left: 21px
-  height: 16px
-  line-height: 16px
-
-.select-all-checkbox + .select-all-label,
-.select-checkbox + .select-label
-  display: inline-block
-  background-repeat: no-repeat
-  background-position: 0 0
-  vertical-align: middle
-  cursor: pointer
-
-.select-all-checkbox:checked + .select-all-label
-  background-position: 0px -30px
-
-.select-checkbox:checked + .select-label
-  background-position: 0px -16px
-
-.select-all-label
-  background-image: url(http://csscheckbox.com/checkboxes/u/csscheckbox_b5478ce038d0182679c6e07d0ac4f6dd.png)
-  background-size: 34px 65px
-
-.select-label
-  background-image: url(http://csscheckbox.com/checkboxes/u/csscheckbox_84d5db31bde6d14cf3610dde3534e162.png)
-
-.select-label,
-.select-all-label
-  color: #656565
-  font-family: 'Open Sans', arial
-  font-size: 16px	
-  margin-top: 0 !important
-  vertical-align: middle !important
+	.tags-list > div.selected
+		background: #E9F0F4
 
 
-.select-all-label
-	//margin-top: -1px !important
+	.select-all-checkbox,
+	.select-checkbox
+	  position: absolute
+	  z-index: -1000
+	  left: -1000px
+	  clip: rect(0 0 0 0)
+	  height: 1px
+	  width: 1px
+	  margin: -1px
+	  padding: 0
+	  border: 0
 
-.select-label:hover,
-.select-all-label:hover
-  color: #303030
+	.select-all-checkbox + .select-all-label
+	  //margin: 3px 0px 0px 0px !important
+	  margin: 0px !important
+	  margin-top: -2px !important
+	  padding: 0px 10px 0px 40px
+	  height: 34px
+	  line-height: 34px
 
-.select-all-label,.select-label
-  user-select: none
+	.select-checkbox + .select-label
+	  padding-left: 21px
+	  height: 16px
+	  line-height: 16px
+
+	.select-all-checkbox + .select-all-label,
+	.select-checkbox + .select-label
+	  display: inline-block
+	  background-repeat: no-repeat
+	  background-position: 0 0
+	  vertical-align: middle
+	  cursor: pointer
+
+	.select-all-checkbox:checked + .select-all-label
+	  background-position: 0px -30px
+
+	.select-checkbox:checked + .select-label
+	  background-position: 0px -16px
+
+	.select-all-label
+	  background-image: url(http://csscheckbox.com/checkboxes/u/csscheckbox_b5478ce038d0182679c6e07d0ac4f6dd.png)
+	  background-size: 34px 65px
+
+	.select-label
+	  background-image: url(http://csscheckbox.com/checkboxes/u/csscheckbox_84d5db31bde6d14cf3610dde3534e162.png)
+
+	.select-label,
+	.select-all-label
+	  color: #656565
+	  font-family: 'Open Sans', arial
+	  font-size: 16px	
+	  margin-top: 0 !important
+	  vertical-align: middle !important
+
+
+	.select-all-label
+		//margin-top: -1px !important
+
+	.select-label:hover,
+	.select-all-label:hover
+	  color: #303030
+
+	.select-all-label,.select-label
+	  user-select: none

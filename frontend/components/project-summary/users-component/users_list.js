@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchUsers } from './actions/index';
-console.log(fetchUsers);
+import { fetchUsers } from '../../../actions/UsersActions';
 import CheckBox from './checkbox';
 import styles from './users.sass';
 import { Row, Col, ListGroup, ListGroupItem, FormControl, FormGroup, InputGroup, Modal, Label, Glyphicon, Button } from 'react-bootstrap';
@@ -53,8 +52,7 @@ class UserList extends Component {
             return search(user.userName + user.userSurname + user.position, this.state.search);
         });
 
-        let users = filteredUsers.map((user) => {
-			console.log("user._id "+user._id)
+        let users = filteredUsers.map((user, index) => {
             return (
                 <li key={user._id} className={styles.listItem}>
                     <Link to={`/api/users/${user._id}`} className={styles.link}>
@@ -98,8 +96,9 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
+    console.log(state);
     return {
-        users: state.users
+        users: state.UsersReducer.users
     };
 }
 
