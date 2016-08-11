@@ -94,8 +94,6 @@ class Stats extends Component {
                                 chartType={chartType}
                                 selectAllChanged={this.selectAllChanged.bind(this)}
                                 selectAll={this.state.selectAll}/>
-                <div className={styles.alert}> Display some project stats</div>
-
                 {this.getCharts()}
 
 
