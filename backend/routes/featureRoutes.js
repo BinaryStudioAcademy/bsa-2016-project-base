@@ -22,7 +22,7 @@ module.exports = function(app) {
 	},apiResponse);
 
 	app.get('/api/featureswithsections/',function (req,res,next) {
-		featureRepository.getAll(function (err,data) {
+		featureRepository.getAllFeaturesWithSection(function (err,data) {
 			res.data = data;
 			res.err = err;
 			// res.json(data);//0408
