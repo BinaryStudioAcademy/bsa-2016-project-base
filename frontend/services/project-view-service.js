@@ -166,9 +166,31 @@ class ProjectViewService {
 	      		console.log('getProjectsStages(...) -> Object to dispatch: ', dispObj);
 	      		dispatch(dispObj);
 	    	});
-		console.log('ProjectViewService.getProjectsStage(): ', returnValue);
-		return dispObj;
+		//console.log('ProjectViewService.getProjectsStage(): ', returnValue);
+		//return dispObj;
 	}
+
+	getProjectTags(path, dispatch, dispObj) {
+		console.log('project-view-service -> getProjectTags() parameters: ', path, dispatch, dispObj);
+
+		const reqPath = path + '/' + dispObj.projectId + '/tags';
+		console.log('project-view-service -> getProjectTags() requested path: ', reqPath);
+
+    	let returnValue = fetch(reqPath, { method: 'GET', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}})
+	    	.then(this.checkStatus)
+	    	.then(this.parseJSON)
+	    	.then(data => {
+	      		console.log('project-view-service -> getProjectTags() -> then:', data);
+	      		//return data;
+	      		dispObj.projTags = data.tags;
+	      		console.log('getProjectTags(...) -> Object to dispatch: ', dispObj);
+	      		dispatch(dispObj);
+	    	});
+		//console.log('ProjectViewService.getProjectTags(): ', returnValue);
+		//return dispObj;
+	}
+
+
 
 }
 

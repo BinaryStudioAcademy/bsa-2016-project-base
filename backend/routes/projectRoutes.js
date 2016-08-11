@@ -48,7 +48,7 @@ module.exports = function(app) {
 		});
 	}, apiResponse);
 
-// ------------------------------- | Test fragment | ---------------------------------
+
 	app.get('/api/projects/:id/users-owners/', function(req, res, next) {
 		projectRepository.getByIdWithStakeholders(req.params.id, function(err, data) {
 			res.data = data;
@@ -57,9 +57,17 @@ module.exports = function(app) {
 			next();
 		});
 	}, apiResponse);
-// ------------------------------- | Test fragment | ---------------------------------
 
-
+//---------------
+	app.get('/api/projects/:id/tags/', function(req, res, next) {
+		projectRepository.getByIdWithTags(req.params.id, function(err, data) {
+			res.data = data;
+			res.err = err;
+			//res.json(data);
+			next();
+		});
+	}, apiResponse);
+//---------------
 
 	app.post('/api/projects/', function(req, res, next) {
 		projectRepository.add(req.body, function(err, data) {

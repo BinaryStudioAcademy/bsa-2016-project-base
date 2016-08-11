@@ -6,7 +6,7 @@ var userSchema = new Schema({
     login: String,
     userName: String,
     userSurname: String,
-    avatar: Buffer,
+    avatar: String,
     rights: [String],
     position: String
 });
