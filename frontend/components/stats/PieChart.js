@@ -13,7 +13,9 @@ export default class PieChart extends AbstractChart {
             data:PropTypes.array.isRequired
         }
     }
-
+    getInnerRadius(){
+        return 0;
+    }
     render() {
         const data = this.prepareData(this.props.data)
         const chartSeries = this.generateChartSeries(data);
@@ -27,7 +29,7 @@ export default class PieChart extends AbstractChart {
                 chartSeries= {chartSeries}
                 value = {this.valueMap}
                 name = {this.nameMap}
-                innerRadius = {60}
+                innerRadius = {this.getInnerRadius()}
             />
         </ChartWrapper>
     }

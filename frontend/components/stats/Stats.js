@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from './stats.sass';
-
+import {Button} from "react-bootstrap"
 import {PieChart, LineChart} from 'react-d3-basic';
 import {LineTooltip} from 'react-d3-tooltip'; // do not work
 import {BarTooltip, PieTooltip} from 'react-d3-tooltip';
@@ -9,11 +9,15 @@ import {ScatterBrush} from 'react-d3-brush'; // do not work
 import PieChartComp from "./PieChart"
 import BarChartComp from "./BarChart"
 import LineChartComp from "./LineChart"
-
+import BagelChartComp from "./BagelChart"
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Grid, Row, Panel } from 'react-bootstrap';
 import * as actions from '../../actions/ChartActions';
+import ChartStatistic from "./chartComponents/ChartStatistic"
+
+
+
 class Stats extends Component {
     constructor(props) {
         super(props);/*
@@ -25,6 +29,7 @@ class Stats extends Component {
             setTimeout(f.bind(null, arr, i+1), 5000);
         }
         setTimeout(f.bind(null, ["Circle","Bar","Linear"], 0), 2000);*/
+        this.state={selectAll:false}
     }
 
     getData() {
@@ -49,21 +54,59 @@ class Stats extends Component {
         this.props.changeChartType("Bar");
         this.props.loadData();
     }
-    render() {
 
-        let data = this.props.store.ChartReducer.data;
-        return (
-            <div className={styles.statsPage}>
-                <div className={styles.alert}> Display some project stats</div>
+    changeChartType(){
+        var self = this;
+        return function (type){
+            self.props.changeChartType(type);
+            self.props.loadData();
+        }
+    }
+    selectAllChanged(){
+        this.setState({selectAll:!this.state.selectAll})
+    }
 
-                <BarChartComp
-                    data={data}/>
+    getCharts(){
+        const {selectAll} = this.state;
+        let {data, chartType} = this.props.store.ChartReducer;
 
-                <PieChartComp
-                    data={data}/>
-
+        if (selectAll){
+            return <div>
                 <LineChartComp
                     data={data}/>
+                <BarChartComp
+                    data={data}/>
+                <PieChartComp
+                    data={data}/>
+                <BagelChartComp
+                    data={data}/>
+            </div>
+        }
+        switch (chartType){
+            case "Linear":return <LineChartComp
+                data={data}/>
+            case "Bar": return<BarChartComp
+                data={data}/>
+            case "Circle": return <div>
+                <PieChartComp
+                    data={data}/>
+                <BagelChartComp
+                    data={data}/>
+            </div>
+        }
+    }
+    render() {
+        let {chartType} = this.props.store.ChartReducer;
+        return (
+            <div className={styles.statsPage}>
+                <ChartStatistic onChange={this.changeChartType()}
+                                chartType={chartType}
+                                selectAllChanged={this.selectAllChanged.bind(this)}
+                                selectAll={this.state.selectAll}/>
+                <div className={styles.alert}> Display some project stats</div>
+
+                {this.getCharts()}
+
 
             </div>
         )
