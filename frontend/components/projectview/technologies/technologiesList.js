@@ -18,15 +18,17 @@ const TechnologiesList = ({technologies}) => {
 
 	const list = technologies.map(technologies => {
 		return (			
-				<li key={technologies._id}><img width="30" src="http://oracle-academy.org.ua/wp-content/uploads/2016/02/js-logo-badge-256.png" />{technologies.techName}</li>	
+				<li key={technologies._id}>
+					<img width="30" src="http://oracle-academy.org.ua/wp-content/uploads/2016/02/js-logo-badge-256.png" />{technologies.techName}
+				</li>	
 		)
 	});
 	
 	
 	return (
-		<div className={styles["tags-list"]}>
+		<ul>
 		   {list}
-		</div>
+		</ul>
 	);
 };
 
