@@ -1,7 +1,7 @@
 import React from "react"
 import {PropTypes} from "react"
 import AbstractChart from "./AbstractChart"
-import {LineTooltip} from 'react-d3-tooltip';
+import {Line} from 'react-chartjs-2';
 import ChartWrapper from "./ChartWrapper"
 export default class LineChart extends AbstractChart {
     constructor() {
@@ -15,28 +15,30 @@ export default class LineChart extends AbstractChart {
     }
 
     render() {
-        const data = this.prepareData(this.props.data)
-        const title = this.props.data.title
-        const chartSeries = [{
-            field: 'value',
-            name: title
-        }
-        ];
+        const {data} = this.props;
+        const _data = this.colors.sameLine(data);
 
-        const xScale = 'ordinal';
-        const yTicks = [10, "d"];
-        return <ChartWrapper title= {title}>
-            <LineTooltip
-                title= {title}
-                data= {data}
-                width= {700}
-                height= {400}
-                margins={{left: 70, right: 70, top: 70, bottom: 70}}
-                chartSeries = {chartSeries}
-                x= {this.nameMap}
-                xScale= {xScale}
-                yTicks= {yTicks}
-            />
+        _data.datasets.forEach(set=>{
+            set.fill = false
+
+
+        });
+        return <ChartWrapper>
+            <Line data={_data}
+                  options={Object.assign({},_data.options||{},{
+
+            scales: {
+                yAxes: [{
+                        stacked: false,
+                        ticks: {
+                            beginAtZero:true
+                        }
+                }],
+                xAxes: [{
+                        stacked: false
+                }]
+            }
+        })}/>
         </ChartWrapper>
     }
 }

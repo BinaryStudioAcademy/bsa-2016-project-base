@@ -19,6 +19,7 @@ export function changeChartType(chartType){
 }
 
 export function loadData(){
+
     return (dispatch, getState)=>{
         /*mock*/
         const type = getState().ChartReducer.chartType;
@@ -26,14 +27,23 @@ export function loadData(){
             techService.getAllTechnologies()
                 .then(res=>res.json())
                 .then(techs=>{
-                    const names = techs.map(tech=>tech.techName)
-                    const values = names
+                    const labels = techs.map(tech=>tech.techName)
+                    const data = labels
                         .map(tech=>tech.split("")
                             .reduce((s,char)=>s+char.charCodeAt(0),0)%13+5)
                     dispatch(addData({
-                        title:"Modern IT Technologies used on projects",
-                        names,
-                        values
+                        options:{
+                            title: {
+                                display:true,
+                                text:"Modern IT Technologies used on projects"
+                            }
+                        },
+                        labels,
+                        datasets:[{
+                            label:"Modern IT Technologies used on projects",
+                            data
+                        }]
+
                     }))
                 });
         }
@@ -41,19 +51,38 @@ export function loadData(){
             tagService.getAllTags()
                 .then(res=>res.json())
                 .then(tags=>{
-                    const names = tags.slice(0,9).map(tag=>tag.tagName).concat(["Other"])
-                    const values = [110,94,78,65,45,32,21,18,14,150]
+                    const labels = tags.slice(0,9).map(tag=>tag.tagName).concat(["Other"])
+                    const data = [110,94,78,65,45,32,21,18,14,150]
                     dispatch(addData({
-                        title:"Most popular Tags on projects",
-                        names,
-                        values
+                        options:{
+                            title: {
+                                display:true,
+                                text:"Most popular Tags on projects"
+                            }
+                        },
+                        labels,
+                        datasets:[{
+                            label:"Most popular Tags on projects",
+                            data
+                        }, {
+                            label:"Label 2",
+                            data:data.map(data=>(data*43)%13+50)
+                        }]
                     }))
                 });
         }else if (type == "Linear"){
             dispatch(addData({
-                title: "Active projects quantity by the time",
-                names: ['1st January', '1st February', '1st March', '1st April', '1st May', '1st June', '1st July'],
-                values: [23,25,14,16,21,16,27]
+                options:{
+                    title: {
+                        display:true,
+                        text:"Active projects quantity by the time"
+                    }
+                },
+                labels: ['1st January', '1st February', '1st March', '1st April', '1st May', '1st June', '1st July'],
+                datasets:[{
+                    label:"Active projects quantity by the time",
+                    data: [23,25,14,16,21,16,27]
+                }]
             }));
         }
 

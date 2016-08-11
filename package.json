@@ -50,10 +50,7 @@
     "react-slick": "^0.12.2",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
-    "react-d3-basic": "^1.6.11",
-    "react-d3-brush": "^1.1.0",
-    "react-d3-tooltip": "^1.4.14",
-    "react-d3-zoom": "^1.1.2"
+    "react-chartjs-2": "^1.2.3"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.7",

@@ -1,7 +1,7 @@
 import React from "react"
 import {PropTypes} from "react"
 import AbstractChart from "./AbstractChart"
-import {BarTooltip} from 'react-d3-tooltip';
+import {Bar} from 'react-chartjs-2';
 
 import ChartWrapper from "./ChartWrapper"
 export default class BarChart extends AbstractChart {
@@ -16,27 +16,22 @@ export default class BarChart extends AbstractChart {
     }
 
     render() {
-        const data = this.prepareData(this.props.data);
-        const title = this.props.data.title;
-
-        const chartSeries = [{
-                field: 'value',
-                name: title
+        const {data} = this.props;
+        let _data = this.colors.same(data)
+        return <ChartWrapper>
+            <Bar data={_data} options={Object.assign({},data.options||{},{
+            scales: {
+                yAxes: [{
+                        stacked: false,
+                        ticks: {
+                            beginAtZero:true
+                        }
+                }],
+                xAxes: [{
+                        stacked: false
+                }]
             }
-        ];
-        const xScale = 'ordinal';
-        const yTicks = [10, "d"];
-        return <ChartWrapper title= {title}>
-            <BarTooltip
-                title= {title}
-                data= {data}
-                width= {900}
-                height= {400}
-                chartSeries = {chartSeries}
-                x= {this.nameMap}
-                xScale= {xScale}
-                yTicks= {yTicks}
-            />
+        })}/>
         </ChartWrapper>
     }
 }

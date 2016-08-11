@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import styles from './stats.sass';
 import {Button} from "react-bootstrap"
-import {PieChart, LineChart} from 'react-d3-basic';
-import {LineTooltip} from 'react-d3-tooltip'; // do not work
-import {BarTooltip, PieTooltip} from 'react-d3-tooltip';
-import {LineZoom} from 'react-d3-zoom'; // do not work
-import {ScatterBrush} from 'react-d3-brush'; // do not work
 import PieChartComp from "./PieChart"
 import BarChartComp from "./BarChart"
 import LineChartComp from "./LineChart"
-import BagelChartComp from "./BagelChart"
+import BagelChartComp from "./DoughnutChart"
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Grid, Row, Panel } from 'react-bootstrap';
