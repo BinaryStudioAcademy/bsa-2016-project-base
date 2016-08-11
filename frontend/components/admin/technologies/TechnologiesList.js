@@ -52,7 +52,7 @@ class TechnologiesList extends Component {
                                checked={elem.checked} type="checkbox"
                                id={elem._id} value={elem.techName}/>
                         <label className={styles['select-all-label']} htmlFor={elem._id}>{elem.techName}</label>
-
+                        <a href={'/admin/tech/'+elem._id}>Edit</a>
                             <div className={styles['hidden_block']}>
                                 <div className={styles['img_wrapper']}>
                                 <img src={elem.techAvatar}/>
