@@ -73,15 +73,15 @@ Repository.prototype.getByIdFeatures = function(id, callback){
 	query.exec(callback);
 };
 
-Repository.prototype.getByIdWithStakeholders = function(id, callback){
-	var model = this.model;
-	var query = model.findOne({_id:id})
-//				.populate('stage')
-//				.populate('condition')
-				.populate('users')
-				.populate('owners');
-	query.exec(callback);
-};
+// Repository.prototype.getByIdWithStakeholders = function(id, callback){
+// 	var model = this.model;
+// 	var query = model.findOne({_id:id})
+// //				.populate('stage')
+// //				.populate('condition')
+// 				.populate('users')
+// 				.populate('owners');
+// 	query.exec(callback);
+// };
 
 Repository.prototype.getDetails = function(arrOfId, callback){
 	var model = this.model;
