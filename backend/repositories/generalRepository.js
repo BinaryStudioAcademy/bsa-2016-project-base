@@ -15,6 +15,27 @@ Repository.prototype.getAllDataMainPage = function(callback){
 	query.exec(callback);
 };
 
+Repository.prototype.getAllDataMainPageOrderBy = function(orderBy, callback){
+	var model = this.model;
+	var order = {};
+	switch (orderBy) {
+		case 'completed':
+			order['isCompleted'] = -1;
+			break;
+		case 'oldest':
+			order['timeBegin'] = -1;
+			break;
+		case 'newest':
+			order['timeBegin'] = 1;
+			break;
+		default:
+			order['timeBegin'] = 1;
+	}
+
+	var query = model.find().populate('technologies').sort(order);
+	query.exec(callback);
+};
+
 Repository.prototype.update = function(id, body, callback){
 	var query = this.model.update({_id:id}, body);
 	query.exec(callback);

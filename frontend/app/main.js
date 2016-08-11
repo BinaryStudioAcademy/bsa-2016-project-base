@@ -35,7 +35,7 @@ render(
           <Route path="/" component={App}>
             <IndexRoute component={Home}/>
             <Route path="projects" component={ProjectsList}/>
-            <Route path="project-view" component={ProjectView} />
+            <Route path="project-view/:id" component={ProjectView} />
             <Route path="project-summary/:id" component={ProjectSummary}/>
             <Route path="project-upsert" component={UpsertProject}/>  
             <Route path="admin" component={Admin} > 

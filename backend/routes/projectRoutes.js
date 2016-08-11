@@ -21,6 +21,15 @@ module.exports = function(app) {
 		});
 	},apiResponse);
 
+	app.get('/api/mainpage/:orderBy', function (req,res,next) {
+		projectRepository.getAllDataMainPageOrderBy(req.params.orderBy, function (err,data) {
+			res.data = data;
+			res.err = err;
+			//res.json(data);
+			next();
+		});
+	},apiResponse);
+
 	app.get('/api/projects/:id', function(req, res, next) {
 		projectRepository.getById(req.params.id, function(err, data) {
 			res.data = data;
