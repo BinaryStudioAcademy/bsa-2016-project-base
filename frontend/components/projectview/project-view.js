@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { bindActionCreators, combineReducers} from 'redux';
 import { connect } from 'react-redux';
 import * as actions from './project-view-actions.js';
-import Screenshots from './gallery/gallery.js'
+import Screenshots from './gallery/gallery.js';
+import TechnologiesList from './technologies/technologiesList.js';
 import styles from './project-view.sass';
 
 import { Accordion, Button, Panel, Nav, NavItem, Tabs, Tab, Table, Grid, Row, Col, Thumbnail, Glyphicon } from 'react-bootstrap';
@@ -47,13 +48,13 @@ class ProjectView extends Component {
 
     	let viewProjectName = (currentProject == 'none') ? 'Loading... please wait!' : currentProject.projectName;
     	let viewStageName = (currentProject == 'none') ? 'Loading... please wait!' : currentProject.stage.stageName;
-		let viewStartedDate = (currentProject == 'none') ? 'Loading... please wait!' : this.formatDate(new Date(currentProject.timeBegin));
-		let viewEndDate = (currentProject == 'none') ? 'Loading... please wait!' : this.formatDate(new Date(currentProject.timeEnd));
-		let viewCondition = (currentProject == 'none') ? 'Loading... please wait!' : currentProject.condition.conditionName;
+			let viewStartedDate = (currentProject == 'none') ? 'Loading... please wait!' : this.formatDate(new Date(currentProject.timeBegin));
+			let viewEndDate = (currentProject == 'none') ? 'Loading... please wait!' : this.formatDate(new Date(currentProject.timeEnd));
+			let viewCondition = (currentProject == 'none') ? 'Loading... please wait!' : currentProject.condition.conditionName;
 		//let viewUsers = (currentProject !== 'none') ? currentProject.users.toString() : 'Users list: Loading... please wait!';
-		let viewUsers = (currentProject == 'none') ? 'Users list: Loading... please wait!' : 'Users list: ...under develop.';
+			let viewUsers = (currentProject == 'none') ? 'Users list: Loading... please wait!' : 'Users list: ...under develop.';
 		//let viewOwners = (currentProject !== 'none') ? currentProject.owners.toString() : 'Owners list: Loading... please wait!';
-		let viewOwners = (currentProject == 'none') ? 'Owners list: Loading... please wait!' : 'Owners list: ...under develop.';
+			let viewOwners = (currentProject == 'none') ? 'Owners list: Loading... please wait!' : 'Owners list: ...under develop.';
     	// console.log("Selected property 'projectsRestPath' from central storage: ", projectsRestPath);
     	// console.log("Selected property 'selectedProjectId' from central storage: ", selectedProjectId);
     	// console.log("Selected property 'listProjects' from central storage: ", this.props.rootState.ProjectViewReducer.projectList);
@@ -100,22 +101,22 @@ class ProjectView extends Component {
 	    				
 	    				<Tabs defaultActiveKey={1} className={styles.tabpanels}>
 	    					<Tab eventKey={1} title="Users/Owners">
-	    						<Panel className={styles.tabpanels}>
+	    						<Panel>
 	    							{viewUsers}<br/>{viewOwners}
 	    						</Panel>
 							</Tab>
-	    					<Tab className={styles.tabs} eventKey={2} title="Technologies"><Panel className={styles.tabpanels}>Technologies list</Panel></Tab>
-	        				<Tab eventKey={3} title="Tags"><Panel className={styles.tabpanels}>List of Tags</Panel></Tab>
-	        				<Tab eventKey={4} title="Screenshots">
-	        					<Panel className={styles.tabpanels}>
+	    					<Tab eventKey={2} title="Technologies"><Panel><TechnologiesList /></Panel></Tab>
+	        			<Tab eventKey={3} title="Tags"><Panel>List of Tags</Panel></Tab>
+	        			<Tab eventKey={4} title="Screenshots">
+	        				<Panel>	        					
 	        					<div className={styles.gallery}>
 											<Screenshots />
-										</div>
-		        				
-	        					</Panel></Tab>
-	        				<Tab eventKey={5} title="Features"><Panel className={styles.tabpanels}>Table of features</Panel></Tab>
-	        				<Tab eventKey={6} title="Ratings"><Panel className={styles.tabpanels}>Table of rates</Panel></Tab>
-	        				<Tab eventKey={7} title="Description"><Panel className={styles.tabpanels}>Description</Panel></Tab>
+										</div>		   
+									</Panel>     				
+	        			</Tab>
+        				<Tab eventKey={5} title="Features"><Panel>Table of features</Panel></Tab>
+        				<Tab eventKey={6} title="Ratings"><Panel>Table of rates</Panel></Tab>
+        				<Tab eventKey={7} title="Description"><Panel>Description</Panel></Tab>
 	  					</Tabs>
 	    				<div>
 					    	<Panel header={<span className={styles.questionHeader}>Questions and Answers</span>}  className={styles.questionPanel}>
@@ -151,13 +152,11 @@ class ProjectView extends Component {
 					    	</Panel>
 					  	</div>
 			    		<Button className={styles.btn}>Back to Project List</Button>
-			    	</div>		    	</div>
+			    	</div>
+			    </div>
           )
     }
 }
-
-
-
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(actions, dispatch);
