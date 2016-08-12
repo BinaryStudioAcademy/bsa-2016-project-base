@@ -6,7 +6,7 @@ const AddTag = ({setTagName, addTag}) => {
   	return (
 		<Col xs={12} sm={12} md={4}>
             <div className={styles["tags-creation"]}>
-            <FormGroup>
+           
                 <InputGroup className={styles["tags-input-group"]}>
                     <FormControl 
                         type="text" 
@@ -21,7 +21,7 @@ const AddTag = ({setTagName, addTag}) => {
                         </Button>
                     </InputGroup.Button>
                 </InputGroup>
-    		</FormGroup>
+
             </div>
 		</Col>
   	);

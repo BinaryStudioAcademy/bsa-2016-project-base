@@ -153,3 +153,18 @@ export function initialCheckStatesFeatures(features, checkStatesFeatures) {
         checkStatesFeatures: a
     }
 }
+
+export function changeVisibilityForm(visibilityForm) {
+    if(visibilityForm == 'hidden') {
+        return {
+            type: 'CHANGE_VISIBILITY_FORM',
+            visibilityForm: 'visible'
+        }
+    }
+    else if(visibilityForm == 'visible') {
+           return {
+            type: 'CHANGE_VISIBILITY_FORM',
+            visibilityForm: 'hidden'
+           }
+    }
+}
