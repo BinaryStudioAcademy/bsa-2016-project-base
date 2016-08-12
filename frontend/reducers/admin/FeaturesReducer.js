@@ -3,7 +3,8 @@ const initialState = {
     filter: '',
     listCheckedFeatures: [],
     flagChecked: false,
-    listCheckedSections: []
+    listCheckedSections: [],
+    visibilityForm: 'hidden'
 };
 
 export default function FeaturesReducer(state = initialState, action) {
@@ -12,6 +13,11 @@ export default function FeaturesReducer(state = initialState, action) {
             const {listCheckedSections} = action;
             return Object.assign({}, state, {listCheckedSections: listCheckedSections})
         }
+
+        case 'CHANGE_VISIBILITY_FORM': {
+            const {visibilityForm} = action;
+            return Object.assign({}, state, {visibilityForm: visibilityForm});
+    }
 
         case 'FILTER_FEATURES': {
             const {filter} = action;

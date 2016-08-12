@@ -4,10 +4,19 @@ import styles from './PaginationHome.sass';
 
 export default class PaginationHome extends Component {
 
+    static propTypes = {
+        activePage: React.PropTypes.number.isRequired,
+        sumPages: React.PropTypes.number.isRequired,
+        pageSelect: React.PropTypes.func.isRequired
+    };
+
     render() {
 
+        const {activePage, pageSelect, sumPages} = this.props;
+
         return (
-            <Col xs={12} className={styles.navigation}>
+            (sumPages > 1)?
+            <Col id='pagination-home' className={styles.navigation}>
                 <Pagination
                     prev
                     next
@@ -15,11 +24,11 @@ export default class PaginationHome extends Component {
                     last
                     ellipsis
                     boundaryLinks
-                    items={20}
-                    maxButtons={5}
-                    activePage={1}
-                    onSelect={this.handleSelect}/>
-            </Col>
+                    items={sumPages}
+                    maxButtons={3}
+                    activePage={activePage}
+                    onSelect={pageSelect} />
+            </Col>: null
         )
     }
 }

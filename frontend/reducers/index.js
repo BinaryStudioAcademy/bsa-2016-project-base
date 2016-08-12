@@ -7,4 +7,4 @@ export {default as FeaturesReducer} from './admin/FeaturesReducer';
 export {default as TechnologiesReducer} from './admin/TechnologiesReducer';
 export {default as UsersReducer} from './UsersReducer';
 export {default as ChartReducer} from "./ChartReducer"
-
+export {default as TechnologiesDetailReducer} from './admin/TechnologiesDetailReducer';

@@ -9,4 +9,10 @@ function FeatureRepository() {
 
 FeatureRepository.prototype = new Repository();
 
+Repository.prototype.getAllFeaturesWithSection = function(callback){
+    var model = this.model;
+    var query = model.find().populate('section');
+    query.exec(callback);
+};
+
 module.exports = new FeatureRepository();

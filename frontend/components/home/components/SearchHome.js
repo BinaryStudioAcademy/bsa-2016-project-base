@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, InputGroup, FormControl, Button, Radio, Checkbox } from 'react-bootstrap';
+import { Form, FormGroup, InputGroup, FormControl, Button } from 'react-bootstrap';
 import Technologie from './Technologie';
 import styles from './SearchHome.sass';
 
@@ -7,15 +7,17 @@ export default class SearchHome extends Component {
 
     static propTypes = {
         filter: React.PropTypes.func.isRequired,
-        search: React.PropTypes.string.isRequired
+        filterByTech: React.PropTypes.func.isRequired,
+        orderBy: React.PropTypes.func.isRequired,
+        search: React.PropTypes.string.isRequired,
+        technologies: React.PropTypes.array.isRequired
     };
 
     render() {
+        const { filter, search, technologies, filterByTech, orderBy } = this.props;
 
-        const { filter, search, technologies, filterByTech } = this.props;
-        
         return (
-            <Form className={styles['search-form']} >
+            <Form id='search-home' className={styles['search-form']} >
                 <FormGroup className={styles['form-group']} >
                     <InputGroup>
                         <InputGroup.Button>
@@ -34,12 +36,12 @@ export default class SearchHome extends Component {
                 <div className={styles['display-flex']} >
                     <FormGroup className={styles['choose-sort']} >
                         <span className={styles['search-order-tooltip']} >Sort by:</span>
-                        <input type="radio" name="sort" value="ranking" id="sort-by-ranking" defaultChecked />
-                        <label htmlFor="sort-by-ranking">ranking</label>
-                        <input type="radio" name="sort" value="update" id="sort-by-update" />
-                        <label htmlFor="sort-by-update">update date</label>
-                        <input type="radio" name="sort" value="download" id="sort-by-download" />
-                        <label htmlFor="sort-by-download">downloads</label>
+                        <input type="radio" name="sort" value="newest" id="sort-by-newest" defaultChecked onChange={orderBy}/>
+                        <label htmlFor="sort-by-newest">Newest</label>
+                        <input type="radio" name="sort" value="oldest" id="sort-by-oldest" onChange={orderBy}/>
+                        <label htmlFor="sort-by-oldest">Oldest</label>
+                        <input type="radio" name="sort" value="completed" id="sort-by-completed" onChange={orderBy}/>
+                        <label htmlFor="sort-by-completed">Completed</label>
                     </FormGroup>
 
                     {(technologies.length) ?

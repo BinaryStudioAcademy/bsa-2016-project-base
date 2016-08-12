@@ -24,7 +24,7 @@ class FeaturesListItem extends Component {
     render() {
         return (
             <Row>
-                <Col  xs={5} sm={3} md={3} lg={3}>
+                <Col  xs={5} sm={5}>
                     <div className={styles['list-item-navigation']}>
                         <div>
                             <FormControl type="checkbox" className={styles['select-checkbox']}
@@ -37,11 +37,11 @@ class FeaturesListItem extends Component {
                         </div>
                         <div>
                             <span>Section: </span>
-                            <label>{this.props.feature.section}</label>
+                            <span>{this.props.feature.section.name}</span>
                         </div>
                     </div>
                 </Col>
-                <Col  xs={7} sm={9} md={9} lg={9}>{this.props.feature.featureDescription.lists}</Col>
+                <Col  xs={7} sm={7}>{this.props.feature.featureDescription.lists}</Col>
             </Row>
         )
     }

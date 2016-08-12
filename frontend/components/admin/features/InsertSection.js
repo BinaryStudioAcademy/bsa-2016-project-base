@@ -22,26 +22,39 @@ class InsertSection extends Component {
     }
 
     addSection(e) {
+        e.preventDefault();
+        var self = this;
+        let searchSameSection = this.props.data.sections.some(function(el) {
+            if(el.name == self.state.name) {
+                console.log("Error! Section with same name already exist in base");
+                return true;
+            }
+        });
+
         if(this.state.name.replace(/\s/g, '') == '' ||
             this.state.description.replace(/\s/g, '') == '') {
             console.log("Please, input all field");
             return;
         }
+
+        if(searchSameSection) {
+            return;
+        }
+
         const {sections} = this.props.data;
         this.props.addNewSection(sections, {
                name: this.state.name,
                 description: this.state.description
             });
         this.props.getAllSections();
-        e.preventDefault();
     }
 
     saveNameSection(e) {
-        this.setState({name: e.target.value});
+        this.setState({name: e.target.value.replace(/\s/g, '')});
     }
 
     saveDescriptionSection(e) {
-        this.state.description = e.target.value;
+        this.state.description = e.target.value.replace(/\s/g, '');
     }
 
     render() {

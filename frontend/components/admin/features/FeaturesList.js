@@ -32,11 +32,13 @@ class FeaturesList extends  Component {
         var self = this;
 
         return (
-            <Grid className={styles['list-container']} id="'list-container">
-            { features.map(function(feature) {
+            <div className={styles['list-container']} id="'list-container">
+            {
+
+                features.map(function(feature) {
                 var check = false;
                 if(self.checkSearchValue(filter, feature.featureName)
-                    && self.checkSelectedSections(self.props.featuresData.listCheckedSections, feature.section)) {
+                    && self.checkSelectedSections(self.props.featuresData.listCheckedSections, feature.section._id)) {
                     if(self.props.featuresData.listCheckedFeatures.indexOf(feature._id) != -1 || self.props.featuresData.allChecked) {
                         check = true;
                     }
@@ -48,7 +50,7 @@ class FeaturesList extends  Component {
                     )
                 }
             })}
-            </Grid>
+            </div>
     );
     }
 }

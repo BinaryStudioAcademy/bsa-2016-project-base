@@ -50,7 +50,7 @@ export default function FeaturesDetailsReducer(state = initialState, action) {
             return Object.assign({}, state, {
                 isLoading: false,
                 features: action.data
-            });    
+            });
         }
         case types.FEATURES_DETAILS_GET_ALL_ERROR: {
             console.log(action.error);

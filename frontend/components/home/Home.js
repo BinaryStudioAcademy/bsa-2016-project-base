@@ -26,29 +26,48 @@ class Home extends Component {
 		this.props.filterTech(target.value, target.checked);
 	}
 
+	sortByParams(e) {
+		const target = e.target;
+		this.props.getAllProjectsSorted(target.value);
+	}
+
+	pageSelect(e) {
+		this.props.setActionPage(e);
+	}
+
  	render() {
-		const { search } = this.props.data;
-		const { filteredProjects, technologies } = this.props.filtered;
+		const { search, pagination } = this.props.data;
+		const { filteredProjects, technologies, sumFilterProj, cntAllProjectFil } = this.props.filtered;
 
 	    return (
 	    	<Row>
-				<Col lg={8} lgOffset={2} className={styles.bk}>
+				<Col className={styles.bk}>
 					<SearchHome
 						filter = {::this.filterProject}
 						filterByTech = {::this.filterByTech}
+						orderBy = {::this.sortByParams}
 						search = {search}
 						technologies = {technologies} />
 					<GeneralInformation
-						projects={ filteredProjects } />
+						cnt={ cntAllProjectFil } />
 					<ListProjects
 						projects={ filteredProjects } />
+					<PaginationHome
+						activePage={ pagination.activePage }
+						sumPages = { sumFilterProj }
+						pageSelect = {::this.pageSelect}/>
 				</Col>
-				{/*<Row>*/}
-					{/*<PaginationHome />*/}
-				{/*</Row>*/}
 	    	</Row>
 	    )
 	}
+}
+
+function getOnlySelectedTechProject (products, filterTech) {
+	if (!filterTech.length) return products;
+
+	return products.filter(product =>
+		product.technologies.filter(tech => !!~filterTech.indexOf(tech.techName)).length
+	);
 }
 
 function getFilteredProjects (allProducts, search) {
@@ -86,15 +105,41 @@ function getFilteredTechnologies (filteredProjects) {
 	return technologies;
 }
 
+function getPaginationConfig(projects, config) {
+	let countProjects = projects.length,
+	pageCount = Math.ceil(countProjects/config.perpage);
+	if(!pageCount) pageCount = 1;
+	if(config.activePage > pageCount) config.activePage = pageCount;
+	let startPos = (config.activePage - 1) * config.perpage;
+	return {
+		countProjects: countProjects,
+		pageCount: pageCount,
+		startPos: startPos,
+		perpage: config.perpage
+	}
+}
+
+function getPagesProjects (projects, config) {
+	const {startPos, perpage} = config;
+
+	return projects.filter((project, key) => {
+		return key >= startPos && key < (perpage + startPos);
+	});
+}
+
 const HomeConnected = connect(
 
 	state => {
-		const allProducts = state.HomeReducer.projects,
-			search = state.HomeReducer.search;
-		const filteredProjects = getFilteredProjects(allProducts, search),
+
+		let allProducts = state.HomeReducer.projects,
+			{search, filterTech, pagination} = state.HomeReducer;
+		let filteredProjects = getFilteredProjects(allProducts, search),
 			technologies = getFilteredTechnologies(filteredProjects);
-		console.log('Filtered:', filteredProjects);
-		return {data: state.HomeReducer, filtered: {filteredProjects: filteredProjects, technologies: technologies}};
+		filteredProjects =  getOnlySelectedTechProject(filteredProjects, filterTech);
+		const configPage = getPaginationConfig(filteredProjects, pagination);
+		filteredProjects = getPagesProjects(filteredProjects, configPage);
+
+		return {data: state.HomeReducer, filtered: {filteredProjects: filteredProjects, technologies: technologies, sumFilterProj: configPage.pageCount, cntAllProjectFil: configPage.countProjects}};
 	},
 	dispatch => bindActionCreators(actions, dispatch)
 )(Home);
