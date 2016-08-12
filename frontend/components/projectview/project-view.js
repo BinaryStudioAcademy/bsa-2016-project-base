@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from './project-view-actions.js';
 import Screenshots from './gallery/gallery.js';
 import TechnologiesList from './technologies/technologiesList.js';
+import TagsList from './TagsList.js';
 import styles from './project-view.sass';
 
 import { Accordion, Button, Panel, Nav, NavItem, Tabs, Tab, Table, Grid, Row, Col, Thumbnail, Glyphicon } from 'react-bootstrap';
@@ -106,7 +107,7 @@ class ProjectView extends Component {
 	    						</Panel>
 							</Tab>
 	    					<Tab eventKey={2} title="Technologies"><Panel><TechnologiesList /></Panel></Tab>
-	        			<Tab eventKey={3} title="Tags"><Panel>List of Tags</Panel></Tab>
+	        			<Tab eventKey={3} title="Tags"><Panel><TagsList/></Panel></Tab>
 	        			<Tab eventKey={4} title="Screenshots">
 	        				<Panel>	        					
 	        					<div className={styles.gallery}>
