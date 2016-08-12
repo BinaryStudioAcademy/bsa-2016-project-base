@@ -10,9 +10,11 @@ const bodyParser = require('body-parser');
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
-// app.use(bodyParser());
+const tockenMiddleware = require('./backend/middleware/tokenValidator');
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+//app.use(tockenMiddleware);
 var routes = require('./backend/routes/routes')(app);
 
 if (isDeveloping) {

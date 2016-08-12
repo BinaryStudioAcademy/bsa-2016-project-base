@@ -2,9 +2,20 @@ import React, { Component } from 'react';
 import {Grid, Row, Col} from 'react-bootstrap';
 import Navbar from '../components/navbar/Navbar'
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import {setAuthUser} from '../actions/UserAuthActions';
+
+import cookies from 'react-cookie';
+
+
 class App extends Component {
     constructor(props) {
         super(props);
+    }
+    componentDidMount(){
+       this.props.setAuthUser(cookies.load('serverUID'), cookies.load('userRole'));
     }
     render() {
         return (
@@ -18,10 +29,21 @@ class App extends Component {
                             {this.props.children}
                         </Col>
                     </Row>
-				</Grid>
+                </Grid>
             </div>
         )
     }
 }
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        setAuthUser:setAuthUser
+    }, dispatch);
+}
 
-export default App;
+function mapStateToProps(state) {
+    return {
+        authUser: state['UserAuthReducer']
+    };
+}
+const AppModifated = connect(mapStateToProps, mapDispatchToProps)(App);
+export default AppModifated;
