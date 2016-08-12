@@ -10,18 +10,21 @@ export default class MyEditor extends React.Component {
             /**
              * @param newText{string}
              */
-            handleChange:PropTypes.func.isRequired
+            handleChange:PropTypes.func,
+            initialContent:PropTypes.string
         }
     }
+
     handleEditorChange(e) {
         console.log('Content was updated:', e.target.getContent());
-        this.props.handleChange(e.target.getContent())
+        const {handleChange} = this.props;
+        handleChange && handleChange(e.target.getContent())
     }
 
     render() {
         return (
             <TinyMCE
-                content="<p>This is the initial content of the editor</p>"
+                content={this.props.initialContent || "<p>This is the initial content of the editor</p>"}
                 config={{
                     height:300,
                     plugins: 'link image code',
