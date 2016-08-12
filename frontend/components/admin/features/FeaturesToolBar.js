@@ -16,10 +16,14 @@ class FeaturesToolBar extends Component {
         this.markAllFeature = this.markAllFeature.bind(this);
         this.handlerFilterFeatures = this.handlerFilterFeatures.bind(this);
         this.handlerCheckedSection = this.handlerCheckedSection.bind(this);
+        this.handlerChangeVisibilityForm = this.handlerChangeVisibilityForm.bind(this);
+    }
+
+    handlerChangeVisibilityForm() {
+        this.props.changeVisibilityForm(this.props.featuresData.visibilityForm)
     }
 
     removeChecked() {
-
         let {listCheckedFeatures} = this.props.featuresData;
         this.props.removeFeature(listCheckedFeatures);
         this.props.getAllFeaturesOfAllProjects();
@@ -58,7 +62,6 @@ class FeaturesToolBar extends Component {
                     <Col sm={2}>
                         <MultiSelect title="Sections" id="multiSelectSections">
                             {
-
                                 this.props.sectionsData.sections.map(function(el, index) {
                                     return (
                                         <div key={index}>
@@ -79,7 +82,7 @@ class FeaturesToolBar extends Component {
                         />
                         <label htmlFor="markAll" className={styles['select-all-label']}>Mark all</label>
                         <Button className={styles['button-feature-remove']} onClick={this.removeChecked} id="buttonFeatureRemove">Remove marked</Button>
-                        <Button className={styles['button-feature-add']} id="buttonFeatureAdd">Add feature</Button>
+                        <Button className={styles['button-feature-add']} id="buttonFeatureAdd" onClick={this.handlerChangeVisibilityForm}>Add feature</Button>
                     </Col>
                 </div>
             </div>
