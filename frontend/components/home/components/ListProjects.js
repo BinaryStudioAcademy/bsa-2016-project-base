@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { ListGroup } from 'react-bootstrap';
 import Project from './Project';
 
+import styles from './ListProjects.sass';
+
 export default class ListProjects extends Component {
 
     static propTypes = {
@@ -16,6 +18,7 @@ export default class ListProjects extends Component {
             ranking += rating[i].value;
         }
 
+        if (!length) '0.0';
         return (ranking/length).toFixed(1);
     }
 
@@ -24,7 +27,7 @@ export default class ListProjects extends Component {
 
         return (
                 (projects.length > 0) ?
-                <ListGroup>
+                <ListGroup id="list-projects" className={styles['list-group']}>
                     {projects.map( project =>
                         <Project
                             key={project._id}

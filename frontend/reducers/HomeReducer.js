@@ -6,10 +6,7 @@ const initialState = {
     filterTech: [],
     pagination: {
         activePage: 1,
-        perpage: 3,
-        pageCount: null,
-        countProjects: null,
-        startPosition: null
+        perpage: 3
     }
 };
 
@@ -47,14 +44,9 @@ export default function HomeReducer(state = initialState, action) {
         case types.PROJECTS_GET_ALL_SUCCESS: {
             const { data } = action;
 
-
             return Object.assign({}, state, {
                 isLoading: false,
-                projects: data,
-                pagination: { ...state.pagination,
-                    countProjects: data.length,
-                    pageCount: Math.ceil(data.length/state.pagination.perpage)
-                }
+                projects: data
             });
         }
         case types.PROJECTS_GET_ALL_ERROR: {

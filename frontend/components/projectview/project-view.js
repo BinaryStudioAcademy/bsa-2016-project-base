@@ -16,7 +16,8 @@ class ProjectView extends Component {
 
     componentWillMount() {
         console.log('ProjectView: componentWillMount');
-        this.props.getProject();
+        let aquiredProjectId = this.props.location.pathname.substr(this.props.location.pathname.match(/project-view/i).index+13,24);
+        this.props.getProject(aquiredProjectId);
     }
     
     componentDidMount() {
@@ -39,6 +40,7 @@ class ProjectView extends Component {
 	}
 
     render() {
+    	//let idview = $r.props.location.pathname.match('/project-view/i');
     	//const { projectsRestPath, selectedProjectId } = this.props.rootState.ProjectViewReducer;
     	let currentProject = (this.props.rootState.ProjectViewReducer.currentProject) ? 
     		this.props.rootState.ProjectViewReducer.currentProject : 'none';
@@ -103,7 +105,7 @@ class ProjectView extends Component {
 	    						</Panel>
 							</Tab>
 	    					<Tab className={styles.tabs} eventKey={2} title="Technologies"><Panel className={styles.tabpanels}>Technologies list</Panel></Tab>
-	        				<Tab eventKey={3} title="Tags"><Panel className={styles.tabpanels}>List of Tags</Panel></Tab>
+	    					<Tab eventKey={3} title="Tags"><Panel className={styles.tabpanels}>List of Tags</Panel></Tab>
 	        				<Tab eventKey={4} title="Screenshots">
 	        					<Panel className={styles.tabpanels}>
 	        					<div className={styles.gallery}>

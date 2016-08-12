@@ -39,14 +39,15 @@ export function getListUsers() {
 
 
 
-export function getProject() {
+export function getProject(projId) {
     return (dispatch, getState) => {
     	const state = getState().ProjectViewReducer;
 		console.log('action "getProject" state: ', state);
 		
 		const aquireProject = {
 		    type: 'PW_GET_PROJECT',
-		    selectedProjectId: state.selectedProjectId,
+		    // selectedProjectId: state.selectedProjectId,
+            selectedProjectId: projId,
 		    selectedProject: undefined
 		};
 
@@ -65,8 +66,22 @@ export function getProjectStage(projectStageId) {
 		    projStage: undefined
     	};
 
-    	console.log('getProject() -> aquireProjectStages: ', aquireProjectStages);
+    	console.log('getProjectStage() -> aquireProjectStages: ', aquireProjectStages);
     	projectViewService.getProjectStage(state.CONST_stagesRestPath, dispatch, aquireProjectStages);
     };
+}
 
+export function getProjectTags() {
+    return (dispatch, getState) => {
+        const state = getState().ProjectViewReducer;
+        console.log('action "getProjectTags" state: ', state);
+        const aquireProjectTags = {
+                type: 'PW_GET_PROJECT_TAGS',
+                projectId: state.selectedProjectId,
+                projTags: undefined
+        };
+
+        console.log('getProjectTags() -> aquireProjectTags: ', aquireProjectTags);
+        projectViewService.getProjectTags(state.CONST_projectsRestPath, dispatch, aquireProjectTags);
+    };
 }
