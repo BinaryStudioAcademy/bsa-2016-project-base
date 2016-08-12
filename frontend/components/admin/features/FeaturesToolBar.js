@@ -58,7 +58,6 @@ class FeaturesToolBar extends Component {
                     <Col sm={2}>
                         <MultiSelect title="Sections" id="multiSelectSections">
                             {
-
                                 this.props.sectionsData.sections.map(function(el, index) {
                                     return (
                                         <div key={index}>
