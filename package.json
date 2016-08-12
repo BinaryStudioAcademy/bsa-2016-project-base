@@ -31,6 +31,7 @@
     "babel-cli": "^6.11.4",
     "babel-polyfill": "^6.9.1",
     "body-parser": "^1.15.2",
+    "cloudinary": "^1.4.1",
     "es6-promise": "^3.2.1",
     "express-api-response": "^0.3.0",
     "i": "^0.3.5",
