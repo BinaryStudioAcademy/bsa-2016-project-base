@@ -33,9 +33,17 @@ class TechDetailPage extends Component {
     }
 
     changeTechName(e) {
-        this.setState({
-            techName: e.target.value
-        });
+        if(e.target.value.length < 50){
+            this.setState({
+                techName: e.target.value
+            });
+            e.target.nextSibling.classList.remove('visible');
+            e.target.nextSibling.classList.add('hidden');
+        }else{
+            e.preventDefault();
+            e.target.nextSibling.classList.remove('hidden');
+            e.target.nextSibling.classList.add('visible');
+        }
     }
 
     changeTechDescription(e) {
@@ -123,6 +131,7 @@ class TechDetailPage extends Component {
                             <Col sm={8} smPush={1}>
                                 <FormControl required onChange={this.changeTechName} value={this.state.techName} type="text"
                                              name="techName"/>
+                                <div id="error" className={styles['error'] + " hidden"}>Technology length must be less 50 symbols</div>
                             </Col>
                         </FormGroup>
                         <FormGroup>
