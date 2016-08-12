@@ -5,6 +5,7 @@ import * as actions from './project-view-actions.js';
 import Screenshots from './gallery/gallery.js';
 import TechnologiesList from './technologies/technologiesList.js';
 import TagsList from './TagsList.js';
+import UserList from './users-component/users_list';
 import styles from './project-view.sass';
 
 import { Accordion, Button, Panel, Nav, NavItem, Tabs, Tab, Table, Grid, Row, Col, Thumbnail, Glyphicon } from 'react-bootstrap';
@@ -103,7 +104,7 @@ class ProjectView extends Component {
 	    				<Tabs defaultActiveKey={1} className={styles.tabpanels}>
 	    					<Tab eventKey={1} title="Users/Owners">
 	    						<Panel>
-	    							{viewUsers}<br/>{viewOwners}
+	    							<UserList />
 	    						</Panel>
 							</Tab>
 	    					<Tab eventKey={2} title="Technologies"><Panel><TechnologiesList /></Panel></Tab>
