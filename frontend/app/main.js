@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import thunk from "redux-thunk";
 import App from './App.js';
 import {Admin, Rights, Features, Tags, Tech, TechScope} from '../components/admin/';
+import TechDetail from '../components/admin/technologies/detail/TechDetail';
 import ProjectsList from '../components/projects/ProjectsList';
 import ProjectView from '../components/projectview/project-view';
 import ProjectSummary from '../components/project-summary/ProjectSummary';
@@ -16,7 +17,6 @@ import Stats from '../components/stats/Stats';
 import Review from '../components/review/Review';
 import NotFound from '../components/not-found/NotFound';
 import * as reducers from '../reducers/';
-console.log('All reducers: ', reducers);
 
 const rootReducer = combineReducers({
     ...reducers
@@ -28,7 +28,6 @@ const store = createStore(
   {},
   compose(applyMiddleware(thunk),window.devToolsExtension ? window.devToolsExtension() : f => f)
 );
-
 render(
     (<Provider store={store}>
         <Router history={browserHistory}>
@@ -44,7 +43,8 @@ render(
               <Route path="features" component={Features} />
               <Route path="tags" component={Tags} />
               <Route path="tech" component={Tech} />
-              <Route path="techscope" component={TechScope} />
+              <Route path="tech/:id" component={TechDetail}/>
+              <Route path="techscope" component={TechScope}  />
             </Route>
             <Route path="stats" component={Stats} /> 
             <Route path="review" component={Review} /> 

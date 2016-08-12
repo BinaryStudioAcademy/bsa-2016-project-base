@@ -15,7 +15,7 @@ export default class Project extends Component {
         const { project, ranking } = this.props;
 
         return (
-            <ListGroupItem className={styles['list-group-item']}>
+            <ListGroupItem id='home-project' className={styles['list-group-item']}>
                 <h4>
                     <Link to={`/project-view/${project._id}`} >{project.projectName}</Link>
                 </h4>

@@ -32,18 +32,12 @@ class Home extends Component {
 	}
 
 	pageSelect(e) {
-		const {setActionPage} = this.props;
-		const { countProjects, perpage, activePage } = this.props.data.pagination;
-
-		let pageCount = Math.ceil(countProjects / perpage),
-			startPosition = (activePage -1) * perpage;
-
-		setActionPage(e);
+		this.props.setActionPage(e);
 	}
 
  	render() {
 		const { search, pagination } = this.props.data;
-		const { filteredProjects, technologies } = this.props.filtered;
+		const { filteredProjects, technologies, sumFilterProj, cntAllProjectFil } = this.props.filtered;
 
 	    return (
 	    	<Row>
@@ -55,10 +49,13 @@ class Home extends Component {
 						search = {search}
 						technologies = {technologies} />
 					<GeneralInformation
-						cnt={ filteredProjects.length } />
+						cnt={ cntAllProjectFil } />
 					<ListProjects
 						projects={ filteredProjects } />
-					{/*<PaginationHome activePage={ pagination.activePage } pageSelect = {::this.pageSelect}/>*/}
+					<PaginationHome
+						activePage={ pagination.activePage }
+						sumPages = { sumFilterProj }
+						pageSelect = {::this.pageSelect}/>
 				</Col>
 	    	</Row>
 	    )
@@ -108,16 +105,41 @@ function getFilteredTechnologies (filteredProjects) {
 	return technologies;
 }
 
+function getPaginationConfig(projects, config) {
+	let countProjects = projects.length,
+	pageCount = Math.ceil(countProjects/config.perpage);
+	if(!pageCount) pageCount = 1;
+	if(config.activePage > pageCount) config.activePage = pageCount;
+	let startPos = (config.activePage - 1) * config.perpage;
+	return {
+		countProjects: countProjects,
+		pageCount: pageCount,
+		startPos: startPos,
+		perpage: config.perpage
+	}
+}
+
+function getPagesProjects (projects, config) {
+	const {startPos, perpage} = config;
+
+	return projects.filter((project, key) => {
+		return key >= startPos && key < (perpage + startPos);
+	});
+}
+
 const HomeConnected = connect(
 
 	state => {
+
 		let allProducts = state.HomeReducer.projects,
-			{search, filterTech} = state.HomeReducer;
+			{search, filterTech, pagination} = state.HomeReducer;
 		let filteredProjects = getFilteredProjects(allProducts, search),
 			technologies = getFilteredTechnologies(filteredProjects);
 		filteredProjects =  getOnlySelectedTechProject(filteredProjects, filterTech);
+		const configPage = getPaginationConfig(filteredProjects, pagination);
+		filteredProjects = getPagesProjects(filteredProjects, configPage);
 
-		return {data: state.HomeReducer, filtered: {filteredProjects: filteredProjects, technologies: technologies}};
+		return {data: state.HomeReducer, filtered: {filteredProjects: filteredProjects, technologies: technologies, sumFilterProj: configPage.pageCount, cntAllProjectFil: configPage.countProjects}};
 	},
 	dispatch => bindActionCreators(actions, dispatch)
 )(Home);

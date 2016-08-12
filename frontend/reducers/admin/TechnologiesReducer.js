@@ -8,7 +8,7 @@ const initialState = {
 };
 
 
-export default function patentDetailsReducer(state = initialState, action) {
+export default function technologieReducer(state = initialState, action) {
 
     switch (action.type) {
         case 'INIT_TECHNOLOGY': {

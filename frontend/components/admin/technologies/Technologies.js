@@ -28,7 +28,8 @@ class Technologies extends Component {
         let listOfTechnologies = this.props.stateFromReducer.TechnologiesReducer.listOfTechnologies;
         listOfTechnologies.forEach(function (el, indx) {
             if (text !== '') {
-                if (el.techName.toUpperCase().indexOf(text.toUpperCase()) != -1) {
+                if (el.techName.toUpperCase().indexOf(text.toUpperCase()) != -1
+                    || el.techDescription.toUpperCase().indexOf(text.toUpperCase()) != -1) {
                     listOfTechnologiesFiltered = [...listOfTechnologiesFiltered, listOfTechnologies[indx]];
                 }
             }
@@ -65,6 +66,8 @@ class Technologies extends Component {
         let state;
         if (formState === 'hidden') {
             state = 'visible';
+            document.getElementById('addForm').scrollIntoView();
+
         } else {
             state = 'hidden';
         }
@@ -105,7 +108,7 @@ class Technologies extends Component {
             list = listOfTechnologies;
         }
         return (
-            <div className={styles["technologies-tab"]}>
+            <div id="technologies" className={styles["technologies-tab"]}>
                 <Panel className={styles['technologies-tool-bar']}>
                     <Row className={styles["technologies-tools"]}>
                     <TechnologiesSearch technologiesSearch={this.technologiesSearch}/>
