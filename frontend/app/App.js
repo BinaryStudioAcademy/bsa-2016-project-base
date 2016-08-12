@@ -16,6 +16,7 @@ class App extends Component {
     }
     componentDidMount(){
        this.props.setAuthUser(cookies.load('serverUID'), cookies.load('userRole'));
+       console.log(this.props.authUser);
     }
     render() {
         return (
@@ -42,7 +43,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
     return {
-        authUser: state['UserAuthReducer']
+        authUser: state
     };
 }
 const AppModifated = connect(mapStateToProps, mapDispatchToProps)(App);
