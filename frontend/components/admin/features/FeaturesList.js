@@ -10,15 +10,21 @@ import * as actionsFeature from '../../../actions/admin/FeaturesActions'
 class FeaturesList extends  Component {
     constructor(props) {
         super(props);
-        this.checkSearchValue = this.checkSearchValue.bind(this);
+        this.checkSearchInNames = this.checkSearchInNames.bind(this);
         this.checkSelectedSections = this.checkSelectedSections.bind(this);
+        this.checkSearchInDescriptions = this.checkSearchInDescriptions.bind(this);
+        this.checkValue = this.checkValue.bind(this);
     }
 
-    checkSearchValue(filter, nameFeature) {
-        if(filter.replace(/\s/g, '') == '') {
+    checkSearchInNames(nameFeature, nameSection, filter) {
+        filter = filter.replace(/\s/g, '');
+        if(filter == '') {
             return true;
         }
-        return nameFeature.toLowerCase().indexOf(filter.toLowerCase()) == 0;
+        if(nameFeature.toLowerCase().indexOf(filter.toLowerCase()) == 0 ||
+            nameSection.toLowerCase().indexOf(filter.toLowerCase()) == 0) {
+            return true
+        }
     }
 
     checkSelectedSections(listCheckedSections, section) {
@@ -27,31 +33,54 @@ class FeaturesList extends  Component {
         }
     }
 
+    checkSearchInDescriptions(descriptionFeature, descriptionSection, filter) {
+        filter = filter.replace(/\s/g, '');
+        if(filter == '') {
+            return true;
+        }
+        if(descriptionFeature.toLowerCase().indexOf(" " + filter.toLowerCase()) != -1 ||
+            descriptionSection.toLowerCase().indexOf(" " + filter.toLowerCase()) != -1) {
+            return true
+        }
+    }
+
+    checkValue(nameFeature, nameSection, descriptionFeature, descriptionSection, listCheckedSections, section, filter) {
+        if(this.checkSelectedSections(listCheckedSections, section) &&
+            (this.checkSearchInNames(nameFeature, nameSection, filter) ||
+            this.checkSearchInDescriptions(descriptionFeature, descriptionSection, filter))) {
+            return true
+        }
+    }
+
+
+
     render() {
         const {features,filter} = this.props.featuresData;
         var self = this;
 
         return (
             <div className={styles['list-container']} id="'list-container">
-            {
+                {
 
-                features.map(function(feature) {
-                var check = false;
-                if(self.checkSearchValue(filter, feature.featureName)
-                    && self.checkSelectedSections(self.props.featuresData.listCheckedSections, feature.section._id)) {
-                    if(self.props.featuresData.listCheckedFeatures.indexOf(feature._id) != -1 || self.props.featuresData.allChecked) {
-                        check = true;
-                    }
-                    else {
-                        check = false;
-                    }
-                    return (
-                        <FeaturesListItem check={check} feature={feature} key={feature._id}/>
-                    )
-                }
-            })}
+                    features.map(function(feature) {
+                        var check = false;
+
+                        if(self.checkValue(feature.featureName, feature.section.name,
+                                feature.featureDescription.lists.join(''), feature.section.description,
+                                self.props.featuresData.listCheckedSections, feature.section._id, filter)) {
+                            if(self.props.featuresData.listCheckedFeatures.indexOf(feature._id) != -1 || self.props.featuresData.allChecked) {
+                                check = true;
+                            }
+                            else {
+                                check = false;
+                            }
+                            return (
+                                <FeaturesListItem check={check} feature={feature} key={feature._id}/>
+                            )
+                        }
+                    })}
             </div>
-    );
+        );
     }
 }
 function mapDispatchToProps(dispatch) {
