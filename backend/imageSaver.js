@@ -19,5 +19,8 @@ var server = http.createServer(function (request, response) {
         response.end(JSON.stringify({location:result.url}))
     });
     request.pipe(stream)
+    request.on("end", function(){
+        console.log("END!")
+    })
 });
 server.listen(3001);
