@@ -14,7 +14,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({limit: '50mb'}));
 var routes = require('./backend/routes/routes')(app);
-require("./backend/imageSaver")(app)
+//require("./backend/imageSaver")(app)
 
 if (isDeveloping) {
   const compiler = webpack(config);

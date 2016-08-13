@@ -2,6 +2,7 @@ import React from "react"
 import {PropTypes} from "react"
 import TinyMCE from "react-tinymce"
 import fileService from "./../../../services/FileService"
+
 export default class MyEditor extends React.Component {
     constructor(props) {
         super(props)
@@ -24,57 +25,40 @@ export default class MyEditor extends React.Component {
     }
 
 
-    replaceNodes(oldNode,newNode){
+    replaceNodes(oldNode, newNode) {
         oldNode.parentNode.insertBefore(newNode, oldNode);
         oldNode.parentNode.removeChild(oldNode);
     }
+
     /**
      *
      * @param callback({string}location,{string}filename)
      */
-    selectImageByExplorerAndUpload(callback,fieldName, window){
+    selectImageByExplorerAndUpload(callback, fieldName, window) {
         var self = this;
         var inputField = window.document.getElementById(fieldName);
         var inputFile = document.createElement("input");
         inputFile.setAttribute("type", "file");
         inputFile.onchange = function () {
             var file = inputFile.files[0];
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                var progressBarContainer = window.document.createElement("div");
-                var progressBar = window.document.createElement("span");
-                progressBarContainer.appendChild(progressBar);
-                progressBarContainer.setAttribute("id", fieldName);
-                progressBarContainer.setAttribute("class", inputField.getAttribute("class"));
-                self.replaceNodes(inputField, progressBarContainer);
-                var request = new XMLHttpRequest();
-                request.open("POST", "http://localhost:3000/_image_upload_", true);
-                request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-                request.send(JSON.stringify({data:e.target.result}));
-                request.upload.onprogress = event=>{
-                    debugger
-                    progressBar.innerHTML = (event.loaded + ' байт из ' + event.total )
-                };
-
-                request.onreadystatechange = function() {
-                    debugger
-                    if (request.readyState == XMLHttpRequest.DONE) {
-                        self.replaceNodes(progressBarContainer, inputField)
-                        var json = JSON.parse(request.responseText);
-                        callback(json.location, file.name);
-                    }
+            var progressBar = window.document.createElement("progress");
+            progressBar.setAttribute("style", "width:270px;height:50px");
+            self.replaceNodes(inputField, progressBar);
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function () {
+                if (request.readyState == XMLHttpRequest.DONE) {
+                    self.replaceNodes(progressBar, inputField);
+                    var json = JSON.parse(request.responseText);
+                    callback(json.location, file.name);
                 }
-                /*callback("uploading image...", "uploading image...");
-                fileService.save({filename:file.name, data:e.target.result})
-                    .then(res=>res.json())
-                    .then(json=>{
-                        debugger
-                        callback(json.location, file.name);
-                    })*/
             };
-            //TODO: notify about uploading
-            callback("reading image from disc...", "reading image from disc...");
-            reader.readAsDataURL(file);
+            request.upload.onprogress = event=> {
+                progressBar.setAttribute("value", event.loaded)
+                progressBar.setAttribute("max", event.total)
+            };
+            request.open("POST", "http://localhost:3001/", true);
+            request.send(file);
+
         };
         inputFile.click();
     }
