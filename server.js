@@ -12,7 +12,7 @@ const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
 // app.use(bodyParser());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 var routes = require('./backend/routes/routes')(app);
 require("./backend/imageSaver")(app)
 
