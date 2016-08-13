@@ -13,8 +13,14 @@ export default class SearchHome extends Component {
         technologies: React.PropTypes.array.isRequired
     };
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            searchHint: nextProps.searchHint
+        });
+    }
+
     render() {
-        const { filter, search, technologies, filterByTech, orderBy } = this.props;
+        const { filter, search, technologies, filterByTech, orderBy,searchHint } = this.props;
 
         return (
             <Form id='search-home' className={styles['search-form']} >
@@ -30,6 +36,7 @@ export default class SearchHome extends Component {
                             onInput ={ filter }
                             value={ search }
                         />
+                        <p className={styles['search-hint']}>{searchHint}</p>
                     </InputGroup>
                 </FormGroup>
 

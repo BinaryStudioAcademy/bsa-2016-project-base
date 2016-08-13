@@ -1,10 +1,11 @@
 import * as types from '../constants/HomeActionTypes';
 import homeService from '../services/homeService';
 
-export function filterProjectList(search) {
+export function filterProjectList(search,searchHint) {
     return {
         type: types.FILTER_PROJECTS_DETAILS,
-        search
+        search,
+        searchHint:searchHint
     };
 }
 
@@ -32,7 +33,6 @@ export function getAllProjects() {
         return homeService.getAllProjects()
             .then( res => res.json())
             .then( data => {
-                console.log('Get:', data);
                 dispatch({
                     type: types.PROJECTS_GET_ALL_SUCCESS,
                     data: data
@@ -55,7 +55,6 @@ export function getAllProjectsSorted(orderBy) {
         return homeService.getAllFeaturesSorted(orderBy)
             .then( res => res.json())
             .then( data => {
-                console.log('Get:', data);
                 dispatch({
                     type: types.PROJECTS_GET_ALL_SUCCESS,
                     data: data
