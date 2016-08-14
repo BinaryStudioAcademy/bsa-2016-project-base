@@ -6,6 +6,13 @@ $toolBarColor: #EFEFEF
 $listItemColor: #FAFDFE
 $mainTextColor: #656565
 
+
+#Features .visible
+  visibility: visible !important
+
+#Features .hidden
+  visibility: hidden !important
+
 /* Inputs */
 #Features .feature-tabs input,
 #Features .features-tool-bar input,
@@ -24,7 +31,7 @@ $mainTextColor: #656565
 /* Add Features|Sections component */
 .feature-tabs
   font-family: "Open Sans"
-  margin: 0 auto
+  margin: 25px auto
   padding-bottom: 30px
 
 .feature-tabs,
@@ -201,12 +208,14 @@ $mainTextColor: #656565
   position: absolute
 
 #Features .select-all-checkbox + .select-all-label
+  background-color: transparent
   height: 30px
   line-height: 25px
   margin: 3px 0px 0px 20px
   padding: 0px 10px 0px 40px
 
 #Features .select-checkbox + .select-label
+  background-color: transparent
   margin: 15px
   height: 16px
   padding-left: 21px
@@ -260,8 +269,8 @@ $mainTextColor: #656565
 #Features .list-container
   overflow-y: auto
   color: $mainTextColor
-  max-height: 300px
-  margin: 5px 0px 25px 0px
+  max-height: 475px
+  margin: 5px 0px 0 0px
   border-bottom: 3px solid $toolBarColor
 
 #Features .list-container > div,
