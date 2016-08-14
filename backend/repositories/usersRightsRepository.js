@@ -12,15 +12,29 @@ UsersRightsRepository.prototype.getUsersToProjectByFilter = function(data,callba
 	var model = this.model;
 		query = model.findOne({_id:data['projectId']}),
 		isOwner = (!data['user'] || data['user'] == 'owners'),
-		isSimple = (!data['user'] || data['user'] == 'simples')
-		subcriteria = { 
-			/*$or: [ 
-				{ userName: '/' + data['userFilter'] + '/' },
-				{ userSurname: '/' + data['userFilter'] + '/'} 
-			] */
+		isSimple = (!data['user'] || data['user'] == 'simples'),
+		match = {
+		 	$or: [{
+		 	  	userName: {
+		 	  		'$regex' : data['userFilter'],
+		 	  		'$options' : 'i'
+		 	  	}
+		 	},{
+		 	  	userSurname: {
+		 	  		'$regex' : data['userFilter'], 
+		 	  		'$options' : 'i'
+		 	  	}
+		 	}] 
 		};
-	if(isOwner)  query = query.populate('owners',null,subcriteria )
-	if(isSimple) query = query.populate('users',null,subcriteria );
+
+	if(isOwner)  query = query.populate({
+		path:'owners',
+		match: match
+	});
+	if(isSimple) query = query.populate({
+		path:'users',
+		match: match
+	});
 	query.exec(function(err,result){
 		if(result){
 			var res = { id: result['_id']}
