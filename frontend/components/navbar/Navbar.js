@@ -3,6 +3,8 @@ import { Link } from 'react-router';
 import { Grid, Row, Panel, Nav,NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import styles from './navbar.sass';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 class Navbar extends Component {
 	constructor(props) {
@@ -20,6 +22,12 @@ class Navbar extends Component {
         });
     }
  	render() {
+        var adminLink = null;
+        if(this.props.authUser['userRole'] == 'ADMIN'){
+            adminLink = (<LinkContainer to="/admin" className={styles["menu-item"]}>
+                <NavItem eventKey={4}>Admin Area</NavItem>
+             </LinkContainer>);
+        }
         return (
             <div className="nav-home">
                 <div className={styles["toggle-menu"]} onClick={this.toggleMenu}> 
@@ -35,13 +43,19 @@ class Navbar extends Component {
                     <LinkContainer to="/stats" className={styles["menu-item"]}>
                         <NavItem eventKey={3}>Stats</NavItem>
                     </LinkContainer> 
-                    <LinkContainer to="/admin" className={styles["menu-item"]}>
-                        <NavItem eventKey={4}>Admin Area</NavItem>
-                    </LinkContainer> 
+                    {adminLink}
                 </Nav>
             </div>
         )
     }
 };
-
-export default Navbar;
+function mapStateToProps(state) {
+    return {
+        authUser: state['UserAuthReducer']
+    };
+}
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({}, dispatch);
+}
+const NavbarModifated = connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default NavbarModifated;

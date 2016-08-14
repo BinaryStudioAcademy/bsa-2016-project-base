@@ -8,17 +8,35 @@ import { bindActionCreators } from 'redux';
 import {setAuthUser} from '../actions/UserAuthActions';
 
 import cookies from 'react-cookie';
-
+import styles from './app.sass';
 
 class App extends Component {
     constructor(props) {
         super(props);
     }
-    componentDidMount(){
-       this.props.setAuthUser(cookies.load('serverUID'), cookies.load('userRole'));
-       console.log(this.props.authUser);
+    componentWillMount(){
+       this.UpdateCoockie();
+    }
+    UpdateCoockie(){
+        this.props.setAuthUser(
+            cookies.load('serverUID'), 
+            cookies.load('userRole')
+       );
+    }
+    logout(){
+        cookies.remove('serverUID');
+        cookies.remove('userRole');
+        cookies.remove('x-access-token');
+        window.location.reload(true);
     }
     render() {
+        var children = null;
+        if(this.props.authUser['userRole']!= 'ADMIN'){
+            children = [];
+            React.Children.map(this.props.children, function(child) {
+               if(child.type['name'].toLowerCase()!='admin') children.push(child); // ?
+            });
+        } else children = this.props.children;
         return (
             <div>
                 <Grid >
@@ -27,7 +45,18 @@ class App extends Component {
                             <Navbar/>
                         </Col>
                         <Col xs={12} sm={10} md={10}>
-                            {this.props.children}
+                            <Row  className={styles['user-panel']}>
+                                <Col xs={10} sm={11} md={11}>
+                                    Welcome:
+                                    <label>
+                                        {this.props.authUser['serverUID']}
+                                    </label>    
+                                </Col>
+                                <Col xs={2} sm={1} md={1} className={styles['logout']}>
+                                    <label onClick={this.logout}>Exit</label>
+                                 </Col>
+                            </Row>
+                            {children}
                         </Col>
                     </Row>
                 </Grid>
@@ -43,7 +72,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
     return {
-        authUser: state
+        authUser: state['UserAuthReducer']
     };
 }
 const AppModifated = connect(mapStateToProps, mapDispatchToProps)(App);

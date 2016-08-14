@@ -5,8 +5,8 @@ const initialState = {
 export default function UserAuthReducer(state = initialState, action) {
     switch(action.type){
         case 'SET_AUTH_USER': {
-        	console.log('qwerty',action['user'],Object.assign({},action['user']));
-            return Object.assign({},state,action['user']);
+            var newState = Object.assign({},state,action['user']);
+            return newState;
         }
         default: return state;
     }
