@@ -8,7 +8,7 @@ class RightsToolbar extends Component {
 	}
  	render() {
 	    return (
-<div clas>
+<div >
         <div className="row">
             <div className="col-md-5">
             <div className={styles['search-input-container']}>

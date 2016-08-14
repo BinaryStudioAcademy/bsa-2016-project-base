@@ -33,7 +33,7 @@ module.exports = function(app) {
 	app.get('/api/rights/projects/:id/users/:filter', function (req,res,next) {
 		usersRightsRepository.getUsersToProjectByFilter({
 			projectId: req.params.id,
-			userFilter: req.params.filter 
+			userFilter: req.params.filter
 		},function(err, data) {
 			res.data = data;
 			res.err = err;
@@ -51,7 +51,7 @@ module.exports = function(app) {
 			next();
 		});
 	},apiResponse);
-	
+
 	app.get('/api/rights/projects/:id/users/:filter/simples', function (req,res,next) {
 		usersRightsRepository.getUsersToProjectByFilter({
 			projectId: req.params.id,
@@ -64,5 +64,3 @@ module.exports = function(app) {
 		});
 	},apiResponse);
 }
-
-
