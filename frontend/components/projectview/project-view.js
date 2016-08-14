@@ -5,7 +5,7 @@ import * as actions from './project-view-actions.js';
 import Screenshots from './gallery/gallery.js'
 import styles from './project-view.sass';
 import Editor from "./editor/Editor"
-
+import FloaraEditor from "./editor/FloaraEditor"
 
 import { Accordion, Button, Panel, Nav, NavItem, Tabs, Tab, Table, Grid, Row, Col, Thumbnail, Glyphicon } from 'react-bootstrap';
 
@@ -114,8 +114,10 @@ class ProjectView extends Component {
 		        				
 	        					</Panel></Tab>
 	        				<Tab eventKey={5} title="Features"><Panel className={styles.tabpanels}>Table of features</Panel></Tab>
-	        				<Tab eventKey={6} title="Ratings"><Panel className={styles.tabpanels}>Table of rates</Panel></Tab>
-	        				<Tab eventKey={7} title="Description"><Panel className={styles.tabpanels}>Description<Editor/></Panel></Tab>
+	        				<Tab eventKey={6} title="Ratings"><Panel className={styles.tabpanels}>Table of rates</Panel>
+								<FloaraEditor handleChange={text=>console.log(`new text = ${text}`)} initialContent="initial"/></Tab>
+	        				<Tab eventKey={7} title="Description"><Panel className={styles.tabpanels}>Description
+								<Editor handleChange={text=>console.log(`new text = ${text}`)} initialContent="initial"/></Panel></Tab>
 	  					</Tabs>
 	    				<div>
 					    	<Panel header={<span className={styles.questionHeader}>Questions and Answers</span>}  className={styles.questionPanel}>

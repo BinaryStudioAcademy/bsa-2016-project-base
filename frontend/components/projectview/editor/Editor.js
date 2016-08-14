@@ -2,7 +2,7 @@ import React from "react"
 import {PropTypes} from "react"
 import TinyMCE from "react-tinymce"
 import fileService from "./../../../services/FileService"
-
+import ReactDOM from "react-dom"
 export default class MyEditor extends React.Component {
     constructor(props) {
         super(props)
@@ -19,7 +19,7 @@ export default class MyEditor extends React.Component {
     }
 
     handleEditorChange(e) {
-        console.log('Content was updated:', e.target.getContent());
+        //console.log('Content was updated:', e.target.getContent());
         const {handleChange} = this.props;
         handleChange && handleChange(e.target.getContent())
     }
@@ -39,6 +39,7 @@ export default class MyEditor extends React.Component {
         var inputField = window.document.getElementById(fieldName);
         var inputFile = document.createElement("input");
         inputFile.setAttribute("type", "file");
+        inputFile.setAttribute("accept", ".png,.jpg,.gif");
         inputFile.onchange = function () {
             var file = inputFile.files[0];
             var progressBar = window.document.createElement("progress");
@@ -48,9 +49,13 @@ export default class MyEditor extends React.Component {
             var request = new XMLHttpRequest();
             request.onreadystatechange = function () {
                 if (request.readyState == XMLHttpRequest.DONE) {
-                    self.replaceNodes(progressBar, inputField);
-                    var json = JSON.parse(request.responseText);
-                    callback(json.location, file.name);
+                    try{
+                        var json = JSON.parse(request.responseText);
+                        self.replaceNodes(progressBar, inputField);
+                        callback(json.location || json.error.message);
+                    }catch (e){
+                        callback("error while uploading file")
+                    }
                 }
             };
             request.upload.onprogress = event=> {
@@ -66,7 +71,6 @@ export default class MyEditor extends React.Component {
         };
         inputFile.click();
     }
-
 
     render() {
         const self = this;
@@ -89,7 +93,7 @@ export default class MyEditor extends React.Component {
                             let field = win.document.getElementById(field_name);
                             self.selectImageByExplorerAndUpload(text=>{field.value = text}, field_name, win)
                         }
-                    },
+                    }
 
                 }}
                     onChange={this.handleEditorChange.bind(this)}

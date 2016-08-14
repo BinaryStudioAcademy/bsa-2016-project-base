@@ -16,11 +16,14 @@ var server = http.createServer(function (request, response) {
         console.log(result)
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000")
         response.setHeader("Access-Control-Allow-Headers", "Content-Type, Content-Length")
-        response.end(JSON.stringify({location:result.url}))
+        response.end(JSON.stringify({
+            location:result.url,
+            error:result.error
+        }))
     });
+    request.on("data", function(){console.log("DATA!")})
+    request.on("end", function(){console.log("END!")})
+    request.on("close", function(){console.log("CLOSE!")})
     request.pipe(stream)
-    request.on("end", function(){
-        console.log("END!")
-    })
 });
 server.listen(3001);
