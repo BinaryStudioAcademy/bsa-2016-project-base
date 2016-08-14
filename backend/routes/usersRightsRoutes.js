@@ -20,9 +20,6 @@ module.exports = function(app) {
 	},apiResponse);
 
 	app.put('/api/rights/projects/:id/', function (req,res,next) {
-		console.log('put project');
-		next();
-		return;
 		usersRightsRepository.update(req.params.id, req.body,function(err, data) {
 			res.data = data;
 			res.err = err;
