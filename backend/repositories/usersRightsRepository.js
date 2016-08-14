@@ -12,14 +12,6 @@ UsersRightsRepository.prototype.getUsersToProjectByFilter = function(data,callba
 	var model = this.model;
 		query = model.findOne({_id:data['projectId']}),
 		isOwner = (!data['user'] || data['user'] == 'owners'),
-<<<<<<< HEAD
-		isSimple = (!data['user'] || data['user'] == 'simples')
-		subcriteria = {
-			/*$or: [
-				{ userName: '/' + data['userFilter'] + '/' },
-				{ userSurname: '/' + data['userFilter'] + '/'}
-			] */
-=======
 		isSimple = (!data['user'] || data['user'] == 'simples'),
 		match = {
 		 	$or: [{
@@ -33,7 +25,6 @@ UsersRightsRepository.prototype.getUsersToProjectByFilter = function(data,callba
 		 	  		'$options' : 'i'
 		 	  	}
 		 	}] 
->>>>>>> origin/authorization
 		};
 
 	if(isOwner)  query = query.populate({
@@ -57,11 +48,11 @@ UsersRightsRepository.prototype.getByIdWithStakeholders = function(id,callback){
 	var model = this.model;
 	var query = model.findOne({_id:id}).populate(['users','owners']);
 	query.exec(function(err,data){
-		/*if(data) data = {
+		if(data) data = {
 			id: data['_id'],
 			owners: data['owners'],
 			simples: data['users']
-		}*/
+		}
 		callback(err,data);
 	});
 }

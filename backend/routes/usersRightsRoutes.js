@@ -37,6 +37,7 @@ module.exports = function(app) {
 			next();
 		});
 	},apiResponse);
+	
 	app.get('/api/rights/projects/:id/users/:filter/owners', function (req,res,next) {
 		usersRightsRepository.getUsersToProjectByFilter({
 			projectId: req.params.id,

@@ -1,7 +1,7 @@
 import * as types from '../constants/AdminUserActionTypes';
 
 const initialState = {
-  projectID:null,
+  projectId:null,
   users:{
     simples:[],
    owners:[]
