@@ -3,12 +3,12 @@ import * as types from '../constants/HomeActionTypes';
 const initialState = {
     projects: [],
     search: '',
+    searchHint: '',
     filterTech: [],
     pagination: {
         activePage: 1,
         perpage: 3
-    },
-    searchHint:''
+    }
 };
 
 export default function HomeReducer(state = initialState, action) {
@@ -28,7 +28,6 @@ export default function HomeReducer(state = initialState, action) {
                 filterTech: filter
             });
         case types.FILTER_PROJECTS_DETAILS:
-            console.log(action);
             const { search,searchHint } = action;
 
             return Object.assign({}, state, {

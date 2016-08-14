@@ -1,11 +1,11 @@
 import * as types from '../constants/HomeActionTypes';
 import homeService from '../services/homeService';
 
-export function filterProjectList(search,searchHint) {
+export function filterProjectList(search, searchHint) {
     return {
         type: types.FILTER_PROJECTS_DETAILS,
         search,
-        searchHint:searchHint
+        searchHint
     };
 }
 

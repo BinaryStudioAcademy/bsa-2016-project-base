@@ -28,8 +28,7 @@ ProjectRepository.prototype.getByIdWithTags = function(id, callback){
 };
 Repository.prototype.getAllDataMainPage = function(callback){
 	var model = this.model;
-	var query = model.find().populate('technologies').populate('tags'
-	).populate('users');
+	var query = model.find().populate(['technologies', 'tags', 'users']);
 	query.exec(callback);
 };
 

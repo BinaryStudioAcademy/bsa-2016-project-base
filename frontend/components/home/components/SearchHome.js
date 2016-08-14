@@ -9,34 +9,32 @@ export default class SearchHome extends Component {
         filter: React.PropTypes.func.isRequired,
         filterByTech: React.PropTypes.func.isRequired,
         orderBy: React.PropTypes.func.isRequired,
+        removeFilter: React.PropTypes.func.isRequired,
         search: React.PropTypes.string.isRequired,
+        searchHint: React.PropTypes.string.isRequired,
         technologies: React.PropTypes.array.isRequired
     };
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            searchHint: nextProps.searchHint
-        });
-    }
-
     render() {
-        const { filter, search, technologies, filterByTech, orderBy,searchHint } = this.props;
+        const { filter, search, technologies, filterByTech, orderBy, searchHint, removeFilter } = this.props;
 
         return (
             <Form id='search-home' className={styles['search-form']} >
                 <FormGroup className={styles['form-group']} >
                     <InputGroup>
-                        <InputGroup.Button>
+                        <InputGroup.Button className={styles['button-search']}>
                             <Button className={["material-icons", styles['button-search']]} >search</Button>
                         </InputGroup.Button>
                         <FormControl
-                            className={ styles['form-control'] }
+                            className={ (searchHint)? [styles['form-control'], styles['filer-by-' + searchHint]]:styles['form-control'] }
                             type="text"
                             placeholder="Type to search..."
                             onInput ={ filter }
                             value={ search }
+                            onKeyDown={removeFilter}
                         />
-                        <p className={styles['search-hint']}>{searchHint}</p>
+                        {(searchHint)? <p className={styles['filer-by-types-label']} data-text={searchHint + ':'}>&nbsp;</p>: null
+                        }
                     </InputGroup>
                 </FormGroup>
 

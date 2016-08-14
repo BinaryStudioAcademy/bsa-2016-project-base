@@ -3,6 +3,36 @@
 
 #search-home
 
+.filer-by-technologies
+  padding-left: 105px
+
+.filer-by-description
+  padding-left: 92px
+
+.filer-by-users
+  padding-left: 55px
+
+.filer-by-tags, .filer-by-date
+  padding-left: 50px
+
+.filer-by-types-label
+  width: 0px
+
+.filer-by-types-label:before
+  content: attr(data-text)
+  border: 1px solid #9e9e9e
+  background-color: gainsboro
+  padding: 4px
+  border-radius: 3px
+  color: #504e4e
+  font-weight: bold
+  position: absolute
+  bottom: 3px
+  left: 47px
+  z-index: 3
+  float: left
+
+
 .search-form
   padding-top: 30px
 
@@ -48,7 +78,7 @@
 .button-search:active,
 .button-search:hover,
 .button-search:focus
-  padding: 6px
+  padding: 0 6px
   border: 0
   border-bottom: 1px solid #fbc959
   border-radius: 0

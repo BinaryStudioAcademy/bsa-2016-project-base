@@ -11,6 +11,14 @@ import PaginationHome from './components/PaginationHome';
 
 import styles from './home.sass';
 
+const hotSearch = {
+    '#': 'tags',
+    '@': 'users',
+    '!': 'technologies',
+    '~': 'description',
+    ' ': 'date'
+};
+
 class Home extends Component {
 
     componentDidMount() {
@@ -18,26 +26,12 @@ class Home extends Component {
     }
 
     filterProject(e) {
-        const action_case = e.target.value.charAt(0);
-        let searchHint;
-        switch (action_case) {
-            case '#':
-                searchHint = 'Search by tags';
-                break;
-            case '@':
-                searchHint = 'Search by users';
-                break;
-            case '!':
-                searchHint = 'Search by technologies';
-                break;
-            case '~':
-                searchHint = 'Search by description';
-                break;
-            default:
-                searchHint = 'Search by projects names & projects date';
-                break;
-        }
-        this.props.filterProjectList(e.target.value,searchHint);
+        let search = e.target.value,
+            searchHint = (!this.props.data.searchHint)? hotSearch[search[0]]: this.props.data.searchHint;
+
+        search = (!this.props.data.searchHint && searchHint)? search.slice(1): search;
+        searchHint = (searchHint)? searchHint: '';
+        this.props.filterProjectList(search, searchHint);
     }
 
     filterByTech(e) {
@@ -54,10 +48,18 @@ class Home extends Component {
         this.props.setActionPage(e);
     }
 
+    removeFilter(e) {
+        if (e.keyCode !== 8) return false;
+
+            let search = e.target.value,
+                searchHint = this.props.data.searchHint;
+        if(search === '' && searchHint) this.props.filterProjectList(search, '');
+
+    }
 
     render() {
-        const {search, pagination} = this.props.data;
-        const {filteredProjects, technologies, sumFilterProj, cntAllProjectFil,searchHint} = this.props.filtered;
+        const {searchHint, search, pagination} = this.props.data;
+        const {filteredProjects, technologies, sumFilterProj, cntAllProjectFil} = this.props.filtered;
         return (
             <Row>
                 <Col className={styles.bk}>
@@ -67,7 +69,8 @@ class Home extends Component {
                         orderBy={::this.sortByParams}
                         search={search}
                         technologies={technologies}
-                        searchHint ={searchHint}
+                        searchHint={searchHint}
+                        removeFilter={::this.removeFilter}
                     />
                     <GeneralInformation
                         cnt={ cntAllProjectFil }/>
@@ -91,101 +94,41 @@ function getOnlySelectedTechProject(products, filterTech) {
     );
 }
 
-function getFilteredProjects(allProducts, search) {
+function getFilteredProjects(allProducts, search, searchHint) {
     if (search.length < 2) return allProducts;
+
     const str = search.toLowerCase();
-    const action_case = str.charAt(0);
-    let action;
-    switch (action_case) {
-        case '#':
-            action = 'tags';
-            break;
-        case '@':
-            action = 'usernames';
-            break;
-        case '!':
-            action = 'technologies';
-            break;
-        case '~':
-            action = 'description';
-            break;
-        default:
-            action = 'default';
-            break;
-    }
-    let filteredData = [];
 
-    let filteredDataHead = [], filteredDataDesc = [];
+    return allProducts.filter(product => {
+        if (!searchHint) return !!~product.projectName.toLowerCase().indexOf(str);
 
+        searchHint = (searchHint === 'date') ? 'timeBegin' : searchHint;
+        let searchingField = product[searchHint], isMatch = [];
 
-    allProducts.forEach(function (item, indx) {
-        if (action === 'tags') {
-            let search_str = str.slice(1);
-            item.tags.forEach(function (el, i) {
-                if (!!~el.tagName.toLowerCase().indexOf(search_str)) {
-                    filteredData.push(item);
+        if (Object.prototype.toString.call(searchingField) === '[object Array]') {
+            isMatch = searchingField.filter(item => {
+                switch (searchHint) {
+                    case 'tags':
+                        return !!~item.tagName.toLowerCase().indexOf(str);
+                    case 'users':
+                        return !!~item.userName.toLowerCase().indexOf(str)
+                            || !!~item.userSurname.toLowerCase().indexOf(str);
+                    case 'technologies':
+                        return !!~item.techName.toLowerCase().indexOf(str);
+                    case 'description':
+                        return !!~item.descrFullText.toLowerCase().indexOf(str);
+                    default:
+                        return false;
                 }
-            })
-        } else if (action === 'usernames') {
-            let search_str = str.slice(1);
-            item.users.forEach(function (el, i) {
-                if (!!~el.userName.toLowerCase().indexOf(search_str)) {
-                    filteredData.push(item);
-                }
-            })
-        } else if (action === 'technologies') {
-            let search_str = str.slice(1);
-            item.technologies.forEach(function (el, i) {
-                if (!!~el.techName.toLowerCase().indexOf(search_str)) {
-                    filteredData.push(item);
-                }
-            })
-        } else if (action === 'description') {
-            let search_str = str.slice(1);
-            item.description.forEach(function (el, i) {
-                if (!!~el.descrFullText.toLowerCase().indexOf(search_str) || !!~el.descrText.toLowerCase().indexOf(search_str)) {
-                    filteredData.push(item);
-                }
-            })
-        } else if (action === 'default') {
-
-            if (!!~item.projectName.toLowerCase().indexOf(str) || !!~item.timeBegin.toLowerCase().indexOf(str)
-                || !!~item.timeEnd.toLowerCase().indexOf(str)) {
-                filteredData.push(item);
-            }
-
+            });
+        } else {
+            return !!~product[searchHint].indexOf(str);
         }
+
+        return !!isMatch.length;
     });
-
-    // allProducts.filter(product => {
-    //
-    //
-    // 	if(action === 'tags'){
-    // 		product.tags.forEach(function (el,indx) {
-    // 			if(el.tagName.toLowerCase().indexOf(str)){
-    // 				filteredData.push(product);
-    // 			}
-    // 		})
-    // 	}
-    //
-    // 	if(!!~product.projectName.toLowerCase().indexOf(str)) {
-    // 		filteredDataHead.push(product);
-    // 	} else if (!!~product.description[0].descrText.toLowerCase().indexOf(str)) {
-    // 		filteredDataDesc.push(product);
-    // 	}
-    //
-    // 	return false;
-    // });
-
-    //console.log(filteredData);
-
-    let data = filteredData.filter(onlyUnique);
-
-    return data;
 }
-function onlyUnique(value, index, self) {
-    return self.indexOf(value) === index;
-}
+
 function getFilteredTechnologies(filteredProjects) {
     let technologies = [];
     filteredProjects.forEach(product => {
@@ -226,20 +169,20 @@ const HomeConnected = connect(
     state => {
 
         let allProducts = state.HomeReducer.projects,
-            {search, filterTech, pagination,searchHint} = state.HomeReducer;
-        let filteredProjects = getFilteredProjects(allProducts, search),
+            {search, filterTech, pagination, searchHint} = state.HomeReducer;
+        let filteredProjects = getFilteredProjects(allProducts, search, searchHint),
             technologies = getFilteredTechnologies(filteredProjects);
         filteredProjects = getOnlySelectedTechProject(filteredProjects, filterTech);
         const configPage = getPaginationConfig(filteredProjects, pagination);
         filteredProjects = getPagesProjects(filteredProjects, configPage);
 
-        return {data: state.HomeReducer,
+        return {
+            data: state.HomeReducer,
             filtered: {
                 filteredProjects: filteredProjects,
                 technologies: technologies,
                 sumFilterProj: configPage.pageCount,
-                cntAllProjectFil: configPage.countProjects,
-                searchHint : searchHint
+                cntAllProjectFil: configPage.countProjects
             }
         };
     },
