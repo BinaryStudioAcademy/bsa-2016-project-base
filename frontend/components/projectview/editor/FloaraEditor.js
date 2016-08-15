@@ -7,17 +7,19 @@ export default class FloaraEditor extends React.Component {
 
     static get propTypes() {
         return {
-            initialContent:PropTypes.string,
-            handleChange:PropTypes.func
+            initialContent:PropTypes.string.isRequired,
+            handleChange:PropTypes.func.isRequired
         }
     }
     componentDidMount(){
+        const {initialContent} = this.props;
+        const self = this;
         $(function() {
             $('#edit').froalaEditor({
             })
+            self.setHtml(initialContent)
+            self.initOnChange();
         });
-        this.setHtml(this.props.initialContent)
-        this.initOnChange();
     }
     getHtml(){
         return $('#edit').froalaEditor('html.get');
