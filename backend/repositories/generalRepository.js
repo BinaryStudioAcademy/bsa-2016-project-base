@@ -11,7 +11,7 @@ Repository.prototype.add = function(data, callback){
 
 Repository.prototype.getAllDataMainPage = function(callback){
 	var model = this.model;
-	var query = model.find().populate('technologies');
+	var query = model.find().populate(['technologies', 'stage']);
 	query.exec(callback);
 };
 

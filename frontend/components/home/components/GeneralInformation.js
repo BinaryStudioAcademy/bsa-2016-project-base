@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from './GeneralInformation.sass';
-
+import FaList from 'react-icons/lib/fa/list';
 export default class GeneralInformation extends Component {
 
     static propTypes = {
@@ -10,11 +10,17 @@ export default class GeneralInformation extends Component {
     render() {
         const { cnt } = this.props;
 
-        return (
+        return (            
             <div className={styles.count}>
                 {(cnt)?
-                    <span>Found {(cnt > 1)?`${cnt} projects`: `${cnt} project`}</span>:
-                    <span>Projects not found</span>
+                    <div>
+                        <FaList size={20} />
+                        <span>{`Projects (${cnt})`}</span>
+                    </div>:
+                    <div>
+                        <FaList size={20} />
+                        <span>Projects not found</span>
+                    </div>
                 }
             </div>
         )

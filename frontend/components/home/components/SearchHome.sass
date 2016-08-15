@@ -1,8 +1,92 @@
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons|Rajdhani:300,400)
 @import "../common.sass"
 
-#search-home
-
+//#search-home
+.searchContainer 
+    display: flex
+    .project-search
+      width: 70%
+      color: #8D97A4
+      font-family: "Lato", sans-serif
+      font-size: 1.5em
+      font-weight: 300
+      padding: 70px 2em 0
+      margin-bottom: 100px
+      .search-wrapper
+        border-bottom: 1px solid #D5D7DA
+        padding-bottom: 10px
+        .input-search
+          border: none
+          background-color: transparent
+          vertical-align: middle
+          padding-left: 0.7em
+          color: #8D97A4
+          width: 97%
+          &:focus
+            outline: none
+    .display-flex
+        //display: flex
+        //flex-flow: row wrap
+        //justify-content: space-around
+        width: 30%
+        padding-top: 20px
+        padding: 60px 2em 0
+        .sort
+          font-family: "Lato", sans-serif
+          width: 100%
+          margin-bottom: 20px
+          .search-order-tooltip
+            font-weight: 400
+            font-size: 1.2em
+            margin-right: 13px
+            color: #505E6B
+          label
+            display: inline-block
+            padding: 0.5em
+            cursor: pointer
+            // vertical-align: middle
+            // background-color: #505E6B
+              // background: #c1cfd9
+            background-color: #505E6B
+            margin: 0
+            color: #fff
+            border-left: 1px solid #f9f9f9
+            transition: background .3s
+            &:first-of-type
+              border-radius: 5px 0 0 5px
+            &:last-child
+              border-radius: 0 5px 5px 0
+            &:hover
+              background-color: #627484
+        .filter
+          font-family: "Lato", sans-serif
+          width: 100%
+          margin-bottom: 20px
+          .filter-tooltip
+            font-weight: 400
+            font-size: 1.2em
+            margin-right: 7px
+            color: #505E6B
+          label  
+            cursor: pointer
+          &>label
+            display: inline-block
+            padding: 0.5em
+            // vertical-align: middle
+            // background-color: #505E6B
+              // background: #c1cfd9
+            background-color: #505E6B
+            margin: 0
+            color: #fff
+            border-left: 1px solid #f9f9f9
+            transition: background .3s
+            &:first-of-type
+              border-radius: 5px 0 0 5px
+            &:last-child
+              border-radius: 0 5px 5px 0
+            &:hover
+              background-color: #627484
+          // color: red   
 .search-form
   padding-top: 30px
 
@@ -57,27 +141,25 @@
   font-size: 21px
   font-weight: 900
 
-.display-flex
-  display: flex
-  flex-flow: row wrap
-  justify-content: space-around
 
-.search-order-tooltip
-  margin-right: 3px
-  font-weight: 700
+
+// .search-order-tooltip
+  // margin-right: 3px
+  // font-weight: 700
 
 input[type="radio"],
 input[type="checkbox"]
   display: none
 
-label
-  margin: 0 3px
-  padding: 5px
-  background: #fff
-  color: #555
-  cursor: pointer
+// label
+//   margin: 0 3px
+//   padding: 5px
+//   background: #fff
+//   color: #555
+//   cursor: pointer
 
-input[type="radio"]:checked + label,
-input[type="checkbox"]:checked + label
-  background: #c1cfd9
-  color: #fff
+// input[type="radio"]:checked + label,
+// input[type="checkbox"]:checked + label
+//   background: #c1cfd9
+//   background:#505E6B
+//   color: #fff

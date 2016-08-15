@@ -2,13 +2,57 @@
 @import url(//fonts.googleapis.com/css?family=Play);
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
-
+.sidebar 
+  width: 16.66%
+  // border: 1px solid red
+  background-color: #FEFEFE
+  color: #7A929D
+  // height: 100%
+  font-family: 'Lato', sans-serif
+  font-weight: 900
+  font-size: 0.7em
+  text-transform: uppercase
+  .sidebarHeader
+    background-color: #293541
+    width: 100%
+    color: #fff
+    padding: 30px 0
+    text-align: center
+    font-size: 1.2em
+    p 
+      margin: 0
+  .mainNav
+    list-style: none
+    width: 100%
+    margin-top: 50px
+    // padding-left: 1.5em
+    padding: 0
+    a
+      box-sizing: border-box
+      display: block
+      padding-left: 1.5em
+      width: 100%
+      // height: 45px
+      padding: 10px 1.7em
+      transition: box-shadow .5s
+      // box-shadow: 10px 0px 5px 1px #eaeaea;
+      &:focus 
+        box-shadow: inset 12px 0 1px -8px #03A9F4
+      // vertical-align: middle
+      &:hover .icon,
+      &:focus .icon
+        color: #03A9F4
+        transition: color .5s
+    li
+      display: inline
+      padding-left: 0.8em
+      vertical-align: middle
 .menu
     display: flex
     justify-content: space-around
     padding: 0px
     background: #111
-    font-family: 'Play'
+    font-family: 'Play' 
     font-size: 150%
     text-align: center
     color: #fff
@@ -19,7 +63,8 @@
 
 a
     text-decoration: none
-    color: #fff
+    &:visited 
+      color:#7A929D
 
 
 .menu-item
@@ -59,8 +104,7 @@ a
 
 
 
-.nav-home 
-  
+
     
 
 
