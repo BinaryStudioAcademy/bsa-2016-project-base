@@ -1,12 +1,10 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import React, { Component, PropTypes } from 'react';
-
 import MultiSelect from './MultiSelect';
-import {Grid, FormControl, Row, Col, Button} from 'react-bootstrap';
+import { FormControl, Col, Button} from 'react-bootstrap';
 import * as actionsSection from "../../../actions/admin/SectionsActions";
 import * as actionsFeature from "../../../actions/admin/FeaturesActions";
-
 import styles from './styles/Features.sass';
 
 class FeaturesToolBar extends Component {
@@ -46,7 +44,6 @@ class FeaturesToolBar extends Component {
     handlerCheckedSection(e) {
         this.props.changeCheckedSections(this.props.featuresData.listCheckedSections, e.target.checked, e.target.id)
     }
-
 
     render() {
         var self = this;

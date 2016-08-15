@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import {FormControl, Row, Col, Modal, Button, ButtonToolbar} from 'react-bootstrap';
-import ReactDOM from 'react-dom';
+import { Row, Col, Button, ButtonToolbar} from 'react-bootstrap';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -12,8 +11,6 @@ class FeaturesListItem extends Component {
     constructor(props) {
         super(props);
         this.changeCheckedFeature = this.changeCheckedFeature.bind(this);
-
-
     }
 
     changeCheckedFeature(e) {
@@ -26,10 +23,8 @@ class FeaturesListItem extends Component {
         }
     }
 
-
     render() {
         return (
-
             <Row className="FeatureListItem">
                 <Col  xs={3} sm={3}>
                     <div className={styles['list-item-navigation']}>
@@ -48,7 +43,9 @@ class FeaturesListItem extends Component {
                         </div>
                     </div>
                 </Col>
-                <Col  xs={6} sm={6}>{this.props.feature.featureDescription.lists}</Col>
+                <Col  xs={6} sm={6}>
+                    <span className="descriptionFeature">{this.props.feature.featureDescription.lists}</span>
+                    </Col>
                 <Col  xs={2} sm={2}>
                     <ButtonToolbar className="listItemButtonToolbar">
                     <Button onClick={() => this.props.openFeatureDetails(this.props.feature)} block className="bShowFeatureDetails">Show</Button>

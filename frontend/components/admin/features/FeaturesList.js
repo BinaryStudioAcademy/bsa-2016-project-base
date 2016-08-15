@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import {Grid, Modal, Button, OverlayTrigger, Tooltip, Popover, FormGroup, FormControl, Col, Form, ControlLabel}  from 'react-bootstrap';
+import {Modal, Button, FormGroup, FormControl, Col, Form, ControlLabel}  from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import FeaturesListItem from './FeaturesListItem';
-import FeatureDetails from './FeatureDetails';
 import styles from './styles/Features.sass';
 import * as actionsSection from "../../../actions/admin/SectionsActions";
 import * as actionsFeature from '../../../actions/admin/FeaturesActions'
@@ -105,7 +104,6 @@ class FeaturesList extends  Component {
     }
 
     addFeature(e) {
-
         e.preventDefault();
         let self = this;
         let searchSameFeature = this.props.featuresData.features.filter(function(el) {
@@ -139,7 +137,7 @@ class FeaturesList extends  Component {
     closeFeatureDetails() {
         this.setState({
             showFeatureDetailsModal: false
-        })
+        });
         return false;
     }
 
@@ -151,26 +149,12 @@ class FeaturesList extends  Component {
         return true;
     }
 
-
-
     render() {
         const {features,filter} = this.props.featuresData;
         var self = this;
-        const popover = (
-            <Popover id="modal-popover" title="popover">
-                very popover. such engagement
-            </Popover>
-        );
-        const tooltip = (
-            <Tooltip id="modal-tooltip">
-                wow.
-            </Tooltip>
-        );
-
         return (
             <div className={styles['list-container']} id="list-container">
-
-                <Modal show={this.state.showFeatureDetailsModal} className="modal" bsSize="large" onHide={this.closeFeatureDetails}>
+                <Modal show={this.state.showFeatureDetailsModal} className="modal modalShowFeatureDetails" bsSize="large" onHide={this.closeFeatureDetails}>
                     <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-lg">Feature details</Modal.Title>
                     </Modal.Header>
@@ -181,7 +165,7 @@ class FeaturesList extends  Component {
                                     <ControlLabel >Name of feature:</ControlLabel>
                                 </Col>
                                 <Col sm={8} >
-                                    <span ref="featureNameModalDetails" className="featureNameModalDetails">{this.state.featureModalDetails.featureName}</span>
+                                    <span ref="featureNameModalDetails" className="featureNameModalDetails" id="featureNameModalDetails">{this.state.featureModalDetails.featureName}</span>
                                 </Col>
                             </FormGroup>
                             <FormGroup>
@@ -189,7 +173,7 @@ class FeaturesList extends  Component {
                                     <ControlLabel >Section:</ControlLabel>
                                 </Col>
                                 <Col sm={8} >
-                                    <span ref="featureNameModalDetails" className="featureNameModalDetails">{this.state.featureModalDetails.section.name}</span>
+                                    <span ref="featureNameModalDetails" className="featureNameModalDetails" id="featureNameModalDetails">{this.state.featureModalDetails.section.name}</span>
                                 </Col>
                             </FormGroup>
 
@@ -207,7 +191,7 @@ class FeaturesList extends  Component {
                     </Modal.Footer>
                 </Modal>
 
-                <Modal show={this.state.showEditFeatureModal} className="modal" onHide={this.closeEditFeature}>
+                <Modal show={this.state.showEditFeatureModal} className="modal modalEditFeature" id="modalEditFeature"  onHide={this.closeEditFeature}>
                     <Modal.Header closeButton>
                         <Modal.Title>Edit feature</Modal.Title>
                     </Modal.Header>
@@ -284,7 +268,6 @@ class FeaturesList extends  Component {
                 {
                     features.map(function(feature) {
                         var check = false;
-
                         if(self.checkValue(feature.featureName, feature.section.name,
                                 feature.featureDescription.lists.join(''), feature.section.description,
                                 self.props.featuresData.listCheckedSections, feature.section._id, filter)) {

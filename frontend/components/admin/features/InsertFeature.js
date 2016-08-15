@@ -21,7 +21,6 @@ class InsertFeature extends Component {
     }
 
     addFeature(e) {
-
         e.preventDefault();
         let self = this;
         let searchSameFeature = this.props.featuresData.features.some(function(el) {
