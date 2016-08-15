@@ -6,7 +6,7 @@ import { API } from '../../constants/Api';
 class AdminRightsService {
 
   getProjectUsers(projectId) {
-     return fetch(projectId);
+     return fetch(`${API}rights/projects/${projectId}`);
   }
 
 
