@@ -15,6 +15,7 @@ module.exports = function(app) {
 		usersRightsRepository.getByIdWithStakeholders(req.params.id, function(err, data) {
 			res.data = data;
 			res.err = err;
+			console.log(data);
 			next();
 		});
 	},apiResponse);
@@ -37,7 +38,7 @@ module.exports = function(app) {
 			next();
 		});
 	},apiResponse);
-	
+
 	app.get('/api/rights/projects/:id/users/:filter/owners', function (req,res,next) {
 		usersRightsRepository.getUsersToProjectByFilter({
 			projectId: req.params.id,

@@ -6,14 +6,13 @@ import { API } from '../../constants/Api';
 class AdminRightsService {
 
   getProjectUsers(projectId) {
-    console.log(`${API}projects/${projectId}`);
-      return fetch(`${API}projects/${projectId}`);
+     return fetch('http://localhost:3000/api/rights/projects/57acc61ab781f506fe6ca72a');
   }
 
 
   getAllProjects() {
       return fetch(`${API}rights/projects/`, {
-         method: 'GET',
+          method: 'GET',
           headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'

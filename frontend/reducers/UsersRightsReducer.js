@@ -18,8 +18,8 @@ export default function UsersRightsReducer(state = initialState, action) {
       case types.USERS_PROJECT_GET_LOADED:{
         return Object.assign({},state,{
           users:{
-            simples:data.simples,
-            owners:data.owners
+            simples:action['users'].simples,
+            owners:action['users'].owners
           }
         });
       }

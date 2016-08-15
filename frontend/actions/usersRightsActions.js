@@ -7,14 +7,14 @@ export function fetchUsers(projectId) {
             type: types.USERS_PROJECT_GET_LOADING
           });
         return adminRightsService.getProjectUsers(projectId)
-            .then(response => {return response.json();})
+            .then(response => { console.log(response); return response.json()})
             .then( data => {
-
+                console.log(data);
                 dispatch({
                     type: types.USERS_PROJECT_GET_LOADED,
                     users:{
-                      simples,
-                      owners
+                        simples:data.simples,
+                        owners: data.owners
                     }
                 });
             })

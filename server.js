@@ -1,4 +1,4 @@
-﻿/* eslint no-console: 0 */
+/* eslint no-console: 0 */
 
 const path = require('path');
 const express = require('express');
@@ -14,9 +14,8 @@ const tockenMiddleware = require('./backend/middleware/tokenValidator');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(tockenMiddleware);
 var routes = require('./backend/routes/routes')(app);
-
+app.use(tockenMiddleware);
 if (isDeveloping) {
   const compiler = webpack(config);
   const middleware = webpackMiddleware(compiler, {
