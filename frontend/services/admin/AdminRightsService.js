@@ -6,7 +6,7 @@ import { API } from '../../constants/Api';
 class AdminRightsService {
 
   getProjectUsers(projectId) {
-     return fetch('http://localhost:3000/api/rights/projects/57acc61ab781f506fe6ca72a');
+     return fetch(projectId);
   }
 
 

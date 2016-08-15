@@ -13,7 +13,7 @@ class RightsUsersList extends Component {
 	}
 
 	componentWillMount() {
-   this.props.fetchUsers("57acc61ab781f506fe6ca72a");
+   this.props.fetchUsers("57a315af0b7a3bc58341d3bc");
 
  }
  	render() {
