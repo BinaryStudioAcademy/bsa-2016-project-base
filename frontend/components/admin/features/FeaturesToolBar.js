@@ -82,7 +82,8 @@ class FeaturesToolBar extends Component {
                         />
                         <label htmlFor="markAll" className={styles['select-all-label']}>Mark all</label>
                         <Button className={styles['button-feature-remove']} onClick={this.removeChecked} id="buttonFeatureRemove">Remove marked</Button>
-                        <Button className={styles['button-feature-add']} id="buttonFeatureAdd" onClick={this.handlerChangeVisibilityForm}>Add feature</Button>
+                        <Button className={styles['button-feature-add']} id="buttonFeatureAdd" onClick={this.handlerChangeVisibilityForm}>{
+                            this.props.featuresData.visibilityForm === "hidden" ? "Add" : "Hide form"}</Button>
                     </Col>
                 </div>
             </div>

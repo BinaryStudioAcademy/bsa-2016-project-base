@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import {Grid}  from 'react-bootstrap';
+import {Grid, Modal, Button, OverlayTrigger, Tooltip, Popover, FormGroup, FormControl, Col, Form, ControlLabel}  from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import FeaturesListItem from './FeaturesListItem';
+import FeatureDetails from './FeatureDetails';
 import styles from './styles/Features.sass';
 import * as actionsSection from "../../../actions/admin/SectionsActions";
 import * as actionsFeature from '../../../actions/admin/FeaturesActions'
@@ -14,6 +15,28 @@ class FeaturesList extends  Component {
         this.checkSelectedSections = this.checkSelectedSections.bind(this);
         this.checkSearchInDescriptions = this.checkSearchInDescriptions.bind(this);
         this.checkValue = this.checkValue.bind(this);
+        this.closeEditFeature = this.closeEditFeature.bind(this);
+        this.openEditFeature = this.openEditFeature.bind(this);
+        this.saveNameFeature = this.saveNameFeature.bind(this);
+        this.saveDescriptionFeature = this.saveDescriptionFeature.bind(this);
+        this.saveSelectedSection = this.saveSelectedSection.bind(this);
+        this.addFeature = this.addFeature.bind(this);
+        this.closeFeatureDetails = this.closeFeatureDetails.bind(this);
+        this.openFeatureDetails = this.openFeatureDetails.bind(this);
+        this.state = {
+            showEditFeatureModal: false,
+            showFeatureDetailsModal: false,
+            featureName: '',
+            featureDescription: '',
+            section: "",
+            index: '',
+            editFeature: null,
+            featureModalDetails: {
+                featureName: '',
+                featureDescription: {lists: ''},
+                section: {name: ''},}
+
+        }
     }
 
     checkSearchInNames(nameFeature, nameSection, filter) {
@@ -52,16 +75,214 @@ class FeaturesList extends  Component {
         }
     }
 
+    closeEditFeature() {
+        this.setState({
+            showEditFeatureModal: false
+        })
+    }
+
+    openEditFeature(editFeature) {
+        const {features} = this.props.featuresData;
+        this.setState({
+            showEditFeatureModal: true,
+            featureName: editFeature.featureName,
+            featureDescription: editFeature.featureDescription.lists.join(),
+            section: editFeature.section._id,
+            index: features.indexOf(editFeature),
+            editFeature: editFeature
+        })
+    }
+
+    saveNameFeature(e) {
+        this.setState({featureName: e.target.value.replace(/\s/g, '')});
+    }
+
+    saveDescriptionFeature(e) {
+        this.setState({featureDescription: e.target.value.replace(/\s/g, '')});
+    }
+    saveSelectedSection(e) {
+        this.setState({section: e.target.value.replace(/\s/g, '')});
+    }
+
+    addFeature(e) {
+        e.preventDefault();
+        let self = this;
+        let searchSameFeature = this.props.featuresData.features.filter(function(el) {
+            if(el.featureName == self.state.featureName) {
+                console.log("Error! Feature with same name already exist in base");
+                return true;
+            }
+            else {
+                return false
+            }
+        });
+
+        if(this.state.featureName.replace(/\s/g, '') == '' ||
+            this.state.featureDescription.replace(/\s/g, '') == '' ||
+            !this.state.section || this.state.section == "Select section"){
+            console.log("Please, input all field");
+            e.preventDefault();
+            return;
+        }
+
+        if(searchSameFeature > 1) {
+            return;
+        }
+        const {features} = this.props.featuresData;
+        this.props.editFeature(features, Object.assign({}, this.state.editFeature, {featureName: this.state.featureName},
+            {featureDescription: {lists: [this.state.featureDescription]}},
+            {section: this.state.section}), this.state.index);
+        this.closeEditFeature();
+    }
+
+    closeFeatureDetails() {
+        this.setState({
+            showFeatureDetailsModal: false
+        })
+        return false;
+    }
+
+    openFeatureDetails(feature) {
+        this.setState({
+            showFeatureDetailsModal: true,
+            featureModalDetails: feature
+        });
+        return true;
+    }
+
 
 
     render() {
         const {features,filter} = this.props.featuresData;
         var self = this;
+        const popover = (
+            <Popover id="modal-popover" title="popover">
+                very popover. such engagement
+            </Popover>
+        );
+        const tooltip = (
+            <Tooltip id="modal-tooltip">
+                wow.
+            </Tooltip>
+        );
 
         return (
-            <div className={styles['list-container']} id="'list-container">
-                {
+            <div className={styles['list-container']} id="list-container">
 
+                <Modal show={this.state.showFeatureDetailsModal} onHide={this.closeFeatureDetails}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Feature details</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form horizontal className={styles['form']}>
+                            <FormGroup>
+                                <Col sm={2} smPush={1}>
+                                    <ControlLabel >Name of feature:</ControlLabel>
+                                </Col>
+                                <Col sm={8} smPush={1}>
+                                    <span ref="featureNameModalDetails">{this.state.featureModalDetails.featureName}</span>
+                                </Col>
+                            </FormGroup>
+                            <FormGroup>
+                                <Col sm={2} smPush={1}>
+                                    <ControlLabel >Section:</ControlLabel>
+                                </Col>
+                                <Col sm={8} smPush={1}>
+                                    <span ref="featureNameModalDetails">{this.state.featureModalDetails.section.name}</span>
+                                </Col>
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Col sm={2} smPush={1}>
+                                    <ControlLabel>Description:</ControlLabel>
+                                </Col>
+                                <Col sm={8} smPush={1}>
+                                    <span>{this.state.featureModalDetails.featureDescription.lists}</span>
+                                </Col>
+                            </FormGroup>
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={this.closeFeatureDetails}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
+
+                <Modal show={this.state.showEditFeatureModal} onHide={this.closeEditFeature}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Edit feature</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form horizontal className={styles['form']}>
+                            <FormGroup>
+                                <Col sm={2} smPush={1}>
+                                    <ControlLabel >Name of feature:</ControlLabel>
+                                </Col>
+                                <Col sm={8} smPush={1}>
+                                    <input
+                                        defaultValue={this.state.featureName}
+                                        className="form-control"
+                                        id="nameFeatureModal"
+                                        type="text"
+                                        onBlur={this.saveNameFeature}
+                                        placeholder="Enter the name of feature"
+                                        required
+                                    />
+                                </Col>
+                            </FormGroup>
+                            <FormGroup>
+                                <Col sm={2} smPush={1}>
+                                    <ControlLabel >Select section:</ControlLabel>
+                                </Col>
+                                <Col sm={8} smPush={1}>
+                                    <FormControl componentClass="select"  className={styles['text-select-input']} id="selectSectionModal"
+                                                 onChange={this.saveSelectedSection}   required>
+                                        <option key={0} value="Select section" >Select section</option>
+                                        {
+
+                                            this.props.sectionsData.sections.map(function(el, index) {
+                                                if(el._id == self.state.section) {
+                                                    return (
+                                                        <option key={index} value={el._id} selected >{el.name}</option>
+                                                    )
+                                                }
+                                                else {
+                                                    return (
+                                                        <option key={index} value={el._id} >{el.name}</option>
+                                                    )
+                                                }
+
+                                            })
+                                        }
+                                    </FormControl>
+                                </Col>
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Col sm={2} smPush={1}>
+                                    <ControlLabel>Description:</ControlLabel>
+                                </Col>
+                                <Col sm={8} smPush={1}>
+                                    <textarea
+                                        id="DescriptionFeatureModal"
+                                        onBlur={this.saveDescriptionFeature}
+                                        className="form-control"
+                                        placeholder="Enter the description"
+                                        defaultValue={this.state.featureDescription}
+                                        required
+                                    />
+                                </Col>
+                            </FormGroup>
+                            <Col sm={6} smPush={3}>
+                                <Button type="submit"  onClick={this.addFeature} block id="addFeature">Save changed</Button>
+                            </Col>
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={this.closeEditFeature}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
+
+                {
                     features.map(function(feature) {
                         var check = false;
 
@@ -75,7 +296,7 @@ class FeaturesList extends  Component {
                                 check = false;
                             }
                             return (
-                                <FeaturesListItem check={check} feature={feature} key={feature._id}/>
+                                <FeaturesListItem open={self.openEditFeature} openFeatureDetails={self.openFeatureDetails} handlerEditFeature={self.handlerEditFeature} check={check} feature={feature} key={feature._id}/>
                             )
                         }
                     })}
