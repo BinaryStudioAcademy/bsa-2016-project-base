@@ -14,17 +14,17 @@ $mainTextColor: #656565
   visibility: hidden !important
 
 /* Inputs */
-#Features .feature-tabs input,
+#Features  input,
 #Features .features-tool-bar input,
-#Features .feature-tabs  select
+#Features select
   width: 100%
   border: none
   font-size: 14px
   border-radius: 0
 
-#Features .feature-tabs input:focus,
+#Features input:focus,
 #Features .features-tool-bar input:focus,
-#Features .feature-tabs select:focus
+#Features select:focus
   box-shadow: none
 /* Inputs */
 
@@ -269,7 +269,7 @@ $mainTextColor: #656565
 #Features .list-container
   overflow-y: auto
   color: $mainTextColor
-  max-height: 475px
+  max-height: 74vh
   margin: 5px 0px 0 0px
   border-bottom: 3px solid $toolBarColor
 
@@ -307,6 +307,21 @@ $mainTextColor: #656565
 
 #Features .list-container > div:nth-child(2n)
   background-color: white
+
+#Features .FeatureListItem
+  position: relative
+
+#Features  .listItemButtonToolbar
+  vertical-align: middle
+
+#Features  .listItemButtonToolbar button
+  vertical-align: middle
+  border: none
+  color: white
+  height: 40px
+  border-radius: 0
+  font-weight: bold
+  font-size: 0.9em
 
 /* List of features */
 

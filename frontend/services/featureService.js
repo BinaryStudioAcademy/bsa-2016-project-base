@@ -33,6 +33,18 @@ class FeatureService {
             })
         })
     }
+
+    editFeature(featureObj) {
+        return fetch("http://localhost:3000/api/features/" + featureObj._id, {
+            method: 'PUT',
+            body: JSON.stringify(featureObj),
+            headers: ({
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            })
+        })
+    }
+
 }
 
 const featureService = new FeatureService();
