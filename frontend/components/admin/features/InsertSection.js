@@ -56,12 +56,12 @@ class InsertSection extends Component {
     }
 
     saveNameSection(e) {
-        this.setState({name: e.target.value.replace(/\s/g, '')});
+        this.setState({name: e.target.value});
     }
 
     saveDescriptionSection(e) {
         this.setState({
-            description: e.target.value.replace(/\s/g, '')
+            description: e.target.value
         });
     }
 

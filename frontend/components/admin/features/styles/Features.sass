@@ -216,7 +216,7 @@ $mainTextColor: #656565
 
 #Features .select-checkbox + .select-label
   background-color: transparent
-  margin: 15px
+  margin: 15px 0 15px 0
   height: 16px
   padding-left: 21px
   line-height: 16px
@@ -238,11 +238,13 @@ $mainTextColor: #656565
 #Features .select-label,
 #Features .select-all-label
   color: $mainTextColor
-  opacity: 0.75
 
 #Features .select-label:hover,
 #Features .select-all-label:hover
   opacity: 1
+
+.modal-content span
+  word-wrap: break-word
 
 #Features .select-all-label,.select-label
   user-select: none
@@ -281,6 +283,11 @@ $mainTextColor: #656565
   margin: 20px 10px 15px 10px
   text-align: left
 
+#Features .nameFeatureCheckbox span
+ display: inline !important
+#Features span
+  word-wrap: break-word
+
 #Features .list-item-navigation > div:last-child
   margin-top: 10px
 
@@ -290,7 +297,7 @@ $mainTextColor: #656565
 #Features .list-item-navigation > div:last-child > span
   color: $mainTextColor
 
-#Features .list-item-navigation > div:last-child > label
+#Features .list-item-navigation > div:last-child > .select-label
   color: $lightCadetBlueColor
 
 #Features .list-container > div
@@ -309,7 +316,11 @@ $mainTextColor: #656565
   background-color: white
 
 #Features .FeatureListItem
-  position: relative
+  word-wrap: break-word
+
+#Features .FeatureListItem row div
+  margin-left: 0
+  margin-right: 0
 
 #Features  .listItemButtonToolbar
   vertical-align: middle
@@ -342,9 +353,7 @@ $mainTextColor: #656565
 #Features .blockSelectCheckBox
   position: relative
 
-#Features .blockSelectCheckBox label
-  position: absolute
-  top: 50%
+
 
 #Features .dropdown-menu
   overflow: auto

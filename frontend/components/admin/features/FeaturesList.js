@@ -61,8 +61,8 @@ class FeaturesList extends  Component {
         if(filter == '') {
             return true;
         }
-        if(descriptionFeature.toLowerCase().indexOf(" " + filter.toLowerCase()) != -1 ||
-            descriptionSection.toLowerCase().indexOf(" " + filter.toLowerCase()) != -1) {
+        if(descriptionFeature.toLowerCase().indexOf(filter.toLowerCase()) != -1 ||
+            descriptionSection.toLowerCase().indexOf(filter.toLowerCase()) != -1) {
             return true
         }
     }
@@ -105,10 +105,11 @@ class FeaturesList extends  Component {
     }
 
     addFeature(e) {
+
         e.preventDefault();
         let self = this;
         let searchSameFeature = this.props.featuresData.features.filter(function(el) {
-            if(el.featureName == self.state.featureName) {
+            if(el.featureName == self.state.featureName && el._id != self.state.editFeature._id) {
                 console.log("Error! Feature with same name already exist in base");
                 return true;
             }
@@ -125,7 +126,7 @@ class FeaturesList extends  Component {
             return;
         }
 
-        if(searchSameFeature > 1) {
+        if(searchSameFeature.length >=1) {
             return;
         }
         const {features} = this.props.featuresData;
@@ -169,55 +170,54 @@ class FeaturesList extends  Component {
         return (
             <div className={styles['list-container']} id="list-container">
 
-                <Modal show={this.state.showFeatureDetailsModal} onHide={this.closeFeatureDetails}>
+                <Modal show={this.state.showFeatureDetailsModal} className="modal" bsSize="large" onHide={this.closeFeatureDetails}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Feature details</Modal.Title>
+                        <Modal.Title id="contained-modal-title-lg">Feature details</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Form horizontal className={styles['form']}>
                             <FormGroup>
-                                <Col sm={2} smPush={1}>
+                                <Col sm={3} >
                                     <ControlLabel >Name of feature:</ControlLabel>
                                 </Col>
-                                <Col sm={8} smPush={1}>
-                                    <span ref="featureNameModalDetails">{this.state.featureModalDetails.featureName}</span>
+                                <Col sm={8} >
+                                    <span ref="featureNameModalDetails" className="featureNameModalDetails">{this.state.featureModalDetails.featureName}</span>
                                 </Col>
                             </FormGroup>
                             <FormGroup>
-                                <Col sm={2} smPush={1}>
+                                <Col sm={3} >
                                     <ControlLabel >Section:</ControlLabel>
                                 </Col>
-                                <Col sm={8} smPush={1}>
-                                    <span ref="featureNameModalDetails">{this.state.featureModalDetails.section.name}</span>
+                                <Col sm={8} >
+                                    <span ref="featureNameModalDetails" className="featureNameModalDetails">{this.state.featureModalDetails.section.name}</span>
                                 </Col>
                             </FormGroup>
 
                             <FormGroup>
-                                <Col sm={2} smPush={1}>
+                                <Col sm={3}>
                                     <ControlLabel>Description:</ControlLabel>
                                 </Col>
-                                <Col sm={8} smPush={1}>
+                                <Col sm={8}>
                                     <span>{this.state.featureModalDetails.featureDescription.lists}</span>
                                 </Col>
                             </FormGroup>
                         </Form>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button onClick={this.closeFeatureDetails}>Close</Button>
                     </Modal.Footer>
                 </Modal>
 
-                <Modal show={this.state.showEditFeatureModal} onHide={this.closeEditFeature}>
+                <Modal show={this.state.showEditFeatureModal} className="modal" onHide={this.closeEditFeature}>
                     <Modal.Header closeButton>
                         <Modal.Title>Edit feature</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Form horizontal className={styles['form']}>
                             <FormGroup>
-                                <Col sm={2} smPush={1}>
+                                <Col sm={3}>
                                     <ControlLabel >Name of feature:</ControlLabel>
                                 </Col>
-                                <Col sm={8} smPush={1}>
+                                <Col sm={8}>
                                     <input
                                         defaultValue={this.state.featureName}
                                         className="form-control"
@@ -230,10 +230,10 @@ class FeaturesList extends  Component {
                                 </Col>
                             </FormGroup>
                             <FormGroup>
-                                <Col sm={2} smPush={1}>
+                                <Col sm={3}>
                                     <ControlLabel >Select section:</ControlLabel>
                                 </Col>
-                                <Col sm={8} smPush={1}>
+                                <Col sm={8}>
                                     <FormControl componentClass="select"  className={styles['text-select-input']} id="selectSectionModal"
                                                  onChange={this.saveSelectedSection}   required>
                                         <option key={0} value="Select section" >Select section</option>
@@ -258,10 +258,10 @@ class FeaturesList extends  Component {
                             </FormGroup>
 
                             <FormGroup>
-                                <Col sm={2} smPush={1}>
+                                <Col sm={3}>
                                     <ControlLabel>Description:</ControlLabel>
                                 </Col>
-                                <Col sm={8} smPush={1}>
+                                <Col sm={8}>
                                     <textarea
                                         id="DescriptionFeatureModal"
                                         onBlur={this.saveDescriptionFeature}
@@ -278,7 +278,6 @@ class FeaturesList extends  Component {
                         </Form>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button onClick={this.closeEditFeature}>Close</Button>
                     </Modal.Footer>
                 </Modal>
 

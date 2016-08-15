@@ -20,7 +20,8 @@ class FeaturesToolBar extends Component {
     }
 
     handlerChangeVisibilityForm() {
-        this.props.changeVisibilityForm(this.props.featuresData.visibilityForm)
+        this.props.changeVisibilityForm(this.props.featuresData.visibilityForm);
+
     }
 
     removeChecked() {
@@ -34,6 +35,7 @@ class FeaturesToolBar extends Component {
     }
 
     markAllFeature(e) {
+
         this.props.markedAllFeatures(this.props.featuresData.features, e.target.checked, this.props.featuresData.listCheckedFeatures);
     }
 
@@ -44,6 +46,7 @@ class FeaturesToolBar extends Component {
     handlerCheckedSection(e) {
         this.props.changeCheckedSections(this.props.featuresData.listCheckedSections, e.target.checked, e.target.id)
     }
+
 
     render() {
         var self = this;
