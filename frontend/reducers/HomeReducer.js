@@ -3,7 +3,6 @@ import * as types from '../constants/HomeActionTypes';
 const initialState = {
     projects: [],
     search: '',
-    searchHint: '',
     filterTech: [],
     pagination: {
         activePage: 1,
@@ -28,11 +27,10 @@ export default function HomeReducer(state = initialState, action) {
                 filterTech: filter
             });
         case types.FILTER_PROJECTS_DETAILS:
-            const { search,searchHint } = action;
+            const { search } = action;
 
             return Object.assign({}, state, {
-                search: search,
-                searchHint:searchHint
+                search: search
             });
         case types.PAGINATION_ACTIVE_PAGE:
             return Object.assign({}, state, {

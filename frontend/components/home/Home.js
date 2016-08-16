@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
-import {Row, Col} from 'react-bootstrap';
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Row, Col } from 'react-bootstrap';
 
 import * as actions from "../../actions/HomeActions";
 import SearchHome from './components/SearchHome';
@@ -10,14 +10,6 @@ import ListProjects from './components/ListProjects';
 import PaginationHome from './components/PaginationHome';
 
 import styles from './home.sass';
-
-const hotSearch = {
-    '#': 'tags',
-    '@': 'users',
-    '!': 'technologies',
-    '~': 'description',
-    ' ': 'date'
-};
 
 class Home extends Component {
 
@@ -73,106 +65,85 @@ class Home extends Component {
 	}
 }
 
-function getOnlySelectedTechProject(products, filterTech) {
-    if (!filterTech.length) return products;
+function getOnlySelectedTechProject (products, filterTech) {
+	if (!filterTech.length) return products;
 
-    return products.filter(product =>
-        product.technologies.filter(tech => !!~filterTech.indexOf(tech.techName)).length
-    );
+	return products.filter(product =>
+		product.technologies.filter(tech => !!~filterTech.indexOf(tech.techName)).length
+	);
 }
 
-function getFilteredProjects(allProducts, search, searchHint) {
-    if (search.length < 2) return allProducts;
+function getFilteredProjects (allProducts, search) {
+	if (search.length < 2) return allProducts;
 
-    const str = search.toLowerCase();
+	const str = search.toLowerCase();
+	let filteredDataHead = [], filteredDataDesc = [];
 
-    return allProducts.filter(product => {
-        if (!searchHint) return !!~product.projectName.toLowerCase().indexOf(str) ||
-            !!~product.description[0].descrText.toLowerCase().indexOf(str);
+	allProducts.filter(product => {
 
-        let searchingField = product[searchHint], isMatch = [];
+		if(!!~product.projectName.toLowerCase().indexOf(str)) {
+			filteredDataHead.push(product);
+		} else if (!!~product.description[0].descrText.toLowerCase().indexOf(str)) {
+			filteredDataDesc.push(product);
+		}
 
-        if (Object.prototype.toString.call(searchingField) === '[object Array]') {
-            isMatch = searchingField.filter(item => {
-                switch (searchHint) {
-                    case 'tags':
-                        return !!~item.tagName.toLowerCase().indexOf(str);
-                    case 'users':
-                        return !!~item.userName.toLowerCase().indexOf(str)
-                            || !!~item.userSurname.toLowerCase().indexOf(str);
-                    case 'technologies':
-                        return !!~item.techName.toLowerCase().indexOf(str);
-                    case 'description':
-                        return !!~item.descrFullText.toLowerCase().indexOf(str);
-                    default:
-                        return false;
-                }
-            });
-        } else {
-            return !!~product['timeBegin'].indexOf(str) || !!~product['timeEnd'].indexOf(str);
-        }
+		return false;
+	});
 
-        return !!isMatch.length;
-    });
+	return [...filteredDataHead, ...filteredDataDesc];
 }
 
-function getFilteredTechnologies(filteredProjects) {
-    let technologies = [];
-    filteredProjects.forEach(product => {
+function getFilteredTechnologies (filteredProjects) {
+	let technologies = [];
 
-        product.technologies.forEach(v => {
+	filteredProjects.forEach(product => {
 
-            const techName = v.techName;
-            if (!!~technologies.indexOf(techName)) return false;
-            technologies.push(techName);
-        });
-    });
-    return technologies;
+		product.technologies.forEach(v => {
+
+			const techName = v.techName;
+			if(!!~technologies.indexOf(techName)) return false;
+			technologies.push(techName);
+		});
+	});
+	return technologies;
 }
 
 function getPaginationConfig(projects, config) {
-    let countProjects = projects.length,
-        pageCount = Math.ceil(countProjects / config.perpage);
-    if (!pageCount) pageCount = 1;
-    if (config.activePage > pageCount) config.activePage = pageCount;
-    let startPos = (config.activePage - 1) * config.perpage;
-    return {
-        countProjects: countProjects,
-        pageCount: pageCount,
-        startPos: startPos,
-        perpage: config.perpage
-    }
+	let countProjects = projects.length,
+	pageCount = Math.ceil(countProjects/config.perpage);
+	if(!pageCount) pageCount = 1;
+	if(config.activePage > pageCount) config.activePage = pageCount;
+	let startPos = (config.activePage - 1) * config.perpage;
+	return {
+		countProjects: countProjects,
+		pageCount: pageCount,
+		startPos: startPos,
+		perpage: config.perpage
+	}
 }
 
-function getPagesProjects(projects, config) {
-    const {startPos, perpage} = config;
+function getPagesProjects (projects, config) {
+	const {startPos, perpage} = config;
 
-    return projects.filter((project, key) => {
-        return key >= startPos && key < (perpage + startPos);
-    });
+	return projects.filter((project, key) => {
+		return key >= startPos && key < (perpage + startPos);
+	});
 }
 
 const HomeConnected = connect(
-    state => {
 
-        let allProducts = state.HomeReducer.projects,
-            {search, filterTech, pagination, searchHint} = state.HomeReducer;
-        let filteredProjects = getFilteredProjects(allProducts, search, searchHint),
-            technologies = getFilteredTechnologies(filteredProjects);
-        filteredProjects = getOnlySelectedTechProject(filteredProjects, filterTech);
-        const configPage = getPaginationConfig(filteredProjects, pagination);
-        filteredProjects = getPagesProjects(filteredProjects, configPage);
+	state => {
 
-        return {
-            data: state.HomeReducer,
-            filtered: {
-                filteredProjects: filteredProjects,
-                technologies: technologies,
-                sumFilterProj: configPage.pageCount,
-                cntAllProjectFil: configPage.countProjects
-            }
-        };
-    },
-    dispatch => bindActionCreators(actions, dispatch)
+		let allProducts = state.HomeReducer.projects,
+			{search, filterTech, pagination} = state.HomeReducer;
+		let filteredProjects = getFilteredProjects(allProducts, search),
+			technologies = getFilteredTechnologies(filteredProjects);
+		filteredProjects =  getOnlySelectedTechProject(filteredProjects, filterTech);
+		const configPage = getPaginationConfig(filteredProjects, pagination);
+		filteredProjects = getPagesProjects(filteredProjects, configPage);
+
+		return {data: state.HomeReducer, filtered: {filteredProjects: filteredProjects, technologies: technologies, sumFilterProj: configPage.pageCount, cntAllProjectFil: configPage.countProjects}};
+	},
+	dispatch => bindActionCreators(actions, dispatch)
 )(Home);
 export default HomeConnected;

@@ -26,8 +26,8 @@ class Admin extends Component {
 			    	<LinkContainer to="/admin/tech" className={styles["tab-item"]}>
 			      		<NavItem eventKey={4}>Techs</NavItem>  
 			    	</LinkContainer>
-			    	<LinkContainer to="/admin/project" className={styles["tab-item"]}>
-			      		<NavItem eventKey={5}>Add Project</NavItem>  
+			    	<LinkContainer to="/admin/techscope" className={styles["tab-item"]}>
+			      		<NavItem eventKey={5}>Tech Scope</NavItem>  
 			    	</LinkContainer>      
 				</Nav>
 		        <div className={styles["tab-holder"]}>

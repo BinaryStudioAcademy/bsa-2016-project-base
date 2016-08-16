@@ -1,5 +1,5 @@
 import adminTagService from "../../services/admin/AdminTagService";
-import * as types from './AdminTagActionTypes';
+import * as types from './ActionTypes';
 
 
 export function getTags() {

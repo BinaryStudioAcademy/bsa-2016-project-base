@@ -21,18 +21,6 @@ class InsertFeature extends Component {
     }
 
     addFeature(e) {
-        e.preventDefault();
-        let self = this;
-        let searchSameFeature = this.props.featuresData.features.some(function(el) {
-            if(el.featureName == self.state.featureName) {
-                console.log("Error! Feature with same name already exist in base");
-                return true;
-            }
-            else {
-                return false
-            }
-        });
-
         if(this.state.featureName.replace(/\s/g, '') == '' ||
             this.state.featureDescription.replace(/\s/g, '') == '' ||
             !this.state.section || this.state.section == "Select section"){
@@ -40,27 +28,14 @@ class InsertFeature extends Component {
             e.preventDefault();
             return;
         }
-
-        if(searchSameFeature) {
-            return;
-        }
-
         const {features} = this.props.featuresData;
         this.props.addNewFeature(features, {
             featureName: this.state.featureName,
             featureDescription: {lists: [this.state.featureDescription]},
             section: this.state.section
         });
-        this.refs.nameFeature.value = '';
-        this.refs.DescriptionFeature.value = '';
-        this.refs.selectSection.value = 'Select section';
-
-        this.setState({
-            featureName: '',
-            featureDescription: '',
-            section: ""
-        });
         this.props.getAllFeaturesOfAllProjects();
+        e.preventDefault();
     }
 
     saveNameFeature(e) {
@@ -68,24 +43,22 @@ class InsertFeature extends Component {
     }
 
     saveDescriptionFeature(e) {
-        this.setState({featureDescription: e.target.value});
+        this.state.featureDescription = e.target.value;
     }
 
     saveSelectedSection(e) {
-        this.setState({section: e.target.value});
+        this.state.section = e.target.value;
     }
 
     render() {
         return (
-            <Form horizontal className={styles['form']} >
+            <Form horizontal className={styles['form']}>
                 <FormGroup>
-                    <Col sm={3} smPush={1}>
-                        <ControlLabel >Name(*):</ControlLabel>
+                    <Col sm={2} smPush={1}>
+                        <ControlLabel >Name of feature:</ControlLabel>
                     </Col>
                     <Col sm={8} smPush={1}>
-                        <input
-                            className="form-control"
-                            ref="nameFeature"
+                        <FormControl
                             id="nameFeature"
                             type="text"
                             onBlur={this.saveNameFeature}
@@ -95,11 +68,11 @@ class InsertFeature extends Component {
                     </Col>
                 </FormGroup>
                 <FormGroup>
-                    <Col sm={3} smPush={1}>
-                        <ControlLabel >Section (*):</ControlLabel>
+                    <Col sm={2} smPush={1}>
+                        <ControlLabel >Select section:</ControlLabel>
                     </Col>
                     <Col sm={8} smPush={1}>
-                        <select className={styles['text-select-input'] + ' ' + "form-control"}  ref="selectSection" id="selectSection"
+                        <FormControl componentClass="select"  className={styles['text-select-input']} id="selectSection"
                                      onChange={this.saveSelectedSection}   required>
                             <option key={0} value="Select section" >Select section</option>
                             {
@@ -110,20 +83,19 @@ class InsertFeature extends Component {
                                     )
                                 })
                             }
-                        </select>
+                        </FormControl>
                     </Col>
                 </FormGroup>
 
                 <FormGroup>
-                    <Col sm={3} smPush={1}>
-                        <ControlLabel>Description (*):</ControlLabel>
+                    <Col sm={2} smPush={1}>
+                        <ControlLabel>Description:</ControlLabel>
                     </Col>
                     <Col sm={8} smPush={1}>
-                        <textarea
-                            className="form-control"
-                            ref="DescriptionFeature"
+                        <FormControl
                             id="DescriptionFeature"
                             onBlur={this.saveDescriptionFeature}
+                            componentClass="textarea"
                             placeholder="Enter the description"
                             required
                         />

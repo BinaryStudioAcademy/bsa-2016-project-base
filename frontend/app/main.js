@@ -7,11 +7,11 @@ import { Provider } from 'react-redux';
 import thunk from "redux-thunk";
 import App from './App.js';
 import {Admin, Rights, Features, Tags, Tech, TechScope} from '../components/admin/';
-import UpsertProject from '../components/admin/project/UpsertProject';
 import TechDetail from '../components/admin/technologies/detail/TechDetail';
 import ProjectsList from '../components/projects/ProjectsList';
 import ProjectView from '../components/projectview/project-view';
 import ProjectSummary from '../components/project-summary/ProjectSummary';
+import UpsertProject from '../components/project-upsert/UpsertProject';
 import Home from '../components/home/Home';
 import Stats from '../components/stats/Stats';
 import Review from '../components/review/Review';
@@ -44,7 +44,7 @@ render(
               <Route path="tags" component={Tags} />
               <Route path="tech" component={Tech} />
               <Route path="tech/:id" component={TechDetail}/>
-              <Route path="project" component={UpsertProject}  />
+              <Route path="techscope" component={TechScope}  />
             </Route>
             <Route path="stats" component={Stats} /> 
             <Route path="review" component={Review} /> 

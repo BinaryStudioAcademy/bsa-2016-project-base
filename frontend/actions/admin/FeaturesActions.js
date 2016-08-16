@@ -168,19 +168,3 @@ export function changeVisibilityForm(visibilityForm) {
            }
     }
 }
-
-export function editFeature(features, editFeature, index) {
-    return dispatch => {
-        return featureService.editFeature(editFeature)
-            .then(
-                dispatch (getAllFeaturesOfAllProjects())
-            )
-            .catch( err => {
-                dispatch({
-                    type: 'EDIT_FEATURE_ERROR',
-                    error: err
-                });
-            });
-    }
-
-}
