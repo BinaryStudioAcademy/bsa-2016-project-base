@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, FormGroup, InputGroup, FormControl, Button } from 'react-bootstrap';
 import Technologie from './Technologie';
 import styles from './SearchHome.sass';
-import FaSearch from 'react-icons/lib/fa/search';
+import FaSearch from 'react-icons/lib/fa/search'; 
 
 export default class SearchHome extends Component {
 

@@ -35,6 +35,8 @@
           font-family: "Lato", sans-serif
           width: 100%
           margin-bottom: 20px
+          input[type=radio]:checked + label
+            background: orange
           .search-order-tooltip
             font-weight: 400
             font-size: 1.2em
@@ -87,6 +89,9 @@
             &:hover
               background-color: #627484
           // color: red   
+//input[type=radio]:checked + label,
+input[type=checkbox]:checked + label
+  background: orange
 .search-form
   padding-top: 30px
 
