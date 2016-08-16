@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import Checkbox from './common/Checkbox';
-import Button from './common/Button';
+import { Button, Checkbox } from '../../../common/';
+
 
 const UserItem = ({user, onRemoveClick, onCheckboxChange}) => {
     return (

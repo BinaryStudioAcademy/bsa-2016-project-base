@@ -2,8 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../../actions/admin/UpsertProjectActions';
-import DropDown from '../../../common/DropDown';
-import Button from '../../common/Button';
+import { Button, DropDown } from '../../../common/';
 import UserItem from './UserItem';
 
 class UsersList extends Component {

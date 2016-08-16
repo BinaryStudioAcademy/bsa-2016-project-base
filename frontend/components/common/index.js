@@ -3,7 +3,7 @@ export {default as DateInput} from './DateInput';
 export {default as DropDown} from './DropDown';
 export {default as TextArea} from './TextArea';
 export {default as TextInput} from './TextInput';
-export {default as CheckBox} from './CheckBox';
+export {default as Checkbox} from './Checkbox';
 export {default as TabPanel} from './tabs/TabPanel';
 export {default as TabBody} from './tabs/TabBody';
 export {default as TabHead} from './tabs/TabHead';

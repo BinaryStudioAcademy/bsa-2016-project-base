@@ -2,12 +2,7 @@ import React, { Component,PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../../actions/admin/UpsertProjectActions';
-import TextInput from './common/TextInput';
-import DateInput from './common/DateInput';
-import DropDown from './common/DropDown';
-import TextArea from './common/TextArea';
-import Button from './common/Button';
-import Checkbox from './common/Checkbox';
+import { Button, Checkbox, TextArea, DropDown, DateInput, TextInput } from '../../../common/';
 
 
 class Inputs extends Component {

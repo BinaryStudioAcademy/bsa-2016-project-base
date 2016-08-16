@@ -2,39 +2,20 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions/admin/UpsertProjectActions';
+import { TabPanel, TabBody, TabHead, Button } from '../../common/';
 import Inputs from './sections/Inputs';
-import Button from '../../common/Button'
-import TabPanel from '../../common/tabs/TabPanel';
-import TabBody from '../../common/tabs/TabBody';
-import TabHead from '../../common/tabs/TabHead';
-import UsersList from './UsersList';
-
-
+import UsersList from './sections/UsersList';
 
 
 class UpsertProject extends Component {
 	constructor(props) {
 	    super(props);
-	   	
 	}
 	
-	
  	render() {
- 		
-
- 		
-
- 		/*const project = {
-			_id:"57acc61ab781f506fe6ca72a",
-			projectName:"First Web-project",
-			timeBegin:"2013-06-09",
-			timeEnd:"2014-06-09",
-			condition: "In progress"
-		};*/
-
 	    return (
 	    	<div>
-	    		<Inputs data = {{}}/>
+	    		<Inputs/>
 	    		<TabPanel activeIndex={0}>
 	        		<TabHead index={0}>
 	        			<Button id="ok" value="Tags"/>
@@ -49,9 +30,7 @@ class UpsertProject extends Component {
 	        			Hello Features Tab!
 	        		</TabBody>
         		</TabPanel>
-        		<UsersList 
-        			
-        		/>
+        		<UsersList/>
 	    	</div>
 	    )
 	}
