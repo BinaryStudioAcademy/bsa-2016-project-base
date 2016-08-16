@@ -9,9 +9,7 @@ function UsersRightsRepository() {
 
 UsersRightsRepository.prototype = new Repository();
 UsersRightsRepository.prototype.getUsersToProjectByFilter = function(data,callback){
-	console.log(data);
-	var model = this.model;
-		query = model.findOne({_id:data['projectId']}),
+	var query = this.model.findOne({_id:data['projectId']}),
 		isOwner = (!data['user'] || data['user'] == 'owners'),
 		isSimple = (!data['user'] || data['user'] == 'simples'),
 		$and = [], populate = {};
@@ -22,24 +20,28 @@ UsersRightsRepository.prototype.getUsersToProjectByFilter = function(data,callba
 			'$options' : 'i'
 		}
 	});
+
     if(data['userSurname']) $and.push({
     	userSurname: {
 			'$regex' : data['userSurname'],
 			'$options' : 'i'
 		}
-	});		
+	});	
+
 	if($and.length) populate['match'] = { $and : $and };
+
 	if(isOwner) {
 		populate['path'] = 'owners';
 		query = query.populate(populate);
 	}
+
 	if(isSimple){
 		populate['path'] = 'users';
 		query = query.populate(populate);
 	}
+
 	query.exec(function(err,result){
-		console.log(result);
-		if(result){
+			if(result){
 			var res = { id: result['_id']}
 			if(isOwner)  res['owners'] = result['owners'];
 			if(isSimple) res['simples'] = result['users'];
@@ -48,8 +50,7 @@ UsersRightsRepository.prototype.getUsersToProjectByFilter = function(data,callba
 	});
 }
 UsersRightsRepository.prototype.getByIdWithStakeholders = function(id,callback){
-	var model = this.model;
-	var query = model.findOne({_id:id}).populate(['users','owners']);
+	var query = this.model.findOne({_id:id}).populate(['users','owners']);
 	query.exec(function(err,data){
 		if(data) data = {
 			id: data['_id'],
@@ -61,12 +62,12 @@ UsersRightsRepository.prototype.getByIdWithStakeholders = function(id,callback){
 }
 
 UsersRightsRepository.prototype.getProjectList = function(callback){
-		model.find(function(err, data) {
-			if(data) for(var i in data) data[i] = {
-				 id: data[i]._id,
-				 projectName: data[i].projectName
-			};
-			callback(err,data);
-		});
+	this.model.find(function(err, data) {
+		if(data) for(var i in data) data[i] = {
+			 id: data[i]._id,
+			 projectName: data[i].projectName
+		};
+		callback(err,data);
+	});
 }
 module.exports = new UsersRightsRepository();
