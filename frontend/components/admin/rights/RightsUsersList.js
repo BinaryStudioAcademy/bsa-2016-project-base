@@ -16,7 +16,6 @@ class RightsUsersList extends Component {
        this.props.fetchUsers("57acc61ab781f506fe6ca72a",{
        		userName: "J"
        });
-
     }
  	render() {
  		console.log(this.props.usersRights);

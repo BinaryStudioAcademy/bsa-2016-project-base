@@ -24,16 +24,15 @@ UsersRightsRepository.prototype.getUsersToProjectByFilter = function(data,callba
 		'$regex' : data['userSurname'],
 		'$options' : 'i'
 	});		
-	if(isOwner) path.push('owners');
-	if(isSimple) path.push('simples');
-
-	populate['path'] = path;
 	if($in.length) populate['match'] = { $in };
-	query = query.populate(populate);
-	/* if(isSimple) query = query.populate({
-		path:'users',
-		match: match
-	});*/
+	if(isOwner) {
+		populate['path'] = 'owners';
+		query = query.populate(populate);
+	}
+	if(isSimple){
+		populate['path'] = 'users';
+		query = query.populate(populate);
+	}
 	query.exec(function(err,result){
 		if(result){
 			var res = { id: result['_id']}

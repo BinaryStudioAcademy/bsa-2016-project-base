@@ -1,6 +1,6 @@
 module.exports = {
-	dbname: 'project-base',
-	uri: 'mongodb://localhost/project-base',
+	dbname: 'projects-base',
+	uri: 'mongodb://localhost/projects-base',
 	mocked_db: false,
 	opts: {
 		server: {
