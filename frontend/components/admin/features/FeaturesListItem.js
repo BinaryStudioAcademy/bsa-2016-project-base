@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import {FormControl, Row, Col} from 'react-bootstrap';
+import { Row, Col, Button, ButtonToolbar} from 'react-bootstrap';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -14,26 +14,28 @@ class FeaturesListItem extends Component {
     }
 
     changeCheckedFeature(e) {
-        if(e.target.checked) {
+        this.refs.selectCheckbox.checked = !this.refs.selectCheckbox.checked;
+        if(this.refs.selectCheckbox.checked) {
            this.props.addCheckedFeature(this.props.featuresData.listCheckedFeatures, this.props.feature._id)
         }
-        else if(!e.target.checked) {
+        else if(!this.refs.selectCheckbox.checked) {
             this.props.removeCheckedFeature(this.props.featuresData.listCheckedFeatures, this.props.feature._id)
         }
     }
+
     render() {
         return (
-            <Row>
-                <Col  xs={5} sm={5}>
+            <Row className="FeatureListItem">
+                <Col  xs={3} sm={3}>
                     <div className={styles['list-item-navigation']}>
-                        <div>
-                            <FormControl type="checkbox" className={styles['select-checkbox']}
+                        <div className="nameFeatureCheckbox">
+                            <input type="checkbox" className={styles['select-checkbox'] + ' ' + "form-control"} ref="selectCheckbox"
                                  name="checkbox" id={this.props.feature._id} /*checked={item['checked']}*/
-                                 onChange={this.changeCheckedFeature} checked={this.props.check}
+                                  checked={this.props.check}
                             />
-                            <label htmlFor={this.props.feature._id} className={styles['select-label']}>
+                            <span htmlFor={this.props.feature._id} ref="selectLabel" onClick={this.changeCheckedFeature} className={styles['select-label']}>
                                 Name: {this.props.feature.featureName}
-                            </label>
+                            </span>
                         </div>
                         <div>
                             <span>Section: </span>
@@ -41,7 +43,15 @@ class FeaturesListItem extends Component {
                         </div>
                     </div>
                 </Col>
-                <Col  xs={7} sm={7}>{this.props.feature.featureDescription.lists}</Col>
+                <Col  xs={6} sm={6}>
+                    <span className="descriptionFeature">{this.props.feature.featureDescription.lists}</span>
+                    </Col>
+                <Col  xs={2} sm={2}>
+                    <ButtonToolbar className="listItemButtonToolbar">
+                    <Button onClick={() => this.props.openFeatureDetails(this.props.feature)} block className="bShowFeatureDetails">Show</Button>
+                    <Button onClick={() => this.props.open(this.props.feature)} block>Edit</Button>
+                        </ButtonToolbar>
+                </Col>
             </Row>
         )
     }

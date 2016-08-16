@@ -5,7 +5,6 @@ var Repository = function(){
 Repository.prototype.add = function(data, callback){
 	var model = this.model;
 	var newitem = new model(data);
-	console.log('Repository.prototype.add: ', data);
 	newitem.save(callback);
 };
 

@@ -24,7 +24,7 @@ class InsertSection extends Component {
     addSection(e) {
         e.preventDefault();
         var self = this;
-        let searchSameSection = this.props.data.sections.some(function(el) {
+        let searchSameSection = this.props.sectionData.sections.some(function(el) {
             if(el.name == self.state.name) {
                 console.log("Error! Section with same name already exist in base");
                 return true;
@@ -41,31 +41,40 @@ class InsertSection extends Component {
             return;
         }
 
-        const {sections} = this.props.data;
+        const {sections} = this.props.sectionData;
         this.props.addNewSection(sections, {
                name: this.state.name,
                 description: this.state.description
             });
+        this.refs.nameSection.value = '';
+        this.refs.DescriptionSection.value = '';
+        this.setState({
+            name: '',
+            description: ''
+        });
         this.props.getAllSections();
     }
 
     saveNameSection(e) {
-        this.setState({name: e.target.value.replace(/\s/g, '')});
+        this.setState({name: e.target.value});
     }
 
     saveDescriptionSection(e) {
-        this.state.description = e.target.value.replace(/\s/g, '');
+        this.setState({
+            description: e.target.value
+        });
     }
 
     render() {
         return (
             <Form horizontal className={styles['form']}>
                 <FormGroup >
-                    <Col sm={2} smPush={1}>
-                        <ControlLabel>Name of section:</ControlLabel>
+                    <Col sm={3} smPush={1}>
+                        <ControlLabel>Name (*):</ControlLabel>
                     </Col>
                     <Col sm={8} smPush={1}>
-                        <FormControl
+                        <input
+                            className="form-control"
                             id="nameSection"
                             ref="nameSection"
                             onBlur={this.saveNameSection}
@@ -76,15 +85,15 @@ class InsertSection extends Component {
                     </Col>
                 </FormGroup>
                 <FormGroup>
-                    <Col sm={2} smPush={1}>
-                        <ControlLabel>Description:</ControlLabel>
+                    <Col sm={3} smPush={1}>
+                        <ControlLabel>Description (*):</ControlLabel>
                     </Col>
                     <Col sm={8} smPush={1}>
-                        <FormControl
+                        <textarea
+                            className="form-control"
                             id="DescriptionSection"
                             ref="DescriptionSection"
                             onBlur={this.saveDescriptionSection}
-                            componentClass="textarea"
                             placeholder="Enter the description"
                             required
                         />
@@ -103,7 +112,7 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
     return {
-        data: state.SectionsReducer
+        sectionData: state.SectionsReducer
     }
 }
 const InsertSectionConnected = connect(mapStateToProps, mapDispatchToProps)(InsertSection);

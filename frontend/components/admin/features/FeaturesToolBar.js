@@ -1,12 +1,10 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import React, { Component, PropTypes } from 'react';
-
 import MultiSelect from './MultiSelect';
-import {Grid, FormControl, Row, Col, Button} from 'react-bootstrap';
+import { FormControl, Col, Button} from 'react-bootstrap';
 import * as actionsSection from "../../../actions/admin/SectionsActions";
 import * as actionsFeature from "../../../actions/admin/FeaturesActions";
-
 import styles from './styles/Features.sass';
 
 class FeaturesToolBar extends Component {
@@ -20,7 +18,8 @@ class FeaturesToolBar extends Component {
     }
 
     handlerChangeVisibilityForm() {
-        this.props.changeVisibilityForm(this.props.featuresData.visibilityForm)
+        this.props.changeVisibilityForm(this.props.featuresData.visibilityForm);
+
     }
 
     removeChecked() {
@@ -34,6 +33,7 @@ class FeaturesToolBar extends Component {
     }
 
     markAllFeature(e) {
+
         this.props.markedAllFeatures(this.props.featuresData.features, e.target.checked, this.props.featuresData.listCheckedFeatures);
     }
 
@@ -82,7 +82,8 @@ class FeaturesToolBar extends Component {
                         />
                         <label htmlFor="markAll" className={styles['select-all-label']}>Mark all</label>
                         <Button className={styles['button-feature-remove']} onClick={this.removeChecked} id="buttonFeatureRemove">Remove marked</Button>
-                        <Button className={styles['button-feature-add']} id="buttonFeatureAdd" onClick={this.handlerChangeVisibilityForm}>Add feature</Button>
+                        <Button className={styles['button-feature-add']} id="buttonFeatureAdd" onClick={this.handlerChangeVisibilityForm}>{
+                            this.props.featuresData.visibilityForm === "hidden" ? "Add" : "Hide form"}</Button>
                     </Col>
                 </div>
             </div>

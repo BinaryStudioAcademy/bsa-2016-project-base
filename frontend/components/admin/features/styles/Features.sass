@@ -14,17 +14,17 @@ $mainTextColor: #656565
   visibility: hidden !important
 
 /* Inputs */
-#Features .feature-tabs input,
+#Features  input,
 #Features .features-tool-bar input,
-#Features .feature-tabs  select
+#Features select
   width: 100%
   border: none
   font-size: 14px
   border-radius: 0
 
-#Features .feature-tabs input:focus,
+#Features input:focus,
 #Features .features-tool-bar input:focus,
-#Features .feature-tabs select:focus
+#Features select:focus
   box-shadow: none
 /* Inputs */
 
@@ -216,10 +216,14 @@ $mainTextColor: #656565
 
 #Features .select-checkbox + .select-label
   background-color: transparent
-  margin: 15px
+  margin: 15px 0 15px 0
   height: 16px
   padding-left: 21px
   line-height: 16px
+
+#Features .descriptionFeature
+  display: block
+  margin: 10px 0
 
 #Features .select-all-checkbox + .select-all-label,
 #Features .select-checkbox + .select-label
@@ -238,11 +242,13 @@ $mainTextColor: #656565
 #Features .select-label,
 #Features .select-all-label
   color: $mainTextColor
-  opacity: 0.75
 
 #Features .select-label:hover,
 #Features .select-all-label:hover
   opacity: 1
+
+.modal-content span
+  word-wrap: break-word
 
 #Features .select-all-label,.select-label
   user-select: none
@@ -269,8 +275,8 @@ $mainTextColor: #656565
 #Features .list-container
   overflow-y: auto
   color: $mainTextColor
-  max-height: 475px
-  margin: 5px 0px 0 0px
+  max-height: 74vh
+  margin: 0
   border-bottom: 3px solid $toolBarColor
 
 #Features .list-container > div,
@@ -281,6 +287,11 @@ $mainTextColor: #656565
   margin: 20px 10px 15px 10px
   text-align: left
 
+#Features .nameFeatureCheckbox span
+ display: inline !important
+#Features span
+  word-wrap: break-word
+
 #Features .list-item-navigation > div:last-child
   margin-top: 10px
 
@@ -290,7 +301,7 @@ $mainTextColor: #656565
 #Features .list-item-navigation > div:last-child > span
   color: $mainTextColor
 
-#Features .list-item-navigation > div:last-child > label
+#Features .list-item-navigation > div:last-child > .select-label
   color: $lightCadetBlueColor
 
 #Features .list-container > div
@@ -307,6 +318,25 @@ $mainTextColor: #656565
 
 #Features .list-container > div:nth-child(2n)
   background-color: white
+
+#Features .FeatureListItem
+  word-wrap: break-word
+
+#Features .FeatureListItem row div
+  margin-left: 0
+  margin-right: 0
+
+#Features  .listItemButtonToolbar
+  vertical-align: middle
+
+#Features  .listItemButtonToolbar button
+  vertical-align: middle
+  border: none
+  color: white
+  height: 40px
+  border-radius: 0
+  font-weight: bold
+  font-size: 0.9em
 
 /* List of features */
 
@@ -327,9 +357,7 @@ $mainTextColor: #656565
 #Features .blockSelectCheckBox
   position: relative
 
-#Features .blockSelectCheckBox label
-  position: absolute
-  top: 50%
+
 
 #Features .dropdown-menu
   overflow: auto

@@ -24,7 +24,6 @@ class InsertTabs extends Component {
     }
 }
 
-
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(actionsFeature, dispatch)
 }

@@ -51,12 +51,30 @@ export default function FeaturesReducer(state = initialState, action) {
                 error: action.error
             });
         }
-        case 'ADD_NEW_FEATURE':
+        case 'ADD_NEW_FEATURE': {
             const {features, newFeature} = action;
             return Object.assign({}, state, {features: features.concat(newFeature)});
-        case 'REMOVE_SELECTED_FEATURES':
+        }
+
+        case 'REMOVE_SELECTED_FEATURES': {
             return Object.assign({}, state, {listCheckedFeatures: []});
+        }
+
+        case 'EDIT_FEATURE': {
+            const {features, editFeature, index} = action;
+            return Object.assign({}, state, features.splice(index, 1, editFeature))
+        }
+
+        case 'EDIT_FEATURE_ERROR': {
+            return Object.assign({}, state, {
+                error: action.error
+            });
+        }
+
         default:
             return state;
     }
 };
+
+
+
