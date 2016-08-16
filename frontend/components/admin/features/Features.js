@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import InsertTabs from './InsertTabs';
+import InsertFeature from './InsertFeature';
 import FeaturesToolBar from './FeaturesToolBar'
 import FeaturesList from './FeaturesList'
 
@@ -14,7 +14,7 @@ class FeaturesTab extends Component {
 			<div id="Features">
 				<FeaturesToolBar />
 				<FeaturesList />
-				<InsertTabs className={styles['featureComponent']}/>
+				<InsertFeature/>
 			</div>
 		)
 	}

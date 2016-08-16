@@ -6,7 +6,7 @@ $toolBarColor: #EFEFEF
 $listItemColor: #FAFDFE
 $mainTextColor: #656565
 
-#Features
+#Sections
   .visible
     visibility: visible !important
 
@@ -14,7 +14,7 @@ $mainTextColor: #656565
     visibility: hidden !important
 
   input,
-  .features-tool-bar input,
+  .sections-tool-bar input,
   select
     width: 100%
     border: none
@@ -22,115 +22,115 @@ $mainTextColor: #656565
     border-radius: 0
 
   input:focus,
-  .features-tool-bar input:focus,
+  .sections-tool-bar input:focus,
   select:focus
     box-shadow: none
   /* Inputs */
 
   /* Add Features|Sections component */
-  .formInsertFeature
+  .formInsertSection
     font-family: "Open Sans"
     margin: 25px auto
     padding-bottom: 30px
 
-  .formInsertFeature,
-  .formInsertFeature a:hover
+  .formInsertSection,
+  .formInsertSection a:hover
     color: $mainTextColor
 
-  .formInsertFeature a /* Styling tab buttons */
+  .formInsertSection a /* Styling tab buttons */
     color: white
     font-size: 14px
     border-radius: 0 !important
     background-color: $tomatoColor
 
-  .formInsertFeature textarea
+  .formInsertSection textarea
     border: none
     resize: none
     border-radius: 0
     min-height: 250px
     padding: 5px 1.5rem 0px 1.5rem
 
-  .formInsertFeature a:focus,
-  .formInsertFeature textarea
+  .formInsertSection a:focus,
+  .formInsertSection textarea
     outline: none !important
 
-  .formInsertFeature textarea:focus,
-  .formInsertFeature textarea,
-  .formInsertFeature  select
+  .formInsertSection textarea:focus,
+  .formInsertSection textarea,
+  .formInsertSection  select
     border-top: 1px solid $toolBarColor
     box-shadow: none !important
 
-  .formInsertFeature  select
+  .formInsertSection  select
     border: none
     cursor: pointer
 
-  .formInsertFeature textarea,
-  .formInsertFeature input[type="text"],
-  .formInsertFeature  select
+  .formInsertSection textarea,
+  .formInsertSection input[type="text"],
+  .formInsertSection  select
     font-size: 16px
     transition: border-bottom-color 0.9s
     border-bottom: 3px solid $lightCadetBlueColor
 
-  .formInsertFeature textarea:focus,
-  .formInsertFeature input[type="text"]:focus,
-  .formInsertFeature  select:focus
+  .formInsertSection textarea:focus,
+  .formInsertSection input[type="text"]:focus,
+  .formInsertSection  select:focus
     border-bottom-color: $tomatoColor
 
 
-  .formInsertFeature .form
+  .formInsertSection
     padding-top: 50px
     margin-bottom: 50px
 
-  .formInsertFeature button
+  .formInsertSection button
     background-color: #9AAD54
 
-  .formInsertFeature button:active,
-  .formInsertFeature button:hover
+  .formInsertSection button:active,
+  .formInsertSection button:hover
     background-color: #9AAD46 !important
 
   /* Add Component */
 
   /* ToolBar Component */
-  .features-tool-bar
+  .sections-tool-bar
     min-height: 100px
     text-align: center
     background: $toolBarColor
 
-  .features-tool-bar > div
+  .sections-tool-bar > div
     padding: 10px
 
-  .features-tool-bar button:active,
-  .features-tool-bar button:hover,
-  .formInsertFeature button:active,
-  .formInsertFeature button:hover
+  .sections-tool-bar button:active,
+  .sections-tool-bar button:hover,
+  .feature-tabs button:active,
+  .feature-tabs button:hover
     border: none
     color: white
     outline: none !important
     box-shadow: none
 
-  .features-tool-bar button:focus
+  .sections-tool-bar button:focus
     outline: none
     color: white
 
-  .features-tool-bar button,
-  .formInsertFeature button
+  .sections-tool-bar button,
+  .feature-tabs button
     border: none
     color: white
     height: 40px
     border-radius: 0
     font-weight: bold
 
-  .button-feature-remove,
-  .button-feature-remove:focus,
-  .button-feature-remove:hover,
-  .button-feature-remove:active
+  .button-section-remove,
+  .button-section-remove:focus,
+  .button-section-remove:hover,
+  .button-section-remove:active
     background-color: $tomatoColor !important
     border-bottom: 2px solid #B75C58
 
-  .button-feature-add,
-  .button-feature-add:focus,
-  .button-feature-add:hover,
-  .button-feature-add:active
+  .button-section-add,
+  .button-section-add:focus,
+  .button-section-add:hover,
+  .button-section-add:active
     background-color: $lightCadetBlueColor !important
     border-bottom: 2px solid #939EA5
 
@@ -220,7 +220,7 @@ $mainTextColor: #656565
     padding-left: 21px
     line-height: 16px
 
-  .descriptionFeature
+  .descriptionSection
     display: block
     margin: 10px 0
 
@@ -286,8 +286,8 @@ $mainTextColor: #656565
     margin: 20px 10px 15px 10px
     text-align: left
 
-  .nameFeatureCheckbox span
-   display: inline !important
+  .nameSectionCheckbox span
+    display: inline !important
   span
     word-wrap: break-word
 
@@ -318,10 +318,10 @@ $mainTextColor: #656565
   .list-container > div:nth-child(2n)
     background-color: white
 
-  .FeatureListItem
+  .SectionListItem
     word-wrap: break-word
 
-  .FeatureListItem .row div
+  .SectionListItem .row div
     margin-left: 0
     margin-right: 0
 
@@ -364,6 +364,6 @@ $mainTextColor: #656565
 
 // !!!!
 @media all and (min-width: 768px)
-  #Features .features-tool-bar
+  #Sections .sections-tool-bar
     display: flex
     align-items: center

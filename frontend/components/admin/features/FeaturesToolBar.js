@@ -15,6 +15,7 @@ class FeaturesToolBar extends Component {
         this.handlerFilterFeatures = this.handlerFilterFeatures.bind(this);
         this.handlerCheckedSection = this.handlerCheckedSection.bind(this);
         this.handlerChangeVisibilityForm = this.handlerChangeVisibilityForm.bind(this);
+        this.props.getAllSections();
     }
 
     handlerChangeVisibilityForm() {
@@ -59,7 +60,7 @@ class FeaturesToolBar extends Component {
                             <span className={styles['search-input-border']}></span>
                         </div>
                     </Col>
-                    <Col sm={2}>
+                    <Col sm={3}>
                         <MultiSelect title="Sections" id="multiSelectSections">
                             {
                                 this.props.sectionsData.sections.map(function(el, index) {
@@ -74,7 +75,7 @@ class FeaturesToolBar extends Component {
                             }
                         </MultiSelect>
                     </Col>
-                    <Col xs={12} sm={6}>
+                    <Col xs={12} sm={5}>
                         <FormControl type="checkbox" className={styles['select-all-checkbox']}
                                      id="markAll"  onChange={this.markAllFeature}
                                      checked={this.props.featuresData.features.length == this.props.featuresData.listCheckedFeatures.length
