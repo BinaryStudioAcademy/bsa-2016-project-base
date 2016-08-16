@@ -14,17 +14,21 @@ UsersRightsRepository.prototype.getUsersToProjectByFilter = function(data,callba
 		query = model.findOne({_id:data['projectId']}),
 		isOwner = (!data['user'] || data['user'] == 'owners'),
 		isSimple = (!data['user'] || data['user'] == 'simples'),
-		$in = [],path = [], populate = {};
+		$and = [], populate = {};
 
-	if(data['userName']) $in.push({
-		'$regex' : data['userName'],
-		'$options' : 'i'
+	if(data['userName']) $and.push({
+		userName: {
+			'$regex' : data['userName'],
+			'$options' : 'i'
+		}
 	});
-    if(data['userSurname']) $in.push({
-		'$regex' : data['userSurname'],
-		'$options' : 'i'
+    if(data['userSurname']) $and.push({
+    	userSurname: {
+			'$regex' : data['userSurname'],
+			'$options' : 'i'
+		}
 	});		
-	if($in.length) populate['match'] = { $in };
+	if($and.length) populate['match'] = { $and : $and };
 	if(isOwner) {
 		populate['path'] = 'owners';
 		query = query.populate(populate);
@@ -34,6 +38,7 @@ UsersRightsRepository.prototype.getUsersToProjectByFilter = function(data,callba
 		query = query.populate(populate);
 	}
 	query.exec(function(err,result){
+		console.log(result);
 		if(result){
 			var res = { id: result['_id']}
 			if(isOwner)  res['owners'] = result['owners'];
