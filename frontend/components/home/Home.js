@@ -87,9 +87,9 @@ function getFilteredProjects(allProducts, search, searchHint) {
     const str = search.toLowerCase();
 
     return allProducts.filter(product => {
-        if (!searchHint) return !!~product.projectName.toLowerCase().indexOf(str);
+        if (!searchHint) return !!~product.projectName.toLowerCase().indexOf(str) ||
+            !!~product.description[0].descrText.toLowerCase().indexOf(str);
 
-        searchHint = (searchHint === 'date') ? 'timeBegin' : searchHint;
         let searchingField = product[searchHint], isMatch = [];
 
         if (Object.prototype.toString.call(searchingField) === '[object Array]') {
@@ -109,7 +109,7 @@ function getFilteredProjects(allProducts, search, searchHint) {
                 }
             });
         } else {
-            return !!~product[searchHint].indexOf(str);
+            return !!~product['timeBegin'].indexOf(str) || !!~product['timeEnd'].indexOf(str);
         }
 
         return !!isMatch.length;
