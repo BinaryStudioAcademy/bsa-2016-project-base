@@ -12,12 +12,12 @@ import * as styles from "./DetailsFeatures.sass"
 class DetailsFeatures extends Component {
 
     static propTypes = {
-        projectId: React.PropTypes.string.isRequired
+        features: React.PropTypes.array.isRequired
     };
 
     componentDidMount() {
-        const {getAllFeatures, projectId} = this.props;
-        getAllFeatures(projectId);
+        const {setAllFeatures, features} = this.props;
+        setAllFeatures(features);
     }
 
     filterFeatures(e) {
@@ -65,15 +65,26 @@ class DetailsFeatures extends Component {
     }
 }
 
+function checkMatch(feature, search) {
+    return !!~feature.featureName.indexOf(search) ||
+        !!~feature.descriptionText.indexOf(search) ||
+        !!~feature.descriptionHTMLText.indexOf(search);
+}
+
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(actions, dispatch);
 }
 
 function mapStateToProps(state) {
     const { features, search, showFeaturesDetailsModal } = state.FeaturesDetailsReducer;
-    const myReg = new RegExp('^' + search, "i");
-    console.log(state);
-    let filtered = (!search) ? features: features.filter((feature) => myReg.test(feature.featureName));
+    let filtered = features.filter((feature, key, arr) => {
+        const subfeaturesId = feature.childFeatures;
+
+        if (checkMatch(feature, search)) return true;
+        if (!subfeaturesId) return false;
+
+        return subfeaturesId.filter(id => checkMatch(arr.find(subfeature=>subfeature['_id'] === id), search)).length;
+    });
 
     return {
         data: state.FeaturesDetailsReducer,
