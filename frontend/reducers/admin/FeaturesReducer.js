@@ -17,7 +17,7 @@ export default function FeaturesReducer(state = initialState, action) {
         case 'CHANGE_VISIBILITY_FORM': {
             const {visibilityForm} = action;
             return Object.assign({}, state, {visibilityForm: visibilityForm});
-    }
+        }
 
         case 'FILTER_FEATURES': {
             const {filter} = action;

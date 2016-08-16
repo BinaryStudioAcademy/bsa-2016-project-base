@@ -9,32 +9,31 @@ function UsersRightsRepository() {
 
 UsersRightsRepository.prototype = new Repository();
 UsersRightsRepository.prototype.getUsersToProjectByFilter = function(data,callback){
+	console.log(data);
 	var model = this.model;
 		query = model.findOne({_id:data['projectId']}),
 		isOwner = (!data['user'] || data['user'] == 'owners'),
 		isSimple = (!data['user'] || data['user'] == 'simples'),
-		match = {
-		 	$or: [{
-		 	  	userName: {
-		 	  		'$regex' : data['userFilter'],
-		 	  		'$options' : 'i'
-		 	  	}
-		 	},{
-		 	  	userSurname: {
-		 	  		'$regex' : data['userFilter'], 
-		 	  		'$options' : 'i'
-		 	  	}
-		 	}] 
-		};
+		$in = [],path = [], populate = {};
 
-	if(isOwner)  query = query.populate({
-		path:'owners',
-		match: match
+	if(data['userName']) $in.push({
+		'$regex' : data['userName'],
+		'$options' : 'i'
 	});
-	if(isSimple) query = query.populate({
+    if(data['userSurname']) $in.push({
+		'$regex' : data['userSurname'],
+		'$options' : 'i'
+	});		
+	if(isOwner) path.push('owners');
+	if(isSimple) path.push('simples');
+
+	populate['path'] = path;
+	if($in.length) populate['match'] = { $in };
+	query = query.populate(populate);
+	/* if(isSimple) query = query.populate({
 		path:'users',
 		match: match
-	});
+	});*/
 	query.exec(function(err,result){
 		if(result){
 			var res = { id: result['_id']}
@@ -55,5 +54,15 @@ UsersRightsRepository.prototype.getByIdWithStakeholders = function(id,callback){
 		}
 		callback(err,data);
 	});
+}
+
+UsersRightsRepository.prototype.getProjectList = function(callback){
+		model.find(function(err, data) {
+			if(data) for(var i in data) data[i] = {
+				 id: data[i]._id,
+				 projectName: data[i].projectName
+			};
+			callback(err,data);
+		});
 }
 module.exports = new UsersRightsRepository();

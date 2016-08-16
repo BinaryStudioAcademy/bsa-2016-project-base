@@ -3,7 +3,7 @@ import {Grid, FormControl, Row, Col, Button,Checkbox} from 'react-bootstrap';
 import styles from './styles/Rights.sass';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {fetchUsers} from '../../../actions/usersRightsActions';
+import {fetchUsers} from '../../../actions/admin/UsersRightsActions';
 
 
 
@@ -13,15 +13,15 @@ class RightsUsersList extends Component {
 	}
 
 	componentWillMount() {
-   this.props.fetchUsers("57acc61ab781f506fe6ca72a");
+       this.props.fetchUsers("57acc61ab781f506fe6ca72a",{
+       		userName: "J"
+       });
 
- }
+    }
  	render() {
+ 		console.log(this.props.usersRights);
 	    return (
 	    	<div className=" rightsUsersList">
-
-fffff
-
 	    	</div>
 	    )
 	}

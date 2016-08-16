@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Grid, Row, Col} from 'react-bootstrap';
 import Navbar from '../components/navbar/Navbar'
-
+import NotFound from '../components/not-found/NotFound'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -15,9 +15,6 @@ class App extends Component {
         super(props);
     }
     componentWillMount(){
-       this.UpdateCoockie();
-    }
-    UpdateCoockie(){
         this.props.setAuthUser(
             cookies.load('serverUID'), 
             cookies.load('userRole')
@@ -34,7 +31,8 @@ class App extends Component {
         if(this.props.authUser['userRole']!= 'ADMIN'){
             children = [];
             React.Children.map(this.props.children, function(child) {
-               if(child.type['name'].toLowerCase()!='admin') children.push(child); // ?
+               if(child.type['name'].toLowerCase().indexOf('admin') != -1) children.push(child); // ?
+               else children.push(<NotFound />);
             });
         } else children = this.props.children;
         return (
@@ -64,6 +62,7 @@ class App extends Component {
         )
     }
 }
+
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         setAuthUser:setAuthUser

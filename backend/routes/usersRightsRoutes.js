@@ -4,7 +4,7 @@ var usersRightsRepository = require('../repositories/usersRightsRepository');
 
 module.exports = function(app) {
 	app.get('/api/rights/projects/', function (req,res,next) {
-		usersRightsRepository.getAll(req.params.id, function(err, data) {
+		usersRightsRepository.getProjectList(function(err, data) {
 			res.data = data;
 			res.err = err;
 			next();
@@ -21,7 +21,7 @@ module.exports = function(app) {
 	},apiResponse);
 
 	app.put('/api/rights/projects/:id/', function (req,res,next) {
-		usersRightsRepository.update(req.params.id, req.body,function(err, data) {
+		usersRightsRepository.update(req.params.id,req.body,function(err, data) {
 			res.data = data;
 			res.err = err;
 			next();
@@ -29,34 +29,14 @@ module.exports = function(app) {
 	}, apiResponse);
 
 	app.get('/api/rights/projects/:id/users/:filter', function (req,res,next) {
-		usersRightsRepository.getUsersToProjectByFilter({
-			projectId: req.params.id,
-			userFilter: req.params.filter
-		},function(err, data) {
-			res.data = data;
-			res.err = err;
-			next();
-		});
-	},apiResponse);
-
-	app.get('/api/rights/projects/:id/users/:filter/owners', function (req,res,next) {
-		usersRightsRepository.getUsersToProjectByFilter({
-			projectId: req.params.id,
-			userFilter: req.params.filter,
-			user: 'owners'
-		},function(err, data) {
-			res.data = data;
-			res.err = err;
-			next();
-		});
-	},apiResponse);
-
-	app.get('/api/rights/projects/:id/users/:filter/simples', function (req,res,next) {
-		usersRightsRepository.getUsersToProjectByFilter({
-			projectId: req.params.id,
-			userFilter: req.params.filter,
-			user: 'simples'
-		},function(err, data) {
+		var params = req.params['filter'].split('&'),filters = {};
+		for(var i in params) {
+			params[i] = params[i].split('=');
+			filters[params[i][0]] = params[i][1];
+		}
+		filters['projectId'] = req.params.id;
+		usersRightsRepository.getUsersToProjectByFilter(
+			filters, function(err, data) {
 			res.data = data;
 			res.err = err;
 			next();
