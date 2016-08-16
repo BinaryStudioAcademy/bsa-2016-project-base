@@ -3,7 +3,7 @@ import {Grid, FormControl, Row, Col, Button,Checkbox} from 'react-bootstrap';
 import styles from './styles/Rights.sass';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {fetchUsers} from '../../../actions/usersRightsActions';
+import {fetchUsers,fetchProjects } from '../../../actions/usersRightsActions';
 
 
 
@@ -19,8 +19,9 @@ class RightsUsersList extends Component {
  	render() {
 	    return (
 	    	<div className=" rightsUsersList">
-
-fffff
+        <Checkbox className="name"> </Checkbox>
+        <div ><img src=" http://placehold.it/45x45" /></div>
+        <div>Name Surname here</div>
 
 	    	</div>
 	    )
@@ -31,12 +32,14 @@ fffff
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         fetchUsers:fetchUsers
+
     }, dispatch);
 }
 
 function mapStateToProps(state) {
     return {
         usersRights: state['UsersRightsReducer']
+
     };
 }
 const RightsUsersListConnected = connect(mapStateToProps, mapDispatchToProps)(RightsUsersList);

@@ -11,7 +11,7 @@ class AdminRightsService {
 
 
   getAllProjects() {
-      return fetch(`${API}rights/projects/`, {
+      return fetch(`${API}projects/`,  {
           method: 'GET',
           headers: {
               'Accept': 'application/json',

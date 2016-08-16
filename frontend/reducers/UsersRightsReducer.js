@@ -1,11 +1,12 @@
 import * as types from '../constants/AdminUserActionTypes';
 
 const initialState = {
-  projectId:null,
-  users:{
-    simples:[],
-   owners:[]
-  }
+currentPojectId:null,// то что пришло при клике на комбобоксик
+projectsList:[], // c ним ты работаешь сча
+currentUsers, // то что пришло при выборе юзеров текущего проекта
+simples:[],
+owners:[]
+
 };
 export default function UsersRightsReducer(state = initialState, action) {
     switch(action.type){
@@ -21,6 +22,17 @@ export default function UsersRightsReducer(state = initialState, action) {
             simples:action['users'].simples,
             owners:action['users'].owners
           }
+        });
+      }
+      case types.PROJECTS_GET_LOADING: {
+          return Object.assign({}, state, {
+              isLoading: true
+          });
+      }
+      case types.PROJECTS_GET_LOADED:{
+        return Object.assign({},state,{
+          projectsList:action.projectsList
+
         });
       }
         default: return state;

@@ -7,7 +7,8 @@ export function fetchUsers(projectId) {
             type: types.USERS_PROJECT_GET_LOADING
           });
         return adminRightsService.getProjectUsers(projectId)
-            .then(response => { console.log('resopse:     ',response); return response.json()})
+            .then(response => { console.log('RESPONSE FROM >>>>>>>>getProjectUsers<<<<<< ',response);
+             return response.json()})
             .then( data => {
                 console.log(data);
                 dispatch({
@@ -16,6 +17,34 @@ export function fetchUsers(projectId) {
                         simples:data.simples,
                         owners: data.owners
                     }
+                });
+            })
+    };
+}
+
+
+export function fetchProjects() {
+    return (dispatch) => {
+        dispatch({
+            type: types.PROJECTS_GET_LOADING
+          });
+        return adminRightsService.getAllProjects()
+            .then(response => { console.log('RESPONSE FROM  **********getAllProjects********** ',response); return response.json()})
+            .then( data => {
+              let projectsList=[];
+
+
+                          for(var i in data){
+            projectsList.push({
+            id: data[i]._id,
+            projectName: data[i].projectName
+                })
+                }
+                console.log("data here:",data);
+                dispatch({
+                    type: types.PROJECTS_GET_LOADED,
+                    projectsList:projectsList
+
                 });
             })
     };
