@@ -77,7 +77,8 @@ class InsertFeature extends Component {
 
     render() {
         return (
-            <Form horizontal className={styles['form']} >
+            <Col sm={10} smPush={1}>
+            <Form horizontal className={styles['form'] + ' ' + this.props.featuresData.visibilityForm + ' ' + 'formInsertFeature'} >
                 <FormGroup>
                     <Col sm={3} smPush={1}>
                         <ControlLabel >Name(*):</ControlLabel>
@@ -133,6 +134,7 @@ class InsertFeature extends Component {
                     <Button type="submit"  onClick={this.addFeature} block id="addFeature">Add</Button>
                 </Col>
             </Form>
+                </Col>
         )
     }
 }

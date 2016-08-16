@@ -25,8 +25,8 @@ export default function FeaturesReducer(state = initialState, action) {
         }
 
         case 'MARKED_ALL_FEATURES': {
-            const {listCheckedFeatures, flagChecked, features} = action;
-            return Object.assign({}, state, {listCheckedFeatures: listCheckedFeatures}, {flagChecked: flagChecked}, {features: features});
+            const {listCheckedFeatures, flagChecked} = action;
+            return Object.assign({}, state, {listCheckedFeatures: listCheckedFeatures}, {flagChecked: flagChecked});
         }
 
         case 'ADD_CHECKED_FEATURE' : {

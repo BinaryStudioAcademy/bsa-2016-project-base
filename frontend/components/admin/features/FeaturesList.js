@@ -93,14 +93,14 @@ class FeaturesList extends  Component {
     }
 
     saveNameFeature(e) {
-        this.setState({featureName: e.target.value.replace(/\s/g, '')});
+        this.setState({featureName: e.target.value});
     }
 
     saveDescriptionFeature(e) {
-        this.setState({featureDescription: e.target.value.replace(/\s/g, '')});
+        this.setState({featureDescription: e.target.value});
     }
     saveSelectedSection(e) {
-        this.setState({section: e.target.value.replace(/\s/g, '')});
+        this.setState({section: e.target.value});
     }
 
     addFeature(e) {
