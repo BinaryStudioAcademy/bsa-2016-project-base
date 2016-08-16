@@ -36,7 +36,7 @@
           width: 100%
           margin-bottom: 20px
           input[type=radio]:checked + label
-            background: orange
+            background: #2ecc71
           .search-order-tooltip
             font-weight: 400
             font-size: 1.2em
@@ -54,12 +54,15 @@
             color: #fff
             border-left: 1px solid #f9f9f9
             transition: background .3s
-            &:first-of-type
-              border-radius: 5px 0 0 5px
-            &:last-child
-              border-radius: 0 5px 5px 0
+           
             &:hover
               background-color: #627484
+          div
+            display: inline-block
+            &:first-of-type label
+              border-radius: 5px 0 0 5px
+            &:last-child label
+              border-radius: 0 5px 5px 0
         .filter
           font-family: "Lato", sans-serif
           width: 100%
@@ -71,8 +74,6 @@
             color: #505E6B
           label  
             cursor: pointer
-          &>label
-            display: inline-block
             padding: 0.5em
             // vertical-align: middle
             // background-color: #505E6B
@@ -82,12 +83,19 @@
             color: #fff
             border-left: 1px solid #f9f9f9
             transition: background .3s
-            &:first-of-type
-              border-radius: 5px 0 0 5px
-            &:last-child
-              border-radius: 0 5px 5px 0
+            
             &:hover
               background-color: #627484
+          & input[type=checkbox]:checked + label
+             background: #2ecc71
+          div
+            display: inline-block
+            &:first-of-type label
+              border-radius: 5px 0 0 5px
+            &:last-child label
+              border-radius: 0 5px 5px 0
+
+            
           // color: red   
 //input[type=radio]:checked + label,
 input[type=checkbox]:checked + label
