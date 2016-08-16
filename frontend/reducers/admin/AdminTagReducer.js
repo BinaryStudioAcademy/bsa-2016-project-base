@@ -1,4 +1,4 @@
-import * as types from '../../actions/admin/ActionTypes';
+import * as types from '../../actions/admin/AdminTagActionTypes';
 
 export default function AdminTagReducer(state=initialState, action) {
     switch (action.type) {
