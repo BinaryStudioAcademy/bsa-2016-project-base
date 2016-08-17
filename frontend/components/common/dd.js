@@ -17,9 +17,9 @@ export default class DropDown extends Component {
     }
 
     render()  {
-         let options = this.props.data.map( item => {
+         let options = this.props.data.map( (item, index) => {
                 return (
-                    <li>
+                    <li key={index}>
                         <input 
                             type='radio'
                             value={item.value}
