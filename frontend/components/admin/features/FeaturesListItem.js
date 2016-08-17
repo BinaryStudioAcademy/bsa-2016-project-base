@@ -10,17 +10,12 @@ import * as actions from '../../../actions/admin/FeaturesActions'
 class FeaturesListItem extends Component {
     constructor(props) {
         super(props);
-        this.changeCheckedFeature = this.changeCheckedFeature.bind(this);
+        this.handlerChangeCheckedFeature = this.handlerChangeCheckedFeature.bind(this);
     }
 
-    changeCheckedFeature(e) {
-        this.refs.selectCheckbox.checked = !this.refs.selectCheckbox.checked;
-        if(this.refs.selectCheckbox.checked) {
-           this.props.addCheckedFeature(this.props.featuresData.listCheckedFeatures, this.props.feature._id)
-        }
-        else if(!this.refs.selectCheckbox.checked) {
-            this.props.removeCheckedFeature(this.props.featuresData.listCheckedFeatures, this.props.feature._id)
-        }
+    handlerChangeCheckedFeature(e) {
+        this.refs.selectCheckbox.checked = !this.refs.selectCheckbox.checked
+        this.props.changeCheckedFeature(this.refs.selectCheckbox.checked, this.props.feature._id, this.props.featuresData.features.length);
     }
 
     render() {
@@ -33,7 +28,7 @@ class FeaturesListItem extends Component {
                                  name="checkbox" id={this.props.feature._id} /*checked={item['checked']}*/
                                   checked={this.props.check}
                             />
-                            <span htmlFor={this.props.feature._id} ref="selectLabel" onClick={this.changeCheckedFeature} className={styles['select-label']}>
+                            <span htmlFor={this.props.feature._id} ref="selectLabel" onClick={this.handlerChangeCheckedFeature} className={styles['select-label']}>
                                 Name: {this.props.feature.featureName}
                             </span>
                         </div>
