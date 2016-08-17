@@ -214,14 +214,14 @@ class SectionList extends  Component {
                     sections.map(function(section) {
                         var check = false;
                         if(self.checkValue(section.name, section.description, filter)) {
-                            if(self.props.sectionsData.listCheckedSections.indexOf(section._id) != -1 || self.props.sectionsData.allChecked) {
+                            if(self.props.listCheckedSections.indexOf(section._id) != -1 || self.props.flagChecked) {
                                 check = true;
                             }
                             else {
                                 check = false;
                             }
                             return (
-                                <SectionsListItem openEditSection={self.openEditSection} openSectionDetails={self.openSectionDetails} check={check} section={section} key={section._id}/>
+                                <SectionsListItem openEditSection={self.openEditSection} changeCheckedSection={self.props.changeCheckedSection}  openSectionDetails={self.openSectionDetails} check={check} section={section} key={section._id}/>
                             )
                         }
                     })}

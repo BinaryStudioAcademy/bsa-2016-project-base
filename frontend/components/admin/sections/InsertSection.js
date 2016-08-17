@@ -48,6 +48,7 @@ class InsertSection extends Component {
             name: '',
             description: ''
         });
+        this.props.unMarkAll();
         this.props.getAllSections();
     }
 

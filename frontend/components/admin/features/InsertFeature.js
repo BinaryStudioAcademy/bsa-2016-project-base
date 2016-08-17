@@ -65,6 +65,7 @@ class InsertFeature extends Component {
             descriptionHTMLText: '',
             section: ""
         });
+        this.props.unMarkAll();
         this.props.getAllFeaturesOfAllProjects();
     }
 

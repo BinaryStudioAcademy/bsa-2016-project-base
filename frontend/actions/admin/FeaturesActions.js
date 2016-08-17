@@ -14,46 +14,6 @@ export function changeFeature(key){
     }
 }
 
-export function changeCheckedSections(listCheckedSections, checked, id) {
-    if(checked) {
-        return {
-            type: 'CHANGE_CHECKED_SECTIONS',
-            listCheckedSections: [...listCheckedSections, id]
-        }
-    } else {
-        return {
-            type: 'CHANGE_CHECKED_SECTIONS',
-            listCheckedSections: listCheckedSections.filter(function(el) {
-                if(el == id) {
-                    return false;
-                } else {
-                    return true;
-                }
-            })
-        }
-    }
-}
-
-export function markedAllFeatures(features, flagChecked, listCheckedFeatures){
-    if(flagChecked) {
-        return {
-            type: 'MARKED_ALL_FEATURES',
-            listCheckedFeatures: features.map(function(el, index) {
-                return el._id
-            }),
-            flagChecked: flagChecked
-        }
-    }
-        else {
-            return {
-                type: 'MARKED_ALL_FEATURES',
-                listCheckedFeatures: [],
-                flagChecked: flagChecked
-            }
-        }
-
-
-}
 
 export function filterFeatures(filter){
     return {
@@ -115,19 +75,6 @@ export function addCheckedFeature(listCheckedFeatures, newCheckedFeatures) {
     return {
         type: 'ADD_CHECKED_FEATURE',
         listCheckedFeatures: [...listCheckedFeatures, newCheckedFeatures],
-    }
-}
-
-export function removeCheckedFeature(listCheckedFeatures, checkedFeatures) {
-    return {
-        type: 'REMOVE_CHECKED_FEATURE',
-        listCheckedFeatures: listCheckedFeatures.filter(function(el) {
-            if(el == checkedFeatures) {
-                return false
-            } else {
-                return true;
-            }
-        }),
     }
 }
 
