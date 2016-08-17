@@ -41,16 +41,14 @@ export function markedAllFeatures(features, flagChecked, listCheckedFeatures){
             listCheckedFeatures: features.map(function(el, index) {
                 return el._id
             }),
-            flagChecked: flagChecked,
-            features: features
+            flagChecked: flagChecked
         }
     }
         else {
             return {
                 type: 'MARKED_ALL_FEATURES',
                 listCheckedFeatures: [],
-                flagChecked: flagChecked,
-                features: features
+                flagChecked: flagChecked
             }
         }
 

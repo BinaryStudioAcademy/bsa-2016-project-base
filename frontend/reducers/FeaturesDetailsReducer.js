@@ -41,23 +41,12 @@ export default function FeaturesDetailsReducer(state = initialState, action) {
                 showFeaturesDetailsId: null,
                 subfeatures: null
             });
-        case types.FEATURES_DETAILS_GET_ALL_START_LOADING: {
-            return Object.assign({}, state, {
-                isLoading: true
-            });    
-        }
-        case types.FEATURES_DETAILS_GET_ALL_SUCCESS: {
+
+        case types.FEATURES_DETAILS_SET_ALL_FEATURES: {
             return Object.assign({}, state, {
                 isLoading: false,
-                features: action.data
+                features: action.features
             });
-        }
-        case types.FEATURES_DETAILS_GET_ALL_ERROR: {
-            console.log(action.error);
-            return Object.assign({}, state, {
-                isLoading: false,
-                error: action.error
-            });    
         }
 
         default:

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Button, FormGroup, ControlLabel, FormControl, Col, Form } from 'react-bootstrap';
-import styles from './styles/Features.sass';
+import styles from './styles/Sections.sass';
 import * as actions from "../../../actions/admin/SectionsActions";
 
 class InsertSection extends Component {
@@ -15,10 +15,6 @@ class InsertSection extends Component {
         this.addSection = this.addSection.bind(this);
         this.saveNameSection = this.saveNameSection.bind(this);
         this.saveDescriptionSection = this.saveDescriptionSection.bind(this);
-    }
-
-    componentDidMount() {
-        this.props.getAllSections();
     }
 
     addSection(e) {
@@ -59,7 +55,8 @@ class InsertSection extends Component {
 
     render() {
         return (
-            <Form horizontal className={styles['form']}>
+            <Col sm={10} smPush={1}>
+            <Form horizontal className={styles['form'] + ' ' + this.props.sectionData.visibilityForm + ' ' + 'formInsertSection'}>
                 <FormGroup >
                     <Col sm={2} smPush={1}>
                         <ControlLabel>Name of section:</ControlLabel>
@@ -94,6 +91,7 @@ class InsertSection extends Component {
                     <Button type="submit"  block  id="addSection" onClick={this.addSection} >Add</Button>
                 </Col>
             </Form>
+                </Col>
         );
     }
 }

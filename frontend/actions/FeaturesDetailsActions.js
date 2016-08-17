@@ -1,5 +1,4 @@
 import * as types from '../constants/FeaturesActionTypes';
-import featureService from '../services/featureService';
 
 export function filterFeaturesDetails(search) {
     return {
@@ -21,28 +20,9 @@ export function closeModal() {
     }
 }
 
-export function getAllFeatures(projectId) {
-    return dispatch => {
-        dispatch({
-            type: types.FEATURES_DETAILS_GET_ALL_START_LOADING
-        });
-
-        return featureService.getAllFeatures(projectId)
-            .then( res =>  {
-                return res.json();
-            })
-            .then(function(data) {
-                console.log(data);
-                dispatch({
-                    type: types.FEATURES_DETAILS_GET_ALL_SUCCESS,
-                    data: data
-                });
-            })
-            .catch( err => {
-                dispatch({
-                    type: types.FEATURES_DETAILS_GET_ALL_ERROR,
-                    error: err
-                });
-            });
+export function setAllFeatures(features) {
+    return {
+        type: types.FEATURES_DETAILS_SET_ALL_FEATURES,
+        features
     }
 }

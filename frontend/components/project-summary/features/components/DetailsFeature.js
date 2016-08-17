@@ -27,7 +27,7 @@ export default class DetailsFeature extends Component {
                 </Modal.Header>
                 <Modal.Body>
                     <h4>Description</h4>
-                    <p>{ feature.featureDescription.lists }</p>
+                    <p>{ feature.descriptionHTMLText }</p>
 
                     {( !!subfeatures )? subfeatures.map( subfeature => {
                         if(subfeature) {
@@ -39,7 +39,7 @@ export default class DetailsFeature extends Component {
                                         <Glyphicon glyph = {(subfeature.isNecessary && !subfeature.isImplemented)? "asterisk": ""} className={ (subfeature.isNecessary)? styles.glyphRequire: '' } />&nbsp;
                                     </h4>
                                     <p>
-                                    { subfeature.featureDescription.lists }
+                                    { subfeature.descriptionHTMLText }
                                     </p>
                                 </div>
                             )
@@ -47,9 +47,9 @@ export default class DetailsFeature extends Component {
                     }
                     ): null}
                 </Modal.Body>
-                <Modal.Footer className={ styles.modalFooter } >
+                {/*<Modal.Footer className={ styles.modalFooter } >
                     <Button onClick={ closeModal } className={ styles.closeButton } >Close</Button>
-                </Modal.Footer>
+                </Modal.Footer>*/}
             </Modal>: null
         )
     }
