@@ -44,7 +44,7 @@ class FeaturesListItem extends Component {
                     </div>
                 </Col>
                 <Col  xs={6} sm={6}>
-                    <span className="descriptionFeature">{this.props.feature.featureDescription.lists}</span>
+                    <span className="shortDescriptionFeature">{this.props.feature.descriptionText}</span>
                     </Col>
                 <Col  xs={2} sm={2}>
                     <ButtonToolbar className="listItemButtonToolbar">

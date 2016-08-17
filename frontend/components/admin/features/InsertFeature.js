@@ -11,12 +11,14 @@ class InsertFeature extends Component {
         super(props);
         this.state = {
             featureName: '',
-            featureDescription: '',
+            descriptionText: '',
+            descriptionHTMLText: '',
             section: ""
         };
         this.addFeature = this.addFeature.bind(this);
         this.saveNameFeature = this.saveNameFeature.bind(this);
-        this.saveDescriptionFeature = this.saveDescriptionFeature.bind(this);
+        this.saveDescriptionText  = this.saveDescriptionText.bind(this);
+        this.saveDescriptionHTMLText = this.saveDescriptionHTMLText.bind(this);
         this.saveSelectedSection = this.saveSelectedSection.bind(this);
     }
 
@@ -34,9 +36,9 @@ class InsertFeature extends Component {
         });
 
         if(this.state.featureName.replace(/\s/g, '') == '' ||
-            this.state.featureDescription.replace(/\s/g, '') == '' ||
+            this.state.descriptionText.replace(/\s/g, '') == '' ||
             !this.state.section || this.state.section == "Select section"){
-            console.log("Please, input all field");
+            console.log("Please, input all required fields");
             e.preventDefault();
             return;
         }
@@ -48,16 +50,19 @@ class InsertFeature extends Component {
         const {features} = this.props.featuresData;
         this.props.addNewFeature(features, {
             featureName: this.state.featureName,
-            featureDescription: {lists: [this.state.featureDescription]},
+            descriptionText: this.state.descriptionText,
+            descriptionHTMLText: this.state.descriptionHTMLText,
             section: this.state.section
         });
         this.refs.nameFeature.value = '';
-        this.refs.DescriptionFeature.value = '';
         this.refs.selectSection.value = 'Select section';
+        this.refs.descriptionHTMLText.value = '';
+        this.refs.descriptionText.value = '';
 
         this.setState({
             featureName: '',
-            featureDescription: '',
+            descriptionText: '',
+            descriptionHTMLText: '',
             section: ""
         });
         this.props.getAllFeaturesOfAllProjects();
@@ -67,8 +72,12 @@ class InsertFeature extends Component {
         this.setState({featureName: e.target.value});
     }
 
-    saveDescriptionFeature(e) {
-        this.setState({featureDescription: e.target.value});
+    saveDescriptionText(e) {
+        this.setState({descriptionText: e.target.value});
+    }
+
+    saveDescriptionHTMLText(e) {
+        this.setState({descriptionHTMLText: e.target.value})
     }
 
     saveSelectedSection(e) {
@@ -117,16 +126,31 @@ class InsertFeature extends Component {
 
                 <FormGroup>
                     <Col sm={3} smPush={1}>
-                        <ControlLabel>Description (*):</ControlLabel>
+                        <ControlLabel>Short description (*):</ControlLabel>
                     </Col>
                     <Col sm={8} smPush={1}>
                         <textarea
                             className="form-control"
-                            ref="DescriptionFeature"
-                            id="DescriptionFeature"
-                            onBlur={this.saveDescriptionFeature}
+                            ref="descriptionText"
+                            id="descriptionText"
+                            onBlur={this.saveDescriptionText}
                             placeholder="Enter the description"
                             required
+                        />
+                    </Col>
+                </FormGroup>
+
+                <FormGroup>
+                    <Col sm={3} smPush={1}>
+                        <ControlLabel>Full description:</ControlLabel>
+                    </Col>
+                    <Col sm={8} smPush={1}>
+                        <textarea
+                            className="form-control"
+                            ref="descriptionHTMLText"
+                            id="descriptionHTMLText"
+                            onBlur={this.saveDescriptionHTMLText}
+                            placeholder="Enter the description"
                         />
                     </Col>
                 </FormGroup>
