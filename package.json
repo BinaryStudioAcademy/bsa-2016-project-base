@@ -55,7 +55,8 @@
     "react-scroll": "^1.2.0",
     "react-slick": "^0.12.2",
     "redux": "^3.5.2",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "cookie": "latest"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.7",

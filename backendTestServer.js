@@ -22,10 +22,14 @@ if (isDeveloping) {
     //   res.sendFile(path.join(__dirname, 'dist/index.html'));
     // });
 }
-
+app.get("/", function(req, res){
+    res.sendFile(__dirname + "/testIndex.html")
+})
 app.listen(port, '0.0.0.0', function onStart(err) {
     if (err) {
         console.log(err);
     }
+    var open = require("open");
+    open("http:/localhost:"+port);
     console.info('==> 🌎 Listening on port %s. Open up http:/localhost:%s/ in your browser.', port, port);
 });
