@@ -19,7 +19,8 @@ class ProjectView extends Component {
 
     componentWillMount() {
         console.log('ProjectView: componentWillMount');
-        let aquiredProjectId = this.props.location.pathname.substr(this.props.location.pathname.match(/project-view/i).index+13,24);
+        //debugger;
+        const aquiredProjectId = this.props.routeParams.id;
         this.props.getProject(aquiredProjectId);
     }
     
@@ -42,6 +43,11 @@ class ProjectView extends Component {
 	  return dd + '-' + mm + '-' + yy;
 	}
 
+	// tabClick(){
+	// 	//alert('Test');
+	// 	this.props.getProjectTags();
+	// }
+
     render() {
     	//let idview = $r.props.location.pathname.match('/project-view/i');
     	//const { projectsRestPath, selectedProjectId } = this.props.rootState.ProjectViewReducer;
@@ -62,7 +68,9 @@ class ProjectView extends Component {
     	// console.log("Selected property 'listProjects' from central storage: ", this.props.rootState.ProjectViewReducer.projectList);
     	console.log('ProjectView -> render() -> currentProject.projectName: ', currentProject.projectName);
     	return (
+
           <div className={styles.component}>
+
 			    	<div className={styles.info}>
 			    		<Panel header={<span className={styles.header}>Project Summary:</span>} className={styles.brief}>
 			    			<Table striped bordered condensed hover>
@@ -100,23 +108,25 @@ class ProjectView extends Component {
 							    </tbody>
 						  	</Table>
 	    				</Panel>
-	    				
+	    				<button onClick={this.props.getProjectTechnologies}>Get Tech-s</button>
+						<button onClick={this.props.getProjectTags}>Get Tags</button>
+						<button onClick={this.props.getProjectFeatures}>Get Features</button>
 	    				<Tabs defaultActiveKey={1} className={styles.tabpanels}>
 	    					<Tab eventKey={1} title="Users/Owners">
 	    						<Panel>
 	    							<UserList />
 	    						</Panel>
 							</Tab>
-	    					<Tab eventKey={2} title="Technologies"><Panel><TechnologiesList /></Panel></Tab>
-	        			<Tab eventKey={3} title="Tags"><Panel><TagsList/></Panel></Tab>
+	    				<Tab eventKey={2} title="Technologies" onClick={this.props.getProjectTechnologies}><Panel><TechnologiesList /></Panel></Tab>
+	        			<Tab eventKey={3} title="Tags" onClick={this.props.getProjectTags}><Panel><TagsList/></Panel></Tab>
 	        			<Tab eventKey={4} title="Screenshots">
 	        				<Panel>	        					
 	        					<div className={styles.gallery}>
 											<Screenshots />
 										</div>		   
-									</Panel>     				
+							</Panel>     				
 	        			</Tab>
-        				<Tab eventKey={5} title="Features"><Panel>Table of features</Panel></Tab>
+        				<Tab eventKey={5} title="Features" onClick={this.props.getProjectFeatures}><Panel>Table of features</Panel></Tab>
         				<Tab eventKey={6} title="Ratings"><Panel>Table of rates</Panel></Tab>
         				<Tab eventKey={7} title="Description"><Panel>Description</Panel></Tab>
 	  					</Tabs>

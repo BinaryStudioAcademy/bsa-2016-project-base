@@ -85,3 +85,35 @@ export function getProjectTags() {
         projectViewService.getProjectTags(state.CONST_projectsRestPath, dispatch, aquireProjectTags);
     };
 }
+
+
+export function getProjectTechnologies() {
+    return (dispatch, getState) => {
+        const state = getState().ProjectViewReducer;
+        console.log('action "getProjectTehnologies" state: ', state);
+        const aquireProjectTechnologies = {
+                type: 'PW_GET_PROJECT_TECHNOLOGIES',
+                projectId: state.selectedProjectId,
+                projTechnologies: undefined
+        };
+
+        console.log('getProjectTechnologies() -> aquireProjectTechnologies: ', aquireProjectTechnologies);
+        projectViewService.getProjectTechnologies(state.CONST_projectsRestPath, dispatch, aquireProjectTechnologies);
+    };
+}
+
+export function getProjectFeatures() {
+    return (dispatch, getState) => {
+        const state = getState().ProjectViewReducer;
+        console.log('action "getProjectFeatures" state: ', state);
+        const aquireProjectFeatures = {
+                type: 'PW_GET_PROJECT_FEATURES',
+                projectId: state.selectedProjectId,
+                projFeatures: undefined,
+                sectionsPath: state.CONST_sectionsRestPath
+        };
+
+        console.log('getProjectFeatures() -> aquireProjectFeatures: ', aquireProjectFeatures);
+        projectViewService.getProjectFeatures3(state.CONST_projectsRestPath, dispatch, aquireProjectFeatures);
+    };
+}
