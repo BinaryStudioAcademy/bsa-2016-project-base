@@ -3,7 +3,8 @@ import { Form, FormGroup, InputGroup, FormControl, Button } from 'react-bootstra
 import Technologie from './Technologie';
 import styles from './SearchHome.sass';
 import FaSearch from 'react-icons/lib/fa/search'; 
-import DropDown from '../../common/DropDown';
+import DropDown from '../../common/dd';
+console.log(DropDown);
 export default class SearchHome extends Component {
 
     static propTypes = {
@@ -33,22 +34,28 @@ export default class SearchHome extends Component {
                 </div>
 
                 <div className={styles['display-flex']}>
-                    <div className={styles.sort}>
-                          <span className={styles['search-order-tooltip']} >Sort by:</span>
-                          <div>
-                          <input type="radio" name="sort" value="newest" id="sort-by-newest" defaultChecked onChange={orderBy}/>
-                          <label htmlFor="sort-by-newest">Newest</label>
-                          </div>
-                          <div>
-                          <input type="radio" name="sort" value="oldest" id="sort-by-oldest" onChange={orderBy}/>
-                          <label htmlFor="sort-by-oldest">Oldest</label>
-                          </div>
-                          <div>
-                          <input type="radio" name="sort" value="completed" id="sort-by-completed" onChange={orderBy}/>
-                          <label htmlFor="sort-by-completed">Completed</label>
-                          </div>
-                    </div>
-                    {(technologies.length) ?
+                  <DropDown
+                    data={[
+                      {
+                        value:'newest',
+                        name:'Newest',
+                        id:'sort-by-newest'
+                      },
+                       {
+                        value:'oldest',
+                        name:'Oldest',
+                        id:'sort-by-oldest'
+                      },
+                       {
+                        value:'completed',
+                        name:'Completed',
+                        id:'sort-by-oldest'
+                      }
+                      ]}
+                      onItemSelect={orderBy}
+                      type="Sort By"
+                  />
+                   {(technologies.length) ?
                         <div className={styles.filter}>
                             <span className={ styles['filter-tooltip'] }>Filter by:</span>
                             {technologies.map((tech, key) => {
