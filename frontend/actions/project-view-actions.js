@@ -1,4 +1,4 @@
-import projectViewService from '../../services/project-view-service';
+import projectViewService from '../services/project-view-service';
 
 
 

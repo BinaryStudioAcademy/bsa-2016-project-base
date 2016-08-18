@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { bindActionCreators, combineReducers} from 'redux';
 import { connect } from 'react-redux';
-import * as actions from './project-view-actions.js';
+import * as actions from '../../actions/project-view-actions.js';
 import Screenshots from './gallery/gallery.js';
 import TechnologiesList from './technologies/technologiesList.js';
 import TagsList from './TagsList.js';
 import UserList from './users-component/users_list';
 import styles from './project-view.sass';
-
+import EstimationFile from "./estimationFile/EstimationFileReceiverComponentWithLinkField"
 import { Accordion, Button, Panel, Nav, NavItem, Tabs, Tab, Table, Grid, Row, Col, Thumbnail, Glyphicon } from 'react-bootstrap';
 
 
@@ -127,8 +127,9 @@ class ProjectView extends Component {
 							</Panel>     				
 	        			</Tab>
         				<Tab eventKey={5} title="Features" onClick={this.props.getProjectFeatures}><Panel>Table of features</Panel></Tab>
-        				<Tab eventKey={6} title="Ratings"><Panel>Table of rates</Panel></Tab>
-        				<Tab eventKey={7} title="Description"><Panel>Description</Panel></Tab>
+        				<Tab eventKey={6} title="Ratings"><Panel>
+							Table of rates</Panel></Tab>
+        				<Tab eventKey={7} title="Description"><Panel><EstimationFile/>Description</Panel></Tab>
 	  					</Tabs>
 	    				<div>
 					    	<Panel header={<span className={styles.questionHeader}>Questions and Answers</span>}  className={styles.questionPanel}>
@@ -163,7 +164,7 @@ class ProjectView extends Component {
 	  							</Accordion>
 					    	</Panel>
 					  	</div>
-			    		<Button className={styles.btn}>Back to Project List</Button>
+			    		<Button className={styles.btn} href='/'>Back to Project List</Button>
 			    	</div>
 			    </div>
           )

@@ -52,9 +52,13 @@ export default function ProjectViewReducer(state = initialState, action) {
 
         case 'PW_GET_PROJECT': {
         	const {selectedProject} = action;
+            console.log("ProjectViewReducer() -> 'PW_GET_PROJECT' -> initialState: ", state);
 	    	const newState = Object.assign({}, state, {
             		currentProject: selectedProject,
-                    selectedProjectId: selectedProject._id
+                    selectedProjectId: selectedProject._id,
+                    relatedFeatures: undefined,
+                    relatedTags: undefined,
+                    relatedTechnologies: undefined
 	    	});
 	    	console.log('ProjectViewReducer ->  "PW_GET_PROJECT" -> newState', newState);
             return newState;
