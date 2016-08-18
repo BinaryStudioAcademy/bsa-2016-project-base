@@ -1,7 +1,12 @@
 var documentService = require("./../service/documents/documentService");
 var apiResponse = require('express-api-response');
-
+var fs = require("fs");
 module.exports = function(app) {
+    app.get("/google_auth_redirect", function(req,res){
+        fs.readFile("upload/resources/documents/googleAuthRedirect.html", function(err, file){
+            res.end(file);
+        })
+    });
     app.get('/api/documents/authentication', function(req, res, next){
         documentService.authentication(function(err, link){
             res.err = err;
@@ -21,9 +26,3 @@ module.exports = function(app) {
         documentService.redirectUrlCallback(req, res);
     }, apiResponse);
 };
-
-
-
-
-
-

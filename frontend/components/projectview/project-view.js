@@ -7,7 +7,7 @@ import TechnologiesList from './technologies/technologiesList.js';
 import TagsList from './TagsList.js';
 import UserList from './users-component/users_list';
 import styles from './project-view.sass';
-
+import EstimationFileComponent from "../common/estimationFile/EstimationFileReceiverComponent"
 import { Accordion, Button, Panel, Nav, NavItem, Tabs, Tab, Table, Grid, Row, Col, Thumbnail, Glyphicon } from 'react-bootstrap';
 
 
@@ -117,7 +117,8 @@ class ProjectView extends Component {
 									</Panel>     				
 	        			</Tab>
         				<Tab eventKey={5} title="Features"><Panel>Table of features</Panel></Tab>
-        				<Tab eventKey={6} title="Ratings"><Panel>Table of rates</Panel></Tab>
+        				<Tab eventKey={6} title="Ratings"><Panel>Table of rates
+						</Panel></Tab>
         				<Tab eventKey={7} title="Description"><Panel>Description</Panel></Tab>
 	  					</Tabs>
 	    				<div>

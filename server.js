@@ -30,16 +30,17 @@ if (isDeveloping) {
     }
   });
   app.use('/upload',express.static(__dirname + '/upload'));
+  app.use('/backend', express.static(__dirname + '/backend'))
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
   app.get('*', function response(req, res) {
     res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'dist/index.html')));
     res.end();
   });
-
 } else {
   app.use('/upload',express.static(__dirname + '/upload'));
   app.use(express.static(__dirname + '/dist'));
+  app.use('/backend', express.static(__dirname + '/backend'))
 
   // app.get('*', function response(req, res) {
   //   res.sendFile(path.join(__dirname, 'dist/index.html'));
