@@ -7,7 +7,7 @@ import TechnologiesList from './technologies/technologiesList.js';
 import TagsList from './TagsList.js';
 import UserList from './users-component/users_list';
 import styles from './project-view.sass';
-import EstimationFile from "estimationFile/EstimationFileReceiverComponentWithLinkField"
+import EstimationFile from "./estimationFile/EstimationFileReceiverComponentWithLinkField"
 import { Accordion, Button, Panel, Nav, NavItem, Tabs, Tab, Table, Grid, Row, Col, Thumbnail, Glyphicon } from 'react-bootstrap';
 
 
