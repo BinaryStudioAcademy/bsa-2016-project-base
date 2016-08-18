@@ -302,14 +302,14 @@ class FeaturesList extends  Component {
                         if(self.checkValue(feature.featureName, feature.section.name,
                                 feature.descriptionText, feature.section.description,
                                 self.props.featuresData.listCheckedSections, feature.section._id, filter)) {
-                            if(self.props.featuresData.listCheckedFeatures.indexOf(feature._id) != -1 || self.props.featuresData.allChecked) {
+                            if(self.props.listCheckedFeatures.indexOf(feature._id) != -1 || self.props.flagChecked) {
                                 check = true;
                             }
                             else {
                                 check = false;
                             }
                             return (
-                                <FeaturesListItem open={self.openEditFeature} openFeatureDetails={self.openFeatureDetails} handlerEditFeature={self.handlerEditFeature} check={check} feature={feature} key={feature._id}/>
+                                <FeaturesListItem open={self.openEditFeature} changeCheckedFeature={self.props.changeCheckedFeature} openFeatureDetails={self.openFeatureDetails} handlerEditFeature={self.handlerEditFeature} check={check} feature={feature} key={feature._id}/>
                             )
                         }
                     })}

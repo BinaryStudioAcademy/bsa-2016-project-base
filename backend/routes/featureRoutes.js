@@ -30,6 +30,15 @@ module.exports = function(app) {
 		});
 	},apiResponse);
 	
+	app.get('/api/features/:id/sections', function(req, res, next) {
+		featureRepository.getByIdWithSection(req.params.id, function(err, data) {
+			res.data = data;
+			res.err = err;
+			// res.json(data); //0408
+			next();
+		});
+	}, apiResponse);
+	
 	app.put('/api/features/:id', function(req, res, next) {
 		featureRepository.update(req.params.id,req.body,function(err, data) {
 			res.data = data;

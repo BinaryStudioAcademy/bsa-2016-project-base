@@ -64,25 +64,6 @@ export function removeSections(listCheckedSections) {
     }
 }
 
-export function markedAllSections(sections, flagChecked, listCheckedSections){
-    if(flagChecked) {
-        return {
-            type: 'MARKED_ALL_SECTIONS',
-            listCheckedSections: sections.map(function(el, index) {
-                return el._id
-            }),
-            flagChecked: flagChecked,
-        }
-    }
-    else {
-        return {
-            type: 'MARKED_ALL_SECTIONS',
-            listCheckedSections: [],
-            flagChecked: flagChecked,
-        }
-    }
-}
-
 export function editSection(sections, editSection, index) {
     return dispatch => {
         return sectionService.editSection(editSection)

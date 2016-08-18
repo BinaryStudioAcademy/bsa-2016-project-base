@@ -10,17 +10,12 @@ import * as actionsSection from "../../../actions/admin/SectionsActions";
 class SectionsListItem extends Component {
     constructor(props) {
         super(props);
-        this.changeCheckedSection = this.changeCheckedSection.bind(this);
+        this.handlerChangeCheckedSection = this.handlerChangeCheckedSection.bind(this);
     }
 
-    changeCheckedSection(e) {
+    handlerChangeCheckedSection(e) {
         this.refs.selectCheckboxSection.checked = !this.refs.selectCheckboxSection.checked;
-        if(this.refs.selectCheckboxSection.checked) {
-           this.props.addCheckedSection(this.props.sectionsData.listCheckedSections, this.props.section._id)
-        }
-        else if(!this.refs.selectCheckboxSection.checked) {
-            this.props.removeCheckedSection(this.props.sectionsData.listCheckedSections, this.props.section._id)
-        }
+        this.props.changeCheckedSection(this.refs.selectCheckboxSection.checked, this.props.section._id, this.props.sectionsData.sections.length);
     }
 
     render() {
@@ -33,7 +28,7 @@ class SectionsListItem extends Component {
                                  name="checkbox" id={this.props.section._id} /*checked={item['checked']}*/
                                   checked={this.props.check}
                             />
-                            <span htmlFor={this.props.section._id} ref="selectLabel" onClick={this.changeCheckedSection} className={styles['select-label']}>
+                            <span htmlFor={this.props.section._id} ref="selectLabel" onClick={this.handlerChangeCheckedSection} className={styles['select-label']}>
                                 Name: {this.props.section.name}
                             </span>
                         </div>

@@ -8,8 +8,8 @@ import styles from './styles/Sections.sass';
 class SectionsToolBar extends Component {
     constructor(props) {
         super(props);
-        this.removeChecked = this.removeChecked.bind(this);
-        this.markAllSections = this.markAllSections.bind(this);
+        this.handlerRemoveChecked = this.handlerRemoveChecked.bind(this);
+        this.handlerMarkAllSections = this.handlerMarkAllSections.bind(this);
         this.handlerFilterSections = this.handlerFilterSections.bind(this);
         this.handlerChangeVisibilityForm = this.handlerChangeVisibilityForm.bind(this);
     }
@@ -18,15 +18,14 @@ class SectionsToolBar extends Component {
         this.props.changeVisibilityFormSections(this.props.sectionsData.visibilityForm);
     }
 
-    removeChecked() {
-        let {listCheckedSections} = this.props.sectionsData;
-        this.props.removeSections(listCheckedSections);
+    handlerRemoveChecked() {
+        this.props.removeSections(this.props.listCheckedSections);
+        this.props.removeChecked();
         this.props.getAllSections();
     }
 
-    markAllSections(e) {
-
-        this.props.markedAllSections(this.props.sectionsData.sections, e.target.checked, this.props.sectionsData.listCheckedSections);
+    handlerMarkAllSections(e) {
+        this.props.markedAllSections(this.props.sectionsData.sections, e.target.checked);
     }
 
     handlerFilterSections(e) {
@@ -49,12 +48,12 @@ class SectionsToolBar extends Component {
                     </Col>
                     <Col xs={12} sm={8}>
                         <FormControl type="checkbox" className={styles['select-all-checkbox']}
-                                     id="markAllSections"  onChange={this.markAllSections}
-                                     checked={this.props.sectionsData.sections.length == this.props.sectionsData.listCheckedSections.length
-                                     && this.props.sectionsData.sections.length != 0}
+                                     id="markAllSections"  onChange={this.handlerMarkAllSections}
+                                     checked={this.props.sectionsData.sections.length == this.props.listCheckedSections.length &&
+                                     this.props.sectionsData.sections.length != 0}
                         />
                         <label htmlFor="markAllSections" className={styles['select-all-label']}>Mark all</label>
-                        <Button className={styles['button-section-remove']} onClick={this.removeChecked} id="buttonSectionRemove">Remove marked</Button>
+                        <Button className={styles['button-section-remove']} onClick={this.handlerRemoveChecked} id="buttonSectionRemove">Remove marked</Button>
                         <Button className={styles['button-section-add']} id="buttonSectionAdd" onClick={this.handlerChangeVisibilityForm}>{
                             this.props.sectionsData.visibilityForm === "hidden" ? "Add" : "Hide form"}</Button>
                     </Col>
