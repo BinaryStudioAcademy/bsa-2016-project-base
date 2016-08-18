@@ -5,7 +5,9 @@ import * as actions from '../../../actions/admin/UpsertProjectActions';
 import { TabPanel, TabBody, TabHead, Button } from '../../common/';
 import Inputs from './sections/Inputs';
 import UsersList from './sections/UsersList';
-
+import Tags from './sections/Tags';
+import Techs from './sections/Techs';
+import Attachments from './sections/Attachments';
 
 class UpsertProject extends Component {
 	constructor(props) {
@@ -16,21 +18,14 @@ class UpsertProject extends Component {
 	    return (
 	    	<div>
 	    		<Inputs/>
-	    		<TabPanel activeIndex={0}>
-	        		<TabHead index={0}>
-	        			<Button id="ok" value="Tags"/>
-	        		</TabHead>
-	        		<TabBody index={0} label="Tags">
-	        			Hello Tags Tab!
-	        		</TabBody>
-	        		<TabHead index={1}>
-	        			<Button id="ok" value="Features"/>
-	        		</TabHead>
-	        		<TabBody index={1} label="Features">
-	        			Hello Features Tab!
-	        		</TabBody>
-        		</TabPanel>
+        		<br/>
+        		<Tags/>
+        		<br/>
+        		<Techs/>
+        		<br/>
         		<UsersList/>
+        		<br/>
+        		<Attachments/>
 	    	</div>
 	    )
 	}
