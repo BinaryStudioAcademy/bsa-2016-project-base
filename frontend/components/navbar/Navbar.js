@@ -39,7 +39,7 @@ class Navbar extends Component {
            <li key={2}>
               <Link to="/review" activeClassName={styles.active}>
                 <span className={styles.icon}>
-                  < FaAsterisk size={15} />
+                  <FaAsterisk size={15} />
                 </span>
                 <span className={styles['item-name']}>Inquiry Review</span>
               </Link>
