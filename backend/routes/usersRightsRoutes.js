@@ -12,16 +12,15 @@ module.exports = function(app) {
 	},apiResponse);
 
 	app.get('/api/rights/projects/:id/', function (req,res,next) {
-		usersRightsRepository.getByIdWithStakeholders(req.params.id, function(err, data) {
+		usersRightsRepository.getUsersToProject(req.params.id, function(err, data) {
 			res.data = data;
 			res.err = err;
-			console.log(data);
 			next();
 		});
 	},apiResponse);
 
 	app.put('/api/rights/projects/:id/', function (req,res,next) {
-		usersRightsRepository.update(req.params.id,req.body,function(err, data) {
+		usersRightsRepository.updateUsersToProject(req.params.id,req.body,function(err, data) {
 			res.data = data;
 			res.err = err;
 			next();
@@ -34,9 +33,8 @@ module.exports = function(app) {
 			params[i] = params[i].split('=');
 			filters[params[i][0]] = params[i][1];
 		}
-		filters['projectId'] = req.params.id;
-		usersRightsRepository.getUsersToProjectByFilter(
-			filters, function(err, data) {
+		filters['projectId'] = req['params'].id;
+		usersRightsRepository.getUsersToProject(filters, function(err, data) {
 			res.data = data;
 			res.err = err;
 			next();

@@ -9,11 +9,9 @@ class RightsTab extends Component {
  	render() {
 	    return (
 	    	<div className="rightsTab">
-
 	    		<RightsToolbar />
-				  <RightsUsersList />
-
-							</div>
+				<RightsUsersList />
+			</div>
 	    )
 	}
 };

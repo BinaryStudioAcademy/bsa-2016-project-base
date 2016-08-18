@@ -24,14 +24,15 @@ class App extends Component {
         cookies.remove('serverUID');
         cookies.remove('userRole');
         cookies.remove('x-access-token');
-        window.location.reload(true);
+        //window.location.reload(true);
+        window.location.assign('http://localhost:2020/');
     }
     render() {
         var children = null;
         if(this.props.authUser['userRole']!= 'ADMIN'){
             children = [];
             React.Children.map(this.props.children, function(child) {
-               if(child.type['name'].toLowerCase().indexOf('admin') != -1) children.push(child); // ?
+               if(child.type['name'].toLowerCase().indexOf('admin') == -1) children.push(child);
                else children.push(<NotFound />);
             });
         } else children = this.props.children;
@@ -46,9 +47,7 @@ class App extends Component {
                             <Row  className={styles['user-panel']}>
                                 <Col xs={10} sm={11} md={11}>
                                     Welcome:
-                                    <label>
-                                        {this.props.authUser['serverUID']}
-                                    </label>    
+                                    <label> {this.props.authUser['serverUID']} </label>    
                                 </Col>
                                 <Col xs={2} sm={1} md={1} className={styles['logout']}>
                                     <label onClick={this.logout}>Exit</label>
@@ -64,15 +63,12 @@ class App extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-        setAuthUser:setAuthUser
-    }, dispatch);
+    return bindActionCreators({ setAuthUser:setAuthUser}, dispatch);
 }
 
 function mapStateToProps(state) {
-    return {
-        authUser: state['UserAuthReducer']
-    };
+    return { authUser: state['UserAuthReducer']};
 }
+
 const AppModifated = connect(mapStateToProps, mapDispatchToProps)(App);
 export default AppModifated;

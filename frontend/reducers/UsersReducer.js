@@ -4,7 +4,6 @@ const INITIAL_STATE = {
     users: []
 };
 
-
 export default function UsersReducer(state = INITIAL_STATE, action) {
     switch(action.type){
         case types.USERS_GET_ALL_START_LOADING: {

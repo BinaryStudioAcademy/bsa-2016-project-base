@@ -4,8 +4,6 @@ var JWT = require('jsonwebtoken'),
     configHost = require('../config/host');
 
 module.exports = function(req, res, next) {
-  next();
-return;
     var cookies = new Cookies(req, res),
         token = cookies.get('x-access-token');
     if (token){

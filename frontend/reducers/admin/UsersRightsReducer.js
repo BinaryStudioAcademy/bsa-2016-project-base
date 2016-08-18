@@ -1,37 +1,40 @@
 import * as types from '../../constants/UsersRightsActionTypes';
 
 const initialState = {
-  currentProjectId:null,
-  currentUsers:{
-    simples:[],
-    owners:[]
+  current:{
+    projectId: null,
+    users:{}
   },
-  projectList:[]
+  projectsList:[],
+  filters:{
+    name: "",
+    usersRight: ""
+  }
 };
 
 export default function UsersRightsReducer(state = initialState, action) {
     switch(action.type){
       case types.USERS_PROJECT_START_LOADING:
       case types.PROJECTS_LIST_START_LOADING: {
-          return Object.assign({}, state, {
-              isLoading: true
-          });
+        return Object.assign({}, state, { isLoading: true });
       }
       case types.USERS_PROJECT_END_LOADING: {
         return Object.assign({},state,{
-          currentProjectId: action.projectId,
-          currentUsers: {
-             simples: action['users'].simples,
-             owners:  action['users'].owners
-          },
+          filter: action.filters,
+          current: action.current,
           isLoading: false
         });
       }
       case types.PROJECTS_LIST_END_LOADING: {
         return Object.assign({},state,{
-          projectList: action.projectList,
+          projectsList: action.projectsList,
           isLoading: false
         });
+      }
+      case types.UPDATE_USER_RIGHT:{
+        var newState = Object.assign({},state);
+        newState['current'].users[action.key].isOwner = action.value;
+        return newState;
       }
       case types.USERS_PROJECT_ERROR_LOADING:
       case types.SAVE_PROJECT_USERS_ERROR:

@@ -3,41 +3,36 @@ import {Grid, FormControl, Row, Col, Button,Checkbox} from 'react-bootstrap';
 import styles from './styles/Rights.sass';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {fetchUsers} from '../../../actions/admin/UsersRightsActions';
-
-
+import {updateUserRight, fetchUsers} from '../../../actions/admin/UsersRightsActions';
 
 class RightsUsersList extends Component {
 	constructor(props) {
 	    super(props);
 	}
-
-	componentWillMount() {
-       this.props.fetchUsers("57acc61ab781f506fe6ca72a",{
-       		userName: "J"
-       });
-    }
+	componentWillMount(){
+		this.props.fetchUsers("57acc61ab781f506fe6ca72a");
+	}
  	render() {
- 		console.log(this.props.usersRights);
-	    return (
-	    	<div className=" rightsUsersList">
-	    	</div>
-	    )
+ 		let items = [];
+ 		var users = this.props['usersRights'].current['users'];
+ 		for(var i in users) items.push(
+ 			<Checkbox checked={users[i].isOwner} data-id={i} key={i} onChange={(e)=>{
+ 				this.props.updateUserRight(e.target.getAttribute('data-id'),e.target.checked);
+ 			}}>{users[i].userSurname +' '+ users[i].userName}</Checkbox>);
+	    return (<div className="rightsUsersList">{items}</div>)
 	}
 };
 
-
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        fetchUsers:fetchUsers
+    	updateUserRight: updateUserRight,
+    	fetchUsers: fetchUsers
     }, dispatch);
 }
 
 function mapStateToProps(state) {
-    return {
-        usersRights: state['UsersRightsReducer']
-    };
+    return {usersRights: state['UsersRightsReducer']};
 }
-const RightsUsersListConnected = connect(mapStateToProps, mapDispatchToProps)(RightsUsersList);
 
+const RightsUsersListConnected = connect(mapStateToProps, mapDispatchToProps)(RightsUsersList);
 export default RightsUsersListConnected;

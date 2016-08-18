@@ -1,41 +1,43 @@
 import promise from 'es6-promise';
-promise.polyfill();
 import fetch from 'isomorphic-fetch';
 import { API } from '../../constants/Api';
+
+promise.polyfill();
 
 var headers =   {
   'Accept': 'application/json',
   'Content-Type': 'application/json'
 }
+
 class UsersRightsService {
-  getProjectUsers(projectId,filters) {
-     var queryString =  `${API}rights/projects/${projectId}/`;
-     if(filters){
-        queryString+= 'users/';
-        for(var i in filters) {
-          queryString += `${i}=${filters[i]}&`;
-          console.log(filters[i],i,queryString);
-        }
-     }
-     console.log(queryString);
-     return fetch(queryString.substr(0, queryString.length - 1), {
-          method: 'GET',
-          headers: headers
-      });
+  getProjectUsers(projectId,filterName, usersRight) {
+    var queryString =  `${API}rights/projects/${projectId}/`;
+    if(filterName || usersRight){
+       queryString+= 'users/';
+       if(filterName) queryString +=`filterName=${filterName}`;
+       if(filterName && usersRight) queryString+="&";
+       if(usersRight)  queryString +=`usersRight=${usersRight}`;
+    }
+    console.log(queryString);
+    return fetch(queryString, {
+      method: 'GET',
+      headers: headers
+    });
   }
   getProjectsList() {
     return fetch(`${API}rights/projects/`, {
-        method: 'GET',
-        headers: headers
+      method: 'GET',
+      headers: headers
     });
   }
-  saveProjectUsers(projectId, users){
+  saveProjectUsers(projectId, data){
     return fetch(`${API}rights/projects/${projectId}`, {
-          headers: headers,
-          method: "POST",
-          body: JSON.stringify(users)
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: headers
     });
   }
 }
+
 const usersRightsService = new UsersRightsService();
 export default usersRightsService;
