@@ -117,6 +117,19 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 tags: addNewTag(tags, data)
             });
         }
+        
+        case types.UPLOAD_FILE_SUCCESS: {
+            const {path} = action.data;
+            const {files} = state;
+            return Object.assign({}, state, {
+                files: files.concat({
+                	url: path,
+                	thumb: path,
+                	name: path.slice(path.lastIndexOf('/')+1,path.length)
+                })
+            });
+        }
+
         /*case types.ADD_NEW_TAG_TO_PROJECT: {
             const {newTagName} = action;
             const {tags} = state;

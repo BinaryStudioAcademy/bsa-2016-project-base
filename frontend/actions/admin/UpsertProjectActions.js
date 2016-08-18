@@ -1,7 +1,7 @@
 import * as types from './UpsertProjectActionTypes';
 import upsertProjectService from "../../services/admin/UpsertProjectService";
 import adminTagService from "../../services/admin/AdminTagService";
-
+import uploadService from "../../services/UploadService";
 
 
 export function getPredefinedData() {
@@ -59,6 +59,36 @@ export function postTag(tag) {
 };
 
 
+//export const UPLOAD_FILE = 'UPLOAD_FILE';
+//export const UPLOAD_FILE_ERROR = 'UPLOAD_FILE_ERROR';
+//export const UPLOAD_FILE_SUCCESS = 'UPLOAD_FILE_SUCCESS';
+
+export function uploadFile(file) {
+    return dispatch => {
+        dispatch({
+            type: types.UPLOAD_FILE
+        });
+        return uploadService.upload(file)
+            .then(response => {
+                if (response.status != 201) {
+                    throw Error(response.statusText);
+                } 
+                return response.json();
+            })
+            .then( json =>  {
+                dispatch({
+                    type: types.UPLOAD_FILE_SUCCESS,
+                    data: json
+                });
+            })
+            .catch( error => {
+                dispatch({
+                    type: types.UPLOAD_FILE_ERROR,
+                    error: error
+                });
+            });
+    };
+};
 
 
 export function changeProjectName(name) {

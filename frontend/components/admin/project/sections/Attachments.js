@@ -9,14 +9,37 @@ import styles from './styles/Attachments.sass';
 class Attachments extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            file: null
+        }
         this.loadAttachment = this.loadAttachment.bind(this);
         this.onTechLogoChange = this.onTechLogoChange.bind(this);
     }
     onTechLogoChange(e) {
-        console.log('onTechLogoChange ', e.target.value)
+        console.log('onTechLogoChange url', e.target.value);
+        /*this.setState({
+            file:  e.target.files[0]
+        })*/
+        const file = e.target.files[0];
+        this.props.uploadFile(file);
     }
     loadAttachment(e) {
-        console.log('loadAttachment ')
+        /*console.log('loadAttachment ');
+        const {file} =  this.state;
+        if (file) {
+            this.props.uploadFile(file);
+            this.setState({
+                file: null
+            });
+        }
+
+            <Button
+                        value="Add"
+                        onClick={this.loadAttachment}
+                    />
+
+
+        */
     }
     render() {
         const {files} = this.props;
@@ -37,10 +60,7 @@ class Attachments extends Component {
                     <FileUpload
                         onChange={this.onTechLogoChange}
                     />
-                    <Button
-                        value="Add"
-                        onClick={this.loadAttachment}
-                    />
+                    
                     <div className={styles["list"]}>
                         {list}
                     </div>
