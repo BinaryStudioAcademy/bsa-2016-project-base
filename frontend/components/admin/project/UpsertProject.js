@@ -13,6 +13,9 @@ class UpsertProject extends Component {
 	constructor(props) {
 	    super(props);
 	}
+	componentDidMount() {
+		this.props.getPredefinedData();
+	}
 	
  	render() {
 	    return (

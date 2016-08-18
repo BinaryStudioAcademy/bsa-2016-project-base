@@ -68,8 +68,9 @@ class Techs extends Component {
     }
 
     render(){
-    	const { techs } = this.props.store;
-    	const predefinedTags = techs.map( tech => {
+    	const { technologies } = this.props.store;
+         console.log('technologies ',technologies);
+    	const predefinedTags = technologies.map( tech => {
     		if (!tech.inProject) {
     			return (
     				<div key={tech._id}>
@@ -83,7 +84,7 @@ class Techs extends Component {
     			);
     		}
     	});
-    	const usedTags = techs.map( (tech, index) => {
+    	const usedTags = technologies.map( (tech, index) => {
     		if (tech.hasOwnProperty('_id')) {
 	    		if (tech.inProject) {
 	    			return (

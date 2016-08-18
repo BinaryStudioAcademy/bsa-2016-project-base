@@ -12,6 +12,7 @@ class Attachments extends Component {
     }
     render() {
         const {files} = this.props.store;
+        console.log('files ',files);
         const list = files.map( (file, index) => {
             return (
                 <File

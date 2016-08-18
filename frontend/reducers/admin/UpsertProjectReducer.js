@@ -1,7 +1,25 @@
 import * as types from '../../actions/admin/UpsertProjectActionTypes';
 
+
+/*features
+sections
+tags
+technologies
+users*/
+
 export default function UpsertProjectReducer(state=initialState, action) {
 	switch (action.type) {
+		 case types.GET_DATA_SUCCESS: {
+            const {users, tags, technologies, conditions } = action.data;
+            return Object.assign({}, state, {
+            	users,
+				tags,
+				technologies,
+				conditions,
+				files: []
+                //predefined: data
+            });
+        }
         case types.ADD_USER_TO_PROJECT: {
             const {_id} = action;
             const {users} = state;
@@ -89,30 +107,30 @@ export default function UpsertProjectReducer(state=initialState, action) {
         }
         case types.ADD_TECH_TO_PROJECT: {
             const {_id} = action;
-            const {techs} = state;
+            const {technologies} = state;
             return Object.assign({}, state, {
-                techs: addTechToProject(techs, _id)
+                technologies: addTechToProject(technologies, _id)
             });
         }
         case types.REMOVE_TECH_FROM_PROJECT: {
             const {_id} = action;
-            const {techs} = state;
+            const {technologies} = state;
             return Object.assign({}, state, {
-                techs: removeTechFromProject(techs, _id)
+                technologies: removeTechFromProject(technologies, _id)
             });
         }
         case types.ADD_NEW_TECH_TO_PROJECT: {
             const {tech} = action;
-            const {techs} = state;
+            const {technologies} = state;
             return Object.assign({}, state, {
-                techs: addNewTechToProject(techs, tech)
+                technologies: addNewTechToProject(technologies, tech)
             });
         }
         case types.REMOVE_NEW_TECH_FROM_PROJECT: {
             const {tech} = action;
-            const {techs} = state;
+            const {technologies} = state;
             return Object.assign({}, state, {
-                techs: removeNewTechFromProject(techs, tech)
+                technologies: removeNewTechFromProject(technologies, tech)
             });
         }
         default: {
@@ -411,45 +429,16 @@ const files = [
 
 
 const initialState = {
-	users: users,
-	tags: tags,
-	techs: techs,
-	files: files
+	users: [],
+	tags: [],
+	technologies: [],
+	conditions: [],
+	files: []
 };
 
 
-
-
-
-/*const initialState = {
-	update: false,
-	project: {
-		_id:"57acc61ab781f506fe6ca72a",
-		projectName:"First Web-project",
-		timeBegin:"2013-06-09",
-		timeEnd:"2014-06-09",
-		isCompleted:true,
-	}
-};*/
-
-/*
-{
-	_id:"57acc61ab781f506fe6ca72a",
-	projectName:"First Web-project",
-	isCompleted:true,
-	timeBegin:"2016-08-11T18:38:18.890Z"
-	timeEnd:"2016-08-11T18:38:18.890Z",
-	stage: {
-		_id:"57a2fac7d50c16908d4e0c33"
-		stageName:"Completed"
-		commissioned:"18/03/2014"
-		decommissioned:"13/03/2015"
-	},
-	condition: {
-		_id:"57ac5379204135dfe49f780b"
-		conditionName:"In use"
-		commisioned:"12/12/12"
-		decomissioned:"13/13/13"
-	},
-
-}*/
+/*users,
+	tags,
+	technologies,
+	files: files
+*/

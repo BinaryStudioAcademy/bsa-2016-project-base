@@ -1,4 +1,38 @@
 import * as types from './UpsertProjectActionTypes';
+import upsertProjectService from "../../services/admin/UpsertProjectService";
+
+
+
+
+export function getPredefinedData() {
+    return dispatch => {
+        dispatch({
+            type: types.GET_DATA
+        });
+        return upsertProjectService.getPredefinedData()
+            .then(response => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                } 
+                return response.json();
+            })
+            .then( json =>  {
+                dispatch({
+                    type: types.GET_DATA_SUCCESS,
+                    data: json
+                });
+            })
+            .catch( error => {
+                dispatch({
+                    type: types.GET_DATA_ERROR,
+                    error: error
+                });
+            });
+    };
+};
+
+
+
 
 
 export function changeProjectName(name) {
@@ -125,3 +159,6 @@ export function removeNewTechFromProject(tech) {
         tech
     };
 };
+
+
+
