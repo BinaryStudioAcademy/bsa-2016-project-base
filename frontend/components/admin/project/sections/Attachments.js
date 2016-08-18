@@ -26,6 +26,9 @@ class Attachments extends Component {
             <div id={styles["attachments"]}>
                 <fieldset>
                     <legend>Attachments</legend>
+                    <FileUpload
+                        onChange={this.onTechLogoChange}
+                    />
                     <div className={styles["list"]}>
                         {list}
                     </div>

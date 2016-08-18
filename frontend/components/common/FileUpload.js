@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-const FileUpload = ({id, value, onChange}) => {
+const FileUpload = ({id, onChange}) => {
     return (
         <div>
             <input id={id} type="file" onChange={onChange}/>
@@ -10,7 +10,6 @@ const FileUpload = ({id, value, onChange}) => {
 
 FileUpload.propTypes = {
     id: PropTypes.string,
-    value: PropTypes.string,
     onChange: PropTypes.func
 };
 
