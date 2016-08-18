@@ -28,6 +28,7 @@
     "jscs": "jscs ."
   },
   "dependencies": {
+    "async": "^2.0.1",
     "babel-cli": "^6.11.4",
     "babel-polyfill": "^6.9.1",
     "body-parser": "^1.15.2",
