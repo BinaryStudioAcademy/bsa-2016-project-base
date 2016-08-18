@@ -92,7 +92,7 @@ class DocumentService {
      * @param callback(err, link, id)
      */
     getDocument(query, tokens, callback) {
-        fs.readFile(path.join("upload/resources/documents/templates/testTemplate.docx"), "binary", function (err, template) {
+        fs.readFile(path.join("backend/service/documents/resources/templates/testTemplate.docx"), "binary", function (err, template) {
             this.getData(query, function(err, data){
                 docxGenerator.generate(data,template, function(err, docx){
                     this.uploadFile(docx, tokens, callback)

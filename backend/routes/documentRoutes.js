@@ -3,7 +3,7 @@ var apiResponse = require('express-api-response');
 var fs = require("fs");
 module.exports = function(app) {
     app.get("/google_auth_redirect", function(req,res){
-        fs.readFile("upload/resources/documents/googleAuthRedirect.html", function(err, file){
+        fs.readFile("backend/service/documents/resources/googleAuthRedirect.html", function(err, file){
             res.end(file);
         })
     });
