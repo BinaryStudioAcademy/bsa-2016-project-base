@@ -9,10 +9,17 @@ import styles from './styles/Attachments.sass';
 class Attachments extends Component {
     constructor(props) {
         super(props);
+        this.loadAttachment = this.loadAttachment.bind(this);
+        this.onTechLogoChange = this.onTechLogoChange.bind(this);
+    }
+    onTechLogoChange(e) {
+        console.log('onTechLogoChange ', e.target.value)
+    }
+    loadAttachment(e) {
+        console.log('loadAttachment ')
     }
     render() {
-        const {files} = this.props.store;
-        console.log('files ',files);
+        const {files} = this.props;
         const list = files.map( (file, index) => {
             return (
                 <File
@@ -29,6 +36,10 @@ class Attachments extends Component {
                     <legend>Attachments</legend>
                     <FileUpload
                         onChange={this.onTechLogoChange}
+                    />
+                    <Button
+                        value="Add"
+                        onClick={this.loadAttachment}
                     />
                     <div className={styles["list"]}>
                         {list}
@@ -53,7 +64,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
     return {
-        store: state.UpsertProjectReducer
+        files: state.UpsertProjectReducer.files
     };
 };
 

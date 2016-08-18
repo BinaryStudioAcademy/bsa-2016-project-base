@@ -68,8 +68,7 @@ class Techs extends Component {
     }
 
     render(){
-    	const { technologies } = this.props.store;
-         console.log('technologies ',technologies);
+    	const { technologies } = this.props;
     	const predefinedTags = technologies.map( tech => {
     		if (!tech.inProject) {
     			return (
@@ -174,7 +173,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
     return {
-        store: state.UpsertProjectReducer
+        technologies: state.UpsertProjectReducer.technologies
     };
 };
 

@@ -1,6 +1,6 @@
 import * as types from './UpsertProjectActionTypes';
 import upsertProjectService from "../../services/admin/UpsertProjectService";
-
+import adminTagService from "../../services/admin/AdminTagService";
 
 
 
@@ -31,6 +31,32 @@ export function getPredefinedData() {
     };
 };
 
+export function postTag(tag) {
+    return dispatch => {
+        dispatch({
+            type: types.POST_TAG
+        });
+        return adminTagService.addTag(tag)
+            .then(response => {
+                if (response.status != 201) {
+                    throw Error(response.statusText);
+                } 
+                return response.json();
+            })
+            .then( json =>  {
+                dispatch({
+                    type: types.POST_TAG_SUCCESS,
+                    data: json
+                });
+            })
+            .catch( error => {
+                dispatch({
+                    type: types.POST_TAG_ERROR,
+                    error: error
+                });
+            });
+    };
+};
 
 
 

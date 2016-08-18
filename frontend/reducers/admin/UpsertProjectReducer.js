@@ -15,9 +15,7 @@ export default function UpsertProjectReducer(state=initialState, action) {
             	users,
 				tags,
 				technologies,
-				conditions,
-				files: []
-                //predefined: data
+				conditions
             });
         }
         case types.ADD_USER_TO_PROJECT: {
@@ -44,37 +42,58 @@ export default function UpsertProjectReducer(state=initialState, action) {
         case types.CHANGE_PROJECT_NAME: {
             const {name} = action;
             return Object.assign({}, state, {
-            	projectName: name
+            	info: {
+            		...state.info,
+            		projectName: name
+            	}
             });
         }
         case types.CHANGE_PROJECT_LINK: {
             const {link} = action;
             return Object.assign({}, state, {
-            	projectLink: link
+            	info: {
+            		...state.info,
+            		projectLink: link
+            	}
             });
         }
         case types.CHANGE_START_DATE: {
             const {date} = action;
             return Object.assign({}, state, {
-            	startDate: date
+            	info: {
+            		...state.info,
+            		timeBegin: date
+            	}
             });
         }
         case types.CHANGE_FINISH_DATE: {
             const {date} = action;
             return Object.assign({}, state, {
-            	finishDate: date
+            	info: {
+            		...state.info,
+            		timeEnd: date
+            		
+            	}
             });
         }
         case types.CHANGE_CONDITION: {
             const {option} = action;
             return Object.assign({}, state, {
-            	condition: option
+            	info: {
+            		...state.info,
+            		condition: option
+            	}
             });
         }
         case types.CHANGE_DESCRIPTION: {
             const {text} = action;
             return Object.assign({}, state, {
-            	description: text
+            	info: {
+            		...state.info,
+            		description:{
+            			descrText:text
+            		} 
+            	}
             });
         }
         case types.ADD_TAG_TO_PROJECT: {
@@ -91,13 +110,23 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 tags: removeTagFromProject(tags, _id)
             });
         }
-        case types.ADD_NEW_TAG_TO_PROJECT: {
-            const {newTagName} = action;
+        case types.POST_TAG_SUCCESS: {
+            const {data} = action;
             const {tags} = state;
             return Object.assign({}, state, {
-                tags: addNewTagToProject(tags, newTagName)
+                tags: addNewTag(tags, data)
             });
         }
+        /*case types.ADD_NEW_TAG_TO_PROJECT: {
+            const {newTagName} = action;
+            const {tags} = state;
+            const result = addNewTagToProject(tags, newTagName);
+
+            return Object.assign({}, state, {
+                tags: result[0],
+                tagExists: result[1]
+            });
+        }*/
         case types.REMOVE_NEW_TAG_FROM_PROJECT: {
             const {tagName} = action;
             const {tags} = state;
@@ -158,230 +187,115 @@ const removeNewTechFromProject = (techs, tech) => {
 	techs.forEach( (item, index) => {
 		if (item.techName === tech.techName) {
 			techs.splice(index, 1)
-			return techs;
 		}
 	});
-	return techs;
+	return [].concat(techs);
 }
 
 const addTechToProject = (techs, _id) => {
 	techs.forEach( item => {
 		if (item._id === _id) {
 			item.inProject = true;
-			return techs;
 		}
 	});
-	return techs;
+	console.log('addTechToProject 22');
+	return [].concat(techs);
 }
 
 const removeTechFromProject = (techs, _id) => {
 	techs.forEach( item => {
 		if (item._id === _id) {
 			item.inProject = false;
-			return techs;
 		}
 	});
-	return techs;
+	return [].concat(techs);
 }
 
 
 
-const addNewTagToProject = (tags, tagName) => {
+/*const addNewTagToProject = (tags,tagName) => {
 	let exist = false;
 	tags.forEach( (tag, index) => {
-		if (tag.tagName === tagName) exist = true;
+		if (tag.tagName === tagName) {
+			exist = true;
+			tag.inProject = true;
+		}
 		
 	});
-	console.log('Tagssss!!!!!!',tagName);
+	console.log('exist ',tagName,' ', exist);
+	return [[].concat(tags), exist];
+}*/
+
+const addNewTag  = (tags, tag) => {
+	/*let exist = false;
+	tags.forEach( (tag, index) => {
+		if (tag.tagName === tagName) {
+			exist = true;
+			tag.inProject = true;
+		}
+		
+	});
 	if (!exist) {
 		tags.push({
 			tagName: tagName,
 			inProject: true
 		});
-	}
+	}*/
 	
-	return tags;
+	tag.inProject = true;
+	console.log('addNewTagToProject ',tag);
+	tags.push(tag)
+	
+	return [].concat(tags);
 }
 
-const removeNewTagFromProject = (tags, tagName) => {
-	tags.forEach( (tag, index) => {
-		if (tag.tagName === tagName) {
-			tags.splice(index, 1)
-			return tags;
-		}
-	});
-	return tags;
-}
+
 
 const addTagToProject = (tags, _id) => {
 	tags.forEach( tag => {
 		if (tag._id === _id) {
 			tag.inProject = true;
-			return tags;
 		}
 	});
-	return tags;
+	return [].concat(tags);
 }
 
 const removeTagFromProject = (tags, _id) => {
 	tags.forEach( tag => {
 		if (tag._id === _id) {
 			tag.inProject = false;
-			return tags;
 		}
 	});
-	return tags;
+	return [].concat(tags);
 }
 
 const addUserToProject = (users, _id) => {
-	console.log(users);
 	users.forEach( user => {
 		if (user._id === _id) {
 			user.inProject = true;
-			return users;
 		}
 	});
-	return users;
+	return [].concat(users);
 }
 
 const removeUserFromProject = (users, _id) => {
-	console.log(users);
 	users.forEach( user => {
 		if (user._id === _id) {
 			user.inProject = false;
 			user.owner = false;
-			return users;
 		}
 	});
-	return users;
+	return [].concat(users);
 }
 
 const changeOwnership = (users, _id, value) => {
-	console.log(users);
 	users.forEach( user => {
 		if (user._id === _id) {
 			user.owner = value;
-			return users;
 		}
 	});
-	return users;
+	return [].concat(users);
 }
-
-const users = [
-		{
- 			_id: '57a26314b42bbf5y67daa9965',
- 			avatar: 'https://maxcdn.icons8.com/office/PNG/40/User_Interface/login_as_user-40.png', 
- 			name: 'Vasya', 
- 			position: 'IOS Developer',
- 			owner: false,
- 			inProject: false
- 		},{
- 			_id: '57a26314b42bbf5y67eaa9965',
- 			avatar: 'https://maxcdn.icons8.com/office/PNG/40/User_Interface/login_as_user-40.png', 
- 			name: 'Sasha', 
- 			position: 'Android Developer',
- 			owner: false,
- 			inProject: false
- 		},{
- 			_id: '57a26314b42sbf5y67daa9965',
- 			avatar: 'https://maxcdn.icons8.com/office/PNG/40/User_Interface/login_as_user-40.png', 
- 			name: 'Katya', 
- 			position: 'Beckend Developer',
- 			owner: false,
- 			inProject: false
- 		},{
- 			_id: '57a26314b42sbi5y67daa9965',
- 			avatar: 'https://maxcdn.icons8.com/office/PNG/40/User_Interface/login_as_user-40.png', 
- 			name: 'Max', 
- 			position: 'Fontend Developer',
- 			owner: false,
- 			inProject: false
- 		},{
- 			_id: '57a26314b42sbi5y67iaa9965',
- 			avatar: 'https://maxcdn.icons8.com/office/PNG/40/User_Interface/login_as_user-40.png', 
- 			name: 'Martin', 
- 			position: 'UX Designer',
- 			owner: false,
- 			inProject: false
- 		},{
- 			_id: '57a26314b42sbi5y07daa9965',
- 			avatar: 'https://maxcdn.icons8.com/office/PNG/40/User_Interface/login_as_user-40.png', 
- 			name: 'Tod', 
- 			position: 'Ruby Developer',
- 			owner: false,
- 			inProject: false
- 		}];
-
-
-const tags = [
-	{
-		_id:"57a26314b42bbf5a2daa9965",
-		tagName:"Nepali",
-		inProject: false
-	},
-	{
-		_id:"57a26384b42bbf5a2daa9965",
-		tagName:"French",
-		inProject: false
-	},
-	{
-		_id:"57a26314b42bbt5a2daa9965",
-		tagName:"English",
-		inProject: false
-	},
-	{
-		_id:"57a26314b42bbs5a2daa9965",
-		tagName:"Romanian",
-		inProject: false
-	},
-	{
-		_id:"57a26314b42bbk5a2daa9965",
-		tagName:"Spanish",
-		inProject: false
-	},
-	{
-		_id:"57a26314b42bbu5a2daa9965",
-		tagName:"Portuguese",
-		inProject: false
-	}
-];
-
-
-
-const techs = [
-	{                                                              
-        "_id" : "57a2f5f3d50c16908d4e0c2f",          
-        "techName" : "ReactJS",                                
-        "techAvatar" : "http://www.ryannitz.org/tech-notes/wp-content/uploads/2009/07/icon.png",      
-        "techDescription" : "React JS",                        
-        "__v" : 0,                                             
-        "techVersion" : "1.0.3"                                
-},                                                             
-{                                                              
-        "_id" : "57a2f5f3d50c16908d4e0c30",          
-        "techName" : "NodeJS",                                 
-        "techAvatar" : "http://www.ryannitz.org/tech-notes/wp-content/uploads/2009/07/icon.png",      
-        "techDescription" : "NodeJS",                          
-        "__v" : 0,                                             
-        "techVersion" : "2.7.5"                                
-},                                                              
-{                                                              
-        "_id" : "57a2f5f3d50c16908d4e0c31",          
-        "techName" : "MongoDb",                                
-        "techAvatar" : "http://www.ryannitz.org/tech-notes/wp-content/uploads/2009/07/icon.png",      
-        "techDescription" : "MongoDb",                         
-        "__v" : 0,                                             
-        "techVersion" : "3.2"                                  
-},                                                             
-{                                                              
-        "_id" : "57a2f5f3d50c16908d4e0c32",          
-        "techName" : "Angular",                                
-        "techAvatar" : "http://www.ryannitz.org/tech-notes/wp-content/uploads/2009/07/icon.png",      
-        "techDescription" : "Angular",                         
-        "__v" : 0,                                             
-        "techVersion" : "5.1"                                  
-}                                                              
-];
 
 
 
@@ -433,7 +347,9 @@ const initialState = {
 	tags: [],
 	technologies: [],
 	conditions: [],
-	files: []
+	files: [],
+	tagExists: false
+
 };
 
 
@@ -441,4 +357,7 @@ const initialState = {
 	tags,
 	technologies,
 	files: files
-*/
+		projectName: '',
+	projectLink: '',
+	timeBegin: '',
+	timeEnd: '',*/

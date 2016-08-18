@@ -12,9 +12,13 @@ import Attachments from './sections/Attachments';
 class UpsertProject extends Component {
 	constructor(props) {
 	    super(props);
+	    this.createProject = this.createProject.bind(this);
 	}
 	componentDidMount() {
 		this.props.getPredefinedData();
+	}
+	createProject(e) {
+		console.log('createProject');
 	}
 	
  	render() {
@@ -29,6 +33,11 @@ class UpsertProject extends Component {
         		<UsersList/>
         		<br/>
         		<Attachments/>
+        		<br/>
+        		<Button
+                    value="Create project"
+                    onClick={this.createProject}
+                />
 	    	</div>
 	    )
 	}

@@ -9,43 +9,38 @@ class Tags extends Component {
     constructor(props) {
         super(props);
         this.state = {
-        	newTagName: ''
+        	tagName: ''
         }
         this.addTagToProject = this.addTagToProject.bind(this);
         this.removeTagFromProject = this.removeTagFromProject.bind(this);
         this.onTagNameChange = this.onTagNameChange.bind(this);
         this.addNewTagToProject = this.addNewTagToProject.bind(this);
-        this.removeNewTagFromProject = this.removeNewTagFromProject.bind(this);
         
     }
     addTagToProject(e, tagId) {
-        console.log('addTagToProject ',tagId);
-        if (tagId)  this.props.addTagToProject(tagId);
+        if (tagId) this.props.addTagToProject(tagId);
     }
     removeTagFromProject(e, tagId) {
-        console.log('removeTagFromProject ',tagId);
         if (tagId) this.props.removeTagFromProject(tagId);
     }
     onTagNameChange(e){
     	this.setState({
-    		newTagName: e.target.value.trim()
-    	})
-    	
+    		tagName: e.target.value.trim()
+    	});
     }
     addNewTagToProject(e) {
-    	const {newTagName} = this.state;
-    	if (newTagName) {
-    		this.props.addNewTagToProject(newTagName);
+    	const {tagName} = this.state;
+    	if (tagName) {
+            this.props.postTag({
+                tagName
+            });
     		this.setState({
-    			newTagName: ''
+    			tagName: ''
     		})
     	}
     }
-    removeNewTagFromProject(e, tagName) {
-    	if (tagName) this.props.removeNewTagFromProject(tagName);
-    }
     render(){
-    	const { tags } = this.props.store;
+    	const { tags } = this.props;
     	const predefinedTags = tags.map( tag => {
     		if (!tag.inProject) {
     			return (
@@ -59,28 +54,15 @@ class Tags extends Component {
     		}
     	});
     	const usedTags = tags.map( tag => {
-    		if (tag.hasOwnProperty('_id')) {
-	    		if (tag.inProject) {
-	    			return (
-	    				<div key={tag._id}>
-		    				<span>{tag.tagName}</span>
-			    			<Button onClick={(e) => this.removeTagFromProject(e, tag._id)}>
-			            		<i className="fa fa-trash-o" aria-hidden="true"></i>
-			            	</Button>
-		            	</div>
-	    			);
-	    		}
-    		} else {
-    			if (tag.inProject) {
-	    			return (
-	    				<div key={tag.tagName}>
-		    				<span>{tag.tagName}</span>
-			    			<Button onClick={(e) => this.removeNewTagFromProject(e, tag.tagName)}>
-			            		<i className="fa fa-trash-o" aria-hidden="true"></i>
-			            	</Button>
-		            	</div>
-	    			);
-	    		}
+    		if (tag.inProject) {
+    			return (
+    				<div key={tag._id}>
+	    				<span>{tag.tagName}</span>
+		    			<Button onClick={(e) => this.removeTagFromProject(e, tag._id)}>
+		            		<i className="fa fa-trash-o" aria-hidden="true"></i>
+		            	</Button>
+	            	</div>
+    			);
     		}
     	});
     	
@@ -90,7 +72,7 @@ class Tags extends Component {
                     <legend>Tags</legend>
                     <div className={styles['tag-name']}>
                     <TextInput
-                        value={this.state.newTagName}
+                        value={this.state.tagName}
                         label='Add new tag' 
                         placeholder='Type tag name'
                         onChange={this.onTagNameChange}
@@ -98,10 +80,8 @@ class Tags extends Component {
                     <Button 
                         value="Add"  
                         onClick={this.addNewTagToProject}
-                    />
-                            
+                    />      
                 </div>
-                
                 <div>
                     <div className={styles['list-container']}>
                     All tags:
@@ -118,8 +98,6 @@ class Tags extends Component {
                     </div>
                 </div>
                 </fieldset>
-    			
-                
             </div>
     	);
     }
@@ -132,7 +110,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
     return {
-        store: state.UpsertProjectReducer
+        tags: state.UpsertProjectReducer.tags,
+        tagExists: state.UpsertProjectReducer.tagExists
     };
 };
 
