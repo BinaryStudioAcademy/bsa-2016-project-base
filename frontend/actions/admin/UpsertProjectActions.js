@@ -65,3 +65,63 @@ export function changeOwnership(_id, checked) {
         checked
     };
 };
+
+export function addTagToProject(_id) {
+    return {
+        type: types.ADD_TAG_TO_PROJECT,
+        _id
+    };
+};
+
+export function removeTagFromProject(_id) {
+    return {
+        type: types.REMOVE_TAG_FROM_PROJECT,
+        _id
+    };
+};
+
+export function addNewTagToProject(newTagName) {
+    return {
+        type: types.ADD_NEW_TAG_TO_PROJECT,
+        newTagName
+    };
+};
+
+
+export function removeNewTagFromProject(tagName) {
+    return {
+        type: types.REMOVE_NEW_TAG_FROM_PROJECT,
+        tagName
+    };
+};
+
+
+
+export function addTechToProject(_id) {
+    return {
+        type: types.ADD_TECH_TO_PROJECT,
+        _id
+    };
+};
+
+export function removeTechFromProject(_id) {
+    return {
+        type: types.REMOVE_TECH_FROM_PROJECT,
+        _id
+    };
+};
+
+export function addNewTechToProject(tech) {
+    return {
+        type: types.ADD_NEW_TECH_TO_PROJECT,
+        tech
+    };
+};
+
+
+export function removeNewTechFromProject(tech) {
+    return {
+        type: types.REMOVE_NEW_TECH_FROM_PROJECT,
+        tech
+    };
+};

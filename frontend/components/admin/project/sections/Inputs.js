@@ -14,6 +14,7 @@ class Inputs extends Component {
         this.onFinishDateChange = this.onFinishDateChange.bind(this);
         this.onConditionChange = this.onConditionChange.bind(this);
         this.onDescriptionChange = this.onDescriptionChange.bind(this);
+        
     }
     onProjectNameChange(e, id){
     	console.log('onProjectnameChange: ',e.target.value, id);
@@ -84,7 +85,6 @@ class Inputs extends Component {
 	        		placeholder='Type description here...'
 	        		onChange={this.onDescriptionChange}
 	        	/>
-
 	        </div>
 	    );
     }
