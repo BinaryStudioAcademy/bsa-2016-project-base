@@ -17,6 +17,10 @@ class DocumentService {
         ];
     }
 
+    /**
+     *
+     * @param callback(err, url)
+     */
     authentication(callback){
         var url = this.oauth2Client.generateAuthUrl({
             access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
@@ -25,6 +29,12 @@ class DocumentService {
         callback(null, url);
     }
 
+    /**
+     *
+     * @param query
+     * @param tokens{google_tokens}
+     * @param callback(err, link, id)
+     */
     getDocument(query, tokens, callback) {
         fs.readFile(path.join("upload/resources/documents/templates/testTemplate.docx"), "binary", function (err, content) {
             var doc = new Docxtemplater(content);
@@ -47,6 +57,12 @@ class DocumentService {
         }.bind(this))
     }
 
+    /**
+     *
+     * @param file{Buffer}
+     * @param tokens{google_tokens}
+     * @param callback(err, link, id)
+     */
     uploadFile(file, tokens, callback) {
         this.oauth2Client.setCredentials({access_token:tokens.access_token});
         this.drive.files.create({

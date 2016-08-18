@@ -36,8 +36,10 @@
     debugger
     if (window.opener){
         var tokens = $.url().param('tokens');
-        window.opener.$("#tokens").val(tokens);
-        window.close();
+        if (tokens){
+            window.opener.$("#tokens").val(tokens);
+            window.close();
+        }
     }
     $.get("/api/documents/authentication", function(data){
         var l = data.link;
@@ -49,7 +51,8 @@
             })
         })
         req.on("click", function(){
-            var tokens = $("#tokens").val();
+            var allTokens = JSON.parse($("#tokens").val());
+            var tokens = JSON.stringify({access_token:allTokens.access_token})
             $.get('/api/documents/test/'+tokens, function(data){
                 var l = data.link;
                 res.attr("href", l).text(l);
