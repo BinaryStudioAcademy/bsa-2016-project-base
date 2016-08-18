@@ -1,32 +1,34 @@
 import * as types from '../../constants/UsersRightsActionTypes';
 import usersRightsService from '../../services/admin/UsersRightsService';
 
+var concatUsers = function(data){
+    var users = {},concat = function(marker,flag){
+        for(var i in data[marker]) 
+        users[data[marker][i]._id] = {
+            isOwner: flag,
+            userName: data[marker][i].userName,
+            userSurname : data[marker][i].userSurname
+        };
+    };
+    concat('simples',false);
+    concat('owners',true);
+    return users;
+}
+
 export function fetchUsers(projectId,nameFilter,usersRight) {
     return (dispatch) => {
         dispatch({ type: types.USERS_PROJECT_START_LOADING });
         return usersRightsService.getProjectUsers(projectId,nameFilter,usersRight)
             .then(response => response.json())
             .then(current => {
-                let users = {};
-                for(var i in current.users['simples'])
-                    users[current['users'].simples[i]._id] = {
-                        isOwner: false,
-                        userName: current['users'].simples[i].userName,
-                        userSurname : current['users'].simples[i].userSurname
-                }
-                for(var i in current.users['owners'])
-                    users[current['users'].owners[i]._id] = {
-                        isOwner: true,
-                        userName: current['users'].owners[i].userName,
-                        userSurname : current['users'].owners[i].userSurname
-                }
-                 current['users'] = users;
+                 current['users'] = concatUsers(current['users']);
                  dispatch({
                     type: types.USERS_PROJECT_END_LOADING,
                     filters: {
                         name:nameFilter,
-                        usersRight
-                    },current: current
+                        usersRight: usersRight
+                    },
+                    current: current
                 });
             }).catch(error => {
                 dispatch({
@@ -36,13 +38,24 @@ export function fetchUsers(projectId,nameFilter,usersRight) {
             });    
     };
 }
-export function fetchProjectsList(){
+export function fetchProjectsList(onLoadUsersByFirstPage){
     return (dispatch) => {
         dispatch({ type: types.PROJECTS_LIST_START_LOADING });
         return usersRightsService.getProjectsList()
-            .then(response => response.json())
+            .then(responseProjectsList => responseProjectsList.json())
             .then(projectsList => {
-                dispatch({
+                if(onLoadUsersByFirstPage && projectsList.length){
+                    usersRightsService.getProjectUsers(projectsList[0].id)
+                    .then(responseCurrent => responseCurrent.json())
+                    .then(current =>{
+                        current['users'] = concatUsers(current['users']);
+                        dispatch({
+                            type: types.INITIALIZE_END_LOADING,
+                            projectsList: projectsList,
+                            current:current
+                        });
+                    });
+                }else dispatch({
                     type: types.PROJECTS_LIST_END_LOADING,
                     projectsList
                 });

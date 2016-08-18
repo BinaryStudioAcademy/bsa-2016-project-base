@@ -20,7 +20,14 @@ export default function UsersRightsReducer(state = initialState, action) {
       }
       case types.USERS_PROJECT_END_LOADING: {
         return Object.assign({},state,{
-          filter: action.filters,
+          filters: action.filters,
+          current: action.current,
+          isLoading: false
+        });
+      }
+      case types.INITIALIZE_END_LOADING:{
+        return Object.assign({},state,{
+          projectsList: action.projectsList,
           current: action.current,
           isLoading: false
         });

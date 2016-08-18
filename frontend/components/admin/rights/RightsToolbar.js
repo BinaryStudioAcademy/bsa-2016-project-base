@@ -11,7 +11,7 @@ class RightsToolbar extends Component {
 	    super(props);
 	}
   componentWillMount(){
-    this.props.fetchProjectsList();
+    this.props.fetchProjectsList(true);
   }
  	render() {
     let items = [], projects = this.props['usersRights'].projectsList;
@@ -21,7 +21,6 @@ class RightsToolbar extends Component {
         {projects[i].projectName}
       </option>
     );
-
     return (
       <div >
         <div className="row">
@@ -50,7 +49,8 @@ class RightsToolbar extends Component {
             </div>
             <div className="col-md-3">
               <label>
-                <Checkbox onChange={(e)=>{
+                <Checkbox checked={(this.props['usersRights'].filters['usersRight'] == 'simples')} 
+                  onChange={(e)=>{
                    this.props.fetchUsers(
                     this.props['usersRights'].current['projectId'],
                     this.props['usersRights'].filters['name'],
@@ -59,7 +59,8 @@ class RightsToolbar extends Component {
                 }}>Read</Checkbox>
               </label>
              <label>
-                <Checkbox onChange={(e)=>{
+                <Checkbox checked={(this.props['usersRights'].filters['usersRight'] == 'owners')}
+                 onChange={(e)=>{
                    this.props.fetchUsers(
                     this.props['usersRights'].current['projectId'],
                     this.props['usersRights'].filters['name'],
