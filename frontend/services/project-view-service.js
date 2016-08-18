@@ -2,6 +2,7 @@ import promise from 'es6-promise';
 promise.polyfill();
 import fetch from 'isomorphic-fetch';
 
+
 class ProjectViewService {
 
 
@@ -27,19 +28,6 @@ class ProjectViewService {
 
     	console.log('project-view-service -> getListProjects() parameters: ', path, dispatch, dispObj);
 
-    	//let returnValue = fetch(path, { method: 'GET', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}});
-
-	//     let resolved = Promise.resolve(
-	//     	returnValue
-	//     		.then(this.checkStatus)
-	// 	    	.then(this.parseJSON)
-	// 	    	.then(data => {
-	// 	      		console.log('then.getListProjects():', data);
-	// 	      		return data;
-	// 	    	})
-	//     	);
-	//     return resolved;
-	// }
     	let returnValue = fetch(path, { method: 'GET', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}})
 	    	.then(this.checkStatus)
 	    	.then(this.parseJSON)
@@ -52,17 +40,6 @@ class ProjectViewService {
 	    	});
 		console.log('ProjectViewService.getListProjects(): ', returnValue);
 		return dispObj;
-	//-------------------------------------------------------------------------------------------------------		
-     //    return (fetch(path, { method: 'GET', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}})
-	    // 	.then(this.checkStatus)
-	    // 	.then(this.parseJSON)
-	    // 	.then(data => {
-	    //   		console.log('getListProjects(), last "then": ', data);
-	    //   		return new Promise((resolve, reject) => {
-	    //   			resolve(data);
-	    //   		});
-	    // 	})
-	    // );
 	}
 
 
@@ -83,31 +60,8 @@ class ProjectViewService {
 		//return dispObj;
 	}
 
-
-
-	// getProject(path, dispatch, dispObj) {
-		// console.log('project-view-service -> getProject() parameters: ', path, dispatch, dispObj);
-
-		// const reqPath = path + '/' + dispObj.selectedProjectId;
-		// console.log('project-view-service -> getProject() requested path: ', reqPath);
-
-  //   	let returnValue = fetch(reqPath, { method: 'GET', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}})
-	 //    	.then(this.checkStatus)
-	 //    	.then(this.parseJSON)
-	 //    	.then(data => {
-	 //      		console.log('project-view-service -> getProject() -> then:', data);
-	 //      		//return data;
-	 //      		dispObj.selectedProject = data;
-	 //      		console.log('getProject(...) -> Object to dispatch: ', dispObj);
-	 //      		dispatch(dispObj);
-	 //    	});
-		// console.log('ProjectViewService.getProject(): ', returnValue);
-		// //return dispObj;
-
-
-		getProject(state, dispatch, dispObj) {
+	getProject(state, dispatch, dispObj) {
 		console.log('project-view-service -> getProject() parameters: ', state, dispatch, dispObj);
-
 		const reqPath = state.CONST_projectsRestPath + '/' + dispObj.selectedProjectId + '/users-owners/';
 		console.log('project-view-service -> getProject() requested "project" path: ', reqPath);
 
@@ -190,7 +144,99 @@ class ProjectViewService {
 		//return dispObj;
 	}
 
+	getProjectTechnologies(path, dispatch, dispObj) {
+		console.log('project-view-service -> getProjectTechnologies() parameters: ', path, dispatch, dispObj);
 
+		const reqPath = path + '/' + dispObj.projectId + '/technologies';
+		console.log('project-view-service -> getProjectTechnologies() requested path: ', reqPath);
+
+    	let returnValue = fetch(reqPath, { method: 'GET', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}})
+	    	.then(this.checkStatus)
+	    	.then(this.parseJSON)
+	    	.then(data => {
+	      		console.log('project-view-service -> getProjectTechnologies() -> then:', data);
+	      		//return data;
+	      		dispObj.projTechnologies = data.technologies;
+	      		console.log('getProjectTechnologies(...) -> Object to dispatch: ', dispObj);
+	      		dispatch(dispObj);
+	    	});
+		//console.log('ProjectViewService.getProjectTags(): ', returnValue);
+		//return dispObj;
+	}
+
+	getProjectFeatures(path, dispatch, dispObj) {
+		console.log('project-view-service -> getProjectFeatures() parameters: ', path, dispatch, dispObj);
+
+		const reqPath = path + '/' + dispObj.projectId + '/features';
+		console.log('project-view-service -> getProjectFeatures() requested path: ', reqPath);
+
+		let returnValue = fetch(reqPath, { method: 'GET', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}})
+	    	.then(this.checkStatus)
+	    	.then(this.parseJSON)
+	    	.then(data => {
+	      		console.log('project-view-service -> getProjectFeatures() -> then:', data);
+	      		//return data;
+	      		dispObj.projFeatures = data.features;
+	      		
+	      		console.log('data.features length is: ', data.features.length);
+	      		console.log('data.features : ', data.features);
+				console.log('getProjectFeatures(...) -> Object to dispatch: ', dispObj);
+	    		dispatch(dispObj);
+			});
+	}
+
+	getProjectFeatures3(path, dispatch, dispObj) {
+		console.log('project-view-service -> getProjectFeatures() parameters: ', path, dispatch, dispObj);
+
+		const reqPath = path + '/' + dispObj.projectId + '/features';
+		console.log('project-view-service -> getProjectFeatures() requested path: ', reqPath);
+
+  		let returnValue = fetch(reqPath, { method: 'GET', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}})
+	    	.then(this.checkStatus)
+	    	.then(this.parseJSON)
+	    	.then(data => {
+	      		console.log('project-view-service -> getProjectFeatures() -> then:', data);
+	      		if (data.features.length == 0) {
+	      			dispatch(dispObj);
+	      		}
+				dispObj.projFeatures = data.features;
+				return data;
+	    	})
+		    .then(data => {
+		    	console.log('data.features length is: ', data.features.length);
+		      	console.log('data.features : ', data.features);
+		      	let sectionsPromises = [];
+
+		      	data.features.forEach(function(entry, i, arr) {	
+					let reqSectionPath = dispObj.sectionsPath + '/' + entry.section;
+					//let reqSectionPath = dispObj.featuresPath + '/' + data.features[i]._id + '/sections';
+					sectionsPromises.push(
+						fetch(reqSectionPath, { method: 'GET', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}})
+					);
+		    	});
+				console.log('project-view-service -> getProjectFeatures() -> sections promises:', sectionsPromises);
+
+		      	Promise.all(sectionsPromises).then((sectArr)=>{
+		      		console.log('Feature sections array: ', sectArr);
+
+		      		sectArr.forEach((entry, i, arr)=>{
+		      			Promise.resolve(entry)
+      							.then(this.checkStatus)
+								.then(this.parseJSON)
+								.then(sectionData => {
+									console.log('sectionData: ', sectionData);
+									dispObj.projFeatures[i].section = sectionData;
+									if (i == arr.length-1) {
+										console.log('getProjectFeatures3(...) -> Object to dispatch: ', dispObj);
+		      							dispatch(dispObj);
+									}
+								});
+		      		});
+		      		
+		      	});
+				
+	    	});
+	}
 
 }
 

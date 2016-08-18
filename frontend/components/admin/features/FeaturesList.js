@@ -17,7 +17,8 @@ class FeaturesList extends  Component {
         this.closeEditFeature = this.closeEditFeature.bind(this);
         this.openEditFeature = this.openEditFeature.bind(this);
         this.saveNameFeature = this.saveNameFeature.bind(this);
-        this.saveDescriptionFeature = this.saveDescriptionFeature.bind(this);
+        this.saveDescriptionText  = this.saveDescriptionText.bind(this);
+        this.saveDescriptionHTMLText = this.saveDescriptionHTMLText.bind(this);
         this.saveSelectedSection = this.saveSelectedSection.bind(this);
         this.addFeature = this.addFeature.bind(this);
         this.closeFeatureDetails = this.closeFeatureDetails.bind(this);
@@ -26,15 +27,11 @@ class FeaturesList extends  Component {
             showEditFeatureModal: false,
             showFeatureDetailsModal: false,
             featureName: '',
-            featureDescription: '',
+            descriptionText: '',
+            descriptionHTMLText: '',
             section: "",
             index: '',
-            editFeature: null,
-            featureModalDetails: {
-                featureName: '',
-                featureDescription: {lists: ''},
-                section: {name: ''},}
-
+            editFeature: null
         }
     }
 
@@ -43,8 +40,8 @@ class FeaturesList extends  Component {
         if(filter == '') {
             return true;
         }
-        if(nameFeature.toLowerCase().indexOf(filter.toLowerCase()) == 0 ||
-            nameSection.toLowerCase().indexOf(filter.toLowerCase()) == 0) {
+        if(nameFeature.toLowerCase().indexOf(filter.toLowerCase()) != -1 ||
+            nameSection.toLowerCase().indexOf(filter.toLowerCase()) != -1) {
             return true
         }
     }
@@ -85,7 +82,8 @@ class FeaturesList extends  Component {
         this.setState({
             showEditFeatureModal: true,
             featureName: editFeature.featureName,
-            featureDescription: editFeature.featureDescription.lists.join(),
+            descriptionText: editFeature.descriptionText,
+            descriptionHTMLText: editFeature.descriptionHTMLText,
             section: editFeature.section._id,
             index: features.indexOf(editFeature),
             editFeature: editFeature
@@ -93,14 +91,20 @@ class FeaturesList extends  Component {
     }
 
     saveNameFeature(e) {
-        this.setState({featureName: e.target.value.replace(/\s/g, '')});
+        this.setState({featureName: e.target.value});
     }
 
-    saveDescriptionFeature(e) {
-        this.setState({featureDescription: e.target.value.replace(/\s/g, '')});
+    saveDescriptionText(e) {
+        this.setState({descriptionText: e.target.value});
     }
+
+    saveDescriptionHTMLText(e) {
+        this.setState({descriptionHTMLText: e.target.value});
+    }
+
+
     saveSelectedSection(e) {
-        this.setState({section: e.target.value.replace(/\s/g, '')});
+        this.setState({section: e.target.value});
     }
 
     addFeature(e) {
@@ -117,9 +121,9 @@ class FeaturesList extends  Component {
         });
 
         if(this.state.featureName.replace(/\s/g, '') == '' ||
-            this.state.featureDescription.replace(/\s/g, '') == '' ||
+            this.state.descriptionText.replace(/\s/g, '') == '' ||
             !this.state.section || this.state.section == "Select section"){
-            console.log("Please, input all field");
+            console.log("Please, input all required fields");
             e.preventDefault();
             return;
         }
@@ -129,7 +133,8 @@ class FeaturesList extends  Component {
         }
         const {features} = this.props.featuresData;
         this.props.editFeature(features, Object.assign({}, this.state.editFeature, {featureName: this.state.featureName},
-            {featureDescription: {lists: [this.state.featureDescription]}},
+            {descriptionText: this.state.descriptionText},
+            {descriptionHTMLText: this.state.descriptionHTMLText},
             {section: this.state.section}), this.state.index);
         this.closeEditFeature();
     }
@@ -144,7 +149,10 @@ class FeaturesList extends  Component {
     openFeatureDetails(feature) {
         this.setState({
             showFeatureDetailsModal: true,
-            featureModalDetails: feature
+            featureName: feature.featureName,
+            descriptionText: feature.descriptionText,
+            descriptionHTMLText: feature.descriptionHTMLText,
+            section: feature.section,
         });
         return true;
     }
@@ -165,7 +173,7 @@ class FeaturesList extends  Component {
                                     <ControlLabel >Name of feature:</ControlLabel>
                                 </Col>
                                 <Col sm={8} >
-                                    <span ref="featureNameModalDetails" className="featureNameModalDetails" id="featureNameModalDetails">{this.state.featureModalDetails.featureName}</span>
+                                    <span ref="featureNameModalDetails" className="featureNameModalDetails" id="featureNameModalDetails">{this.state.featureName}</span>
                                 </Col>
                             </FormGroup>
                             <FormGroup>
@@ -173,16 +181,24 @@ class FeaturesList extends  Component {
                                     <ControlLabel >Section:</ControlLabel>
                                 </Col>
                                 <Col sm={8} >
-                                    <span ref="featureNameModalDetails" className="featureNameModalDetails" id="featureNameModalDetails">{this.state.featureModalDetails.section.name}</span>
+                                    <span ref="featureNameModalDetails" className="featureNameModalDetails" id="featureNameModalDetails">{this.state.section.name}</span>
                                 </Col>
                             </FormGroup>
 
                             <FormGroup>
                                 <Col sm={3}>
-                                    <ControlLabel>Description:</ControlLabel>
+                                    <ControlLabel>Short description:</ControlLabel>
                                 </Col>
                                 <Col sm={8}>
-                                    <span>{this.state.featureModalDetails.featureDescription.lists}</span>
+                                    <span>{this.state.descriptionText}</span>
+                                </Col>
+                            </FormGroup>
+                            <FormGroup>
+                                <Col sm={3}>
+                                    <ControlLabel>Full description:</ControlLabel>
+                                </Col>
+                                <Col sm={8}>
+                                    <span>{this.state.descriptionHTMLText}</span>
                                 </Col>
                             </FormGroup>
                         </Form>
@@ -199,7 +215,7 @@ class FeaturesList extends  Component {
                         <Form horizontal className={styles['form']}>
                             <FormGroup>
                                 <Col sm={3}>
-                                    <ControlLabel >Name of feature:</ControlLabel>
+                                    <ControlLabel >Name of feature(*):</ControlLabel>
                                 </Col>
                                 <Col sm={8}>
                                     <input
@@ -215,7 +231,7 @@ class FeaturesList extends  Component {
                             </FormGroup>
                             <FormGroup>
                                 <Col sm={3}>
-                                    <ControlLabel >Select section:</ControlLabel>
+                                    <ControlLabel >Select section(*):</ControlLabel>
                                 </Col>
                                 <Col sm={8}>
                                     <FormControl componentClass="select"  className={styles['text-select-input']} id="selectSectionModal"
@@ -243,19 +259,35 @@ class FeaturesList extends  Component {
 
                             <FormGroup>
                                 <Col sm={3}>
-                                    <ControlLabel>Description:</ControlLabel>
+                                    <ControlLabel>Short description(*):</ControlLabel>
                                 </Col>
                                 <Col sm={8}>
                                     <textarea
-                                        id="DescriptionFeatureModal"
-                                        onBlur={this.saveDescriptionFeature}
+                                        id="shortDescriptionFeatureModal"
+                                        onBlur={this.saveDescriptionText}
                                         className="form-control"
                                         placeholder="Enter the description"
-                                        defaultValue={this.state.featureDescription}
+                                        defaultValue={this.state.descriptionText}
                                         required
                                     />
                                 </Col>
                             </FormGroup>
+
+                            <FormGroup>
+                                <Col sm={3}>
+                                    <ControlLabel>Full description:</ControlLabel>
+                                </Col>
+                                <Col sm={8}>
+                                    <textarea
+                                        id="fullDescriptionFeatureModal"
+                                        onBlur={this.saveDescriptionHTMLText}
+                                        className="form-control"
+                                        placeholder="Enter the description"
+                                        defaultValue={this.state.descriptionHTMLText}
+                                    />
+                                </Col>
+                            </FormGroup>
+
                             <Col sm={6} smPush={3}>
                                 <Button type="submit"  onClick={this.addFeature} block id="addFeature">Save changed</Button>
                             </Col>
@@ -264,21 +296,20 @@ class FeaturesList extends  Component {
                     <Modal.Footer>
                     </Modal.Footer>
                 </Modal>
-
                 {
                     features.map(function(feature) {
                         var check = false;
                         if(self.checkValue(feature.featureName, feature.section.name,
-                                feature.featureDescription.lists.join(''), feature.section.description,
+                                feature.descriptionText, feature.section.description,
                                 self.props.featuresData.listCheckedSections, feature.section._id, filter)) {
-                            if(self.props.featuresData.listCheckedFeatures.indexOf(feature._id) != -1 || self.props.featuresData.allChecked) {
+                            if(self.props.listCheckedFeatures.indexOf(feature._id) != -1 || self.props.flagChecked) {
                                 check = true;
                             }
                             else {
                                 check = false;
                             }
                             return (
-                                <FeaturesListItem open={self.openEditFeature} openFeatureDetails={self.openFeatureDetails} handlerEditFeature={self.handlerEditFeature} check={check} feature={feature} key={feature._id}/>
+                                <FeaturesListItem open={self.openEditFeature} changeCheckedFeature={self.props.changeCheckedFeature} openFeatureDetails={self.openFeatureDetails} handlerEditFeature={self.handlerEditFeature} check={check} feature={feature} key={feature._id}/>
                             )
                         }
                     })}

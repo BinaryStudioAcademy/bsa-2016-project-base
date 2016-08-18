@@ -18,6 +18,29 @@ class SectionService {
         return fetch("http://localhost:3000/api/sections/")
     }
 
+
+
+    removeSection(sectionId) {
+    return fetch("http://localhost:3000/api/sections/" + sectionId, {
+        method: 'DELETE',
+        headers: ({
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+        })
+    })
+    }
+
+    editSection(sectionObj) {
+        return fetch("http://localhost:3000/api/sections/" + sectionObj._id, {
+            method: 'PUT',
+            body: JSON.stringify(sectionObj),
+            headers: ({
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            })
+        })
+    }
+
 }
 
 

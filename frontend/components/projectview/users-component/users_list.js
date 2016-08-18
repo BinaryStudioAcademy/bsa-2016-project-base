@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import CheckBox from './checkbox';
 import styles from './users.sass';
 import { Row, Col, ListGroup, ListGroupItem, FormControl, FormGroup, InputGroup, Modal, Label, Glyphicon, Button } from 'react-bootstrap';
-import * as actions from '../project-view-actions.js';
+import * as actions from '../../../actions/project-view-actions.js';
 import { Router, Route, Link, browserHistory } from 'react-router'
 
 class UserList extends Component {
