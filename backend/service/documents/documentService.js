@@ -4,7 +4,6 @@
 var google = require('googleapis');
 var fs = require("fs");
 var path = require("path");
-var NeedAuthError = require("./NeedAuthError");
 var docxGenerator = require("./docxGenerator");
 class DocumentService {
     constructor() {
