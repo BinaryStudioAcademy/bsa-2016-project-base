@@ -1,11 +1,28 @@
 @import "../common/styles/common"
 
-.homeContent 
-  width: 83.33%;
+=forSmallScreens($media)
+    @media (max-width: $media/16+em)
+        @content
+
+// .home-content-row
+//     display: flex
+//     +forSmallScreens(640)
+//         display: block
+#root
+  height: 100%
+.homeContent
+  width: 83.33%
+  width: calc(100% - 200px)
+
+  // width: 100%
+  // width: 80%;
   // background-color: #F2F5F7;
   background-color: #FEFEFE
   font-size: 0.7em
-  .homeContentHeader 
+  +forSmallScreens(640)
+    width: 100%
+  .homeContentHeader
+    width: 100%
     box-sizing: border-box
     font-family: 'Lato', sans-serif
     font-weight: 900

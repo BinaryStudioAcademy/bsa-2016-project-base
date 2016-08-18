@@ -1,6 +1,6 @@
 @import  '~normalize.css';
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700,300);
-
+// @import '../grid/grid';
 html, body
   background: #fff !important
   height: 100%
@@ -8,16 +8,22 @@ html, body
   font-size: 16px
   line-height: 1.2em
 
+=forSmallScreens($media)
+    @media (max-width: $media/16+em)
+        @content
 
+.main-container
+    width: 100%
 
-.container
-  //padding: 20px
-  width: 100%
-  background: #fff  
-  // border: 3px solid #000
-  height: 100%
-  display: flex
-  // box-orient: horizontal;
+.row
+    background: #fff
+    height: 100%
+    display: flex
+    +forSmallScreens(640)
+       height: auto
+       width: 100%
+       display: block
+
 
 body::-webkit-scrollbar
 	width: 7px

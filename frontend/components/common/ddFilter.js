@@ -7,8 +7,7 @@ export default class DropDown extends Component {
         super(props);
 
         this.state = {
-            showList: 'hidden',
-            selected: this.props.type
+            showList: 'hidden'
         };
     }
 
@@ -22,10 +21,9 @@ export default class DropDown extends Component {
                 return (
                     <li key={index}>
                         <input
-                            type='radio'
+                            type='checkbox'
                             value={item.value}
                             onChange={this.props.onItemSelect}
-                            onClick={(e) => this.setState({'showList': 'hidden', selected: item.name })}
                             id={item.id}
                         />
                         <label htmlFor={item.id}>{item.name}</label>
@@ -36,7 +34,7 @@ export default class DropDown extends Component {
 
             <div className={styles["dropdown-container"]}>
                 <div className={styles["dropdown-display-" + this.state.showList]} onClick={this.toggleList.bind(this)}>
-                    <span>{this.state.selected}</span>
+                    <span>{this.props.type}</span>
                     <FaAngleDown size={25}/>
                 </div>
                 <ul className={styles["dropdown-list"]}>

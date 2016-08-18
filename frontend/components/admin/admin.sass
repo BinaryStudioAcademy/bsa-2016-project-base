@@ -1,9 +1,56 @@
 @import "../common/styles/common"
-//@import url(//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css)
+
+html, body
+  background: #fff !important
+  height: 100%
+  font-family: 'Lato', sans-serif
+  font-size: 16px
+  line-height: 1.2em
+
+=forSmallScreens($media)
+  @media (max-width: $media/16+em)
+    @content
+
+.row
+    background: #fff
+    height: 100%
+    display: flex
+    +forSmallScreens(640)
+       height: auto
+       width: 100%
+       display: block
+
+.main-container
+	// height: 100%
+.adminContent
+  width: calc(100% - 200px)
+  font-size: 0.7em
+
+  background-color: #f3f6f8
 
 
+.adminContentHeader
+	width: 100%
+	box-sizing: border-box
+	font-family: "Lato", sans-serif
+	font-weight: 900
+	font-size: 1.2em
+	padding: 30px 2.5em
+	color: #7A929d
+	text-transform: uppercase
+	background-color: #FEFEFE
+	border-bottom: 1px solid #CED1D6
+	height: 79px
 
-h1
+span
+ 	vertical-align: middle
+  padding-left: 1em
+
+.heading
+	font-family: "Lato", sans-serif
+	color: #273339
+	display: flex
+	padding: 70px 2em 20px
 	//color: #fff
 
 .adminPage
@@ -12,7 +59,7 @@ h1
 	//display: inline-block
 	margin: 0
 
-.tabs 
+.tabs
 	//color: dodgerblue
 	//text-align: center
 	//margin-bottom: 10px
@@ -24,11 +71,11 @@ h1
 .tab-item
 	//flex: 1
 	//text-align: center
-	//background-color: #ce6d9f 
+	//background-color: #ce6d9f
 	//padding: 5px
-	
 
-.tab 
+
+.tab
 	display: inline-block
 	padding: 10px
 	background: dodgerblue
@@ -47,7 +94,7 @@ h1
 
 	margin-top: 20px
 	width: 100%
-	
+
 
 .tab-bar:first-child
  	//margin-left: 2px !important
@@ -58,7 +105,7 @@ h1
 
 
 //.tab-bar > li:nth-child(n)
-//	border-right: 2px solid #ededed 
+//	border-right: 2px solid #ededed
 
 //.tab-bar > li:last-child
 //	border-right: none
@@ -69,16 +116,16 @@ h1
 .tab-bar>li
 	//margin-left: -1px !important
 
-.tab-bar>li>a 
+.tab-bar>li>a
 	border-radius: 0 !important
 	color: #fff !important
-	background-color: #ce6d9f 
+	background-color: #ce6d9f
 	background-color: #337ab7
 
 
 .tab-bar>li>a:hover
     text-decoration: none
-    background-color: #337ab7 
+    background-color: #337ab7
 
 .tab-bar>.active>a.focus
 	background-color: #efefef !important

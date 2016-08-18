@@ -12,7 +12,7 @@ class Navbar extends Component {
         };
         this.toggleMenu = this.toggleMenu.bind(this);
 	}
-    
+
     toggleMenu(e) {
         let state = this.state.isMenuActive;
         this.setState({
@@ -21,7 +21,7 @@ class Navbar extends Component {
     }
  	render() {
         return (
-          <div className="sidebar">
+          <div className={styles.sidebar}>
             <div className={styles.sidebarHeader}>
               <p>INTRANET</p>
             </div>
@@ -62,7 +62,7 @@ class Navbar extends Component {
                 <span className={styles['item-name']}>Admin Area</span>
               </Link>
            </li>
-            
+
             </ul>
           </div>
         )

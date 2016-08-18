@@ -1,8 +1,12 @@
 @import url(https://fonts.googleapis.com/icon?family=Rambla:400,700|Source+Sans+Pro:200,400)
 @import "../common"
-
+=forSmallScreens($media)
+    @media (max-width: $media/16+em)
+        @content
 #home-project
-a 
+img
+  max-width: 100%
+a
   display: block
 .list-group-item
   display: block
@@ -21,6 +25,10 @@ a
   border-radius: 5px
   transition: box-shadow .3s
   padding: 2em
+  box-shadow: border-box
+  +forSmallScreens(640)
+    width: 100%
+    padding: 1em 0
   &:hover
     box-shadow: 0px 0px 25px 1px #777
 // .list-group-item:first-child,
@@ -45,7 +53,7 @@ a > h4
   // font-family: "Lato", sans-serif
   font-weight: 300
   font-size: 1.3rem
-  display: inline-block
+  // display: inline-block
   text-align: center
   padding-bottom: 5px
   border-bottom: 1px solid #A6A6A6
@@ -58,7 +66,7 @@ a > h4
   display: block;
   margin-bottom: 5px
 
-.labels 
+.labels
   width: 50%
   color: #fff
   font-family: 'Lato', sans-serif;
