@@ -24,27 +24,38 @@
 </head>
 <body>
 <!--Add buttons to initiate auth sequence and sign out-->
-<button id="auth">Authorize</button>
+<input type="hidden" id="tokens">
 <button id="req">Request</button>
+<a id="auth">Authorize</a>
 <div>Result of data request: <a id="res" target="_blank"></a></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-url-parser/2.3.1/purl.min.js"></script>
 <script type="text/javascript">
     var auth = $("#auth");
     var req = $("#req");
     var res = $("#res");
-    auth.on("click", function(){
-        $.get("/api/documents/authentication", function(data){
-            var l = data.link;
-            window.location.replace(l);
-        })
-    });
-    req.on("click", function(){
+    debugger
+    if (window.opener){
         var tokens = $.url().param('tokens');
-        $.get('/api/documents/test/'+tokens, function(data){
-            var l = data.link;
-            res.attr("href", l).text(l);
+        window.opener.$("#tokens").val(tokens);
+        window.close();
+    }
+    $.get("/api/documents/authentication", function(data){
+        var l = data.link;
+        auth.attr("href", l);
+        auth.on("click", function(e){
+            e.preventDefault();
+            var url = $(e.target).attr("href");
+            window.open(url, "", "width=600,height=600");
+            })
         })
-    })
+        req.on("click", function(){
+            var tokens = $("#tokens").val();
+            $.get('/api/documents/test/'+tokens, function(data){
+                var l = data.link;
+                res.attr("href", l).text(l);
+            })
+        })
+
 </script>
 </body>
 </html>

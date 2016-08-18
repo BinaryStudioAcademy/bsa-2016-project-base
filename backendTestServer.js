@@ -30,6 +30,6 @@ app.listen(port, '0.0.0.0', function onStart(err) {
         console.log(err);
     }
     var open = require("open");
-    open("http:/localhost:"+port);
+    open("http:/127.0.0.1:"+port);
     console.info('==> 🌎 Listening on port %s. Open up http:/localhost:%s/ in your browser.', port, port);
 });
