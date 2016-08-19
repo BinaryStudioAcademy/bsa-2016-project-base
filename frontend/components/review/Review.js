@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import styles from './review.sass';
-
+import ReduxWrapper from "./../home/search/ReduxWrapper"
 class Review extends Component {
 	constructor(props) {
 	    super(props);
 	}
  	render() {
 	    return (
-	    	<div className={styles.alert}>Request project review</div>
+	    	<div>Request project review
+			<ReduxWrapper/></div>
+
 	    )
 	}
 };

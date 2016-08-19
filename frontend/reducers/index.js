@@ -9,3 +9,4 @@ export {default as UsersReducer} from './UsersReducer';
 export {default as ChartReducer} from "./ChartReducer";
 export {default as TechnologiesDetailReducer} from './admin/TechnologiesDetailReducer';
 export {default as UpsertProjectReducer} from './admin/UpsertProjectReducer';
+export {default as HomeSearchReducer} from "./HomeSearchReducer"

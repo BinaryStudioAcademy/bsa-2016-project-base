@@ -110,7 +110,7 @@ class InsertFeature extends Component {
                         <ControlLabel >Section (*):</ControlLabel>
                     </Col>
                     <Col sm={8} smPush={1}>
-                        <select className={styles['text-select-input'] + ' ' + "form-control"}  ref="selectSection" id="selectSection"
+                        <select className={styles['text-models-input'] + ' ' + "form-control"}  ref="selectSection" id="selectSection"
                                      onChange={this.saveSelectedSection}   required>
                             <option key={0} value="Select section" >Select section</option>
                             {
