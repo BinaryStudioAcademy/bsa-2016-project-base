@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import styles from './styles/dateinput.sass';
 
 const DateInput = ({id, label, value, onChange}) => {
     const labelHtml = label ? <label htmlFor={id}>{label}</label> : '';
@@ -6,6 +7,7 @@ const DateInput = ({id, label, value, onChange}) => {
         <div>
          	{labelHtml}
         	<input
+                className={styles.mydateinput}
                 id={id} 
                 type="date" 
                 defaultValue={value}

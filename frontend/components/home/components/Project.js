@@ -55,7 +55,7 @@ export default class Project extends Component {
                     {project.description[0].descrText}
                 </div>
                 {(project.timeEnd)?
-                    <div className={styles['update-date']} >Project finished in: {project.timeEnd.split('T')[0]}</div>:
+                    <div className={styles['update-date']} >Project finished on: {project.timeEnd.split('T')[0]}</div>:
                     <div>Progect in process</div>
                 }
                 </Link>

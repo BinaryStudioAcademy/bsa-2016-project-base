@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import styles from './styles/checkbox.sass';
 
 //<Checkbox label="Completed?" checked before/>
 

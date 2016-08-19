@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import styles from './styles/textarea.sass';
 
 const TextArea = ({id, label, value, placeholder, onChange, rows, cols}) => {
 	const labelHtml = label ? <label htmlFor={id}>{label}</label> : '';
@@ -6,6 +7,7 @@ const TextArea = ({id, label, value, placeholder, onChange, rows, cols}) => {
         <div>
          	{labelHtml}
          	<textarea 
+                className={styles.mytextarea}
                 id={id}
                 rows={rows} 
                 cols={cols}
@@ -28,7 +30,7 @@ TextArea.propTypes = {
 
 TextArea.defaultProps = {
 	rows: 5,
-	cols: 15
+	cols: 30
 };
 
 export default TextArea;
