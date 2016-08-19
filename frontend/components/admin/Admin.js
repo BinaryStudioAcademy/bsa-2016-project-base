@@ -49,7 +49,7 @@ class Admin extends Component {
 		        			</Link>
 		        		</li>
 		        		<li key={6}>
-		        			<Link to="/admin/project/" activeClassName={styles["admin-nav-item-active"]}>
+		        			<Link to="/admin/project" activeClassName={styles["admin-nav-item-active"]}>
 		        				Add  Project
 		        			</Link>
 		        		</li>
