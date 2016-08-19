@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import styles from '../stats.sass';
 import InputFilter from './InputFilter.js'
 
-import { Button, Input, Grid, Row, Col, Thumbnail, Glyphicon } from 'react-bootstrap';
+import styles from '../stats.sass';
 
-class ChartStatistic extends Component 
-{
+class ChartStatistic extends Component {
 	constructor(props)
 	{
 		super(props);
@@ -14,18 +12,14 @@ class ChartStatistic extends Component
 	{
 		const {onChange, chartType, selectAll, selectAllChanged} = this.props;
 		return (
-			<div>
-				<h2 className={styles.title}>Chart Statistic</h2>
-					<hr id={styles.nine} />
-						<InputFilter onChange={onChange}
-									 chartType={chartType}
-									 selectAll={selectAll}
-									 selectAllChanged={selectAllChanged}/>
-					<hr id={styles.eight} />
-			</div>
+			<InputFilter onChange={onChange}
+							 chartType={chartType}
+							 selectAll={selectAll}
+							 selectAllChanged={selectAllChanged}
+			/>
 		)
 	}
-};
+}
 
 export default ChartStatistic;
 
