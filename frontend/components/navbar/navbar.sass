@@ -7,7 +7,7 @@
     @media (max-width: $media/16+em)
         @content
 
-.sidebar
+#sidebar
     width: 16.66%
     width: 200px
     background-color: #FEFEFE
@@ -19,7 +19,7 @@
 
     +forSmallScreens(640)
         width: 100%
-.sidebarHeader
+#sidebar .sidebarHeader
     background-color: #293541
     width: 100%
     color: #fff
@@ -29,11 +29,11 @@
 
 
 
-p
+#sidebar p
     margin: 0
 
 
-.mainNav
+#sidebar .mainNav
     list-style: none
     width: 100%
     margin-top: 50px
@@ -43,7 +43,7 @@ p
         margin-bottom: 50px
 
 
-li
+#sidebar li
     display: block
     +forSmallScreens(640)
             display: inline-block
@@ -53,7 +53,7 @@ li
     margin-left: 0.7em
 
 
-a
+#sidebar a
     box-sizing: border-box
     display: block
     padding-left: 1.5em
@@ -72,12 +72,12 @@ a
         color: #03A9F4
         transition: color .5s
 
-li a.active
+#sidebar li a.active
     box-shadow: inset 12px 0 1px -8px #03A9F4
     +forSmallScreens(640)
         box-shadow: 0px 2px 0px 0px #03A9F4
 
-li a.active .icon
+#sibar li a.active .icon
     color: #03A9F4
 
 

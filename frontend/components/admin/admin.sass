@@ -6,14 +6,14 @@ html, body
   font-family: 'Lato', sans-serif
   font-size: 16px
   line-height: 1.2em
-
+ 
 =forSmallScreens($media)
   @media (max-width: $media/16+em)
     @content
 
 .row
     background: #fff
-    height: 100%
+    height: 100% 
     display: flex
     +forSmallScreens(640)
        height: auto
@@ -21,7 +21,7 @@ html, body
        display: block
 
 .main-container
-	// height: 100%
+	height: 100%
 .adminContent
   width: calc(100% - 200px)
   font-size: 0.7em
@@ -50,15 +50,46 @@ span
 	font-family: "Lato", sans-serif
 	color: #273339
 	display: flex
-	padding: 70px 2em 20px
+	padding: 4.56rem 7.18rem 2.2rem
+    width: 100%
 
 	//color: #fff
+.tab-bar
+    background: none
+    border-bottom: 1px solid #CED1D6
+    padding: 0 7.18rem
+    width: 100%
+    box-sizing: border-box
 
-.adminPage
-	//margin: 0 auto
-	//text-align: center
-	//display: inline-block
-	margin: 0
+.tab-bar li
+    display: inline-block
+    background: none
+
+.tab-bar li + li 
+    margin-left: 2.81em
+
+.tab-bar a
+    color: #79919D
+    font-size: 0.75rem
+    font-weight: 700
+    text-transform: uppercase
+    // transition:  .3s
+    font-family: 'Lato', sans-serif
+    transition: color .3s
+    &:hover
+        color: #263238
+
+.tab-bar .admin-nav-item-active
+    // border-bottom: 3px solid #03A9F4
+    color: #263238
+    box-shadow: inset 0 -3px 0 #03A9F4
+    transition: box-shadow .3s
+    padding-bottom: 1rem
+// .adminPage
+// 	//margin: 0 auto
+// 	//text-align: center
+// 	//display: inline-block
+// 	margin: 0
 
 .tabs
 	//color: dodgerblue
@@ -76,19 +107,19 @@ span
 	//padding: 5px
 
 
-.tab
-	display: inline-block
-	padding: 10px
-	background: dodgerblue
-	width: auto
+// .tab
+// 	display: inline-block
+// 	padding: 10px
+// 	background: dodgerblue
+// 	width: auto
 
 
 .tabs-grid
 
 
 
-.tab-holder
-	display: block
+// .tab-holder
+// 	display: block
 
 .tab-bar
 	border-bottom: 1px solid #D8D0D0
@@ -101,7 +132,7 @@ span
  	//margin-left: 2px !important
 
 .tab-item
-	margin-left: 0px !important
+	//margin-left: 0px !important
 	//padding: 20px 0px !important
 
 
@@ -118,34 +149,34 @@ span
 	//margin-left: -1px !important
 
 .tab-bar>li>a
-	border-radius: 0 !important
-	color: #fff !important
-	background-color: #ce6d9f
-	background-color: #337ab7
+	//border-radius: 0 !important
+	//color: #fff !important
+	//background-color: #ce6d9f
+	//background-color: #337ab7
 
 
 .tab-bar>li>a:hover
-    text-decoration: none
-    background-color: #337ab7
+    //text-decoration: none
+    //background-color: #337ab7
 
 .tab-bar>.active>a.focus
-	background-color: #efefef !important
+	//background-color: #efefef !important
 
 .tab-bar>li.active>a,
 .tab-bar>li.active>a:focus,
 .tab-bar>li.active>a:hover
-	color: #656565 !important
-	background-color: #efefef !important
+	//color: #656565 !important
+	//background-color: #efefef !important
 
 
 
 @media (max-width: 767px)
-	.tab-bar
-		margin-top: 0px
+	//.tab-bar
+	//	margin-top: 0px
 		//color: red !important
 		//background-color: red !important
-	.tab-bar
-		&:nth-child(2)
+	//.tab-bar
+	//	&:nth-child(2)
  			//margin-left: -2px !important
 
 //@media(max-width:767px){}

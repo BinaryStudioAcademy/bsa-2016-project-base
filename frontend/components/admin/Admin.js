@@ -24,33 +24,33 @@ class Admin extends Component {
 		  			</div>
 		        	<ul className={styles["tab-bar"]}>
 		        		<li key={1}>
-		        			<Link to="/admin/rights/" className={styles["admin-nav-item-active"]}>
+		        			<Link to="/admin/rights/" activeClassName={styles["admin-nav-item-active"]}>
 		        				Rights
 		        			</Link>
 		        		</li>
 		        		<li key={2}>
-		        			<Link to="/admin/features/" className={styles["admin-nav-item-active"]}>
+		        			<Link to="/admin/features/" activeClassName={styles["admin-nav-item-active"]}>
 		        				Features
 		        			</Link>
 		        		</li>
 		        		<li key={3}>
-		        			<Link to="/admin/Sections/" className={styles["admin-nav-item-active"]}>
+		        			<Link to="/admin/Sections/" activeClassName={styles["admin-nav-item-active"]}>
 		        				Sections
 		        			</Link>
 		        		</li>
 		        		<li key={4}>
-		        			<Link to="/admin/tags/" className={styles["admin-nav-item-active"]}>
+		        			<Link to="/admin/tags/" activeClassName={styles["admin-nav-item-active"]}>
 		        				Tags
 		        			</Link>
 		        		</li>
 		        		<li key={5}>
-		        			<Link to="/admin/tech/" className={styles["admin-nav-item-active"]}>
+		        			<Link to="/admin/tech/" activeClassName={styles["admin-nav-item-active"]}>
 		        				Tech
 		        			</Link>
 		        		</li>
 		        		<li key={6}>
-		        			<Link to="/admin/project/" className={styles["admin-nav-item-active"]}>
-		        				Add Project
+		        			<Link to="/admin/project/" activeClassName={styles["admin-nav-item-active"]}>
+		        				Add  Project
 		        			</Link>
 		        		</li>
 					</ul>

@@ -21,7 +21,7 @@ class Navbar extends Component {
     }
  	render() {
         return (
-          <div className={styles.sidebar}>
+          <div id={styles.sidebar}>
             <div className={styles.sidebarHeader}>
               <p>INTRANET</p>
             </div>

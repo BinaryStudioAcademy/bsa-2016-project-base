@@ -5,6 +5,7 @@ import MultiSelect from './MultiSelect';
 import { FormControl, Col, Button} from 'react-bootstrap';
 import * as actionsSection from "../../../actions/admin/SectionsActions";
 import * as actionsFeature from "../../../actions/admin/FeaturesActions";
+import DD from '../../common/ddFilter';
 import styles from './styles/Features.sass';
 
 class FeaturesToolBar extends Component {
@@ -50,16 +51,15 @@ class FeaturesToolBar extends Component {
         return (
             <div>
                 <div className={styles['features-tool-bar']}>
-                    <Col xs={12} sm={4} >
-                        <div className={styles['search-input-container']}>
-                            <FormControl className={styles['search-input']}
-                                         type="text" placeholder="Search" onChange={this.handlerFilterFeatures}
-                                         id="FeatureSearchInput"
-                            />
-                            <span className={styles['search-input-border']}></span>
-                        </div>
-                    </Col>
-                    <Col sm={3}>
+                    <div className={styles['search-input-container']}>
+                        <input className={styles['search-input']}
+                               type="text" 
+                               placeholder="Search" 
+                               onChange={this.handlerFilterFeatures}
+                               id="FeatureSearchInput"
+                        />
+                        <span className={styles['search-input-border']}></span>
+                    </div>
                         <MultiSelect title="Sections" id="multiSelectSections">
                             {
                                 this.props.sectionsData.sections.map(function(el, index) {
@@ -73,8 +73,31 @@ class FeaturesToolBar extends Component {
                                 })
                             }
                         </MultiSelect>
-                    </Col>
-                    <Col xs={12} sm={5}>
+                        <DD 
+                            data={ this.props.sectionsData.sections.map(function(el, index) {
+                                return {
+                                        id: el._id,
+                                        value: el.name,
+                                        name: el.name
+                                    };
+                                })
+                            }
+                            type='Sections'
+                            onItemSelect= {self.handlerCheckedSectionSearch}
+                        />
+                        <MultiSelect title="Sections" id="multiSelectSections">
+                            {
+                                this.props.sectionsData.sections.map(function(el, index) {
+                                    return (
+                                        <div key={index}>
+                                        <FormControl type="checkbox" className={styles['select-checkbox']}
+                                    id={el._id}  onChange={self.handlerCheckedSectionSearch}/>
+                                    <label htmlFor={el._id} className={styles['select-label']}>{el.name}</label>
+                                    </div>
+                                    )
+                                })
+                            }
+                        </MultiSelect>
                         <FormControl type="checkbox" className={styles['select-all-checkbox']}
                                      id="markAll"  onChange={this.handlerMarkAllFeature}
                                      checked={this.props.featuresData.features.length == this.props.listCheckedFeatures.length &&
@@ -84,7 +107,6 @@ class FeaturesToolBar extends Component {
                         <Button className={styles['button-feature-remove']} onClick={this.handlerRemoveChecked} id="buttonFeatureRemove">Remove marked</Button>
                         <Button className={styles['button-feature-add']} id="buttonFeatureAdd" onClick={this.handlerChangeVisibilityForm}>{
                             this.props.featuresData.visibilityForm === "hidden" ? "Add" : "Hide form"}</Button>
-                    </Col>
                 </div>
             </div>
         )
