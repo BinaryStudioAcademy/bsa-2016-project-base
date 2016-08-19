@@ -6,6 +6,11 @@ import styles from './questions.sass';
 class Questions extends Component {
     constructor(props){
         super(props);
+
+        this.state = {
+            show_q: false,
+            shoq_a: []
+        }
     }
 
 
