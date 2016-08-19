@@ -8,7 +8,7 @@ var tagRoutes = require('./tagRoutes');
 var stageRoutes = require('./stageRoutes');
 var documentRoutes = require("./documentRoutes");
 var uploadRoutes = require("./uploadRoutes");
-var predefinedDataRoutes = require('./predefinedDataRoutes');
+ var predefinedDataRoutes = require('./predefinedDataRoutes');
 
 module.exports = function(app) {
 	return {
