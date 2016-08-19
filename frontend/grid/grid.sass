@@ -1,0 +1,21 @@
+=forSmallScreens($media)
+    @media (max-width: $media/16+em)
+        @content
+
+//Main container
+.main-container
+    width: 100%
+
+.row
+    display: flex
+    +forSmallScreens(640)
+        display: block
+        width: 100%
+
+
+//DIVs inside the flex container
+.col
+    background: #3498db
+    height: 100px
+    margin: 0 .83%
+    width: 100%

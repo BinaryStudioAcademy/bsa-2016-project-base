@@ -41,26 +41,29 @@ class Home extends Component {
 
 	    return (
 	    	<div className={styles.homeContent}>
-	    	  <header className={styles.homeContentHeader}>
-	    	    <GeneralInformation
-		    	cnt={ cntAllProjectFil } />
-		  </header>
-		  <section className={styles.sectionContent}>
-		    <SearchHome
-		    	filter = {::this.filterProject}
-			filterByTech = {::this.filterByTech}
-			orderBy = {::this.sortByParams}
-			search = {search}
-			technologies = {technologies} />
-			<ListProjects
-			  projects={ filteredProjects } />
-			<PaginationHome
-			  activePage={ pagination.activePage }
-			  sumPages = { sumFilterProj }
-			  pageSelect = {::this.pageSelect}/>
-		  </section>
-		</div>
-
+	    	  		<header className={styles.homeContentHeader}>
+	    	    		<GeneralInformation
+		    				cnt={ cntAllProjectFil }
+		    			/>
+		  			</header>
+		  		<section className={styles.sectionContent}>
+		    		<SearchHome
+		    			filter = {::this.filterProject}
+						filterByTech = {::this.filterByTech}
+						orderBy = {::this.sortByParams}
+						search = {search}
+						technologies = {technologies}
+					/>
+					<ListProjects
+			  			projects={ filteredProjects }
+			  		/>
+					<PaginationHome
+			  			activePage={ pagination.activePage }
+			  			sumPages = { sumFilterProj }
+			  			pageSelect = {::this.pageSelect}
+			  		/>
+		  		</section>
+			</div>
 	    )
 	}
 }

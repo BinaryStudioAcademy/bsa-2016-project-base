@@ -9,12 +9,12 @@ const TextArea = ({id, label, value, placeholder, onChange, rows, cols}) => {
          	<textarea 
                 className={styles.mytextarea}
                 id={id}
+                value={value}
                 rows={rows} 
                 cols={cols}
                 onChange={onChange}
-                placeholder={placeholder}>
-         		{value}
-			</textarea>
+                placeholder={placeholder}
+            />
         </div>
     );
 };

@@ -17,17 +17,23 @@ export default class ListFeatures extends Component {
         return (
             <ListGroup className={ styles.listgroup }>
                 { visibleFeatures.map(feature => {
-                    const {childFeatures, featureName, isItSubFeature, isImplemented} = feature;
+                    const {childFeatures, featureName, isItSubFeature, isImplemented, section} = feature;
+                    let header = (
+                        <div>
+                            <h4>{featureName}</h4>
+                            <p><span>Section: </span>{section.name}</p><hr />
+                        </div>);
+
                     if (isItSubFeature) return false;
 
                     return (
                         <ListGroupItem
                             key={feature._id} data-id={feature._id}
-                            header={ featureName }
+                            header={ header }
                             className={ (isImplemented)? styles.completedF: styles.incompletedF }
                             onClick={ modalOpen }
                         >
-                            <span>{feature.featureDescription.extLinks}</span>&nbsp;
+                            <span>{feature.descriptionText}</span>
                             {(childFeatures && childFeatures.length > 0) ? childFeatures.map( id => {
                                 const subfeature = allFeatures.filter(feature => feature._id === id)[0];
 

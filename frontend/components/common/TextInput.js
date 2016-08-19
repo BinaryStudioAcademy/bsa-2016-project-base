@@ -10,7 +10,7 @@ const TextInput = ({id, label, value, placeholder, onChange}) => {
                 className={styles.myinput} 
                 id={id} 
                 type="text" 
-                defaultValue={value} 
+                value={value} 
                 placeholder={placeholder}
                 onChange={onChange}
             />

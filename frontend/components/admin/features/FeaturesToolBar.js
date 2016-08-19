@@ -1,31 +1,32 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import React, { Component, PropTypes } from 'react';
-
 import MultiSelect from './MultiSelect';
-import {Grid, FormControl, Row, Col, Button} from 'react-bootstrap';
+import { FormControl, Col, Button} from 'react-bootstrap';
 import * as actionsSection from "../../../actions/admin/SectionsActions";
 import * as actionsFeature from "../../../actions/admin/FeaturesActions";
-
+import DD from '../../common/ddFilter';
 import styles from './styles/Features.sass';
 
 class FeaturesToolBar extends Component {
     constructor(props) {
         super(props);
-        this.removeChecked = this.removeChecked.bind(this);
-        this.markAllFeature = this.markAllFeature.bind(this);
+        this.handlerRemoveChecked = this.handlerRemoveChecked.bind(this);
+        this.handlerMarkAllFeature = this.handlerMarkAllFeature.bind(this);
         this.handlerFilterFeatures = this.handlerFilterFeatures.bind(this);
-        this.handlerCheckedSection = this.handlerCheckedSection.bind(this);
+        this.handlerCheckedSectionSearch = this.handlerCheckedSectionSearch.bind(this);
         this.handlerChangeVisibilityForm = this.handlerChangeVisibilityForm.bind(this);
+        this.props.getAllSections();
     }
 
     handlerChangeVisibilityForm() {
-        this.props.changeVisibilityForm(this.props.featuresData.visibilityForm)
+        this.props.changeVisibilityForm(this.props.featuresData.visibilityForm);
+
     }
 
-    removeChecked() {
-        let {listCheckedFeatures} = this.props.featuresData;
-        this.props.removeFeature(listCheckedFeatures);
+    handlerRemoveChecked() {
+        this.props.removeFeature(this.props.listCheckedFeatures);
+        this.props.removeChecked();
         this.props.getAllFeaturesOfAllProjects();
     }
 
@@ -33,16 +34,16 @@ class FeaturesToolBar extends Component {
         this.props.getAllFeaturesOfAllProjects();
     }
 
-    markAllFeature(e) {
-        this.props.markedAllFeatures(this.props.featuresData.features, e.target.checked, this.props.featuresData.listCheckedFeatures);
+    handlerMarkAllFeature(e) {
+        this.props.markedAllFeatures(this.props.featuresData.features, e.target.checked);
     }
 
     handlerFilterFeatures(e) {
         this.props.filterFeatures(e.target.value);
     }
 
-    handlerCheckedSection(e) {
-        this.props.changeCheckedSections(this.props.featuresData.listCheckedSections, e.target.checked, e.target.id)
+    handlerCheckedSectionSearch(e) {
+        this.props.changeCheckedFeature(this.props.featuresData.listCheckedSections, e.target.checked, e.target.id)
     }
 
     render() {
@@ -50,40 +51,62 @@ class FeaturesToolBar extends Component {
         return (
             <div>
                 <div className={styles['features-tool-bar']}>
-                    <Col xs={12} sm={4} >
-                        <div className={styles['search-input-container']}>
-                            <FormControl className={styles['search-input']}
-                                         type="text" placeholder="Search" onChange={this.handlerFilterFeatures}
-                                         id="FeatureSearchInput"
-                            />
-                            <span className={styles['search-input-border']}></span>
-                        </div>
-                    </Col>
-                    <Col sm={2}>
+                    <div className={styles['search-input-container']}>
+                        <input className={styles['search-input']}
+                               type="text" 
+                               placeholder="Search" 
+                               onChange={this.handlerFilterFeatures}
+                               id="FeatureSearchInput"
+                        />
+                        <span className={styles['search-input-border']}></span>
+                    </div>
                         <MultiSelect title="Sections" id="multiSelectSections">
                             {
                                 this.props.sectionsData.sections.map(function(el, index) {
                                     return (
                                         <div key={index}>
                                         <FormControl type="checkbox" className={styles['select-checkbox']}
-                                    id={el._id}  onChange={self.handlerCheckedSection}/>
+                                    id={el._id}  onChange={self.handlerCheckedSectionSearch}/>
                                     <label htmlFor={el._id} className={styles['select-label']}>{el.name}</label>
                                     </div>
                                     )
                                 })
                             }
                         </MultiSelect>
-                    </Col>
-                    <Col xs={12} sm={6}>
+                        <DD 
+                            data={ this.props.sectionsData.sections.map(function(el, index) {
+                                return {
+                                        id: el._id,
+                                        value: el.name,
+                                        name: el.name
+                                    };
+                                })
+                            }
+                            type='Sections'
+                            onItemSelect= {self.handlerCheckedSectionSearch}
+                        />
+                        <MultiSelect title="Sections" id="multiSelectSections">
+                            {
+                                this.props.sectionsData.sections.map(function(el, index) {
+                                    return (
+                                        <div key={index}>
+                                        <FormControl type="checkbox" className={styles['select-checkbox']}
+                                    id={el._id}  onChange={self.handlerCheckedSectionSearch}/>
+                                    <label htmlFor={el._id} className={styles['select-label']}>{el.name}</label>
+                                    </div>
+                                    )
+                                })
+                            }
+                        </MultiSelect>
                         <FormControl type="checkbox" className={styles['select-all-checkbox']}
-                                     id="markAll"  onChange={this.markAllFeature}
-                                     checked={this.props.featuresData.features.length == this.props.featuresData.listCheckedFeatures.length
-                                     && this.props.featuresData.features.length != 0}
+                                     id="markAll"  onChange={this.handlerMarkAllFeature}
+                                     checked={this.props.featuresData.features.length == this.props.listCheckedFeatures.length &&
+                                     this.props.featuresData.features.length != 0}
                         />
                         <label htmlFor="markAll" className={styles['select-all-label']}>Mark all</label>
-                        <Button className={styles['button-feature-remove']} onClick={this.removeChecked} id="buttonFeatureRemove">Remove marked</Button>
-                        <Button className={styles['button-feature-add']} id="buttonFeatureAdd" onClick={this.handlerChangeVisibilityForm}>Add feature</Button>
-                    </Col>
+                        <Button className={styles['button-feature-remove']} onClick={this.handlerRemoveChecked} id="buttonFeatureRemove">Remove marked</Button>
+                        <Button className={styles['button-feature-add']} id="buttonFeatureAdd" onClick={this.handlerChangeVisibilityForm}>{
+                            this.props.featuresData.visibilityForm === "hidden" ? "Add" : "Hide form"}</Button>
                 </div>
             </div>
         )

@@ -12,7 +12,7 @@ class Navbar extends Component {
         };
         this.toggleMenu = this.toggleMenu.bind(this);
 	}
-    
+
     toggleMenu(e) {
         let state = this.state.isMenuActive;
         this.setState({
@@ -21,39 +21,47 @@ class Navbar extends Component {
     }
  	render() {
         return (
-          <div className="sidebar">
+          <div id={styles.sidebar}>
             <div className={styles.sidebarHeader}>
               <p>INTRANET</p>
             </div>
             <ul className={styles.mainNav}>
 
-              <Link to="/home">
+            <li key={1}>
+              <Link to="/home" activeClassName={styles.active}>
                 <span className={styles.icon}>
                   <FaHome size={15} />
                 </span>
-                <li key={1}>Projects</li>
+                <span className={styles['item-name']}>Projects</span>
               </Link>
+           </li>
 
-              <Link to="/review">
+           <li key={2}>
+              <Link to="/review" activeClassName={styles.active}>
                 <span className={styles.icon}>
                   <FaAsterisk size={15} />
                 </span>
-                <li key={2}>Inquiry Review</li>
+                <span className={styles['item-name']}>Inquiry Review</span>
               </Link>
+           </li>
 
-              <Link to="/stats">
+           <li key={3}>
+              <Link to="/stats" activeClassName={styles.active}>
                 <span className={styles.icon}>
-                  <FaBarChart size={15}/>
+                  <FaBarChart size={15} />
                 </span>
-                <li key={3}>Stats</li>
+                <span className={styles['item-name']}>Stats</span>
               </Link>
+           </li>
 
-              <Link to="/admin">
+           <li key={4}>
+              <Link to="/admin" activeClassName={styles.active}>
                 <span className={styles.icon}>
                   <FaCog size={15} />
                 </span>
-                <li key={4}>Admin Area</li>
+                <span className={styles['item-name']}>Admin Area</span>
               </Link>
+           </li>
 
             </ul>
           </div>

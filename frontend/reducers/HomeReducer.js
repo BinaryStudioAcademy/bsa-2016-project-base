@@ -22,7 +22,7 @@ export default function HomeReducer(state = initialState, action) {
             } else {
                 filter = state.filterTech.filter(v => !~v.indexOf(filterTech));
             }
-            
+
             return Object.assign({}, state, {
                 filterTech: filter
             });

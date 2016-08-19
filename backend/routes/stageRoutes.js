@@ -1,6 +1,6 @@
 var apiResponse = require('express-api-response');
 var stageRepository = require('../repositories/stageRepository');
-
+ 
 module.exports = function(app) {
 	app.get('/api/stages/', function(req, res, next) {
 		stageRepository.getAll( function(err, data) {

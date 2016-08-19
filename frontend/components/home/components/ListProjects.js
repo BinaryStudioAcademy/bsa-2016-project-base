@@ -27,7 +27,7 @@ export default class ListProjects extends Component {
 
         return (
                 (projects.length > 0) ?
-                <ListGroup id="list-projects" className={styles['list-group']}>
+                <div className={styles["home-content-row"]}>
                     {projects.map( project =>
                         <Project
                             key={project._id}
@@ -35,7 +35,7 @@ export default class ListProjects extends Component {
                             project={project}
                             ranking={this.ranking(project.rating)}/>
                     )}
-                </ListGroup> : null
+                </div> : null
         )
     }
 }

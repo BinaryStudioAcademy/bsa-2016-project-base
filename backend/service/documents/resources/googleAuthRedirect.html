@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"
+        integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-url-parser/2.3.1/purl.min.js"></script>
+<script>
+    if (window.opener){
+        var tokens = $.url().param('tokens');
+        if (tokens){
+            window.opener.document.getElementById("tokens").value = tokens;
+            window.opener.document.getElementById("auth-success").click();
+            window.close();
+        }
+    }
+</script>
+</body>
+</html>

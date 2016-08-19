@@ -15,20 +15,21 @@ export default class Project extends Component {
         const { project, ranking } = this.props;
 
         return (
-            <ListGroupItem id='home-project' className={styles['list-group-item']}>
+            <li id='home-project' className={styles['list-group-item']}>
                 <Link to={`/project-view/${project._id}`}>
                 <h4>
                     {project.projectName}
                 </h4>
+                <img src="http://placehold.it/140x100" />
                 {
                     (project.isCompleted) ?
                         <div className={styles['stage-icon']}>
-                            <FaCheckCircleO size={80} color="#2ECC71" />
-                            <p>PROJECT COMPLETED</p>
+                            <FaCheckCircleO size={25} color="#2ECC71" />
+                            <span>PROJECT COMPLETED</span>
                         </div>:
                         <div className={styles['stage-icon']}>
-                            <FaCogs size={80} color="#FC5A5A"/>
-                            <p>PROJECT UNDER DEVELOPMENT</p>
+                            <FaCogs size={25} color="#FC5A5A"/>
+                            <span>PROJECT UNDER DEVELOPMENT</span>
                         </div>
                 }
 
@@ -59,7 +60,7 @@ export default class Project extends Component {
                     <div>Progect in process</div>
                 }
                 </Link>
-            </ListGroupItem>
+            </li>
             
         )
     }

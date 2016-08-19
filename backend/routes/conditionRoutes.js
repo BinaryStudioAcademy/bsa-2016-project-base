@@ -1,6 +1,6 @@
 var apiResponse = require('express-api-response');
 var conditionRepository = require('../repositories/conditionRepository');
-
+ 
 module.exports = function(app) {
     app.get('/api/conditions/', function(req, res, next) {
 		conditionRepository.getAll( function(err, data) {
