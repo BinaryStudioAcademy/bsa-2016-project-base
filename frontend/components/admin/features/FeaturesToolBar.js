@@ -73,18 +73,6 @@ class FeaturesToolBar extends Component {
                                 })
                             }
                         </MultiSelect>
-                        <DD 
-                            data={ this.props.sectionsData.sections.map(function(el, index) {
-                                return {
-                                        id: el._id,
-                                        value: el.name,
-                                        name: el.name
-                                    };
-                                })
-                            }
-                            type='Sections'
-                            onItemSelect= {self.handlerCheckedSectionSearch}
-                        />
                         <MultiSelect title="Sections" id="multiSelectSections">
                             {
                                 this.props.sectionsData.sections.map(function(el, index) {
