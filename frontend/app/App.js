@@ -10,7 +10,7 @@ class App extends Component {
     render() {
         return (
             <div className={styles["main-container"]}>
-                <div className={styles.row}>
+                <div className={styles.mainRow}>
                     <Navbar />
                     {this.props.children}
                 </div>

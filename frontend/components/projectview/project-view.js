@@ -9,8 +9,9 @@ import UserList from './users-component/users_list';
 import styles from './project-view.sass';
 import EstimationFile from "./estimationFile/EstimationFileReceiverComponentWithLinkField"
 import { Accordion, Button, Panel, Nav, NavItem, Tabs, Tab, Table, Grid, Row, Col, Thumbnail, Glyphicon } from 'react-bootstrap';
+import FaList from 'react-icons/lib/fa/list';
 
-
+ 
 class ProjectView extends Component {
 	
     constructor(props){
@@ -69,104 +70,119 @@ class ProjectView extends Component {
     	console.log('ProjectView -> render() -> currentProject.projectName: ', currentProject.projectName);
     	return (
 
-          <div className={styles.component}>
+            <div id={styles["project-view-content"]}>
+                <header className={styles["project-view-content-header"]}>
+                            <div>
+                                <FaList size={20} />
+                                <span>Project Summary</span>
+                            </div>
+                </header>
+            
 
-			    	<div className={styles.info}>
-			    		<Panel header={<span className={styles.header}>Project Summary:</span>} className={styles.brief}>
-			    			<Table striped bordered condensed hover>
-							    <tbody>
-							      <tr className={styles.row}>
-							        <td><u className={styles.cell}>Project Name:</u></td>
-							        <td><span className={styles.cell}>{viewProjectName}</span></td>
-							        <td className={styles.tdbut}><Button className={styles.btn}><Glyphicon glyph="edit"/></Button></td>
-							      </tr>
-							      <tr className={styles.row}>
-							        <td><u className={styles.cell}>Stage:</u></td>
-							        <td><span className={styles.cell}>{viewStageName}</span></td>
-							        <td className={styles.tdbut}><Button className={styles.btn}><Glyphicon glyph="edit"/></Button></td>
-							      </tr>
-							      <tr className={styles.row}>
-							        <td><u className={styles.cell}>Started:</u></td>
-							        <td><span className={styles.cell}>{viewStartedDate}</span></td>
-							        <td className={styles.tdbut}><Button className={styles.btn}><Glyphicon glyph="edit"/></Button></td>
-							      </tr>
-							      <tr className={styles.row}>
-							        <td><u className={styles.cell}>Completed:</u></td>
-							        <td><span className={styles.cell}>{viewEndDate}</span></td>
-							        <td className={styles.tdbut}><Button className={styles.btn}><Glyphicon glyph="edit"/></Button></td>
-							      </tr>
-							      <tr className={styles.row}>
-							        <td><u className={styles.cell}>Condition:</u></td>
-							        <td><span className={styles.cell}>{viewCondition}</span></td>
-							        <td className={styles.tdbut}><Button className={styles.btn}><Glyphicon glyph="edit"/></Button></td>
-							      </tr>
-							      <tr className={styles.row}>
-							        <td><u className={styles.cell}>Average Rating:</u></td>
-							        <td><span className={styles.cell}>5</span></td>
-							        <td className={styles.tdbut}></td>
-							      </tr>
-							    </tbody>
-						  	</Table>
-	    				</Panel>
-	    				<button onClick={this.props.getProjectTechnologies}>Get Tech-s</button>
-						<button onClick={this.props.getProjectTags}>Get Tags</button>
-						<button onClick={this.props.getProjectFeatures}>Get Features</button>
-	    				<Tabs defaultActiveKey={1} className={styles.tabpanels}>
-	    					<Tab eventKey={1} title="Users/Owners">
-	    						<Panel>
-	    							<UserList />
-	    						</Panel>
-							</Tab>
-	    				<Tab eventKey={2} title="Technologies" onClick={this.props.getProjectTechnologies}><Panel><TechnologiesList /></Panel></Tab>
-	        			<Tab eventKey={3} title="Tags" onClick={this.props.getProjectTags}><Panel><TagsList/></Panel></Tab>
-	        			<Tab eventKey={4} title="Screenshots">
-	        				<Panel>	        					
-	        					<div className={styles.gallery}>
-											<Screenshots />
-										</div>		   
-							</Panel>     				
-	        			</Tab>
-        				<Tab eventKey={5} title="Features" onClick={this.props.getProjectFeatures}><Panel>Table of features</Panel></Tab>
-        				<Tab eventKey={6} title="Ratings"><Panel>
-							Table of rates</Panel></Tab>
-        				<Tab eventKey={7} title="Description"><Panel><EstimationFile/>Description</Panel></Tab>
-	  					</Tabs>
-	    				<div>
-					    	<Panel header={<span className={styles.questionHeader}>Questions and Answers</span>}  className={styles.questionPanel}>
-					      		<Accordion>
-	    							<Panel header={<span className={styles.questionItem}><span className={styles.userName}>Author: </span> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid?</span>} eventKey="1" className={styles.questions}>
-	      								<u className={styles.userName}>Answer author:</u> <p>Anim pariatur cliche reprehenderit, 
-	      								enim eiusmod high life accusamus terry richardson ad squid.
-	      								3 wolf moon officia aute, non cupidatat skateboard dolor brunch.
-	      								Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
-	      								sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
-	      								shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes 
-	      								anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.</p>
-	    							</Panel>
-	    							<Panel header={<span className={styles.userName}>Question #2</span>} eventKey="2" className={styles.questions}>
-	      								<u className={styles.userName}>Answer:</u> Anim pariatur cliche reprehenderit, enim eiusmod high 
-	      								life accusamus terry richardson ad squid. 3 wolf moon officia aute, 
-	      								non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt 
-	      								laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on 
-	      								it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim 
-	      								keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente 
-	      								ea proident. Ad vegan excepteur butcher vice lomo.
-	    							</Panel>
-								    <Panel header={<span className={styles.userName}>Question #3</span>} eventKey="3" className={styles.questions}>
-								      <u className={styles.userName}>Answer:</u> Anim pariatur cliche reprehenderit, enim eiusmod high life 
-								      accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
-								       skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3
-								        wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee 
-								        nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer 
-								        labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
-								         butcher vice lomo.
-								    </Panel>
-	  							</Accordion>
-					    	</Panel>
-					  	</div>
-			    		<Button className={styles.btn} href='/'>Back to Project List</Button>
-			    	</div>
-			    </div>
+
+
+
+
+
+            <div className={styles.component}>
+
+                    <div className={styles.info}>
+                        <Panel header={<span className={styles.header}>Project Summary:</span>} className={styles.brief}>
+                            <Table striped bordered condensed hover>
+                                <tbody>
+                                  <tr className={styles.row}>
+                                    <td><u className={styles.cell}>Project Name:</u></td>
+                                    <td><span className={styles.cell}>{viewProjectName}</span></td>
+                                    <td className={styles.tdbut}><Button className={styles.btn}><Glyphicon glyph="edit"/></Button></td>
+                                  </tr>
+                                  <tr className={styles.row}>
+                                    <td><u className={styles.cell}>Stage:</u></td>
+                                    <td><span className={styles.cell}>{viewStageName}</span></td>
+                                    <td className={styles.tdbut}><Button className={styles.btn}><Glyphicon glyph="edit"/></Button></td>
+                                  </tr>
+                                  <tr className={styles.row}>
+                                    <td><u className={styles.cell}>Started:</u></td>
+                                    <td><span className={styles.cell}>{viewStartedDate}</span></td>
+                                    <td className={styles.tdbut}><Button className={styles.btn}><Glyphicon glyph="edit"/></Button></td>
+                                  </tr>
+                                  <tr className={styles.row}>
+                                    <td><u className={styles.cell}>Completed:</u></td>
+                                    <td><span className={styles.cell}>{viewEndDate}</span></td>
+                                    <td className={styles.tdbut}><Button className={styles.btn}><Glyphicon glyph="edit"/></Button></td>
+                                  </tr>
+                                  <tr className={styles.row}>
+                                    <td><u className={styles.cell}>Condition:</u></td>
+                                    <td><span className={styles.cell}>{viewCondition}</span></td>
+                                    <td className={styles.tdbut}><Button className={styles.btn}><Glyphicon glyph="edit"/></Button></td>
+                                  </tr>
+                                  <tr className={styles.row}>
+                                    <td><u className={styles.cell}>Average Rating:</u></td>
+                                    <td><span className={styles.cell}>5</span></td>
+                                    <td className={styles.tdbut}></td>
+                                  </tr>
+                                </tbody>
+                            </Table>
+                        </Panel>
+                        <button onClick={this.props.getProjectTechnologies}>Get Tech-s</button>
+                        <button onClick={this.props.getProjectTags}>Get Tags</button>
+                        <button onClick={this.props.getProjectFeatures}>Get Features</button>
+                        <Tabs defaultActiveKey={1} className={styles.tabpanels}>
+                            <Tab eventKey={1} title="Users/Owners">
+                                <Panel>
+                                    <UserList />
+                                </Panel>
+                            </Tab>
+                        <Tab eventKey={2} title="Technologies" onClick={this.props.getProjectTechnologies}><Panel><TechnologiesList /></Panel></Tab>
+                        <Tab eventKey={3} title="Tags" onClick={this.props.getProjectTags}><Panel><TagsList/></Panel></Tab>
+                        <Tab eventKey={4} title="Screenshots">
+                            <Panel>                             
+                                <div className={styles.gallery}>
+                                            <Screenshots />
+                                        </div>         
+                            </Panel>                    
+                        </Tab>
+                        <Tab eventKey={5} title="Features" onClick={this.props.getProjectFeatures}><Panel>Table of features</Panel></Tab>
+                        <Tab eventKey={6} title="Ratings"><Panel>
+                            Table of rates</Panel></Tab>
+                        <Tab eventKey={7} title="Description"><Panel><EstimationFile/>Description</Panel></Tab>
+                        </Tabs>
+                        <div>
+                            <Panel header={<span className={styles.questionHeader}>Questions and Answers</span>}  className={styles.questionPanel}>
+                                <Accordion>
+                                    <Panel header={<span className={styles.questionItem}><span className={styles.userName}>Author: </span> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid?</span>} eventKey="1" className={styles.questions}>
+                                        <u className={styles.userName}>Answer author:</u> <p>Anim pariatur cliche reprehenderit, 
+                                        enim eiusmod high life accusamus terry richardson ad squid.
+                                        3 wolf moon officia aute, non cupidatat skateboard dolor brunch.
+                                        Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+                                        sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
+                                        shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes 
+                                        anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.</p>
+                                    </Panel>
+                                    <Panel header={<span className={styles.userName}>Question #2</span>} eventKey="2" className={styles.questions}>
+                                        <u className={styles.userName}>Answer:</u> Anim pariatur cliche reprehenderit, enim eiusmod high 
+                                        life accusamus terry richardson ad squid. 3 wolf moon officia aute, 
+                                        non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt 
+                                        laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on 
+                                        it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim 
+                                        keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente 
+                                        ea proident. Ad vegan excepteur butcher vice lomo.
+                                    </Panel>
+                                    <Panel header={<span className={styles.userName}>Question #3</span>} eventKey="3" className={styles.questions}>
+                                      <u className={styles.userName}>Answer:</u> Anim pariatur cliche reprehenderit, enim eiusmod high life 
+                                      accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
+                                       skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3
+                                        wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee 
+                                        nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer 
+                                        labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
+                                         butcher vice lomo.
+                                    </Panel>
+                                </Accordion>
+                            </Panel>
+                        </div>
+                        <Button className={styles.btn} href='/'>Back to Project List</Button>
+                    </div>
+                </div>
+                </div>
           )
     }
 }

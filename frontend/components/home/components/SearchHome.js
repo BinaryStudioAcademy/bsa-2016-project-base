@@ -21,7 +21,7 @@ export default class SearchHome extends Component {
 
         return (
             <div className={styles["home-content-row"]}>
-                <div className={ styles['project-search'] }>
+                <div id={ styles['project-search'] }>
                     <div className={styles['search-wrapper']}>
                         <FaSearch size={15} />
                         <input
@@ -33,7 +33,7 @@ export default class SearchHome extends Component {
                         />
                     </div>
                 </div>
-                <div className={styles['display-flex']}>
+                <div id={styles['display-flex']}>
                     <DropDown
                         data={[
                             {
