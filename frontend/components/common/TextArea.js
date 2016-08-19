@@ -7,12 +7,12 @@ const TextArea = ({id, label, value, placeholder, onChange, rows, cols}) => {
          	{labelHtml}
          	<textarea 
                 id={id}
+                value={value}
                 rows={rows} 
                 cols={cols}
                 onChange={onChange}
-                placeholder={placeholder}>
-         		{value}
-			</textarea>
+                placeholder={placeholder}
+            />
         </div>
     );
 };
