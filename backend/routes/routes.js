@@ -6,7 +6,7 @@ var conditionRoutes =require('./conditionRoutes');
 var featureRoutes = require('./featureRoutes');
 var tagRoutes = require('./tagRoutes');
 var stageRoutes = require('./stageRoutes');
-
+var predefinedDataRoutes = require('./predefinedDataRoutes');
 
 module.exports = function(app) {
 	return {
@@ -17,7 +17,7 @@ module.exports = function(app) {
 		conditionRoutes:conditionRoutes(app),
 		featureRoutes: featureRoutes(app),
 		tagRoutes: tagRoutes(app),
-		stageRoutes: stageRoutes(app)
-
+		stageRoutes: stageRoutes(app),
+		predefinedDataRoutes: predefinedDataRoutes(app)
 	};
 };

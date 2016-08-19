@@ -10,7 +10,7 @@ Repository.prototype.add = function(data, callback){
 
 Repository.prototype.getAllDataMainPage = function(callback){
 	var model = this.model;
-	var query = model.find().populate(['technologies', 'stage']);
+	var query = model.find().populate('technologies');
 	query.exec(callback);
 };
 
@@ -71,16 +71,6 @@ Repository.prototype.getByIdFeatures = function(id, callback){
 	var query = model.findOne({_id:id}).populate('features');
 	query.exec(callback);
 };
-
-// Repository.prototype.getByIdWithStakeholders = function(id, callback){
-// 	var model = this.model;
-// 	var query = model.findOne({_id:id})
-// //				.populate('stage')
-// //				.populate('condition')
-// 				.populate('users')
-// 				.populate('owners');
-// 	query.exec(callback);
-// };
 
 Repository.prototype.getDetails = function(arrOfId, callback){
 	var model = this.model;

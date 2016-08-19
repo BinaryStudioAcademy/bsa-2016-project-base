@@ -7,3 +7,5 @@ export {default as Checkbox} from './Checkbox';
 export {default as TabPanel} from './tabs/TabPanel';
 export {default as TabBody} from './tabs/TabBody';
 export {default as TabHead} from './tabs/TabHead';
+export {default as DataList} from './DataList';
+export {default as FileUpload} from './FileUpload';

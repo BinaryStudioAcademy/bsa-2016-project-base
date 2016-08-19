@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 const TextArea = ({id, label, value, placeholder, onChange, rows, cols}) => {
-	const labelHtml = label ? <label htmlFor={id}>{label}</label> : '';
+	 const labelHtml = label ? <label htmlFor={id}>{label}</label> : '';
 	return (
 		<div>
 			<li>
@@ -16,21 +16,16 @@ const TextArea = ({id, label, value, placeholder, onChange, rows, cols}) => {
 				</textarea>
 			</li>
 		</div>
-	);
+	 );
 };
 
 TextArea.propTypes = {
-	 id: PropTypes.string,
-	 label: PropTypes.string.isRequired,
-	 value: PropTypes.string,
-	 placeholder: PropTypes.string,
-	 rows: PropTypes.number,
-	 cols: PropTypes.number
-};
-
-TextArea.defaultProps = {
-	rows: 5,
-	cols: 15
+	  id: PropTypes.string,
+	  label: PropTypes.string.isRequired,
+	  value: PropTypes.string,
+	  placeholder: PropTypes.string,
+	  rows: PropTypes.number,
+	  cols: PropTypes.number
 };
 
 export default TextArea;

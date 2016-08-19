@@ -7,46 +7,46 @@ import { TextArea, DropDown, DateInput, TextInput } from '../../../common/';
 
 
 class Inputs extends Component {
-	 constructor(props) {
-		  super(props);
-		  this.onProjectNameChange = this.onProjectNameChange.bind(this);
-		  this.onProjectLinkChange = this.onProjectLinkChange.bind(this);
-		  this.onStartDateChange = this.onStartDateChange.bind(this);
-		  this.onFinishDateChange = this.onFinishDateChange.bind(this);
-		  this.onConditionChange = this.onConditionChange.bind(this);
-		  this.onDescriptionChange = this.onDescriptionChange.bind(this);
-	 }
-	 onProjectNameChange(e, id){
+	  constructor(props) {
+			super(props);
+			this.onProjectNameChange = this.onProjectNameChange.bind(this);
+			this.onProjectLinkChange = this.onProjectLinkChange.bind(this);
+			this.onStartDateChange = this.onStartDateChange.bind(this);
+			this.onFinishDateChange = this.onFinishDateChange.bind(this);
+			this.onConditionChange = this.onConditionChange.bind(this);
+			this.onDescriptionChange = this.onDescriptionChange.bind(this);
+	}
+	onProjectNameChange(e, id){
 		console.log('onProjectnameChange: ',e.target.value, id);
 		const name = e.target.value;
 		this.props.changeProjectName(name);
-	 }
-	 onProjectLinkChange(e, id){
-		console.log('onProjectLinkChange: ',e.target.value, id);
-		const link = e.target.value;
-		this.props.changeProjectLink(link);
-	 }
-	 onStartDateChange(e){
-		console.log('onStartDateChange: ',e.target.value);
-		const date = e.target.value;
-		this.props.changeStartDate(date);
-	 }
-	 onFinishDateChange(e){
-		console.log('onFinishDateChange: ',e.target.value);
-		const date = e.target.value;
-		this.props.changeFinishDate(date);
-	 }
-	 onConditionChange(e){
+	}
+	onProjectLinkChange(e, id){
+		  console.log('onProjectLinkChange: ',e.target.value, id);
+		  const link = e.target.value;
+		  this.props.changeProjectLink(link);
+	  }
+	  onStartDateChange(e){
+		  console.log('onStartDateChange: ',e.target.value);
+		  const date = e.target.value;
+		  this.props.changeStartDate(date);
+	  }
+	  onFinishDateChange(e){
+		  console.log('onFinishDateChange: ',e.target.value);
+		  const date = e.target.value;
+		  this.props.changeFinishDate(date);
+	}
+	onConditionChange(e){
 		console.log('onConditionChange: ',e.target.value);
 		const option = e.target.value;
 		this.props.changeCondition(option);
-	 }
-	 onDescriptionChange(e){
+	}
+	onDescriptionChange(e){
 		console.log('onDescriptionChange: ',e.target.value);
 		const text = e.target.value;
 		this.props.changeDescription(text);
-	 }
-	 render() {
+	}
+	render() {
 		const conditionOpts = [
 		{value:1,name:'In progress'},
 		{value:2,name:'Estimated'},
@@ -55,68 +55,69 @@ class Inputs extends Component {
 
 		return (
 			<div className = "admin-addPproject-form-container">
-				<article>
-					<form className = "register-form">
-						<section className = "form-group">
-							<h3> Information about Project</h3>
-							<ul className = "form-fields">
-								<TextInput
-									label='Project name:' 
-									id="projectName"
-									name="projectName"
-									placeholder='My first project'
-									onChange={this.onProjectNameChange}
-								/>
-								<TextInput 
-									label='Link to project:'
-									id="projectLink"
-									name="projectLink" 
-									placeholder='Link to project'
-									onChange={this.onProjectLinkChange}
-								/>
-								<DateInput 
-									label='Start date:'
-									id="startProjectDate"
-									name="startProjectDate"
-									value={'2013-06-09'}
-									onChange={this.onStartDateChange}
-								/>
-								<DateInput 
-									label='Finish date:'
-									id="finishProjectDate"
-									name="finishProjectDate"
-									value={'2014-02-09'}
-									onChange={this.onFinishDateChange}
-								/>
-								<DropDown
-									label='Condition:'
-									id="projectStatus"
-									name="projectStatus" 
-									data = {conditionOpts}
-									onChange={this.onConditionChange}
-								/>
-								<TextArea
-									label='Description:' 
-									id="projectDescription"
-									name="projectDescription"
-									placeholder='Type description here...'
-									onChange={this.onDescriptionChange}
-								/>
-
+				<form className = "register-form">
+					<section className = "form-group">
+						<h3> Information about Project</h3>
+						<ul className = "form-fields">
+							 <TextInput
+								label='Project name:' 
+								id="projectName"
+								name="projectName"
+								placeholder="My first project"
+								onChange={this.onProjectNameChange}
+							 />
+							 <TextInput 
+								label='Link to project:'
+								id="projectLink"
+								name="projectLink" 
+								placeholder="Link to project"
+								onChange={this.onProjectLinkChange}
+							 />
+							 <DateInput 
+								label='Start date:'
+								id="startProjectDate"
+								name="startProjectDate"
+								value={'2013-06-09'}
+								onChange={this.onStartDateChange}
+							 />
+							 <DateInput 
+								label='Finish date:'
+								id="finishProjectDate"
+								name="finishProjectDate"
+								value={'2014-02-09'}
+								onChange={this.onFinishDateChange}
+							 />
+							 <DropDown
+								label='Condition:'
+								id="projectStatus"
+								name="projectStatus" 
+								data = {conditionOpts}
+								onChange={this.onConditionChange}
+							/>
+							<TextArea
+								label='Description:' 
+								id="projectDescription"
+								name="projectDescription"
+								placeholder="Type description here..."
+								onChange={this.onDescriptionChange}
+							/>
+							</ul>
+						</section>
+					</form>
 			</div>
-		);
-	 }
+		  );
+	  }
 }
 
 
 function mapDispatchToProps(dispatch) {
-	 return bindActionCreators(actions, dispatch);
+	  return bindActionCreators(actions, dispatch);
 };
 
 function mapStateToProps(state) {
-	 return {
-		  store: state.UpsertProjectReducer
-	 };
+	  return {
+			 store: state.UpsertProjectReducer
+	  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Inputs);
