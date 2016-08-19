@@ -10,18 +10,29 @@ class Attachments extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            file: null
+            file: null,
+            fileInput: null
         }
         this.loadAttachment = this.loadAttachment.bind(this);
         this.onTechLogoChange = this.onTechLogoChange.bind(this);
+        this.removeFile = this.removeFile.bind(this);
     }
     onTechLogoChange(e) {
         console.log('onTechLogoChange url', e.target.value);
         /*this.setState({
             file:  e.target.files[0]
         })*/
+        
+        this.setState({
+            fileInput:  e.target
+        })
         const file = e.target.files[0];
-        this.props.uploadFile(file);
+        if (file) {
+            this.props.uploadFile(file);
+
+            e.target.value = '';
+        }
+        
     }
     loadAttachment(e) {
         /*console.log('loadAttachment ');
@@ -41,6 +52,10 @@ class Attachments extends Component {
 
         */
     }
+    removeFile(e, name) {
+        console.log('removeFile ',name);
+        this.props.removeFile(name);
+    }
     render() {
         const {files} = this.props;
         const list = files.map( (file, index) => {
@@ -50,6 +65,7 @@ class Attachments extends Component {
                     thumb={file.thumb}
                     url={file.url}
                     name={file.name}
+                    onClick={this.removeFile}
                 />
             );
         });
@@ -58,6 +74,7 @@ class Attachments extends Component {
                 <fieldset>
                     <legend>Attachments</legend>
                     <FileUpload
+                        accept="image/jpeg,image/png,image/gif"
                         onChange={this.onTechLogoChange}
                     />
                     

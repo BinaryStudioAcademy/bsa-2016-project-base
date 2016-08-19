@@ -7,6 +7,10 @@ class UpsertProjectService {
     getPredefinedData() {
         return fetch('/api/predefined/');
     }
+
 }
 const upsertProjectService = new UpsertProjectService();
 export default upsertProjectService;
+
+
+

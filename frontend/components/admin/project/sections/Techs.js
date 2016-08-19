@@ -55,7 +55,8 @@ class Techs extends Component {
     }
     addNewTechToProject(e) {
     	const tech = this.state;
-		this.props.addNewTechToProject(tech);
+		//this.props.addNewTechToProject(tech);
+        this.props.postTech(tech);
 		this.state = {
             techName: '',
             techVersion: '',
@@ -84,33 +85,19 @@ class Techs extends Component {
     		}
     	});
     	const usedTags = technologies.map( (tech, index) => {
-    		if (tech.hasOwnProperty('_id')) {
-	    		if (tech.inProject) {
-	    			return (
-	    				<div key={tech._id}>
-                            <img src={tech.techAvatar} alt="tech logo"/>
-		    				<span>{tech.techName} {tech.techVersion}</span>
-                            <span>{tech.techDescription}</span>
-			    			<Button onClick={(e) => this.removeTechFromProject(e, tech._id)}>
-			            		<i className="fa fa-trash-o" aria-hidden="true"></i>
-			            	</Button>
-		            	</div>
-	    			);
-	    		}
-    		} else {
-    			if (tech.inProject) {
-	    			return (
-	    				<div key={index}>
-                            <img src={tech.techAvatar} alt="tech logo"/>
-		    				<span>{tech.techName} {tech.techVersion}</span>
-                            <span>{tech.techDescription}</span>
-			    			<Button onClick={(e) => this.removeNewTechFromProject(e, tech)}>
-			            		<i className="fa fa-trash-o" aria-hidden="true"></i>
-			            	</Button>
-		            	</div>
-	    			);
-	    		}
+    		if (tech.inProject) {
+    			return (
+    				<div key={tech._id}>
+                        <img src={tech.techAvatar} alt="tech logo"/>
+	    				<span>{tech.techName} {tech.techVersion}</span>
+                        <span>{tech.techDescription}</span>
+		    			<Button onClick={(e) => this.removeTechFromProject(e, tech._id)}>
+		            		<i className="fa fa-trash-o" aria-hidden="true"></i>
+		            	</Button>
+	            	</div>
+    			);
     		}
+    		
     	});
     	
     	return (

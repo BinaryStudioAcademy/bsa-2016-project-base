@@ -1,7 +1,12 @@
 import * as types from './UpsertProjectActionTypes';
 import upsertProjectService from "../../services/admin/UpsertProjectService";
 import adminTagService from "../../services/admin/AdminTagService";
+import techService from "../../services/TechnologieService";
 import uploadService from "../../services/UploadService";
+
+
+
+
 
 
 export function getPredefinedData() {
@@ -58,6 +63,35 @@ export function postTag(tag) {
     };
 };
 
+export function postTech(tech) {
+    return dispatch => {
+        dispatch({
+            type: types.POST_TECH
+        });
+        return techService.addTechology(tech)
+            .then(response => {
+                if (response.status != 201) {
+                    throw Error(response.statusText);
+                } 
+                return response.json();
+            })
+            .then( json =>  {
+                dispatch({
+                    type: types.POST_TECH_SUCCESS,
+                    data: json
+                });
+            })
+            .catch( error => {
+                dispatch({
+                    type: types.POST_TECH_ERROR,
+                    error: error
+                });
+            });
+    };
+};
+
+
+
 
 //export const UPLOAD_FILE = 'UPLOAD_FILE';
 //export const UPLOAD_FILE_ERROR = 'UPLOAD_FILE_ERROR';
@@ -90,6 +124,13 @@ export function uploadFile(file) {
     };
 };
 
+
+export function removeFile(name) {
+    return {
+        type: types.REMOVE_FILE,
+        name
+    };
+};
 
 export function changeProjectName(name) {
     return {
@@ -125,7 +166,6 @@ export function changeCondition(option) {
         option
     };
 };
-
 
 export function changeDescription(text) {
     return {
@@ -170,13 +210,13 @@ export function removeTagFromProject(_id) {
     };
 };
 
-export function addNewTagToProject(newTagName) {
+/*
+export function addNewTagToProject(tagName) {
     return {
         type: types.ADD_NEW_TAG_TO_PROJECT,
-        newTagName
+        tagName
     };
 };
-
 
 export function removeNewTagFromProject(tagName) {
     return {
@@ -184,8 +224,7 @@ export function removeNewTagFromProject(tagName) {
         tagName
     };
 };
-
-
+*/
 
 export function addTechToProject(_id) {
     return {
@@ -201,20 +240,19 @@ export function removeTechFromProject(_id) {
     };
 };
 
-export function addNewTechToProject(tech) {
+/*export function addNewTechToProject(tech) {
     return {
         type: types.ADD_NEW_TECH_TO_PROJECT,
         tech
     };
 };
 
-
 export function removeNewTechFromProject(tech) {
     return {
         type: types.REMOVE_NEW_TECH_FROM_PROJECT,
         tech
     };
-};
+};*/
 
 
 

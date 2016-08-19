@@ -1,12 +1,6 @@
 import * as types from '../../actions/admin/UpsertProjectActionTypes';
 
 
-/*features
-sections
-tags
-technologies
-users*/
-
 export default function UpsertProjectReducer(state=initialState, action) {
 	switch (action.type) {
 		 case types.GET_DATA_SUCCESS: {
@@ -117,7 +111,14 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 tags: addNewTag(tags, data)
             });
         }
-        
+        case types.POST_TECH_SUCCESS: {
+            const {data} = action;
+            const {technologies} = state;
+            console.log('POST_TECH',data);
+            return Object.assign({}, state, {
+                technologies: addNewTech(technologies, data)
+            });
+        }
         case types.UPLOAD_FILE_SUCCESS: {
             const {path} = action.data;
             const {files} = state;
@@ -129,17 +130,13 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 })
             });
         }
-
-        /*case types.ADD_NEW_TAG_TO_PROJECT: {
-            const {newTagName} = action;
-            const {tags} = state;
-            const result = addNewTagToProject(tags, newTagName);
-
+        case types.REMOVE_FILE: {
+            const {name} = action;
+            const {files} = state;
             return Object.assign({}, state, {
-                tags: result[0],
-                tagExists: result[1]
+                files: removeFile(files, name)
             });
-        }*/
+        }
         case types.REMOVE_NEW_TAG_FROM_PROJECT: {
             const {tagName} = action;
             const {tags} = state;
@@ -161,20 +158,6 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 technologies: removeTechFromProject(technologies, _id)
             });
         }
-        case types.ADD_NEW_TECH_TO_PROJECT: {
-            const {tech} = action;
-            const {technologies} = state;
-            return Object.assign({}, state, {
-                technologies: addNewTechToProject(technologies, tech)
-            });
-        }
-        case types.REMOVE_NEW_TECH_FROM_PROJECT: {
-            const {tech} = action;
-            const {technologies} = state;
-            return Object.assign({}, state, {
-                technologies: removeNewTechFromProject(technologies, tech)
-            });
-        }
         default: {
             return state;        
         }
@@ -182,27 +165,19 @@ export default function UpsertProjectReducer(state=initialState, action) {
 };
 
 
-const addNewTechToProject = (techs, tech) => {
-	let exist = false;
-	techs.forEach( (item, index) => {
-		if (item.techName === tech.techName) exist = true;
-		
-	});
-	if (!exist) {
-		tech.inProject = true;
-		techs.push(tech);
-	}
-	
-	return techs;
-}
-
-const removeNewTechFromProject = (techs, tech) => {
-	techs.forEach( (item, index) => {
-		if (item.techName === tech.techName) {
-			techs.splice(index, 1)
+const removeFile = (files, name) => {
+	files.forEach( (file, index) => {
+		if (file.name === name) {
+			files.splice(index, 1);
 		}
 	});
-	return [].concat(techs);
+	return [].concat(files);
+}
+
+const addNewTech  = (technologies, tech) => {
+	tech.inProject = true;
+	technologies.push(tech);
+	return [].concat(technologies);
 }
 
 const addTechToProject = (techs, _id) => {
@@ -225,44 +200,11 @@ const removeTechFromProject = (techs, _id) => {
 }
 
 
-
-/*const addNewTagToProject = (tags,tagName) => {
-	let exist = false;
-	tags.forEach( (tag, index) => {
-		if (tag.tagName === tagName) {
-			exist = true;
-			tag.inProject = true;
-		}
-		
-	});
-	console.log('exist ',tagName,' ', exist);
-	return [[].concat(tags), exist];
-}*/
-
 const addNewTag  = (tags, tag) => {
-	/*let exist = false;
-	tags.forEach( (tag, index) => {
-		if (tag.tagName === tagName) {
-			exist = true;
-			tag.inProject = true;
-		}
-		
-	});
-	if (!exist) {
-		tags.push({
-			tagName: tagName,
-			inProject: true
-		});
-	}*/
-	
 	tag.inProject = true;
-	console.log('addNewTagToProject ',tag);
-	tags.push(tag)
-	
+	tags.push(tag);
 	return [].concat(tags);
 }
-
-
 
 const addTagToProject = (tags, _id) => {
 	tags.forEach( tag => {
@@ -310,51 +252,6 @@ const changeOwnership = (users, _id, value) => {
 	return [].concat(users);
 }
 
-
-
-const files = [
-	{
-		name: 'Country_Code_List.pdf',
-		thumb: 'http://www.san-kommunalnik.ru/upload/medialibrary/e5b/e5b8f89ab48e10b1881bd83abea242d6.png',
-		url: 'http://www.att.com/support_media/images/pdf/Country_Code_List.pdf'
-	},
-	{
-		name: 'photo-thumb-179787.png',
-		thumb: 'http://www.iphones.ru/forum/uploads/profile/photo-thumb-179787.png?_r=1355065431',
-		url: 'http://www.iphones.ru/forum/uploads/profile/photo-thumb-179787.png?_r=1355065431'
-	},
-	{
-		name: 'alph_names.pdf',
-		thumb: 'http://www.san-kommunalnik.ru/upload/medialibrary/e5b/e5b8f89ab48e10b1881bd83abea242d6.png',
-		url: 'http://www.ismn-international.org/basics/pdf/alph_names.pdf'
-	},
-	{
-		name: '1421695500_iPhone-6-Mockup-gt.jpg',
-		thumb: 'http://www.advancedphotoshop.co.uk/users/88672/thm100/1421695500_iPhone-6-Mockup-gt.jpg',
-		url: 'http://www.advancedphotoshop.co.uk/users/88672/thm100/1421695500_iPhone-6-Mockup-gt.jpg'
-	},{
-		name: 'Country_Code_List.pdf',
-		thumb: 'http://www.san-kommunalnik.ru/upload/medialibrary/e5b/e5b8f89ab48e10b1881bd83abea242d6.png',
-		url: 'http://www.att.com/support_media/images/pdf/Country_Code_List.pdf'
-	},
-	{
-		name: 'photo-thumb-179787.png',
-		thumb: 'http://www.iphones.ru/forum/uploads/profile/photo-thumb-179787.png?_r=1355065431',
-		url: 'http://www.iphones.ru/forum/uploads/profile/photo-thumb-179787.png?_r=1355065431'
-	},
-	{
-		name: 'alph_names.pdf',
-		thumb: 'http://www.san-kommunalnik.ru/upload/medialibrary/e5b/e5b8f89ab48e10b1881bd83abea242d6.png',
-		url: 'http://www.ismn-international.org/basics/pdf/alph_names.pdf'
-	},
-	{
-		name: '1421695500_iPhone-6-Mockup-gt.jpg',
-		thumb: 'http://www.advancedphotoshop.co.uk/users/88672/thm100/1421695500_iPhone-6-Mockup-gt.jpg',
-		url: 'http://www.advancedphotoshop.co.uk/users/88672/thm100/1421695500_iPhone-6-Mockup-gt.jpg'
-	}
-];
-
-
 const initialState = {
 	users: [],
 	tags: [],
@@ -364,13 +261,3 @@ const initialState = {
 	tagExists: false
 
 };
-
-
-/*users,
-	tags,
-	technologies,
-	files: files
-		projectName: '',
-	projectLink: '',
-	timeBegin: '',
-	timeEnd: '',*/

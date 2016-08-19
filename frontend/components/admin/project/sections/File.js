@@ -7,7 +7,7 @@ class File extends Component {
         super(props);
     }
     render() {
-        const {id, url, thumb, name} = this.props;
+        const {id, url, thumb, name, onClick} = this.props;
         return (
             <div id={styles["file-holder"]}>
                 <a href={url} target="_blank">
@@ -15,7 +15,7 @@ class File extends Component {
                 </a>
                 <div>
                     <span className={styles["name"]}>{name}</span>
-                    <Button>
+                    <Button onClick={onClick && ((e) => onClick(e,name))}>
                         <i className="fa fa-trash-o" aria-hidden="true"></i>
                     </Button>
                 </div>

@@ -26,7 +26,9 @@ export const POST_TAG = 'POST_TAG';
 export const POST_TAG_ERROR = 'POST_TAG_ERROR';
 export const POST_TAG_SUCCESS = 'POST_TAG_SUCCESS';
 
-
+export const POST_TECH = 'POST_TECH';
+export const POST_TECH_ERROR = 'POST_TECH_ERROR';
+export const POST_TECH_SUCCESS = 'POST_TECH_SUCCESS';
 
 
 export const CHANGE_PROJECT_NAME = 'CHANGE_PROJECT_NAME';
@@ -40,3 +42,6 @@ export const CHANGE_DESCRIPTION = 'CHANGE_DESCRIPTION';
 export const UPLOAD_FILE = 'UPLOAD_FILE';
 export const UPLOAD_FILE_ERROR = 'UPLOAD_FILE_ERROR';
 export const UPLOAD_FILE_SUCCESS = 'UPLOAD_FILE_SUCCESS';
+
+
+export const REMOVE_FILE = 'REMOVE_FILE';
