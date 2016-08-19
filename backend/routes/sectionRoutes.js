@@ -1,6 +1,6 @@
 var apiResponse = require('express-api-response');
 var sectionRepository = require('../repositories/sectionRepository');
-
+ 
 module.exports = function (app) {
     app.get('/api/sections/:id', function (req, res, next) {
         sectionRepository.getById(req.params.id, function (err, data) {

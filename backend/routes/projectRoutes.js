@@ -1,7 +1,7 @@
 var apiResponse = require('express-api-response');
 var projectRepository = require('../repositories/projectRepository');
 
-
+ 
 module.exports = function(app) {
 	app.get('/api/projects/', function (req,res,next) {
 		projectRepository.getAll(function (err,data) {
