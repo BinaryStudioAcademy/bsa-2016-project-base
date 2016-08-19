@@ -62,7 +62,7 @@ export function loadData(){
                         },
                         labels,
                         datasets:[{
-                            label:"Quantity",
+                            label:"Quantity of usage",
                             data
                         }]
                     }))
@@ -77,7 +77,7 @@ export function loadData(){
                 },
                 labels: ['1st January', '1st February', '1st March', '1st April', '1st May', '1st June', '1st July'],
                 datasets:[{
-                    label:"Quantity",
+                    label:"Active projects",
                     data: [23,25,14,16,21,16,27]
                 }]
             }));
