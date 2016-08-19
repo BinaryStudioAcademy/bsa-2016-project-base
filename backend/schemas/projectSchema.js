@@ -18,6 +18,7 @@ var Project = new Schema({
     description: [{
         date: {type: Date, default: Date.now},
         descrText: String,
+        descrFullText: String,
         attachments: [{
             name: String,
             date: {type: Date, default: Date.now},

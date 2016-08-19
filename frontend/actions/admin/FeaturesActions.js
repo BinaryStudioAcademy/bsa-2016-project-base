@@ -14,48 +14,6 @@ export function changeFeature(key){
     }
 }
 
-export function changeCheckedSections(listCheckedSections, checked, id) {
-    if(checked) {
-        return {
-            type: 'CHANGE_CHECKED_SECTIONS',
-            listCheckedSections: [...listCheckedSections, id]
-        }
-    } else {
-        return {
-            type: 'CHANGE_CHECKED_SECTIONS',
-            listCheckedSections: listCheckedSections.filter(function(el) {
-                if(el == id) {
-                    return false;
-                } else {
-                    return true;
-                }
-            })
-        }
-    }
-}
-
-export function markedAllFeatures(features, flagChecked, listCheckedFeatures){
-    if(flagChecked) {
-        return {
-            type: 'MARKED_ALL_FEATURES',
-            listCheckedFeatures: features.map(function(el, index) {
-                return el._id
-            }),
-            flagChecked: flagChecked,
-            features: features
-        }
-    }
-        else {
-            return {
-                type: 'MARKED_ALL_FEATURES',
-                listCheckedFeatures: [],
-                flagChecked: flagChecked,
-                features: features
-            }
-        }
-
-
-}
 
 export function filterFeatures(filter){
     return {
@@ -120,19 +78,6 @@ export function addCheckedFeature(listCheckedFeatures, newCheckedFeatures) {
     }
 }
 
-export function removeCheckedFeature(listCheckedFeatures, checkedFeatures) {
-    return {
-        type: 'REMOVE_CHECKED_FEATURE',
-        listCheckedFeatures: listCheckedFeatures.filter(function(el) {
-            if(el == checkedFeatures) {
-                return false
-            } else {
-                return true;
-            }
-        }),
-    }
-}
-
 export function removeFeature(listCheckedFeatures) {
     listCheckedFeatures.forEach(function(el){
         featureService.removeFeature(el);
@@ -152,4 +97,35 @@ export function initialCheckStatesFeatures(features, checkStatesFeatures) {
         type: 'INITIAL_CHECKED_STATE_FEATURES',
         checkStatesFeatures: a
     }
+}
+
+export function changeVisibilityForm(visibilityForm) {
+    if(visibilityForm == 'hidden') {
+        return {
+            type: 'CHANGE_VISIBILITY_FORM',
+            visibilityForm: 'visible'
+        }
+    }
+    else if(visibilityForm == 'visible') {
+           return {
+            type: 'CHANGE_VISIBILITY_FORM',
+            visibilityForm: 'hidden'
+           }
+    }
+}
+
+export function editFeature(features, editFeature, index) {
+    return dispatch => {
+        return featureService.editFeature(editFeature)
+            .then(
+                dispatch (getAllFeaturesOfAllProjects())
+            )
+            .catch( err => {
+                dispatch({
+                    type: 'EDIT_FEATURE_ERROR',
+                    error: err
+                });
+            });
+    }
+
 }

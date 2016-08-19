@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, InputGroup, FormControl, Button, Radio, Checkbox } from 'react-bootstrap';
+import { Form, FormGroup, InputGroup, FormControl, Button } from 'react-bootstrap';
 import Technologie from './Technologie';
 import styles from './SearchHome.sass';
 
@@ -9,27 +9,32 @@ export default class SearchHome extends Component {
         filter: React.PropTypes.func.isRequired,
         filterByTech: React.PropTypes.func.isRequired,
         orderBy: React.PropTypes.func.isRequired,
+        removeFilter: React.PropTypes.func.isRequired,
         search: React.PropTypes.string.isRequired,
+        searchHint: React.PropTypes.string.isRequired,
         technologies: React.PropTypes.array.isRequired
     };
 
     render() {
-        const { filter, search, technologies, filterByTech, orderBy } = this.props;
+        const { filter, search, technologies, filterByTech, orderBy, searchHint, removeFilter } = this.props;
 
         return (
-            <Form className={styles['search-form']} >
+            <Form id='search-home' className={styles['search-form']} >
                 <FormGroup className={styles['form-group']} >
                     <InputGroup>
-                        <InputGroup.Button>
+                        <InputGroup.Button className={styles['button-search']}>
                             <Button className={["material-icons", styles['button-search']]} >search</Button>
                         </InputGroup.Button>
                         <FormControl
-                            className={ styles['form-control'] }
+                            className={ (searchHint)? [styles['form-control'], styles['filer-by-' + searchHint]]:styles['form-control'] }
                             type="text"
                             placeholder="Type to search..."
                             onInput ={ filter }
                             value={ search }
+                            onKeyDown={removeFilter}
                         />
+                        {(searchHint)? <p className={styles['filer-by-types-label']} data-text={searchHint + ':'}>&nbsp;</p>: null
+                        }
                     </InputGroup>
                 </FormGroup>
 

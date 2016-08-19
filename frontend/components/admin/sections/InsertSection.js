@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Button, FormGroup, ControlLabel, FormControl, Col, Form } from 'react-bootstrap';
-import styles from './styles/Features.sass';
+import styles from './styles/Sections.sass';
 import * as actions from "../../../actions/admin/SectionsActions";
 
 class InsertSection extends Component {
@@ -17,23 +17,39 @@ class InsertSection extends Component {
         this.saveDescriptionSection = this.saveDescriptionSection.bind(this);
     }
 
-    componentDidMount() {
-        this.props.getAllSections();
-    }
-
     addSection(e) {
+        e.preventDefault();
+        var self = this;
+        let searchSameSection = this.props.sectionData.sections.some(function(el) {
+            if(el.name == self.state.name) {
+                console.log("Error! Section with same name already exist in base");
+                return true;
+            }
+        });
+
         if(this.state.name.replace(/\s/g, '') == '' ||
             this.state.description.replace(/\s/g, '') == '') {
             console.log("Please, input all field");
             return;
         }
-        const {sections} = this.props.data;
+
+        if(searchSameSection) {
+            return;
+        }
+
+        const {sections} = this.props.sectionData;
         this.props.addNewSection(sections, {
                name: this.state.name,
                 description: this.state.description
             });
+        this.refs.nameSection.value = '';
+        this.refs.DescriptionSection.value = '';
+        this.setState({
+            name: '',
+            description: ''
+        });
+        this.props.unMarkAll();
         this.props.getAllSections();
-        e.preventDefault();
     }
 
     saveNameSection(e) {
@@ -41,18 +57,22 @@ class InsertSection extends Component {
     }
 
     saveDescriptionSection(e) {
-        this.state.description = e.target.value;
+        this.setState({
+            description: e.target.value
+        });
     }
 
     render() {
         return (
-            <Form horizontal className={styles['form']}>
+            <Col sm={10} smPush={1}>
+            <Form horizontal className={styles['form'] + ' ' + this.props.sectionData.visibilityForm + ' ' + 'formInsertSection'}>
                 <FormGroup >
-                    <Col sm={2} smPush={1}>
-                        <ControlLabel>Name of section:</ControlLabel>
+                    <Col sm={3} smPush={1}>
+                        <ControlLabel>Name (*):</ControlLabel>
                     </Col>
                     <Col sm={8} smPush={1}>
-                        <FormControl
+                        <input
+                            className="form-control"
                             id="nameSection"
                             ref="nameSection"
                             onBlur={this.saveNameSection}
@@ -63,15 +83,15 @@ class InsertSection extends Component {
                     </Col>
                 </FormGroup>
                 <FormGroup>
-                    <Col sm={2} smPush={1}>
-                        <ControlLabel>Description:</ControlLabel>
+                    <Col sm={3} smPush={1}>
+                        <ControlLabel>Description (*):</ControlLabel>
                     </Col>
                     <Col sm={8} smPush={1}>
-                        <FormControl
+                        <textarea
+                            className="form-control"
                             id="DescriptionSection"
                             ref="DescriptionSection"
                             onBlur={this.saveDescriptionSection}
-                            componentClass="textarea"
                             placeholder="Enter the description"
                             required
                         />
@@ -81,6 +101,7 @@ class InsertSection extends Component {
                     <Button type="submit"  block  id="addSection" onClick={this.addSection} >Add</Button>
                 </Col>
             </Form>
+                </Col>
         );
     }
 }
@@ -90,7 +111,7 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
     return {
-        data: state.SectionsReducer
+        sectionData: state.SectionsReducer
     }
 }
 const InsertSectionConnected = connect(mapStateToProps, mapDispatchToProps)(InsertSection);

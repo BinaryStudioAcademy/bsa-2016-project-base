@@ -9,9 +9,29 @@ function FeatureRepository() {
 
 FeatureRepository.prototype = new Repository();
 
+// Repository.prototype.getAllFeaturesWithSection = function(callback){
+//     var model = this.model;
+//     var query = model.find().populate('section');
+//     query.exec(callback);
+// };
+
 Repository.prototype.getAllFeaturesWithSection = function(callback){
     var model = this.model;
-    var query = model.find().populate('section');
+    var query = model.find()
+    			.populate({
+    				path: 'section',
+    				model: 'Section'
+    			});
+    query.exec(callback);
+};
+
+Repository.prototype.getByIdWithSection = function(id, callback){
+    var model = this.model;
+    var query = model.find({_id:id})
+    			.populate({
+    				path: 'section',
+    				model: 'Section'
+    			});
     query.exec(callback);
 };
 

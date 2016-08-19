@@ -3,13 +3,11 @@ import * as types from '../constants/HomeActionTypes';
 const initialState = {
     projects: [],
     search: '',
+    searchHint: '',
     filterTech: [],
     pagination: {
         activePage: 1,
-        perpage: 3,
-        pageCount: null,
-        countProjects: null,
-        startPosition: null
+        perpage: 3
     }
 };
 
@@ -30,10 +28,11 @@ export default function HomeReducer(state = initialState, action) {
                 filterTech: filter
             });
         case types.FILTER_PROJECTS_DETAILS:
-            const { search } = action;
+            const { search,searchHint } = action;
 
             return Object.assign({}, state, {
-                search: search
+                search: search,
+                searchHint:searchHint
             });
         case types.PAGINATION_ACTIVE_PAGE:
             return Object.assign({}, state, {
@@ -47,14 +46,9 @@ export default function HomeReducer(state = initialState, action) {
         case types.PROJECTS_GET_ALL_SUCCESS: {
             const { data } = action;
 
-
             return Object.assign({}, state, {
                 isLoading: false,
-                projects: data,
-                pagination: { ...state.pagination,
-                    countProjects: data.length,
-                    pageCount: Math.ceil(data.length/state.pagination.perpage)
-                }
+                projects: data
             });
         }
         case types.PROJECTS_GET_ALL_ERROR: {

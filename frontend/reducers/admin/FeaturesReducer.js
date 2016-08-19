@@ -3,7 +3,8 @@ const initialState = {
     filter: '',
     listCheckedFeatures: [],
     flagChecked: false,
-    listCheckedSections: []
+    listCheckedSections: [],
+    visibilityForm: 'hidden'
 };
 
 export default function FeaturesReducer(state = initialState, action) {
@@ -13,14 +14,19 @@ export default function FeaturesReducer(state = initialState, action) {
             return Object.assign({}, state, {listCheckedSections: listCheckedSections})
         }
 
+        case 'CHANGE_VISIBILITY_FORM': {
+            const {visibilityForm} = action;
+            return Object.assign({}, state, {visibilityForm: visibilityForm});
+    }
+
         case 'FILTER_FEATURES': {
             const {filter} = action;
             return Object.assign({}, state, {filter: filter});
         }
 
         case 'MARKED_ALL_FEATURES': {
-            const {listCheckedFeatures, flagChecked, features} = action;
-            return Object.assign({}, state, {listCheckedFeatures: listCheckedFeatures}, {flagChecked: flagChecked}, {features: features});
+            const {listCheckedFeatures, flagChecked} = action;
+            return Object.assign({}, state, {listCheckedFeatures: listCheckedFeatures}, {flagChecked: flagChecked});
         }
 
         case 'ADD_CHECKED_FEATURE' : {
@@ -45,12 +51,30 @@ export default function FeaturesReducer(state = initialState, action) {
                 error: action.error
             });
         }
-        case 'ADD_NEW_FEATURE':
+        case 'ADD_NEW_FEATURE': {
             const {features, newFeature} = action;
             return Object.assign({}, state, {features: features.concat(newFeature)});
-        case 'REMOVE_SELECTED_FEATURES':
+        }
+
+        case 'REMOVE_SELECTED_FEATURES': {
             return Object.assign({}, state, {listCheckedFeatures: []});
+        }
+
+        case 'EDIT_FEATURE': {
+            const {features, editFeature, index} = action;
+            return Object.assign({}, state, features.splice(index, 1, editFeature))
+        }
+
+        case 'EDIT_FEATURE_ERROR': {
+            return Object.assign({}, state, {
+                error: action.error
+            });
+        }
+
         default:
             return state;
     }
 };
+
+
+

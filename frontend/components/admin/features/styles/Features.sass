@@ -6,324 +6,360 @@ $toolBarColor: #EFEFEF
 $listItemColor: #FAFDFE
 $mainTextColor: #656565
 
-/* Inputs */
-#Features .feature-tabs input,
-#Features .features-tool-bar input,
-#Features .feature-tabs  select
-  width: 100%
-  border: none
-  font-size: 14px
-  border-radius: 0
-
-#Features .feature-tabs input:focus,
-#Features .features-tool-bar input:focus,
-#Features .feature-tabs select:focus
-  box-shadow: none
-/* Inputs */
-
-/* Add Features|Sections component */
-.feature-tabs
-  font-family: "Open Sans"
-  margin: 0 auto
-  padding-bottom: 30px
-
-.feature-tabs,
-.feature-tabs a:hover
-  color: $mainTextColor
-
-.feature-tabs a /* Styling tab buttons */
-  color: white
-  font-size: 14px
-  border-radius: 0 !important
-  background-color: $tomatoColor
-
-#Features .feature-tabs textarea
-  border: none
-  resize: none
-  border-radius: 0
-  min-height: 250px
-  padding: 5px 1.5rem 0px 1.5rem
-
-.feature-tabs a:focus,
-#Features .feature-tabs textarea
-  outline: none !important
-
-#Features .feature-tabs textarea:focus,
-#Features .feature-tabs textarea,
-#Features .feature-tabs  select
-  border-top: 1px solid $toolBarColor
-  box-shadow: none !important
-
-#Features .feature-tabs  select
-  border: none
-  cursor: pointer
-
-#Features .feature-tabs textarea,
-#Features .feature-tabs input[type="text"],
-#Features .feature-tabs  select
-  font-size: 16px
-  transition: border-bottom-color 0.9s
-  border-bottom: 3px solid $lightCadetBlueColor
-
-#Features .feature-tabs textarea:focus,
-#Features .feature-tabs input[type="text"]:focus,
-#Features .feature-tabs  select:focus
-  border-bottom-color: $tomatoColor
-
-
-#Features .feature-tabs .form
-  padding-top: 50px
-  margin-bottom: 50px
-
-#Features .feature-tabs button
-  background-color: #9AAD54
-
-#Features .feature-tabs button:active,
-#Features .feature-tabs button:hover
-  background-color: #9AAD46 !important
-
-/* Add Component */
-
-/* ToolBar Component */
-#Features .features-tool-bar
-  min-height: 100px
-  text-align: center
-  background: $toolBarColor
-
-#Features .features-tool-bar > div
-  padding: 10px
-
-#Features .features-tool-bar button:active,
-#Features .features-tool-bar button:hover,
-#Features .feature-tabs button:active,
-#Features .feature-tabs button:hover
-  border: none
-  color: white
-  outline: none !important
-  box-shadow: none
-
-#Features .features-tool-bar button:focus
-  outline: none
-  color: white
-
-#Features .features-tool-bar button,
-#Features .feature-tabs button
-  border: none
-  color: white
-  height: 40px
-  border-radius: 0
-  font-weight: bold
-
-#Features .button-feature-remove,
-#Features .button-feature-remove:focus,
-#Features .button-feature-remove:hover,
-#Features .button-feature-remove:active
-  background-color: $tomatoColor !important
-  border-bottom: 2px solid #B75C58
-
-#Features .button-feature-add,
-#Features .button-feature-add:focus,
-#Features .button-feature-add:hover,
-#Features .button-feature-add:active
-  background-color: $lightCadetBlueColor !important
-  border-bottom: 2px solid #939EA5
-
-#Features .multi-select
-
-  height: 33px
-
-  background: white
-  color: $mainTextColor
-
-#Features .multi-select > div:first-child,
-#Features .multi-select > div:first-child > label
-  cursor: pointer
-
-#Features .multi-select > div:last-child
-  border: none
-  padding: 10px
-  border-radius: 0
-  max-height: 300px
-
-#Features .multi-select > div:last-child > div
-  margin: 10px 0px
-
-#Features .sections-list
-  z-index: 3
-  width: 100%
-  height: 150px
-  background: white
-  position: absolute
-
-#Features .select-features
-  width: 20%
-  border: none
-  padding: 5px
-  height: 42px
-  cursor: pointer
-  background: white
-/* ToolBar Component */
-
-
-/* Animate Border For Search Feature Input*/
-#Features .search-input-border
-  display: block
-  position: relative
-
-#Features .search-input-border:before,
-#Features .search-input-border:after
-  width: 0
-  content: ''
-  height: 2.5px
-  position: absolute
-  transition: 0.3s ease all
-  background: $lightCadetBlueColor
-
-#Features .search-input-border:before
-  left: 50%
-
-#Features .search-input-border:after
-  right: 50%
-
-/* Animate Border For Search Feature Input*/
-
-/* CheckBoxes */
-#Features .select-all-checkbox,
-#Features .select-checkbox
-  border: 0
-  padding: 0
-  width: 1px
-  height: 1px
-  margin: -1px
-  left: -1000px
-  z-index: -1000
-  clip: rect(0 0 0 0)
-  position: absolute
-
-#Features .select-all-checkbox + .select-all-label
-  height: 30px
-  line-height: 25px
-  margin: 3px 0px 0px 20px
-  padding: 0px 10px 0px 40px
-
-#Features .select-checkbox + .select-label
-  margin: 15px
-  height: 16px
-  padding-left: 21px
-  line-height: 16px
-
-#Features .select-all-checkbox + .select-all-label,
-#Features .select-checkbox + .select-label
-  cursor: pointer
-  display: inline-block
-  vertical-align: middle
-  background-position: 0 0
-  background-repeat: no-repeat
-
-#Features .select-all-checkbox:checked + .select-all-label
-  background-position: 0 -30px
-
-#Features .select-checkbox:checked + .select-label
-  background-position: 0 -16px
-
-#Features .select-label,
-#Features .select-all-label
-  color: $mainTextColor
-  opacity: 0.75
-
-#Features .select-label:hover,
-#Features .select-all-label:hover
-  opacity: 1
-
-#Features .select-all-label,.select-label
-  user-select: none
-
-#Features .select-features > *
-  height: 20px
-  border-bottom: 1px solid  $mainTextColor
-
-#Features .select-features:focus
-  outline: none
-
-#Features .search-input:focus ~ .search-input-border:before,
-#Features .search-input:focus ~ .search-input-border:after
-  width: 50%
-
-#Features .select-all-label
-  background-image: url(http://csscheckbox.com/checkboxes/u/csscheckbox_b5478ce038d0182679c6e07d0ac4f6dd.png)
-
-#Features .select-label
-  background-image: url(http://csscheckbox.com/checkboxes/u/csscheckbox_84d5db31bde6d14cf3610dde3534e162.png)
-/* Checkboxes */
-
-/* List of features */
-#Features .list-container
-  overflow-y: auto
-  color: $mainTextColor
-  max-height: 300px
-  margin: 5px 0px 25px 0px
-  border-bottom: 3px solid $toolBarColor
-
-#Features .list-container > div,
-#Features .list-item-navigation
-  min-height: 70px
-
-#Features .list-item-navigation
-  margin: 20px 10px 15px 10px
-  text-align: left
-
-#Features .list-item-navigation > div:last-child
-  margin-top: 10px
-
-#Features .list-item-navigation > div:last-child > *
-  font-size: 14px
-
-#Features .list-item-navigation > div:last-child > span
-  color: $mainTextColor
-
-#Features .list-item-navigation > div:last-child > label
-  color: $lightCadetBlueColor
-
-#Features .list-container > div
-  border-bottom: 1px solid $lightCadetBlueColor
-
-#Features .list-container > div:last-child
-  border-bottom: none
-
-#Features .list-container > div > div:last-child
-  padding: 20px
-
-#Features .list-container > div:nth-child(n)
-  background-color: $listItemColor
-
-#Features .list-container > div:nth-child(2n)
-  background-color: white
-
-/* List of features */
-
-/* Scroll */
-::-webkit-scrollbar
-  width: 7px
-
-::-webkit-scrollbar-track
-  background: rgba(0, 0, 0, 0.1)
-
-::-webkit-scrollbar-thumb
-  background: rgba(0, 0, 0, 0.5)
-
-#Features .row
-  margin-right: 0
-  margin-left: 0
-
-#Features .blockSelectCheckBox
-  position: relative
-
-#Features .blockSelectCheckBox label
-  position: absolute
-  top: 50%
-
-#Features .dropdown-menu
-  overflow: auto
+#Features
+  .visible
+    visibility: visible !important
+
+  .hidden
+    visibility: hidden !important
+
+  input,
+  .features-tool-bar input,
+  select
+    width: 100%
+    border: none
+    font-size: 14px
+    border-radius: 0
+
+  input:focus,
+  .features-tool-bar input:focus,
+  select:focus
+    box-shadow: none
+  /* Inputs */
+
+  /* Add Features|Sections component */
+  .formInsertFeature
+    font-family: "Open Sans"
+    margin: 25px auto
+    padding-bottom: 30px
+
+  .formInsertFeature,
+  .formInsertFeature a:hover
+    color: $mainTextColor
+
+  .formInsertFeature a /* Styling tab buttons */
+    color: white
+    font-size: 14px
+    border-radius: 0 !important
+    background-color: $tomatoColor
+
+  .formInsertFeature textarea
+    border: none
+    resize: none
+    border-radius: 0
+    min-height: 250px
+    padding: 5px 1.5rem 0px 1.5rem
+
+  .formInsertFeature a:focus,
+  .formInsertFeature textarea
+    outline: none !important
+
+  .formInsertFeature textarea:focus,
+  .formInsertFeature textarea,
+  .formInsertFeature  select
+    border-top: 1px solid $toolBarColor
+    box-shadow: none !important
+
+  .formInsertFeature  select
+    border: none
+    cursor: pointer
+
+  .formInsertFeature textarea,
+  .formInsertFeature input[type="text"],
+  .formInsertFeature  select
+    font-size: 16px
+    transition: border-bottom-color 0.9s
+    border-bottom: 3px solid $lightCadetBlueColor
+
+  .formInsertFeature textarea:focus,
+  .formInsertFeature input[type="text"]:focus,
+  .formInsertFeature  select:focus
+    border-bottom-color: $tomatoColor
+
+
+  .formInsertFeature .form
+    padding-top: 50px
+    margin-bottom: 50px
+
+  .formInsertFeature button
+    background-color: #9AAD54
+
+  .formInsertFeature button:active,
+  .formInsertFeature button:hover
+    background-color: #9AAD46 !important
+
+  /* Add Component */
+
+  /* ToolBar Component */
+  .features-tool-bar
+    min-height: 100px
+    text-align: center
+    background: $toolBarColor
+
+  .features-tool-bar > div
+    padding: 10px
+
+  .features-tool-bar button:active,
+  .features-tool-bar button:hover,
+  .formInsertFeature button:active,
+  .formInsertFeature button:hover
+    border: none
+    color: white
+    outline: none !important
+    box-shadow: none
+
+  .features-tool-bar button:focus
+    outline: none
+    color: white
+
+  .features-tool-bar button,
+  .formInsertFeature button
+    border: none
+    color: white
+    height: 40px
+    border-radius: 0
+    font-weight: bold
+
+  .button-feature-remove,
+  .button-feature-remove:focus,
+  .button-feature-remove:hover,
+  .button-feature-remove:active
+    background-color: $tomatoColor !important
+    border-bottom: 2px solid #B75C58
+
+  .button-feature-add,
+  .button-feature-add:focus,
+  .button-feature-add:hover,
+  .button-feature-add:active
+    background-color: $lightCadetBlueColor !important
+    border-bottom: 2px solid #939EA5
+
+  .multi-select
+
+    height: 33px
+
+    background: white
+    color: $mainTextColor
+
+  .multi-select > div:first-child,
+  .multi-select > div:first-child > label
+    cursor: pointer
+
+  .multi-select > div:last-child
+    border: none
+    padding: 10px
+    border-radius: 0
+    max-height: 300px
+
+  .multi-select > div:last-child > div
+    margin: 10px 0px
+
+  .sections-list
+    z-index: 3
+    width: 100%
+    height: 150px
+    background: white
+    position: absolute
+
+  .select-features
+    width: 20%
+    border: none
+    padding: 5px
+    height: 42px
+    cursor: pointer
+    background: white
+  /* ToolBar Component */
+
+
+  /* Animate Border For Search Feature Input*/
+  .search-input-border
+    display: block
+    position: relative
+
+  .search-input-border:before,
+  .search-input-border:after
+    width: 0
+    content: ''
+    height: 2.5px
+    position: absolute
+    transition: 0.3s ease all
+    background: $lightCadetBlueColor
+
+  .search-input-border:before
+    left: 50%
+
+  .search-input-border:after
+    right: 50%
+
+  /* Animate Border For Search Feature Input*/
+
+  /* CheckBoxes */
+  .select-all-checkbox,
+  .select-checkbox
+    border: 0
+    padding: 0
+    width: 1px
+    height: 1px
+    margin: -1px
+    left: -1000px
+    z-index: -1000
+    clip: rect(0 0 0 0)
+    position: absolute
+
+  .select-all-checkbox + .select-all-label
+    background-color: transparent
+    height: 30px
+    line-height: 25px
+    margin: 3px 0px 0px 20px
+    padding: 0px 10px 0px 40px
+
+  .select-checkbox + .select-label
+    background-color: transparent
+    margin: 15px 0 15px 0
+    height: 16px
+    padding-left: 21px
+    line-height: 16px
+
+  .shortDescriptionFeature
+    display: block
+    margin: 10px 0
+
+  .select-all-checkbox + .select-all-label,
+  .select-checkbox + .select-label
+    cursor: pointer
+    display: inline-block
+    vertical-align: middle
+    background-position: 0 0
+    background-repeat: no-repeat
+
+  .select-all-checkbox:checked + .select-all-label
+    background-position: 0 -30px
+
+  .select-checkbox:checked + .select-label
+    background-position: 0 -16px
+
+  .select-label,
+  .select-all-label
+    color: $mainTextColor
+
+  .select-label:hover,
+  .select-all-label:hover
+    opacity: 1
+
+  .modal-content span
+    word-wrap: break-word
+
+  .select-all-label,.select-label
+    user-select: none
+
+  .select-features > *
+    height: 20px
+    border-bottom: 1px solid  $mainTextColor
+
+  .select-features:focus
+    outline: none
+
+  .search-input:focus ~ .search-input-border:before,
+  .search-input:focus ~ .search-input-border:after
+    width: 50%
+
+  .select-all-label
+    background-image: url(http://csscheckbox.com/checkboxes/u/csscheckbox_b5478ce038d0182679c6e07d0ac4f6dd.png)
+
+  .select-label
+    background-image: url(http://csscheckbox.com/checkboxes/u/csscheckbox_84d5db31bde6d14cf3610dde3534e162.png)
+  /* Checkboxes */
+
+  /* List of features */
+  .list-container
+    overflow-y: auto
+    color: $mainTextColor
+    max-height: 74vh
+    margin: 0
+    border-bottom: 3px solid $toolBarColor
+
+  .list-container > div,
+  .list-item-navigation
+    min-height: 70px
+
+  .list-item-navigation
+    margin: 20px 10px 15px 10px
+    text-align: left
+
+  .nameFeatureCheckbox span
+   display: inline !important
+  span
+    word-wrap: break-word
+
+  .list-item-navigation > div:last-child
+    margin-top: 10px
+
+  .list-item-navigation > div:last-child > *
+    font-size: 14px
+
+  .list-item-navigation > div:last-child > span
+    color: $mainTextColor
+
+  .list-item-navigation > div:last-child > .select-label
+    color: $lightCadetBlueColor
+
+  .list-container > div
+    border-bottom: 1px solid $lightCadetBlueColor
+
+  .list-container > div:last-child
+    border-bottom: none
+
+  .list-container > div > div:last-child
+    padding: 20px
+
+  .list-container > div:nth-child(n)
+    background-color: $listItemColor
+
+  .list-container > div:nth-child(2n)
+    background-color: white
+
+  .FeatureListItem
+    word-wrap: break-word
+
+  .FeatureListItem .row div
+    margin-left: 0
+    margin-right: 0
+
+  .listItemButtonToolbar
+    vertical-align: middle
+
+  .listItemButtonToolbar button
+    vertical-align: middle
+    border: none
+    color: white
+    height: 40px
+    border-radius: 0
+    font-weight: bold
+    font-size: 0.9em
+
+  /* List of features */
+
+  /* Scroll */
+  ::-webkit-scrollbar
+    width: 7px
+
+  ::-webkit-scrollbar-track
+    background: rgba(0, 0, 0, 0.1)
+
+  ::-webkit-scrollbar-thumb
+    background: rgba(0, 0, 0, 0.5)
+
+  .row
+    margin-right: 0
+    margin-left: 0
+
+  .blockSelectCheckBox
+    position: relative
+
+
+
+  .dropdown-menu
+    overflow: auto
 
 
 // !!!!

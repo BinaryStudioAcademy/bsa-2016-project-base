@@ -5,7 +5,10 @@ const initialState = {
 	CONST_usersRestPath: '/api/users',
 	CONST_stagesRestPath: '/api/stages',
 	CONST_conditionsRestPath: '/api/conditions',
-	selectedProjectId: '57a315af0b7a3bc58341d3bd'
+    CONST_featuresRestPath: '/api/features',
+    CONST_sectionsRestPath: '/api/sections',
+    CONST_tagsRestPath: '/api/tags',
+	selectedProjectId: ''
 
 }
 
@@ -49,8 +52,13 @@ export default function ProjectViewReducer(state = initialState, action) {
 
         case 'PW_GET_PROJECT': {
         	const {selectedProject} = action;
+            console.log("ProjectViewReducer() -> 'PW_GET_PROJECT' -> initialState: ", state);
 	    	const newState = Object.assign({}, state, {
-            		currentProject: selectedProject
+            		currentProject: selectedProject,
+                    selectedProjectId: selectedProject._id,
+                    relatedFeatures: undefined,
+                    relatedTags: undefined,
+                    relatedTechnologies: undefined
 	    	});
 	    	console.log('ProjectViewReducer ->  "PW_GET_PROJECT" -> newState', newState);
             return newState;
@@ -65,6 +73,43 @@ export default function ProjectViewReducer(state = initialState, action) {
             return newState;
         }
 
+        case 'PW_GET_PROJECT_TAGS': {
+            const {projTags} = action;
+            console.log('ProjectViewReducer ->  "PW_GET_PROJECT_TAGS" acquired tags: ', projTags);
+            //let modifiedState = Object.assign({}, state);
+            //modifiedState.currentProject.tagsRelated = projTags;
+            const newState = Object.assign({}, state, {
+                    relatedTags: projTags
+                    //currentProject.tags: projTags
+            });
+            //const newState = Object.assign({}, modifiedState);
+            console.log('ProjectViewReducer ->  "PW_GET_PROJECT_TAGS" -> newState', newState);
+            return newState;
+        }
+
+        case 'PW_GET_PROJECT_TECHNOLOGIES': {
+            const {projTechnologies} = action;
+            console.log('ProjectViewReducer ->  "PW_GET_PROJECT_TECHNOLOGIES" acquired technologies: ', projTechnologies);
+            //let modifiedState = Object.assign({}, state);
+            //modifiedState.currentProject.technologiesRelated = projTechnologies;
+            const newState = Object.assign({}, state, {
+                    relatedTechnologies: projTechnologies
+            });
+            //const newState = Object.assign({}, modifiedState);
+            console.log('ProjectViewReducer ->  "PW_GET_PROJECT_TECHNOLOGIES" -> newState', newState);
+            return newState;
+        }
+
+        case 'PW_GET_PROJECT_FEATURES': {
+            const {projFeatures, relatedSections} = action;
+            console.log('ProjectViewReducer ->  "PW_GET_PROJECT_FEATURES" acquired features: ', projFeatures);
+            const newState = Object.assign({}, state, {
+                    relatedFeatures: projFeatures
+            });
+            //const newState = Object.assign({}, modifiedState);
+            console.log('ProjectViewReducer ->  "PW_GET_PROJECT_FEATURES" -> newState', newState);
+            return newState;
+        }
 
         default: {
             return state;        
