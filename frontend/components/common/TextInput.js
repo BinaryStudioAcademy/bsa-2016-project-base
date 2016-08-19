@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import styles from './styles/textInput.sass';
 
 const TextInput = ({id, label, value, placeholder, onChange}) => {
 	const labelHtml = label ? <label htmlFor={id}>{label}</label> : '';
@@ -6,6 +7,7 @@ const TextInput = ({id, label, value, placeholder, onChange}) => {
         <div>
          	{labelHtml}
         	<input 
+                className={styles.myinput} 
                 id={id} 
                 type="text" 
                 value={value} 

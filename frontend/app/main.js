@@ -16,6 +16,7 @@ import Home from '../components/home/Home';
 import Stats from '../components/stats/Stats';
 import Review from '../components/review/Review';
 import NotFound from '../components/not-found/NotFound';
+import Test from '../components/common/test.js';
 import * as reducers from '../reducers/';
 
 const rootReducer = combineReducers({
@@ -36,6 +37,7 @@ render(
             <Route path="home" component={Home}/>
             <Route path="projects" component={ProjectsList}/>
             <Route path="project-view/:id" component={ProjectView} />
+            <Route path="test" component={Test} />
             <Route path="project-summary/:id" component={ProjectSummary}/>
             <Route path="project-upsert" component={UpsertProject}/>  
             <Route path="admin" component={Admin} > 

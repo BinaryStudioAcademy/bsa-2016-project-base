@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import styles from './styles/dropdown.sass';
 
 const DropDown = ({id, label, data, onChange}) => {
 	const labelHtml = label ? <label htmlFor={id}>{label}</label> : '';
