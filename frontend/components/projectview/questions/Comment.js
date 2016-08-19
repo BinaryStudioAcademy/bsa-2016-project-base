@@ -21,6 +21,7 @@ class Comment extends Component {
                     <Link to={`/api/users/${expr.author}`} >John Doe</Link>&nbsp;
                     Junior Frontend Developer
                 </span>
+                {button}
                 <div className={['comment-body']} >
                     <img src="http://placehold.it/60x60" />
                     <span>

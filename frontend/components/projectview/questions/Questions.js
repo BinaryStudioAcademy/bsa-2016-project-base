@@ -6,25 +6,16 @@ import styles from './questions.sass';
 class Questions extends Component {
     constructor(props){
         super(props);
-
-        /*let arr = [];
-        for (let i=0; i<props.questions.length; i++){
-            arr[i] = false;
-        }
-
-        this.state = {
-            showQ: false,
-            showA: props.questions.map((q) => {return false;})
-        }
-        console.log(this.props)*/
     }
 
 
 
     render() {
 
-        let q = this.props.questions;
+        let q = this.props.questions || [];
         console.log(this.state);
+
+
 
         return(
             <div id={this.props.id} >
@@ -33,14 +24,14 @@ class Questions extends Component {
                     <button>Hide questions</button>
                 </div>
                 <ul className={styles['outer-list']} >
-                    {q.map(function(q_item){
+                    {q.map(function(q_item, index){
                         return(
-                            <li>
+                            <li key={index} >
                                 <Comment type="q" expr={q_item.question} />
                                 <ul className={['inner-list']} >
-                                    {q_item.answers.map(function(a_item){
+                                    {q_item.answers.map(function(a_item, index){
                                         return(
-                                            <li>
+                                            <li key={index} >
                                                 <Comment type="a" expr={a_item} />
                                             </li>
                                         );
