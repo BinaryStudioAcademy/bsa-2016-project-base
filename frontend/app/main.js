@@ -45,7 +45,7 @@ render(
               <Route path="tags" component={Tags} />
               <Route path="tech" component={Tech} />
               <Route path="tech/:id" component={TechDetail}/>
-              <Route path="techscope" component={TechScope}  />
+              <Route path="project" component={UpsertProject}  />
             </Route>
             <Route path="stats" component={Stats} /> 
             <Route path="review" component={Review} /> 
