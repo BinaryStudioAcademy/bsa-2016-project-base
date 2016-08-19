@@ -8,6 +8,7 @@ import TagsList from './TagsList.js';
 import UserList from './users-component/users_list';
 import styles from './project-view.sass';
 import EstimationFile from "./estimationFile/EstimationFileReceiverComponentWithLinkField"
+import Questions from './questions/Questions'; // QuestionsStatic is just for static representation
 import { Accordion, Button, Panel, Nav, NavItem, Tabs, Tab, Table, Grid, Row, Col, Thumbnail, Glyphicon } from 'react-bootstrap';
 
 
@@ -131,7 +132,9 @@ class ProjectView extends Component {
 							Table of rates</Panel></Tab>
         				<Tab eventKey={7} title="Description"><Panel><EstimationFile/>Description</Panel></Tab>
 	  					</Tabs>
-	    				<div>
+
+						<Questions id="q-and-a" questions={currentProject.questions} />
+						{/*<div>
 					    	<Panel header={<span className={styles.questionHeader}>Questions and Answers</span>}  className={styles.questionPanel}>
 					      		<Accordion>
 	    							<Panel header={<span className={styles.questionItem}><span className={styles.userName}>Author: </span> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid?</span>} eventKey="1" className={styles.questions}>
@@ -163,7 +166,7 @@ class ProjectView extends Component {
 								    </Panel>
 	  							</Accordion>
 					    	</Panel>
-					  	</div>
+					  	</div>*/}
 			    		<Button className={styles.btn} href='/'>Back to Project List</Button>
 			    	</div>
 			    </div>

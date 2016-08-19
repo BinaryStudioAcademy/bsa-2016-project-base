@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import styles from './stats.sass';
-import {Button} from "react-bootstrap"
 import PieChartComp from "./PieChart"
 import BarChartComp from "./BarChart"
 import LineChartComp from "./LineChart"
 import DoughnutChartComp from "./DoughnutChart"
+import ChartStatistic from "./chartComponents/ChartStatistic"
+
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Grid, Row, Panel } from 'react-bootstrap';
 import * as actions from '../../actions/ChartActions';
-import ChartStatistic from "./chartComponents/ChartStatistic"
+
+import styles from './stats.sass';
 
 
 
@@ -45,6 +45,7 @@ class Stats extends Component {
                 "value": 612463}
         ];
     }
+
 	componentDidMount(){
         this.props.changeChartType("Bar");
         this.props.loadData();
@@ -66,42 +67,32 @@ class Stats extends Component {
         let {data, chartType} = this.props.store.ChartReducer;
 
         if (selectAll){
-            return <div>
-                <LineChartComp
-                    data={data}/>
-                <BarChartComp
-                    data={data}/>
-                <PieChartComp
-                    data={data}/>
+            return <div className={styles['charts-wrap']} >
+                <div className={styles['chart-wrap-small']} ><LineChartComp data={data} /></div>
+                <div className={styles['chart-wrap-small']} ><BarChartComp data={data} /></div>
+                <div className={styles['chart-wrap']} ><PieChartComp data={data} /></div>
             </div>
         }
         switch (chartType){
-            case "Linear":return <LineChartComp
-                data={data}/>
-            case "Bar": return<BarChartComp
-                data={data}/>
-            case "Circle": return <div>
-                <PieChartComp
-                    data={data}/>
-            </div>
+            case "Linear":return <div className={styles['chart-wrap']} ><LineChartComp data={data} /></div>
+            case "Bar": return <div className={styles['chart-wrap']} ><BarChartComp data={data} /></div>
+            case "Circle": return <div className={styles['chart-wrap']} ><PieChartComp data={data} /></div>
         }
     }
+
     render() {
         let {chartType} = this.props.store.ChartReducer;
         return (
-            <div id="Charts" className={styles.statsPage}>
+            <div id="charts">
                 <ChartStatistic onChange={this.changeChartType()}
                                 chartType={chartType}
                                 selectAllChanged={this.selectAllChanged.bind(this)}
                                 selectAll={this.state.selectAll}/>
                 {this.getCharts()}
-
-
             </div>
         )
     }
 }
-
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(actions, dispatch);
