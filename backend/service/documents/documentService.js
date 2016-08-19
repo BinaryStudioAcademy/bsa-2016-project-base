@@ -4,7 +4,6 @@
 var google = require('googleapis');
 var fs = require("fs");
 var path = require("path");
-var NeedAuthError = require("./NeedAuthError");
 var docxGenerator = require("./docxGenerator");
 class DocumentService {
     constructor() {
@@ -92,9 +91,13 @@ class DocumentService {
      * @param callback(err, link, id)
      */
     getDocument(query, tokens, callback) {
-        fs.readFile(path.join("backend/service/documents/resources/templates/testTemplate.docx"), "binary", function (err, template) {
+        fs.readFile(path.join("backend/service/documents/resources/templates/testTemplate.docx"),
+            "binary", function (err, template) {
+            if (err){callback(err);return;}
             this.getData(query, function(err, data){
+                if (err){callback(err);return;}
                 docxGenerator.generate(data,template, function(err, docx){
+                    if (err){callback(err);return;}
                     this.uploadFile(docx, tokens, callback)
                 }.bind(this));
             }.bind(this));
