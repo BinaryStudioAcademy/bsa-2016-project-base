@@ -12,7 +12,7 @@ export default class MultiSelect extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            customInputValue: "",
+            customInputValue: undefined,
             autoUpdateTimeoutId: 0
         }
     }

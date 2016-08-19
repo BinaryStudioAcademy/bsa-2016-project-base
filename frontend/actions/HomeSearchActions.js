@@ -111,6 +111,7 @@ export function receiverUsers(users){
         receiverCommonMiddleware(users);
         if (users.customUpdated){
             getUserTips(users.custom, dispatch, getState)
+            users.customUpdated = false;
         }
         dispatch(updateUsers(users))
     }
@@ -132,6 +133,7 @@ export function receiverTechnologies(technologies){
         receiverCommonMiddleware(technologies);
         if (technologies.customUpdated){
             getTechnologieTips(technologies.custom, dispatch, getState)
+            technologies.customUpdated = false;
         }
         dispatch(updateTechnologies(technologies))
     }
@@ -150,6 +152,7 @@ export function receiverTags(tags){
         receiverCommonMiddleware(tags);
         if (tags.customUpdated){
             getTagsTips(tags.custom, dispatch, getState)
+            tags.customUpdated = false
         }
         dispatch(updateTags(tags))
     }

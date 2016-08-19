@@ -63,7 +63,6 @@ const initialState = {
  * }
  */
 export default function HomeSearchReducer(state = initialState, action) {
-    console.log(state)
     switch (action.type) {
 
         case "SEARCH_SHOW":
