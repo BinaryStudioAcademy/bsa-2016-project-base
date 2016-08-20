@@ -24,7 +24,7 @@ export default class MultiSelect extends React.Component {
              */
             data: PropTypes.object.isRequired,
             /**
-             * @param {{values, custom}}newSelectedValues
+             * @param {{values, custom, tips}}newSelectedValues
              */
             receiver: PropTypes.func.isRequired
         }
@@ -69,7 +69,7 @@ export default class MultiSelect extends React.Component {
             data.customUpdated = true;
             data.custom = value;
             receiver(data)
-        }, 1000, e.target.value, data, receiver);
+        }, 300, e.target.value, data, receiver);
 
         this.setState({
                 customInputValue: e.target.value,

@@ -12,12 +12,11 @@ export default class RangeDateSelect extends React.Component {
     static get propTypes() {
         return {
             /**
-             * {upper:Date,
-             *  lower:Date}
+             * {{custom,values}
              */
             data:PropTypes.object.isRequired,
             /**
-             * @param {{upper,lower}}newValues
+             * @param {{custom,values}}newValues
              */
             receiver:PropTypes.func.isRequired
         }

@@ -142,7 +142,7 @@ export function receiverTechnologies(technologies){
 
 function getTagsTips(custom, dispatch, getState) {
     let tags = getState().HomeSearchReducer.tags;
-    tags.tips = [{text:custom+"qwe"},{text:custom+"asd"}];
+    tags.tips = [{text:custom+"1"},{text:custom+"2"}];
     dispatch(updateTags(tags))
 }
 
