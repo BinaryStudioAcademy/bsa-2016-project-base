@@ -6,7 +6,7 @@ import { createStore, combineReducers, applyMiddleware, compose  } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from "redux-thunk";
 import App from './App.js';
-import {Admin, Rights, Features, Sections, Tags, Tech, TechScope} from '../components/admin/';
+import {Admin, Rights, Tags, Tech} from '../components/admin/';
 import UpsertProject from '../components/admin/project/UpsertProject';
 import TechDetail from '../components/admin/technologies/detail/TechDetail';
 import ProjectsList from '../components/projects/ProjectsList';
@@ -40,8 +40,6 @@ render(
             <Route path="project-upsert" component={UpsertProject}/>  
             <Route path="admin" component={Admin} > 
               <Route path="rights" component={Rights} />
-              <Route path="features" component={Features} />
-              <Route path="sections" component={Sections} />
               <Route path="tags" component={Tags} />
               <Route path="tech" component={Tech} />
               <Route path="tech/:id" component={TechDetail}/>
