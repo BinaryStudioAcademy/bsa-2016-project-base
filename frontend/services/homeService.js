@@ -12,6 +12,9 @@ class HomeService {
     getAllFeaturesSorted(orderBy) {
         return fetch(`${API}mainpage/${orderBy}`);
     }
+    getProjects(){
+        return this.getAllProjects();
+    }
 
 }
 

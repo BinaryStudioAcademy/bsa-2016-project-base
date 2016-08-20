@@ -6,8 +6,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Subheader from 'material-ui/Subheader';
 
 export default class DeletableList extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
     }
 
     static get propTypes() {

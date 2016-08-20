@@ -35,28 +35,27 @@ export default class ComponentContainer extends React.Component {
             selectedTabChanged(value)
         }
     }
-    render() {
+    getMultiSelectTab(name, index){
         const {data, receiver} = this.props;
+
+        return <Tab value={index}
+                    label={`${data[name].title} (${data[name].values.length}`}>
+            <MultiSelect
+                data={data[name]}
+                receiver={receiver[name]}/>
+        </Tab>
+    }
+    render() {
         const {selectedTab} = this.props;
+        const {data, receiver} = this.props;
+
         return (
             <Tabs value={selectedTab}
                   onChange={this.selectedTabChanged.bind(this)}>
-                <Tab value={1} label="Tags">
-                    <MultiSelect
-                        data={data.tags}
-                        receiver={receiver.tags}/>
-                </Tab>
-                <Tab value={2} label="Users">
-                    <MultiSelect
-                        data={data.users}
-                        receiver={receiver.users}/>
-                </Tab>
-                <Tab value={3} label="Technologies">
-                    <MultiSelect
-                        data={data.technologies}
-                        receiver={receiver.technologies}/>
-                </Tab>
-                <Tab value={4} label="Date">
+                {this.getMultiSelectTab("tags",1)}
+                {this.getMultiSelectTab("users",2)}
+                {this.getMultiSelectTab("technologies",3)}
+                <Tab value={4} label={`Date (${data.date.values.length})`}>
                     <DateSelect
                         data={data.date}
                         receiver={receiver.date}/>
@@ -65,3 +64,23 @@ export default class ComponentContainer extends React.Component {
         );
     }
 }
+/*<Tab value={1} label={`Tags (${data.tags.values.length})`}>
+ <MultiSelect
+ data={data.tags}
+ receiver={receiver.tags}/>
+ </Tab>
+ <Tab value={2} label={`Users (${data.users.values.length})`}>
+ <MultiSelect
+ data={data.users}
+ receiver={receiver.users}/>
+ </Tab>
+ <Tab value={3} label={`Technologies (${data.technologies.values.length})`}>
+ <MultiSelect
+ data={data.technologies}
+ receiver={receiver.technologies}/>
+ </Tab>
+ <Tab value={4} label={`Date (${data.date.values.length})`}>
+ <DateSelect
+ data={data.date}
+ receiver={receiver.date}/>
+ </Tab>*/

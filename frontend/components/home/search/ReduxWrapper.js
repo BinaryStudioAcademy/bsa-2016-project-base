@@ -1,15 +1,16 @@
 import React from "react"
 import {PropTypes} from "react"
-import Root from "./ContainerWithHideButton"
+import Root from "./ContainerWithHideButtonSearchFieldAndSubmit"
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 export default class ReduxWrapper extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
     }
     getReduxData(){
         const store = this.props.store.HomeSearchReducer;
         return {
+            searchString:store.searchString,
             showSearch:store.showSearch,
             selectedTab:store.selectedTab,
             data:{
@@ -23,6 +24,8 @@ export default class ReduxWrapper extends React.Component {
     getReduxReceiver(){
         const actions = this.props;
         return {
+            updateSearchString:actions.updateSearchString,
+            goSearch:actions.goSearch,
             handleSearchShow:actions.handleSearchShow,
             handleSearchDismiss:actions.handleSearchDismiss,
             selectedTabChanged:actions.selectedTabChanged,
@@ -37,14 +40,19 @@ export default class ReduxWrapper extends React.Component {
     }
     static get propTypes() {
         return {
-            /**
+            /**{
+            *       searchString,
              *      showSearch,
              *      selectedTab,
              *      data:{
              *          tags: {values, custom, tips},
              *          users: {values, custom, tips},
              *          technologies: {values, custom, tips},
-             *          date: {upper,lower}
+             *          date: {values:[{
+             *              upper,lower}],
+             *              custom:{upper,lower}
+             *              tips:[]empty
+             *          }
              *      }
              * }
              */
@@ -74,7 +82,7 @@ export default class ReduxWrapper extends React.Component {
                     reduxData={this.getReduxData()}
                     reduxReceiver={this.getReduxReceiver()}
                 />
-                    </MuiThemeProvider>
+                </MuiThemeProvider>
             </div>
 
         )

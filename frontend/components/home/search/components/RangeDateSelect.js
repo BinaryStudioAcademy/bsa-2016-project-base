@@ -5,8 +5,8 @@ import DeletableList from "./DeletableList"
 import RaisedButton from 'material-ui/RaisedButton';
 
 export default class RangeDateSelect extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
     }
 
     static get propTypes() {

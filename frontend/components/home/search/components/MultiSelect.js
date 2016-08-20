@@ -1,6 +1,5 @@
 import React from "react"
 import {PropTypes} from "react"
-import Checkbox from 'material-ui/Checkbox';
 import {List, ListItem} from 'material-ui/List';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import TextField from 'material-ui/TextField';
@@ -68,7 +67,7 @@ export default class MultiSelect extends React.Component {
         const newTimeoutId = setTimeout((value, data, receiver)=> {
             data.customUpdated = true;
             data.custom = value;
-            receiver(data)
+            receiver(data);
         }, 300, e.target.value, data, receiver);
 
         this.setState({
@@ -76,7 +75,6 @@ export default class MultiSelect extends React.Component {
                 autoUpdateTimeoutId: newTimeoutId
             }
         )
-
     }
 
     render() {

@@ -14,6 +14,67 @@
              *      }
              * }
  */
+    /**{
+             *      showSearch,
+             *      selectedTab,
+             *      data:{
+             *          tags: {values, custom, tips},
+             *          users: {values, custom, tips},
+             *          technologies: {values, custom, tips},
+             *          date: {values:[{
+             *              upper,lower}],
+             *              custom:{upper,lower}
+             *              tips:[]empty
+             *          }
+             *      }
+             * }
+ */
+
+import {getProjects} from "./HomeActions";
+export function getQuery(getState){
+    return getState().HomeSearchReducer.currentSearch
+}
+export function getAdvancedQuery(getState){
+    const data = getState().HomeSearchReducer;
+    return {
+        tags: data.tags.values.map(tag=>tag.text),
+        users: data.users.values.map(user=>user.text),
+        technologies: data.technologies.values.map(tech=>tech.text),
+        dates: data.date.values.map(date=> {
+            return {
+                from: date.lower.getTime(),
+                to: date.upper.getTime()
+            }
+        })
+    };
+}
+export function updateCurrentSearch(currentSearch){
+    return {
+        type:"SEARCH_UPDATE_CURRENT",
+        currentSearch
+    }
+
+
+}
+/**
+ * @param type {"fast"|"extended"}
+ */
+export function goSearch(type) {
+    return (dispatch,getState)=>{
+        if (type == "extended"){
+            const currentSearch = getAdvancedQuery(getState);
+            dispatch(updateCurrentSearch(currentSearch));
+            dispatch(getProjects());
+        }
+        if (type == "fast"){
+            const searchString = getState().HomeSearchReducer.searchString;
+            dispatch(updateCurrentSearch({
+                string:searchString
+            }));
+            dispatch(getProjects())
+        }
+    }
+}
 
 function defaultEquals(o1,o2){
     return o1.text == o2.text;
@@ -27,6 +88,7 @@ function receiverCommonMiddleware(data, equals = defaultEquals){
     }
     if (data.toDelete){
         data.values = data.values.filter(elem=>!equals(elem,data.toDelete))
+        delete data.toDelete;
     }
 }
 
@@ -39,7 +101,12 @@ export function updateDate(date){
     }
 }
 
-
+export function updateSearchString(searchString){
+    return {
+        type:"SEARCH_UPDATE_STRING",
+        searchString
+    }
+}
 export function updateTechnologies(technologies){
     return {
         type:"SEARCH_UPDATE_TECHNOLOGIES",
@@ -61,7 +128,7 @@ export function updateTags(tags){
         tags
     }
 }
-
+//////////////////////////////////////////////////////////////
 export function selectedTabChanged(tab){
     return {
         type:"SEARCH_SELECTED_TAB_CHANGED",
@@ -99,7 +166,7 @@ export function receiverDate(dates){
 
 function getUserTips(custom, dispatch, getState) {
     let users = getState().HomeSearchReducer.users;
-    users.tips = [{text:custom+"qwe"},{text:custom+"asd"}]
+    users.tips = [{text:custom+"1"},{text:custom+"2"}]
     dispatch(updateUsers(users))
 }
 
@@ -122,7 +189,7 @@ export function receiverUsers(users){
 
 function getTechnologieTips(custom, dispatch, getState) {
     let technologies = getState().HomeSearchReducer.technologies;
-    technologies.tips = [{text:custom+"qwe"},{text:custom+"asd"}];
+    technologies.tips = [{text:custom+"1"},{text:custom+"2"}];
     dispatch(updateTechnologies(technologies))
 }
 

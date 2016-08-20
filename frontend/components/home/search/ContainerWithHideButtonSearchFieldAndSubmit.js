@@ -3,9 +3,11 @@ import {PropTypes} from "react"
 import ComponentContainer from "./ContainerWithTabs"
 import {Alert, Button} from "react-bootstrap"
 import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+
 export default class Root extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
     }
 
     static get propTypes() {
@@ -42,24 +44,39 @@ export default class Root extends React.Component {
     render() {
         const {reduxData, reduxReceiver} = this.props;
         const {handleSearchDismiss,handleSearchShow,
-            selectedTabChanged, dataReceiver} = reduxReceiver;
-        const {showSearch,selectedTab, data} = reduxData;
-        const button = showSearch?
-            <RaisedButton label="Hide" onClick={handleSearchDismiss}/>:
-            <RaisedButton label="Show Fast Search" onClick={handleSearchShow}/>
+            selectedTabChanged, dataReceiver,
+            goSearch, updateSearchString} = reduxReceiver;
+        const goFastSearch = goSearch.bind(null,"fast");
+        const goExtendedSearch = goSearch.bind(null, "extended");
+        const {showSearch,selectedTab, data, searchString} = reduxData;
+        const showButton = showSearch?
+            <RaisedButton label="Hide Extended Search" onClick={handleSearchDismiss}/>:
+            <RaisedButton label="Show Extended Search" onClick={handleSearchShow}/>
         const body = showSearch?
             <div>
-                <h3>Fast Search</h3>
+                <h3>Extended Search</h3>
                 <ComponentContainer
                     data={data}
                     receiver={dataReceiver}
                     selectedTab={selectedTab}
                     selectedTabChanged={selectedTabChanged}
                 />
+                <RaisedButton label="Extended Search!"
+                              onClick={goExtendedSearch}/>
             </div>:"";
+        const searchInput = <TextField
+            value={searchString}
+            hintText="Search"
+            floatingLabelText="Search"
+            onChange={(e)=>updateSearchString(e.target.value)}
+            onKeyUp={e=>e.keyCode==13/*ENTER*/?goFastSearch():0}
+        />;
+        const fastInputButton = <RaisedButton
+            label="Search!"
+            onClick={goFastSearch}/>
         return (
             <div>
-                {button}
+                <div>{searchInput}{fastInputButton}{showButton}</div>
                 {body}
             </div>
         );

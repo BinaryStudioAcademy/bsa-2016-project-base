@@ -3,10 +3,12 @@
  */
 
 const initialState = {
-    showSearch: true,
+    currentSearch:{string:"string"},
+    showSearch: false,
     selectedTab: 1,
-
+    searchString:"string",
     tags: {
+        title:"Tags",
         values: [
             {text: "tag1"},
             {text: "tag2"},
@@ -19,6 +21,7 @@ const initialState = {
         ]
     },
     users: {
+        title:"Users",
         values: [
             {text: "user1"},
             {text: "user2"},
@@ -31,6 +34,7 @@ const initialState = {
         ]
     },
     technologies: {
+        title:"Technologies",
         values: [
             {text: "tech1"},
             {text: "tech2"},
@@ -43,6 +47,7 @@ const initialState = {
         ]
     },
     date: {
+        title:"Dates",
         values:[
             {upper:new Date(), lower:new Date()}
         ],
@@ -52,6 +57,7 @@ const initialState = {
 };
 
 /**
+ *      searchString,
  *      showSearch,
  *      selectedTab,
  *      data:{
@@ -64,6 +70,16 @@ const initialState = {
  */
 export default function HomeSearchReducer(state = initialState, action) {
     switch (action.type) {
+
+        case "SEARCH_UPDATE_CURRENT":
+            return Object.assign({}, state, {
+                currentSearch:action.currentSearch
+            });
+
+        case "SEARCH_UPDATE_STRING":
+            return Object.assign({}, state, {
+                searchString:action.searchString
+            });
 
         case "SEARCH_SHOW":
             return Object.assign({}, state, {showSearch: true})
