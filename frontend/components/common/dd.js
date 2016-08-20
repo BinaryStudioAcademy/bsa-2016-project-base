@@ -27,7 +27,7 @@ export default class DropDown extends Component {
                             onChange={this.props.onItemSelect}
                             onClick={(e) => this.setState({'showList': 'hidden', selected: item.name })}
                             id={item.id}
-                            className='styles.hiden'
+                            className={styles.hiden}
                         />
                         <label htmlFor={item.id}>{item.name}</label>
                     </li>
