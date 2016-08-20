@@ -1,3 +1,7 @@
+/*
+    Андрей
+*/
+
 import React, { Component } from 'react';
 import FaAngleDown from 'react-icons/lib/fa/angle-down';
 import styles from './styles/dropdown.sass';
