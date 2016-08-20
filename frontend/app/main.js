@@ -37,13 +37,12 @@ render(
             <Route path="projects" component={ProjectsList}/>
             <Route path="project-view/:id" component={ProjectView} />
             <Route path="project-summary/:id" component={ProjectSummary}/>
-            <Route path="project-upsert" component={UpsertProject}/>  
+            <Route path="add-project" component={UpsertProject}/>  
             <Route path="admin" component={Admin} > 
               <Route path="rights" component={Rights} />
               <Route path="tags" component={Tags} />
               <Route path="tech" component={Tech} />
               <Route path="tech/:id" component={TechDetail}/>
-              <Route path="project" component={UpsertProject}  />
             </Route>
             <Route path="stats" component={Stats} /> 
             <Route path="review" component={Review} /> 
