@@ -8,16 +8,17 @@
         @content
 
 #sidebar
-    width: 16.66%
-    width: 200px
+    flex: 0 0 250px
+    // width: 200px
     background-color: #FEFEFE
     color: #7A929D
     font-family: 'Lato', sans-serif
     font-weight: 900
     font-size: 0.7em
     text-transform: uppercase
-
-    +forSmallScreens(640)
+    box-shadow: 3px 0 35px -18px #121212;
+    position: relative
+    +forSmallScreens(768)
         width: 100%
 #sidebar .sidebarHeader
     background-color: #293541

@@ -4,6 +4,7 @@
     // font-size: 1.5em
     font-weight: 300
     font-size: 1.3em
+    position: relative
 
 .dropdown-display-hidden,
 .dropdown-display-show
@@ -32,11 +33,12 @@ label
     display: inline-block
     text-align: left
 
-.dropdown-display-show + .dropdown-list 
+.dropdown-display-show + .dropdown-list
         opacity: 1
         visibility: visible
-       
-.dropdown-list  
+
+.dropdown-list
+        position: absolute
         transition: opacity .3s
          border-radius: 5px;
         padding: 0;
@@ -47,7 +49,7 @@ label
         padding: 1em
         border: 1px solid #E4E7EA
         border-radius: 5px
-        max-height: 87px
+        max-height: 164px
         overflow: auto
         li + li
             margin-top: 15px

@@ -10,7 +10,7 @@ export default class GeneralInformation extends Component {
     render() {
         const { cnt } = this.props;
 
-        return (            
+        return (
             <div className={styles.count}>
                 {(cnt)?
                     <div>
