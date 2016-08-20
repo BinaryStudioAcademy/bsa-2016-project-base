@@ -12,16 +12,13 @@ class Admin extends Component {
 	}
  	render() {
 	    return (
-	    	<div className={styles.adminContent}>
+	    	<div className={styles.adminContent} id="adminContent">
 	    	  		<header className={styles.adminContentHeader}>
                     		<div>
                         		<FaCog size={20} />
                         		<span>Admin Menu</span>
                     		</div>
 		  			</header>
-		  			<div className={styles.heading}>
-		  				<h1>Dashboard</h1>
-		  			</div>
 		        	<ul className={styles["tab-bar"]}>
 		        		<li key={1}>
 		        			<Link to="/admin/rights/" activeClassName={styles["admin-nav-item-active"]}>
