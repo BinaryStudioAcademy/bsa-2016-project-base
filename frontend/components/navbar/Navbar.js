@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { Grid, Row, Panel, Nav,NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import styles from './navbar.sass';
-import {FaHome, FaAsterisk, FaBarChart, FaCog} from 'react-icons/lib/fa';
+import {FaHome, FaAsterisk, FaBarChart, FaCog, FaPlus} from 'react-icons/lib/fa';
 class Navbar extends Component {
 	constructor(props) {
 	    super(props);
@@ -12,7 +12,7 @@ class Navbar extends Component {
         };
         this.toggleMenu = this.toggleMenu.bind(this);
 	}
-    
+
     toggleMenu(e) {
         let state = this.state.isMenuActive;
         this.setState({
@@ -62,11 +62,11 @@ class Navbar extends Component {
                 <span className={styles['item-name']}>Admin Area</span>
               </Link>
            </li>
-		   
+
 			<li key={5}>
               <Link to="/add-project" activeClassName={styles.active}>
-                <span className={styles.icon}>
-                  <FaCog size={15} />
+               <span className={styles.icon}>
+                  <FaPlus size={15} />
                 </span>
                 <span className={styles['item-name']}>Add Project</span>
               </Link>
