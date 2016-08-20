@@ -8,7 +8,7 @@ class InputFilter extends Component {
 
     getButtons() {
         const {onChange, chartType} = this.props,
-            prompts = ["№ active projects", "№ of used Twchnologies", "№ Most popular Tags"],
+            prompts = ["№ active projects", "№ of used Technologies", "№ Most popular Tags"],
             chartTypes = ["Linear", "Circle", "Bar"];
         let buttons = [];
         for (let i = 0; i < prompts.length; i += 1) {
@@ -22,7 +22,7 @@ class InputFilter extends Component {
             ))
         }
         return (
-            <div className={styles.container + " "+styles.inputFieldChartStatistic}>
+            <div className={styles['controls-group']}>
                 {buttons}
             </div>)
     }
@@ -30,14 +30,19 @@ class InputFilter extends Component {
     render() {
         const {selectAll, selectAllChanged} = this.props;
         return (
-            <div>
+            <div className={styles['controls-wrap']} >
                 {this.getButtons()}
-                <div className={styles.inputFieldChartStatistic}>
-                    <label><input type="checkbox" checked={selectAll}
+                <div className={styles['controls-group']} >
+                    <input type="checkbox" id="charts-select-all"
+                           checked={selectAll}
+                           onChange={selectAllChanged}
+                           className={styles.checkbox}
+                    />
+                    <label htmlFor="charts-select-all">Select All</label>
+                    {/*<label><input type="checkbox" checked={selectAll}
                                   onChange={selectAllChanged}
                                   className={styles.checkbox}
-                    />Select All</label>
-
+                    />Select All</label>*/}
                 </div>
             </div>
         )
