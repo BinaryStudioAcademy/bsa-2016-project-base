@@ -39,8 +39,8 @@ class TechnologiesTab extends Component {
 
     render() {
         return (
-            <Col xs={12} sm={12} md={8}>
-                <Col xs={12} sm={12} md={8}>
+            <div className="section-control">
+                <Col xs={12} sm={12} mdOffset={2} md={8}>
                     <FormControl className={styles['select-all-checkbox']} onChange={this.setAllChecked}
                                  checked={this.state.checked} id="delete_all"
                                  type="checkbox"/>
@@ -49,14 +49,11 @@ class TechnologiesTab extends Component {
                     <Button onClick={this.sendDeleteRequest} className={styles['button-feature-remove']}>Delete all
                         checked</Button>
                 </Col>
-                <Col xs={12} sm={12} md={4}>
+                <Col xs={12} sm={12} md={2}>
                     <Button onClick={this.showAddForm}
                             className={styles['button-feature-add']}>{(this.state.formState === 'hidden') ? 'Add' : 'Hide Form'}</Button>
                 </Col>
-            </Col>
-
-
-
+            </div>
         )
     }
 }
