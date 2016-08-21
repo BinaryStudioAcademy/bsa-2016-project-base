@@ -9,3 +9,4 @@ export {default as TabBody} from './tabs/TabBody';
 export {default as TabHead} from './tabs/TabHead';
 export {default as DataList} from './DataList';
 export {default as FileUpload} from './FileUpload';
+export {default as Editor} from './editor/Editor';
