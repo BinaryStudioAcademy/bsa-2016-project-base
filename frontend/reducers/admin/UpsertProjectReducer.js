@@ -104,14 +104,14 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 tags: removeTagFromProject(tags, _id)
             });
         }
-        case types.POST_TAG_SUCCESS: {
+        case types.ADD_TAG_SUCCESS: {
             const {data} = action;
             const {tags} = state;
             return Object.assign({}, state, {
                 tags: addNewTag(tags, data)
             });
         }
-        case types.POST_TECH_SUCCESS: {
+        case types.ADD_TECH_SUCCESS: {
             const {data} = action;
             const {technologies} = state;
             console.log('POST_TECH',data);
@@ -119,6 +119,31 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 technologies: addNewTech(technologies, data)
             });
         }
+        case types.ADD_SECTION_SUCCESS: {
+            const {data} = action;
+            const {sections} = state;
+            console.log('POST_SECTION_SUCCESS',data);
+            return Object.assign({}, state, {
+                sections: sections.concat(data)
+            });
+        }
+        case types.ADD_FEATURE_SUCCESS: {
+            const {data} = action;
+            const {features} = state;
+            console.log('POST_FEATURE_SUCCESS',data);
+            return Object.assign({}, state, {
+                features: features.concat(data)
+            });
+        }
+        
+        case types.SELECT_SECTION: {
+            const {_id} = action;
+            const {sections, activeSection} = state;
+            return Object.assign({}, state, {
+                activeSection: selectSection(sections, _id)
+            });
+        }
+        
         case types.UPLOAD_FILE_SUCCESS: {
             const {path} = action.data;
             const {files} = state;
@@ -164,6 +189,16 @@ export default function UpsertProjectReducer(state=initialState, action) {
     }
 };
 
+
+const selectSection = (sections, _id) => {
+    for(let i = 0; i < sections.length; i++) {
+         if (sections[i]._id === _id) {
+            return sections[i];
+        }
+    }
+    console.log('selectSection');
+    return null;
+}
 
 const removeFile = (files, name) => {
 	files.forEach( (file, index) => {
@@ -252,12 +287,38 @@ const changeOwnership = (users, _id, value) => {
 	return [].concat(users);
 }
 
+
+
+
+
+const feature = {
+        _id : "57a2631ab42bbf5a2daa9997",
+        featureName : "5184",
+        section : "57b9c2e4acd14b1840a00c5c",
+        featureOrder : "Necesary",
+        isNecessary : false,
+        created : "24/04/2015",
+        isImplemented : false,
+        childFeatures : "57a237d2fc13ae319e002654",
+        isItSubFeature : false,
+        descriptionText : "Description Sample Text",
+        descriptionHTMLText : "Description HTML Sample Text"
+}
+
+
+
 const initialState = {
 	users: [],
 	tags: [],
 	technologies: [],
 	conditions: [],
+    sections: [],
+    features: [],
 	files: [],
+    activeSection: {},
 	tagExists: false
 
 };
+
+
+
