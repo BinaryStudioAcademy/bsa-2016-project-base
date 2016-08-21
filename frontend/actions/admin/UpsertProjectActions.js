@@ -1,10 +1,10 @@
 import * as types from './UpsertProjectActionTypes';
-import upsertProjectService from "../../services/admin/UpsertProjectService";
-import adminTagService from "../../services/admin/AdminTagService";
-import techService from "../../services/TechnologieService";
-import uploadService from "../../services/UploadService";
-
-
+import upsertProjectService from '../../services/admin/UpsertProjectService';
+import adminTagService from '../../services/admin/AdminTagService';
+import techService from '../../services/TechnologieService';
+import uploadService from '../../services/UploadService';
+import sectionService from '../../services/sectionService';
+import featureService from '../../services/featureService';
 
 
 
@@ -39,7 +39,7 @@ export function getPredefinedData() {
 export function postTag(tag) {
     return dispatch => {
         dispatch({
-            type: types.POST_TAG
+            type: types.ADD_TAG
         });
         return adminTagService.addTag(tag)
             .then(response => {
@@ -50,13 +50,13 @@ export function postTag(tag) {
             })
             .then( json =>  {
                 dispatch({
-                    type: types.POST_TAG_SUCCESS,
+                    type: types.ADD_TAG_SUCCESS,
                     data: json
                 });
             })
             .catch( error => {
                 dispatch({
-                    type: types.POST_TAG_ERROR,
+                    type: types.ADD_TAG_ERROR,
                     error: error
                 });
             });
@@ -66,7 +66,7 @@ export function postTag(tag) {
 export function postTech(tech) {
     return dispatch => {
         dispatch({
-            type: types.POST_TECH
+            type: types.ADD_TECH
         });
         return techService.addTechology(tech)
             .then(response => {
@@ -77,13 +77,13 @@ export function postTech(tech) {
             })
             .then( json =>  {
                 dispatch({
-                    type: types.POST_TECH_SUCCESS,
+                    type: types.ADD_TECH_SUCCESS,
                     data: json
                 });
             })
             .catch( error => {
                 dispatch({
-                    type: types.POST_TECH_ERROR,
+                    type: types.ADD_TECH_ERROR,
                     error: error
                 });
             });
@@ -91,11 +91,61 @@ export function postTech(tech) {
 };
 
 
+export function postSection(section) {
+    return dispatch => {
+        dispatch({
+            type: types.ADD_SECTION
+        });
+        return sectionService.addNewSection(section)
+            .then(response => {
+                if (response.status != 201) {
+                    throw Error(response.statusText);
+                } 
+                return response.json();
+            })
+            .then( json =>  {
+                dispatch({
+                    type: types.ADD_SECTION_SUCCESS,
+                    data: json
+                });
+            })
+            .catch( error => {
+                dispatch({
+                    type: types.ADD_SECTION_ERROR,
+                    error: error
+                });
+            });
+    };
+};
 
 
-//export const UPLOAD_FILE = 'UPLOAD_FILE';
-//export const UPLOAD_FILE_ERROR = 'UPLOAD_FILE_ERROR';
-//export const UPLOAD_FILE_SUCCESS = 'UPLOAD_FILE_SUCCESS';
+export function postFeature(feature) {
+    return dispatch => {
+        dispatch({
+            type: types.ADD_FEATURE
+        });
+        return featureService.addNewFeature(feature)
+            .then(response => {
+                if (response.status != 201) {
+                    throw Error(response.statusText);
+                } 
+                return response.json();
+            })
+            .then( json =>  {
+                dispatch({
+                    type: types.ADD_FEATURE_SUCCESS,
+                    data: json
+                });
+            })
+            .catch( error => {
+                dispatch({
+                    type: types.ADD_FEATURE_ERROR,
+                    error: error
+                });
+            });
+    };
+};
+
 
 export function uploadFile(file) {
     return dispatch => {
@@ -210,22 +260,6 @@ export function removeTagFromProject(_id) {
     };
 };
 
-/*
-export function addNewTagToProject(tagName) {
-    return {
-        type: types.ADD_NEW_TAG_TO_PROJECT,
-        tagName
-    };
-};
-
-export function removeNewTagFromProject(tagName) {
-    return {
-        type: types.REMOVE_NEW_TAG_FROM_PROJECT,
-        tagName
-    };
-};
-*/
-
 export function addTechToProject(_id) {
     return {
         type: types.ADD_TECH_TO_PROJECT,
@@ -240,19 +274,10 @@ export function removeTechFromProject(_id) {
     };
 };
 
-/*export function addNewTechToProject(tech) {
+
+export function selectSection(_id) {
     return {
-        type: types.ADD_NEW_TECH_TO_PROJECT,
-        tech
+        type: types.SELECT_SECTION,
+        _id
     };
 };
-
-export function removeNewTechFromProject(tech) {
-    return {
-        type: types.REMOVE_NEW_TECH_FROM_PROJECT,
-        tech
-    };
-};*/
-
-
-
