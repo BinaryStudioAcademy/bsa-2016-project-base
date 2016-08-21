@@ -7,7 +7,9 @@ import RemoveTags from './RemoveTags';
 import TagsSearch from './TagsSearch';
 import TagsList from './TagsList';
 import AddTag from './AddTag';
-
+import TextFieldUI from '../../common/TextFieldUI';
+import CheckBoxUI from '../../common/CheckBoxUI';
+import FaSearch from 'react-icons/lib/fa/search';
 import styles from './tags.sass';
 
 class Tags extends Component {
@@ -45,7 +47,7 @@ class Tags extends Component {
 		let { isAllChecked } = this.props.store.AdminTagReducer;
 		if (!isAllChecked) {
 			this.props.selectAll(false);
-		} 
+		}
 		this.props.setFilterTerm(term);
 		this.props.filterTags();
 	}
@@ -66,32 +68,48 @@ class Tags extends Component {
 			this.props.deleteTags(trash);
 			this.props.selectAll(false);
 		}
-		
+
 	}
  	render() {
  		let { tags, isAllChecked } = this.props.store.AdminTagReducer;
 	    return (
 	    	<div className={styles["tags-tab"]} id={styles["tags"]}>
-	    		
 	    			<Panel className={styles["tags-panel-top"]}>
-				    	<Row className={styles["tags-tools"]}>
-				    		<TagsSearch searchTag={this.searchTag}/>
+				    	<div className={styles["tags-tools"]}>
+				    		<div className={styles.col}>
+				    			<FaSearch size={15} />
+				    			<TextFieldUI
+									hintText='search tags'
+									onChange={this.searchTag}
+				  				/>
+				  			</div>
+				    		<div className={styles.col}>
+				    		<CheckBoxUI
+				    			label="Mark All"
+				    			isAllChecked={isAllChecked}
+				    			selectAll={this.selectAll}
+				    		/>
+				    		</div>
+				    		<div className={styles.col}>
 					      	<RemoveTags
 					      		selectAll={this.selectAll}
 					      		deleteMany={this.deleteMany}
 					      		isAllChecked={isAllChecked}
 					      	/>
+					      	</div>
+					      	<div className={styles.col}>
 					     	<AddTag
 					     		setTagName={this.setTagName}
 					     		addTag={this.addTag}
 					     	/>
-				   		</Row>
+					     	</div>
+				   		</div>
 				    </Panel>
 				    <TagsList
 				    	tags={tags}
 				    	selectOne={this.selectOne}
 				    />
-				 
+
 	    	</div>
 	    )
 	}

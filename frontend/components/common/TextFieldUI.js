@@ -5,20 +5,33 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 const styles = {
   errorStyle: {
-    color: '#fc5a5a',
+    color: '#fc5a5a'
   },
   underlineStyle: {
-    borderColor: '#627484',
+    borderColor: '#D5D7DA'
   },
   underlineFocusStyle: {
-    borderColor: '#2196F3',
+    borderColor: '#2ecc71'
   },
   floatingLabelStyle: {
-    color: '#627484',
+    color: '#627484'
   },
   floatingLabelFocusStyle: {
-    color: '#2ecc71',
+    color: '#2ecc71'
+  },
+  inputStyle: {
+    color: '#627484',
+    fontfamily: 'Lato, sans-serif',
+    paddingLeft: ".5rem"
+  },
+  hintStyle: {
+    fontFamily: 'Lato, sans-serif',
+    marginLeft: ".5rem",
+    fontSize: "0.9rem"
   }
+
+
+
 };
 
 const TextFieldUI = ({hintText, defaultValue, onChange, style, inputStyle}) => {
@@ -27,7 +40,7 @@ const TextFieldUI = ({hintText, defaultValue, onChange, style, inputStyle}) => {
         <MuiThemeProvider>
             <TextField
               hintText={hintText}
-              defaultValue={defaultValue}            
+              defaultValue={defaultValue}
               onChange={onChange}
               style={style}
               inputStyle={{
@@ -35,6 +48,9 @@ const TextFieldUI = ({hintText, defaultValue, onChange, style, inputStyle}) => {
                   fontFamily: 'Play'
               }}
               underlineFocusStyle={styles.underlineFocusStyle}
+              underlineStyle={styles.underlineStyle}
+              inputStyle={styles.inputStyle}
+              hintStyle={styles.hintStyle}
             />
           </MuiThemeProvider>
         </div>

@@ -10,10 +10,10 @@ const TagsSearch = ({searchTag}) => {
 		        	<InputGroup.Addon>
 		        		<i className="fa fa-search" aria-hidden="true"></i>
 		        	</InputGroup.Addon>
-		        	<FormControl 
-						type="search" 
+		        	<FormControl
+						type="search"
 						placeholder="Search"
-						onChange={searchTag} 
+						onChange={searchTag}
 					/>
 		     	</InputGroup>
 			</div>

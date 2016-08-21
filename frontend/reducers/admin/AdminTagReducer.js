@@ -12,7 +12,7 @@ export default function AdminTagReducer(state=initialState, action) {
 				        tagName,
                         match: true,
 				        checked: false
-                       
+
 			        };
      			 })
             });
@@ -39,7 +39,7 @@ export default function AdminTagReducer(state=initialState, action) {
             const { searchTerm } = action;
             return Object.assign({}, state, {
                 searchTerm
-            })  
+            })
         }
         case types.FILTER_TAGS: {
             const { searchTerm, tags, isAllChecked } = state;
@@ -66,7 +66,7 @@ export default function AdminTagReducer(state=initialState, action) {
                         checked
 			        };
      			 }),
-                isAllChecked: checked 
+                isAllChecked: checked
             });
         }
         case types.SELECT_ONE: {
@@ -85,11 +85,11 @@ export default function AdminTagReducer(state=initialState, action) {
                 	}
                 	return tag;
                 }),
-                isAllChecked: false 
+                isAllChecked: false
             });
         }
         default: {
-            return state;        
+            return state;
         }
     }
 }
@@ -112,7 +112,7 @@ const filter = (array, term, isAllChecked) => {
             tag.match = false;
             tag.checked = false;
         } else {
-            tag.match = true; 
+            tag.match = true;
             if (isAllChecked) {
                 tag.checked = true;
             }

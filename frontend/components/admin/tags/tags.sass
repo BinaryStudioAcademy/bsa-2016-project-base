@@ -9,7 +9,7 @@
 	border-radius: 0px !important
 	background: #fff !important
 	font-weight: bold !important
-	border-bottom: 1px solid #d6d3d3 !important
+	border: 0
 	z-index: 0 !important
 	&:hover
 		transition: none !important
@@ -23,11 +23,10 @@
 	outline: none !important
 	border: 0 !important
 	margin: 0 !important
-	padding: 0 !important
 	border-radius: 0 !important
 	box-shadow: none !important
 	transition: none !important
-	border-bottom: 1px solid #d6d3d3 !important
+	border-bottom: 0
 
 =default-panel
 	margin-bottom: 20px !important
@@ -38,23 +37,23 @@
     box-shadow: none !important
 
 #tags
-
-	.tags-tab
-		+border-box
-		//font-family: Geneva, Arial, Helvetica, sans-serif;
-		//font-size: 18px
-		margin: 0 auto
-		font-family: "Open Sans" 
-	  	font-size: 16px	
-	  	font-weight: normal
+	display: flex
+	width: 100%
+	justify-content: flex-start
+	flex-flow: column wrap
+	padding: 0
 
 
-	.tags-grid
-		//width: 90%
-
+	.col
+		display: flex
+		align-items: center
+		color: #8D97A4
+		margin: auto;
+		justify-content: space-between
 
 	.tags-tools
-	 	+border-box
+		display: flex
+
 
 	.tags-search
 		margin: 5px
@@ -79,7 +78,7 @@
 		+border-box
 		color: black
 		color: #333 !important
-		padding: 0px 5px 
+		padding: 0px 5px
 		margin: 4px 4px 4px 4px
 		background-color: #ededed
 		background-color: rgb(250, 250, 250)
@@ -107,16 +106,17 @@
 		+default-panel
 		+ div
 	    	padding: 0px 15px
-	    	margin: 15px 0px 
+	    	margin: 15px 0px
 
 	.tags-panel-top
 		+default-panel
 		margin-bottom: 20px !important
 		//border: 1px solid #eee !important
 		//background: rgb(250, 250, 250) !important
-		background: #EFEFEF !important
+		background: #fff !important
 		border-radius: 0 !important
 		box-shadow: none !important
+		padding: 1rem 2.5rem
 
 	.tags-input-group
 		background-color: transparent !important
@@ -128,7 +128,7 @@
 	.tags-input-group-btn
 		background-color: transparent !important
 		font-size: inherit
-		
+
 
 	.tags-btn
 		+default-btn
@@ -139,7 +139,7 @@
 		background: #F97E76 !important
 		//margin-left: 1px !important
 		color: #fff !important
-	    
+
 	.tags-add-btn
 		+default-btn
 		//background: #79d236 !important
@@ -147,9 +147,9 @@
 		background: #C1CFD9 !important
 		color: #fff !important
 
-	input[type="text"] 
+	input[type="text"]
 		+reset-input
-		padding-left: 10px !important
+
 		&:focus
 			z-index: 0 !important
 
@@ -161,7 +161,6 @@
 	span
 		border: 0 !important
 		border-radius: 0 !important
-		background-color: rgba(255, 186, 30, 0.47) !important
 		//color: #fff !important
 
 
@@ -245,7 +244,7 @@
 	.select-all-label
 	  color: #656565
 	  font-family: 'Open Sans', arial
-	  font-size: 16px	
+	  font-size: 16px
 	  margin-top: 0 !important
 	  vertical-align: middle !important
 

@@ -3,9 +3,18 @@ import React, {Component} from 'react';
 
 import Checkbox from 'material-ui/Checkbox';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import styles from './styles/checkbox.sass';
 
+
+
+
+const muiTheme = getMuiTheme({
+  checkbox: {
+    boxColor: '#8D97A4',
+    checkedColor: "#2ecc71",
+  },
+});
 export default class CheckBox extends Component {
     constructor(props){
         super(props)
@@ -13,26 +22,31 @@ export default class CheckBox extends Component {
     }
     onChecked(arg){
         this.setState({checked:!this.state.checked})
+
     }
     render() {
         const { label} = this.props;
         return (
             <div>
-                <MuiThemeProvider>
+                <MuiThemeProvider muiTheme={muiTheme}>
                     <Checkbox
                         label={label}
-                        checked={this.state.checked}
-                        onClick={this.onChecked.bind(this,'click')}
+                        checked={this.props.isAllChecked}
+                        onClick={this.props.selectAll}
                         labelStyle={{
                             color: '#555',
-                            fontFamily: 'Play'
+                            fontFamily: 'Play',
+                            width: "calc(100% - 30px)",
+                            color: '#8D97A4',
+                            fontFamily: "Lato, sans-serif",
+                            fontSize: "0.9rem"
                         }}
                         iconStyle={{
-                            fill: '#2ecc71'
+                            marginRight: "10px"
                         }}
                     />
                 </MuiThemeProvider>
-                
+
             </div>
         )
     }

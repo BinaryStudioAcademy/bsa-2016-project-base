@@ -8,6 +8,6 @@ export {default as TabBody} from './tabs/TabBody';
 export {default as TabHead} from './tabs/TabHead';
 export {default as DataList} from './DataList';
 export {default as FileUpload} from './FileUpload';
-export {default as CheckBox} from './CheckBox-ui';
+export {default as CheckBox} from './CheckBoxUI';
 export {default as DropDown} from './DropDown';
-export {default as TextFieldUI} from './TextField-ui';
+export {default as TextFieldUI} from './TextFieldUI';
