@@ -11,18 +11,19 @@ export default class CheckBox extends Component {
         super(props)
         this.state={checked:false};
     }
-    onChecked(arg){
+    handleCheck(arg){
         this.setState({checked:!this.state.checked})
     }
     render() {
-        const { label} = this.props;
+        const {label, onChange} = this.props;
         return (
             <div>
                 <MuiThemeProvider>
                     <Checkbox
                         label={label}
                         checked={this.state.checked}
-                        onClick={this.onChecked.bind(this,'click')}
+                        onClick={this.handleCheck.bind(this,'click')}
+                        onChange={onChange}
                         labelStyle={{
                             color: '#555',
                             fontFamily: 'Play'
