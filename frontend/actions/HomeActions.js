@@ -1,60 +1,49 @@
-import * as types from '../constants/HomeActionTypes';
+/**
+ * Created by user on 20.08.2016.
+ */
 import homeService from '../services/homeService';
+import * as types from '../constants/HomeActionTypes';
+import {getQuery} from "../actions/HomeSearchActions"
 
-export function filterProjectList(search, searchHint) {
-    return {
-        type: types.FILTER_PROJECTS_DETAILS,
-        search,
-        searchHint
-    };
-}
-
-export function filterTech(filterTech, check) {
-    return {
-        type: types.FILTER_PROJECTS_BY_TECH_DETAILS,
-        filterTech,
-        check
-    };
-}
-
-export function setActionPage(activePage) {
-    return {
-        type: types.PAGINATION_ACTIVE_PAGE,
-        activePage
+export function receiveTotalProjects(total){
+    return (dispatch, getState)=>{
+        const pagination = getState().HomeReducer.pagination;
+        pagination.total = total;
+        updatePagination(pagination)
     }
 }
 
-export function getAllProjects() {
-    return dispatch => {
-        dispatch({
-            type: types.PROJECTS_GET_ALL_START_LOADING
-        });
-
-        return homeService.getAllProjects()
-            .then( res => res.json())
-            .then( data => {
-                dispatch({
-                    type: types.PROJECTS_GET_ALL_SUCCESS,
-                    data: data
-                });
-            })
-            .catch( err => {
-                dispatch({
-                    type: types.PROJECTS_GET_ALL_ERROR,
-                    error: err
-                });
-            });
+export function updatePagination(pagination){
+    return {
+        type:"PROJECTS_PAGINATION_UPDATE",
+        pagination
     }
 }
 
-export function getAllProjectsSorted(orderBy) {
-    return dispatch => {
+export function receiveUpdatePagination(selected){
+    return (dispatch, getState)=>{
+        const pagination = getState().HomeReducer.pagination;
+        pagination.activePage = selected;
+        dispatch(updatePagination(pagination));
+        dispatch(getProjects());
+    }
+}
+
+export function getProjects(){
+    return (dispatch, getState)=>{
         dispatch({
             type: types.PROJECTS_GET_ALL_START_LOADING
         });
-        return homeService.getAllFeaturesSorted(orderBy)
+        const query = getQuery(getState);
+        const pagination = getState().HomeReducer.pagination;
+        query.recordsPerPage = pagination.perpage;
+        query.activePage = pagination.activePage;
+        console.info(new Date(), " : ", "sending query ", query);
+        return homeService.getProjects(query)
             .then( res => res.json())
             .then( data => {
+                dispatch(receiveTotalProjects(data.length));
+                //TODO: total projects should come in separated field
                 dispatch({
                     type: types.PROJECTS_GET_ALL_SUCCESS,
                     data: data

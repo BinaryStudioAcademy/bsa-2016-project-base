@@ -3,7 +3,6 @@
  */
 
 const initialState = {
-<<<<<<< HEAD
     currentSearch:{string:"string"},
     showSearch: false,
     selectedTab: 1,
@@ -57,87 +56,18 @@ const initialState = {
     }
 };
 
-<<<<<<< HEAD
-
-=======
-    showSearch: true,
-    selectedTab: 1,
-=======
-/**
- *      searchString,
- *      showSearch,
- *      selectedTab,
- *      data:{
-             *          tags: {values, custom, tips},
-             *          users: {values, custom, tips},
-             *          technologies: {values, custom, tips},
-             *          date: {upper,lower}
-             *      }
- * }
- */
 export default function HomeSearchReducer(state = initialState, action) {
     switch (action.type) {
->>>>>>> parent of 18f731c... velo
 
-    tags: {
-        values: [
-            {text: "tag1"},
-            {text: "tag2"},
-            {text: "tag3"}
-        ],
-        custom: "cus",
-        tips: [
-            {text: "tip1"},
-            {text:"tip2"}
-        ]
-    },
-    users: {
-        values: [
-            {text: "user1"},
-            {text: "user2"},
-            {text: "user3"}
-        ],
-        custom: "user",
-        tips: [
-            {text: "tip1"},
-            {text:"tip2"}
-        ]
-    },
-    technologies: {
-        values: [
-            {text: "tech1"},
-            {text: "tech2"},
-            {text: "tech3"}
-        ],
-        custom: "cus",
-        tips: [
-            {text: "tip1"},
-            {text:"tip2"}
-        ]
-    },
-    date: {
-        values:[
-            {upper:new Date(), lower:new Date()}
-        ],
-        tips:[],
-        custom:{}
-    }
-};
+        case "SEARCH_UPDATE_CURRENT":
+            return Object.assign({}, state, {
+                currentSearch:action.currentSearch
+            });
 
-/**
- *      showSearch,
- *      selectedTab,
- *      data:{
-             *          tags: {values, custom, tips},
-             *          users: {values, custom, tips},
-             *          technologies: {values, custom, tips},
-             *          date: {upper,lower}
-             *      }
- * }
- */
->>>>>>> parent of 7f3edc1... combined search and project view together
-export default function HomeSearchReducer(state = initialState, action) {
-    switch (action.type) {
+        case "SEARCH_UPDATE_STRING":
+            return Object.assign({}, state, {
+                searchString:action.searchString
+            });
 
         case "SEARCH_SHOW":
             return Object.assign({}, state, {showSearch: true})

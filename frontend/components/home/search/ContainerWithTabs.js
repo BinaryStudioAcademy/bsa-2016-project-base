@@ -39,7 +39,7 @@ export default class ComponentContainer extends React.Component {
         const {data, receiver} = this.props;
 
         return <Tab value={index}
-                    label={`${data[name].title} (${data[name].values.length}`}>
+                    label={`${data[name].title} (${data[name].values.length})`}>
             <MultiSelect
                 data={data[name]}
                 receiver={receiver[name]}/>

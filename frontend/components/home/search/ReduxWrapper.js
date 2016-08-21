@@ -7,7 +7,7 @@ export default class ReduxWrapper extends React.Component {
     constructor(props) {
         super(props);
     }
-    getReduxData(){
+    getData(){
         const store = this.props.store.HomeSearchReducer;
         return {
             searchString:store.searchString,
@@ -21,7 +21,7 @@ export default class ReduxWrapper extends React.Component {
             }
         }
     }
-    getReduxReceiver(){
+    getReceiver(){
         const actions = this.props;
         return {
             updateSearchString:actions.updateSearchString,
@@ -40,37 +40,6 @@ export default class ReduxWrapper extends React.Component {
     }
     static get propTypes() {
         return {
-            /**{
-            *       searchString,
-             *      showSearch,
-             *      selectedTab,
-             *      data:{
-             *          tags: {values, custom, tips},
-             *          users: {values, custom, tips},
-             *          technologies: {values, custom, tips},
-             *          date: {values:[{
-             *              upper,lower}],
-             *              custom:{upper,lower}
-             *              tips:[]empty
-             *          }
-             *      }
-             * }
-             */
-            //reduxData:PropTypes.object.isRequired,
-            /**
-             * {
-             *      handleSearchShow,
-             *      handleSearchDismiss,
-             *      selectedTabChanged,
-             *      dataReceiver:{
-             *          tags,
-             *          users,
-             *          technologies,
-             *          date
-             *      }
-             * }
-             */
-            //reduxReceiver:PropTypes.object.isRequired
         }
     }
 
@@ -79,8 +48,8 @@ export default class ReduxWrapper extends React.Component {
             <div>
                 <MuiThemeProvider>
                 <Root
-                    reduxData={this.getReduxData()}
-                    reduxReceiver={this.getReduxReceiver()}
+                    data={this.getData()}
+                    receiver={this.getReceiver()}
                 />
                 </MuiThemeProvider>
             </div>

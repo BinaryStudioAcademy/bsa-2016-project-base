@@ -1,9 +1,8 @@
 import React from "react"
 import {PropTypes} from "react"
-import Checkbox from 'material-ui/Checkbox';
 import {List, ListItem} from 'material-ui/List';
 import ActionInfo from 'material-ui/svg-icons/action/info';
-import TextField from './DeferredTextInput;
+import TextField from './DeferredTextInput';
 import Delete from "material-ui/svg-icons/action/delete"
 import DeletableList from "./DeletableList"
 
@@ -76,7 +75,7 @@ export default class MultiSelect extends React.Component {
             <div style={{width:"40%"}}>
                 <TextField
                     value={customInputValue}
-                    receiver={this.onInputChange}
+                    receiver={this.onInputChange.bind(this)}
                 />
 
                 {this.getTipsComponents()}
