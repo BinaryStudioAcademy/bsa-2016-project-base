@@ -1,5 +1,6 @@
 import React from "react"
 import {PropTypes} from "react"
+import Checkbox from 'material-ui/Checkbox';
 import {List, ListItem} from 'material-ui/List';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import Delete from "material-ui/svg-icons/action/delete"
@@ -54,9 +55,27 @@ export default class MultiSelect extends React.Component {
 
     onInputChange(value) {
         const {data,receiver} = this.props;
+<<<<<<< HEAD
         data.customUpdated = true;
         data.custom = value;
         receiver(data);
+=======
+        const {autoUpdateTimeoutId} = this.state;
+        clearTimeout(autoUpdateTimeoutId);
+
+        const newTimeoutId = setTimeout((value, data, receiver)=> {
+            data.customUpdated = true;
+            data.custom = value;
+            receiver(data)
+        }, 300, e.target.value, data, receiver);
+
+        this.setState({
+                customInputValue: e.target.value,
+                autoUpdateTimeoutId: newTimeoutId
+            }
+        )
+
+>>>>>>> parent of 7f3edc1... combined search and project view together
     }
 
     render() {

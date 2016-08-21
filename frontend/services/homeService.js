@@ -12,9 +12,13 @@ class HomeService {
     getAllFeaturesSorted(orderBy) {
         return fetch(`${API}mainpage/${orderBy}`);
     }
+<<<<<<< HEAD
     getProjects(query){
         return this.getAllProjects();
     }
+=======
+
+>>>>>>> parent of 7f3edc1... combined search and project view together
 }
 
 const homeService = new HomeService();
