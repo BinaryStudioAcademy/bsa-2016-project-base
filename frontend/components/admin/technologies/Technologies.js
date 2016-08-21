@@ -8,6 +8,7 @@ import  TechnologiesControl from "./TechnologiesControl";
 import  TechnologiesAddForm from "./TechnologiesAddForm";
 import { Grid, Row, Panel } from 'react-bootstrap';
 import styles from  './styles.sass';
+import ReduxToastr, {toastr} from 'react-redux-toastr'
 class Technologies extends Component {
     constructor() {
         super();
@@ -57,7 +58,12 @@ class Technologies extends Component {
 
     deleteChecked() {
         const {listOfTechnologies} = this.props.stateFromReducer.TechnologiesReducer;
-        this.props.removeSelectedTechs(listOfTechnologies);
+       // this.props.removeSelectedTechs(listOfTechnologies);
+        const toastrConfirmOptions = {
+            onOk: () => this.props.removeSelectedTechs(listOfTechnologies),
+            onCancel: () => ''
+        };
+        toastr.confirm('Are you sure about that?', toastrConfirmOptions)
     }
 
     formAddControlState() {
@@ -99,6 +105,7 @@ class Technologies extends Component {
     }
 
     render() {
+
         let list;
         const {listOfTechnologies, listOfTechnologiesFiltered, formState}
             = this.props.stateFromReducer.TechnologiesReducer;
@@ -107,8 +114,10 @@ class Technologies extends Component {
         } else {
             list = listOfTechnologies;
         }
+
         return (
             <div id="technologies" className={styles["technologies-tab"]}>
+                <ReduxToastr/>
                 <Panel className={styles['technologies-tool-bar']}>
                     <Row className={styles["technologies-tools"]}>
                     <TechnologiesSearch technologiesSearch={this.technologiesSearch}/>

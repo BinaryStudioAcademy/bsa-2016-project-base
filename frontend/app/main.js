@@ -1,9 +1,9 @@
 import 'babel-polyfill';
 import React from 'react';
-import { render } from 'react-dom';
-import { IndexRoute, Route, Router, browserHistory } from 'react-router';
-import { createStore, combineReducers, applyMiddleware, compose  } from 'redux';
-import { Provider } from 'react-redux';
+import {render} from 'react-dom';
+import {IndexRoute, Route, Router, browserHistory} from 'react-router';
+import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
+import {Provider} from 'react-redux';
 import thunk from "redux-thunk";
 import App from './App.js';
 import {Admin, Rights, Features, Sections, Tags, Tech, TechScope} from '../components/admin/';
@@ -17,41 +17,40 @@ import Stats from '../components/stats/Stats';
 import Review from '../components/review/Review';
 import NotFound from '../components/not-found/NotFound';
 import * as reducers from '../reducers/';
-
 const rootReducer = combineReducers({
-    ...reducers
+    ...reducers,
 });
 
 
 const store = createStore(
-  rootReducer,
-  {},
-  compose(applyMiddleware(thunk),window.devToolsExtension ? window.devToolsExtension() : f => f)
+    rootReducer,
+    {},
+    compose(applyMiddleware(thunk), window.devToolsExtension ? window.devToolsExtension() : f => f)
 );
 render(
     (<Provider store={store}>
         <Router history={browserHistory}>
-          <Route path="/" component={App}>
-            <IndexRoute component={Home}/>
-            <Route path="home" component={Home}/>
-            <Route path="projects" component={ProjectsList}/>
-            <Route path="project-view/:id" component={ProjectView} />
-            <Route path="project-summary/:id" component={ProjectSummary}/>
-            <Route path="project-upsert" component={UpsertProject}/>  
-            <Route path="admin" component={Admin} > 
-              <Route path="rights" component={Rights} />
-              <Route path="features" component={Features} />
-              <Route path="sections" component={Sections} />
-              <Route path="tags" component={Tags} />
-              <Route path="tech" component={Tech} />
-              <Route path="tech/:id" component={TechDetail}/>
-              <Route path="project" component={UpsertProject}  />
+            <Route path="/" component={App}>
+                <IndexRoute component={Home}/>
+                <Route path="home" component={Home}/>
+                <Route path="projects" component={ProjectsList}/>
+                <Route path="project-view/:id" component={ProjectView}/>
+                <Route path="project-summary/:id" component={ProjectSummary}/>
+                <Route path="project-upsert" component={UpsertProject}/>
+                <Route path="admin" component={Admin}>
+                    <Route path="rights" component={Rights}/>
+                    <Route path="features" component={Features}/>
+                    <Route path="sections" component={Sections}/>
+                    <Route path="tags" component={Tags}/>
+                    <Route path="tech" component={Tech}/>
+                    <Route path="tech/:id" component={TechDetail}/>
+                    <Route path="project" component={UpsertProject}/>
+                </Route>
+                <Route path="stats" component={Stats}/>
+                <Route path="review" component={Review}/>
+                <Route path='*' component={NotFound}/>
             </Route>
-            <Route path="stats" component={Stats} /> 
-            <Route path="review" component={Review} /> 
-            <Route path='*' component={NotFound} />
-          </Route>
         </Router>
-      </Provider>) 
-, document.getElementById('root')
+    </Provider>)
+    , document.getElementById('root')
 );
