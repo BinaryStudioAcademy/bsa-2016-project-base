@@ -36,10 +36,17 @@
       border-bottom: 1px solid #CED1D6
       height: 79px
 
-  span
+  .search-input-container span
     vertical-align: middle
-    display: block;
+    display: block
     padding-left: 1em
+
+  @media screen and (max-width: 998px)
+    .search-input-container span
+      vertical-align: middle
+      display: block
+      padding-left: 1em
+
 
   .heading
       font-family: "Lato", sans-serif
@@ -80,6 +87,16 @@
       box-shadow: inset 0 -3px 0 #03A9F4
       transition: box-shadow .3s
       padding-bottom: 1rem
+
+  .FaCog
+    margin-right: 9px
+    vertical-align: middle
+
+  .textForIcon
+    vertical-align: middle
+
+
+
   // .adminPage
   // 	//margin: 0 auto
   // 	//text-align: center
@@ -165,7 +182,9 @@
 
 
 
-  @media (max-width: 767px)
+@media (max-width: 767px)
+  #adminContent  span
+    padding-bottom: 1em
       //.tab-bar
       //	margin-top: 0px
           //color: red !important
@@ -178,5 +197,7 @@
   //@media(min-width:768px){}
   //@media(min-width:992px){}
   //@media(min-width:1200px){}
+
+
 
 
