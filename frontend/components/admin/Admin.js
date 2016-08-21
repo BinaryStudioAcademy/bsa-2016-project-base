@@ -15,8 +15,8 @@ class Admin extends Component {
 	    	<div className={styles.adminContent} id="adminContent">
 	    	  		<header className={styles.adminContentHeader}>
                     		<div>
-                        		<FaCog size={20} />
-                        		<span>Admin Menu</span>
+                        		<FaCog size={20} className="FaCog" />
+                        		<span className="textForIcon">Admin Menu</span>
                     		</div>
 		  			</header>
 		        	<ul className={styles["tab-bar"]}>
