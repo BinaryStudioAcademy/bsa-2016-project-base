@@ -68,14 +68,7 @@ export default class RangeDateSelect extends React.Component {
 
         receiver(data)
     }
-    addInterval(){
-        const {receiver, data} = this.props;
-        if (data.custom.upper && data.custom.lower){
-            data.selected = data.custom;
-            data.custom = {};
-            receiver(data);
-        }
-    };
+
     render() {
         const {receiver, data} = this.props;
         const {values, custom} = data;
@@ -95,11 +88,20 @@ export default class RangeDateSelect extends React.Component {
             onChange={this.handleDateChanged.bind(this, "lower")}
         />;
 
+        const addInterval = ()=>{
+            if (data.custom.upper && data.custom.lower){
+                data.selected = data.custom;
+                data.custom = {};
+                receiver(data);
+            }
+
+        };
+
         return (<div style={{display:"flex"}}>
             <div style={{width:"40%"}}>
                 {lowerDatePocker}
                 {upperDatePicker}
-                <RaisedButton label="Add Interval" onClick={this.addInterval.bind(this)}/>
+                <RaisedButton label="Add Interval" onClick={addInterval}/>
             </div>
             <div style={{width:"60%"}}>
                 <DeletableList

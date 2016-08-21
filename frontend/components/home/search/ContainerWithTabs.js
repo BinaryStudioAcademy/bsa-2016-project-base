@@ -1,7 +1,9 @@
 import React from "react"
 import {PropTypes} from "react"
 import {Tabs, Tab} from 'material-ui/Tabs';
-import ClassMapper from "./util/ClassMapper"
+//import {Tab, Tabs} from "react-bootstrap"
+import MultiSelect  from "./components/MultiSelect"
+import DateSelect from "./components/RangeDateSelect"
 var injectTapEventPlugin = require("react-tap-event-plugin");
 injectTapEventPlugin();
 
@@ -15,7 +17,11 @@ export default class ComponentContainer extends React.Component {
             /**
              * {tags,users,technologies,date}
              */
-            data:PropTypes.array.isRequired,
+            data:PropTypes.object.isRequired,
+            /**
+             * {tags,users,technologies,date}
+             */
+            receiver:PropTypes.object.isRequired,
             selectedTab:PropTypes.number.isRequired,
             /**
              * @param newTab
@@ -29,28 +35,31 @@ export default class ComponentContainer extends React.Component {
             selectedTabChanged(value)
         }
     }
+    getMultiSelectTab(name, index){
+        const {data, receiver} = this.props;
+
+        return <Tab value={index}
+                    label={`${data[name].title} (${data[name].values.length}`}>
+            <MultiSelect
+                data={data[name]}
+                receiver={receiver[name]}/>
+        </Tab>
+    }
     render() {
         const {selectedTab} = this.props;
-        const {data} = this.props;
-        const tabs = data.map((_data, index)=>{
-            const data = _data.data;
-            return <Tab value={index}
-                        label={`${data.title} (${data.values.length})`}>
-                {React.createElement(
-                    ClassMapper(data.componentClass),{
-                    data,
-                    receiver:_data.receiver
-                })}
-            </Tab>
-        });
-        /*{React.createElement(data.componentClass,{
-         data,
-         receiver:_data.receiver
-         })}*/
+        const {data, receiver} = this.props;
+
         return (
             <Tabs value={selectedTab}
                   onChange={this.selectedTabChanged.bind(this)}>
-                {tabs}
+                {this.getMultiSelectTab("tags",1)}
+                {this.getMultiSelectTab("users",2)}
+                {this.getMultiSelectTab("technologies",3)}
+                <Tab value={4} label={`Date (${data.date.values.length})`}>
+                    <DateSelect
+                        data={data.date}
+                        receiver={receiver.date}/>
+                </Tab>
             </Tabs>
         );
     }
