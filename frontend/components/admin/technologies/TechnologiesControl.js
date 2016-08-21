@@ -1,5 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {Grid, FormControl, Row, Col, Button} from 'react-bootstrap';
+import TextFieldUI from '../../common/TextField-ui.js';
+import CheckBox from '../../common/CheckBox-ui.js';
 import styles from  './styles.sass';
 class TechnologiesTab extends Component {
     constructor(props) {
