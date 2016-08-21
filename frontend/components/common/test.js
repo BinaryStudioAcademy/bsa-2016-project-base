@@ -1,4 +1,10 @@
+/*trash*/
+
 import React, { Component, PropTypes } from 'react';
+import CheckBox from './CheckBox-ui.js';
+import TextFieldUI from './TextField-ui.js';
+import RaisedButtonUI from './RaisedButton-ui.js';
+
 import Button from './Button.js';
 import TextInput from './TextInput.js';
 import TextArea from './TextArea.js';
@@ -8,10 +14,10 @@ import styles from './styles/button.sass';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 // import CheckboxExampleSimple from 'material-ui/Checkbox';
 import DatePicker from 'material-ui/DatePicker';
-import CheckboxExampleSimple from './CheckBoxUI.js';
+import CheckboxExampleSimple from './checkboxUI.js';
 
 import RadioButtonExampleSimple from './RadioButton.js';
-import TextFieldSample from './TextFieldUI.js';
+import TextFieldSample from './TextField.js';
 
 //import areIntlLocalesSupported from 'intl-locales-supported';
 
@@ -25,17 +31,11 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 injectTapEventPlugin();
 
 
-const muiTheme = getMuiTheme({
-  palette: {
-  	primary1Color: bsagrey,
-		textColor: bsagrey,
-		primary2Color: bsagrey
-		// alternateTextColor,
-		// alternateTextColor
-    //calendarYearBackgroundColor: _colors.white
-
+const styles = {
+  divmar: {
+    margin: '100px',
   }
-});
+};
 
 class Test extends Component {
 	constructor(props) {
@@ -44,70 +44,29 @@ class Test extends Component {
 
     render() {
     	return(
-	    	<div className={styles.test}>
-	    		<Button
-	    			value='Click'
-	    			onClick={function(){alert('222')}}
-	    		/>
-	    		<br/><br/>
-	    		<TextInput
-	    			label='label for input'
-	    			placeholder='type anything'
-	    		/>
-	    		<br/>
-	    		TextInput material-ui
-	    		<MuiThemeProvider>
-				  	<TextFieldSample
-							hintText='type anything'
-				  	/>
-				  </MuiThemeProvider>
-
-	    		<br/><br/>
-	    		<TextArea
-	    			label='label for textarea'
-	    			placeholder='type anything'
-	    		/>
-	    		<br/><br/>
-
-	    		<MuiThemeProvider muiTheme={muiTheme}>
-	    			<DatePicker
-	    				hintText="New Date"
-	    				/>
-	    		</MuiThemeProvider>
-
-	    		<br/>
-
-	    		<MuiThemeProvider muiTheme={muiTheme}>
-						<CheckboxExampleSimple
+	    	<div style={styles.divmar}>
+						<CheckBox
 							label="label for checkboxUI"
 							checked='checked'
 							iconStyle={{
 						     fill: bsagreen
 						   }}
 						/>
-					</MuiThemeProvider>
+					</MuiThemeProvider>	
 
-					<MuiThemeProvider muiTheme={muiTheme}>
-						<CheckboxExampleSimple
-							label="label for checkboxUI"
-							iconStyle={{
-						     fill: bsagreen
-						   }}
-						/>
-					</MuiThemeProvider>
-					<br/>
+						<TextFieldUI
+							hintText='type anything'
+				  	/>
 
+				  	<RaisedButtonUI 
+				  		label='Label for button'
+				  	/>
 
-
-					<MuiThemeProvider muiTheme={muiTheme}>
-				  	<RadioButtonExampleSimple />
-				  </MuiThemeProvider>
-
-
-					 <MuiThemeProvider muiTheme={muiTheme}>
-				   	<DatePickerExampleControlled />
-				   </MuiThemeProvider>
-
+				  	<RaisedButtonUI 
+	    			label='Click'
+	    			style={{display: 'inline-block', margin: '20px'}}
+	    		/>
+				  
 	    	</div>
     	);
     }

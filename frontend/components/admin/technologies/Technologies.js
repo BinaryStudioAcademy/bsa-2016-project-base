@@ -6,7 +6,7 @@ import  TechnologiesList from "./TechnologiesList";
 import  TechnologiesSearch from "./TechnologiesSearch";
 import  TechnologiesControl from "./TechnologiesControl";
 import  TechnologiesAddForm from "./TechnologiesAddForm";
-import { Grid, Row, Panel } from 'react-bootstrap';
+import { Grid, Row, Panel, Col } from 'react-bootstrap';
 import styles from  './styles.sass';
 class Technologies extends Component {
     constructor() {
@@ -111,9 +111,13 @@ class Technologies extends Component {
             <div id="technologies" className={styles["technologies-tab"]}>
                 <Panel className={styles['technologies-tool-bar']}>
                     <Row className={styles["technologies-tools"]}>
+                        <Col sm={12} md={4}>
                     <TechnologiesSearch technologiesSearch={this.technologiesSearch}/>
+                        </Col>
+                        <Col sm={12} md={8}>
                     <TechnologiesControl formState={formState} formAddControlState={this.formAddControlState}
                                          deleteChecked={this.deleteChecked} setAllChecked={this.setAllChecked}/>
+                            </Col>
                         </Row>
                 </Panel>
                 <TechnologiesList listOfTechnologies={list} controlCheckeditems={this.controlCheckeditems}/>

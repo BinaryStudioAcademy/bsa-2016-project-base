@@ -1,45 +1,47 @@
+@import "../../common/styles/common"
+
 =border-box
   box-sizing: border-box
 
 =default-btn
-  vertical-align: baseline  !important
-  border: 1px solid transparent !important
-  border-radius: 0px !important
-  background: #fff !important
-  font-weight: bold !important
-  border-bottom: 1px solid #d6d3d3 !important
-  z-index: 0 !important
+  vertical-align: baseline
+  border: 1px solid transparent
+  border-radius: 0
+  background: #fff
+  font-weight: bold
+  border-bottom: 1px solid #d6d3d3
+  z-index: 0
   &:hover
-    transition: none !important
+    transition: none
   &:focus
-    outline: none !important
+    outline: none
   label
-    vertical-align: baseline  !important
-    word-break: break-all !important
+    vertical-align: baseline
+    word-break: break-all
 
 =reset-input
-  outline: none !important
-  border: 0 !important
-  margin: 0 !important
-  padding: 0 !important
-  border-radius: 0 !important
-  box-shadow: none !important
-  transition: none !important
-  border-bottom: 1px solid #d6d3d3 !important
+  outline: none
+  border: 0
+  margin: 0
+  padding: 0
+  border-radius: 0
+  box-shadow: none
+  transition: none
+  border-bottom: 1px solid #d6d3d3
 
 =default-panel
-  margin-bottom: 20px !important
-  //border: 1px solid #eee !important
-  border-color: transparent !important
-  border: 0 !important
-  border-radius: 0 !important
-  box-shadow: none !important
+  margin-bottom: 20px
+  //border: 1px solid #eee
+  border-color: transparent
+  border: 0
+  border-radius: 0
+  box-shadow: none
 #technologies
   .technologies-tool-bar
-    margin-bottom: 20px !important
-    background: #EFEFEF !important
-    border-radius: 0 !important
-    box-shadow: none !important
+    margin-bottom: 20px
+    background: #EFEFEF
+    border-radius: 0
+    box-shadow: none
   .technologies-tab
     +border-box
     margin: 0 auto
@@ -52,27 +54,27 @@
   .search-input-container
 
   .button-feature-remove
-    vertical-align: baseline !important
-    border: 1px solid transparent !important
-    border-radius: 0px !important
-    background: #fff !important
-    font-weight: bold !important
-    border-bottom: 1px solid #d6d3d3 !important
-    z-index: 0 !important
-    background: #03a9f4 !important
-    color: #fff !important
+    vertical-align: baseline
+    border: 1px solid transparent
+    border-radius: 0px
+    background: #fff
+    font-weight: bold
+    border-bottom: 1px solid #d6d3d3
+    z-index: 0
+    background: $primaryBlue
+    color: #fff
   .button-feature-remove:focus
-    background: #03a9f4 !important
+    background: $primaryBlue
   .button-feature-add
-    vertical-align: baseline !important
-    border: 1px solid transparent !important
-    border-radius: 0px !important
-    background: #fff !important
-    font-weight: bold !important
-    border-bottom: 1px solid #d6d3d3 !important
-    z-index: 0 !important
-    background: #C1CFD9 !important
-    color: #fff !important
+    vertical-align: baseline
+    border: 1px solid transparent
+    border-radius: 0px
+    background: #fff
+    font-weight: bold
+    border-bottom: 1px solid #d6d3d3
+    z-index: 0
+    background: #C1CFD9
+    color: #fff
 
 
   .list_container
@@ -80,10 +82,10 @@
 
   .list-item
     box-sizing: border-box
-    color: #333 !important
+    color: #333
     padding: 0px 5px
     margin: 4px 4px 4px 4px
-    background-color: #ededed !important
+    background-color: #ededed
     min-width: 150px
     height: 60px
     vertical-align: middle
@@ -143,9 +145,9 @@
     border: 0
 
   .select-all-checkbox + .select-all-label
-    //margin: 3px 0px 0px 0px !important
-    margin: 0px !important
-    margin-top: -2px !important
+    //margin: 3px 0px 0px 0px
+    margin: 0px
+    margin-top: -2px
     padding: 0px 10px 0px 40px
     height: 34px
     line-height: 34px
@@ -161,49 +163,49 @@
   .select-all-checkbox + .select-all-label,
   .select-checkbox + .select-label
     display: inline-block
-    background-repeat: no-repeat !important
-    background-position: 0 0 !important
+    background-repeat: no-repeat
+    background-position: 0 0
     vertical-align: middle
     cursor: pointer
-    background-color: transparent !important
-    color: black !important
+    background-color: transparent
+    color: black
 
   .select-all-checkbox:checked + .select-all-label
-    background-position: 0px -30px !important
+    background-position: 0px -30px
 
   .select-checkbox:checked + .select-label
-    background-position: 0px -16px !important
+    background-position: 0px -16px
 
   .select-all-label
-    background-image: url(http://csscheckbox.com/checkboxes/u/csscheckbox_b5478ce038d0182679c6e07d0ac4f6dd.png) !important
-    background-size: 34px 65px !important
+    background-image: url(http://csscheckbox.com/checkboxes/u/csscheckbox_b5478ce038d0182679c6e07d0ac4f6dd.png)
+    background-size: 34px 65px
 
   .list-item .select-all-label
-    background-size: 20px 53px !important
+    background-size: 20px 53px
     font-size: 14px
   .select-label
-    background-image: url(http://csscheckbox.com/checkboxes/u/csscheckbox_84d5db31bde6d14cf3610dde3534e162.png)!important
+    background-image: url(http://csscheckbox.com/checkboxes/u/csscheckbox_84d5db31bde6d14cf3610dde3534e162.png)
 
   .select-label,
   .select-all-label
     color: #656565
     font-family: 'Open Sans', arial
     font-size: 16px
-    margin-top: 0 !important
-    vertical-align: middle !important
+    margin-top: 0
+    vertical-align: middle
 
 
   .select-all-label
-  //margin-top: -1px !important
+  //margin-top: -1px
 
   .select-label:hover,
   .select-all-label:hover
-    color: #303030 !important
+    color: #303030
 
   .select-all-label,.select-label
     user-select: none
   .list-container span
-    background: none !important
+    background: none
 
   .technologies-tab label
     background-color: transparent
@@ -237,14 +239,14 @@
 
   .technologies-tab button:active,
   .technologies-tab button:hover
-    background-color: #9AAD46 !important
+    background-color: #9AAD46
   .technologies-tab button:active,
   .technologies-tab button:hover,
   .technologies-tab button:active,
   .technologies-tab button:hover
     border: none
     color: white
-    outline: none !important
+    outline: none
     box-shadow: none
 
   .technologies-tab button:focus
@@ -271,6 +273,24 @@
   .list-item a
     color: #337ab7
     padding-top: 3px
+
+
+  .search-input-container .search-input-border
+    vertical-align: middle
+    display: blocks
+    padding-left: 0
+
+@media all and (min-width: 768px)
+  .panel-body
+    padding-top: 20px
+    padding-bottom: 20px
+
+@media all and (max-width: 768px)
+  .search-input-container
+    margin-bottom: 1em
+
+
+
 
 
 

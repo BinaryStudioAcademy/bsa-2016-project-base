@@ -21,7 +21,7 @@ class TechnologiesSearch extends Component {
 
     render() {
         return (
-            <Col xs={12} sm={12} md={4}>
+            <Col>
                 <div className={styles['search-input-container']}>
                     <InputGroup>
                         <FormControl placeholder="Search technology" className={styles['search-input']} type="text"
