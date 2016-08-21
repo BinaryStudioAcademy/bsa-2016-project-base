@@ -3,17 +3,19 @@
 const path = require('path');
 const express = require('express');
 const webpack = require('webpack');
+const bodyParser = require('body-parser');
+const config = require('./webpack.config.js');
+const isDeveloping = process.env.NODE_ENV !== 'production';
 const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
-const config = require('./webpack.config.js');
-const bodyParser = require('body-parser');
-const isDeveloping = process.env.NODE_ENV !== 'production';
+const tockenMiddleware = require('./backend/middleware/tokenValidator');
 const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
-// app.use(bodyParser());
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 var routes = require('./backend/routes/routes')(app);
+app.use(tockenMiddleware);
 
 if (isDeveloping) {
   const compiler = webpack(config);

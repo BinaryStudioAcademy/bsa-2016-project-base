@@ -1,25 +1,19 @@
-/**
- * Created by user on 16.08.2016.
- */
+"use strict";
 var google = require('googleapis');
 var fs = require("fs");
 var path = require("path");
 var docxGenerator = require("./docxGenerator");
+var config = require("./config.js");
+
 class DocumentService {
     constructor() {
-        var {client_id, client_secret, redirect_url} = require("./config.js")
         var OAuth2 = google.auth.OAuth2;
-        this.oauth2Client = new OAuth2(client_id, client_secret, redirect_url);
+        this.oauth2Client = new OAuth2(config.client_id,config.client_secret,config.redirect_url);
         this.drive = google.drive({version: 'v3', auth: this.oauth2Client});
         this.scopes = [
             'https://www.googleapis.com/auth/drive'
         ];
     }
-
-    /**
-     *
-     * @param callback(err, url)
-     */
     authentication(callback) {
         var url = this.oauth2Client.generateAuthUrl({
             access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
@@ -27,7 +21,6 @@ class DocumentService {
         });
         callback(null, url);
     }
-
     getData(query, callback) {
         callback(null,{
             controlSite: [{

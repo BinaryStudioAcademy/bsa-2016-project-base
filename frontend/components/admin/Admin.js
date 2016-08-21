@@ -36,9 +36,7 @@ class Admin extends Component {
 		        			</Link>
 		        		</li>
 					</ul>
-		        	<div className={styles["tab-holder"]}>
 		       			{this.props.children || <h3>'In this section you can manage predefined stuff and users rights'</h3>}
-		        	</div>
 	    	</div>
 	    )
 	}

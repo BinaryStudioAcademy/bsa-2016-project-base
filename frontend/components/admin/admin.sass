@@ -20,9 +20,6 @@
     @media (max-width: $media/16+em)
       @content
 
-  .main-container
-      height: 100%
-
   .adminContentHeader
       width: 100%
       box-sizing: border-box
@@ -179,7 +176,8 @@
   .tab-bar>li.active>a:hover
       //color: #656565 !important
       //background-color: #efefef !important
-
+#adminContent > div:last-child
+    height: calc(100% - 150px)
 
 
 @media (max-width: 767px)
