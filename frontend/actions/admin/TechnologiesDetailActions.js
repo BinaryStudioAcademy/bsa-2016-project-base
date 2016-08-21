@@ -59,3 +59,24 @@ export function updateData(id,data){
 
     }
 }
+
+export function makeDoc(data) {
+    return dispatch=> {
+        fetch(`/api/createdoc/`, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: ({
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            })
+        }).then(response => (response.status !== 404)?response.json(): {})
+            .then(json => dispatch(setDoc(json)))
+    }
+}
+
+export function setDoc(data) {
+    return {
+        type: 'SET_DOC' ,
+        doc : data.filepath
+    }
+}
