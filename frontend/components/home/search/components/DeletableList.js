@@ -17,7 +17,7 @@ export default class DeletableList extends React.Component {
             /**
              * @param elementOf(data.values)
              */
-            getText:PropTypes.string.isRequired,
+            getText:PropTypes.func.isRequired,
             header:PropTypes.string
         }
     }

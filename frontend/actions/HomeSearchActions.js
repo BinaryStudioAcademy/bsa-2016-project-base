@@ -3,6 +3,8 @@
  */
 /**
  * {
+ *                  updateSearchString
+ *                  goSearch
              *      handleSearchShow,
              *      handleSearchDismiss,
              *      selectedTabChanged,
@@ -15,14 +17,15 @@
              * }
  */
     /**{
+    *               currentSearch:{string},
+    *               searchString,
              *      showSearch,
              *      selectedTab,
              *      data:{
              *          tags: {values, custom, tips},
              *          users: {values, custom, tips},
              *          technologies: {values, custom, tips},
-             *          date: {values:[{
-             *              upper,lower}],
+             *          date: {values:[{upper,lower}],
              *              custom:{upper,lower}
              *              tips:[]empty
              *          }

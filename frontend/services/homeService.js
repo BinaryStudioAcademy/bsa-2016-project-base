@@ -12,10 +12,9 @@ class HomeService {
     getAllFeaturesSorted(orderBy) {
         return fetch(`${API}mainpage/${orderBy}`);
     }
-    getProjects(){
+    getProjects(query){
         return this.getAllProjects();
     }
-
 }
 
 const homeService = new HomeService();

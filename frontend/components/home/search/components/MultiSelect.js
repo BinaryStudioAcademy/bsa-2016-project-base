@@ -2,18 +2,14 @@ import React from "react"
 import {PropTypes} from "react"
 import {List, ListItem} from 'material-ui/List';
 import ActionInfo from 'material-ui/svg-icons/action/info';
-import TextField from 'material-ui/TextField';
 import Delete from "material-ui/svg-icons/action/delete"
 import DeletableList from "./DeletableList"
-
+import DeferredTextInput from "./DeferredTextInput"
+import Subheader from 'material-ui/Subheader';
 
 export default class MultiSelect extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            customInputValue: undefined,
-            autoUpdateTimeoutId: 0
-        }
     }
 
     static get propTypes() {
@@ -23,7 +19,7 @@ export default class MultiSelect extends React.Component {
              */
             data: PropTypes.object.isRequired,
             /**
-             * @param {{values, custom, tips}}newSelectedValues
+             * @param {{values, custom, tips}}newData
              */
             receiver: PropTypes.func.isRequired
         }
@@ -40,8 +36,9 @@ export default class MultiSelect extends React.Component {
 
     getTipsComponents() {
         const {data, receiver} = this.props;
-
+        const {tipsHeader} = data;
         return <List>
+            <Subheader>{tipsHeader}</Subheader>
             {data.tips.map(tip=> {
                 const onClick = ()=> {
                     data.selected = tip;
@@ -54,40 +51,23 @@ export default class MultiSelect extends React.Component {
         </List>
     }
 
-    componentWillReceiveProps(props) {
-        this.setState({customInputValue: props.data.custom})
-    }
 
-
-    onInputChange(e) {
+    onInputChange(value) {
         const {data,receiver} = this.props;
-        const {autoUpdateTimeoutId} = this.state;
-        clearTimeout(autoUpdateTimeoutId);
-
-        const newTimeoutId = setTimeout((value, data, receiver)=> {
-            data.customUpdated = true;
-            data.custom = value;
-            receiver(data);
-        }, 300, e.target.value, data, receiver);
-
-        this.setState({
-                customInputValue: e.target.value,
-                autoUpdateTimeoutId: newTimeoutId
-            }
-        )
+        data.customUpdated = true;
+        data.custom = value;
+        receiver(data);
     }
 
     render() {
-        const customInputValue = this.state.customInputValue === undefined ?
-            this.props.data.custom :
-            this.state.customInputValue;
+        const {custom, floatingLabelText} = this.props.data;
 
         return (<div style={{display:"flex"}}>
             <div style={{width:"40%"}}>
-                <TextField
-                    value={customInputValue}
-                    onChange={this.onInputChange.bind(this)}
-                />
+                <DeferredTextInput
+                    floatingLabelText={floatingLabelText}
+                    value={custom}
+                    receiver={this.onInputChange.bind(this)}/>
 
                 {this.getTipsComponents()}
 

@@ -4,7 +4,8 @@ import ComponentContainer from "./ContainerWithTabs"
 import {Alert, Button} from "react-bootstrap"
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-
+import Divider from 'material-ui/Divider';
+import DeferredTextInput from "./components/DeferredTextInput"
 export default class Root extends React.Component {
     constructor(props) {
         super(props)
@@ -12,63 +13,40 @@ export default class Root extends React.Component {
 
     static get propTypes() {
         return {
-            /**{
-             *      showSearch,
-             *      selectedTab,
-             *      data:{
-             *          tags: {values, custom, tips},
-             *          users: {values, custom, tips},
-             *          technologies: {values, custom, tips},
-             *          date: {values, custom}
-             *      }
-             * }
-             */
-            reduxData:PropTypes.object.isRequired,
-            /**
-             * {
-             *      handleSearchShow,
-             *      handleSearchDismiss,
-             *      selectedTabChanged,
-             *      dataReceiver:{
-             *          tags,
-             *          users,
-             *          technologies,
-             *          date
-             *      }
-             * }
-             */
-            reduxReceiver:PropTypes.object.isRequired
+            data:PropTypes.object.isRequired,
+            receiver:PropTypes.object.isRequired
         }
     }
 
     render() {
-        const {reduxData, reduxReceiver} = this.props;
+        const {data:_data, receiver} = this.props;
         const {handleSearchDismiss,handleSearchShow,
-            selectedTabChanged, dataReceiver,
-            goSearch, updateSearchString} = reduxReceiver;
+            selectedTabChanged,
+            goSearch, updateSearchString} = receiver;
         const goFastSearch = goSearch.bind(null,"fast");
         const goExtendedSearch = goSearch.bind(null, "extended");
-        const {showSearch,selectedTab, data, searchString} = reduxData;
+        const {showSearch,selectedTab, data, searchString} = _data;
         const showButton = showSearch?
             <RaisedButton label="Hide Extended Search" onClick={handleSearchDismiss}/>:
             <RaisedButton label="Show Extended Search" onClick={handleSearchShow}/>
+
         const body = showSearch?
             <div>
                 <h3>Extended Search</h3>
                 <ComponentContainer
                     data={data}
-                    receiver={dataReceiver}
                     selectedTab={selectedTab}
                     selectedTabChanged={selectedTabChanged}
                 />
+                <Divider/>
                 <RaisedButton label="Extended Search!"
                               onClick={goExtendedSearch}/>
             </div>:"";
-        const searchInput = <TextField
+        const searchInput = <DeferredTextInput
             value={searchString}
             hintText="Search"
             floatingLabelText="Search"
-            onChange={(e)=>updateSearchString(e.target.value)}
+            receiver={updateSearchString}
             onKeyUp={e=>e.keyCode==13/*ENTER*/?goFastSearch():0}
         />;
         const fastInputButton = <RaisedButton
@@ -76,7 +54,7 @@ export default class Root extends React.Component {
             onClick={goFastSearch}/>
         return (
             <div>
-                <div>{searchInput}{fastInputButton}{showButton}</div>
+                <div>{searchInput}  {fastInputButton}  {showButton}</div>
                 {body}
             </div>
         );
