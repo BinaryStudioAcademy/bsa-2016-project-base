@@ -8,10 +8,10 @@ import styles from './styles/button.sass';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 // import CheckboxExampleSimple from 'material-ui/Checkbox';
 import DatePicker from 'material-ui/DatePicker';
-import CheckboxExampleSimple from './checkboxUI.js';
+import CheckboxExampleSimple from './CheckBoxUI.js';
 
 import RadioButtonExampleSimple from './RadioButton.js';
-import TextFieldSample from './TextField.js';
+import TextFieldSample from './TextFieldUI.js';
 
 //import areIntlLocalesSupported from 'intl-locales-supported';
 
@@ -27,7 +27,7 @@ injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({
   palette: {
-  	primary1Color: bsagrey,		
+  	primary1Color: bsagrey,
 		textColor: bsagrey,
 		primary2Color: bsagrey
 		// alternateTextColor,
@@ -45,7 +45,7 @@ class Test extends Component {
     render() {
     	return(
 	    	<div className={styles.test}>
-	    		<Button 
+	    		<Button
 	    			value='Click'
 	    			onClick={function(){alert('222')}}
 	    		/>
@@ -57,7 +57,7 @@ class Test extends Component {
 	    		<br/>
 	    		TextInput material-ui
 	    		<MuiThemeProvider>
-				  	<TextFieldSample 
+				  	<TextFieldSample
 							hintText='type anything'
 				  	/>
 				  </MuiThemeProvider>
@@ -85,7 +85,7 @@ class Test extends Component {
 						     fill: bsagreen
 						   }}
 						/>
-					</MuiThemeProvider>	
+					</MuiThemeProvider>
 
 					<MuiThemeProvider muiTheme={muiTheme}>
 						<CheckboxExampleSimple
@@ -94,7 +94,7 @@ class Test extends Component {
 						     fill: bsagreen
 						   }}
 						/>
-					</MuiThemeProvider>	
+					</MuiThemeProvider>
 					<br/>
 
 
@@ -102,8 +102,8 @@ class Test extends Component {
 					<MuiThemeProvider muiTheme={muiTheme}>
 				  	<RadioButtonExampleSimple />
 				  </MuiThemeProvider>
-	    	
-	    		
+
+
 					 <MuiThemeProvider muiTheme={muiTheme}>
 				   	<DatePickerExampleControlled />
 				   </MuiThemeProvider>
