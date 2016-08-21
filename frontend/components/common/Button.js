@@ -10,7 +10,7 @@ class Button extends Component {
         const {id, value, onClick} = this.props;
         return (
             <button   
-                className={styles.mybtn}             
+                className={styles.generalBtn}             
                 id={id} 
                 type="button" 
                 onClick={onClick}>
