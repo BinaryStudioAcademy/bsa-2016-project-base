@@ -133,17 +133,25 @@
         
   @media screen and (max-width: 1000px)
     .rights-searchBar 
-      .rights-searchWrapper
-        width: calc(50% - 50px)
-
       .rights-filterWrapper
         width: calc(50% - 20px) 
 
+      .rights-searchWrapper
+        width: 50%
+        padding-bottom: 10px
+        .rights-searchInputContainer
+          height: 40px
+          width: calc(100% - 120px)
+
+          .rights-searchInput 
+            margin: 10px
+
     .rights-UsersList
-      padding-top: 25px
+      margin-top: 30px
+      height: calc(100%  - 70px)
 
     .rights-UsersList > div 
-      width: 250px
+      width: 250px        
 
   @media screen and (max-width: 930px)
     .rights-searchBar 
@@ -152,13 +160,8 @@
       padding: 10px
 
       .rights-searchWrapper
-        width: calc(100% - 50px)
-        padding-bottom: 10px
-        height: 40px
-
-        .rights-searchInput 
-          width: calc(100% - 50px)
-          margin: 10px
+        padding: 0
+        width: 100%
 
       .rights-filterWrapper
         width: calc(100% - 20px)  
@@ -166,25 +169,27 @@
         justify-content: center     
 
   @media screen and (max-width: 835px) 
+
     .rights-searchBar 
       .rights-filterWrapper
         flex-direction: column
+        margin-top: 10px
 
       .rights-filterWrapper > div
         padding: 15px  0px 
         justify-content: center 
 
       .rights-filterWrapper > div:first-child  
-        padding-top: 30px
+        margin-top: 20px 
 
   @media screen and (max-width: 800px) 
     .rights-UsersList > div 
       width: 225px
         
-  @media screen and (max-width: 765px) 
-    .rights-searchBar 
+  @media screen and (max-width: 767px) 
+    .rights-searchBar
       .rights-filterWrapper > div:first-child > svg
-        margin-top: -15px
+        margin-top: -15px 
 
   @media screen and (max-width: 705px)       
     .rights-UsersList > div 

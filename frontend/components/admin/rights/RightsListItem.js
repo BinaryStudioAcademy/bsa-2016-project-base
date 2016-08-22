@@ -13,10 +13,9 @@ class RightsUsersListItem extends Component {
  	render() {
  		let item = this['props'].usersRights['current'].users[this.props['data-id']],
  		checkbox = React.createElement((item['isOwner'] ? FaChecked:FaNotChecked),{
-			size: 30,
+			size: 18,
 			style:{
 			    cursor:'pointer',
-			   'padding-right': 10,
 			    color: (item['isOwner'] ? '#2ECC71' : '#FC5A5A')
 			},onClick: ()=>{
 				this.props.updateUserRight(this.props['data-id'],!item['isOwner']);
