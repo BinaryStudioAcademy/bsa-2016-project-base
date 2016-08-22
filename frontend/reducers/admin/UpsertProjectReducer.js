@@ -3,7 +3,7 @@ import * as types from '../../actions/admin/UpsertProjectActionTypes';
 
 export default function UpsertProjectReducer(state=initialState, action) {
 	switch (action.type) {
-		 case types.GET_DATA_SUCCESS: {
+		 case types.UP_GET_DATA_SUCCESS: {
             const {users, tags, technologies, conditions } = action.data;
             return Object.assign({}, state, {
             	users,
@@ -12,28 +12,28 @@ export default function UpsertProjectReducer(state=initialState, action) {
 				conditions
             });
         }
-        case types.ADD_USER_TO_PROJECT: {
+        case types.UP_ADD_USER_TO_PROJECT: {
             const {_id} = action;
             const {users} = state;
             return Object.assign({}, state, {
                 users: addUserToProject(users, _id)
             });
         }
-        case types.REMOVE_USER_FROM_PROJECT: {
+        case types.UP_REMOVE_USER_FROM_PROJECT: {
             const {_id} = action;
             const {users} = state;
             return Object.assign({}, state, {
                 users: removeUserFromProject(users, _id)
             });
         }
-        case types.CHANGE_OWNERSHIP: {
+        case types.UP_CHANGE_OWNERSHIP: {
             const {_id, checked} = action;
             const {users} = state;
             return Object.assign({}, state, {
                 users: changeOwnership(users, _id, checked)
             });
         }
-        case types.CHANGE_PROJECT_NAME: {
+        case types.UP_CHANGE_PROJECT_NAME: {
             const {name} = action;
             return Object.assign({}, state, {
             	info: {
@@ -42,7 +42,7 @@ export default function UpsertProjectReducer(state=initialState, action) {
             	}
             });
         }
-        case types.CHANGE_PROJECT_LINK: {
+        case types.UP_CHANGE_PROJECT_LINK: {
             const {link} = action;
             return Object.assign({}, state, {
             	info: {
@@ -51,7 +51,7 @@ export default function UpsertProjectReducer(state=initialState, action) {
             	}
             });
         }
-        case types.CHANGE_START_DATE: {
+        case types.UP_CHANGE_START_DATE: {
             const {date} = action;
             return Object.assign({}, state, {
             	info: {
@@ -60,7 +60,7 @@ export default function UpsertProjectReducer(state=initialState, action) {
             	}
             });
         }
-        case types.CHANGE_FINISH_DATE: {
+        case types.UP_CHANGE_FINISH_DATE: {
             const {date} = action;
             return Object.assign({}, state, {
             	info: {
@@ -70,7 +70,7 @@ export default function UpsertProjectReducer(state=initialState, action) {
             	}
             });
         }
-        case types.CHANGE_CONDITION: {
+        case types.UP_CHANGE_CONDITION: {
             const {option} = action;
             return Object.assign({}, state, {
             	info: {
@@ -79,7 +79,7 @@ export default function UpsertProjectReducer(state=initialState, action) {
             	}
             });
         }
-        case types.CHANGE_DESCRIPTION: {
+        case types.UP_CHANGE_DESCRIPTION: {
             const {text} = action;
             return Object.assign({}, state, {
             	info: {
@@ -90,28 +90,28 @@ export default function UpsertProjectReducer(state=initialState, action) {
             	}
             });
         }
-        case types.ADD_TAG_TO_PROJECT: {
+        case types.UP_ADD_TAG_TO_PROJECT: {
             const {_id} = action;
             const {tags} = state;
             return Object.assign({}, state, {
                 tags: addTagToProject(tags, _id)
             });
         }
-        case types.REMOVE_TAG_FROM_PROJECT: {
+        case types.UP_REMOVE_TAG_FROM_PROJECT: {
             const {_id} = action;
             const {tags} = state;
             return Object.assign({}, state, {
                 tags: removeTagFromProject(tags, _id)
             });
         }
-        case types.ADD_TAG_SUCCESS: {
+        case types.UP_POST_TAG_SUCCESS: {
             const {data} = action;
             const {tags} = state;
             return Object.assign({}, state, {
                 tags: addNewTag(tags, data)
             });
         }
-        case types.ADD_TECH_SUCCESS: {
+        case types.UP_POST_TECH_SUCCESS: {
             const {data} = action;
             const {technologies} = state;
             console.log('POST_TECH',data);
@@ -119,7 +119,7 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 technologies: addNewTech(technologies, data)
             });
         }
-        case types.ADD_SECTION_SUCCESS: {
+        case types.UP_POST_SECTION_SUCCESS: {
             const {data} = action;
             const {sections} = state;
             console.log('POST_SECTION_SUCCESS',data);
@@ -127,7 +127,7 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 sections: sections.concat(data)
             });
         }
-        case types.ADD_FEATURE_SUCCESS: {
+        case types.UP_POST_FEATURE_SUCCESS: {
             const {data} = action;
             const {features} = state;
             console.log('POST_FEATURE_SUCCESS',data);
@@ -136,7 +136,7 @@ export default function UpsertProjectReducer(state=initialState, action) {
             });
         }
         
-        case types.SELECT_SECTION: {
+        case types.UP_SELECT_SECTION: {
             const {_id} = action;
             const {sections, activeSection} = state;
             return Object.assign({}, state, {
@@ -144,7 +144,7 @@ export default function UpsertProjectReducer(state=initialState, action) {
             });
         }
         
-        case types.UPLOAD_FILE_SUCCESS: {
+        case types.UP_UPLOAD_FILE_SUCCESS: {
             const {path} = action.data;
             const {files} = state;
             return Object.assign({}, state, {
@@ -155,28 +155,28 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 })
             });
         }
-        case types.REMOVE_FILE: {
+        case types.UP_REMOVE_FILE: {
             const {name} = action;
             const {files} = state;
             return Object.assign({}, state, {
                 files: removeFile(files, name)
             });
         }
-        case types.REMOVE_NEW_TAG_FROM_PROJECT: {
+        case types.UP_REMOVE_NEW_TAG_FROM_PROJECT: {
             const {tagName} = action;
             const {tags} = state;
             return Object.assign({}, state, {
                 tags: removeNewTagFromProject(tags, tagName)
             });
         }
-        case types.ADD_TECH_TO_PROJECT: {
+        case types.UP_ADD_TECH_TO_PROJECT: {
             const {_id} = action;
             const {technologies} = state;
             return Object.assign({}, state, {
                 technologies: addTechToProject(technologies, _id)
             });
         }
-        case types.REMOVE_TECH_FROM_PROJECT: {
+        case types.UP_REMOVE_TECH_FROM_PROJECT: {
             const {_id} = action;
             const {technologies} = state;
             return Object.assign({}, state, {
