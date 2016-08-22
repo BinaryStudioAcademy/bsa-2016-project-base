@@ -1,6 +1,6 @@
 var apiResponse = require('express-api-response');
 var projectRepository = require('../repositories/projectRepository');
-
+var getFilteredProjects = require('../services/project-list-filters.js');
 
 module.exports = function(app) {
 	app.get('/api/projects/', function (req,res,next) {
@@ -77,6 +77,14 @@ module.exports = function(app) {
 		});
 	}, apiResponse);
 
+	// app.get('/api/search/', function (req, res, next) {
+	// 	projectRepository.getAll(function (err,data) {
+	// 		res.data = data;
+	// 		res.err = err;
+	// 		//res.json(data);
+	// 		next();
+	// 	});
+	// },apiResponse);
 
 	app.post('/api/projects/', function(req, res, next) {
 		projectRepository.add(req.body, function(err, data) {

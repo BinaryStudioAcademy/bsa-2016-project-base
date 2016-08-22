@@ -6,7 +6,8 @@ var conditionRoutes =require('./conditionRoutes');
 var featureRoutes = require('./featureRoutes');
 var tagRoutes = require('./tagRoutes');
 var stageRoutes = require('./stageRoutes');
-var documentRoutes = require("./documentRoutes");
+var documentRoutes = require('./documentRoutes');
+var searchRoutes = require('./searchRoutes');
 
 
 module.exports = function(app) {
@@ -19,7 +20,8 @@ module.exports = function(app) {
 		featureRoutes: featureRoutes(app),
 		tagRoutes: tagRoutes(app),
 		stageRoutes: stageRoutes(app),
-		documentRoutes: documentRoutes(app)
+		documentRoutes: documentRoutes(app),
+		searchRoutes: searchRoutes(app)
 	};
 };
 
