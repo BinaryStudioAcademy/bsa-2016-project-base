@@ -1,7 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import {Grid, FormControl, Row, Col, Button} from 'react-bootstrap';
-import TextFieldUI from '../../common/TextField-ui.js';
-import CheckBox from '../../common/CheckBox-ui.js';
+import RaisedButtonUI from '../../common/RaisedButton-ui.js';
+import Checkbox from 'material-ui/Checkbox';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import styles from  './styles.sass';
 class TechnologiesTab extends Component {
     constructor(props) {
@@ -42,18 +43,38 @@ class TechnologiesTab extends Component {
     render() {
         return (
             <div className="section-control">
-                <Col xs={12} sm={12} mdOffset={2} md={8}>
-                    <FormControl className={styles['select-all-checkbox']} onChange={this.setAllChecked}
-                                 checked={this.state.checked} id="delete_all"
-                                 type="checkbox"/>
-                    <label htmlFor="delete_all"
-                           className={styles['select-all-label']}>{(this.state.checked === true) ? 'Uncheck all' : 'Check all'}</label>
-                    <Button onClick={this.sendDeleteRequest} className={styles['button-feature-remove']}>Delete all
-                        checked</Button>
+                <Col xs={12} sm={12} md={9}>
+                    <MuiThemeProvider>
+                        <Col md={4} class="delete_all_container">
+                        <Checkbox
+                            label="Mark all"
+                            id = "delete_all"
+                            onClick={this.setAllChecked}
+                            defaultChecked={this.state.checked}
+                            labelStyle={{
+                                color: '#555',
+                                fontFamily: 'Play'
+                            }}
+                            iconStyle={{
+                                fill: '#2ecc71'
+                            }}
+                        />
+                            </Col>
+                    </MuiThemeProvider>
+                    <Col md={5}>
+                    <RaisedButtonUI
+                        label='Remove'
+                        onClick={this.sendDeleteRequest}
+                        style={{display: 'inline-block', margin: '0'}}
+                    />
+                        </Col>
                 </Col>
-                <Col xs={12} sm={12} md={2}>
-                    <Button onClick={this.showAddForm}
-                            className={styles['button-feature-add']}>{(this.state.formState === 'hidden') ? 'Add' : 'Hide Form'}</Button>
+                <Col xs={12} sm={12} md={3}>
+                    <RaisedButtonUI
+                        label={(this.state.formState === 'hidden') ? 'Add' : 'Hide Form'}
+                        onClick={this.showAddForm}
+                        style={{display: 'inline-block', margin: '0'}}
+                    />
                 </Col>
             </div>
         )

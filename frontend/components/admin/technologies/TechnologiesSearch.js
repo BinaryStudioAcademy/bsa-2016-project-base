@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import styles from './styles.sass';
 import {Col, FormControl, InputGroup} from 'react-bootstrap';
+import TextInput from '../../common/TextInput.js';
 class TechnologiesSearch extends Component {
     constructor(props) {
         super(props);
@@ -22,13 +23,14 @@ class TechnologiesSearch extends Component {
     render() {
         return (
             <Col>
-                <div className={styles['search-input-container']}>
                     <InputGroup>
-                        <FormControl placeholder="Search technology" className={styles['search-input']} type="text"
-                                     onChange={this.onChange} value={this.state.item}/>
-                        <span className={styles['search-input-border']}></span>
+                        <TextInput
+                            className={styles['search-input']}
+                            onChange={this.onChange}
+                            placeholder="Search technology"
+                            value={this.state.item}
+                        />
                     </InputGroup>
-                </div>
             </Col>
         )
     }

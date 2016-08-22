@@ -36,14 +36,41 @@
   border: 0
   border-radius: 0
   box-shadow: none
+
+.addForm
+  background-color: #f3f6f8
+
 #technologies
+
+  .input-group,
+  .myinput
+    height: 36px
+    width: 100%
+    margin-left: 0
+
+  #delete_all_container,
+  #delete_all
+    height: 36px
+
+  .technologies-tools
+    margin: 0
+
+  .editLabel
+    margin-left: 5px
+    margin-bottom: 10px
+
   .technologies-tool-bar
     margin-bottom: 20px
     background: #EFEFEF
     border-radius: 0
     box-shadow: none
   .technologies-tab
+    height: 100%
+    padding-bottom: 40vh
+    background-color: #f3f6f8
     +border-box
+    form
+      background-color: #f3f6f8
     margin: 0 auto
     font-family: "Open Sans"
     font-size: 16px
@@ -216,49 +243,12 @@
     min-height: 250px
     padding: 5px 1.5rem 0px 1.5rem
 
-  .technologies-tab  textarea,
-  .technologies-tab  input[type="text"],
-  .technologies-tab   select
-    transition: border-bottom-color 0.9s
-    border-bottom: 3px solid #C1CFD9
-  .technologies-tab textarea
-    border: none
-    resize: none
-    border-radius: 0
-    min-height: 250px
-    padding: 5px 1.5rem 0px 1.5rem
-  .technologies-tab  textarea:focus,
-  .technologies-tab  input[type="text"]:focus,
-  .technologies-tab   select:focus
-    border-bottom-color: #F97E76
+  .technologies-tab  textarea
+    width: 100%
+
+
   .technologies-tab .form
     padding-top: 50px
-
-  .technologies-tab button
-    background-color: #9AAD54
-
-  .technologies-tab button:active,
-  .technologies-tab button:hover
-    background-color: #9AAD46
-  .technologies-tab button:active,
-  .technologies-tab button:hover,
-  .technologies-tab button:active,
-  .technologies-tab button:hover
-    border: none
-    color: white
-    outline: none
-    box-shadow: none
-
-  .technologies-tab button:focus
-    outline: none
-    color: white
-
-  .technologies-tab button,
-  .technologies-tab button
-    border: none
-    color: white
-    height: 40px
-    border-radius: 0
 
   .detail_picture_wrapper
     display: block
@@ -273,12 +263,6 @@
   .list-item a
     color: #337ab7
     padding-top: 3px
-
-
-  .search-input-container .search-input-border
-    vertical-align: middle
-    display: blocks
-    padding-left: 0
 
 @media all and (min-width: 768px)
   .panel-body

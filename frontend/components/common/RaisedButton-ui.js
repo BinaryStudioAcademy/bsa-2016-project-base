@@ -9,7 +9,8 @@ const style = {
 const RaisedButtonUI = ({id, label, onClick, style}) => (
   <div>
     <MuiThemeProvider>
-      <RaisedButton 
+      <RaisedButton
+          type="submit"
         id={id}
         label={label}
         onTouchTap={onClick}
