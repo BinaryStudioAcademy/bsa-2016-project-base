@@ -8,7 +8,6 @@ import DeletableList from "./DeletableList"
 import MultiSelectModel from "./../models/MultiSelectModel"
 import CircularProgress from 'material-ui/CircularProgress';
 import Subheader from 'material-ui/Subheader';
-import styles from "./styles.sass"
 export default class MultiSelect extends React.Component {
     constructor(props) {
         super(props);
@@ -39,16 +38,18 @@ export default class MultiSelect extends React.Component {
         const values = <DeletableList model={model}/>;
 
         return (<div style={{display:"flex"}}>
-            <div style={{width:"40%"}} className={styles["list-height"]} >
+            <div style={{width:"40%"}}  >
                 <div style={{display:"flex",position:"absolute"}}>
                     <DeferredTextInput
+                        style={{}}
                         value={model.custom}
                         receiver={model.setCustom}/>
                     {model.isLoading?<CircularProgress size={0.5}/>:""}
                 </div>
-                <div style={{"margin-top":"35px"}}>{tips}</div>
+                <div style={{"margin-top":"40px", overflow:"auto", "max-height":"260px"}}>
+                    {tips}</div>
             </div>
-            <div style={{width:"60%"}} className={styles["list-height"]} >
+            <div style={{width:"60%",overflow:"auto", "max-height":"300px"}} >
                 {values}
             </div>
 
