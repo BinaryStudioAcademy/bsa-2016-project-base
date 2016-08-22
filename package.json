@@ -59,7 +59,8 @@
     "react-slick": "^0.12.2",
     "react-tap-event-plugin": "^1.0.0",
     "redux": "^3.5.2",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "redux-undo": "^1.0.0-beta9"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.7",

@@ -3,7 +3,7 @@ import {PropTypes} from "react"
 import DatePicker from 'material-ui/DatePicker';
 import DeletableList from "./DeletableList"
 import RaisedButton from 'material-ui/RaisedButton';
-
+import DateModel from "./../models/Dates"
 export default class RangeDateSelect extends React.Component {
     constructor(props) {
         super(props)
@@ -11,43 +11,9 @@ export default class RangeDateSelect extends React.Component {
 
     static get propTypes() {
         return {
-            /**
-             * {{custom,values}
-             */
-            data:PropTypes.object.isRequired,
-            /**
-             * @param {{custom,values}}newValues
-             */
-            receiver:PropTypes.func.isRequired
+            model:PropTypes.instanceOf(DateModel)
         }
     }
-
-    /**
-     *
-     * @param value {{upper,lower}}
-     */
-    swapDates(value){
-        const temp = value.lower;
-        value.lower = value.upper;
-        value.upper = temp;
-    }
-
-    /**
-     *
-     * @param value {{upper,lower}}
-     */
-    isFilled(value){
-        return value.upper && value.lower;
-    }
-
-    /**
-     *
-     * @param value {{upper,lower}}
-     */
-    isValid(value){
-        return value.upper.getTime() > value.lower.getTime()
-    }
-
     /**
      *
      * @param what {"lower"|"upper"}
@@ -56,22 +22,18 @@ export default class RangeDateSelect extends React.Component {
      * @param date {Date}
      */
     handleDateChanged(what, event, date){
-        const {receiver, data} = this.props;
-        const {custom} = data;
-
-        custom[what] = date;
-
-        if (this.isFilled(custom) && !this.isValid(custom)){
-
-            this.swapDates(custom);
+        const {model} = this.props;
+        if (what == "lower"){
+            model.setLower(date)
         }
-
-        receiver(data)
+        if (what == "upper"){
+            model.setUpper(date)
+        }
     }
 
     render() {
-        const {receiver, data} = this.props;
-        const {values, custom} = data;
+        const {model} = this.props;
+        const {values, custom} = model;
         const {upper, lower} = custom;
 
         const upperDatePicker = <DatePicker
@@ -81,37 +43,24 @@ export default class RangeDateSelect extends React.Component {
             onChange={this.handleDateChanged.bind(this, "upper")}
         />;
 
-        const lowerDatePocker = <DatePicker
+        const lowerDatePicker = <DatePicker
             autoOk={true}
             floatingLabelText="From"
             value={lower}
             onChange={this.handleDateChanged.bind(this, "lower")}
         />;
 
-        const addInterval = ()=>{
-            if (data.custom.upper && data.custom.lower){
-                data.selected = data.custom;
-                data.custom = {};
-                receiver(data);
-            }
-
-        };
 
         return (<div style={{display:"flex"}}>
             <div style={{width:"40%"}}>
-                {lowerDatePocker}
+                {lowerDatePicker}
                 {upperDatePicker}
-                <RaisedButton label="Add Interval" onClick={addInterval}/>
+                <RaisedButton label="Add Interval"
+                              onClick={model.addValue}/>
             </div>
             <div style={{width:"60%"}}>
                 <DeletableList
-                    data={data}
-                    receiver={receiver}
-                    getText={value=>{
-                        return value.lower.toLocaleDateString()+
-                                " - "+
-                                value.upper.toLocaleDateString()
-                    }}
+                    model={model}
                 />
             </div>
         </div>)

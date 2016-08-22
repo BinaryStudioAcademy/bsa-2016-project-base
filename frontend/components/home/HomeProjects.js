@@ -5,6 +5,8 @@ import ReactPaginate from 'react-paginate';
 import {Row, Col} from 'react-bootstrap';
 import GeneralInformation from './components/GeneralInformation';
 import ListProjects from './components/ListProjects';
+import Container from "./models/HomeContainer"
+import CircularProgress from 'material-ui/CircularProgress';
 
 
 export default class HomeProjects extends React.Component {
@@ -13,22 +15,28 @@ export default class HomeProjects extends React.Component {
     }
 
     static get propTypes() {
-        return {}
+        return {
+            model:PropTypes.instanceOf(Container)
+        }
     }
 
-    handlePageClick = (data) => {
-        let selected = data.selected;
-        const {receiveUpdatePagination} = this.props;
-        receiveUpdatePagination(selected);
-    };
     render() {
-        const {projects, pagination} = this.props.store;
-        const {activePage,perpage,total} = pagination;
+        const {model} = this.props;
+        /*const {startGet,endGet,errorGet} = this.props;
+        model.onStartSearch = model.onStartSearch || startGet;
+        model.onEndSearch = model.onEndSearch || endGet;
+        model.onErrorSearch = model.onErrorSearch || errorGet;*/
+        const projects = model.projects;
+        const {activePage,recordsPerPage,total} = model.pagination;
+
         return <div>
             <Row>
                 <Col className={styles.bk}>
-                    <GeneralInformation
-                        cnt={ total }/>
+                    <div style={{display:"flex"}}>
+                        <GeneralInformation
+                            cnt={ total }/>
+                        {model.isLoading?<CircularProgress size={0.6}/>:""}
+                    </div>
                     <ListProjects
                         projects={projects}/>
                     <ReactPaginate initialSelected={activePage}
@@ -36,10 +44,10 @@ export default class HomeProjects extends React.Component {
                                    nextLabel={"next"}
                                    breakLabel={<a href="">...</a>}
                                    breakClassName={"break-me"}
-                                   pageNum={Math.ceil(total/perpage)}
+                                   pageNum={Math.ceil(total/recordsPerPage)}
                                    marginPagesDisplayed={2}
                                    pageRangeDisplayed={5}
-                                   clickCallback={this.handlePageClick.bind(this)}
+                                   clickCallback={model.setActivePage}
                                    containerClassName={"pagination"}
                                    subContainerClassName={"pages pagination"}
                                    activeClassName={"active"} />
@@ -48,17 +56,3 @@ export default class HomeProjects extends React.Component {
         </div>
     }
 }
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import * as actions from '../../actions/HomeActions';
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators(actions, dispatch);
-}
-
-function mapStateToProps(state) {
-    return {
-        store: state.HomeReducer
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomeProjects);

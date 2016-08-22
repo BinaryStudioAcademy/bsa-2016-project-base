@@ -4,79 +4,51 @@ import ComponentContainer from "./ContainerWithTabs"
 import {Alert, Button} from "react-bootstrap"
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-
-export default class Root extends React.Component {
+import Divider from 'material-ui/Divider';
+import Container from "./models/SearchContainer"
+import DeferredTextInput from "./components/TextInput"
+export default class ContainerWithHideButtonSearchFieldAndSubmit extends React.Component {
     constructor(props) {
         super(props)
     }
 
     static get propTypes() {
         return {
-            /**{
-             *      showSearch,
-             *      selectedTab,
-             *      data:{
-             *          tags: {values, custom, tips},
-             *          users: {values, custom, tips},
-             *          technologies: {values, custom, tips},
-             *          date: {values, custom}
-             *      }
-             * }
-             */
-            reduxData:PropTypes.object.isRequired,
-            /**
-             * {
-             *      handleSearchShow,
-             *      handleSearchDismiss,
-             *      selectedTabChanged,
-             *      dataReceiver:{
-             *          tags,
-             *          users,
-             *          technologies,
-             *          date
-             *      }
-             * }
-             */
-            reduxReceiver:PropTypes.object.isRequired
+            model:PropTypes.instanceOf(Container)
         }
     }
 
     render() {
-        const {reduxData, reduxReceiver} = this.props;
-        const {handleSearchDismiss,handleSearchShow,
-            selectedTabChanged, dataReceiver,
-            goSearch, updateSearchString} = reduxReceiver;
-        const goFastSearch = goSearch.bind(null,"fast");
-        const goExtendedSearch = goSearch.bind(null, "extended");
-        const {showSearch,selectedTab, data, searchString} = reduxData;
-        const showButton = showSearch?
-            <RaisedButton label="Hide Extended Search" onClick={handleSearchDismiss}/>:
-            <RaisedButton label="Show Extended Search" onClick={handleSearchShow}/>
-        const body = showSearch?
+        const {model} = this.props;
+        const showButton = model.shouldShowSearch?
+            <RaisedButton label="Hide Extended Search"
+                          onClick={model.hideSearch}/>:
+            <RaisedButton label="Show Extended Search"
+                          onClick={model.showSearch}/>
+
+        const body = model.shouldShowSearch?
             <div>
                 <h3>Extended Search</h3>
                 <ComponentContainer
-                    data={data}
-                    receiver={dataReceiver}
-                    selectedTab={selectedTab}
-                    selectedTabChanged={selectedTabChanged}
+                    model={model}
                 />
+                <Divider/>
                 <RaisedButton label="Extended Search!"
-                              onClick={goExtendedSearch}/>
+                              onClick={model.goExtendedSearch}/>
             </div>:"";
-        const searchInput = <TextField
-            value={searchString}
+        const searchInput = <DeferredTextInput
+            value={model.searchString}
             hintText="Search"
             floatingLabelText="Search"
-            onChange={(e)=>updateSearchString(e.target.value)}
-            onKeyUp={e=>e.keyCode==13/*ENTER*/?goFastSearch():0}
+            receiver={model.updateSearchString}
+            onKeyUp={e=>(e.keyCode==13)&&model.goSearch()}
         />;
         const fastInputButton = <RaisedButton
             label="Search!"
-            onClick={goFastSearch}/>
+            onClick={model.goFastSearch}/>
         return (
             <div>
-                <div>{searchInput}{fastInputButton}{showButton}</div>
+                <div>{searchInput}  {fastInputButton}  {showButton}</div>
                 {body}
             </div>
         );
