@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Grid, Row, Col} from 'react-bootstrap';
 import Navbar from '../components/navbar/Navbar'
-
+import ReduxToastr, {toastr} from 'react-redux-toastr'
 class App extends Component {
     constructor(props) {
         super(props);
@@ -16,8 +16,12 @@ class App extends Component {
                         </Col>
                         <Col xs={12} sm={10} md={10}>
                             {this.props.children}
+                            <ReduxToastr timeOut={3000}
+                                         newestOnTop={true}
+                                         position="bottom-left"/>
                         </Col>
                     </Row>
+
 				</Grid>
             </div>
         )

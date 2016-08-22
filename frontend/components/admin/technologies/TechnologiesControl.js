@@ -46,8 +46,7 @@ class TechnologiesTab extends Component {
                                  type="checkbox"/>
                     <label htmlFor="delete_all"
                            className={styles['select-all-label']}>{(this.state.checked === true) ? 'Uncheck all' : 'Check all'}</label>
-                    <Button onClick={this.sendDeleteRequest} className={styles['button-feature-remove']}>Delete all
-                        checked</Button>
+                    <Button onClick={this.sendDeleteRequest} className={styles['button-feature-remove']}>Remove</Button>
                 </Col>
                 <Col xs={12} sm={12} md={4}>
                     <Button onClick={this.showAddForm}

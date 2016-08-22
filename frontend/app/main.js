@@ -17,16 +17,23 @@ import Stats from '../components/stats/Stats';
 import Review from '../components/review/Review';
 import NotFound from '../components/not-found/NotFound';
 import * as reducers from '../reducers/';
-
+import ReduxToastr, {toastr} from 'react-redux-toastr'
 const rootReducer = combineReducers({
     ...reducers
 });
+const tokenRefresher = store => next => action => {
+    if(action.type === 'SOMETHING_GONE_WRONG'){
+        toastr.error(''+action.error+'');
+    }
+    let result = next(action);
+    return result;
+};
 
 
 const store = createStore(
-  rootReducer,
-  {},
-  compose(applyMiddleware(thunk),window.devToolsExtension ? window.devToolsExtension() : f => f)
+    rootReducer,
+    {},
+    compose(applyMiddleware(thunk,tokenRefresher), window.devToolsExtension ? window.devToolsExtension() : f => f)
 );
 render(
     (<Provider store={store}>
@@ -37,8 +44,8 @@ render(
             <Route path="projects" component={ProjectsList}/>
             <Route path="project-view/:id" component={ProjectView} />
             <Route path="project-summary/:id" component={ProjectSummary}/>
-            <Route path="add-project" component={UpsertProject}/>  
-            <Route path="admin" component={Admin} > 
+            <Route path="add-project" component={UpsertProject}/>
+            <Route path="admin" component={Admin} >
               <Route path="rights" component={Rights} />
               <Route path="tags" component={Tags} />
               <Route path="tech" component={Tech} />

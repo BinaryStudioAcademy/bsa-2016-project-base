@@ -7,7 +7,7 @@ import RemoveTags from './RemoveTags';
 import TagsSearch from './TagsSearch';
 import TagsList from './TagsList';
 import AddTag from './AddTag';
-
+import ReduxToastr, {toastr} from 'react-redux-toastr'
 import styles from './tags.sass';
 
 class Tags extends Component {
@@ -62,9 +62,19 @@ class Tags extends Component {
 				trash.push(tag._id);
 			}
 		});
+		// if (trash.length) {
+		// 	this.props.deleteTags(trash);
+		// 	this.props.selectAll(false);
+		// }
 		if (trash.length) {
-			this.props.deleteTags(trash);
-			this.props.selectAll(false);
+			const toastrConfirmOptions = {
+				onOk: () => {
+					this.props.deleteTags(trash);
+					this.props.selectAll(false);
+				},
+				onCancel: () => ''
+			};
+			toastr.confirm('Are you sure about that?', toastrConfirmOptions)
 		}
 		
 	}
@@ -72,7 +82,6 @@ class Tags extends Component {
  		let { tags, isAllChecked } = this.props.store.AdminTagReducer;
 	    return (
 	    	<div className={styles["tags-tab"]} id={styles["tags"]}>
-	    		
 	    			<Panel className={styles["tags-panel-top"]}>
 				    	<Row className={styles["tags-tools"]}>
 				    		<TagsSearch searchTag={this.searchTag}/>
