@@ -41,11 +41,6 @@ class Home extends Component {
 
 	    return (
 	    	<div id={styles.homeContent}>
-	    	  		<header className={styles.homeContentHeader}>
-	    	    		<GeneralInformation
-		    				cnt={ cntAllProjectFil }
-		    			/>
-		  			</header>
 		  		<section id={styles.sectionContent}>
 		    		<SearchHome
 		    			filter = {::this.filterProject}

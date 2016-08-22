@@ -4,36 +4,15 @@
     @media (max-width: $media/16+em)
         @content
 
-// .home-content-row
-//     display: flex
-//     +forSmallScreens(640)
-//         display: block
 #root
   height: 100%
-#homeContent
-  width: 83.33%
-  width: calc(100% - 200px)
 
-  // width: 100%
-  // width: 80%;
-  // background-color: #F2F5F7;
+#homeContent
   background-color: #FEFEFE
   font-size: 0.7em
   +forSmallScreens(640)
     width: 100%
-  .homeContentHeader
-    width: 100%
-    box-sizing: border-box
-    font-family: 'Lato', sans-serif
-    font-weight: 900
-    font-size: 1.2em
-    padding: 30px 2.5em
-    color: #7A929D
-    text-transform: uppercase
-    border-bottom: 1px solid #CED1D6;
-    height: 79px
+
 #sectionContent
   background-color: #f3f6f8
   padding-bottom: 100px
-/*.bk
-    background: $primary-color*/

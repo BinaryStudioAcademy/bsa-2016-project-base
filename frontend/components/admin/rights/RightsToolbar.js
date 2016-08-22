@@ -122,16 +122,3 @@ function mapStateToProps(state) {
 
 const RightsToolbarConnected = connect(mapStateToProps, mapDispatchToProps)(RightsToolbar);
 export default RightsToolbarConnected;
-
-
-/*
-
-<Button onClick={()=>{
-                this.props.saveProjectUsers(
-                  this.props['usersRights'].current['projectId'],{
-                    usersRight: this.props['usersRights'].filters['usersRight'],
-                    users: this.props['usersRights'].current['users'].owners
-                  }
-                );
-              }}>Save changes</Button>
-*/

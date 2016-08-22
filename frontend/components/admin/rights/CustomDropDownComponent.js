@@ -1,11 +1,7 @@
-
 import React, { Component, PropTypes } from 'react';
 import styles from './CustomDropDownComponent.sass';
 import FaOpenDialog from 'react-icons/lib/fa/angle-double-down';
 import FaCloseDialog from 'react-icons/lib/fa/angle-double-up';
-//import FaNotChecked from 'react-icons/lib/fa/square-o';
-//import FaChecked from 'react-icons/lib/fa/check-square-o';
-
 
 export default class RightsUsersList extends Component {
 	constructor(props) {
@@ -18,7 +14,6 @@ export default class RightsUsersList extends Component {
  				(<FaCloseDialog size={20} style={{color:'#FC5A5A'}} />):
  				(<FaOpenDialog size={20} style={{color:'#2ECC71'}}  />)
  			);
-
  		for(var i in data){
  			var current = data[i][this.props['valueField']];
  			if((this.props['current'] == current)) 
@@ -42,7 +37,9 @@ export default class RightsUsersList extends Component {
  					{displayArrow}
  					{visible}
  				</span>
- 				<div style={this.state} className={styles['dropDown-List']}>{items}</div>
+ 				<div style={this.state} className={styles['dropDown-List']}>
+ 					<div className={styles['dropDown-ListScrollableBox']}>{items}</div>		
+ 				</div>
  			</div>
  		);
 	}

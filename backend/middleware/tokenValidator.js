@@ -16,7 +16,8 @@ module.exports = function(req, res, next) {
             }
             else {
                 req.decoded = decoded;
-                cookies.set('serverUID', decoded.id, { httpOnly: false });
+                console.log(decoded);
+                cookies.set('userEmail', decoded.email, { httpOnly: false });
                 cookies.set('userRole', decoded.role, { httpOnly: false });
                 cookies.set('referer', configHost['autHost']);
                 next();
