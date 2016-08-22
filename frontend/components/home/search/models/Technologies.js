@@ -1,16 +1,23 @@
 import MultiSelectModel from "./MultiSelectModel"
+import searchService from "./../../../../services/SearchService"
 
 export default class Technologies extends MultiSelectModel{
     constructor({container}) {
         super({
             title:"Technologies",
-            values:[{text:"t1"},{text:"t2"}],
-            custom:"tech",
-            tips:[{text:"tip1"}, {text:"tip2"}],
+            values:[],
+            custom:"",
+            tips:[],
             container
         })
     }
     getNameInRequest(){
         return "technologies"
+    }
+    getTips(value,callback){
+        searchService.getTechs(value)
+            .then(res=>{callback(res.err,(res.tips||[]).map(tip=>({
+                    text:`${tip.techName} : ${tip.techVersion}`
+                })))})
     }
 }

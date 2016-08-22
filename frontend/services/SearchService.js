@@ -1,0 +1,28 @@
+import promise from 'es6-promise';
+promise.polyfill();
+import fetch from 'isomorphic-fetch';
+
+const URL = "http://localhost:3000/api/search/"
+class SearchService {
+    constructor() {}
+    getTechs(query){
+        return fetch(`${URL}techs?tech=${query}`)
+            .then(res=>res.json())
+            .then(json=>({tips:json}))
+            .catch(e=>({err:e}))
+    }
+    getTags(query){
+        return fetch(`${URL}tags?tag=${query}`)
+            .then(res=>res.json())
+            .then(json=>({tips:json}))
+            .catch(e=>({err:e}))
+    }
+    getUsers(query){
+        return fetch(`${URL}users?user=${query}`)
+            .then(res=>res.json())
+            .then(json=>({tips:json}))
+            .catch(e=>({err:e}))
+    }
+}
+
+export default new SearchService()

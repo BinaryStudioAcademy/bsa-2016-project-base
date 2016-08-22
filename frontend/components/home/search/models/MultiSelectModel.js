@@ -11,29 +11,42 @@ export default class MultiSelectModel extends Model{
         this.setCustom = this.setCustom.bind(this);
     }
     getView(){
-        return <Tab key={this.number} value={this.number}
+        this.component = <Tab key={this.number} value={this.number}
                    label={`${this.title} (${this.values.length})`}>
             <MultiSelect
                 model={this}/>
-        </Tab>
+        </Tab>;
+        return this.component;
     }
     getText(value){
         return value.text;
     }
-    getTips(value,callback){
-        this.isLoading = true;
-        this.notifyUpdated();
-        this.tips = [{text:value+"1"}, {text:value+"2"}];
-        setTimeout(function(){
-            this.isLoading = false;
-            callback(null);
-        }.bind(this), 1000);
-    }
+    getTips(value,callback){}
+
     setCustom(value){
         this.custom = value;
-        this.getTips(value, function(err){
-            this.notifyUpdated();
-        }.bind(this))
+        this.notifyUpdated();
+        clearTimeout(this.tipsTimeout);
+        this.tipsTimeout = setTimeout(()=>{
+            if (value.length > 0){
+                this.isLoading = true;
+                this.notifyUpdated();
+                this.getTips(value, function(error, tips){
+                    this.tipsError = error&&error.message;
+                    this.tips = tips.filter(tip=>{
+                        for (value of this.values){
+                            if (this.equals(value,tip)){
+                                return false;
+                            }
+                        }
+                        return true;
+                    });
+                    this.isLoading = false;
+                    this.notifyUpdated();
+                }.bind(this))
+            }
+        }, 1000);
+
     }
 
     addValue(value){
