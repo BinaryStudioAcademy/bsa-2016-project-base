@@ -78,12 +78,12 @@ class TechnologiesAddForm extends Component {
             this.setState({
                 techName: e.target.value
             });
-            document.getElementById("error").classList.remove('visible');
-            document.getElementById("error").classList.add('hidden');
+            document.getElementById("error").className = 'visible';
+            document.getElementById("error").className ='hidden';
         }else{
             e.preventDefault();
-            e.target.nextSibling.classList.remove('hidden');
-            e.target.nextSibling.classList.add('visible');
+            document.getElementById("error").className ='hidden';
+            document.getElementById("error").className = 'visible';
         }
     }
 
@@ -120,7 +120,7 @@ class TechnologiesAddForm extends Component {
                         <Col sm={8} smPush={1}>
                             <TextInput
                                 onChange={this.validate}
-                                placeholder="Search technology"
+                                placeholder="Enter name"
                             />
                             <div id="error" className={styles['error'] + " hidden"}>Technology length must be less 50 symbols</div>
                         </Col>
@@ -134,7 +134,7 @@ class TechnologiesAddForm extends Component {
                                   label=""
                                   className={styles['text-select-input']}
                                   onChange={this.saveTechDescription}
-                                  placeholder="Enter the description"
+                                  placeholder="Enter description"
                               />
                         </Col>
                     </FormGroup>

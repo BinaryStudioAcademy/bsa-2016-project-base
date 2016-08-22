@@ -30,7 +30,6 @@
   border-bottom: 1px solid #d6d3d3
 
 =default-panel
-  margin-bottom: 20px
   //border: 1px solid #eee
   border-color: transparent
   border: 0
@@ -38,7 +37,7 @@
   box-shadow: none
 
 .addForm
-  background-color: #f3f6f8
+  background-color: white
 
 #technologies
 
@@ -47,6 +46,19 @@
     height: 36px
     width: 100%
     margin-left: 0
+
+  .technologies-btn-remove
+    +default-btn
+    font-size: 14px
+    font-weight: 500
+    font-family: Lato
+    border-radius: 2px
+    transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms
+    //background: #f53d3d !important
+    background: #fc5a5a !important
+    //margin-left: 1px !important
+    color: #fff !important
+
 
   #delete_all_container,
   #delete_all
@@ -60,17 +72,17 @@
     margin-bottom: 10px
 
   .technologies-tool-bar
-    margin-bottom: 20px
-    background: #EFEFEF
+    padding: 20px
+    background: white
     border-radius: 0
     box-shadow: none
   .technologies-tab
     height: 100%
     padding-bottom: 40vh
-    background-color: #f3f6f8
+    background-color: white
     +border-box
     form
-      background-color: #f3f6f8
+      background-color: white
     margin: 0 auto
     font-family: "Open Sans"
     font-size: 16px
@@ -105,17 +117,19 @@
 
 
   .list_container
+    background-color: white
     min-height: 300px
-    margin-left: 25px
+    padding-left: 25px
 
   .list-item
+    border-radius: 3px
     box-sizing: border-box
     color: #333
     padding: 0px 5px
     margin: 4px 4px 4px 4px
-    background-color: #ededed
+    background-color: #f3f6f8
     min-width: 150px
-    height: 60px
+    height: 35px
     vertical-align: middle
     text-align: left
     display: inline-flex

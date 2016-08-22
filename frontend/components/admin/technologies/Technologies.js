@@ -109,7 +109,7 @@ class Technologies extends Component {
         }
         return (
             <div id="technologies" className={styles["technologies-tab"]}>
-                <Panel className={styles['technologies-tool-bar']}>
+                <div className={styles['technologies-tool-bar']}>
                     <Row className={styles["technologies-tools"]}>
                         <Col sm={12} md={4}>
                     <TechnologiesSearch technologiesSearch={this.technologiesSearch}/>
@@ -119,7 +119,7 @@ class Technologies extends Component {
                                          deleteChecked={this.deleteChecked} setAllChecked={this.setAllChecked}/>
                             </Col>
                         </Row>
-                </Panel>
+                </div>
                 <TechnologiesList listOfTechnologies={list} controlCheckeditems={this.controlCheckeditems}/>
                 <TechnologiesAddForm formState={formState} saveTechnologie={this.saveTechnologie}/>
             </div>
