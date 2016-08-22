@@ -16,7 +16,7 @@ class App extends Component {
                         </Col>
                         <Col xs={12} sm={10} md={10}>
                             {this.props.children}
-                            <ReduxToastr timeOut={2000}
+                            <ReduxToastr timeOut={3000}
                                          newestOnTop={true}
                                          position="bottom-left"/>
                         </Col>

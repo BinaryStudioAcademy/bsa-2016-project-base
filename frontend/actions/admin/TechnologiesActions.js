@@ -8,8 +8,8 @@ export function getTechnologies() {
     return dispatch=> {
         fetch(`/api/technologies/`)
             .then(response => (response.status !== 404)?response.json(): [])
+            .then(json => dispatch(initTechnology(json)))
             .catch(error => dispatch(errorHandler('Bad Request')))
-            .then(json => dispatch(initTechnology(json)));
 
 
     }
