@@ -75,24 +75,26 @@ export function updateUserRight(key,value){
         value: value 
     }
 }
-export function saveProjectUsers(projectID,data){
-    let request = {
-        usersRight: data['usersRight'],
-        owners:[],
-        simples:[]
-    };
-    for(var i in data['users'])
-        if(data.users[i].isOwner) owners.push(i);
-        else simples.push(i);
+export function saveProjectUsers(projectId,data){
+    return (dispatch) => {
+        let request = {
+            usersRight: data['usersRight'],
+            owners:[],
+            simples:[]
+        };
+        for(var i in data['users'])
+            if(data.users[i].isOwner) request['owners'].push(i);
+            else request['simples'].push(i);   
 
-    return usersRightsService.saveProjectUsers(projectId,request)
-        .then(response => response.json())
-        .then(data =>{
-            dispatch ({ type: types.SAVE_PROJECT_USERS });
-        }).catch( err => {
-            dispatch({
-                type: types.SAVE_PROJECT_USERS_ERROR,
-                error
+        return usersRightsService.saveProjectUsers(projectId,request)
+            .then(response => response.json())
+            .then(data =>{
+                dispatch ({ type: types.SAVE_PROJECT_USERS });
+            }).catch( error => {
+                dispatch({
+                    type: types.SAVE_PROJECT_USERS_ERROR,
+                    error
+                });
             });
-        });
+    }
 }

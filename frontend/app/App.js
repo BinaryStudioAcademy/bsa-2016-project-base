@@ -39,9 +39,9 @@ class App extends Component {
                             <FaUser size={30} />
                             <span>{this.props['authUser'].userEmail}</span>
                             <FaExit  size={22} onClick={()=>{
+                                cookies.remove('x-access-token');
                                 cookies.remove('userEmail');
                                 cookies.remove('userRole');
-                                cookies.remove('x-access-token');
                                 //window.location.reload(true);
                                 window.location.assign("http://localhost:2020/");
                             }}/>

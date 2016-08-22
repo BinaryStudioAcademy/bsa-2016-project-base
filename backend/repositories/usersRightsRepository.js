@@ -50,14 +50,14 @@ UsersRightsRepository.prototype.getUsersToProject = function(data,callback){
 
 UsersRightsRepository.prototype.updateUsersToProject = function(id,data,callback){
 	var update = {};
-	switch(usersRightrs){
+	switch(data['usersRight']){
 		case 'owners':
-			update['$set'] ={ owners: data['owners'] };
-			update['$push'] ={ users:{ $each:data['simples'] }}
+			update['$set'] =  { owners: data['owners'] };
+			update['$push'] = { users:{ $each: data['simples'] }}
 		break;
 		case 'simples':
-			update['$set'] ={ users: data['simples'] };
-			update['$push'] ={owners:{ $each:data['owners'] }}
+			update['$set'] = { users: data['simples'] };
+			update['$push'] ={ owners:{ $each: data['owners'] }}
 		break;
 		default:
 			update['$set'] = {
@@ -67,8 +67,7 @@ UsersRightsRepository.prototype.updateUsersToProject = function(id,data,callback
 		break;
 	}
 	console.log(update);
-	return;
-	this.model.updateOne({_id: id},update,callback);
+	this.model.updateOne({_id: id},{},callback);
 }
 
 UsersRightsRepository.prototype.getProjectList = function(callback){

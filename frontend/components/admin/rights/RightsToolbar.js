@@ -72,9 +72,10 @@ class RightsToolbar extends Component {
         <div className={styles['rights-searchBar']}>
           <div className={styles['rights-searchWrapper']}>
               <div className={styles['rights-saveButton']} onClick={()=>{
-                this.props.saveProjectUsers(this.props['usersRights'].current['projectId'],{
+                this.props.saveProjectUsers(
+                  this.props['usersRights'].current['projectId'],{
                   users: this.props['usersRights'].current['users'],
-                  userRigth: this.props['usersRights'].filters['usersRight']
+                  usersRight: this.props['usersRights'].filters['usersRight']
                 })
               }}><FaRefresh size={12} /> Update </div>
               <div className={styles['rights-searchInputContainer']}>

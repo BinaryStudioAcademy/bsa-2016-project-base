@@ -18,7 +18,6 @@ class UsersRightsService {
        if(filterName && usersRight) queryString+="&";
        if(usersRight)  queryString +=`usersRight=${usersRight}`;
     }
-    console.log(queryString);
     return fetch(queryString, {
       method: 'GET',
       headers: headers
@@ -30,9 +29,9 @@ class UsersRightsService {
       headers: headers
     });
   }
-  saveProjectUsers(projectId, data){
+  saveProjectUsers(projectId, data){       
     return fetch(`${API}rights/projects/${projectId}`, {
-      method: "POST",
+      method: "PUT",
       body: JSON.stringify(data),
       headers: headers
     });
