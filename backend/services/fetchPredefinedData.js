@@ -37,7 +37,7 @@ module.exports = function(onResult) {
 				callback();
 			});
         },
-        function(callback) {
+        /*function(callback) {
         	featureRepository.getAll(function (err,data) {
         		if (err) return callback(err);
 				collections.features = data;
@@ -50,7 +50,7 @@ module.exports = function(onResult) {
 				collections.sections = data;
 				callback();
 			});
-        },
+        },*/
     ],  function(err) { 
     		onResult(err, collections)
     });
