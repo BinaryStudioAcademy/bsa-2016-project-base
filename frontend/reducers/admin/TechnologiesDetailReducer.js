@@ -27,13 +27,6 @@ export default function technologiDetaileReducer(state = initialState, action) {
                 listOfTechnologies
             });
         }
-        case 'SET_DOC': {
-            const {doc} = action;
-            return Object.assign({}, state, {
-                doc
-            });
-        }
-
         default: {
             return state;
         }

@@ -31,7 +31,8 @@ export function saveTechology(params) {
                 'Content-Type': 'application/json',
                 Accept: 'application/json'
             })
-        });
+        })
+            .catch(error => dispatch(errorHandler('Bad Request')));
         dispatch(getTechnologies());
 
     }
@@ -63,17 +64,16 @@ export function removeSelectedTechs(technologies) {
                 fetch(`/api/technologies/${tech._id}`, {
                     method: 'DELETE'
                 })
+                    .catch(error => dispatch(errorHandler('Bad Request')));
             }
-        })
+        });
         dispatch(getTechnologies())
     }
 }
-export function errorHandler(error,error_code) {
-    console.log(error_code);
+export function errorHandler(error) {
     return {
         type: 'SOMETHING_GONE_WRONG',
-        error: error,
-        error_code:error_code
+        error: error
     }
 }
 
