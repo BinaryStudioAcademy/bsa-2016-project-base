@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Row, Col } from 'react-bootstrap';
-
+import { Row, Col } from 'react-bootstrap'; 
+ 
 import * as actions from "../../actions/HomeActions";
 import SearchHome from './components/SearchHome';
 import GeneralInformation from './components/GeneralInformation';
@@ -41,29 +41,22 @@ class Home extends Component {
 
 	    return (
 	    	<div id={styles.homeContent}>
-	    			<div className={styles.row}>
-	    	  			<header className={styles.homeContentHeader}>
-	    	    			<GeneralInformation
-		    					cnt={ cntAllProjectFil }
-		    				/>
-		  				</header>
-		  				</div>
-		  				<section id={styles.sectionContent}>
-		    				<SearchHome
-		    					filter = {::this.filterProject}
-								filterByTech = {::this.filterByTech}
-								orderBy = {::this.sortByParams}
-								search = {search}
-								technologies = {technologies}
-						/>
-						<ListProjects
-			  				projects={ filteredProjects }
-			  			/>
-						<PaginationHome
-			  				activePage={ pagination.activePage }
-			  				sumPages = { sumFilterProj }
-			  				pageSelect = {::this.pageSelect}
-			  			/>
+		  		<section id={styles.sectionContent}>
+		    		<SearchHome
+		    			filter = {::this.filterProject}
+						filterByTech = {::this.filterByTech}
+						orderBy = {::this.sortByParams}
+						search = {search}
+						technologies = {technologies}
+					/>
+					<ListProjects
+			  			projects={ filteredProjects }
+			  		/>
+					<PaginationHome
+			  			activePage={ pagination.activePage }
+			  			sumPages = { sumFilterProj }
+			  			pageSelect = {::this.pageSelect}
+			  		/>
 		  		</section>
 			</div>
 	    )
