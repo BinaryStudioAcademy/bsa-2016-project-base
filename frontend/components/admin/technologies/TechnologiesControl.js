@@ -3,7 +3,16 @@ import {Grid, FormControl, Row, Col, Button} from 'react-bootstrap';
 import RaisedButtonUI from '../../common/RaisedButton-ui.js';
 import Checkbox from 'material-ui/Checkbox';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import styles from  './styles.sass';
+
+const muiTheme = getMuiTheme({
+    checkbox: {
+        boxColor: '#8D97A4',
+        checkedColor: "#2ecc71",
+    },
+});
+
 class TechnologiesTab extends Component {
     constructor(props) {
         super(props);
@@ -43,8 +52,8 @@ class TechnologiesTab extends Component {
     render() {
         return (
             <div className="section-control">
-                <Col xs={12} sm={12} md={9}>
-                    <MuiThemeProvider>
+                <Col xs={12} sm={12} md={9} className="checkAndButton">
+                    <MuiThemeProvider muiTheme={muiTheme}>
                         <Col md={4} class="delete_all_container">
                         <Checkbox
                             label="Mark all"
@@ -52,21 +61,24 @@ class TechnologiesTab extends Component {
                             onClick={this.setAllChecked}
                             defaultChecked={this.state.checked}
                             labelStyle={{
-                                color: '#555',
-                                fontFamily: 'Play'
+                                width: "calc(100% - 30px)",
+                                color: '#8D97A4 !important',
+                                fontFamily: "Lato, sans-serif",
+                                fontSize: "0.9rem"
                             }}
                             iconStyle={{
-                                fill: '#2ecc71'
+                                marginRight: "10px"
                             }}
                         />
                             </Col>
                     </MuiThemeProvider>
                     <Col md={5}>
-                    <RaisedButtonUI
+                    <Button
+                        Remove
+                        className="technologies-btn-remove"
                         label='Remove'
                         onClick={this.sendDeleteRequest}
-                        style={{display: 'inline-block', margin: '0'}}
-                    />
+                    >Remove</Button>
                         </Col>
                 </Col>
                 <Col xs={12} sm={12} md={3}>
