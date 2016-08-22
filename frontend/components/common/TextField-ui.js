@@ -5,33 +5,20 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 const styles = {
   errorStyle: {
-    color: '#fc5a5a'
+    color: '#fc5a5a',
   },
   underlineStyle: {
-    borderColor: '#D5D7DA'
+    borderColor: '#627484',
   },
   underlineFocusStyle: {
-    borderColor: '#2ecc71'
+    borderColor: '#2196F3',
   },
   floatingLabelStyle: {
-    color: '#627484'
+    color: '#627484',
   },
   floatingLabelFocusStyle: {
-    color: '#2ecc71'
-  },
-  inputStyle: {
-    color: '#627484',
-    fontfamily: 'Lato, sans-serif',
-    paddingLeft: ".5rem"
-  },
-  hintStyle: {
-    fontFamily: 'Lato, sans-serif',
-    marginLeft: ".5rem",
-    fontSize: "0.9rem"
+    color: '#2ecc71',
   }
-
-
-
 };
 
 const TextFieldUI = ({hintText, defaultValue, onChange, style, inputStyle}) => {
@@ -48,9 +35,6 @@ const TextFieldUI = ({hintText, defaultValue, onChange, style, inputStyle}) => {
                   fontFamily: 'Play'
               }}
               underlineFocusStyle={styles.underlineFocusStyle}
-              underlineStyle={styles.underlineStyle}
-              inputStyle={styles.inputStyle}
-              hintStyle={styles.hintStyle}
             />
           </MuiThemeProvider>
         </div>

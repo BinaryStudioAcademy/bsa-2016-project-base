@@ -42,7 +42,13 @@
 	justify-content: flex-start
 	flex-flow: column wrap
 	padding: 0
+	background: #fff
 
+	.tag-checkbox
+		width: 100%
+
+	.button-add-tags
+		margin-left: 1rem
 
 	.col
 		display: flex
@@ -50,6 +56,14 @@
 		color: #8D97A4
 		margin: auto;
 		justify-content: space-between
+		&:nth-child(2):before, &:nth-child(2):after
+    		content: ""
+    		border: 1px solid #8D97A4
+    		height: 40px
+    		display: block
+    		margin: 0 3rem
+
+
 
 	.tags-tools
 		display: flex
@@ -73,6 +87,8 @@
 		display: flex
 		flex-wrap: wrap
 		align-content: flex-start
+		margin-top: 2rem
+		padding: 0 2.5rem
 
 	.tags-item
 		+border-box
@@ -90,6 +106,18 @@
 		align-items: center
 		flex: 1 0 calc(25% - 10px);
 		//border: 1px solid #eee !important
+
+
+	.tags-item
+		background: #E9f0f6
+		border-radius: 2rem
+		flex-basis: 10%
+		padding-left: 1rem
+		height: 30px
+		cursor: pointer
+		&:hover
+			box-shadow: 1px 1px 10px -5px #8D97A4
+			transition: all .3s
 
 	.tags-checkbox
 		label
@@ -175,23 +203,8 @@
 
 
 
-	.tags-list > div
-		border-bottom: 1px solid #E9F0F4
 
-	.tags-list > div:last-child
-		//border-bottom: none
 
-	.tags-list > div > div:last-child
-		padding: 20px
-
-	.tags-list > div:nth-child(n)
-		background-color: #FAFDFE
-
-	.tags-list > div:nth-child(2n)
-		background-color: white
-
-	.tags-list > div.selected
-		background: #E9F0F4
 
 
 	.select-all-checkbox,

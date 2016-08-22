@@ -9,15 +9,15 @@ import Button from './Button.js';
 import TextInput from './TextInput.js';
 import TextArea from './TextArea.js';
 
-import styles from './styles/button.sass';
+
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 // import CheckboxExampleSimple from 'material-ui/Checkbox';
 import DatePicker from 'material-ui/DatePicker';
-import CheckboxExampleSimple from './checkboxUI.js';
+import CheckboxExampleSimple from './CheckBox-ui.js';
 
 import RadioButtonExampleSimple from './RadioButton.js';
-import TextFieldSample from './TextField.js';
+import TextFieldSample from './TextField-ui.js';
 
 //import areIntlLocalesSupported from 'intl-locales-supported';
 
@@ -52,21 +52,21 @@ class Test extends Component {
 						     fill: bsagreen
 						   }}
 						/>
-					</MuiThemeProvider>	
+
 
 						<TextFieldUI
 							hintText='type anything'
 				  	/>
 
-				  	<RaisedButtonUI 
+				  	<RaisedButtonUI
 				  		label='Label for button'
 				  	/>
 
-				  	<RaisedButtonUI 
+				  	<RaisedButtonUI
 	    			label='Click'
 	    			style={{display: 'inline-block', margin: '20px'}}
-	    		/>
-				  
+	    		     />
+
 	    	</div>
     	);
     }

@@ -7,8 +7,9 @@ import RemoveTags from './RemoveTags';
 import TagsSearch from './TagsSearch';
 import TagsList from './TagsList';
 import AddTag from './AddTag';
-import TextFieldUI from '../../common/TextFieldUI';
-import CheckBoxUI from '../../common/CheckBoxUI';
+import TextFieldTags from '../../common/TextFieldUI_Tags';
+import CheckBoxTags from '../../common/CheckBoxUI_Tags';
+import Button from '../../common/RaisedButtonUI_Tags.js';
 import FaSearch from 'react-icons/lib/fa/search';
 import styles from './tags.sass';
 
@@ -78,31 +79,35 @@ class Tags extends Component {
 				    	<div className={styles["tags-tools"]}>
 				    		<div className={styles.col}>
 				    			<FaSearch size={15} />
-				    			<TextFieldUI
+				    			<TextFieldTags
 									hintText='search tags'
 									onChange={this.searchTag}
 				  				/>
 				  			</div>
 				    		<div className={styles.col}>
-				    		<CheckBoxUI
+				    		<CheckBoxTags
 				    			label="Mark All"
-				    			isAllChecked={isAllChecked}
-				    			selectAll={this.selectAll}
+				    			checked={isAllChecked}
+				    			onSelect={this.selectAll}
+				    		/>
+				    		<Button
+				    			label='Remove'
+				    			onClick={this.deleteMany}
+				    			backgroundColor='#FC5A5A'
 				    		/>
 				    		</div>
 				    		<div className={styles.col}>
-					      	<RemoveTags
-					      		selectAll={this.selectAll}
-					      		deleteMany={this.deleteMany}
-					      		isAllChecked={isAllChecked}
-					      	/>
-					      	</div>
-					      	<div className={styles.col}>
-					     	<AddTag
-					     		setTagName={this.setTagName}
-					     		addTag={this.addTag}
-					     	/>
-					     	</div>
+				    			<TextFieldTags
+				    				hintText="tag's name"
+				    				onBlur={this.setTagName}
+
+				    			/>
+				    			<Button
+				    				label='Add tag'
+				    				onClick={this.addTag}
+				    				backgroundColor='#8D97A4'
+				    			/>
+				    		</div>
 				   		</div>
 				    </Panel>
 				    <TagsList
