@@ -2,14 +2,15 @@ import React from "react"
 import {PropTypes} from "react"
 import {List, ListItem} from 'material-ui/List';
 import ActionInfo from 'material-ui/svg-icons/action/info';
-import TextField from './DeferredTextInput';
+import DeferredTextInput from './TextInput';
 import Delete from "material-ui/svg-icons/action/delete"
 import DeletableList from "./DeletableList"
-
+import MultiSelectModel from "./../models/MultiSelectModel"
+import CircularProgress from 'material-ui/CircularProgress';
 
 export default class MultiSelect extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             customInputValue: undefined,
             autoUpdateTimeoutId: 0
@@ -18,71 +19,36 @@ export default class MultiSelect extends React.Component {
 
     static get propTypes() {
         return {
-            /**
-             * {values, custom, tips}
-             */
-            data: PropTypes.object.isRequired,
-            /**
-             * @param {{values, custom, tips}}newSelectedValues
-             */
-            receiver: PropTypes.func.isRequired
+            model:PropTypes.instanceOf(MultiSelectModel)
         }
     }
 
-    getValuesComponents() {
-        const {data, receiver} = this.props;
-
-        return <DeletableList
-            data={data}
-            receiver={receiver}
-            getText={value=>value.text}/>
+    componentWillReceiveProps(props){
+        props.model.container = this;
     }
-
-    getTipsComponents() {
-        const {data, receiver} = this.props;
-
-        return <List>
-            {data.tips.map(tip=> {
-                const onClick = ()=> {
-                    data.selected = tip;
-                    receiver(data);
-                };
-                return <ListItem primaryText={tip.text}
-                                 onClick={onClick}
-                                 rightIcon={<ActionInfo />}/>
-            })}
-        </List>
-    }
-
-    componentWillReceiveProps(props) {
-        this.setState({customInputValue: props.data.custom})
-    }
-
-
-    onInputChange(value) {
-        const {data,receiver} = this.props;
-        data.customUpdated = true;
-        data.custom = value;
-        receiver(data);
-    }
-
     render() {
-        const customInputValue = this.state.customInputValue === undefined ?
-            this.props.data.custom :
-            this.state.customInputValue;
+        const {model} = this.props;
+        const tips = <List>
+            {model.tips.map((tip,index)=> {
+                return <ListItem key={index}
+                                 primaryText={model.getText(tip)}
+                                 onClick={()=>model.addValue(tip)}
+                                 rightIcon={<ActionInfo />}/>
+            })}</List>;
 
+        const values = <DeletableList model={model}/>;
         return (<div style={{display:"flex"}}>
             <div style={{width:"40%"}}>
-                <TextField
-                    value={customInputValue}
-                    receiver={this.onInputChange.bind(this)}
-                />
-
-                {this.getTipsComponents()}
-
+                <div style={{display:"flex"}}>
+                    <DeferredTextInput
+                        value={model.custom}
+                        receiver={model.setCustom}/>
+                    {model.isLoading?<CircularProgress size={0.5}/>:""}
+                </div>
+                {tips}
             </div>
             <div style={{width:"60%"}}>
-                {this.getValuesComponents()}
+                {values}
             </div>
 
 

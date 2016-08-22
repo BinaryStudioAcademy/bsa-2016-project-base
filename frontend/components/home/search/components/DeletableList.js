@@ -4,7 +4,7 @@ import {List, ListItem} from 'material-ui/List';
 import Delete from "material-ui/svg-icons/action/delete"
 import RaisedButton from 'material-ui/RaisedButton';
 import Subheader from 'material-ui/Subheader';
-
+import Model from "./../models/Model"
 export default class DeletableList extends React.Component {
     constructor(props) {
         super(props)
@@ -12,30 +12,21 @@ export default class DeletableList extends React.Component {
 
     static get propTypes() {
         return {
-            data:PropTypes.object.isRequired,
-            receiver:PropTypes.func.isRequired,
-            /**
-             * @param elementOf(data.values)
-             */
-            getText:PropTypes.func.isRequired,
-            header:PropTypes.string
+            model:PropTypes.instanceOf(Model)
         }
     }
 
     render() {
-        const {data, receiver, getText, header} = this.props;
+        const {model} = this.props;
         return <List>
-            <Subheader>{header || "Selected"}</Subheader>
-            {data.values.map(value=> {
-            const onClick = function () {
-                data.toDelete = value;
-                receiver(data);
-            };
-            return <ListItem primaryText={getText(value)}
-                             rightIcon={<Delete
-                                            onClick={onClick}
-                                            hoverColor={"#b00000"}/>}
-            />
+            <Subheader>{`Selected ${model.title}:`}</Subheader>
+            {model.values.map((value,index)=> {
+            const onClick = function(){model.removeValue(value)};
+            return <ListItem
+                key={index}
+                primaryText={model.getText(value)}
+                rightIcon={<Delete onClick={onClick}
+                                   hoverColor={"#b00000"}/>}/>
 
         })}</List>;
     }

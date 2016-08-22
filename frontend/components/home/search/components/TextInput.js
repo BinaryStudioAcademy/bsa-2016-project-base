@@ -2,10 +2,11 @@ import React from "react"
 import {PropTypes} from "react"
 import TextField from 'material-ui/TextField';
 
-
-export default class DeferredTextInput extends React.Component {
+var count = 0;
+export default class TextInput extends React.Component {
     constructor() {
         super();
+        this.number = ++count;
         this.onInputChange = this.onInputChange.bind(this);
         this.state = {
             value:"",
@@ -26,26 +27,30 @@ export default class DeferredTextInput extends React.Component {
 
     onInputChange(e) {
         const {receiver} = this.props;
-        const {autoUpdateTimeoutId} = this.state;
+        receiver(e.target.value)
+        /*const {autoUpdateTimeoutId} = this.state;
         clearTimeout(autoUpdateTimeoutId);
 
         const newTimeoutId = setTimeout((value, receiver)=> {
             receiver(value);
-        }, 300, e.target.value, receiver);
+        }, 0, e.target.value, receiver);
 
         this.setState({
                 value: e.target.value,
                 autoUpdateTimeoutId: newTimeoutId
             }
-        )
+        )*/
     }
     render() {
         const value = this.state.value === undefined ?
             this.props.value :
             this.state.value;
+        const props = Object.assign({},this.props);
+        delete props.receiver;
         return React.createElement(TextField, {
             onChange: this.onInputChange.bind(this),
-            ...this.props,
+            ...props,
+            id:`deferred-input-${this.number}`,
             value
         });
     }
