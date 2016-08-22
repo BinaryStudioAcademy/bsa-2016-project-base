@@ -66,6 +66,8 @@ UsersRightsRepository.prototype.updateUsersToProject = function(id,data,callback
 			}
 		break;
 	}
+	console.log(update);
+	return;
 	this.model.updateOne({_id: id},update,callback);
 }
 

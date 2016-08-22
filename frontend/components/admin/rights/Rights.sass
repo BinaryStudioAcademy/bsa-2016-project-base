@@ -60,23 +60,42 @@
 
     .rights-searchWrapper
       height: 30px
-      margin: 0px 25px
-      padding-bottom: 8px
-      text-align: center
+      display: flex
+      justify-content: center
       width: calc(65% - 50px)
-      border-bottom: 1px solid #D5D7DA
 
-      .rights-searchInput
-        border: none
-        background-color: transparent
-        vertical-align: middle
-        padding-left: 0.7em
-        color: #8D97A4
-        font-size: 16px
-        width: calc(100% - 50px)
-        &:focus
-          outline: none 
-          color: black 
+      .rights-saveButton
+        width: 110px
+        margin: 0px 10px
+        height: 35px
+        border-radius: 3px
+        background-color: #2ECC71 
+        cursor: pointer
+        color: white
+        text-align: center
+        padding-top: 8px
+        font-size: 15px
+        font-family: "Lato", sans-serif
+        &:hover 
+          background-color: #293541 
+
+      .rights-searchInputContainer
+        width: calc(100% - 120px)
+        border-bottom: 1px solid #D5D7DA
+        margin: 0px 40px
+        padding: 0px 5px 8px 5px
+
+        .rights-searchInput
+          border: none
+          background-color: transparent
+          vertical-align: middle
+          padding-left: 0.7em
+          color: #8D97A4
+          font-size: 16px
+          width: calc(100% - 50px)
+          &:focus
+            outline: none 
+            color: black 
 
     .rights-filterWrapper
       width: calc(35% - 20px)

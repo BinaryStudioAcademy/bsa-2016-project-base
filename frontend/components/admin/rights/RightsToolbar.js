@@ -6,6 +6,7 @@ import * as actions from '../../../actions/admin/UsersRightsActions';
 
 import styles from './Rights.sass';
 import FaSearch from 'react-icons/lib/fa/search';
+import FaRefresh from 'react-icons/lib/fa/refresh';
 import FaCircle from 'react-icons/lib/fa/circle-o';
 import FaChecked from 'react-icons/lib/fa/check-circle-o';
 import CustomDropDownComponent from './CustomDropDownComponent';
@@ -70,18 +71,26 @@ class RightsToolbar extends Component {
     return (
         <div className={styles['rights-searchBar']}>
           <div className={styles['rights-searchWrapper']}>
-              <FaSearch size={15} />
-              <input type="search" placeholder="Write to users filter"
-                  className={styles["rights-searchInput"]}
-                  onChange={(e)=>{
-                    this.props.fetchUsers(
-                      this.props['usersRights'].current['projectId'],
-                      e['target'].value.trim().replace(/['"]+/g,''),
-                      this.props['usersRights'].filters['usersRight']
-                    );
+              <div className={styles['rights-saveButton']} onClick={()=>{
+                this.props.saveProjectUsers(this.props['usersRights'].current['projectId'],{
+                  users: this.props['usersRights'].current['users'],
+                  userRigth: this.props['usersRights'].filters['usersRight']
+                })
+              }}><FaRefresh size={12} /> Update </div>
+              <div className={styles['rights-searchInputContainer']}>
+                <FaSearch size={15} />
+                <input type="search" placeholder="Write to users filter"
+                    className={styles["rights-searchInput"]}
+                    onChange={(e)=>{
+                      this.props.fetchUsers(
+                        this.props['usersRights'].current['projectId'],
+                        e['target'].value.trim().replace(/['"]+/g,''),
+                        this.props['usersRights'].filters['usersRight']
+                      );
+                     }
                    }
-                 }
-              />
+                />
+              </div>
           </div> 
           <div className={styles['rights-filterWrapper']}>
             <div>
