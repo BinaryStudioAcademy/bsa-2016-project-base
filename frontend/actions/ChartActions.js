@@ -45,7 +45,8 @@ export function loadData(){
                         }]
 
                     }))
-                });
+                })
+                .catch(error => dispatch(errorHandler('Bad Request')));
         }
         else if (type == "Bar"){
             tagService.getAllTags()
@@ -66,7 +67,8 @@ export function loadData(){
                             data
                         }]
                     }))
-                });
+                })
+                .catch(error => dispatch(errorHandler('Bad Request')));
         }else if (type == "Linear"){
             dispatch(addData({
                 options:{
@@ -83,5 +85,11 @@ export function loadData(){
             }));
         }
 
+    }
+}
+export function errorHandler(error) {
+    return {
+        type: 'SOMETHING_GONE_WRONG',
+        error: error
     }
 }

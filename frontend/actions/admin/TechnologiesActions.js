@@ -7,9 +7,12 @@ export function getTechnologies() {
     let error_code;
     return dispatch=> {
         fetch(`/api/technologies/`)
-            .then(response => (response.status !== 404)?response.json(): [])
+            .then(response => response.json())
             .then(json => dispatch(initTechnology(json)))
-            .catch(error => dispatch(errorHandler('Bad Request')))
+            .catch(error => {
+                dispatch(errorHandler('Bad Request'));
+                dispatch(initTechnology([]));
+            })
 
 
     }
