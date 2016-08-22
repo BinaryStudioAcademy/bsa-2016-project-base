@@ -6,8 +6,28 @@ import TextFieldUI from './TextField-ui.js';
 import RaisedButtonUI from './RaisedButton-ui.js';
 
 import Button from './Button.js';
+import TextInput from './TextInput.js';
+import TextArea from './TextArea.js';
+
+
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
+// import CheckboxExampleSimple from 'material-ui/Checkbox';
+import DatePicker from 'material-ui/DatePicker';
+import CheckboxExampleSimple from './CheckBox-ui.js';
+
+import RadioButtonExampleSimple from './RadioButton.js';
+import TextFieldSample from './TextField-ui.js';
+
+//import areIntlLocalesSupported from 'intl-locales-supported';
+
+import DatePickerExampleControlled from './DatePickerUI.js'
+
+import {bsagrey, bsagreen} from 'material-ui/styles/colors';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
+
 injectTapEventPlugin();
 
 
@@ -27,21 +47,26 @@ class Test extends Component {
 	    	<div style={styles.divmar}>
 						<CheckBox
 							label="label for checkboxUI"
+							checked='checked'
+							iconStyle={{
+						     fill: bsagreen
+						   }}
 						/>
+
 
 						<TextFieldUI
 							hintText='type anything'
 				  	/>
 
-				  	<RaisedButtonUI 
+				  	<RaisedButtonUI
 				  		label='Label for button'
 				  	/>
 
-				  	<RaisedButtonUI 
+				  	<RaisedButtonUI
 	    			label='Click'
 	    			style={{display: 'inline-block', margin: '20px'}}
-	    		/>
-				  
+	    		     />
+
 	    	</div>
     	);
     }

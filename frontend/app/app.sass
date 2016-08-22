@@ -1,5 +1,6 @@
 @import  '~normalize.css';
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700,300);
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,700,900);
 // @import '../grid/grid';
 html, body
   background: #fff !important
@@ -8,28 +9,36 @@ html, body
   font-size: 16px
   line-height: 1.2em
 
+body::-webkit-scrollbar
+    width: 7px
+
+body::-webkit-scrollbar-track
+    background: rgba(0, 0, 0, 0.1)
+
+body::-webkit-scrollbar-thumb
+    background: rgba(0, 0, 0, 0.5)
+
+
 =forSmallScreens($media)
     @media (max-width: $media/16+em)
         @content
 
-.main-container
+*,
+*:before,
+*:after
+    box-sizing: border-box
+
+
+#app-container
     width: 100%
 
-.mainRow
-    background: #fff
-    height: 100%
-    display: flex
-    +forSmallScreens(640)
-       height: auto
-       width: 100%
-       display: block
+    .row
+        display: flex
+        width: 100%;
+        justify-content: flex-start
+        flex-flow: row wrap
+
+        +forSmallScreens(768)
+            flex-flow: column wrap
 
 
-body::-webkit-scrollbar
-	width: 7px
-
-body::-webkit-scrollbar-track
-	background: rgba(0, 0, 0, 0.1)
-
-body::-webkit-scrollbar-thumb
-	background: rgba(0, 0, 0, 0.5)

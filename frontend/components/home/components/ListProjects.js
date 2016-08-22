@@ -27,7 +27,7 @@ export default class ListProjects extends Component {
 
         return (
                 (projects.length > 0) ?
-                <div className={styles["home-content-row"]}>
+                <div className='row'>
                     {projects.map( project =>
                         <Project
                             key={project._id}

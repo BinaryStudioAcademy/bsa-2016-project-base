@@ -1,19 +1,18 @@
 import React, { PropTypes } from 'react';
 import { Checkbox, FormControl } from 'react-bootstrap';
+import CheckBoxTags from '../../common/CheckBoxUI_Tags';
 import styles from './tags.sass';
 
 const TagItem = ({tag, selectOne}) => {
     let cl
     return (
-        
+
         <div className={styles["tags-item"] + ' ' + (tag.checked ? styles["selected"] : '' )}>
-            <FormControl type="checkbox" className={styles['select-checkbox']}
-                    name="checkbox" id={tag._id} checked={tag.checked}
-                    onChange={(event) => selectOne(event, tag._id)}
+            <CheckBoxTags
+                label={tag.tagName}
+                onSelect={(event) => selectOne(event, tag._id)}
+                checked={tag.checked}
             />
-            <label htmlFor={tag._id} className={styles['select-label']}>
-                    {tag.tagName}
-            </label>
         </div>
     );
 };

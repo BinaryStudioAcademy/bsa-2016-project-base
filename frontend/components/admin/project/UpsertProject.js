@@ -7,6 +7,7 @@ import Inputs from './sections/Inputs';
 import UsersList from './sections/UsersList';
 import Tags from './sections/Tags';
 import Techs from './sections/Techs';
+import Features from './sections/Features';
 import Attachments from './sections/Attachments';
 
 class UpsertProject extends Component {
@@ -25,6 +26,8 @@ class UpsertProject extends Component {
 	    return (
 	    	<div>
 	    		<Inputs/>
+        		<br/>
+        		<Features/>
         		<br/>
         		<Tags/>
         		<br/>

@@ -5,7 +5,7 @@ import styles from './SearchHome.sass';
 import FaSearch from 'react-icons/lib/fa/search';
 import DropDown from '../../common/dd';
 import DropDownF from '../../common/ddFilter';
-console.log(DropDown); 
+console.log(DropDown);
 export default class SearchHome extends Component {
 
     static propTypes = {
@@ -20,7 +20,7 @@ export default class SearchHome extends Component {
         const { filter, search, technologies, filterByTech, orderBy } = this.props;
 
         return (
-            <div className={styles["home-content-row"]}>
+            <div className='row'>
                 <div id={ styles['project-search'] }>
                     <div className={styles['search-wrapper']}>
                         <FaSearch size={15} />
@@ -33,7 +33,8 @@ export default class SearchHome extends Component {
                         />
                     </div>
                 </div>
-                <div id={styles['display-flex']}>
+                <div id={styles['filters-wrapper']}>
+                    <div className={styles.sort}>
                     <DropDown
                         data={[
                             {
@@ -55,7 +56,7 @@ export default class SearchHome extends Component {
                         onItemSelect={orderBy}
                         type="Sort By"
                     />
-
+                    </div>
 
 
                      {(technologies.length) ?

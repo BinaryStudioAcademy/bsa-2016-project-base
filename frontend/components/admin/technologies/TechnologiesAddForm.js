@@ -115,7 +115,7 @@ class TechnologiesAddForm extends Component {
                 <Form horizontal className={styles['form']} onSubmit={this.submitForm}>
                     <FormGroup>
                         <Col sm={2} smPush={1}>
-                            <ControlLabel >Name of technology:</ControlLabel>
+                            <ControlLabel >Name:</ControlLabel>
                         </Col>
                         <Col sm={8} smPush={1}>
                             <TextInput
