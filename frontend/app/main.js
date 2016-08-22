@@ -17,18 +17,28 @@ import Stats from '../components/stats/Stats';
 import Review from '../components/review/Review';
 import NotFound from '../components/not-found/NotFound';
 import * as reducers from '../reducers/';
+import ReduxToastr, {toastr} from 'react-redux-toastr'
 const rootReducer = combineReducers({
     ...reducers,
 });
+const tokenRefresher = store => next => action => {
+    if(action.type === 'SOMETHING_GONE_WRONG'){
+        toastr.error(''+action.error+'');
+       // toastr.error(''+action.error_code+'');
+    }
+    let result = next(action);
+    return result;
+};
 
 
 const store = createStore(
     rootReducer,
     {},
-    compose(applyMiddleware(thunk), window.devToolsExtension ? window.devToolsExtension() : f => f)
+    compose(applyMiddleware(thunk,tokenRefresher), window.devToolsExtension ? window.devToolsExtension() : f => f)
 );
 render(
     (<Provider store={store}>
+
         <Router history={browserHistory}>
             <Route path="/" component={App}>
                 <IndexRoute component={Home}/>

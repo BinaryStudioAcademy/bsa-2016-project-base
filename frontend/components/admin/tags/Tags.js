@@ -82,7 +82,6 @@ class Tags extends Component {
  		let { tags, isAllChecked } = this.props.store.AdminTagReducer;
 	    return (
 	    	<div className={styles["tags-tab"]} id={styles["tags"]}>
-				<ReduxToastr/>
 	    			<Panel className={styles["tags-panel-top"]}>
 				    	<Row className={styles["tags-tools"]}>
 				    		<TagsSearch searchTag={this.searchTag}/>

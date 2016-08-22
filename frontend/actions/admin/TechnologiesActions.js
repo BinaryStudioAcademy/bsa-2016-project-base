@@ -4,17 +4,22 @@
 import fetch from 'isomorphic-fetch'
 
 export function getTechnologies() {
+    let error_code;
     return dispatch=> {
         fetch(`/api/technologies/`)
-            .then(response => (response.status !== 404)?response.json(): [])
+            .then(response =>
+                response.json()
+            )
             .then(json => dispatch(initTechnology(json)))
+            .catch(error => dispatch(errorHandler('Bad Request')));
+
     }
 }
 export function initTechnology(listOfTechno) {
     let listOfTechnologies = listOfTechno || [];
     return {
-        type: 'INIT_TECHNOLOGY' ,
-        listOfTechnologies : listOfTechnologies
+        type: 'INIT_TECHNOLOGY',
+        listOfTechnologies: listOfTechnologies
     }
 }
 export function saveTechology(params) {
@@ -27,7 +32,7 @@ export function saveTechology(params) {
                 Accept: 'application/json'
             })
         });
-            dispatch(getTechnologies());
+        dispatch(getTechnologies());
 
     }
 }
@@ -54,13 +59,21 @@ export function setAddFormState(state) {
 export function removeSelectedTechs(technologies) {
     return dispatch=> {
         technologies.forEach(tech=> {
-             if(tech.checked === 'checked') {
-                 fetch(`/api/technologies/${tech._id}`, {
-                     method: 'DELETE'
-                 })
-             }
-        });
-       dispatch(getTechnologies())
+            if (tech.checked === 'checked') {
+                fetch(`/api/technologies/${tech._id}`, {
+                    method: 'DELETE'
+                })
+            }
+        })
+        dispatch(getTechnologies())
+    }
+}
+export function errorHandler(error,error_code) {
+    console.log(error_code);
+    return {
+        type: 'SOMETHING_GONE_WRONG',
+        error: error,
+        error_code:error_code
     }
 }
 
