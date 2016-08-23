@@ -10,6 +10,7 @@ const muiTheme = getMuiTheme({
     checkbox: {
         boxColor: '#8D97A4',
         checkedColor: "#2ecc71",
+        width: "auto"
     },
 });
 
@@ -52,16 +53,15 @@ class TechnologiesTab extends Component {
     render() {
         return (
             <div className="section-control">
-                <Col xs={12} sm={12} md={9} className="checkAndButton">
+                <div className="checkAndButton">
                     <MuiThemeProvider muiTheme={muiTheme}>
-                        <Col md={4} class="delete_all_container">
                         <Checkbox
                             label="Mark all"
                             id = "delete_all"
                             onClick={this.setAllChecked}
                             defaultChecked={this.state.checked}
                             labelStyle={{
-                                width: "calc(100% - 30px)",
+                                width: "auto",
                                 color: '#8D97A4 !important',
                                 fontFamily: "Lato, sans-serif",
                                 fontSize: "0.9rem"
@@ -70,24 +70,20 @@ class TechnologiesTab extends Component {
                                 marginRight: "10px"
                             }}
                         />
-                            </Col>
                     </MuiThemeProvider>
-                    <Col md={5}>
                     <Button
-                        Remove
                         className="technologies-btn-remove"
                         label='Remove'
                         onClick={this.sendDeleteRequest}
                     >Remove</Button>
-                        </Col>
-                </Col>
-                <Col xs={12} sm={12} md={3}>
+                </div>
+                <div className="addButton">
                     <RaisedButtonUI
                         label={(this.state.formState === 'hidden') ? 'Add' : 'Hide Form'}
                         onClick={this.showAddForm}
                         style={{display: 'inline-block', margin: '0'}}
                     />
-                </Col>
+                </div>
             </div>
         )
     }

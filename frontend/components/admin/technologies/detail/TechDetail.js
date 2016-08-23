@@ -6,8 +6,10 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as actions from "../../../../actions/admin/TechnologiesDetailActions";
 import styles from  '../styles.sass';
-import {Button, FormGroup, ControlLabel, FormControl, Col, Form} from 'react-bootstrap';
 import {Link} from 'react-router'
+import TextArea from '../../../common/TextArea.js';
+import TextInput from '../../../common/TextInput.js';
+import RaisedButtonUI from '../../../common/RaisedButton-ui.js';
 class TechDetailPage extends Component {
     constructor() {
         super();
@@ -37,12 +39,12 @@ class TechDetailPage extends Component {
             this.setState({
                 techName: e.target.value
             });
-            e.target.nextSibling.classList.remove('visible');
-            e.target.nextSibling.classList.add('hidden');
+            document.getElementById("error").className = 'visible';
+            document.getElementById("error").className ='hidden';
         }else{
             e.preventDefault();
-            e.target.nextSibling.classList.remove('hidden');
-            e.target.nextSibling.classList.add('visible');
+            document.getElementById("error").className ='hidden';
+            document.getElementById("error").className = 'visible';
         }
     }
 
@@ -61,8 +63,8 @@ class TechDetailPage extends Component {
             pic =  this.state.techAvatar
         }
         let data = {
-            techName: form.elements['techName'].value,
-            techDescription: form.elements['techDescription'].value,
+            techName: this.state.techName,
+            techDescription: this.state.techDescription,
             techAvatar: pic
         };
         form.reset();
@@ -123,32 +125,29 @@ class TechDetailPage extends Component {
                     }
 
 
-                    <Form horizontal className={styles['form']} onSubmit={this.submitForm}>
-                        <FormGroup>
-                            <Col sm={2} smPush={1}>
-                                <ControlLabel >Name of technology:</ControlLabel>
-                            </Col>
-                            <Col sm={8} smPush={1}>
-                                <FormControl required onChange={this.changeTechName} value={this.state.techName} type="text"
-                                             name="techName"/>
-                                <div id="error" className={styles['error'] + " hidden"}>Technology length must be less 50 symbols</div>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup>
-                            <Col sm={2} smPush={1}>
-                                <ControlLabel >Description:</ControlLabel>
-                            </Col>
-                            <Col sm={8} smPush={1}>
-                                <FormControl onChange={this.changeTechDescription} value={this.state.techDescription}
-                                             name="techDescription"
-                                             componentClass="textarea"
-                                             className={styles['text-select-input']}
-                                             placeholder="Enter the description"
-                                             required></FormControl>
-                            </Col>
-                        </FormGroup>
+                    <form className={styles['form']} onSubmit={this.submitForm}>
+                        <div className="inputField">
+                            <TextInput
+                                label="Name"
+                                name="techName"
+                                onChange={this.changeTechName}
+                                value={this.state.techName}
+                                placeholder="Enter name"
+                            />
+                            <div id="error" className={styles['error'] + " hidden"}>Technology length must be less 50 symbols</div>
+                        </div>
 
-                        <Col sm={6} smPush={3}>
+                        <div className="inputField">
+                           <TextArea
+                               label="Description"
+                               name="techDescription"
+                               className={styles['text-select-input']}
+                               onChange={this.changeTechDescription}
+                               placeholder="Enter description"
+                           />
+                        </div>
+
+                        <div className="inputField">
                             {(this.state.techAvatar.length === 0) ?
                                 <div>
                                     <input type="hidden" id="file_path" name="techAvatar" value={this.state.techAvatar}/>
@@ -157,10 +156,13 @@ class TechDetailPage extends Component {
                                 </div>
                                 : ''
                             }
-                            <Button block type="submit">Send</Button>
+                            <RaisedButtonUI
+                                label='Send'
+                                style={{display: 'block', marginTop: '20px'}}
+                            />
                             <Link id="return_to_list" to="/admin/tech/"></Link>
-                        </Col>
-                    </Form>
+                        </div>
+                    </form>
                 </div>
             </div>
         )

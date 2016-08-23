@@ -5,7 +5,7 @@ import fetch from 'isomorphic-fetch'
 
 export function getTechnologies(id) {
     return dispatch=> {
-        fetch(`/api/technology/`+id)
+        fetch(`/api/technologies/`+id)
             .then(response => (response.status !== 404)?response.json(): {  })
             .then(json => dispatch(initTechnology(json)))
     }
@@ -19,7 +19,7 @@ export function initTechnology(listOfTechno) {
 }
 export function saveTechology(params) {
     return dispatch=> {
-        fetch("/api/technology/", {
+        fetch("/api/technologies/", {
             method: 'PUT',
             body: JSON.stringify(params),
             headers: ({
@@ -47,7 +47,7 @@ export function deleteImage(path,id) {
 }
 export function updateData(id,data){
     return dispatch=> {
-        fetch(`/api/technology/${id}`, {
+        fetch(`/api/technologies/${id}`, {
             method: 'PUT',
             body: JSON.stringify(data),
             headers: ({

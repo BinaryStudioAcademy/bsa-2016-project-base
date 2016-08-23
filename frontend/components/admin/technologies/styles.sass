@@ -11,8 +11,6 @@
   font-weight: bold
   border-bottom: 1px solid #d6d3d3
   z-index: 0
-  &:hover
-    transition: none
   &:focus
     outline: none
   label
@@ -39,7 +37,10 @@
 .addForm
   background-color: white
 
+
+
 #technologies
+
 
   .input-group,
   .myinput
@@ -48,6 +49,7 @@
     margin-left: 0
 
   .technologies-btn-remove
+    display: inline-block
     +default-btn
     font-size: 14px
     font-weight: 500
@@ -55,9 +57,12 @@
     border-radius: 2px
     transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms
     //background: #f53d3d !important
-    background: #fc5a5a !important
+    background: #fc5a5a
     //margin-left: 1px !important
-    color: #fff !important
+    color: #fff
+
+  .technologies-btn-remove:hover
+    background-color: #db5151
 
 
   #delete_all_container,
@@ -65,7 +70,40 @@
     height: 36px
 
   .technologies-tools
+    display: flex
+    align-items: center
     margin: 0
+
+    .searchBlock
+      flex-basis: 33%
+
+    .technologiesControlBlock
+      flex-basis: 67%
+
+  .section-control
+      display: flex
+
+  .checkAndButton
+    display: flex
+    align-items: center
+    flex-basis: 75%
+
+  .checkAndButton > div
+    width: auto !important
+    margin-left: 15px
+
+  #delete_all
+    flex-basis: 50%
+
+  .technologies-btn-remove
+    width: 88px
+    margin-left: 15px
+    height: 36px
+
+  .addButton
+    flex-basis: 25%
+
+
 
   .editLabel
     margin-left: 5px
@@ -77,9 +115,8 @@
     border-radius: 0
     box-shadow: none
   .technologies-tab
-    height: 100%
     padding-bottom: 40vh
-    background-color: white
+    background-color: white !important
     +border-box
     form
       background-color: white
@@ -137,12 +174,12 @@
     flex: 1 0 calc(25% - 10px)
     position: relative
   .visible
-    visibility: visible
+    display: block
     opacity: 1
     transition: opacity 2s linear
 
   .hidden
-    visibility: hidden
+    display: none
     opacity: 0
     transition: visibility 0s 2s, opacity 2s linear
   .hidden_block
@@ -157,7 +194,7 @@
     color: #231f20
     -webkit-box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.2)
     box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.2)
-    background: #fff
+    background: #f3f6f8
     z-index: 10
   .list-item:hover .hidden_block
     display: block
@@ -174,59 +211,6 @@
   .error
     color: red
     font-style: italic
-  .select-all-checkbox,
-  .select-checkbox
-    position: absolute
-    z-index: -1000
-    left: -1000px
-    clip: rect(0 0 0 0)
-    height: 1px
-    width: 1px
-    margin: -1px
-    padding: 0
-    border: 0
-
-  .select-all-checkbox + .select-all-label
-    //margin: 3px 0px 0px 0px
-    margin: 0px
-    margin-top: -2px
-    padding: 0px 10px 0px 40px
-    height: 34px
-    line-height: 34px
-  .list-item .select-all-checkbox + .select-all-label
-    padding: 0px 10px 0px 25px
-    height: 20px
-    line-height: 20px
-  .select-checkbox + .select-label
-    padding-left: 21px
-    height: 16px
-    line-height: 16px
-
-  .select-all-checkbox + .select-all-label,
-  .select-checkbox + .select-label
-    display: inline-block
-    background-repeat: no-repeat
-    background-position: 0 0
-    vertical-align: middle
-    cursor: pointer
-    background-color: transparent
-    color: black
-
-  .select-all-checkbox:checked + .select-all-label
-    background-position: 0px -30px
-
-  .select-checkbox:checked + .select-label
-    background-position: 0px -16px
-
-  .select-all-label
-    background-image: url(http://csscheckbox.com/checkboxes/u/csscheckbox_b5478ce038d0182679c6e07d0ac4f6dd.png)
-    background-size: 34px 65px
-
-  .list-item .select-all-label
-    background-size: 20px 53px
-    font-size: 14px
-  .select-label
-    background-image: url(http://csscheckbox.com/checkboxes/u/csscheckbox_84d5db31bde6d14cf3610dde3534e162.png)
 
   .select-label,
   .select-all-label
@@ -261,20 +245,29 @@
   .technologies-tab  textarea
     width: 100%
 
-
   .technologies-tab .form
+    display: flex
+    justify-content: center
+    flex-wrap: wrap
     padding-top: 50px
 
+  .inputField
+    flex-basis: 66%
+    margin-bottom: 15px
+
   .detail_picture_wrapper
-    display: block
-    width: 100px
-    height: 100px
     margin: 0 auto
-    margin-top: 30px
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
   .detail_picture_wrapper img
-    width: 100%
+    margin: 15px 0
+    max-width: 200px
+    max-height: 200px
   .detail_picture_wrapper a
     color: red
+    margin-bottom: 15px
   .list-item a
     color: #337ab7
     padding-top: 3px

@@ -112,34 +112,25 @@ class TechnologiesAddForm extends Component {
 
         return (
             <div id="addForm" className={styles['technologies-tab'] + ' ' + this.state.formState}>
-                <Form horizontal className={styles['form']} onSubmit={this.submitForm}>
-                    <FormGroup>
-                        <Col sm={2} smPush={1}>
-                            <ControlLabel >Name:</ControlLabel>
-                        </Col>
-                        <Col sm={8} smPush={1}>
+                <form className={styles['form']} onSubmit={this.submitForm}>
+                        <div className="inputField">
                             <TextInput
+                                label="Name"
                                 onChange={this.validate}
                                 placeholder="Enter name"
                             />
                             <div id="error" className={styles['error'] + " hidden"}>Technology length must be less 50 symbols</div>
-                        </Col>
-                    </FormGroup>
-                    <FormGroup>
-                        <Col sm={2} smPush={1}>
-                            <ControlLabel >Description:</ControlLabel>
-                        </Col>
-                        <Col sm={8} smPush={1}>
+                        </div>
+                        <div className="inputField">
                               <TextArea
-                                  label=""
+                                  label="Description"
                                   className={styles['text-select-input']}
                                   onChange={this.saveTechDescription}
                                   placeholder="Enter description"
                               />
-                        </Col>
-                    </FormGroup>
+                        </div>
                     <input type="hidden" id="file_path" name="techAvatar" value=''/>
-                    <Col sm={6} smPush={3}>
+                    <div className="inputField">
                         <div id="error" className={styles['error'] + " hidden"}>Wrong file formant</div>
                         <input type="file" id="file" name="afile" onChange={this.upload}/>
                         <RaisedButtonUI
@@ -147,8 +138,8 @@ class TechnologiesAddForm extends Component {
                             style={{display: 'block', marginTop: '20px'}}
                         />
 
-                    </Col>
-                </Form>
+                    </div>
+                </form>
                 <Element name="myScrollToElement"></Element>
             </div>
 

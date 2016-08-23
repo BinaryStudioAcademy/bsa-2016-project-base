@@ -6,6 +6,7 @@ import styles from './users.sass';
 import { Row, Col, ListGroup, ListGroupItem, FormControl, FormGroup, InputGroup, Modal, Label, Glyphicon, Button } from 'react-bootstrap';
 import * as actions from '../../../actions/project-view-actions.js';
 import { Router, Route, Link, browserHistory } from 'react-router'
+import TextInput from '../../common/TextInput.js';
 
 class UserList extends Component {
     constructor(props) {
@@ -80,19 +81,18 @@ class UserList extends Component {
         });
         return (
             <div className={styles.wrapper}>
-            <div className={styles.header}>
-            </div>
+                {/*<div className={styles.header}>
+            </div>*/}
               <div className={styles.inputContainer}>
                   <div className={styles.wrapperSearch}>
                   <InputGroup>
                     <InputGroup.Addon className={styles.searchSign}>
                         <Glyphicon glyph="search" className={styles.searchIcon} />
                     </InputGroup.Addon>
-                        <FormControl
-                            type="text"
-                            placeholder="Search"
-                            onChange={ this.updateSearch.bind(this)}
-                        />
+                      <TextInput
+                          onChange={ this.updateSearch.bind(this)}
+                          placeholder="Search"
+                      />
                     </InputGroup></div>
                    </div>
                 <ul className={styles.userList}>

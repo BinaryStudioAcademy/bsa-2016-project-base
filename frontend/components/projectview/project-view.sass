@@ -13,106 +13,209 @@ body
     font-family: 'Play'   
     color: $mainTextColor
 
-span
-    background-color: transparent //!important    
-
-ul>li
-    list-style-type: none
-
-.component
-    margin: 20px auto    
-    font-size: 14pt
-
-
-.info
-    width: 1000px
-    height: auto
-    padding: 20px
-    margin: auto
-    //text-align: center
-    color: $mainTextColor
-
-.header
-    font-family: 'Russo One'
-    font-size: 1.5em    
-    color: $activeBlue
-
-.brief
-    text-align: center
-    color: $mainTextColor
-
-
-.row
-    text-align: left
-
-.cell
-    padding: 0 10px
-    line-height: 40px
-
-.tab 
-    display: inline-block
-    padding: 10px
-
-    // &:hover
-    //   background-color: $activeBlue
-
-
-.tabpanels
-    text-align: left
-    font-size: 1em
-    background-color: $lightCadetBlueColor
-
-
-.questionPanel
-    background-color: $listItemColor    
-    font-size: .8em
-
-.questionHeader
-    font-family: 'Russo One'   
-    color: $activeBlue     
-
-.questions
-    text-align: left
-    color: $mainTextColor
-    cursor: pointer   
-
-.questionItem
-    //font-size: 10pt
-
-.userName
-    color: $tomatoColor
-    &+p
-        cursor: text
-
-
-.btn
-    background-color: $lightCadetBlueColor
-    font-size: 0.9em
-    &:hover
-        background-color: $activeBlue
-        color: #fff
-
-.tdbut    
-    text-align: center
-
-.gallery
-    width: 100%
-    height: 300px
-    overflow: auto
-    margin 0 auto
-
 #project-view-content
-    width: calc(100% - 200px)
+    width: calc(100% - 250px)
     font-size: 0.7em
-#project-view-content .project-view-content-header
-    width: 100%
-    box-sizing: border-box
-    font-family: "Lato", sans-serif
-    font-weight: 900
-    font-size: 1.2em
-    padding: 30px 2.5em
-    color: #7A929d
-    text-transform: uppercase
-    background-color: #FEFEFE
-    border-bottom: 1px solid #CED1D6
-    height: 79px
+
+    .nameHeader
+        margin-left: 10px
+
+    .projectMain
+        margin-top: 30px
+        display: flex
+        flex-direction: row
+        justify-content: center
+
+        .firstPart
+            display: flex
+            flex-basis: 75%
+            flex-direction: column
+            align-items: flex-start
+
+    .nameProject
+        display: flex
+        justify-content: center
+        margin-bottom: 20px
+        font-family: Play
+        font-size: 2.5em
+
+    .screenshots
+        display: flex
+        width: 100%
+        flex-wrap: nowrap
+
+        #Gallery
+            display: flex
+            justify-content: center
+            flex-wrap: nowrap
+
+            div
+                img
+                    width: 250px
+                    height: 200px
+
+    .tags
+        display: block
+        margin-bottom: 40px
+
+        span
+            font-family: Lato
+            margin: 5px 5px 5px 0
+            display: inline-block
+            padding: 5px 10px
+            background-color: #d7dadc
+            color: black
+            border-radius: 15px
+
+    .technologies
+        display: block
+        margin-bottom: 50px
+
+        ul
+            padding: 0
+
+            li
+                font-family: Lato
+                margin: 5px 5px 5px 0
+                padding: 5px 10px
+                background-color: white
+                color: black
+                border-radius: 50%
+                display: inline-block
+
+    .fullDescriptionProject
+        font-size: 14px
+
+
+    .shortDescription
+        display: flex
+        justify-content: space-between
+        margin-top: 5px
+        font-size: 16px
+        font-family: "Open Sans"
+
+        span
+
+
+        span:nth-child(odd)
+            color: #03A9F4
+
+        span:nth-child(even)
+            padding-right: 50px
+
+
+
+
+    .tableDescriptionProject
+        display: flex
+        justify-content: center
+
+        table
+            background-color: #ececf1
+            font-size: 18px
+            font-family: Lato
+            border: 0
+
+            tr
+                height: 50px
+                line-height: 3.5rem
+                padding-bottom: 1.4rem
+
+                td:nth-child(even)
+                    display: inline-block
+                    padding-left: 50px
+
+    span
+        background-color: transparent //!important
+
+    ul>li
+        list-style-type: none
+
+    .component
+        margin: 20px auto
+        font-size: 14pt
+
+    //.info
+    //    width: 1000px
+    //    height: auto
+    //    padding: 20px
+    //    margin: auto
+    //    //text-align: center
+    //    color: $mainTextColor
+
+    .header
+        font-family: 'Russo One'
+        font-size: 1.5em
+        color: $activeBlue
+
+    .brief
+        text-align: center
+        color: $mainTextColor
+
+    .row
+        text-align: left
+
+    .cell
+        padding: 0 10px
+        line-height: 40px
+
+    .tab
+        display: inline-block
+        padding: 10px
+
+        // &:hover
+        //   background-color: $activeBlue
+
+    .tabpanels
+        text-align: left
+        font-size: 1em
+        background-color: $lightCadetBlueColor
+
+    .questionPanel
+        background-color: $listItemColor
+        font-size: .8em
+
+    .questionHeader
+        font-family: 'Russo One'
+        color: $activeBlue
+
+    .questions
+        text-align: left
+        color: $mainTextColor
+        cursor: pointer
+
+    .questionItem
+        //font-size: 10pt
+
+    .userName
+        color: $tomatoColor
+        &+p
+            cursor: text
+
+    .btn
+        background-color: $lightCadetBlueColor
+        font-size: 0.9em
+        &:hover
+            background-color: $activeBlue
+            color: #fff
+
+    .tdbut
+        text-align: center
+
+    .gallery
+        width: 100%
+        height: 300px
+        overflow: auto
+        margin: 0 auto
+    .project-view-content-header
+        width: 100%
+        box-sizing: border-box
+        font-family: "Lato", sans-serif
+        font-weight: 900
+        font-size: 1.2em
+        padding: 30px 2.5em
+        color: #7A929d
+        text-transform: uppercase
+        background-color: #FEFEFE
+        border-bottom: 1px solid #CED1D6
+        height: 79px
