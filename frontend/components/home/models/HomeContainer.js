@@ -28,10 +28,15 @@ export default class HomeContainer extends Updatable{
         this.isLoading = true;
         this.notifyUpdated();
         setTimeout(()=>{
-            const query = this.searchContainer.getQuery();
+            /**
+             * @type {Array.<"name=value">}
+             */
+            var query = this.searchContainer.getQuery();
             //query.recordsPerPage = this.pagination.recordsPerPage;
             //query.activePage = this.pagination.activePage;
-            searchService.getProjects(query)
+            query.push(`limit=${this.pagination.recordsPerPage}`);
+            query.push(`skip=${this.pagination.recordsPerPage*(this.pagination.activePage)}`);
+            searchService.getProjects(query.join("&"))
                 //.then(res=>res.json())
                 .then(data=>{
                     debugger

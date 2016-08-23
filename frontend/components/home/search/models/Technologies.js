@@ -12,7 +12,7 @@ export default class Technologies extends MultiSelectModel{
         })
     }
     getNameInRequest(){
-        return "tech"
+        return "techs"
     }
     getTips(value,callback){
         searchService.getTechs(value)

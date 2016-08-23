@@ -11,5 +11,4 @@ export default class Users extends MultiSelect {
     getListRightIcon(value){
         return <Avatar src={value.avatarUrl} size={50}/>
     }
-
 }

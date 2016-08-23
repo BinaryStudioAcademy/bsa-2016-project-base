@@ -31,6 +31,11 @@ export default class SearchContainer extends Updatable{
         this.currentQuery = Query.FAST;
         this.goSearch();
     }
+
+    /**
+     *
+     * @returns {Array<"name=value">}
+     */
     getQuery(){
         if (this.currentQuery == Query.FAST){
             return {
@@ -42,7 +47,7 @@ export default class SearchContainer extends Updatable{
             for (let model of this.searchModels){
                 query.push(model.getRequestRepresentation());
             }
-            return query.filter(value=>value).join("&");
+            return query.filter(value=>value);//.join("&");
         }
     }
     showSearch(){
