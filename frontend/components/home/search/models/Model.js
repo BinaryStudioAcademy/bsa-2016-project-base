@@ -12,6 +12,13 @@ export default class Model extends Updatable{
     getNameInRequest(){}
     getView(){}
     getValueInRequest(){}
+    getRequestRepresentation(){
+        const values = this.getValueInRequest();
+        if (values.length){
+            return `${this.getNameInRequest()}=${values.join(",")}`
+
+        }
+    }
     getText(value){}
     equals(other){}
     addValue(value){
@@ -22,4 +29,5 @@ export default class Model extends Updatable{
         this.values = this.values.filter(elem=>!this.equals(elem,value))
         this.notifyUpdated()
     }
+
 }

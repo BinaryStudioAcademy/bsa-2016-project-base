@@ -36,6 +36,7 @@ export default class HomeProjects extends React.Component {
                         <GeneralInformation
                             cnt={ total }/>
                         {model.isLoading?<CircularProgress size={0.6}/>:""}
+                        {model.error?<span>Error : {model.error.message}</span>:""}
                     </div>
                     <ListProjects
                         projects={projects}/>

@@ -12,13 +12,19 @@ export default class Technologies extends MultiSelectModel{
         })
     }
     getNameInRequest(){
-        return "technologies"
+        return "techs"
     }
     getTips(value,callback){
         searchService.getTechs(value)
             .then(res=>{callback(res.err,(res.tips||[]).map(tip=>({
-                    text:`${tip.techName} : ${tip.techVersion}`
+                    name:tip.techName,
+                    version:tip.techVersion
                 })))})
     }
-    //getText(){}//TODO: override
+    getText(value){
+        return `${value.name} : ${value.version}`
+    }
+    getValueInRequest(){
+        return this.values.map(value=>value.name)
+    }
 }

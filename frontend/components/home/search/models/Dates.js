@@ -18,29 +18,29 @@ export default class Dates extends Model{
             " - "+
             value.upper.toLocaleDateString()
     }
-    swapDates(){
-        const temp = this.custom.lower;
-        this.custom.lower = this.custom.upper;
-        this.custom.upper = temp;
+    swapDates(value){
+        const temp = value.lower;
+        value.lower = value.upper;
+        value.upper = temp;
     }
-    isFilled(){
-        return this.custom.upper && this.custom.lower;
+    isFilled(value){
+        return value.upper && value.lower;
     }
-    isValid(){
-        return this.custom.upper.getTime() >
-            this.custom.lower.getTime()
+    isValid(value){
+        return value.upper.getTime() >
+            value.lower.getTime()
     }
     setUpper(upper){
         this.custom.upper = upper;
-        if (this.isFilled() && !this.isValid()){
-            this.swapDates()
+        if (this.isFilled(this.custom) && !this.isValid(this.custom)){
+            this.swapDates(this.custom)
         }
         this.notifyUpdated()
     }
     setLower(lower){
         this.custom.lower = lower;
-        if (this.isFilled() && !this.isValid()){
-            this.swapDates()
+        if (this.isFilled(this.custom) && !this.isValid(this.custom)){
+            this.swapDates(this.custom)
         }
         this.notifyUpdated()
     }
@@ -68,5 +68,17 @@ export default class Dates extends Model{
             from: date.lower.getTime(),
             to:date.upper.getTime()
         }))
+    }
+    getRequestRepresentation(){
+        const date = this.values[0];
+        if (date && this.isFilled(date)){
+            const dateString = function(date){
+                const year = date.getYear(),
+                    month = date.getMonth(),
+                    day = date.getDay();
+                return `${year}-${month}-${day}`
+            };
+            return `dateFrom=${dateString(date.lower)}&dateTo=${dateString(date.upper)}`
+        }
     }
 }

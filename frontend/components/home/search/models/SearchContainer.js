@@ -38,12 +38,11 @@ export default class SearchContainer extends Updatable{
             }
         }
         if (this.currentQuery == Query.EXTENDED){
-            const query = {};
+            var query = [];
             for (let model of this.searchModels){
-                query[model.getNameInRequest()] =
-                    model.getValueInRequest()
+                query.push(model.getRequestRepresentation());
             }
-            return query;
+            return query.filter(value=>value).join("&");
         }
     }
     showSearch(){

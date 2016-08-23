@@ -61,10 +61,11 @@ export default class MultiSelectModel extends Model{
         super.addValue(value);
     }
     equals(one,two){
-        return one.text == two.text;
+        return this.getText(one) == this.getText(two);
     }
 
     getValueInRequest(){
         return this.values.map(value=>value.text)
     }
+
 }

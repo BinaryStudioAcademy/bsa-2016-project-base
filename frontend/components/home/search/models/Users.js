@@ -15,16 +15,24 @@ export default class Users extends MultiSelectModel{
     getNameInRequest(){
         return "users"
     }
+    getValueInRequest(){
+        return this.values.map(value=>value.name)
+    }
     getTips(value,callback){
         searchService.getUsers(value)
             .then(res=>{callback(res.err,
                 (res.tips||[]).map(tip=>({
-                    text:`${tip.login}
-                     ${tip.userName}
-                      ${tip.userSurname}
-                       ${tip.position}`,
+                    login:tip.login,
+                    name:tip.name,
+                    surname:tip.surname,
+                    position:tip.position,
                     avatarUrl:tip.avatar
                 })))})
     }
-    //getText(value){}//TODO:override
+    getText(value){
+        return `${value.login}
+                     ${value.userName}
+                      ${value.userSurname}
+                       ${value.position}`
+    }//TODO:override
 }

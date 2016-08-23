@@ -1,4 +1,5 @@
 import homeService from "./../../../services/homeService"
+import searchService from "./../../../services/SearchService"
 import Updatable from "./Updatable"
 export default class HomeContainer extends Updatable{
     constructor({searchContainer, component}) {
@@ -22,33 +23,23 @@ export default class HomeContainer extends Updatable{
             this.goSearch();
         }
     }
-    setProjects(response){
-        this.projects = response.projects;
-        this.pagination.total = projects.length;//should be response.length
-        this.isLoading = false;
-        this.notifyUpdated();
-    }
-    onStartSearch(){
-        this.isLoading = true;
-        this.notifyUpdated()
-    }
     goSearch(){
         const self = this;
-        self.onStartSearch();
+        this.isLoading = true;
+        this.notifyUpdated();
         setTimeout(()=>{
             const query = this.searchContainer.getQuery();
-            query.recordsPerPage = this.pagination.recordsPerPage;
-            query.activePage = this.pagination.activePage;
-            console.info(new Date(), " : ", "sending query ", query);
-            homeService.getProjects(query)
-                .then(res=>res.json())
+            //query.recordsPerPage = this.pagination.recordsPerPage;
+            //query.activePage = this.pagination.activePage;
+            searchService.getProjects(query)
+                //.then(res=>res.json())
                 .then(data=>{
-                    self.setProjects({projects:data})
-                })
-                .catch(err=>{
-                    self.onErrorSearch && self.onErrorSearch(err)
+                    debugger
+                    self.projects = data.projects||[];
+                    self.pagination.total = self.projects.length;//should be response.length
                     self.isLoading = false;
-                    self.notifyUpdated()
+                    self.error = data.err;
+                    self.notifyUpdated();
                 })
         }, 1000);
 
