@@ -81,13 +81,6 @@ class ProjectView extends Component {
 
             <div id={styles["project-view-content"]}>
 
-				<header className={styles["project-view-content-header"]}>
-					<div>
-						<FaList size={20} />
-						<span className="nameHeader">Project Summary</span>
-					</div>
-				</header>
-
 				<div className="projectMain">
 					<div className="firstPart">
 						<span  className="nameProject">{viewProjectName}</span>
