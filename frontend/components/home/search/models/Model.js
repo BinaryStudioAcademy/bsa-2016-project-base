@@ -1,24 +1,19 @@
-
+import Updatable from "./../../models/Updatable"
 var counter = 0;
-export default class Model {
-    constructor({title,values,custom,tips,container}) {
-        this.number = ++counter;
+export default class Model extends Updatable{
+    constructor({title,values,custom,tips,component}) {
+        super(component);
+        this.number = counter++;
         this.title = title;
         this.values = values;
         this.custom = custom;
         this.tips = tips;
-        this.container = container;
     }
     getNameInRequest(){}
     getView(){}
     getValueInRequest(){}
     getText(value){}
     equals(other){}
-
-    notifyUpdated(){
-        this.container.forceUpdate();
-    }
-
     addValue(value){
         this.values.push(value);
         this.notifyUpdated();
@@ -27,5 +22,4 @@ export default class Model {
         this.values = this.values.filter(elem=>!this.equals(elem,value))
         this.notifyUpdated()
     }
-
 }

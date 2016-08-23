@@ -5,8 +5,9 @@ import {Alert, Button} from "react-bootstrap"
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
-import Container from "./models/SearchContainer"
-import DeferredTextInput from "./components/TextInput"
+import Container from "./../models/SearchContainer"
+import DeferredTextInput from "./TextInput"
+
 export default class ContainerWithHideButtonSearchFieldAndSubmit extends React.Component {
     constructor(props) {
         super(props)
@@ -17,7 +18,9 @@ export default class ContainerWithHideButtonSearchFieldAndSubmit extends React.C
             model:PropTypes.instanceOf(Container)
         }
     }
-
+    componentWillReceiveProps(props){
+        props.model.component = this;
+    }
     render() {
         const {model} = this.props;
         const showButton = model.shouldShowSearch?

@@ -1,7 +1,8 @@
 import homeService from "./../../../services/homeService"
-
-export default class HomeContainer {
-    constructor({searchContainer, container}) {
+import Updatable from "./Updatable"
+export default class HomeContainer extends Updatable{
+    constructor({searchContainer, component}) {
+        super(component);
         this.searchContainer = searchContainer;
         this.goSearch = this.goSearch.bind(this)
         this.searchContainer.goSearch = this.goSearch;
@@ -10,16 +11,16 @@ export default class HomeContainer {
             total:3,
             recordsPerPage:2
         };
-        this.container = container;
         this.setActivePage = this.setActivePage.bind(this)
         this.projects = [];
     }
     setActivePage(page){
-        this.pagination.activePage = page.selected;
-        this.goSearch();
-    }
-    notifyUpdated(){
-        this.container.forceUpdate()
+        if (this.pagination.activePage !== page.selected ||
+            !page.selected && !this.projects.length){
+            //should not do search request when returning on page
+            this.pagination.activePage = page.selected;
+            this.goSearch();
+        }
     }
     setProjects(response){
         this.projects = response.projects;

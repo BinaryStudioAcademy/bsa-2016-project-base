@@ -4,7 +4,8 @@ import DatePicker from 'material-ui/DatePicker';
 import DeletableList from "./DeletableList"
 import RaisedButton from 'material-ui/RaisedButton';
 import DateModel from "./../models/Dates"
-export default class RangeDateSelect extends React.Component {
+import Modelable from "./Modelable"
+export default class RangeDateSelect extends Modelable {
     constructor(props) {
         super(props)
     }

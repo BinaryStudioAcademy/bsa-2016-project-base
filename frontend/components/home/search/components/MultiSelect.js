@@ -8,13 +8,10 @@ import DeletableList from "./DeletableList"
 import MultiSelectModel from "./../models/MultiSelectModel"
 import CircularProgress from 'material-ui/CircularProgress';
 import Subheader from 'material-ui/Subheader';
-export default class MultiSelect extends React.Component {
+import Modelable from "./Modelable"
+export default class MultiSelect extends Modelable {
     constructor(props) {
         super(props);
-        this.state = {
-            customInputValue: undefined,
-            autoUpdateTimeoutId: 0
-        }
     }
 
     static get propTypes() {
@@ -22,17 +19,18 @@ export default class MultiSelect extends React.Component {
             model:PropTypes.instanceOf(MultiSelectModel)
         }
     }
-
+    getListRightIcon(value){}
     render() {
         const {model} = this.props;
+        const self = this;
         const tips = <List>
             {model.tipsError?
                 <Subheader>Error : {model.tipsError}</Subheader>:""}
-            {model.tips.map((tip,index)=> {
+            {model.tips.map((tip,index)=>{
                 return <ListItem key={index}
                                  primaryText={model.getText(tip)}
                                  onClick={()=>model.addValue(tip)}
-                                 rightIcon={<ActionInfo />}/>
+                                 rightIcon={self.getListRightIcon(tip)}/>
             })}</List>;
 
         const values = <DeletableList model={model}/>;
@@ -41,19 +39,16 @@ export default class MultiSelect extends React.Component {
             <div style={{width:"40%"}}  >
                 <div style={{display:"flex",position:"absolute"}}>
                     <DeferredTextInput
-                        style={{}}
                         value={model.custom}
                         receiver={model.setCustom}/>
                     {model.isLoading?<CircularProgress size={0.5}/>:""}
                 </div>
-                <div style={{"margin-top":"40px", overflow:"auto", "max-height":"260px"}}>
+                <div style={{"marginTop":"40px", overflow:"auto", "maxHeight":"260px"}}>
                     {tips}</div>
             </div>
-            <div style={{width:"60%",overflow:"auto", "max-height":"300px"}} >
+            <div style={{width:"60%",overflow:"auto", "maxHeight":"300px"}} >
                 {values}
             </div>
-
-
         </div>)
     }
 }

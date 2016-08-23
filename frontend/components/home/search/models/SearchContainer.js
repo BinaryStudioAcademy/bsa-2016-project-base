@@ -1,17 +1,17 @@
-
+import Updatable from "./../../models/Updatable"
 const Query = {
     FAST:1,
     EXTENDED:2
 };
-export default class SearchContainer {
+export default class SearchContainer extends Updatable{
     constructor({searchString,showSearch,selectedTab,
-        searchModels, container}) {
+        searchModels, component}) {
+        super(component);
         this.searchString = searchString;
         this.shouldShowSearch = showSearch;
         this.selectedTab = selectedTab;
         this.currentQuery = Query.FAST;
         this.searchModels = searchModels;
-        this.container = container;
         this.selectTab = this.selectTab.bind(this);
         this.showSearch = this.showSearch.bind(this);
         this.hideSearch = this.hideSearch.bind(this);
@@ -21,7 +21,7 @@ export default class SearchContainer {
     }
     updateSearchString(searchString){
         this.searchString = searchString;
-        this.notifyUpdated()
+        //this.notifyUpdated()
     }
     goExtendedSearch(){
         this.currentQuery = Query.EXTENDED;
@@ -46,9 +46,6 @@ export default class SearchContainer {
             return query;
         }
     }
-    notifyUpdated(){
-        this.container.forceUpdate()
-    }
     showSearch(){
         this.shouldShowSearch = true;
         this.notifyUpdated()
@@ -60,7 +57,7 @@ export default class SearchContainer {
     selectTab(tab){
         if ("number" === typeof tab){
             this.selectedTab = tab;
-            this.container.forceUpdate()
+            this.notifyUpdated()
         }
     }
 

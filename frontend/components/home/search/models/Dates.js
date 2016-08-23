@@ -3,12 +3,12 @@ import React from "react"
 import {Tabs, Tab} from 'material-ui/Tabs';
 import DateSelect from "./../components/RangeDateSelect"
 export default class Dates extends Model{
-    constructor({container}) {
+    constructor({component}) {
         super({
             title:"Dates",
             values:[],
             custom:{},
-            container
+            component
         });
         this.addValue = this.addValue.bind(this);
         this.getText = this.getText.bind(this)
@@ -48,8 +48,7 @@ export default class Dates extends Model{
     getView(){
         return <Tab key={this.number} value={this.number}
                     label={`${this.title} (${this.values.length})`}>
-            <DateSelect
-                model={this}/>
+            <DateSelect model={this}/>
         </Tab>
     }
     addValue(){
@@ -63,9 +62,7 @@ export default class Dates extends Model{
         return one.lower.getTime() == two.lower.getTime() &&
                 one.upper.getTime() == two.upper.getTime()
     }
-    getNameInRequest(){
-        return "dates"
-    }
+    getNameInRequest(){return "dates"}
     getValueInRequest(){
         return this.values.map(date=>({
             from: date.lower.getTime(),

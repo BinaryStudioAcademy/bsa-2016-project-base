@@ -9,43 +9,50 @@ export default class MultiSelectModel extends Model{
         this.addValue = this.addValue.bind(this);
         this.getText = this.getText.bind(this);
         this.setCustom = this.setCustom.bind(this);
+        this.ComponentClass = MultiSelect;
     }
     getView(){
-        this.component = <Tab key={this.number} value={this.number}
-                   label={`${this.title} (${this.values.length})`}>
-            <MultiSelect
-                model={this}/>
+        return <Tab key={this.number} value={this.number}
+                    label={`${this.title} (${this.values.length})`}>
+            {React.createElement(this.ComponentClass, {
+                model: this
+            })}
         </Tab>;
-        return this.component;
     }
     getText(value){
         return value.text;
     }
     getTips(value,callback){}
 
-    setCustom(value){
-        this.custom = value;
+    startLoadTips(){
+        this.isLoading = true;
         this.notifyUpdated();
+        this.getTips(this.custom, function(error, tips){
+            this.tipsError = error&&error.message;
+            this.tips = tips.filter(tip=>{
+                for (let value of this.values){
+                    if (this.equals(value,tip)){
+                        return false;
+                    }
+                }
+                return true;
+            });
+            this.isLoading = false;
+            this.notifyUpdated();
+        }.bind(this))
+    }
+    setCustom(value){
+        this.custom = value.trim();
+        //this.notifyUpdated();
         clearTimeout(this.tipsTimeout);
         this.tipsTimeout = setTimeout(()=>{
-            if (value.length > 0){
-                this.isLoading = true;
-                this.notifyUpdated();
-                this.getTips(value, function(error, tips){
-                    this.tipsError = error&&error.message;
-                    this.tips = tips.filter(tip=>{
-                        for (value of this.values){
-                            if (this.equals(value,tip)){
-                                return false;
-                            }
-                        }
-                        return true;
-                    });
-                    this.isLoading = false;
-                    this.notifyUpdated();
-                }.bind(this))
+            if (this.custom.length>0){
+                this.startLoadTips()
+            }else {
+                this.tips = [];
+                this.notifyUpdated()
             }
-        }, 1000);
+        }, 500);
 
     }
 

@@ -2,13 +2,13 @@ import MultiSelectModel from "./MultiSelectModel"
 import searchService from "./../../../../services/SearchService"
 
 export default class Technologies extends MultiSelectModel{
-    constructor({container}) {
+    constructor({component}) {
         super({
             title:"Technologies",
             values:[],
             custom:"",
             tips:[],
-            container
+            component
         })
     }
     getNameInRequest(){
@@ -20,4 +20,5 @@ export default class Technologies extends MultiSelectModel{
                     text:`${tip.techName} : ${tip.techVersion}`
                 })))})
     }
+    //getText(){}//TODO: override
 }

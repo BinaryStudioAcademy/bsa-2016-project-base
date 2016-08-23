@@ -1,13 +1,13 @@
 import MultiSelectModel from "./MultiSelectModel"
 import searchService from "./../../../../services/SearchService"
 export default class Tags extends  MultiSelectModel{
-    constructor({container}) {
+    constructor({component}) {
         super({
             title:"Tags",
             values:[],
             custom:"",
             tips:[],
-            container
+            component
         })
     }
     getNameInRequest(){
