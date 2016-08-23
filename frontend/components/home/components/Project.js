@@ -10,12 +10,12 @@ export default class Project extends Component {
         project: React.PropTypes.object.isRequired,
         ranking: React.PropTypes.string.isRequired
     };
-    
+
     render() {
-        const { project, ranking } = this.props;
+        const { project, ranking, id} = this.props;
 
         return (
-            <li id='home-project' className={styles['list-group-item']}>
+            <li key={id} className={styles['list-group-item']}>
                 <Link to={`/project-view/${project._id}`}>
                 <h4>
                     {project.projectName}
@@ -41,9 +41,9 @@ export default class Project extends Component {
 
                 {(project.technologies) ?
                     <div className={styles.labels}>
-                        {project.technologies.map((tech) => {
+                        {project.technologies.map((tech, index) => {
                             return (
-                                <span key={tech._id} className={styles['tech-label']}>
+                                <span key={index} className={styles['tech-label']}>
                                     <span className={styles['tech-name']}>{tech.techName}</span>
                                     <span className={styles['label-version']} >{tech.techVersion || "1.0"}</span>
                                 </span>
@@ -61,7 +61,7 @@ export default class Project extends Component {
                 }
                 </Link>
             </li>
-            
+
         )
     }
 }

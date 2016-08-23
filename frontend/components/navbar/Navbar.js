@@ -59,7 +59,7 @@ class Navbar extends Component {
                 <span className={styles.icon}>
                   <FaCog size={15} />
                 </span>
-                <span className={styles['item-name']}>Admin Area</span>
+                <span className={styles['item-name']}>Admin Menu</span>
               </Link>
            </li>
 

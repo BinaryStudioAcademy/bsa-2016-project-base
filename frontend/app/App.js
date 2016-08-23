@@ -11,13 +11,18 @@ import NotFound from '../components/not-found/NotFound';
 import styles from './app.sass';
 import {setAuthUser} from '../actions/UserAuthActions';
 
+import FaList from 'react-icons/lib/fa/list';
+
+
+
+
 class App extends Component {
     constructor(props) {
         super(props);
     }
     componentWillMount(){
         this.props.setAuthUser(
-            cookies.load('userEmail'), 
+            cookies.load('userEmail'),
             cookies.load('userRole')
        );
     }
@@ -26,6 +31,7 @@ class App extends Component {
         if(this.props.authUser['userRole']!= 'ADMIN'){
             children = [];
             React.Children.map(this.props.children, function(child) {
+                console.log(child)
                if(child.type['name'].toLowerCase().indexOf('admin') == -1) children.push(child);
                else children.push(<NotFound />);
             });
@@ -34,19 +40,24 @@ class App extends Component {
             <div id={styles["app-container"]}>
                 <div className={styles.row}>
                     <Navbar />
-                    <div className={styles["main-content"]}>
-                        <div className={styles['main-header']}>
-                            <FaUser size={30} />
-                            <span>{this.props['authUser'].userEmail}</span>
-                            <FaExit  size={22} onClick={()=>{
-                                cookies.remove('x-access-token');
-                                cookies.remove('userEmail');
-                                cookies.remove('userRole');
-                                //window.location.reload(true);
-                                window.location.assign("http://localhost:2020/");
-                            }}/>
+                    <div id={styles["main-content"]}>
+                        <div className={styles.row}>
+                            <div className={styles['main-header']}>
+                                <FaList size={20} />
+                                {(this.props.children.props.route.path) ? <span key={Math.floor(Math.random() * 10)}>{this.props.children.props.route.title}</span> : <span>Home</span>
+                                }
+                                {/*console.log(this.props.route.path)*/}
+                                {/*<span>{this.props['authUser'].userEmail}</span>*/}
+                                <FaExit  size={20} onClick={()=>{
+                                    cookies.remove('x-access-token');
+                                    cookies.remove('userEmail');
+                                    cookies.remove('userRole');
+                                    //window.location.reload(true);
+                                    window.location.assign("http://localhost:2020/");
+                                }}/>
+                            </div>
+                            {children}
                         </div>
-                        {children}
                     </div>
                 </div>
             </div>

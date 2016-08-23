@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Row, Col } from 'react-bootstrap'; 
- 
+import { Row, Col } from 'react-bootstrap';
+
 import * as actions from "../../actions/HomeActions";
 import SearchHome from './components/SearchHome';
 import GeneralInformation from './components/GeneralInformation';

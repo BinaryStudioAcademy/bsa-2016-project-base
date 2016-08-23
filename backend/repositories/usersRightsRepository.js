@@ -62,12 +62,12 @@ UsersRightsRepository.prototype.updateUsersToProject = function(id,data,callback
 		default:
 			update['$set'] = {
 				owners: data['owners'],
-				users: data['simples']	
+				users: data['simples']
 			}
 		break;
 	}
 	console.log(update);
-	this.model.updateOne({_id: id},{},callback);
+	this.model.update({_id: id},update,callback);
 }
 
 UsersRightsRepository.prototype.getProjectList = function(callback){
