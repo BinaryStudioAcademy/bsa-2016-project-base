@@ -21,7 +21,7 @@ import ReduxToastr, {toastr} from 'react-redux-toastr'
 const rootReducer = combineReducers({
     ...reducers
 });
-const tokenRefresher = store => next => action => {
+const errorHandler = store => next => action => {
     if(action.type === 'SOMETHING_GONE_WRONG'){
         toastr.error(''+action.error+'');
     }
@@ -33,7 +33,7 @@ const tokenRefresher = store => next => action => {
 const store = createStore(
     rootReducer,
     {},
-    compose(applyMiddleware(thunk,tokenRefresher), window.devToolsExtension ? window.devToolsExtension() : f => f)
+    compose(applyMiddleware(thunk,errorHandler), window.devToolsExtension ? window.devToolsExtension() : f => f)
 );
 render(
     (<Provider store={store}>
