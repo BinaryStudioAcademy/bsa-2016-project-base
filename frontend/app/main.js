@@ -34,23 +34,23 @@ render(
         <Router history={browserHistory}>
           <Route path="/" component={App}>
             <IndexRoute component={Home}/>
-            <Route path="home" component={Home}/>
-            <Route path="projects" component={ProjectsList}/>
-            <Route path="project-view/:id" component={ProjectView} />
+            <Route path="home" component={Home} title='projects'/>
+            <Route path="projects" component={ProjectsList} title='projects'/>
+            <Route path="project-view/:id" component={ProjectView} title='project summary'/>
             <Route path="test" component={Test} />
             <Route path="project-summary/:id" component={ProjectSummary}/>
-            <Route path="add-project" component={UpsertProject}/>  
-            <Route path="admin" component={Admin} > 
+            <Route path="add-project" component={UpsertProject} title='add project'/>
+            <Route path="admin" component={Admin} title='admin menu'>
               <Route path="rights" component={Rights} />
               <Route path="tags" component={Tags} />
               <Route path="tech" component={Tech} />
               <Route path="tech/:id" component={TechDetail}/>
             </Route>
-            <Route path="stats" component={Stats} /> 
-            <Route path="review" component={Review} /> 
-            <Route path='*' component={NotFound} />
+            <Route path="stats" component={Stats} title='stats'/>
+            <Route path="review" component={Review} title='review'/>
+            <Route path="*" component={NotFound} title='not found'/>
           </Route>
         </Router>
-      </Provider>) 
+      </Provider>)
 , document.getElementById('root')
 );

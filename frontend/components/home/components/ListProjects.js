@@ -28,9 +28,10 @@ export default class ListProjects extends Component {
         return (
                 (projects.length > 0) ?
                 <div className='row'>
-                    {projects.map( project =>
+                    {projects.map( (project, index) =>
                         <Project
-                            key={project._id}
+                            id={project._id}
+                            key={index}
                             data-id={project._id}
                             project={project}
                             ranking={this.ranking(project.rating)}/>

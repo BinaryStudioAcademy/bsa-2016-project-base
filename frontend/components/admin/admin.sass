@@ -5,149 +5,125 @@
         @content
 
 #adminContent
-    width: calc(100% - 250px)
-    font-size: 0.7rem
-    background-color: #f3f6f8
-    +forSmallScreens(768)
-        width: 100%
-
-    .row
-        display: flex
-        width: 100%
-        justify-content: flex-start
-        flex-flow: row wrap
-
-        .adminContentHeader
-            width: 100%
-            box-sizing: border-box
-            font-family: "Lato", sans-serif
-            font-weight: 900
-            font-size: 1.2em
-            padding: 30px 2.5em
-            color: #7A929d
-            text-transform: uppercase
-            background-color: #FEFEFE
-            border-bottom: 1px solid #CED1D6
-            height: 79px
-
-    span
-        vertical-align: middle
-        padding-left: 1em
-
-    .heading
-        font-family: "Lato", sans-serif
-        color: #273339
-        display: flex
-        padding: 4.56rem 7.18rem 2.2rem
-        width: 100%
+  font-size: 0.7em
+  background-color: #f3f6f8
 
 
-    .tab-bar
-      background: none
-      border-bottom: 1px solid #CED1D6
-      padding: 0 7.18rem
+  .row
+    display: flex
+    width: 100%;
+    justify-content: space-between
+    flex-flow: row wrap
+    padding: 6rem 0 0
+
+
+  =forSmallScreens($media)
+    @media (max-width: $media/16+em)
+      @content
+
+  .main-container
+      height: 100%
+
+  .adminContentHeader
       width: 100%
       box-sizing: border-box
+      font-family: "Lato", sans-serif
+      font-weight: 900
+      font-size: 1.2em
+      padding: 30px 2.5em
+      color: #7A929d
+      text-transform: uppercase
+      background-color: #FEFEFE
+      border-bottom: 1px solid #CED1D6
+      height: 79px
 
-    .tab-bar li
+
+
+
+
+  .tab-bar
+      background: none
+      border-bottom: 1px solid #CED1D6
+      padding: 0 5.6rem
+      width: 100%
+      margin: 0
+
+
+  .tab-bar li
       display: inline-block
       background: none
 
-    .tab-bar li + li
+  .tab-bar li + li
       margin-left: 2.81em
 
-#admin-section-content
-        background-color: #f3f6f8
-        // padding-bottom: 100px
+  .tab-bar a
+      color: #79919D
+      font-size: 0.75rem
+      font-weight: 700
+      text-transform: uppercase
+      // transition:  .3s
+      font-family: 'Lato', sans-serif
+      transition: color .3s
+      &:hover
+          color: #263238
 
-        .row
-            display: flex
-            width: 100%
-            justify-content: space-between
-            flex-flow: row wrap
-            padding: 0
-        .tab-bar
-            background: none
-            border-bottom: 1px solid #CED1D6
-            padding: 4.4rem 2.5rem 0
-            width: 100%
-            box-sizing: border-box
+  .tab-bar .admin-nav-item-active
+      // border-bottom: 3px solid #03A9F4
+      color: #263238
+      box-shadow: inset 0 -3px 0 #03A9F4
+      transition: box-shadow .3s
+      padding-bottom: 1rem
 
-        .tab-bar li
-            display: inline-block
-            background: none
+  .FaCog
+    margin-right: 9px
+    vertical-align: middle
 
-        .tab-bar li + li
-            margin-left: 2.81em
-
-        .tab-bar a
-            color: #79919D
-            font-size: 0.75rem
-            font-weight: 700
-            text-transform: uppercase
-            transition:  .3s
-            font-family: 'Lato', sans-serif
-            transition: color .3s
-            padding-bottom: 0.8rem
-            &:hover
-                color: #263238
-
-        .tab-bar .admin-nav-item-active
-            border-bottom: 2px solid #03A9F4
-            color: #263238
-            box-shadow: inset 0 -3px 0 #03A9F4
-            transition: box-shadow .3s
-
-        .adminPage
-       	    margin: 0 auto
-       	    text-align: center
-       	    display: inline-block
-       	    margin: 0
-
-        .tabs
-            color: dodgerblue
-            text-align: center
-            margin-bottom: 10px
-            display: flex
-            justify-content: space-between
-            align-items: center
-            align-content: center
-
-        .tab-item
-            flex: 1
-            text-align: center
-            background-color: #ce6d9f
-            padding: 5px
-
-
-        .tab
-       	    display: inline-block
-       	    padding: 10px
-       	    background: dodgerblue
-       	    width: auto
-
-        .tab-bar
-          border-bottom: 1px solid #D8D0D0
-
-          margin-top: 20px
-          width: 100%
-
-        .tab-holder
-            width: 100%
-        .tab-bar:first-child
-
-        .tab-bar
-            border-bottom: 1px solid #D8D0D0
-
-            margin: 1.25rem 0 0
-            width: 100%
+  .textForIcon
+    vertical-align: middle
 
 
 
+  // .adminPage
+  // 	//margin: 0 auto
+  // 	//text-align: center
+  // 	//display: inline-block
+  // 	margin: 0
+
+  .tabs
+      //color: dodgerblue
+      //text-align: center
+      //margin-bottom: 10px
+      //display: flex
+      //justify-content: space-between
+      //align-items: center
+      //align-content: center
+
+  .tab-item
+      //flex: 1
+      //text-align: center
+      //background-color: #ce6d9f
+      //padding: 5px
+
+
+  // .tab
+  // 	display: inline-block
+  // 	padding: 10px
+  // 	background: dodgerblue
+  // 	width: auto
+
+
+  .tabs-grid
 
 
 
+  // .tab-holder
+  // 	display: block
 
+
+h3
+    background-color: #fff
+    padding: 0
+    margin: 0
 
 
 

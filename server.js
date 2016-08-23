@@ -5,6 +5,7 @@ const express = require('express');
 const webpack = require('webpack');
 const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
+const tockenMiddleware = require('./backend/middleware/tokenValidator');
 const config = require('./webpack.config.js');
 const bodyParser = require('body-parser');
 const isDeveloping = process.env.NODE_ENV !== 'production';
@@ -14,6 +15,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 var routes = require('./backend/routes/routes')(app);
+app.use(tockenMiddleware);
 
 if (isDeveloping) {
   const compiler = webpack(config);

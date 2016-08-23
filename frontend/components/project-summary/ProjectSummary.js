@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import UsersList from './users-component/users_list';
-console.log(UsersList);
 import styles from './project-summary.sass';
 import { Row, Col } from 'react-bootstrap';
 import DetailsFeatures from './features/DetailsFeatures';

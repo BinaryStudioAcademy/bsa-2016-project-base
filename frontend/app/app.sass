@@ -4,7 +4,6 @@
 // @import '../grid/grid';
 html, body
   background: #fff !important
-  height: 100%
   font-family: 'Lato', sans-serif
   font-size: 16px
   line-height: 1.2em
@@ -19,18 +18,24 @@ body::-webkit-scrollbar-thumb
     background: rgba(0, 0, 0, 0.5)
 
 
+
+// Sass Mixin For Desktop first
 =forSmallScreens($media)
     @media (max-width: $media/16+em)
         @content
+
 
 *,
 *:before,
 *:after
     box-sizing: border-box
 
-
+// App Container
 #app-container
     width: 100%
+
+    +forSmallScreens(768)
+        height: auto
 
     .row
         display: flex
@@ -39,6 +44,50 @@ body::-webkit-scrollbar-thumb
         flex-flow: row wrap
 
         +forSmallScreens(768)
-            flex-flow: column wrap
+            flex-flow: column
+            height: auto
+
+// Main Container (right side)
+#main-content
+        width: calc(100% - 250px)
+        background-color: #FEFEFE
+        font-size: 0.7rem
+
+        +forSmallScreens(768)
+            width: 100%
+
+        .row
+            display: flex
+            flex-direction: column
+
+            // Header
+            .main-header
+                width: 100%
+                font-family: 'Lato', sans-serif
+                font-weight: 900
+                font-size: 0.8rem
+                padding: 1.87rem 1rem 1.87rem 2.5rem
+                color: #7A929D
+                text-transform: uppercase
+                border-bottom: 1px solid #CED1D6;
+                height: 79px
+
+                span
+                    margin-left: 10px
+                    vertical-align: middle
+
+                &>svg:last-child
+                    float: right
+
+                &>svg:last-child
+                    cursor: pointer
+
+                &>svg:last-child:hover
+                    color: #AABAC1
+
+
+
+
+
 
 
