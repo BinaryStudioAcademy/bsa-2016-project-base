@@ -23,16 +23,17 @@ export default class Users extends MultiSelectModel{
             .then(res=>{callback(res.err,
                 (res.tips||[]).map(tip=>({
                     login:tip.login,
-                    name:tip.name,
-                    surname:tip.surname,
+                    name:tip.userName,
+                    surname:tip.userSurname,
                     position:tip.position,
                     avatarUrl:tip.avatar
                 })))})
     }
     getText(value){
+        debugger
         return `${value.login}
-                     ${value.userName}
-                      ${value.userSurname}
+                     ${value.name}
+                      ${value.surname}
                        ${value.position}`
     }//TODO:override
 }
