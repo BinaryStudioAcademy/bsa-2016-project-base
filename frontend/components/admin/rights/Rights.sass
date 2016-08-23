@@ -1,7 +1,7 @@
 .rights-container
   width: 100%
   height: 100%
-  background-color: #F3F6F8
+  background-color: #FFF
 
   .rights-UsersList::-webkit-scrollbar
     width: 7px
@@ -25,11 +25,12 @@
     min-height: 120px
     margin: 10px
     padding: 10px
-    background-color: white 
     border-bottom: 1px solid #E4E7EA
+    background-color: #E9f0f6
+    border-radius: 5px
 
   .rights-UsersList > div > div:first-child
-    height: 65% 
+    height: 65%
     border-bottom: 1px solid #E4E7EA
     padding-left: 10px
     font-size: 20px
@@ -47,16 +48,17 @@
     font-size: 13px
     text-align: center
 
-  .rights-UsersList > div > div:last-child > span:last-child 
-    color: black  
+  .rights-UsersList > div > div:last-child > span:last-child
+    color: black
     padding-left: 5px
 
-  .rights-searchBar 
-    width: 100%	
-    height: 120px 
-    display: flex 
+  .rights-searchBar
+    width: 100%
+    height: 120px
+    display: flex
     align-items: center
-    justify-content: center     
+    justify-content: center
+    margin-bottom: 3.25rem;
 
     .rights-searchWrapper
       height: 30px
@@ -69,15 +71,15 @@
         margin: 0px 10px
         height: 35px
         border-radius: 3px
-        background-color: #2ECC71 
+        background-color: #2ECC71
         cursor: pointer
         color: white
         text-align: center
         padding-top: 8px
         font-size: 15px
         font-family: "Lato", sans-serif
-        &:hover 
-          background-color: #293541 
+        &:hover
+          background-color: #293541
 
       .rights-searchInputContainer
         width: calc(100% - 120px)
@@ -94,8 +96,8 @@
           font-size: 16px
           width: calc(100% - 50px)
           &:focus
-            outline: none 
-            color: black 
+            outline: none
+            color: black
 
     .rights-filterWrapper
       width: calc(35% - 20px)
@@ -116,25 +118,25 @@
       font-size: 14px
       color: #505E6B
 
-    .rights-filterWrapper > div span 
+    .rights-filterWrapper > div span
       margin: 0px 13px 0px 5px
 
     .rights-filterWrapper > div span:nth-child(2)
-      margin-right: 25px      
+      margin-right: 25px
 
   @media screen and (max-width: 1100px)
-    .rights-searchBar 
+    .rights-searchBar
       .rights-searchWrapper
         width: calc(55% - 50px)
 
       .rights-filterWrapper
         width: calc(45% - 20px)
         padding-left: 30px
-        
+
   @media screen and (max-width: 1000px)
-    .rights-searchBar 
+    .rights-searchBar
       .rights-filterWrapper
-        width: calc(50% - 20px) 
+        width: calc(50% - 20px)
 
       .rights-searchWrapper
         width: 50%
@@ -143,18 +145,18 @@
           height: 40px
           width: calc(100% - 120px)
 
-          .rights-searchInput 
+          .rights-searchInput
             margin: 10px
 
     .rights-UsersList
       margin-top: 30px
       height: calc(100%  - 70px)
 
-    .rights-UsersList > div 
-      width: 250px        
+    .rights-UsersList > div
+      width: 250px
 
   @media screen and (max-width: 930px)
-    .rights-searchBar 
+    .rights-searchBar
       flex-wrap: nowrap
       flex-direction: column
       padding: 10px
@@ -164,52 +166,52 @@
         width: 100%
 
       .rights-filterWrapper
-        width: calc(100% - 20px)  
+        width: calc(100% - 20px)
         flex-direction: row
-        justify-content: center     
+        justify-content: center
 
-  @media screen and (max-width: 835px) 
+  @media screen and (max-width: 835px)
 
-    .rights-searchBar 
+    .rights-searchBar
       .rights-filterWrapper
         flex-direction: column
         margin-top: 10px
 
       .rights-filterWrapper > div
-        padding: 15px  0px 
-        justify-content: center 
+        padding: 15px  0px
+        justify-content: center
 
-      .rights-filterWrapper > div:first-child  
-        margin-top: 20px 
+      .rights-filterWrapper > div:first-child
+        margin-top: 20px
 
-  @media screen and (max-width: 800px) 
-    .rights-UsersList > div 
+  @media screen and (max-width: 800px)
+    .rights-UsersList > div
       width: 225px
-        
-  @media screen and (max-width: 767px) 
+
+  @media screen and (max-width: 767px)
     .rights-searchBar
       .rights-filterWrapper > div:first-child > svg
-        margin-top: -15px 
+        margin-top: -15px
 
-  @media screen and (max-width: 705px)       
-    .rights-UsersList > div 
-      width: 195px 
+  @media screen and (max-width: 705px)
+    .rights-UsersList > div
+      width: 195px
 
-  @media screen and (max-width: 640px)       
-    .rights-UsersList > div 
-      width: 250px    
+  @media screen and (max-width: 640px)
+    .rights-UsersList > div
+      width: 250px
 
-  @media screen and (max-width: 640px)       
-    .rights-UsersList > div 
-      width: 225px         
+  @media screen and (max-width: 640px)
+    .rights-UsersList > div
+      width: 225px
 
-  @media screen and (max-width: 550px)       
-    .rights-UsersList > div 
-      width: 195px  
+  @media screen and (max-width: 550px)
+    .rights-UsersList > div
+      width: 195px
 
-  @media screen and (max-width: 490px)       
-    .rights-UsersList > div 
-      width: 275px          
-    
+  @media screen and (max-width: 490px)
+    .rights-UsersList > div
+      width: 275px
 
-    
+
+

@@ -30,10 +30,13 @@ class App extends Component {
         let children;
         if(this.props.authUser['userRole']!= 'ADMIN'){
             children = [];
-            React.Children.map(this.props.children, function(child) {
-                console.log(child)
-               if(child.type['name'].toLowerCase().indexOf('admin') == -1) children.push(child);
-               else children.push(<NotFound />);
+            React.Children.forEach(this.props.children, function(child, i) {
+
+               if(child.type['name'].toLowerCase().indexOf('admin') == -1) {
+                console.log(child);
+                children.push( <div key={i}>{child}</div>);
+            }
+               else children.push(<NotFound key={i} />);
             });
         } else children = this.props.children;
         return (

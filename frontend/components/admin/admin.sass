@@ -7,12 +7,15 @@
 #adminContent
   font-size: 0.7em
   background-color: #f3f6f8
-  height: calc(100% - 80px)
 
-  @media (max-width: 767px)
-    width: 100%
 
- 
+  .row
+    display: flex
+    width: 100%;
+    justify-content: space-between
+    flex-flow: row wrap
+    padding: 6rem 0 0
+
 
   =forSmallScreens($media)
     @media (max-width: $media/16+em)
@@ -37,12 +40,13 @@
 
 
 
- 
+
   .tab-bar
       background: none
       border-bottom: 1px solid #CED1D6
-      padding: 0 7.18rem
+      padding: 0 5.6rem
       width: 100%
+      margin: 0
 
 
   .tab-bar li
@@ -115,16 +119,11 @@
   // .tab-holder
   // 	display: block
 
-  .tab-bar
-      border-bottom: 1px solid #D8D0D0
 
-#adminContent > div:last-child
-    height: calc(100% - 150px)
-
-@media (max-width: 767px)
-  #adminContent  span
-    padding-bottom: 1em
-
+h3
+    background-color: #fff
+    padding: 0
+    margin: 0
 
 
 

@@ -13,6 +13,7 @@ class Admin extends Component {
  	render() {
 	    return (
 	    	<div className={styles.adminContent} id="adminContent">
+	    		<div className={styles.row}>
 	        	<ul className={styles["tab-bar"]}>
 	        		<li key={1}>
 	        			<Link to="/admin/rights/" activeClassName={styles["admin-nav-item-active"]}>
@@ -30,6 +31,7 @@ class Admin extends Component {
 	        			</Link>
 	        		</li>
 				</ul>
+				</div>
 	       		{this.props.children || <h3>'In this section you can manage predefined stuff and users rights'</h3>}
     	</div>
 	    )
