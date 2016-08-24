@@ -67,19 +67,22 @@ class SearchService {
 
 	    var query = Projects.find({
 	                    projectName: {$regex: queryProjName, $options:"$i"}
-	                })
+	                }, {features: 0, questions: 0, screenShots: 0, description: 0})
 	                .populate([{
 	                    path: 'users',
-	                    model: 'User'
+	                    model: 'User',
+	                    select: 'login userName userSurname position'
 	                }, {
 	                    path: 'owners',
-	                    model: 'User'
+	                    model: 'User',
+	                    select: 'login userName userSurname position'
 	                },{
 	                    path: 'tags',
 	                    model: 'Tag'
-	                }, {
+	                },{
 	                    path: 'technologies',
-	                    model: 'Technologies'
+	                    model: 'Technologies',
+	                    select: 'techName techDescription techVersion'
 	                },{
 	                    path: 'stage',
 	                    model: 'Stage'
