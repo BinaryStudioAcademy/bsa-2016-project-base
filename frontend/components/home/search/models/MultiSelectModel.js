@@ -72,5 +72,8 @@ export default class MultiSelectModel extends Model{
         this.values = [];
         this.custom = "";
     }
-
+    removeValue(value){
+        this.tips.push(value);
+        super.removeValue(value)
+    }
 }
