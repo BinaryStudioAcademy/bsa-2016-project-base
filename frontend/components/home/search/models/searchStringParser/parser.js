@@ -6,17 +6,23 @@ const symbols = {
     '@': 'users',
     '!': 'techs',
     '~': 'owners',
-    '^': 'name'
+    //'^': 'name',
+    EMPTY:'name'
 };
 const SPACE = " ";
 
-export default/*module.exports =*/ function(_string){
+export default _parser;
+//module.exports =
+function _parser(_string){
     let result = [];
     let pair = {};
     let string = "";
     let _i = 0;
     function nextToken(){
         token = string[_i++];
+    }
+    function previousToken(){
+        token = string[--_i];
     }
     let token;
     return parser(_string);
@@ -39,7 +45,11 @@ export default/*module.exports =*/ function(_string){
                 pair.name=symbols[token];
                 return value()
             }
-            nextToken();
+            else {
+                pair.name=symbols.EMPTY;
+                previousToken();
+                return value();
+            }
         }
     }
 
@@ -70,4 +80,49 @@ export default/*module.exports =*/ function(_string){
         result = __result;
     }
 };
+var s1 = _parser("#tag !tecsdf dfs");
+var s2 = _parser("@user erwer");
+var s3 = _parser("!t");
+var s4 = _parser("#Albanian q");
+// Warn if overriding existing method
+if(Array.prototype.equals)
+    console.warn("Overriding existing Array.prototype.equals. Possible causes: New API defines the method, there's a framework conflict or you've got double inclusions in your code.");
+// attach the .equals method to Array's prototype to call it on any array
+Array.prototype.equals = function (array) {
+    // if the other array is a falsy value, return
+    if (!array)
+        return false;
 
+    // compare lengths - can save a lot of time
+    if (this.length != array.length)
+        return false;
+
+    for (var i = 0, l=this.length; i < l; i++) {
+        // Check if we have nested arrays
+        if (this[i] instanceof Array && array[i] instanceof Array) {
+            // recurse into the nested arrays
+            if (!this[i].equals(array[i]))
+                return false;
+        }
+        else if (this[i] != array[i]) {
+            // Warning - two different object instances will never be equal: {x:20} != {x:20}
+            return false;
+        }
+    }
+    return true;
+}
+// Hide method from for-in loops
+Object.defineProperty(Array.prototype, "equals", {enumerable: false});
+if (!s1.equals([ 'tags=tag', 'techs=tecsdf', 'name=dfs' ]) ||
+    !s2.equals([ 'users=user', 'name=erwer' ])||
+    !s3.equals([ 'techs=t' ])||
+    !s4.equals([ 'tags=Albanian', 'name=q' ])){
+
+    alert("Search string parser d'ont working!");
+    throw new Error("Search string parser d'ont working!")
+}
+/*console.log(s1);
+console.log(s2);
+console.log(s3);
+console.log(s4); */
+delete Array.prototype.equals;

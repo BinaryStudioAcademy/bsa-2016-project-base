@@ -1,9 +1,6 @@
 import Updatable from "./../../models/Updatable"
 import parser from "./searchStringParser/parser"
-const Query = {
-    FAST:1,
-    EXTENDED:2
-};
+
 export default class SearchContainer extends Updatable{
     constructor({searchString,showSearch,selectedTab,
         searchModels, component}) {
@@ -11,7 +8,7 @@ export default class SearchContainer extends Updatable{
         this.searchString = searchString;
         this.shouldShowSearch = showSearch;
         this.selectedTab = selectedTab;
-        this.currentQuery = Query.FAST;
+        this.currentQuery = [];
         this.searchModels = searchModels;
         this.shouldShowHint = false;
         this.selectTab = this.selectTab.bind(this);
@@ -22,17 +19,22 @@ export default class SearchContainer extends Updatable{
         this.goExtendedSearch = this.goExtendedSearch.bind(this);
         this.showHint = this.showHint.bind(this);
         this.hideHint = this.hideHint.bind(this);
+        this.clearSearch = this.clearSearch.bind(this);
     }
     updateSearchString(searchString){
         this.searchString = searchString;
         //this.notifyUpdated()
     }
     goExtendedSearch(){
-        this.currentQuery = Query.EXTENDED;
+        this.currentQuery = this.searchModels
+            .map(model=>model.getRequestRepresentation())
+            .filter(value=>value);
+        if (this.homeContainer) this.homeContainer.pagination.activePage = 0;
         this.goSearch();
     }
     goFastSearch(){
-        this.currentQuery = Query.FAST;
+        this.currentQuery = parser(this.searchString);
+        if (this.homeContainer) this.homeContainer.pagination.activePage = 0;
         this.goSearch();
     }
 
@@ -41,16 +43,7 @@ export default class SearchContainer extends Updatable{
      * @returns {Array<"name=value">}
      */
     getQuery(){
-        if (this.currentQuery == Query.FAST){
-            return parser(this.searchString);
-        }
-        if (this.currentQuery == Query.EXTENDED){
-            var query = [];
-            for (let model of this.searchModels){
-                query.push(model.getRequestRepresentation());
-            }
-            return query.filter(value=>value);//.join("&");
-        }
+        return this.currentQuery;
     }
     showSearch(){
         this.shouldShowSearch = true;
@@ -73,6 +66,19 @@ export default class SearchContainer extends Updatable{
             this.selectedTab = tab;
             this.notifyUpdated()
         }
+    }
+    clearSearch(){
+        this.searchModels.forEach(model=>{
+            model.clear();
+        });
+        this.notifyUpdatedAll();
+    }
+    notifyUpdatedAll(){
+        this.searchModels.forEach(model=>model.isActive = true);
+        const models = this.searchModels;
+        super.notifyUpdated(()=>{
+            models.forEach(model=>model.isActive = false)
+        });
     }
 
 }

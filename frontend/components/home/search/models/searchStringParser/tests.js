@@ -11,9 +11,11 @@ var parser = require("./parser")
  '^': 'name'
  };
  */
-var s1 = parser("#tag !tecsdf !dfs");
-var s2 = parser("@user");
-var s3 = parser("!tec");
+var s1 = parser("#tag !tecsdf dfs");
+var s2 = parser("@user erwer");
+var s3 = parser("!t");
+var s4 = parser("#Albanian q");
 console.log(s1);
 console.log(s2);
 console.log(s3);
+console.log(s4);

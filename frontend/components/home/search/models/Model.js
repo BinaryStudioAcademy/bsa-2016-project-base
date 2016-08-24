@@ -29,5 +29,7 @@ export default class Model extends Updatable{
         this.values = this.values.filter(elem=>!this.equals(elem,value))
         this.notifyUpdated()
     }
+    //should clear all state
+    clear(){}
 
 }

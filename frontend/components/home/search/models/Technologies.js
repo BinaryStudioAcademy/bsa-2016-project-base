@@ -9,7 +9,8 @@ export default class Technologies extends MultiSelectModel{
             custom:"",
             tips:[],
             component
-        })
+        });
+        this.customHintText = "Type technology name for search"
     }
     getNameInRequest(){
         return "techs"

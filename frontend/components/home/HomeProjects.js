@@ -36,10 +36,11 @@ export default class HomeProjects extends React.Component {
                         <GeneralInformation
                             cnt={ total }/>
                         {model.isLoading?<CircularProgress size={0.6}/>:""}
-                        {model.error?<span>Error : {model.error.message}</span>:""}
+                        {model.errorMessage?<span>Error : {model.errorMessage}</span>:""}
                     </div>
                     <div style={style}>
-                        <ReactPaginate initialSelected={activePage}
+                        <ReactPaginate forceSelected={activePage}
+                                       initialSelected={activePage}
                                        previousLabel={"previous"}
                                        nextLabel={"next"}
                                        breakLabel={<span>...</span>}
@@ -56,7 +57,8 @@ export default class HomeProjects extends React.Component {
                     <ListProjects
                         projects={projects}/>
                     <div style={style}>
-                        <ReactPaginate initialSelected={activePage}
+                        <ReactPaginate forceSelected={activePage}
+                                       initialSelected={activePage}
                                        previousLabel={"previous"}
                                        nextLabel={"next"}
                                        breakLabel={<span>...</span>}

@@ -81,4 +81,8 @@ export default class Dates extends Model{
             return `dateFrom=${dateString(date.lower)}&dateTo=${dateString(date.upper)}`
         }
     }
+    clear(){
+        this.values = [];
+        this.custom = {};
+    }
 }

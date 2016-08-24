@@ -8,7 +8,8 @@ export default class Tags extends  MultiSelectModel{
             custom:"",
             tips:[],
             component
-        })
+        });
+        this.customHintText = "Type tag name for search"
     }
     getNameInRequest(){
         return "tags"

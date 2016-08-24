@@ -40,8 +40,8 @@ export default class ContainerWithHideButtonSearchFieldAndSubmit extends React.C
                               onClick={model.goExtendedSearch}/>
             </div>:"";
         const hint = <div>
-            <div>#: tags, @: users, !: techs, ~: owners, ^: name</div>
-            <div>Example: #partOfTag !partOfTech ^partOfName</div>
+            <div>#: tags, @: users, !: techs, ~: owners, nothing: name</div>
+            <div>Example: #partOfTag !partOfTech partOfName</div>
         </div>;
 
         const searchInput = <DeferredTextInput
@@ -55,10 +55,14 @@ export default class ContainerWithHideButtonSearchFieldAndSubmit extends React.C
         />;
         const fastInputButton = <RaisedButton
             label="Search!"
-            onClick={model.goFastSearch}/>
+            onClick={model.goFastSearch}/>;
+        const clearSearchButton = model.shouldShowSearch?<RaisedButton
+            label="Clear Search"
+            secondary={true}
+            onClick={model.clearSearch}/>:"";
         return (
             <div>
-                <div>{searchInput}  {fastInputButton}  {showButton}</div>
+                <div>{searchInput}  {fastInputButton}  {showButton} {clearSearchButton}</div>
                 {model.shouldShowHint?hint:""}
                 {body}
             </div>

@@ -10,6 +10,7 @@ export default class Users extends MultiSelectModel{
             tips:[],
             component
         });
+        this.customHintText = "Type user name or surname";
         this.ComponentClass = UsersClass;
     }
     getNameInRequest(){

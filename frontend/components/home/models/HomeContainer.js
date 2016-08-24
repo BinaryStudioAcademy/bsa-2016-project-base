@@ -7,6 +7,7 @@ export default class HomeContainer extends Updatable {
         this.searchContainer = searchContainer;
         this.goSearch = this.goSearch.bind(this)
         this.searchContainer.goSearch = this.goSearch;
+        this.searchContainer.homeContainer = this;
         this.pagination = {
             activePage: 0,
             total: 0,
@@ -32,7 +33,7 @@ export default class HomeContainer extends Updatable {
         /**
          * @type {Array.<"name=value">}
          */
-        var query = this.searchContainer.getQuery();
+        var query = this.searchContainer.getQuery().slice();
         //query.recordsPerPage = this.pagination.recordsPerPage;
         //query.activePage = this.pagination.activePage;
         query.push(`limit=${this.pagination.recordsPerPage}`);
@@ -43,7 +44,7 @@ export default class HomeContainer extends Updatable {
                 self.projects = data.projects || [];
                 self.pagination.total = data.total;//should be response.length
                 self.isLoading = false;
-                self.error = data.err;
+                data.error || !self.projects.length ? self.errorMessage = "Projects satisfying the criteria not found":"";
                 self.notifyUpdated();
             })
 

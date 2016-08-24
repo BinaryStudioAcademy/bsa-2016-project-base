@@ -40,6 +40,7 @@ export default class MultiSelect extends Modelable {
                 <div style={{display:"flex",position:"absolute"}}>
                     <DeferredTextInput
                         value={model.custom}
+                        hintText={model.customHintText}
                         receiver={model.setCustom}/>
                     {model.isLoading?<CircularProgress size={0.5}/>:""}
                 </div>

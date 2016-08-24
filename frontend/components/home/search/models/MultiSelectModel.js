@@ -28,7 +28,7 @@ export default class MultiSelectModel extends Model{
         this.isLoading = true;
         this.notifyUpdated();
         this.getTips(this.custom, function(error, tips){
-            this.tipsError = error&&error.message;
+            this.tipsError = error&&""
             this.tips = tips.filter(tip=>{
                 for (let value of this.values){
                     if (this.equals(value,tip)){
@@ -66,6 +66,11 @@ export default class MultiSelectModel extends Model{
 
     getValueInRequest(){
         return this.values.map(value=>value.text)
+    }
+    clear(){
+        this.tips = [];
+        this.values = [];
+        this.custom = "";
     }
 
 }

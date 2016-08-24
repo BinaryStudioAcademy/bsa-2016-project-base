@@ -7,9 +7,12 @@ export default class Updatable {
     }
     notifyUpdatedCallback(){
         this.isActive = false;
+        this.afterNotifyUpdated && this.afterNotifyUpdated();
+        this.afterNotifyUpdated = undefined;
     }
 
-    notifyUpdated(){
+    notifyUpdated(func){
+        this.afterNotifyUpdated = func;
         this.isActive = true;
         this.component.forceUpdate(this.notifyUpdatedCallback);
     }

@@ -10,6 +10,7 @@ export default class Owners extends Users{
             component
         });
         this.ComponentClass = UsersClass;
+        this.customHintText = "Type owner name or surname"
     }
     getNameInRequest(){
         return "owners"
