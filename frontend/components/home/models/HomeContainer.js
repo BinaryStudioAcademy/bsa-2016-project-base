@@ -44,7 +44,7 @@ export default class HomeContainer extends Updatable {
                 self.projects = data.projects || [];
                 self.pagination.total = data.total;//should be response.length
                 self.isLoading = false;
-                data.error || !self.projects.length ? self.errorMessage = "Projects satisfying the criteria not found":"";
+                self.errorMessage = !self.projects.length ? "Projects satisfying the criteria not found":undefined;
                 self.notifyUpdated();
             })
 

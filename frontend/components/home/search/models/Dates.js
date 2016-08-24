@@ -18,15 +18,15 @@ export default class Dates extends Model{
             " - "+
             value.upper.toLocaleDateString()
     }
-    swapDates(value){
+    swapDates(value = this.custom){
         const temp = value.lower;
         value.lower = value.upper;
         value.upper = temp;
     }
-    isFilled(value){
+    isFilled(value = this.custom){
         return value.upper && value.lower;
     }
-    isValid(value){
+    isValid(value = this.custom){
         return value.upper.getTime() >
             value.lower.getTime()
     }
