@@ -28,7 +28,7 @@ export default class MultiSelectModel extends Model{
         this.isLoading = true;
         this.notifyUpdated();
         this.getTips(this.custom, function(error, tips){
-            this.tipsError = error&&""
+            this.tipsError = error?"Not found":"";
             this.tips = tips.filter(tip=>{
                 for (let value of this.values){
                     if (this.equals(value,tip)){
@@ -49,13 +49,15 @@ export default class MultiSelectModel extends Model{
             if (this.custom.length>0){
                 this.startLoadTips()
             }else {
-                this.tips = [];
+                this.clearTips();
                 this.notifyUpdated()
             }
         }, 500);
-
     }
-
+    clearTips(){
+        this.tips = [];
+        this.tipsError = "";
+    }
     addValue(value){
         this.tips = this.tips.filter(tip=>!this.equals(tip,value))
         super.addValue(value);
@@ -68,9 +70,9 @@ export default class MultiSelectModel extends Model{
         return this.values.map(value=>value.text)
     }
     clear(){
-        this.tips = [];
         this.values = [];
         this.custom = "";
+        this.clearTips();
     }
     removeValue(value){
         this.tips.push(value);

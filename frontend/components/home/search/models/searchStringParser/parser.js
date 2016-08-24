@@ -34,7 +34,7 @@ function _parser(_string){
             return !(token === SPACE && arr[i - 1] === SPACE);
         }).join("");
         nextToken();
-        name(string);
+        name();
         same();
         return result;
     }
@@ -83,10 +83,7 @@ function _parser(_string){
 //////////////////////////////////////////////////////////////////////////////////
 //TESTS///////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
-var s1 = _parser("#tag !tecsdf dfs");
-var s2 = _parser("@user erwer");
-var s3 = _parser("!t");
-var s4 = _parser("#Albanian q");
+
 // Warn if overriding existing method
 if(Array.prototype.equals)
     console.warn("Overriding existing Array.prototype.equals. Possible causes: New API defines the method, there's a framework conflict or you've got double inclusions in your code.");
@@ -116,13 +113,17 @@ Array.prototype.equals = function (array) {
 }
 // Hide method from for-in loops
 Object.defineProperty(Array.prototype, "equals", {enumerable: false});
+var s1 = _parser("#tag !tecsdf dfs");
+var s2 = _parser("@user erwer");
+var s3 = _parser("!t");
+var s4 = _parser("#Albanian q");
 if (!s1.equals([ 'tags=tag', 'techs=tecsdf', 'name=dfs' ]) ||
     !s2.equals([ 'users=user', 'name=erwer' ])||
     !s3.equals([ 'techs=t' ])||
     !s4.equals([ 'tags=Albanian', 'name=q' ])){
 
-    alert("Search string parser d'ont working!");
-    throw new Error("Search string parser d'ont working!")
+    alert("Search string parser don't working!");
+    throw new Error("Search string parser don't working!")
 }
 /*console.log(s1);
 console.log(s2);

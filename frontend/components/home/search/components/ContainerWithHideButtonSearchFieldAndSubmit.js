@@ -51,7 +51,7 @@ export default class ContainerWithHideButtonSearchFieldAndSubmit extends React.C
             hintText="Search"
             floatingLabelText="Search"
             receiver={model.updateSearchString}
-            onKeyUp={e=>(e.keyCode==13)&&model.goSearch()}
+            onKeyUp={e=>(e.keyCode==13)&&model.goFastSearch()}
         />;
         const fastInputButton = <RaisedButton
             label="Search!"

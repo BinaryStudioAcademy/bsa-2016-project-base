@@ -25,7 +25,7 @@ export default class MultiSelect extends Modelable {
         const self = this;
         const tips = <List>
             {model.tipsError?
-                <Subheader>Error : {model.tipsError}</Subheader>:""}
+                <Subheader>{model.tipsError}</Subheader>:""}
             {model.tips.map((tip,index)=>{
                 return <ListItem key={index}
                                  primaryText={model.getText(tip)}

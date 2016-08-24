@@ -36,7 +36,6 @@ export default class HomeProjects extends React.Component {
                         <GeneralInformation
                             cnt={ total }/>
                         {model.isLoading?<CircularProgress size={0.6}/>:""}
-                        {model.errorMessage?<span>Error : {model.errorMessage}</span>:""}
                     </div>
                     <div style={style}>
                         <ReactPaginate forceSelected={activePage}

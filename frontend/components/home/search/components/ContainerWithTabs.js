@@ -17,10 +17,11 @@ export default class ContainerWithTabs extends React.Component {
             model:PropTypes.instanceOf(Container)
         }
     }
-    componentWillReceiveProps(props){
-        props.model.searchModels.forEach(model=>{
+    shouldComponentUpdate(){
+        this.props.model.searchModels.forEach(model=>{
             model.component = this;
-        })
+        });
+        return true;
     }
     render() {
         const {model} = this.props;
