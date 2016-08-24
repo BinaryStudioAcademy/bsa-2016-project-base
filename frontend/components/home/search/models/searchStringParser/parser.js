@@ -61,7 +61,7 @@ export default/*module.exports =*/ function(_string){
         let _result = {};
         for (let i in result){
             let name = result[i].name;
-            _result[name] = _result[name]?_result[name].push(result[i].value):[result[i].value];
+            _result[name]?_result[name].push(result[i].value):_result[name] = [result[i].value];
         }
         let __result = [];
         for (let prop in _result){
