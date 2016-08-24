@@ -108,12 +108,26 @@ class SearchService {
 	                //console.log('Inside users selection.');
 	                passedProject = false;
 	                queryProjUsers.some((entryUser)=>{
-	                    for (var count = 0; count < entryProj.users.length; count++) {
-	                        if (entryProj.users[count].userName == entryUser) {
-	                            passedProject = true;
-	                            break;
-	                        }
-	                    }
+	                	// console.log('entryUser: ', entryUser);
+	                	let userNameParts = entryUser.split(' ');
+	                	// console.log('userNameParts: ', userNameParts);
+	                	// console.log('userNameParts length: ', userNameParts.length);
+	                	if (userNameParts.length == 1){
+	                		for (var count = 0; count < entryProj.users.length; count++) {
+		                        if (entryProj.users[count].userSurname == userNameParts[0]) {
+		                            passedProject = true;
+		                            break;
+		                        }
+	                    	}
+	                	} else {
+	                		for (var count = 0; count < entryProj.users.length; count++) {
+		                        if (entryProj.users[count].userName == userNameParts[0] 
+		                        	&& entryProj.users[count].userSurname == userNameParts[1]) {
+		                            passedProject = true;
+		                            break;
+		                        }
+	                    	}
+	                	}
 	                    return passedProject;
 	                });  
 	            }
@@ -122,12 +136,26 @@ class SearchService {
 	                //console.log('Inside owners selection.');
 	                passedProject = false;
 	                queryProjOwners.some((entryOwner)=>{
-	                    for (var count = 0; count < entryProj.owners.length; count++) {
-	                        if (entryProj.owners[count].userName == entryOwner) {
-	                            passedProject = true;
-	                            break;
-	                        }
-	                    }
+	                	// console.log('entryOwner: ', entryOwner);
+	                	let ownerNameParts = entryOwner.split(' ');
+	                	// console.log('ownerNameParts: ', ownerNameParts);
+	                	// console.log('ownerNameParts length: ', ownerNameParts.length);
+	                    if (ownerNameParts.length == 1){
+	                		for (var count = 0; count < entryProj.owners.length; count++) {
+		                        if (entryProj.owners[count].userSurname == ownerNameParts[0]) {
+		                            passedProject = true;
+		                            break;
+		                        }
+	                    	}
+	                	} else {
+	                		for (var count = 0; count < entryProj.owners.length; count++) {
+		                        if (entryProj.owners[count].userName == ownerNameParts[0] 
+		                        	&& entryProj.owners[count].userSurname == ownerNameParts[1]) {
+		                            passedProject = true;
+		                            break;
+		                        }
+	                    	}
+	                	}
 	                    return passedProject;
 	                });  
 	            }
@@ -185,16 +213,16 @@ class SearchService {
 	            	if (projCounter > queryProjSkip && limitCounter < queryProjLimit){
 	                	searchReturn.sortedProjList.push(entryProj);
 	                	searchReturn.found++;
+	                	limitCounter++;
 			        }
 			        projCounter++;
-		        	limitCounter++;
 	            }
 	        });
 
 	        callback(err, searchReturn);
 	        // callback(err, result);
 	     });
-	}	
+	}
 }
 
 const searchService = new SearchService();
