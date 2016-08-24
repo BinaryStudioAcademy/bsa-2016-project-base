@@ -43,15 +43,27 @@ class SearchService {
 	    const queryProjOwners = (req.query.owners == undefined)? []: req.query.owners.split(',');
 	    const queryProjTags = (req.query.tags == undefined)? []: req.query.tags.split(',');
 	    const queryProjTechs = (req.query.techs == undefined)? []: req.query.techs.split(',');
+	    const queryProjSkip = (req.query.skip == undefined)? 0: Number.parseInt(req.query.skip);
+	    const queryProjLimit = (req.query.limit == undefined)? Number.MAX_SAFE_INTEGER: Number.parseInt(req.query.limit);
 
 	    var now = new Date();
 	    var timeOffset = now.getTimezoneOffset();
 	    now = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59 - timeOffset, 59, 999);
 	    const queryProjDateFrom = (req.query.dateFrom == undefined)? new Date(0): new Date(new Date(req.query.dateFrom).valueOf() + 86399999);
 	    const queryProjDateTo = (req.query.dateTo == undefined)? now: new Date(new Date(req.query.dateTo).valueOf() + 86399999);
-	    console.log(`getFilteredProjects() -> acquired request patterns: projName= ${queryProjName}, users = ${queryProjUsers}, owners = ${queryProjOwners}, tags = ${queryProjTags}, technologies = ${queryProjTechs}, dateFrom = ${queryProjDateFrom}, dateTo = ${queryProjDateTo}`);
+	    console.log(`getFilteredProjects() -> acquired request patterns: projName= ${queryProjName}, users = ${queryProjUsers}, owners = ${queryProjOwners}, tags = ${queryProjTags}, techs = ${queryProjTechs}, dateFrom = ${queryProjDateFrom}, dateTo = ${queryProjDateTo}, skip = ${queryProjSkip}, limit = ${queryProjLimit}`);
 
-	    var sortedProjList = [];
+	    var searchReturn = {
+	    	queryName: queryProjName,
+	    	queryUsers: queryProjUsers,
+	    	queryOwners: queryProjOwners,
+	    	queryTags: queryProjTags,
+	    	queryTechs: queryProjTechs,
+	    	querySkip: queryProjSkip,
+	    	queryLimit: queryProjLimit,
+	    	sortedProjList: [],
+	    	found: 0
+	    };
 
 	    var query = Projects.find({
 	                    projectName: {$regex: queryProjName, $options:"$i"}
@@ -78,9 +90,12 @@ class SearchService {
 	                
 	    query.exec((err, result)=>{
 	        let passedProject = true;
+	        let projCounter = 1;
+	        let limitCounter = 0;
 	        // console.log('query exec() -> result length: ', result.length);
 	        // console.log('Query result: ', result);
 	        result.forEach((entryProj, indProj, arrProj)=>{
+	           	passedProject = true;
 	            //console.log('Users from query: ', entryProj.users);
 	            // console.log('queryProjUsers: ', queryProjUsers);
 	            // console.log('queryProjOwners: ', queryProjOwners);
@@ -93,12 +108,26 @@ class SearchService {
 	                //console.log('Inside users selection.');
 	                passedProject = false;
 	                queryProjUsers.some((entryUser)=>{
-	                    for (var count = 0; count < entryProj.users.length; count++) {
-	                        if (entryProj.users[count].userName == entryUser) {
-	                            passedProject = true;
-	                            break;
-	                        }
-	                    }
+	                	// console.log('entryUser: ', entryUser);
+	                	let userNameParts = entryUser.split(' ');
+	                	// console.log('userNameParts: ', userNameParts);
+	                	// console.log('userNameParts length: ', userNameParts.length);
+	                	if (userNameParts.length == 1){
+	                		for (var count = 0; count < entryProj.users.length; count++) {
+		                        if (entryProj.users[count].userSurname == userNameParts[0]) {
+		                            passedProject = true;
+		                            break;
+		                        }
+	                    	}
+	                	} else {
+	                		for (var count = 0; count < entryProj.users.length; count++) {
+		                        if (entryProj.users[count].userName == userNameParts[0] 
+		                        	&& entryProj.users[count].userSurname == userNameParts[1]) {
+		                            passedProject = true;
+		                            break;
+		                        }
+	                    	}
+	                	}
 	                    return passedProject;
 	                });  
 	            }
@@ -107,12 +136,26 @@ class SearchService {
 	                //console.log('Inside owners selection.');
 	                passedProject = false;
 	                queryProjOwners.some((entryOwner)=>{
-	                    for (var count = 0; count < entryProj.owners.length; count++) {
-	                        if (entryProj.owners[count].userName == entryOwner) {
-	                            passedProject = true;
-	                            break;
-	                        }
-	                    }
+	                	// console.log('entryOwner: ', entryOwner);
+	                	let ownerNameParts = entryOwner.split(' ');
+	                	// console.log('ownerNameParts: ', ownerNameParts);
+	                	// console.log('ownerNameParts length: ', ownerNameParts.length);
+	                    if (ownerNameParts.length == 1){
+	                		for (var count = 0; count < entryProj.owners.length; count++) {
+		                        if (entryProj.owners[count].userSurname == ownerNameParts[0]) {
+		                            passedProject = true;
+		                            break;
+		                        }
+	                    	}
+	                	} else {
+	                		for (var count = 0; count < entryProj.owners.length; count++) {
+		                        if (entryProj.owners[count].userName == ownerNameParts[0] 
+		                        	&& entryProj.owners[count].userSurname == ownerNameParts[1]) {
+		                            passedProject = true;
+		                            break;
+		                        }
+	                    	}
+	                	}
 	                    return passedProject;
 	                });  
 	            }
@@ -137,8 +180,8 @@ class SearchService {
 	                passedProject = false;
 	                queryProjTechs.some((entryTechn)=>{
 	                    for (var count = 0; count < entryProj.technologies.length; count++) {
-	                        console.log('entryTechn: ', entryTechn);
-	                        console.log('entryProj.technologies[count].techName: ', entryProj.technologies[count].techName);
+	                        //console.log('entryTechn: ', entryTechn);
+	                        //console.log('entryProj.technologies[count].techName: ', entryProj.technologies[count].techName);
 	                        if (entryProj.technologies[count].techName == entryTechn) {
 	                            passedProject = true;
 	                            break;
@@ -167,10 +210,16 @@ class SearchService {
 	                } 
 	            }
 	            if (passedProject) {
-	                sortedProjList.push(entryProj);
+	            	if (projCounter > queryProjSkip && limitCounter < queryProjLimit){
+	                	searchReturn.sortedProjList.push(entryProj);
+	                	searchReturn.found++;
+	                	limitCounter++;
+			        }
+			        projCounter++;
 	            }
 	        });
-	        callback(err, sortedProjList);
+
+	        callback(err, searchReturn);
 	        // callback(err, result);
 	     });
 	}
