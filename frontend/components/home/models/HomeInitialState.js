@@ -7,10 +7,11 @@ import UsersModel from "./../search/models/Users"
 import TechnologieModel from "./../search/models/Technologies"
 import DateModel from "./../search/models/Dates"
 import HomeContainer from "./../models/HomeContainer"
+import OvnersModel from "./../search/models/Owners"
 const state = {
     model: new HomeContainer({
         searchContainer: new SearchContainer({
-            searchString: "Initial Search String",
+            searchString: "",
             showSearch: false,
             selectedTab: 0,
             //component: this,
@@ -18,6 +19,7 @@ const state = {
                 new TagsModel({}/*{component: this}*/),
                 new TechnologieModel({}/*{component: this}*/),
                 new UsersModel({}/*{component: this}*/),
+                new OvnersModel({}),
                 new DateModel({}/*{component: this}*/)
             ]
         }),

@@ -2,9 +2,9 @@ import MultiSelectModel from "./MultiSelectModel"
 import searchService from "./../../../../services/SearchService"
 import UsersClass from "./../components/Users"
 export default class Users extends MultiSelectModel{
-    constructor({component}) {
+    constructor({component,title}) {
         super({
-            title:"Users",
+            title:title||"Users",
             values:[],
             custom:"",
             tips:[],
@@ -16,7 +16,9 @@ export default class Users extends MultiSelectModel{
         return "users"
     }
     getValueInRequest(){
-        return this.values.map(value=>value.name)
+        return this.values.map(value=>{
+            return value.name + " "+ value.surname;
+        })
     }
     getTips(value,callback){
         searchService.getUsers(value)
@@ -30,10 +32,6 @@ export default class Users extends MultiSelectModel{
                 })))})
     }
     getText(value){
-        debugger
-        return `${value.login}
-                     ${value.name}
-                      ${value.surname}
-                       ${value.position}`
+        return `${value.name} ${value.surname} - ${value.position}`
     }//TODO:override
 }

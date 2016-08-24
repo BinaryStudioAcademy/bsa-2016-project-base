@@ -210,9 +210,10 @@ class SearchService {
 	                } 
 	            }
 	            if (passedProject) {
-	            	if (projCounter > queryProjSkip && limitCounter < queryProjLimit){
+					searchReturn.found++;
+					if (projCounter > queryProjSkip && limitCounter < queryProjLimit){
 	                	searchReturn.sortedProjList.push(entryProj);
-	                	searchReturn.found++;
+	                	//searchReturn.found++;
 	                	limitCounter++;
 			        }
 			        projCounter++;

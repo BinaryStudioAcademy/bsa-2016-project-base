@@ -1,4 +1,5 @@
 import Updatable from "./../../models/Updatable"
+import parser from "./searchStringParser/parser"
 const Query = {
     FAST:1,
     EXTENDED:2
@@ -12,12 +13,15 @@ export default class SearchContainer extends Updatable{
         this.selectedTab = selectedTab;
         this.currentQuery = Query.FAST;
         this.searchModels = searchModels;
+        this.shouldShowHint = false;
         this.selectTab = this.selectTab.bind(this);
         this.showSearch = this.showSearch.bind(this);
         this.hideSearch = this.hideSearch.bind(this);
         this.updateSearchString = this.updateSearchString.bind(this);
         this.goFastSearch = this.goFastSearch.bind(this);
         this.goExtendedSearch = this.goExtendedSearch.bind(this);
+        this.showHint = this.showHint.bind(this);
+        this.hideHint = this.hideHint.bind(this);
     }
     updateSearchString(searchString){
         this.searchString = searchString;
@@ -38,9 +42,7 @@ export default class SearchContainer extends Updatable{
      */
     getQuery(){
         if (this.currentQuery == Query.FAST){
-            return {
-                string:this.searchString
-            }
+            return parser(this.searchString);
         }
         if (this.currentQuery == Query.EXTENDED){
             var query = [];
@@ -57,6 +59,14 @@ export default class SearchContainer extends Updatable{
     hideSearch(){
         this.shouldShowSearch = false;
         this.notifyUpdated()
+    }
+    showHint(){
+        this.shouldShowHint = true;
+        this.notifyUpdated();
+    }
+    hideHint(){
+        this.shouldShowHint = false;
+        this.notifyUpdated();
     }
     selectTab(tab){
         if ("number" === typeof tab){

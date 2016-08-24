@@ -6,12 +6,14 @@ const URL = "http://localhost:3000/api/search/";
 class SearchService {
     constructor() {}
     getProjects(query){
-        debugger
         console.log("sending query: "+URL+"projects?"+query);
         return fetch(`${URL}projects?${query}`)
             .then(res=>res.json())
-            .then(json=>{debugger;return({projects:json})})
-            .catch(e=>{debugger;return({err:e})})
+            .then(json=>{return({
+                projects:json.sortedProjList,
+                total:json.found
+            })})
+            .catch(e=>{return({err:e})})
     }
     getTechs(query){
         return fetch(`${URL}techs?tech=${query}`)

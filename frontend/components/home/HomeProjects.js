@@ -28,7 +28,7 @@ export default class HomeProjects extends React.Component {
         model.onErrorSearch = model.onErrorSearch || errorGet;*/
         const projects = model.projects;
         const {activePage,recordsPerPage,total} = model.pagination;
-
+        const style = {display:"flex",justifyContent: "center"};//TODO:move to css
         return <div>
             <Row>
                 <Col className={styles.bk}>
@@ -38,20 +38,37 @@ export default class HomeProjects extends React.Component {
                         {model.isLoading?<CircularProgress size={0.6}/>:""}
                         {model.error?<span>Error : {model.error.message}</span>:""}
                     </div>
+                    <div style={style}>
+                        <ReactPaginate initialSelected={activePage}
+                                       previousLabel={"previous"}
+                                       nextLabel={"next"}
+                                       breakLabel={<span>...</span>}
+                                       breakClassName={"break-me"}
+                                       pageNum={Math.ceil(total/recordsPerPage)}
+                                       marginPagesDisplayed={2}
+                                       pageRangeDisplayed={5}
+                                       clickCallback={model.setActivePage}
+                                       containerClassName={"pagination"}
+                                       subContainerClassName={"pages pagination"}
+                                       activeClassName={"active"} />
+                    </div>
+
                     <ListProjects
                         projects={projects}/>
-                    <ReactPaginate initialSelected={activePage}
-                                   previousLabel={"previous"}
-                                   nextLabel={"next"}
-                                   breakLabel={<a href="">...</a>}
-                                   breakClassName={"break-me"}
-                                   pageNum={Math.ceil(total/recordsPerPage)}
-                                   marginPagesDisplayed={2}
-                                   pageRangeDisplayed={5}
-                                   clickCallback={model.setActivePage}
-                                   containerClassName={"pagination"}
-                                   subContainerClassName={"pages pagination"}
-                                   activeClassName={"active"} />
+                    <div style={style}>
+                        <ReactPaginate initialSelected={activePage}
+                                       previousLabel={"previous"}
+                                       nextLabel={"next"}
+                                       breakLabel={<span>...</span>}
+                                       breakClassName={"break-me"}
+                                       pageNum={Math.ceil(total/recordsPerPage)}
+                                       marginPagesDisplayed={2}
+                                       pageRangeDisplayed={5}
+                                       clickCallback={model.setActivePage}
+                                       containerClassName={"pagination"}
+                                       subContainerClassName={"pages pagination"}
+                                       activeClassName={"active"} />
+                    </div>
                 </Col>
             </Row>
         </div>
