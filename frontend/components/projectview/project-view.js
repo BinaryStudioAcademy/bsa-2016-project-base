@@ -78,7 +78,6 @@ class ProjectView extends Component {
     	// console.log("Selected property 'listProjects' from central storage: ", this.props.rootState.ProjectViewReducer.projectList);
     	console.log('ProjectView -> render() -> currentProject.projectName: ', currentProject.projectName);
     	return (
-
             <div id={styles["project-view-content"]}>
 
 				<div className="projectMain">
@@ -87,12 +86,6 @@ class ProjectView extends Component {
 						<span className="tags"><TagsList/></span>
 						<div className="fullDescriptionProject">
 							{fullDescription}
-							<div className="shortDescription">
-									<span>Stage: </span><span>{viewStageName}</span>
-									<span>Condition: </span><span>{viewCondition}</span>
-									<span>Started: </span><span>{viewStartedDate}</span>
-									<span>Completed: </span><span>{viewEndDate}</span>
-							</div>
 						</div>
 						<span className="technologies">
 							<TechnologiesList />
@@ -103,10 +96,42 @@ class ProjectView extends Component {
 					</div>
 				</div>
 
+				<div className="tableDescriptionProject">
+					{/*<table>
+						<tbody>
+						<tr>
+							<td>Stage:</td>
+							<td><span>{viewStageName}</span></td>
+						</tr>
+						<tr>
+							<td>Started:</td>
+							<td><span>{viewStartedDate}</span></td>
+						</tr>
+						<tr>
+							<td>Completed:</td>
+							<td><span>{viewEndDate}</span></td>
+						</tr>
+						<tr>
+							<td>Condition:</td>
+							<td><span>{viewCondition}</span></td>
+						</tr>
+						<tr>
+							<td>Average Rating:</td>
+							<td><span>5</span></td>
+						</tr>
+						</tbody>
+					</table>
+					*/}
+					<div title="Users/Owners" >
+						<UserList />
+					</div>
+				</div>
+
+
+
+
 			    	<div className={styles.info}>
-	    					<div title="Users/Owners">
-	    							<UserList />
-							</div>
+
         				<div eventKey={5} title="Features" onClick={this.props.getProjectFeatures}><div>Table of features</div></div>
         				<div eventKey={6} title="Ratings"></div>
 						<Questions id="q-and-a" questions={currentProject.questions} />
