@@ -2,7 +2,7 @@ import promise from 'es6-promise';
 promise.polyfill();
 import fetch from 'isomorphic-fetch';
 
-import {API} from '../constants/API';
+import {API} from '../constants/Api';
 const URL = API+"search/"
 class SearchService {
     constructor() {}
