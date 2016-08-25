@@ -18,6 +18,7 @@ export default class HomeContainer extends Updatable {
         this.loadMore = this.loadMore.bind(this)
     }
     loadMore(){
+        if (this.isLoading)return;
         const p = this.pagination;
         if (!p.total||(p.activePage+1)*p.recordsPerPage<p.total){
             p.activePage+=1;

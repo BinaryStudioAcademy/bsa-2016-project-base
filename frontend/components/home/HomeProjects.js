@@ -1,14 +1,13 @@
 import React from "react"
 import {PropTypes} from "react"
 import styles from './home.sass';
-import ReactPaginate from 'react-paginate';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Row, Col} from 'react-bootstrap';
 import GeneralInformation from './components/GeneralInformation';
 import ListProjects from './components/ListProjects';
 import Container from "./models/HomeContainer"
 import CircularProgress from 'material-ui/CircularProgress';
-
+import Waypoint from 'react-waypoint';
 
 export default class HomeProjects extends React.Component {
     constructor() {
@@ -40,17 +39,20 @@ export default class HomeProjects extends React.Component {
                     <ListProjects
                         projects={projects}/>
                     <div style={{display:"flex"}}>
-                        <RaisedButton
-                            label="Load More"
-                            onClick={model.loadMore}/>
+                        <Waypoint onEnter={model.loadMore}/>
                         {model.isLoading ? <CircularProgress size={0.6}/> : ""}
-                        {model.loadMoreErrorMessage}
                     </div>
                 </Col>
             </Row>
         </div>
     }
 }
+/*
+ <RaisedButton
+ label="Load More"
+ onClick={model.loadMore}/>
+ {model.loadMoreErrorMessage}
+ */
 /*
  const style = {display:"flex",justifyContent: "center"};//TODO:move to css
  <div style={style}>

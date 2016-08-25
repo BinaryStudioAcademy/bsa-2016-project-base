@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { ListGroup } from 'react-bootstrap';
 import Project from './Project';
 
 import styles from './ListProjects.sass';
