@@ -2,7 +2,7 @@ import React, { Component,PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../../actions/admin/UpsertProjectActions';
-import { Button, Checkbox, TextArea, DropDown, DateInput, TextInput } from '../../../common/';
+import { Button, Checkbox, TextArea, DropDown, DateInput, TextInput, Editor } from '../../../common/';
 
 
 class Inputs extends Component {
@@ -41,10 +41,9 @@ class Inputs extends Component {
     	const option = e.target.value;
     	this.props.changeCondition(option);
     }
-    onDescriptionChange(e){
-    	console.log('onDescriptionChange: ',e.target.value);
-    	const text = e.target.value;
-    	this.props.changeDescription(text);
+    onDescriptionChange(html){
+    	console.log('onDescriptionChange: ',html);
+    	this.props.changeDescription(html);
     }
     render() {
     	const conditionOpts = [
@@ -80,11 +79,11 @@ class Inputs extends Component {
 	        		data = {conditionOpts}
 	        		onChange={this.onConditionChange}
 	        	/>
-	        	<TextArea
-	        		label='Description *' 
-	        		placeholder='Type description here...'
-	        		onChange={this.onDescriptionChange}
-	        	/>
+	        	<span>Description*</span>
+                <Editor 
+                    handleChange={this.onDescriptionChange}
+                    initialContent={'Enter project description'}
+                />
 	        </div>
 	    );
     }

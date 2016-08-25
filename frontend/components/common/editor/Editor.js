@@ -2,7 +2,7 @@ import React,{ PropTypes } from "react";
 import ReactDOM from "react-dom";
 import TinyMCE from "react-tinymce";
 //import fileService from "./../../../services/FileService"
-
+import uploadService from '../../../services/UploadService';
 
 export default class MyEditor extends React.Component {
     constructor(props) {
@@ -43,11 +43,32 @@ export default class MyEditor extends React.Component {
         inputFile.setAttribute("accept", ".png,.jpg,.gif");
         inputFile.onchange = function () {
             var file = inputFile.files[0];
-            var progressBar = window.document.createElement("progress");
+
+             return uploadService.upload(file)
+            .then(response => {
+                if (response.status != 201) {
+                    throw Error(response.statusText);
+                } 
+                return response.json();
+            })
+            .then( json =>  {
+               callback(json.path || json.error.message);
+            })
+            .catch( error => {
+                callback("error while uploading file")
+            });
+
+
+
+
+
+            /*var progressBar = window.document.createElement("progress");
             progressBar.setAttribute("style", "width:300px;height:50px");
             progressBar.setAttribute("id", fieldName);
             self.replaceNodes(inputField, progressBar);
             var request = new XMLHttpRequest();
+
+
             request.onreadystatechange = function () {
                 if (request.readyState == XMLHttpRequest.DONE) {
                     try{
@@ -67,7 +88,7 @@ export default class MyEditor extends React.Component {
                 progressBar.setAttribute("max", event.total)
             };
             request.open("POST", "http://localhost:3001/", true);
-            request.send(file);
+            request.send(file);*/
 
         };
         inputFile.click();
