@@ -36,6 +36,42 @@ export function getPredefinedData() {
     };
 };
 
+export function postProject(project) {
+    return dispatch => {
+        dispatch({
+            type: types.UP_POST_PROJECT
+        });
+        return upsertProjectService.addProject(project)
+            .then(response => {
+                if (response.status != 201) {
+                    throw Error(response.statusText);
+                } 
+                return response.json();
+            })
+            .then( json =>  {
+                dispatch({
+                    type: types.UP_POST_PROJECT_SUCCESS,
+                    data: json
+                });
+            })
+            .catch( error => {
+                dispatch({
+                    type: types.UP_POST_PROJECT_ERROR,
+                    error: error
+                });
+            });
+    };
+};
+
+
+
+export function createProjectData() {
+    return {
+        type: types.UP_CREATE_PROJECT_DATA
+    };
+};
+
+
 export function postTag(tag) {
     return dispatch => {
         dispatch({
@@ -147,6 +183,9 @@ export function postFeature(feature) {
             });
     };
 };
+
+
+
 
 
 export function uploadFile(file) {
