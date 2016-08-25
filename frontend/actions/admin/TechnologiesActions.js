@@ -4,17 +4,24 @@
 import fetch from 'isomorphic-fetch'
 
 export function getTechnologies() {
+    let error_code;
     return dispatch=> {
         fetch(`/api/technologies/`)
-            .then(response => (response.status !== 404)?response.json(): [])
+            .then(response => response.json())
             .then(json => dispatch(initTechnology(json)))
+            .catch(error => {
+                dispatch(errorHandler('Bad Request'));
+                dispatch(initTechnology([]));
+            })
+
+
     }
 }
 export function initTechnology(listOfTechno) {
     let listOfTechnologies = listOfTechno || [];
     return {
-        type: 'INIT_TECHNOLOGY' ,
-        listOfTechnologies : listOfTechnologies
+        type: 'INIT_TECHNOLOGY',
+        listOfTechnologies: listOfTechnologies
     }
 }
 export function saveTechology(params) {
@@ -26,8 +33,9 @@ export function saveTechology(params) {
                 'Content-Type': 'application/json',
                 Accept: 'application/json'
             })
-        });
-            dispatch(getTechnologies());
+        })
+            .catch(error => dispatch(errorHandler('Bad Request')));
+        dispatch(getTechnologies());
 
     }
 }
@@ -54,13 +62,20 @@ export function setAddFormState(state) {
 export function removeSelectedTechs(technologies) {
     return dispatch=> {
         technologies.forEach(tech=> {
-             if(tech.checked === 'checked') {
-                 fetch(`/api/technologies/${tech._id}`, {
-                     method: 'DELETE'
-                 })
-             }
+            if (tech.checked === 'checked') {
+                fetch(`/api/technologies/${tech._id}`, {
+                    method: 'DELETE'
+                })
+                    .catch(error => dispatch(errorHandler('Bad Request')));
+            }
         });
-       dispatch(getTechnologies())
+        dispatch(getTechnologies())
+    }
+}
+export function errorHandler(error) {
+    return {
+        type: 'SOMETHING_GONE_WRONG',
+        error: error
     }
 }
 

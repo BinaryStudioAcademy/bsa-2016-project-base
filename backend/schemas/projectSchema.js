@@ -5,26 +5,26 @@ var ObjectId = mongoose.Types.ObjectId;
 
 var Project = new Schema({
 
-    users: [ {type: Schema.Types.ObjectId, ref: 'User', required: true} ],
+    users: [{type: Schema.Types.ObjectId, ref: 'User', required: true}],
 
-    owners: [ {type: Schema.Types.ObjectId, ref: 'User', required: true} ],
+    owners: [{type: Schema.Types.ObjectId, ref: 'User', required: true}],
 
     technologies: [{type: Schema.Types.ObjectId, ref: 'Technologies', required: true}],
 
     projectName: {type: String, required: true},
 
+    location: {
+        Latitude: String,
+        Longitude: String
+    }
+
     isCompleted: {type: Boolean, required: true},
 
-    description: [{
+    description: {
         date: {type: Date, default: Date.now},
         descrText: String,
-        descrFullText: String,
-        attachments: [{
-            name: String,
-            date: {type: Date, default: Date.now},
-            attach: Buffer
-        }]
-    }],
+        descrFullText: String
+    },
 
     screenShots: [{
         internal: Boolean,
@@ -32,11 +32,17 @@ var Project = new Schema({
         internalShot: Buffer
     }],
 
-    timeBegin:{ type: Date, default: Date.now, required: true },
+    attachments: [{
+            name: String,
+            date: {type: Date, default: Date.now},
+            links: String
+    }]
+
+    timeBegin:{type: Date, default: Date.now, required: true},
 
     timeEnd: Date,
 
-    tags: [ {type: Schema.Types.ObjectId, ref: 'Tag'} ],
+    tags: [{type: Schema.Types.ObjectId, ref: 'Tag'}],
         
     stage: {type: Schema.Types.ObjectId, ref: 'Stage'},
 

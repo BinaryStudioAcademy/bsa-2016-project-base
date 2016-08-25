@@ -35,8 +35,11 @@ class Navbar extends Component {
                     <LinkContainer to="/stats" className={styles["menu-item"]}>
                         <NavItem eventKey={3}>Stats</NavItem>
                     </LinkContainer> 
+                    <LinkContainer to="/add-project" className={styles["menu-item"]}>
+                        <NavItem eventKey={4}>Add Project</NavItem>
+                    </LinkContainer>      
                     <LinkContainer to="/admin" className={styles["menu-item"]}>
-                        <NavItem eventKey={4}>Admin Area</NavItem>
+                        <NavItem eventKey={5}>Admin Area</NavItem>
                     </LinkContainer> 
                 </Nav>
             </div>

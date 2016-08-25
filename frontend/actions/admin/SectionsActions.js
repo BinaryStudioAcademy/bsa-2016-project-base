@@ -9,12 +9,7 @@ export function getAllSections() {
                     type: 'GET_ALL_SECTIONS',
                     sections: res,
                 })})
-            .catch( err => {
-                dispatch({
-                    type: 'GET_ALL_SECTIONS_LOADING_ERROR',
-                    error: err
-                });
-            });
+            .catch(error => dispatch(errorHandler('Bad Request')));
     }
 }
 
@@ -70,12 +65,7 @@ export function editSection(sections, editSection, index) {
             .then(
                 dispatch (getAllSections())
             )
-            .catch( err => {
-                dispatch({
-                    type: 'EDIT_SECTION_ERROR',
-                    error: err
-                });
-            });
+            .catch(error => dispatch(errorHandler('Bad Request')));
     }
 
 }
@@ -92,5 +82,11 @@ export function changeVisibilityFormSections(visibilityForm) {
             type: 'CHANGE_VISIBILITY_FORM_SECTIONS',
             visibilityForm: 'hidden'
         }
+    }
+}
+export function errorHandler(error) {
+    return {
+        type: 'SOMETHING_GONE_WRONG',
+        error: error
     }
 }
