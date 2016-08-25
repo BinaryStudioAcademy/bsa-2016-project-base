@@ -38,7 +38,7 @@ var Project = new Schema({
             name: String,
             date: {type: Date, default: Date.now},
             link: String
-    }]
+    }],
 
     timeBegin:{type: Date, default: Date.now, required: true},
 
