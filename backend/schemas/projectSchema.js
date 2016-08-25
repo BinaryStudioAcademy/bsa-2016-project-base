@@ -18,7 +18,7 @@ var Project = new Schema({
         Longitude: String
     },
 
-    isCompleted: {type: Boolean, required: true},
+    isCompleted: Boolean,
 
     description: {
         date: {type: Date, default: Date.now},
@@ -26,16 +26,18 @@ var Project = new Schema({
         descrFullText: String
     },
 
-    screenShots: [{
-        internal: Boolean,
-        linkToExternalShot: String,
-        internalShot: Buffer
-    }],
+    // screenShots: [{
+    //     internal: Boolean,
+    //     linkToExternalShot: String,
+    //     internalShot: Buffer
+    // }],
+
+    screenShots: [String],
 
     attachments: [{
             name: String,
             date: {type: Date, default: Date.now},
-            links: String
+            link: String
     }],
 
     timeBegin:{type: Date, default: Date.now, required: true},

@@ -4,8 +4,20 @@ promise.polyfill();
 
 
 class UpsertProjectService {
+
     getPredefinedData() {
         return fetch('/api/predefined/');
+    }
+
+    addProject(project) {
+        return fetch('/api/projects', {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(project)
+        });
     }
 
 }

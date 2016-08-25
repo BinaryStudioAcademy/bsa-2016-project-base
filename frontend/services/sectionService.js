@@ -4,7 +4,7 @@ import fetch from 'isomorphic-fetch';
 
 class SectionService {
     addNewSection(sectionObj) {
-        return fetch("http://localhost:3000/api/sections/", {
+        return fetch("http://localhost:6500/api/sections/", {
             method: 'POST',
             body: JSON.stringify(sectionObj),
             headers: ({
@@ -15,13 +15,13 @@ class SectionService {
     }
 
     getAllSections() {
-        return fetch("http://localhost:3000/api/sections/")
+        return fetch("http://localhost:6500/api/sections/")
     }
 
 
 
     removeSection(sectionId) {
-    return fetch("http://localhost:3000/api/sections/" + sectionId, {
+    return fetch("http://localhost:6500/api/sections/" + sectionId, {
         method: 'DELETE',
         headers: ({
             'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ class SectionService {
     }
 
     editSection(sectionObj) {
-        return fetch("http://localhost:3000/api/sections/" + sectionObj._id, {
+        return fetch("http://localhost:6500/api/sections/" + sectionObj._id, {
             method: 'PUT',
             body: JSON.stringify(sectionObj),
             headers: ({
