@@ -104,7 +104,7 @@ class Tags extends Component {
 				    			/>
 				    			<Button
 				    				label='Add tag'
-				    				onClick={this.addTag}
+				    				onAdd={this.addTag}
 				    				backgroundColor='#8D97A4'
 				    			/>
 				    		</div>

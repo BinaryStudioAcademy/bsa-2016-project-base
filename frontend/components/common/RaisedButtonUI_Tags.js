@@ -6,14 +6,14 @@ const style = {
   margin: 12,
 };
 
-const RaisedButtonUI = ({id, label, onClick, style, backgroundColor}) => (
+const RaisedButtonUI = ({id, label, onAdd, style, backgroundColor}) => (
   <div className='button-add-tags'>
     <MuiThemeProvider>
       <RaisedButton
         id={id}
         label={label}
-        onTouchTap={onClick}
-        onClick={onClick}
+        // onTouchTap={onAdd}
+        onClick={onAdd}
         style={style}
         labelStyle={{
             color: '#fff',
