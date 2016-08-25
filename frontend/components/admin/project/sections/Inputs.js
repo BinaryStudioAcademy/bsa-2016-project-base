@@ -45,13 +45,20 @@ class Inputs extends Component {
     	console.log('onDescriptionChange: ',html);
     	this.props.changeDescription(html);
     }
+    shouldComponentUpdate(nextProps, nextState ){
+        return nextProps.conditions !== this.props.conditions;
+    }
     render() {
-    	const conditionOpts = [
-    	{value:1,name:'In progress'},
-    	{value:2,name:'Estimated'},
-    	{value:3,name:'Discussed'},
-    	{value:4,name:'Finished'}];
+        const {conditions} = this.props;
 
+        const conditionOpts = conditions.map( item => {
+            return {
+                value: item._id,
+                name: item.conditionName
+            }
+        });
+
+        console.log('Rerender Inputs');
     	return (
 	        <div>
 	        	<TextInput
@@ -96,7 +103,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
     return {
-        store: state.UpsertProjectReducer
+        conditions: state.UpsertProjectReducer.conditions
     };
 };
 
