@@ -10,7 +10,7 @@ export default class LineChart extends AbstractChart {
 
     static get propTypes() {
         return {
-            data:PropTypes.array.isRequired
+            data:PropTypes.object.isRequired
         }
     }
 
@@ -26,7 +26,9 @@ export default class LineChart extends AbstractChart {
         return <ChartWrapper>
             <Line data={_data}
                   options={Object.assign({},_data.options||{},{
-
+            legend: {
+                display:data.datasets.length>1
+            },
             scales: {
                 yAxes: [{
                         stacked: false,

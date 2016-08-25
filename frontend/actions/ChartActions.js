@@ -40,13 +40,12 @@ export function loadData(){
                         },
                         labels,
                         datasets:[{
-                            label:"Modern IT Technologies used on projects",
+                            label:"Technologies",
                             data
                         }]
 
                     }))
-                })
-                .catch(error => dispatch(errorHandler('Bad Request')));
+                });
         }
         else if (type == "Bar"){
             tagService.getAllTags()
@@ -63,12 +62,11 @@ export function loadData(){
                         },
                         labels,
                         datasets:[{
-                            label:"Most popular Tags on projects",
+                            label:"Quantity of usage",
                             data
                         }]
                     }))
-                })
-                .catch(error => dispatch(errorHandler('Bad Request')));
+                });
         }else if (type == "Linear"){
             dispatch(addData({
                 options:{
@@ -79,7 +77,7 @@ export function loadData(){
                 },
                 labels: ['1st January', '1st February', '1st March', '1st April', '1st May', '1st June', '1st July'],
                 datasets:[{
-                    label:"Active projects quantity by the time",
+                    label:"Active projects",
                     data: [23,25,14,16,21,16,27]
                 }]
             }));

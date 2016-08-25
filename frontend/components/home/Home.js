@@ -11,8 +11,6 @@ export default class Home extends Component {
     }
 
     componentDidMount() {
-
-        
         const self = this;
         const {model} = this.state;
         console.log(model);
@@ -20,7 +18,7 @@ export default class Home extends Component {
         model.searchContainer.component = this;
         model.searchContainer.searchModels.forEach(model=>model.component = self);
         if (!model.projects.length) {
-            model.loadMore();
+            model.goSearch();
         }
     }
 
