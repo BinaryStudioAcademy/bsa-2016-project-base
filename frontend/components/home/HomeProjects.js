@@ -39,7 +39,11 @@ export default class HomeProjects extends React.Component {
                     <ListProjects
                         projects={projects}/>
                     <div style={{display:"flex"}}>
-                        <Waypoint onEnter={model.loadMore}/>
+                        {model.projects.length?<Waypoint onEnter={model.loadMore}/>:""}
+                        <RaisedButton
+                            label="Load More"
+                            onClick={model.loadMore}/>
+                        {model.loadMoreErrorMessage}
                         {model.isLoading ? <CircularProgress size={0.6}/> : ""}
                     </div>
                 </Col>

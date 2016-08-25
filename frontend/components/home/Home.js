@@ -17,6 +17,7 @@ export default class Home extends Component {
         model.component = this;
         model.searchContainer.component = this;
         model.searchContainer.searchModels.forEach(model=>model.component = self);
+        model.goSearch();
     }
 
 
