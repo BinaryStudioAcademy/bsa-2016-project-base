@@ -10,11 +10,11 @@ class FeatureService {
     }
 
     getAllFeaturesOfAllProjects() {
-        return fetch('http://localhost:3000/api/featureswithsections/')
+        return fetch('http://localhost:6500/api/featureswithsections/')
     }
 
     addNewFeature(featureObj) {
-        return fetch("http://localhost:3000/api/features/", {
+        return fetch("http://localhost:6500/api/features/", {
             method: 'POST',
             body: JSON.stringify(featureObj),
             headers: ({
@@ -25,7 +25,7 @@ class FeatureService {
     }
 
     removeFeature(idFeature) {
-        return fetch("http://localhost:3000/api/features/" + idFeature, {
+        return fetch("http://localhost:6500/api/features/" + idFeature, {
             method: 'DELETE',
             headers: ({
                 'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ class FeatureService {
     }
 
     editFeature(featureObj) {
-        return fetch("http://localhost:3000/api/features/" + featureObj._id, {
+        return fetch("http://localhost:6500/api/features/" + featureObj._id, {
             method: 'PUT',
             body: JSON.stringify(featureObj),
             headers: ({

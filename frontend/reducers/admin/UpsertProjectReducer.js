@@ -36,58 +36,52 @@ export default function UpsertProjectReducer(state=initialState, action) {
         case types.UP_CHANGE_PROJECT_NAME: {
             const {name} = action;
             return Object.assign({}, state, {
-            	info: {
-            		...state.info,
+            	
             		projectName: name
-            	}
+            	
             });
         }
         case types.UP_CHANGE_PROJECT_LINK: {
             const {link} = action;
             return Object.assign({}, state, {
-            	info: {
-            		...state.info,
+            	
             		projectLink: link
-            	}
+            	
             });
         }
         case types.UP_CHANGE_START_DATE: {
             const {date} = action;
             return Object.assign({}, state, {
-            	info: {
-            		...state.info,
+            	
             		timeBegin: date
-            	}
+            	
             });
         }
         case types.UP_CHANGE_FINISH_DATE: {
             const {date} = action;
             return Object.assign({}, state, {
-            	info: {
-            		...state.info,
+            	
             		timeEnd: date
-            		
-            	}
+            	
+            	
             });
         }
         case types.UP_CHANGE_CONDITION: {
             const {option} = action;
             return Object.assign({}, state, {
-            	info: {
-            		...state.info,
+            	
             		condition: option
-            	}
+            	
             });
         }
         case types.UP_CHANGE_DESCRIPTION: {
             const {text} = action;
             return Object.assign({}, state, {
-            	info: {
-            		...state.info,
+            	
             		description:{
-            			descrText:text
+            			descrFullText:text
             		} 
-            	}
+            	
             });
         }
         case types.UP_ADD_TAG_TO_PROJECT: {
@@ -102,6 +96,13 @@ export default function UpsertProjectReducer(state=initialState, action) {
             const {tags} = state;
             return Object.assign({}, state, {
                 tags: removeTagFromProject(tags, _id)
+            });
+        }
+        case types.UP_POST_PROJECT_SUCCESS: {
+            const {data} = action;
+            const {added} = state;
+            return Object.assign({}, state, {
+                added: true
             });
         }
         case types.UP_POST_TAG_SUCCESS: {
@@ -188,6 +189,7 @@ export default function UpsertProjectReducer(state=initialState, action) {
         }
     }
 };
+
 
 
 const selectSection = (sections, _id) => {
@@ -308,6 +310,11 @@ const feature = {
 
 
 const initialState = {
+    projectName:'Test',
+    projectLink:'Test',
+    timeBegin:'',
+    timeEnd:'',
+    condition:'',
 	users: [],
 	tags: [],
 	technologies: [],
@@ -316,9 +323,12 @@ const initialState = {
     features: [],
 	files: [],
     activeSection: {},
-	tagExists: false
+	tagExists: false,
+    added: false,
+    description:{
+        descrFullText: 'Description'
+    } 
 
 };
-
 
 

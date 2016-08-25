@@ -2,7 +2,7 @@ import React, { Component,PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../../actions/admin/UpsertProjectActions';
-import { Button, Checkbox, TextArea, DropDown, DateInput, TextInput } from '../../../common/';
+import { Button, Checkbox, TextArea, DropDown, DateInput, TextInput, Editor } from '../../../common/';
 
 
 class Inputs extends Component {
@@ -41,18 +41,24 @@ class Inputs extends Component {
     	const option = e.target.value;
     	this.props.changeCondition(option);
     }
-    onDescriptionChange(e){
-    	console.log('onDescriptionChange: ',e.target.value);
-    	const text = e.target.value;
-    	this.props.changeDescription(text);
+    onDescriptionChange(html){
+    	console.log('onDescriptionChange: ',html);
+    	this.props.changeDescription(html);
+    }
+    shouldComponentUpdate(nextProps, nextState ){
+        return nextProps.conditions !== this.props.conditions;
     }
     render() {
-    	const conditionOpts = [
-    	{value:1,name:'In progress'},
-    	{value:2,name:'Estimated'},
-    	{value:3,name:'Discussed'},
-    	{value:4,name:'Finished'}];
+        const {conditions} = this.props;
 
+        const conditionOpts = conditions.map( item => {
+            return {
+                value: item._id,
+                name: item.conditionName
+            }
+        });
+
+        console.log('Rerender Inputs');
     	return (
 	        <div>
 	        	<TextInput
@@ -80,11 +86,11 @@ class Inputs extends Component {
 	        		data = {conditionOpts}
 	        		onChange={this.onConditionChange}
 	        	/>
-	        	<TextArea
-	        		label='Description *' 
-	        		placeholder='Type description here...'
-	        		onChange={this.onDescriptionChange}
-	        	/>
+	        	<span>Description*</span>
+                <Editor 
+                    handleChange={this.onDescriptionChange}
+                    initialContent={'Enter project description'}
+                />
 	        </div>
 	    );
     }
@@ -97,7 +103,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
     return {
-        store: state.UpsertProjectReducer
+        conditions: state.UpsertProjectReducer.conditions
     };
 };
 
