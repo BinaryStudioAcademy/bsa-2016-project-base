@@ -15,8 +15,19 @@ export default class HomeContainer extends Updatable {
         };
         this.setActivePage = this.setActivePage.bind(this)
         this.projects = [];
+        this.loadMore = this.loadMore.bind(this)
     }
-
+    loadMore(){
+        const p = this.pagination;
+        if (!p.total||(p.activePage+1)*p.recordsPerPage<p.total){
+            p.activePage+=1;
+            this.goSearch();
+        }
+        else{
+            this.loadMoreErrorMessage = "No more";
+            this.notifyUpdated()
+        }
+    }
     setActivePage(page) {
         if (this.pagination.activePage !== page.selected ||
             !page.selected && !this.projects.length) {
@@ -29,6 +40,7 @@ export default class HomeContainer extends Updatable {
     goSearch() {
         const self = this;
         this.isLoading = true;
+        this.loadMoreErrorMessage = undefined;
         this.notifyUpdated();
         /**
          * @type {Array.<"name=value">}
@@ -41,7 +53,12 @@ export default class HomeContainer extends Updatable {
         searchService.getProjects(query.join("&"))
             //.then(res=>res.json())
             .then(data=> {
-                self.projects = data.projects || [];
+                //self.projects = data.projects || [];
+                if (self.pagination.activePage>0){
+                    self.projects.push(...data.projects)
+                }else {
+                    self.projects = data.projects
+                }
                 self.pagination.total = data.total;//should be response.length
                 self.isLoading = false;
                 self.errorMessage = !self.projects.length ? "Not found":undefined;
