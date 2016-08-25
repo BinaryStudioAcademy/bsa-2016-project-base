@@ -1,4 +1,4 @@
-export {default as HomeReducer} from './HomeReducer';
+
 export {default as UsersReducer} from './UsersReducer';
 export {default as ChartReducer} from "./ChartReducer";
 export {default as UserAuthReducer} from './UserAuthReducer';

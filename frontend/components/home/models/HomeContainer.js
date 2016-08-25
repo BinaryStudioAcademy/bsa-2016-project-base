@@ -11,7 +11,7 @@ export default class HomeContainer extends Updatable {
         this.pagination = {
             activePage: 0,
             total: 0,
-            recordsPerPage: 6
+            recordsPerPage: 3
         };
         this.setActivePage = this.setActivePage.bind(this)
         this.projects = [];

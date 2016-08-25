@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-
+import { bindActionCreators} from 'redux';
+import cookies from 'react-cookie';
 import FaUser from 'react-icons/lib/fa/user-secret';
 import FaExit from 'react-icons/lib/fa/sign-out';
 import Navbar from '../components/navbar/Navbar';
 import NotFound from '../components/not-found/NotFound';
-
+import { connect } from 'react-redux';
 import styles from './app.sass';
 import {setAuthUser} from '../actions/UserAuthActions';
-
+import ReduxToastr from 'react-redux-toastr';
 import FaList from 'react-icons/lib/fa/list';
 
 
@@ -58,9 +58,9 @@ class App extends Component {
                                 }}/>
                             </div>
                             {children}
-				<ReduxToastr timeOut={3000}
+				{/*<ReduxToastr timeOut={3000}
                                         newestOnTop={true}
-                                       position="bottom-left"/>
+                                       position="bottom-left"/>*/}
                         </div>
                     </div>
                 </div>
