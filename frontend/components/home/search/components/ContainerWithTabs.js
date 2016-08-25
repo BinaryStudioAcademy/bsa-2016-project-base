@@ -18,7 +18,6 @@ export default class ContainerWithTabs extends React.Component {
         }
     }
     componentDidMount(){
-        this.props.model.component = this;
         this.props.model.searchModels.forEach(model=>{
             model.component = this;
         });

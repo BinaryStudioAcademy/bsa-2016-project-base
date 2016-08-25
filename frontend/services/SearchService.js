@@ -2,7 +2,8 @@ import promise from 'es6-promise';
 promise.polyfill();
 import fetch from 'isomorphic-fetch';
 
-const URL = "http://localhost:3000/api/search/";
+import {API} from '../constants/API';
+const URL = API+"search/"
 class SearchService {
     constructor() {}
     getProjects(query){

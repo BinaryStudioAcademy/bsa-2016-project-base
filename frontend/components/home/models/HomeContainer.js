@@ -59,6 +59,7 @@ export default class HomeContainer extends Updatable {
                 }else {
                     self.projects = data.projects
                 }
+                if (!self.projects) self.projects = [];
                 self.pagination.total = data.total;//should be response.length
                 self.isLoading = false;
                 self.errorMessage = !self.projects.length ? "Not found":undefined;

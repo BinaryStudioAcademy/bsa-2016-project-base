@@ -16,7 +16,7 @@ var Project = new Schema({
     location: {
         Latitude: String,
         Longitude: String
-    }
+    },
 
     isCompleted: {type: Boolean, required: true},
 
@@ -36,7 +36,7 @@ var Project = new Schema({
             name: String,
             date: {type: Date, default: Date.now},
             links: String
-    }]
+    }],
 
     timeBegin:{type: Date, default: Date.now, required: true},
 

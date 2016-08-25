@@ -37,7 +37,7 @@ export default class Project extends Component {
                 }
 
                 <div className={styles.description} >
-                    {project.description[0].descrText}
+                    {project.description.descrText}
                 </div>
                 {(project.timeEnd)?
                     <div className={styles['update-date']} >Project finished in: {project.timeEnd.split('T')[0]}</div>:
