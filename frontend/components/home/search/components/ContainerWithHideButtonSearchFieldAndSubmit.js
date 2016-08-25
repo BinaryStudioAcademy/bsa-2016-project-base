@@ -24,10 +24,10 @@ export default class ContainerWithHideButtonSearchFieldAndSubmit extends React.C
     render() {
         const {model} = this.props;
         const showButton = model.shouldShowSearch?
-            <RaisedButton label="Hide Extended Search"
-                          onClick={model.hideSearch}/>:
-            <RaisedButton label="Show Extended Search"
-                          onClick={model.showSearch}/>
+            <div className='col-inputs'><RaisedButton label="Hide Extended Search"
+                          onClick={model.hideSearch}/></div>:
+            <div className='col-inputs'><RaisedButton label="Show Extended Search"
+                          onClick={model.showSearch}/></div>
 
         const body = model.shouldShowSearch?
             <div>
@@ -44,25 +44,24 @@ export default class ContainerWithHideButtonSearchFieldAndSubmit extends React.C
             <div>Example: #partOfTag !partOfTech partOfName</div>
         </div>;
 
-        const searchInput = <DeferredTextInput
+        const searchInput = <div className='col-inputs'><DeferredTextInput
             onFocus={model.showHint}
             onBlur={model.hideHint}
             value={model.searchString}
             hintText="Search"
-            floatingLabelText="Search"
             receiver={model.updateSearchString}
             onKeyUp={e=>(e.keyCode==13)&&model.goFastSearch()}
-        />;
-        const fastInputButton = <RaisedButton
+        /></div>;
+        const fastInputButton = <div className='col-inputs'><RaisedButton
             label="Search!"
-            onClick={model.goFastSearch}/>;
-        const clearSearchButton = model.shouldShowSearch?<RaisedButton
+            onClick={model.goFastSearch}/></div>;
+        const clearSearchButton = model.shouldShowSearch?<div><RaisedButton
             label="Clear Search"
             secondary={true}
-            onClick={model.clearSearch}/>:"";
+            onClick={model.clearSearch}/></div>:"";
         return (
             <div>
-                <div>{searchInput}  {fastInputButton}  {showButton} {clearSearchButton}</div>
+                <div id='inputs'>{searchInput}  {fastInputButton}  {showButton} {clearSearchButton}</div>
                 {model.shouldShowHint?hint:""}
                 {body}
             </div>
