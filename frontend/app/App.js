@@ -1,5 +1,3 @@
-import cookies from 'react-cookie';
-import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 
@@ -60,6 +58,9 @@ class App extends Component {
                                 }}/>
                             </div>
                             {children}
+				<ReduxToastr timeOut={3000}
+                                        newestOnTop={true}
+                                       position="bottom-left"/>
                         </div>
                     </div>
                 </div>

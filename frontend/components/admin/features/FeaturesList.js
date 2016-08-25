@@ -234,7 +234,7 @@ class FeaturesList extends  Component {
                                     <ControlLabel >Select section(*):</ControlLabel>
                                 </Col>
                                 <Col sm={8}>
-                                    <FormControl componentClass="select"  className={styles['text-select-input']} id="selectSectionModal"
+                                    <FormControl componentClass="select"  className={styles['text-models-input']} id="selectSectionModal"
                                                  onChange={this.saveSelectedSection}   required>
                                         <option key={0} value="Select section" >Select section</option>
                                         {

@@ -18,10 +18,17 @@ import Review from '../components/review/Review';
 import NotFound from '../components/not-found/NotFound';
 import Test from '../components/common/test.js';
 import * as reducers from '../reducers/';
-
+import ReduxToastr, {toastr} from 'react-redux-toastr'
 const rootReducer = combineReducers({
     ...reducers
 });
+const errorHandler = store => next => action => {
+    if(action.type === 'SOMETHING_GONE_WRONG'){
+        toastr.error(''+action.error+'');
+    }
+    let result = next(action);
+    return result;
+};
 
 
 const store = createStore(

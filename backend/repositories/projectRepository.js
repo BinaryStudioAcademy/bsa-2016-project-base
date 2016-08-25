@@ -36,7 +36,6 @@ ProjectRepository.prototype.getByIdWithTechnologies = function(id, callback){
 
 Repository.prototype.getByIdWithFeatures = function(id, callback){
 	var model = this.model;
-	var model = this.model;
 	var query = model.findOne({_id:id})
 					.populate('features');
 	query.exec(callback);

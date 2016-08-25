@@ -6,6 +6,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as actions from "../../../../actions/admin/TechnologiesDetailActions";
 import styles from  '../styles.sass';
+import {Button, FormGroup, ControlLabel, FormControl, Col, Form} from 'react-bootstrap';
 import {Link} from 'react-router'
 import TextArea from '../../../common/TextArea.js';
 import TextInput from '../../../common/TextInput.js';
@@ -17,34 +18,40 @@ class TechDetailPage extends Component {
         this.changeTechDescription = this.changeTechDescription.bind(this);
         this.deleteImage = this.deleteImage.bind(this);
         this.submitForm = this.submitForm.bind(this);
+        this.makeDoc = this.makeDoc.bind(this);
         this.state = {
             techName: '',
             techDescription: '',
-            techAvatar: ''
+            techAvatar: '',
+            doc: ''
         }
     }
 
-    deleteImage(){
-        this.props.deleteImage(this.state.techAvatar,this.props.routeParams.id);
-        let data ={
+    deleteImage() {
+        this.props.deleteImage(this.state.techAvatar, this.props.routeParams.id);
+        let data = {
             techName: this.state.techName,
             techDescription: this.state.techDescription,
             techAvatar: '',
         };
-        this.props.updateData(this.props.routeParams.id,data);
+        this.props.updateData(this.props.routeParams.id, data);
+    }
+
+    makeDoc() {
+        this.props.makeDoc(this.state);
     }
 
     changeTechName(e) {
-        if(e.target.value.length < 50){
+        if (e.target.value.length < 50) {
             this.setState({
                 techName: e.target.value
             });
-            document.getElementById("error").className = 'visible';
-            document.getElementById("error").className ='hidden';
-        }else{
+            e.target.nextSibling.classList.remove('visible');
+            e.target.nextSibling.classList.add('hidden');
+        } else {
             e.preventDefault();
-            document.getElementById("error").className ='hidden';
-            document.getElementById("error").className = 'visible';
+            e.target.nextSibling.classList.remove('hidden');
+            e.target.nextSibling.classList.add('visible');
         }
     }
 
@@ -57,26 +64,28 @@ class TechDetailPage extends Component {
         e.preventDefault();
         let pic;
         let form = e.target;
-        if(form.elements['techAvatar']){
+        if (form.elements['techAvatar']) {
             pic = form.elements['techAvatar'].value;
-        }else{
-            pic =  this.state.techAvatar
+        } else {
+            pic = this.state.techAvatar
         }
         let data = {
-            techName: this.state.techName,
-            techDescription: this.state.techDescription,
+            techName: form.elements['techName'].value,
+            techDescription: form.elements['techDescription'].value,
             techAvatar: pic
         };
         form.reset();
-        this.props.updateData(this.props.routeParams.id,data);
+        this.props.updateData(this.props.routeParams.id, data);
         document.getElementById('return_to_list').click();
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log(nextProps.state.doc);
         this.setState({
                 techName: nextProps.state.listOfTechnologies.techName,
                 techDescription: nextProps.state.listOfTechnologies.techDescription,
                 techAvatar: nextProps.state.listOfTechnologies.techAvatar,
+                doc: nextProps.state.doc,
             }
         );
     }

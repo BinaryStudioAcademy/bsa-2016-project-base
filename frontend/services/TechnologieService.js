@@ -5,7 +5,7 @@ import fetch from 'isomorphic-fetch';
 class TechnologieService {
 
     getAllTechnologies() {
-        return fetch("http://localhost:3000/api/technology/");
+        return fetch("/api/technologies/");
     }
     addTechology(tech) {
     	return fetch("/api/technologies/", {

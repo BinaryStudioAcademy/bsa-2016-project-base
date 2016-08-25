@@ -48,7 +48,7 @@ class Tags extends Component {
 		let { isAllChecked } = this.props.store.AdminTagReducer;
 		if (!isAllChecked) {
 			this.props.selectAll(false);
-		}
+		} 
 		this.props.setFilterTerm(term);
 		this.props.filterTags();
 	}
@@ -65,11 +65,21 @@ class Tags extends Component {
 				trash.push(tag._id);
 			}
 		});
+		// if (trash.length) {
+		// 	this.props.deleteTags(trash);
+		// 	this.props.selectAll(false);
+		// }
 		if (trash.length) {
-			this.props.deleteTags(trash);
-			this.props.selectAll(false);
+			const toastrConfirmOptions = {
+				onOk: () => {
+					this.props.deleteTags(trash);
+					this.props.selectAll(false);
+				},
+				onCancel: () => ''
+			};
+			toastr.confirm('Are you sure about that?', toastrConfirmOptions)
 		}
-
+		
 	}
  	render() {
  		let { tags, isAllChecked } = this.props.store.AdminTagReducer;
@@ -114,7 +124,7 @@ class Tags extends Component {
 				    	tags={tags}
 				    	selectOne={this.selectOne}
 				    />
-
+				 
 	    	</div>
 	    )
 	}
