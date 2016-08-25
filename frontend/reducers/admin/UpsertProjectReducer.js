@@ -184,44 +184,11 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 technologies: removeTechFromProject(technologies, _id)
             });
         }
-        case types.UP_CREATE_PROJECT_DATA: {
-            return Object.assign({}, state, {
-                project: createProjectData(state)
-            });
-        }
         default: {
             return state;        
         }
     }
 };
-
-const createProjectData = (state) => {
-    const {users,tags,technologies,sections,features,files} = state;
-    const {projectName,projectLink,timeBegin,timeEnd,condition,descrFullText} = state;
-
-    const project = {
-        projectName:projectName,
-        projectLink:projectLink,
-        timeBegin,
-        timeEnd,
-        condition,
-        descrFullText,
-        sections,
-        features,
-        files,
-        tags: tags.map( tag => {
-            if (tag.inProject) return tag;
-        }),
-        technologies: technologies.map( tech => {
-            if (tech.inProject) return tech;
-        }),
-        owners: users.map( user => {
-            if (user.inProject && user.isOwner) return user;
-        })
-    };
-    return project;
-}
-
 
 
 
@@ -343,12 +310,11 @@ const feature = {
 
 
 const initialState = {
-    projectName:'',
-    projectLink:'',
+    projectName:'Test',
+    projectLink:'Test',
     timeBegin:'',
     timeEnd:'',
     condition:'',
-    descrFullText:'',
 	users: [],
 	tags: [],
 	technologies: [],
@@ -358,7 +324,10 @@ const initialState = {
 	files: [],
     activeSection: {},
 	tagExists: false,
-    added: false
+    added: false,
+    description:{
+        descrFullText: 'Description'
+    } 
 
 };
 
