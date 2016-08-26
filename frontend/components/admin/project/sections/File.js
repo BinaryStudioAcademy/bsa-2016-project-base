@@ -2,13 +2,22 @@ import React, { Component, PropTypes } from 'react';
 import { Button } from '../../../common/';
 import styles from './styles/File.sass';
 
+
+
 class File extends Component {
     constructor(props) {
         super(props);
     }
+
+    CopyToClip(u_id){
+       u_id.select();
+       document.execCommand("Copy");
+  }
+
     render() {
         const {id, url, thumb, name, onClick} = this.props;
         return (
+
             <div id={styles["file-holder"]}>
                 <a href={url} target="_blank">
                     <img src={thumb} alt={name} />
@@ -18,10 +27,22 @@ class File extends Component {
                     <Button onClick={onClick && ((e) => onClick(e,name))}>
                         <i className="fa fa-trash-o" aria-hidden="true"></i>
                     </Button>
+
+                    <Button
+                   value="Copy url"
+                   onClick={()=>{this.CopyToClip(this.refs.inputcopy);}}
+                   />
+                   <input className={styles["copyInput"]} type="text"
+                   ref='inputcopy'
+                   value={url}
+                   />
+
                 </div>
-                
+
             </div>
+
         );
+
     }
 }
 

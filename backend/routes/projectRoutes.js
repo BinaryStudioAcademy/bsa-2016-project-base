@@ -1,5 +1,6 @@
 var apiResponse = require('express-api-response');
 var projectRepository = require('../repositories/projectRepository');
+var featureRepository = require('../repositories/featureRepository');
 var searchService = require('../service/search-service');
 
 module.exports = function(app) {
@@ -111,6 +112,34 @@ module.exports = function(app) {
 			//res.json(data);
 			res.err = err;
 			next();
+		});
+	}, apiResponse);
+
+	app.get('/api/review', function(req, res, next) {
+		projectRepository.getAllInProgress(function (err,data) {
+			res.data = data;
+			res.err = err;
+			//res.json(data);
+			next();
+		});
+	}, apiResponse);
+
+	app.get('/api/review/:id', function(req, res, next) {
+		projectRepository.getById(req.params.id, function (err,data) {
+			featureRepository.getFeaturesWithSections(data, function (err, data) {
+				var sortData = {};
+
+				for(var i = 0, l = data.length; i < l; i++){
+					var sectionName = data[i].section.name;
+					sortData[sectionName] = sortData[sectionName] || [];
+					sortData[sectionName].push(data[i]);
+				}
+
+				res.data = sortData;
+				res.err = err;
+				//res.json(data);
+				next();
+			});
 		});
 	}, apiResponse);
 };
