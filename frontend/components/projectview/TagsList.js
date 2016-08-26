@@ -3,10 +3,10 @@ import styles from './project-view.sass';
 
 const arr =
 	[
-		{"_id":"57a26314b42bbf5a2daa9966","tagName":"Sotho"},
-		{"_id":"57a26314b42bbf5a2daa9965","tagName":"Nepali"},
-		{"_id":"57a26314b42bbf5a2daa9968","tagName":"Gujarati"},
-		{"_id":"57a26314b42bbf5a2daa9967","tagName":"Northern Sotho"}];
+		{"_id":"57beca5b48f2d4441be741ca","tagName":"Rest"},
+		{"_id":"57beca5b48f2d4441be741bd","tagName":"Society"},
+		{"_id":"57beca5b48f2d4441be741bc","tagName":"Business"},
+		{"_id":"57beca5b48f2d4441be741be","tagName":"Entertainment"}];
 
 /*[
  {"_id":"57a26314b42bbf5a2daa9965","tagName":"Nepali"},
