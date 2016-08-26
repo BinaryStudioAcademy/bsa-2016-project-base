@@ -13,7 +13,9 @@ class HomeService {
         return fetch(`${API}mainpage/${orderBy}`);
     }
 
-}
+    getProjects(query) {
+        return this.getAllProjects();
+    }
 
-const homeService = new HomeService();
-export default homeService;
+}
+export default new HomeService();

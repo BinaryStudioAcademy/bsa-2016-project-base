@@ -16,8 +16,8 @@ class DocumentService {
     }
     authentication(callback) {
         var url = this.oauth2Client.generateAuthUrl({
-            access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
-            scope: this.scopes // If you only need one scope you can pass it as string
+            access_type: 'offline',// 'online' (default) or 'offline' (gets refresh_token)
+            scope: this.scopes //If you only need one scope you can pass it as string
         });
         callback(null, url);
     }
@@ -76,7 +76,28 @@ class DocumentService {
             }]
         });
     }
-
+/*
+<<<<<<< HEAD
+    /**
+     *
+     * @param query
+     * @param tokens{google_tokens}
+     * @param callback(err, link, id)
+     */
+/*    getDocument(query, tokens, callback) {
+        fs.readFile(path.join("backend/service/documents/resources/templates/testTemplate.docx"),
+            "binary", function (err, template) {
+            if (err){callback(err);return;}
+            this.getData(query, function(err, data){
+                if (err){callback(err);return;}
+                docxGenerator.generate(data,template, function(err, docx){
+                    if (err){callback(err);return;}
+                    this.uploadFile(docx, tokens, callback)
+                }.bind(this));
+            }.bind(this));
+        }.bind(this))
+    }
+=======*/
     /**
      *
      * @param query
@@ -92,6 +113,7 @@ class DocumentService {
             }.bind(this));
         }.bind(this))
     }
+//>>>>>>> b043649ec050c70d0f338ad262d1bcf954bb4786
 
     /**
      *
@@ -109,7 +131,7 @@ class DocumentService {
             fields: 'webViewLink,id',
             media: {
                 mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                body: file // read streams are awesome!
+                body: file //read streams are awesome!
             }
         }, function (err, file, res) {
             if (err) callback(err);
@@ -129,6 +151,6 @@ class DocumentService {
             var tokensStr = JSON.stringify(tokens);
             res.redirect(`/google_auth_redirect/?tokens=${tokensStr}`);
         }.bind(this));
-    }
+     }
 }
 module.exports = new DocumentService();

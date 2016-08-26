@@ -1,7 +1,7 @@
 var apiResponse = require('express-api-response');
 var projectRepository = require('../repositories/projectRepository');
+var searchService = require('../service/search-service');
 
- 
 module.exports = function(app) {
 	app.get('/api/projects/', function (req,res,next) {
 		projectRepository.getAll(function (err,data) {
@@ -77,6 +77,15 @@ module.exports = function(app) {
 		});
 	}, apiResponse);
 
+	app.get('/api/search/projects', function (req, res, next) {
+		console.log('GET request on "/api/search/projects" acquired.');
+		searchService.getFilteredProjects2(req, function (err, data) {
+			res.data = data;
+			res.err = err;
+			//res.json(data);
+			next();
+		});
+	}, apiResponse);
 
 	app.post('/api/projects/', function(req, res, next) {
 		projectRepository.add(req.body, function(err, data) {

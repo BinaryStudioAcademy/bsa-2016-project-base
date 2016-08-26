@@ -14,8 +14,7 @@ export default class GeneralInformation extends Component {
             <div className={styles.count}>
                 {(cnt)?
                     <div>
-                        <FaList size={20} />
-                        <span>{`Projects (${cnt})`}</span>
+                        <span>{`Find (${cnt}) projects`}</span>
                     </div>:
                     <div>
                         <FaList size={20} />

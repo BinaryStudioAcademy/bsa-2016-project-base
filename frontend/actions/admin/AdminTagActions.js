@@ -21,12 +21,7 @@ export function getTags() {
                 });
                 dispatch(filterTags()); 
             })
-            .catch( error => {
-                dispatch({
-                    type: types.GET_TAGS_ERROR,
-                    error: error
-                });
-            });
+            .catch(error => dispatch(errorHandler('Bad Request')));
     };
 };
 
@@ -45,12 +40,7 @@ export function deleteTags(tags) {
                 });
                 return dispatch(getTags());
             })
-            .catch( error => {
-                dispatch({
-                    type: types.DELETE_TAGS_ERROR,
-                    error: error
-                });
-            });
+            .catch(error => dispatch(errorHandler('Bad Request')));
     };
 };
 
@@ -69,12 +59,7 @@ export function addTag(tag) {
                 });
                 return dispatch(getTags());
             })
-            .catch( error => {
-                dispatch({
-                    type: types.POST_TAG_ERROR,
-                    error: error
-                });
-            });
+            .catch(error => dispatch(errorHandler('Bad Request')));
     };
 };
 
@@ -115,4 +100,10 @@ export function filterTags(){
     return {
         type: types.FILTER_TAGS
     };
-}; 
+};
+export function errorHandler(error) {
+    return {
+        type: 'SOMETHING_GONE_WRONG',
+        error: error
+    }
+}

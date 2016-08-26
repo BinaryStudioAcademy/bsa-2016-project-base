@@ -4,6 +4,7 @@ var upload = multer({dest: 'upload/resources/tech/'});
 var fs = require('fs');
 var path = require('path');
 var technologieRepository = require('../repositories/technologyRepository');
+var searchService = require('../service/search-service');
 
 module.exports = function (app) {
     app.get('/api/technologies/:id', function (req, res, next) {
@@ -72,6 +73,16 @@ module.exports = function (app) {
         technologieRepository.getAll(function (err, data) {
             res.data = data;
             res.err = err;
+            next();
+        });
+    }, apiResponse);
+
+    app.get('/api/search/techs', function (req, res, next) {
+        console.log('GET request on "/api/search/tech" acquired.');
+        searchService.getFilteredTechs(req, function (err, data) {
+            res.data = data;
+            res.err = err;
+            //res.json(data);
             next();
         });
     }, apiResponse);

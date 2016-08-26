@@ -40,7 +40,7 @@ export function loadData(){
                         },
                         labels,
                         datasets:[{
-                            label:"Modern IT Technologies used on projects",
+                            label:"Technologies",
                             data
                         }]
 
@@ -62,7 +62,7 @@ export function loadData(){
                         },
                         labels,
                         datasets:[{
-                            label:"Most popular Tags on projects",
+                            label:"Quantity of usage",
                             data
                         }]
                     }))
@@ -77,11 +77,17 @@ export function loadData(){
                 },
                 labels: ['1st January', '1st February', '1st March', '1st April', '1st May', '1st June', '1st July'],
                 datasets:[{
-                    label:"Active projects quantity by the time",
+                    label:"Active projects",
                     data: [23,25,14,16,21,16,27]
                 }]
             }));
         }
 
+    }
+}
+export function errorHandler(error) {
+    return {
+        type: 'SOMETHING_GONE_WRONG',
+        error: error
     }
 }
