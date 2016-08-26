@@ -22,89 +22,81 @@ class DocumentService {
      */
     authentication(callback) {
         var url = this.oauth2Client.generateAuthUrl({
-            access_type: 'offline',// 'online' (default) or 'offline' (gets refresh_token)
-            scope: this.scopes //If you only need one scope you can pass it as string
+            access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
+            scope: this.scopes // If you only need one scope you can pass it as string
         });
         callback(null, url);
     }
 
     getData(query, callback) {
-        callback(null,{
-            controlSite: [{
-                feature: "Authentication",
-                estimateOpenCart: 5,
-                estimateCustom: 10
-            }, {
-                feature: "Home page",
-                estimateOpenCart: 5,
-                estimateCustom: 5
-            }, {
-                feature: "Categories",
-                estimateOpenCart: 3,
-                estimateCustom: 7
-            }, {
-                feature: "Products",
-                estimateOpenCart: 7,
-                estimateCustom: 10
-            }, {
-                feature: "Banners",
-                estimateOpenCart: 3,
-                estimateCustom: 8
-            }, {
-                feature: "Promotions",
-                estimateOpenCart: 4,
-                estimateCustom: 10
-            }],
-            tradeSite:[{
-                feature: "Authorization",
-                estimateOpenCart:5,
-                estimateCustom:10
-            }, {
-                feature: "Social networks registration",
-                estimateOpenCart:3,
-                estimateCustom:3
-            }, {
-                feature: "Landings",
-                estimateOpenCart:5,
-                estimateCustom:5
-            }, {
-                feature: "Account",
-                estimateOpenCart:10,
-                estimateCustom:15
-            }],
-            additionalFeatures:[{
-                feature: "Module of calculation shipping by some delivery company",
-                estimateOpenCart:"?",
-                estimateCustom:"?"
-            }, {
-                feature: "Menu management module",
-                estimateOpenCart:2,
-                estimateCustom:5
-            }]
-        });
+        callback(null, query);
+        // callback(null, [
+        //      [
+        //     {
+        //         sectionName: 'lala',
+        //         featires: [
+        //             {
+        //                 featuresName: 'lala',
+        //                 custom: 4,
+        //                 lib: 5
+        //             }
+        //         ]
+        //     }
+        // ]
+        //          controlSite: [{
+        //         feature: "Authentication",
+        //         estimateOpenCart: 5,
+        //         estimateCustom: 10
+        //     }, {
+        //         feature: "Home page",
+        //         estimateOpenCart: 5,
+        //         estimateCustom: 5
+        //     }, {
+        //         feature: "Categories",
+        //         estimateOpenCart: 3,
+        //         estimateCustom: 7
+        //     }, {
+        //         feature: "Products",
+        //         estimateOpenCart: 7,
+        //         estimateCustom: 10
+        //     }, {
+        //         feature: "Banners",
+        //         estimateOpenCart: 3,
+        //         estimateCustom: 8
+        //     }, {
+        //         feature: "Promotions",
+        //         estimateOpenCart: 4,
+        //         estimateCustom: 10
+        //     }],
+        //     tradeSite:[{
+        //         feature: "Authorization",
+        //         estimateOpenCart:5,
+        //         estimateCustom:10
+        //     }, {
+        //         feature: "Social networks registration",
+        //         estimateOpenCart:3,
+        //         estimateCustom:3
+        //     }, {
+        //         feature: "Landings",
+        //         estimateOpenCart:5,
+        //         estimateCustom:5
+        //     }, {
+        //         feature: "Account",
+        //         estimateOpenCart:10,
+        //         estimateCustom:15
+        //     }],
+        //     additionalFeatures:[{
+        //         feature: "Module of calculation shipping by some delivery company",
+        //         estimateOpenCart:"?",
+        //         estimateCustom:"?"
+        //     }, {
+        //         feature: "Menu management module",
+        //         estimateOpenCart:2,
+        //         estimateCustom:5
+        //     }]
+        // });
     }
-/*
-<<<<<<< HEAD
-    /**
-     *
-     * @param query
-     * @param tokens{google_tokens}
-     * @param callback(err, link, id)
-     */
-/*    getDocument(query, tokens, callback) {
-        fs.readFile(path.join("backend/service/documents/resources/templates/testTemplate.docx"),
-            "binary", function (err, template) {
-            if (err){callback(err);return;}
-            this.getData(query, function(err, data){
-                if (err){callback(err);return;}
-                docxGenerator.generate(data,template, function(err, docx){
-                    if (err){callback(err);return;}
-                    this.uploadFile(docx, tokens, callback)
-                }.bind(this));
-            }.bind(this));
-        }.bind(this))
-    }
-=======*/
+
     /**
      *
      * @param query
@@ -112,7 +104,7 @@ class DocumentService {
      * @param callback(err, link, id)
      */
     getDocument(query, tokens, callback) {
-        fs.readFile(path.join("backend/service/documents/resources/templates/testTemplate.docx"), "binary", function (err, template) {
+        fs.readFile(path.join("backend/service/documents/resources/templates/estimateTemplate.docx"), "binary", function (err, template) {
             this.getData(query, function(err, data){
                 docxGenerator.generate(data,template, function(err, docx){
                     this.uploadFile(docx, tokens, callback)
@@ -120,7 +112,6 @@ class DocumentService {
             }.bind(this));
         }.bind(this))
     }
-//>>>>>>> b043649ec050c70d0f338ad262d1bcf954bb4786
 
     /**
      *
@@ -138,7 +129,7 @@ class DocumentService {
             fields: 'webViewLink,id',
             media: {
                 mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                body: file //read streams are awesome!
+                body: file // read streams are awesome!
             }
         }, function (err, file, res) {
             if (err) callback(err);
@@ -158,6 +149,6 @@ class DocumentService {
             var tokensStr = JSON.stringify(tokens);
             res.redirect(`/google_auth_redirect/?tokens=${tokensStr}`);
         }.bind(this));
-     }
+    }
 }
 module.exports = new DocumentService();

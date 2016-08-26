@@ -15,8 +15,17 @@ module.exports = function(app) {
         })
     }, apiResponse);
     app.get('/api/documents/test/:tokens', function (req, res, next) {
-        var tokens = JSON.parse(req.params.tokens)
+        var tokens = JSON.parse(req.params.tokens);
         documentService.getDocument("", tokens, function(err, link){
+            res.err = err;
+            res.data = {link};
+            next()
+        })
+    }, apiResponse);
+    app.post('/api/documents/estimation/:tokens', function (req, res, next) {
+        var tokens = JSON.parse(req.params.tokens);
+        console.log(req.body);
+        documentService.getDocument(req.body, tokens, function(err, link){
             res.err = err;
             res.data = {link};
             next()

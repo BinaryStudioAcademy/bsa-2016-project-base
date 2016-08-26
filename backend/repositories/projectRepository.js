@@ -53,5 +53,10 @@ ProjectRepository.prototype.getAll = function(callback){
     query.exec(callback);
 };
 
+ProjectRepository.prototype.getAllInProgress = function(callback){
+	var model = this.model;
+	var query = model.find({isCompleted: false}, {_id: 1, projectName: 1, description: 1});
+	query.exec(callback);
+};
 
 module.exports = new ProjectRepository();

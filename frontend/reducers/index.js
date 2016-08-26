@@ -6,6 +6,7 @@ export {default as FeaturesReducer} from './admin/FeaturesReducer';
 export {default as TechnologiesReducer} from './admin/TechnologiesReducer';
 export {default as UsersReducer} from './UsersReducer';
 export {default as ChartReducer} from "./ChartReducer";
+export {default as ReviewReducer} from "./ReviewReducer";
 export {default as TechnologiesDetailReducer} from './admin/TechnologiesDetailReducer';
 export {default as UpsertProjectReducer} from './admin/UpsertProjectReducer';
 export {reducer as toastr} from 'react-redux-toastr';
