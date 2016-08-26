@@ -9,6 +9,7 @@ var stageRoutes = require('./stageRoutes');
 var documentRoutes = require('./documentRoutes');
 var uploadRoutes = require("./uploadRoutes");
 var predefinedDataRoutes = require('./predefinedDataRoutes');
+var usersRightsRoutes = require('./usersRightsRoutes');
 
 module.exports = function(app) {
 	return {
@@ -22,35 +23,7 @@ module.exports = function(app) {
 		stageRoutes: stageRoutes(app),
 		uploadRoutes: uploadRoutes(app),
 		documentRoutes: documentRoutes(app),
-		predefinedDataRoutes: predefinedDataRoutes(app)
+		predefinedDataRoutes: predefinedDataRoutes(app),
+		usersRightsRoutes: usersRightsRoutes(app)
 	};
 };
-
-/*
-app.get('/api/pirojok/',function (req,res,next) {
-	var code = req.query.code;
-	oauth2Client.getToken(code, function(error, tokens) {
-		if (error) {
-			res.send(error)
-		}
-		var accessToken = tokens.access_token;
-		oauth2Client.setCredentials({
-			access_token: accessToken
-		});
-		var drive = google.drive({version: 'v3', auth: oauth2Client});
-		drive.files.create({
-			resource: {
-				name: 'test.docx',
-				mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-			},
-			fields: 'webViewLink',
-			media: {
-				mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-				body: fs.createReadStream('upload/MongoDb.docx') // read streams are awesome!
-			}
-		}, function (err, file, res) {
-			console.log("Link: ", file.webViewLink);
-			console.log(err);
-		});
-	})
-});*/

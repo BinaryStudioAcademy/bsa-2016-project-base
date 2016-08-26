@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import styles from './styles/button.sass';
 
 
 class Button extends Component {
@@ -8,7 +9,8 @@ class Button extends Component {
     render() {
         const {id, value, onClick} = this.props;
         return (
-            <button 
+            <button   
+                className={styles.generalBtn}             
                 id={id} 
                 type="button" 
                 onClick={onClick}>

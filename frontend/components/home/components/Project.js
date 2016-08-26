@@ -3,48 +3,65 @@ import { Link } from 'react-router';
 import { ListGroupItem, Label } from 'react-bootstrap';
 
 import styles from './Project.sass'
-
+import {FaCheckCircleO, FaCogs} from 'react-icons/lib/fa';
 export default class Project extends Component {
 
     static propTypes = {
         project: React.PropTypes.object.isRequired,
         ranking: React.PropTypes.string.isRequired
     };
-    
+
     render() {
-        const { project, ranking } = this.props;
+        const { project, ranking, id} = this.props;
 
         return (
-            <ListGroupItem id='home-project' className={styles['list-group-item']}>
+            <li key={id} className={styles['list-group-item']}>
+                <Link to={`/project-view/${project._id}`}>
                 <h4>
-                    <Link to={`/project-view/${project._id}`} >{project.projectName}</Link>
+                    {project.projectName}
                 </h4>
+                <img src="http://placehold.it/140x100" />
+                {
+                    (project.isCompleted) ?
+                        <div className={styles['stage-icon']}>
+                            <FaCheckCircleO size={25} color="#2ECC71" />
+                            <span>PROJECT COMPLETED</span>
+                        </div>:
+                        <div className={styles['stage-icon']}>
+                            <FaCogs size={25} color="#FC5A5A"/>
+                            <span>PROJECT UNDER DEVELOPMENT</span>
+                        </div>
+                }
+
+                <div className={styles['labels-container']}>
                 <div className={styles.labels} >
-                    <span><Label>ranking</Label><Label className={styles['label-ranking']} >{ranking}/5.0</Label></span>
+                    <span className={styles['rank-label']}>ranking</span>
+                    <span className={styles['label-rank-number']} >{ranking}/5.0</span>
                 </div>
 
                 {(project.technologies) ?
                     <div className={styles.labels}>
-                        {project.technologies.map((tech) => {
+                        {project.technologies.map((tech, index) => {
                             return (
-                                <span key={tech._id}>
-                                    <Label className="tech">{tech.techName}</Label>
-                                    <Label className={styles['label-library']} >{tech.techVersion || "1.0"}</Label>
+                                <span key={index} className={styles['tech-label']}>
+                                    <span className={styles['tech-name']}>{tech.techName}</span>
+                                    <span className={styles['label-version']} >{tech.techVersion || "1.0"}</span>
                                 </span>
                             );
                         })}
                     </div> : null
                 }
-
+                </div>
                 <div className={styles.description} >
                     {project.description.descrText}
                 </div>
                 {(project.timeEnd)?
-                    <div className={styles['update-date']} >Project finished in: {project.timeEnd.split('T')[0]}</div>:
+                    <div className={styles['update-date']} >Project finished on: {project.timeEnd.split('T')[0]}</div>:
                     <div>Progect in process</div>
                 }
+                </Link>
+            </li>
 
-            </ListGroupItem>
         )
     }
 }

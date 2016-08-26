@@ -1,4 +1,4 @@
-var apiResponse = require('express-api-response');
+ var apiResponse = require('express-api-response');
 var multer = require('multer');
 var upload = multer({dest: 'upload/resources/tech/'});
 var fs = require('fs');

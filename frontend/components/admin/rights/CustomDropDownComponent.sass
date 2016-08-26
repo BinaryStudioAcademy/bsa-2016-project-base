@@ -1,0 +1,68 @@
+$borderColor: #D5D7DA
+
+.dropDown-CurrentLabel
+  padding: 3px
+  border-bottom: 1px solid $borderColor
+  cursor: pointer
+  display: block
+  text-align: center
+  width: 100%	
+
+.dropDown-List
+  z-index: 3
+  position: absolute
+  padding: 5px 0px 15px 5px
+  background-color: white
+  border: 1px solid $borderColor
+  border-radius: 3px
+  max-height: 300px
+  margin-top: 13px
+  outerWidth: 100%
+
+.dropDown-ListScrollableBox
+  width: 100%
+  height: 100%
+  overflow-y: auto
+
+.dropDown-ListScrollableBox::-webkit-scrollbar
+  width: 5px
+
+.dropDown-ListScrollableBox::-webkit-scrollbar-track
+  background: rgba(0, 0, 0, 0.1)
+
+.dropDown-ListScrollableBox::-webkit-scrollbar-thumb
+  background: rgba(0, 0, 0, 0.5)
+
+.dropDown-List:after,
+.dropDown-List:before
+  content: ""
+  position: absolute
+  width: 0
+  height: 0
+
+.dropDown-List:after
+  top: -10px
+  left: calc(50% - 5px) 
+  border-left: 10px solid transparent
+  border-right: 10px solid transparent 
+  border-bottom: 10px solid white
+
+.dropDown-List:before
+  top: -12px
+  left: calc(50% - 7px)  
+  border-left: 12px solid transparent
+  border-right: 12px solid transparent 
+  border-bottom: 12px solid $borderColor
+
+.dropDown-ListScrollableBox > span
+  display: block 	
+  width: calc(100% - 15px)
+  padding: 14px 0px 6px 0px
+  overflow-x: auto
+  cursor: pointer
+  border-bottom: 1px solid $borderColor
+
+.dropDown-ListScrollableBox > span:hover
+  color: black  
+
+

@@ -5,8 +5,8 @@ import fetch from 'isomorphic-fetch'
 
 export function getTechnologies(id) {
     return dispatch=> {
-        fetch(`/api/technologies/`+id)
-            .then(response => response.json())
+        fetch(`/api/technology/`+id)
+            .then(response => (response.status !== 404)?response.json(): {  })
             .then(json => dispatch(initTechnology(json)))
             .catch(error => dispatch(errorHandler('Bad Request')));
     }

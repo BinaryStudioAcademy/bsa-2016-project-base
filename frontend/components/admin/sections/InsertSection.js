@@ -116,6 +116,3 @@ function mapStateToProps(state) {
 }
 const InsertSectionConnected = connect(mapStateToProps, mapDispatchToProps)(InsertSection);
 export default InsertSectionConnected;
-
-
-

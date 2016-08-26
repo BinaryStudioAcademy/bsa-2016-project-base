@@ -10,3 +10,8 @@ export {default as TabHead} from './tabs/TabHead';
 export {default as DataList} from './DataList';
 export {default as FileUpload} from './FileUpload';
 export {default as Editor} from './editor/Editor';
+export {default as CheckBox} from './CheckBox-ui';
+export {default as CheckBoxTags} from './CheckBoxUI_Tags';
+export {default as TextFieldTags} from './TextFieldUI_Tags';
+export {default as TextFieldUI} from './TextField-ui';
+export {default as RaisedButtonUI} from './RaisedButton-ui';

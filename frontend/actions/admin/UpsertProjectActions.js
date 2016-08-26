@@ -18,7 +18,7 @@ export function getPredefinedData() {
             .then(response => {
                 if (!response.ok) {
                     throw Error(response.statusText);
-                } 
+                }
                 return response.json();
             })
             .then( json =>  {
@@ -81,7 +81,7 @@ export function postTag(tag) {
             .then(response => {
                 if (response.status != 201) {
                     throw Error(response.statusText);
-                } 
+                }
                 return response.json();
             })
             .then( json =>  {
@@ -108,7 +108,7 @@ export function postTech(tech) {
             .then(response => {
                 if (response.status != 201) {
                     throw Error(response.statusText);
-                } 
+                }
                 return response.json();
             })
             .then( json =>  {
@@ -197,7 +197,7 @@ export function uploadFile(file) {
             .then(response => {
                 if (response.status != 201) {
                     throw Error(response.statusText);
-                } 
+                }
                 return response.json();
             })
             .then( json =>  {

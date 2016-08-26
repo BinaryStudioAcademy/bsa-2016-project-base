@@ -7,22 +7,24 @@ export default class Home extends Component {
     constructor(props) {
         super(props);
         this.state = HomeInitialState(this);
+      
     }
 
     componentDidMount() {
         const self = this;
         const {model} = this.state;
+        console.log(model);
         model.component = this;
         model.searchContainer.component = this;
         model.searchContainer.searchModels.forEach(model=>model.component = self);
-        if (!model.projects.length) {
-            model.loadMore()
-        }
+        model.goSearch();
     }
+
+
 
     render() {
         const model = this.state.model;
-        return (<div>
+        return (<div className='section-cont'>
                 <MuiThemeProvider>
                     <Search model={model.searchContainer}/>
                 </MuiThemeProvider>

@@ -1,29 +1,81 @@
 @import url(https://fonts.googleapis.com/icon?family=Rambla:400,700|Source+Sans+Pro:200,400)
 @import "../common"
-
+=forSmallScreens($media)
+    @media (max-width: $media/16+em)
+        @content
 #home-project
-
+img
+  max-width: 100%
+a
+  display: block
+  text-decoration: none
 .list-group-item
+  display: block
   border: 0
   background: #efefef
+  width: 30%
+  text-align: center
+  background-color: #FFFFFF
+  border: 1px solid #E4E7EA
+  cursor: pointer
+  border-radius: 5px
+  transition: box-shadow .3s
+  padding: 2em
+  margin-bottom: 2rem
+  box-shadow: border-box
+  +forSmallScreens(640)
+    width: 100%
+    padding: 1em 0
+  &:hover
+    box-shadow: 0px 0px 25px 1px #777
+.stage-icon
+  // display: inline-block
+  margin: 25px 0 35px
+  width: 100%
+  padding-bottom: 1em
+  text-align: center
+  border-bottom: 1px solid #DBDDE0
+  span
+    margin-left: 1em
+// .list-group-item:not(:last-child)
+  // margin-bottom: 10px
 
-.list-group-item:first-child,
-.list-group-item:last-child
-  border-radius: 0
-
-.list-group-item:not(:last-child)
-  margin-bottom: 10px
-
-.list-group-item > h4
+a > h4
   margin-top: 0
-  margin-bottom: 7px
-  font-family: 'Rambla', sans-serif
-  font-weight: 700
-  font-size: 20px
+  margin-bottom: 27px
+  font-family: 'Play', sans-serif
+  // font-family: "Lato", sans-serif
+  font-weight: 300
+  font-size: 1.3rem
+  // display: inline-block
+  text-align: center
+  padding-bottom: 5px
+  border-bottom: 1px solid #A6A6A6
 
+.labels-container
+  display: flex
+
+
+.tech-label
+  display: block;
+  margin-bottom: 5px
+
+.labels
+  width: 50%
+  color: #fff
+  font-family: 'Lato', sans-serif;
+  margin-bottom: 20px
+.rank-label, .label-rank-number, .tech-name, .label-version
+  display: inline-block
+  padding: .1em .5em
+.rank-label
+  background-color:  #555
+.label-rank-number
+  background-color: #2ecc71
 .list-group-item a
   color: #555
-
+.labels + .labels
+  border-left:  1px solid #DBDDE0
 .description
   margin-top: 10px
   padding: 10px
@@ -32,6 +84,7 @@
   font-family: 'Source Sans Pro', sans-serif
   font-weight: 400
   font-size: 16px
+  text-align: center
 
 .update-date
   margin-top: 10px
@@ -48,13 +101,13 @@
 
 .label-ranking,
 .label-downloads
-  background: #d4081a
+  background: #2ecc71
 
 .label-os
   background: #AA22FF
 
 .label-version
-  background: #00A000
+  background: #2196F3
 
 .label-license
   background: #3a33d1

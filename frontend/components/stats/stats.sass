@@ -1,13 +1,26 @@
 @import "../common/styles/common"
 
+=forSmallScreens($media)
+  @media (max-width: $media/16+em)
+    @content
+
 #charts
   background: #f3f6f8
+  min-width: 500px
+  width: calc(100% - 250px)
+  padding: 10px 30px
+  height: 100vh
+  +forSmallScreens(768)
+    width: 100%
+
+  .row
+    margin-right: 0
+    margin-left: 0
 
   .controls-wrap
     display: flex
     flex-flow: row nowrap
     justify-content: space-between
-
     padding: 20px
 
   .controls-group

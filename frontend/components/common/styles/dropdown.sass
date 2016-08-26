@@ -1,0 +1,60 @@
+.dropdown-container
+    color: #8D97A4
+    font-family: "Lato", sans-serif
+    // font-size: 1.5em
+    font-weight: 300
+    font-size: 1.3em
+    position: relative
+
+.dropdown-display-hidden,
+.dropdown-display-show
+    //text-align: right
+    display: flex
+    justify-content: space-around
+    align-items: center
+    margin-bottom: 10px
+    span
+        vertical-align: top
+        font-size: 0.8em
+        text-transform: uppercase
+        margin-left: 10px
+        font-weight: 300
+.dropdown-display-hidden,
+.dropdown-display-show,
+li,
+label
+    cursor: pointer
+
+.dropdown-display-hidden + .dropdown-list
+    opacity: 0
+    visibility: hidden
+
+.dropdown-container
+    display: inline-block
+    text-align: left
+
+.dropdown-display-show + .dropdown-list
+        opacity: 1
+        visibility: visible
+
+.dropdown-list
+        position: absolute
+        transition: opacity .3s
+         border-radius: 5px;
+        padding: 0;
+        background: #fff;
+        display: inline-block;
+        padding: 1em;
+        margin: 0;
+        padding: 1em
+        border: 1px solid #E4E7EA
+        border-radius: 5px
+        max-height: 164px
+        overflow: auto
+        li + li
+            margin-top: 15px
+        li:hover
+            color: #333
+
+.hiden
+  display: none

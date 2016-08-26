@@ -11,7 +11,7 @@ ProjectRepository.prototype = new Repository();
 ProjectRepository.prototype.getByIdWithStakeholders = function(id, callback){
 	var model = this.model;
 	var query = model.findOne({_id:id})
-//				.populate('stage')
+				// .populate('stage')
 //				.populate('condition')
 				.populate('users')
 				.populate('owners');
@@ -21,7 +21,7 @@ ProjectRepository.prototype.getByIdWithStakeholders = function(id, callback){
 ProjectRepository.prototype.getByIdWithTags = function(id, callback){
 	var model = this.model;
 	var query = model.findOne({_id:id})
-//				.populate('stage')
+				// .populate('stage')
 //				.populate('condition')
 				.populate('tags');
 	query.exec(callback);

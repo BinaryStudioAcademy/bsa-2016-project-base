@@ -35,6 +35,7 @@ module.exports = function(app) {
 		});
 	}, apiResponse);
 
+
 	app.get('/api/users/',function (req,res,next) {
 		userRepository.getAll(function (err,data) {
 			res.data = data;

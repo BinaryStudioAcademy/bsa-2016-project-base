@@ -7,7 +7,10 @@ import {connect} from 'react-redux';
 import * as actions from "../../../../actions/admin/TechnologiesDetailActions";
 import styles from  '../styles.sass';
 import {Button, FormGroup, ControlLabel, FormControl, Col, Form} from 'react-bootstrap';
-import {Link} from 'react-router';
+import {Link} from 'react-router'
+import TextArea from '../../../common/TextArea.js';
+import TextInput from '../../../common/TextInput.js';
+import RaisedButtonUI from '../../../common/RaisedButton-ui.js';
 class TechDetailPage extends Component {
     constructor() {
         super();
@@ -57,7 +60,6 @@ class TechDetailPage extends Component {
             techDescription: e.target.value
         })
     }
-
     submitForm(e) {
         e.preventDefault();
         let pic;
@@ -89,7 +91,7 @@ class TechDetailPage extends Component {
     }
 
     upload(e) {
-        var error = document.getElementById('error');
+        var error =  document.getElementById('error');
         error.classList.add('hidden');
         error.classList.remove('visible');
         var file = document.getElementById('file').files[0];
@@ -102,9 +104,9 @@ class TechDetailPage extends Component {
             if (this.readyState != 4) return;
             if (this.status === 200) {
                 var result = JSON.parse(xhr.responseText);
-                if (result.type === 'success') {
+                if(result.type === 'success') {
                     document.getElementById('file_path').value = result.file;
-                } else {
+                }else{
                     error.classList.remove('hidden');
                     error.classList.add('visible');
                 }
@@ -132,49 +134,44 @@ class TechDetailPage extends Component {
                     }
 
 
-                    <Form horizontal className={styles['form']} onSubmit={this.submitForm}>
-                        <FormGroup>
-                            <Col sm={2} smPush={1}>
-                                <ControlLabel >Name of technology:</ControlLabel>
-                            </Col>
-                            <Col sm={8} smPush={1}>
-                                <FormControl required onChange={this.changeTechName} value={this.state.techName}
-                                             type="text"
-                                             name="techName"/>
-                                <div id="error" className={styles['error'] + " hidden"}>Technology length must be less
-                                    50 symbols
-                                </div>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup>
-                            <Col sm={2} smPush={1}>
-                                <ControlLabel >Description:</ControlLabel>
-                            </Col>
-                            <Col sm={8} smPush={1}>
-                                <FormControl onChange={this.changeTechDescription} value={this.state.techDescription}
-                                             name="techDescription"
-                                             componentClass="textarea"
-                                             className={styles['text-select-input']}
-                                             placeholder="Enter the description"
-                                             required></FormControl>
-                            </Col>
-                        </FormGroup>
+                    <form className={styles['form']} onSubmit={this.submitForm}>
+                        <div className="inputField">
+                            <TextInput
+                                label="Name"
+                                name="techName"
+                                onChange={this.changeTechName}
+                                value={this.state.techName}
+                                placeholder="Enter name"
+                            />
+                            <div id="error" className={styles['error'] + " hidden"}>Technology length must be less 50 symbols</div>
+                        </div>
 
-                        <Col sm={6} smPush={3}>
+                        <div className="inputField">
+                           <TextArea
+                               label="Description"
+                               name="techDescription"
+                               className={styles['text-select-input']}
+                               onChange={this.changeTechDescription}
+                               placeholder="Enter description"
+                           />
+                        </div>
+
+                        <div className="inputField">
                             {(this.state.techAvatar.length === 0) ?
                                 <div>
-                                    <input type="hidden" id="file_path" name="techAvatar"
-                                           value={this.state.techAvatar}/>
+                                    <input type="hidden" id="file_path" name="techAvatar" value={this.state.techAvatar}/>
                                     <div id="error" className={styles['error'] + " hidden"}>Wrong file formant</div>
                                     <input type="file" id="file" name="afile" onChange={this.upload}/>
                                 </div>
                                 : ''
                             }
-                            <Button block type="submit">Send</Button>
+                            <RaisedButtonUI
+                                label='Send'
+                                style={{display: 'block', marginTop: '20px'}}
+                            />
                             <Link id="return_to_list" to="/admin/tech/"></Link>
-                            <a onClick={this.makeDoc}>Make docfile</a>
-                        </Col>
-                    </Form>
+                        </div>
+                    </form>
                 </div>
             </div>
         )

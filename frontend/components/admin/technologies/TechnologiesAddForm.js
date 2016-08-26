@@ -5,7 +5,10 @@ import React, {Component, PropTypes} from 'react';
 // import styles from './styles.sass';
 import {Button, FormGroup, ControlLabel, FormControl, Col, Form} from 'react-bootstrap';
 import styles from  './styles.sass';
+import TextArea from '../../common/TextArea.js';
+import TextInput from '../../common/TextInput.js';
 import Scroll, {Element, scroller} from  'react-scroll';
+import RaisedButtonUI from '../../common/RaisedButton-ui.js';
 
 class TechnologiesAddForm extends Component {
     constructor(props) {
@@ -13,9 +16,11 @@ class TechnologiesAddForm extends Component {
         this.submitForm = this.submitForm.bind(this);
         this.upload = this.upload.bind(this);
         this.validate = this.validate.bind(this);
+        this.saveTechDescription = this.saveTechDescription.bind(this);
         this.state = {
             formState: this.props.formState,
-            techName: ''
+            techName: '',
+            techDescription: ''
         }
     }
 
@@ -49,8 +54,8 @@ class TechnologiesAddForm extends Component {
         let form = e.target;
         var file = document.getElementById('file').files[0];
         let data = {
-            techName: form.elements['techName'].value,
-            techDescription: form.elements['techDescription'].value,
+            techName: this.state.techName,
+            techDescription: this.state.techDescription,
             techAvatar: form.elements['techAvatar'].value
         };
         form.reset();
@@ -73,12 +78,12 @@ class TechnologiesAddForm extends Component {
             this.setState({
                 techName: e.target.value
             });
-            e.target.nextSibling.classList.remove('visible');
-            e.target.nextSibling.classList.add('hidden');
+            document.getElementById("error").className = 'visible';
+            document.getElementById("error").className ='hidden';
         }else{
             e.preventDefault();
-            e.target.nextSibling.classList.remove('hidden');
-            e.target.nextSibling.classList.add('visible');
+            document.getElementById("error").className ='hidden';
+            document.getElementById("error").className = 'visible';
         }
     }
 
@@ -99,39 +104,42 @@ class TechnologiesAddForm extends Component {
         }
     }
 
+    saveTechDescription(e) {
+        this.setState({techDescription: e.target.value})
+    }
+
     render() {
 
         return (
             <div id="addForm" className={styles['technologies-tab'] + ' ' + this.state.formState}>
-                <Form horizontal className={styles['form']} onSubmit={this.submitForm}>
-                    <FormGroup>
-                        <Col sm={2} smPush={1}>
-                            <ControlLabel >Name of technology:</ControlLabel>
-                        </Col>
-                        <Col sm={8} smPush={1}>
-                            <FormControl type="text" value={this.state.techName} onKeyDown={this.validate} name="techName" required/>
+                <form className={styles['form']} onSubmit={this.submitForm}>
+                        <div className="inputField">
+                            <TextInput
+                                label="Name"
+                                onChange={this.validate}
+                                placeholder="Enter name"
+                            />
                             <div id="error" className={styles['error'] + " hidden"}>Technology length must be less 50 symbols</div>
-                        </Col>
-                    </FormGroup>
-                    <FormGroup>
-                        <Col sm={2} smPush={1}>
-                            <ControlLabel >Description:</ControlLabel>
-                        </Col>
-                        <Col sm={8} smPush={1}>
-                            <FormControl name="techDescription" componentClass="textarea"
-                                         className={styles['text-select-input']}
-                                         placeholder="Enter the description"
-                                         required></FormControl>
-                        </Col>
-                    </FormGroup>
+                        </div>
+                        <div className="inputField">
+                              <TextArea
+                                  label="Description"
+                                  className={styles['text-select-input']}
+                                  onChange={this.saveTechDescription}
+                                  placeholder="Enter description"
+                              />
+                        </div>
                     <input type="hidden" id="file_path" name="techAvatar" value=''/>
-                    <Col sm={6} smPush={3}>
+                    <div className="inputField">
                         <div id="error" className={styles['error'] + " hidden"}>Wrong file formant</div>
                         <input type="file" id="file" name="afile" onChange={this.upload}/>
-                        <Button block type="submit">Send</Button>
+                        <RaisedButtonUI
+                            label='Send'
+                            style={{display: 'block', marginTop: '20px'}}
+                        />
 
-                    </Col>
-                </Form>
+                    </div>
+                </form>
                 <Element name="myScrollToElement"></Element>
             </div>
 
