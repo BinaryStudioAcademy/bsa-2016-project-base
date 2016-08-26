@@ -9,8 +9,9 @@ import TagsList from './TagsList';
 import AddTag from './AddTag';
 import TextFieldTags from '../../common/TextFieldUI_Tags';
 import CheckBoxTags from '../../common/CheckBoxUI_Tags';
-import Button from '../../common/RaisedButtonUI_Tags.js';
+import Button from '../../common/RaisedButtonUI_Tags';
 import FaSearch from 'react-icons/lib/fa/search';
+import ReduxToastr, {toastr} from 'react-redux-toastr';
 import styles from './tags.sass';
 
 class Tags extends Component {
@@ -65,10 +66,10 @@ class Tags extends Component {
 				trash.push(tag._id);
 			}
 		});
-		// if (trash.length) {
-		// 	this.props.deleteTags(trash);
-		// 	this.props.selectAll(false);
-		// }
+		/*if (trash.length) {
+		this.props.deleteTags(trash);
+		this.props.selectAll(false);
+		}*/
 		if (trash.length) {
 			const toastrConfirmOptions = {
 				onOk: () => {
@@ -85,6 +86,7 @@ class Tags extends Component {
  		let { tags, isAllChecked } = this.props.store.AdminTagReducer;
 	    return (
 	    	<div className={styles["tags-tab"]} id={styles["tags"]}>
+	    			<ReduxToastr/>
 	    			<div className={styles["tags-panel-top"]}>
 				    	<div className={styles["tags-tools"]}>
 				    		<div className={styles.col}>
@@ -102,7 +104,7 @@ class Tags extends Component {
 				    		/>
 				    		<Button
 				    			label='Remove'
-				    			onClick={this.deleteMany}
+				    			onAdd={this.deleteMany}
 				    			backgroundColor='#FC5A5A'
 				    		/>
 				    		</div>
