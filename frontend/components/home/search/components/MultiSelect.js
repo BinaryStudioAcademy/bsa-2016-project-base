@@ -44,7 +44,7 @@ export default class MultiSelect extends Modelable {
                         receiver={model.setCustom}/>
                     {model.isLoading?<CircularProgress size={0.5}/>:""}
                 </div>
-                <div style={{"marginTop":"40px", overflow:"auto", "maxHeight":"260px"}}>
+                <div style={{"marginTop":"60px", overflow:"auto", "maxHeight":"260px"}}>
                     {tips}</div>
             </div>
             <div style={{width:"60%",overflow:"auto", "maxHeight":"300px"}} >
