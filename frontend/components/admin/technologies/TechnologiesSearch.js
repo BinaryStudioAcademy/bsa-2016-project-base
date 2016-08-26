@@ -1,7 +1,9 @@
 import React, {Component, PropTypes} from 'react';
+import TextFieldUI from '../../common/TextField-ui.js';
+import { Col, FormControl, InputGroup } from 'react-bootstrap';
 import styles from './styles.sass';
-import {Col, FormControl, InputGroup} from 'react-bootstrap';
-import TextInput from '../../common/TextInput.js';
+import FaSearch from 'react-icons/lib/fa/search';
+
 class TechnologiesSearch extends Component {
     constructor(props) {
         super(props);
@@ -22,16 +24,14 @@ class TechnologiesSearch extends Component {
 
     render() {
         return (
-            <Col>
-                    <InputGroup>
-                        <TextInput
-                            className={styles['search-input']}
-                            onChange={this.onChange}
-                            placeholder="Search technology"
-                            value={this.state.item}
-                        />
-                    </InputGroup>
-            </Col>
+            <div className = "searchTech">
+                    <FaSearch size={15} />
+                                    <TextFieldUI
+                        onChange={ this.onChange}
+                        hintText="Search technology"
+                        style={{width: "200px", display: "block", margin: "0 auto"}}
+                    />
+                </div>
         )
     }
 }

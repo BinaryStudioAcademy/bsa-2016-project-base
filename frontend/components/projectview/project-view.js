@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { bindActionCreators, combineReducers} from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/project-view-actions.js';
@@ -9,8 +10,93 @@ import UserList from './users-component/users_list';
 import styles from './project-view.sass';
 import EstimationFile from "./estimationFile/EstimationFileReceiverComponentWithLinkField"
 import Questions from './questions/Questions'; // QuestionsStatic is just for static representation
-import { Accordion, Button, Panel, Nav, NavItem, Tabs, Tab, Table, Grid, Row, Col, Thumbnail, Glyphicon } from 'react-bootstrap';
 import FaList from 'react-icons/lib/fa/list';
+import {Tabs, Tab} from 'material-ui/Tabs';
+import Slider from 'material-ui/Slider';
+import RaisedButtonUI from '../../components/common/RaisedButton-ui';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {List, ListItem} from 'material-ui/List';
+import ContentInbox from 'material-ui/svg-icons/content/inbox';
+import ActionGrade from 'material-ui/svg-icons/action/grade';
+import ContentSend from 'material-ui/svg-icons/content/send';
+import ContentDrafts from 'material-ui/svg-icons/content/drafts';
+import Divider from 'material-ui/Divider';
+import ActionInfo from 'material-ui/svg-icons/action/info';
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, averageRating} from 'material-ui/Table';
+
+
+const tabsStyles = {
+	headline: {
+		fontSize: 24,
+		paddingTop: 16,
+		marginBottom: 12,
+		fontWeight: 400,
+	},
+	tabItemContainerStyle: {
+		backgroundColor: "#78909C",
+	},
+
+	tabBlock: {
+	    "margin-top": "20px",
+	}
+};
+
+function handleActive(tab) {
+	alert(`A tab with this route property ${tab.props['data-route']} was activated.`);
+}
+const TabsExampleSimple = ({viewStageName, viewStartedDate, viewEndDate, viewCondition, averageRating, questions}) => (
+	<MuiThemeProvider >
+	<Tabs tabItemContainerStyle={tabsStyles.tabItemContainerStyle} contentContainerStyle={tabsStyles.tabBlock}>
+		<Tab label="Users" className='fsgwarfw' >
+					<UserList />
+		</Tab>
+		<Tab label="Screenshots" >
+			<div>
+				<div className="screenshots">
+					<Screenshots />
+				</div>
+			</div>
+		</Tab>
+		<Tab label="General information">
+			<div>
+				<Table>
+					<TableBody>
+						<TableRow>
+							<TableRowColumn>Stage</TableRowColumn>
+							<TableRowColumn>{viewStageName}</TableRowColumn>
+						</TableRow>
+						<TableRow>
+							<TableRowColumn>Started</TableRowColumn>
+							<TableRowColumn>{viewStartedDate}</TableRowColumn>
+						</TableRow>
+						<TableRow>
+							<TableRowColumn>Completed</TableRowColumn>
+							<TableRowColumn>{viewEndDate}</TableRowColumn>
+						</TableRow>
+						<TableRow>
+							<TableRowColumn>Condition</TableRowColumn>
+							<TableRowColumn>{viewCondition}</TableRowColumn>
+						</TableRow>
+                        <TableRow>
+                            <TableRowColumn>Average Rating</TableRowColumn>
+                            <TableRowColumn>{averageRating}</TableRowColumn>
+                        </TableRow>
+					</TableBody>
+				</Table>
+			</div>
+		</Tab>
+        <Tab label="Questions" >
+            <div>
+                <div className="Questions">
+                    <Questions id="q-and-a" questions={questions} />
+                </div>
+            </div>
+        </Tab>
+	</Tabs>
+	</MuiThemeProvider>
+);
+
+
 
 
 class ProjectView extends Component {
@@ -90,52 +176,22 @@ class ProjectView extends Component {
 						<span className="technologies">
 							<TechnologiesList />
 						</span>
-						<div className="screenshots">
-							<Screenshots />
-						</div>
+						<TabsExampleSimple viewStageName={viewStageName} viewStartedDate={viewStartedDate}
+                        viewEndDate={viewEndDate} viewCondition={viewCondition} averageRating="5"
+                                           questions={currentProject.questions}/>
 					</div>
 				</div>
-
-				<div className="tableDescriptionProject">
-					{/*<table>
-						<tbody>
-						<tr>
-							<td>Stage:</td>
-							<td><span>{viewStageName}</span></td>
-						</tr>
-						<tr>
-							<td>Started:</td>
-							<td><span>{viewStartedDate}</span></td>
-						</tr>
-						<tr>
-							<td>Completed:</td>
-							<td><span>{viewEndDate}</span></td>
-						</tr>
-						<tr>
-							<td>Condition:</td>
-							<td><span>{viewCondition}</span></td>
-						</tr>
-						<tr>
-							<td>Average Rating:</td>
-							<td><span>5</span></td>
-						</tr>
-						</tbody>
-					</table>
-					*/}
-					<div title="Users/Owners" >
-						<UserList />
-					</div>
-				</div>
-
 
 
 
 			    	<div className={styles.info}>
-
-        				<div eventKey={5} title="Features" onClick={this.props.getProjectFeatures}><div>Table of features</div></div>
-        				<div eventKey={6} title="Ratings"></div>
-						<Questions id="q-and-a" questions={currentProject.questions} />
-			    		<Button className={styles.btn} href='/'>Back to Project List</Button>
+                        {/*<div eventKey={5} title="Features" onClick={this.props.getProjectFeatures}><div>Table of features</div></div>*/}
+						<RaisedButtonUI
+							href='/'
+							className={styles.btn}
+							label='Back to Project List'
+							style={{display: 'block', marginTop: '30px', width: "40%", margin: "20px auto"}}
+						/>
 			    	</div>
 			    </div>
           )

@@ -6,7 +6,7 @@ const style = {
   margin: 12,
 };
 
-const RaisedButtonUI = ({id, label, onClick, style}) => (
+const RaisedButtonUI = ({id, label, onClick, style, href}) => (
   <div>
     <MuiThemeProvider>
       <RaisedButton
@@ -20,6 +20,7 @@ const RaisedButtonUI = ({id, label, onClick, style}) => (
             fontFamily: 'Lato'
         }}
         backgroundColor='#627484'
+          href={href}
       />
     </MuiThemeProvider>
   </div>
