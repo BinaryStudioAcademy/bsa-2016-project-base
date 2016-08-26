@@ -28,10 +28,16 @@ export default class HomeProjects extends React.Component {
          model.onErrorSearch = model.onErrorSearch || errorGet;*/
         const projects = model.projects;
         const {activePage,recordsPerPage,total} = model.pagination;
-        return <div>
-            <Row>
-                <Col className={styles.bk}>
-                    <div style={{display:"flex"}}>
+        return <div className='body'>
+            <div>
+                <div className={styles.bk}>
+                    <div style={{display:"flex",
+    fontFamily: "Lato, sans-serif",
+    fontSize: "1rem",
+    marginBottom: "2rem",
+    justifyContent: "flex-end",
+    paddingRight: "1.1rem"
+                }}>
                         <GeneralInformation
                             cnt={ total }/>
                         {model.isLoading ? <CircularProgress size={0.6}/> : ""}
@@ -40,14 +46,14 @@ export default class HomeProjects extends React.Component {
                         projects={projects}/>
                     <div style={{display:"flex"}}>
                         {model.projects.length?<Waypoint onEnter={model.loadMore}/>:""}
-                        <RaisedButton
+                        {/*<RaisedButton
                             label="Load More"
-                            onClick={model.loadMore}/>
+                            onClick={model.loadMore}/>*/}
                         {model.loadMoreErrorMessage}
                         {model.isLoading ? <CircularProgress size={0.6}/> : ""}
                     </div>
-                </Col>
-            </Row>
+                </div>
+            </div>
         </div>
     }
 }

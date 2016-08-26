@@ -24,7 +24,7 @@ export default class Home extends Component {
 
     render() {
         const model = this.state.model;
-        return (<div>
+        return (<div className='section-cont'>
                 <MuiThemeProvider>
                     <Search model={model.searchContainer}/>
                 </MuiThemeProvider>
