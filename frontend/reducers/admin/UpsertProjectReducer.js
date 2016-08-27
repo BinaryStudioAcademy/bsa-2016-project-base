@@ -146,12 +146,12 @@ export default function UpsertProjectReducer(state=initialState, action) {
         }
         
         case types.UP_UPLOAD_FILE_SUCCESS: {
-            const {path} = action.data;
+            const {path,thumb} = action.data;
             const {files} = state;
             return Object.assign({}, state, {
                 files: files.concat({
                 	url: path,
-                	thumb: path,
+                	thumb: thumb,
                 	name: path.slice(path.lastIndexOf('/')+1,path.length)
                 })
             });
