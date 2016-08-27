@@ -1,6 +1,5 @@
 var async = require('async');
 var userRepository = require('../repositories/userRepository');
-var conditionRepository = require('../repositories/conditionRepository');
 var tagRepository = require('../repositories/tagRepository');
 var technologyRepository = require('../repositories/technologyRepository');
 var featureRepository = require('../repositories/featureRepository');
@@ -13,13 +12,6 @@ module.exports = function(onResult) {
         	userRepository.getAll(function (err,data) {
         		if (err) return callback(err);
 				collections.users = data;
-				callback();
-			});
-        },
-        function(callback) {
-        	conditionRepository.getAll(function (err,data) {
-        		if (err) return callback(err);
-				collections.conditions = data;
 				callback();
 			});
         },
