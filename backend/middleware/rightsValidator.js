@@ -2,7 +2,7 @@ var Cookies = require('cookies');
 
 module.exports = function(req, res, next) {
 	var directions = [], cookies = new Cookies(req, res),
-	role = Cookies.get('userRole').toLowerCase(),
+	role = cookies.get('userRole').toLowerCase(),
 		matches = req.url.split('/'),
 		currentDirection = matches[2];
 
