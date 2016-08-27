@@ -1,7 +1,3 @@
-/**
- * Created by user on 09.08.2016.
- */
-
 import techService from "./../services/TechnologieService"
 import tagService from "./../services/admin/AdminTagService"
 export function addData(data){

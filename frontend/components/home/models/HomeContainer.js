@@ -44,7 +44,22 @@ export default class HomeContainer extends Updatable {
         this.loadMoreErrorMessage = undefined;
         this.notifyUpdated();
         /**
-         * @type {Array.<"name=value">}
+         *         this.isLoading = true;
+        this.loadMoreErrorMessage = undefined;
+        this.notifyUpdated();
+        var query = this.searchContainer.getQuery().slice();
+        query.push(`limit=${this.pagination.recordsPerPage}`);
+        query.push(`skip=${this.pagination.recordsPerPage * (this.pagination.activePage)}`);
+        searchService.getProjects(query.join("&"),(data)=>{
+            if (this.pagination.activePage > 0) 
+                this.projects.push(...data.projects);
+            else this.projects = data.projects;
+            if (!this.projects) this.projects = [];
+            this.pagination.total = data.total;
+            this.isLoading = false;
+            this.errorMessage = !(this.projects.length ? "Not found" : undefined);
+            this.notifyUpdated();
+        });
          */
         var query = this.searchContainer.getQuery().slice();
         //query.recordsPerPage = this.pagination.recordsPerPage;

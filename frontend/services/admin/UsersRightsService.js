@@ -1,41 +1,40 @@
 import promise from 'es6-promise';
-import fetch from 'isomorphic-fetch';
-import { API } from '../../constants/Api';
-
 promise.polyfill();
-
-var headers =   {
-  'Accept': 'application/json',
-  'Content-Type': 'application/json'
-}
+import fetch from 'isomorphic-fetch';
+import * as constants from '../../constants/Api';
 
 class UsersRightsService {
-  getProjectUsers(projectId,filterName, usersRight) {
-    var queryString =  `${API}rights/projects/${projectId}/`;
-    if(filterName || usersRight){
-       queryString+= 'users/';
-       if(filterName) queryString +=`filterName=${filterName}`;
-       if(filterName && usersRight) queryString+="&";
-       if(usersRight)  queryString +=`usersRight=${usersRight}`;
+
+    constructor(){
+        this.url = constants.URL + "rights/projects/";
     }
-    return fetch(queryString, {
-      method: 'GET',
-      headers: headers
-    });
-  }
-  getProjectsList() {
-    return fetch(`${API}rights/projects/`, {
-      method: 'GET',
-      headers: headers
-    });
-  }
-  saveProjectUsers(projectId, data){       
-    return fetch(`${API}rights/projects/${projectId}`, {
-      method: "PUT",
-      body: JSON.stringify(data),
-      headers: headers
-    });
-  }
+
+    getProjectUsers(projectId,filterName, usersRight) {
+        let query =  `${this.url}${projectId}/`;
+        if(filterName || usersRight){
+            queryString+= 'users/';
+            if(filterName) query += `filterName=${filterName}`;
+            if(filterName && usersRight) query += "&";
+            if(usersRight)  query += `usersRight=${usersRight}`;
+        }
+        return fetch(query,constants.cookieMarker);
+    }
+
+    getProjectsList() {
+        return fetch(this.url, constants.cookieMarker);
+    }
+
+    saveProjectUsers(projectId, data){      
+        return fetch(`${this.url}${projectId}`,
+            Object.assign({
+                method: "PUT",
+                body: JSON.stringify(data)
+            },  constants.cookieMarker,
+                constants.jsonHedeaders
+            )
+        );
+    }
+
 }
 
 const usersRightsService = new UsersRightsService();

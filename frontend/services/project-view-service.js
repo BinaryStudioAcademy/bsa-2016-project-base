@@ -2,7 +2,6 @@ import promise from 'es6-promise';
 promise.polyfill();
 import fetch from 'isomorphic-fetch';
 
-
 class ProjectViewService {
 
 
@@ -25,20 +24,14 @@ class ProjectViewService {
 
 
     getListProjects(path, dispatch, dispObj) {
-
-    	console.log('project-view-service -> getListProjects() parameters: ', path, dispatch, dispObj);
-
-    	let returnValue = fetch(path, { method: 'GET', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}})
+    	let returnValue = fetch(path, {credentials:  'include'})
 	    	.then(this.checkStatus)
 	    	.then(this.parseJSON)
 	    	.then(data => {
-	      		console.log('project-view-service -> getListProjects() -> then.getListProjects():', data);
-	      		//return data;
 	      		dispObj.projList = data;
 	      		console.log('getListProjects(...) -> Object to dispatch: ', dispObj);
 	      		dispatch(dispObj);
 	    	});
-		console.log('ProjectViewService.getListProjects(): ', returnValue);
 		return dispObj;
 	}
 
