@@ -37,6 +37,7 @@ module.exports = function(req, res, next) {
     		}
     		break;
     }
+    console.log(currentDirection,directions.indexOf(currentDirection),directions);
 	if(directions.indexOf(currentDirection) != -1) res.send(500, { error: 'You have not rights' });
 	next();
 }
