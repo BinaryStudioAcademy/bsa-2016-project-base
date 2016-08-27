@@ -5,7 +5,6 @@ module.exports = function(req, res, next) {
 	role = cookies.get('userRole').toLowerCase(),
 		matches = req.url.split('/'),
 		currentDirection = matches[2];
-
     switch(req.method.toLowerCase()){
     	case 'get':
     		if(role != 'admin'){
@@ -37,7 +36,7 @@ module.exports = function(req, res, next) {
     		}
     		break;
     }
-    console.log(currentDirection,directions.indexOf(currentDirection),directions);
+    //console.log(currentDirection,directions.indexOf(currentDirection),directions);
 	if(directions.indexOf(currentDirection) != -1) res.send(500, { error: 'You have not rights' });
 	next();
 }
