@@ -13,7 +13,6 @@ export default class Project extends Component {
 
     render() {
         const { project, ranking, id} = this.props;
-
         return (
             <li key={id} className={styles['list-group-item']}>
                 <Link to={`/project-view/${project._id}`}>
@@ -22,7 +21,7 @@ export default class Project extends Component {
                 </h4>
                 <img src="http://placehold.it/140x100" />
                 {
-                    (project.isCompleted) ?
+                    (project.status === "Completed") ?
                         <div className={styles['stage-icon']}>
                             <FaCheckCircleO size={25} color="#2ECC71" />
                             <span>PROJECT COMPLETED</span>

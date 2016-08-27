@@ -73,7 +73,7 @@ class ProjectViewService {
 	      		//return data;
 	      		dispObj.selectedProject = data;
 
-	      		const reqStagePath = state.CONST_stagesRestPath + '/' + data.stage;
+	      		/*const reqStagePath = state.CONST_stagesRestPath + '/' + data.stage;
 	      		console.log('project-view-service -> getProject() requested "projects stage" path: ', reqStagePath);
 	      		fetch(reqStagePath, { method: 'GET', headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}})
 	      			.then(this.checkStatus)
@@ -95,7 +95,7 @@ class ProjectViewService {
 			    				console.log('getProject(...) -> Object to dispatch: ', dispObj);
 			      				dispatch(dispObj);
 	    					});
-	    			});
+	    			});*/
 	      		console.log('getProject(...) -> Object to dispatch: ', dispObj);
 	      		dispatch(dispObj);
 	    	});
@@ -103,8 +103,8 @@ class ProjectViewService {
 		//return dispObj;
 	}
 
-
-	getProjectStage(path, dispatch, dispObj) {
+	//there is no stage more
+	/*getProjectStage(path, dispatch, dispObj) {
 		console.log('project-view-service -> getProjectsStage() parameters: ', path, dispatch, dispObj);
 
 		const reqPath = path + '/' + dispObj.projStageId;
@@ -122,7 +122,7 @@ class ProjectViewService {
 	    	});
 		//console.log('ProjectViewService.getProjectsStage(): ', returnValue);
 		//return dispObj;
-	}
+	}*/
 
 	getProjectTags(path, dispatch, dispObj) {
 		console.log('project-view-service -> getProjectTags() parameters: ', path, dispatch, dispObj);

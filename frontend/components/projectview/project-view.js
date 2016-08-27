@@ -44,7 +44,7 @@ const tabsStyles = {
 function handleActive(tab) {
 	alert(`A tab with this route property ${tab.props['data-route']} was activated.`);
 }
-const TabsExampleSimple = ({viewStatusName, viewStartedDate, viewEndDate, viewCondition, averageRating, questions}) => (
+const TabsExampleSimple = ({viewStatusName, viewStartedDate, viewEndDate, averageRating, questions}) => (
 	<MuiThemeProvider >
 	<Tabs tabItemContainerStyle={tabsStyles.tabItemContainerStyle} contentContainerStyle={tabsStyles.tabBlock}>
 		<Tab label="Users" className='fsgwarfw' >
@@ -147,10 +147,12 @@ class ProjectView extends Component {
 			  " default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. " +
 			  "Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour " +
 			  "and the like).";
+
     	let viewStatusName = (currentProject == 'none') ? 'Loading... please wait!' : currentProject.status;
 			let viewStartedDate = (currentProject == 'none') ? 'Loading... please wait!' : this.formatDate(new Date(currentProject.timeBegin));
 			let viewEndDate = (currentProject == 'none') ? 'Loading... please wait!' : this.formatDate(new Date(currentProject.timeEnd));
 			//let viewCondition = (currentProject == 'none') ? 'Loading... please wait!' : currentProject.condition.conditionName;
+    	
 		//let viewUsers = (currentProject !== 'none') ? currentProject.users.toString() : 'Users list: Loading... please wait!';
 			let viewUsers = (currentProject == 'none') ? 'Users list: Loading... please wait!' : 'Users list: ...under develop.';
 		//let viewOwners = (currentProject !== 'none') ? currentProject.owners.toString() : 'Owners list: Loading... please wait!';
@@ -173,8 +175,7 @@ class ProjectView extends Component {
 							<TechnologiesList />
 						</span>
 						<TabsExampleSimple viewStatusName={viewStatusName} viewStartedDate={viewStartedDate}
-                        viewEndDate={viewEndDate}  averageRating="5"
-                                           questions={currentProject.questions}/>
+                        viewEndDate={viewEndDate}  averageRating="5" questions={currentProject.questions}/>
 					</div>
 				</div>
 
