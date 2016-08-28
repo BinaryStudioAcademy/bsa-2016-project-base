@@ -18,7 +18,7 @@ var Project = new Schema({
         Longitude: String
     },
 
-    // isCompleted: Boolean,
+    isCompleted: Boolean,
 
     description: {
         date: {type: Date, default: Date.now},
@@ -46,11 +46,9 @@ var Project = new Schema({
 
     tags: [{type: Schema.Types.ObjectId, ref: 'Tag'}],
         
-    // stage: {type: Schema.Types.ObjectId, ref: 'Stage'},
+    stage: {type: Schema.Types.ObjectId, ref: 'Stage'},
 
-    // condition: {type: Schema.Types.ObjectId, ref: 'Condition'},
-
-    status: {type: String, enum: ['Estimation', 'InProgress', 'Completed']},
+    condition: {type: Schema.Types.ObjectId, ref: 'Condition'},
 
     questions:[{
         question:{

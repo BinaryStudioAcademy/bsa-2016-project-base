@@ -80,7 +80,7 @@ module.exports = function(app) {
 
 	app.get('/api/search/projects', function (req, res, next) {
 		console.log('GET request on "/api/search/projects" acquired.');
-		searchService.getFilteredProjects2(req, function (err, data) {
+		searchService.getFilteredProjects(req, function (err, data) {
 			res.data = data;
 			res.err = err;
 			//res.json(data);
