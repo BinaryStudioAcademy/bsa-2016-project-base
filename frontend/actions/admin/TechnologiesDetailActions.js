@@ -2,10 +2,10 @@
  * Created by razor on 04.08.16.
  */
 import fetch from 'isomorphic-fetch'
-
+import * as constants from '../../constants/Api';
 export function getTechnologies(id) {
     return dispatch=> {
-        fetch(`/api/technology/`+id)
+        fetch(`/api/technologies/`+id, constants.cookieMarker)
             .then(response => (response.status !== 404)?response.json(): {  })
             .then(json => dispatch(initTechnology(json)))
             .catch(error => dispatch(errorHandler('Bad Request')));
@@ -27,7 +27,7 @@ export function saveTechology(params) {
                 'Content-Type': 'application/json',
                 Accept: 'application/json'
             })
-        })
+        }, constants.cookieMarker)
             .catch(error => dispatch(errorHandler('Bad Request')));
     }
 }
@@ -40,7 +40,7 @@ export function deleteImage(path,id) {
                 'Content-Type': 'application/json',
                 Accept: 'application/json'
             })
-        })
+        }, constants.cookieMarker)
             .catch(error => dispatch(errorHandler('Bad Request')));
 
         dispatch(getTechnologies(id));
@@ -55,7 +55,7 @@ export function updateData(id,data){
                 'Content-Type': 'application/json',
                 Accept: 'application/json'
             })
-        })
+        }, constants.cookieMarker)
             .catch(error => dispatch(errorHandler('Bad Request')));
         dispatch(getTechnologies(id));
 

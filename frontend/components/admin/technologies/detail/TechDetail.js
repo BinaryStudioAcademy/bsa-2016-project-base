@@ -6,7 +6,6 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as actions from "../../../../actions/admin/TechnologiesDetailActions";
 import styles from  '../styles.sass';
-import {Button, FormGroup, ControlLabel, FormControl, Col, Form} from 'react-bootstrap';
 import {Link} from 'react-router'
 import TextArea from '../../../common/TextArea.js';
 import TextInput from '../../../common/TextInput.js';
@@ -18,7 +17,6 @@ class TechDetailPage extends Component {
         this.changeTechDescription = this.changeTechDescription.bind(this);
         this.deleteImage = this.deleteImage.bind(this);
         this.submitForm = this.submitForm.bind(this);
-        this.makeDoc = this.makeDoc.bind(this);
         this.state = {
             techName: '',
             techDescription: '',
@@ -37,9 +35,7 @@ class TechDetailPage extends Component {
         this.props.updateData(this.props.routeParams.id, data);
     }
 
-    makeDoc() {
-        this.props.makeDoc(this.state);
-    }
+
 
     changeTechName(e) {
         if (e.target.value.length < 50) {
@@ -80,7 +76,6 @@ class TechDetailPage extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps.state.doc);
         this.setState({
                 techName: nextProps.state.listOfTechnologies.techName,
                 techDescription: nextProps.state.listOfTechnologies.techDescription,
@@ -116,6 +111,7 @@ class TechDetailPage extends Component {
     }
 
     componentWillMount() {
+
         this.props.getTechnologies(this.props.routeParams.id);
     }
 
@@ -153,6 +149,7 @@ class TechDetailPage extends Component {
                                className={styles['text-select-input']}
                                onChange={this.changeTechDescription}
                                placeholder="Enter description"
+                               value={this.state.techDescription}
                            />
                         </div>
 

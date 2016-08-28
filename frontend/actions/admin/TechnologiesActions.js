@@ -2,11 +2,11 @@
  * Created by razor on 04.08.16.
  */
 import fetch from 'isomorphic-fetch'
-
+import * as constants from '../../constants/Api';
 export function getTechnologies() {
     let error_code;
     return dispatch=> {
-        fetch(`/api/technologies/`)
+        fetch(`/api/technologies/`, constants.cookieMarker)
             .then(response => response.json())
             .then(json => dispatch(initTechnology(json)))
             .catch(error => {
@@ -26,19 +26,33 @@ export function initTechnology(listOfTechno) {
 }
 export function saveTechology(params) {
     return dispatch=> {
-        fetch("/api/technologies/", {
-            method: 'POST',
-            body: JSON.stringify(params),
-            headers: ({
-                'Content-Type': 'application/json',
-                Accept: 'application/json'
-            })
-        })
+        fetch("/api/technologies/",  Object.assign({
+                method: 'POST',
+                body: params
+            },  constants.cookieMarker,
+            constants.jsonHedeaders
+        ))
             .catch(error => dispatch(errorHandler('Bad Request')));
         dispatch(getTechnologies());
 
     }
 }
+// export function saveTechology(params) {
+//     return dispatch=> {
+//         fetch("/api/technologies/", {
+//             method: 'POST',
+//             body: JSON.stringify(params),
+//             headers: ({
+//                 'Content-Type': 'application/json',
+//                 Accept: 'application/json'
+//             }),
+//             credentials: constants.cookieMarker
+//         })
+//             .catch(error => dispatch(errorHandler('Bad Request')));
+//         dispatch(getTechnologies());
+//
+//     }
+// }
 export function searchTechnology(params) {
     const action = {
         type: 'SEARCH_TECHNOLOGY',
@@ -65,7 +79,7 @@ export function removeSelectedTechs(technologies) {
             if (tech.checked === 'checked') {
                 fetch(`/api/technologies/${tech._id}`, {
                     method: 'DELETE'
-                })
+                }, constants.cookieMarker)
                     .catch(error => dispatch(errorHandler('Bad Request')));
             }
         });
