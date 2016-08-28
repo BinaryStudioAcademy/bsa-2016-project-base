@@ -9,7 +9,7 @@ import Tags from './sections/Tags';
 import Techs from './sections/Techs';
 import Features from './sections/Features';
 import Attachments from './sections/Attachments';
-
+import styles from './sections/styles/wrapper.sass';
 class UpsertProject extends Component {
 	constructor(props) {
 	    super(props);
@@ -121,7 +121,7 @@ class UpsertProject extends Component {
  	render() {
         console.log('Rerender Upsert');
 	    return (
-	    	<div>
+	    	<div id={styles['add-project-wrapper']}>
 	    		<Inputs/>
         		<br/>
         		<Features/>
