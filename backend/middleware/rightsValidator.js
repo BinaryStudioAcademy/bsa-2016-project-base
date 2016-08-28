@@ -31,7 +31,7 @@ module.exports = function(req, res, next) {
     	case 'delete':
     		directions.push('users');
     		if(role != 'admin'){
-    			directions = ['technologies','tags','stages','projects','conditions'];
+    			directions = ['technologies','tags','stages','projects','conditions','file'];
     			if(role == 'user') directions.push('file','sections','features');
     		}
     		break;

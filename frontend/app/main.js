@@ -34,7 +34,7 @@ const errorHandler = store => next => action => {
 const store = createStore(
   rootReducer,
   {},
-  compose(applyMiddleware(thunk),window.devToolsExtension ? window.devToolsExtension() : f => f)
+  compose(applyMiddleware(thunk,errorHandler),window.devToolsExtension ? window.devToolsExtension() : f => f)
 );
 render(
     (<Provider store={store}>
