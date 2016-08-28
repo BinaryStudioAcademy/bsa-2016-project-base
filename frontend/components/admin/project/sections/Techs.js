@@ -134,14 +134,14 @@ class Techs extends Component {
         			
     	    		<div>
     	    			<div className={styles['list-container']}>
-                        All tags:
+                        All technologies:
                         <div className={styles['list']}>
                          	{predefinedTags}
                         </div>
     	                </div>
     	               
     	                 <div className={styles['list-container']}>
-    	                     Tags in project:
+    	                     Technologies in project:
     	                     <div className={styles['list']}>
     	                        {usedTags}
     	                     </div>
