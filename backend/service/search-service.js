@@ -92,39 +92,9 @@ class SearchService {
     		if (res.filteredTechsIds!= null) {projQueryObj.technologies = {$in: res.filteredTechsIds}};
     		console.log('projQueryObj', projQueryObj);
 
-    // 		var query = Projects.find(projQueryObj, 
-    // 								{features: 0, questions: 0, screenShots: 0, attachments: 0},
-    // 								{skip: searchFilters.queryProjSkip, limit: searchFilters.queryProjLimit, sort: {_id: -1}})
-    // 							.populate([{
-				//                     path: 'users',
-				//                     model: 'User',
-				//                     select: 'login userName userSurname position'
-				//                 }, {
-				//                     path: 'owners',
-				//                     model: 'User',
-				//                     select: 'login userName userSurname position'
-				//                 },{
-				//                     path: 'tags',
-				//                     model: 'Tag'
-				//                 },{
-				//                     path: 'technologies',
-				//                     model: 'Technologies',
-				//                     select: 'techName techDescription techVersion'
-				//                 },{
-				//                     path: 'stage',
-				//                     model: 'Stage'
-				//                 },{
-				//                     path: 'condition',
-				//                     model: 'Condition'
-				//                 }]);
-	   //      query.exec((err, result)=>{
-	   //      	searchReturn.sortedProjList = result;
-	   //      	searchReturn.found = result.length;
-				// callback(null, searchReturn);
-	   //      });
 			var query = Projects.find(projQueryObj, 
     								{features: 0, questions: 0, screenShots: 0, attachments: 0},
-    								{sort: {_id: -1}})
+    								{skip: searchFilters.queryProjSkip, limit: searchFilters.queryProjLimit, sort: {_id: -1}})
     							.populate([{
 				                    path: 'users',
 				                    model: 'User',
@@ -141,11 +111,26 @@ class SearchService {
 				                    model: 'Technologies',
 				                    select: 'techName techDescription techVersion'
 				                }]);
-	        query.exec((err, result)=>{
-	        	searchReturn.found = result.length;
-	        	searchReturn.sortedProjList = result.slice(searchFilters.queryProjSkip, searchFilters.queryProjSkip + searchFilters.queryProjLimit);
+
+			var queryCount = Projects.find(projQueryObj).count();
+
+			async.parallel({
+				projList: 	function(cbk){
+	        					query.exec(cbk);
+	        				},
+	        	matchProj:  function(cbk){
+	        					queryCount.exec(cbk);
+	        				}
+
+			}, (err, result)=>{
+				searchReturn.found = result.matchProj;
+				searchReturn.sortedProjList = result.projList;
 				callback(null, searchReturn);
-	        });
+			});
+
+
+
+
     	});
 	}
 }
