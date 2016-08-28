@@ -41,12 +41,11 @@ export default class PredicateModel extends Updatable {
         this.validateMessage = "";
         this.validatePredicateTimeoutId = 0;
         this.validatePredicate = this.validatePredicate.bind(this);
-        this.searchContainerNotifyUpdated = undefined;
     }
 
     handleOpen() {
         this.isOpen = true;
-        this.notifyUpdated()
+        this.validatePredicate();
     }
 
     handleClose() {
@@ -95,13 +94,16 @@ export default class PredicateModel extends Updatable {
     }
 
     goSearch() {
-        this.handleClose();
-        this.searchContainer.searchModels.push(this);
-        this.searchContainer.goExtendedSearch();
-        if (this.searchContainer.searchModels.pop() !== this) {
-            throw new Error("Cant pop back")
+        this.validatePredicate();
+        if (!this.validateMessage){
+            this.handleClose();
+            this.searchContainer.searchModels.push(this);
+            this.searchContainer.goExtendedSearch();
+            if (this.searchContainer.searchModels.pop() !== this) {
+                throw new Error("Cant pop back")
+            }
+            this.notifyUpdated()
         }
-        this.notifyUpdated()
     }
 
     getRequestRepresentation() {
