@@ -28,4 +28,7 @@ export default class Technologies extends MultiSelectModel{
     getValueInRequest(){
         return this.values.map(value=>value.name)
     }
+    getTitleInSingular(){
+        return "Tech"
+    }
 }

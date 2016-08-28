@@ -8,6 +8,7 @@ import TechnologieModel from "./../search/models/Technologies"
 import DateModel from "./../search/models/Dates"
 import HomeContainer from "./../models/HomeContainer"
 import OvnersModel from "./../search/models/Owners"
+import PredicateModel from "./../search/models/PredicateModel"
 const state = {
     model: new HomeContainer({
         searchContainer: new SearchContainer({
@@ -26,9 +27,13 @@ const state = {
         //component: this
     })
 };
+state.model.searchContainer.predicateModel = new PredicateModel(
+    {searchContainer:state.model.searchContainer}
+);
 export default function (that) {
     state.model.component =  that;
     state.model.searchContainer.component = that;
+    state.model.searchContainer.predicateModel.component = that;
     state.model.searchContainer.searchModels.forEach(model=>{
         model.component = that;
     });
