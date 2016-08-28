@@ -7,7 +7,7 @@ import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 import Container from "./../models/SearchContainer"
 import DeferredTextInput from "./TextInput"
-
+import PredicateSearch from "./PredicateSearch"
 export default class ContainerWithHideButtonSearchFieldAndSubmit extends React.Component {
     constructor(props) {
         super(props)
@@ -67,9 +67,10 @@ export default class ContainerWithHideButtonSearchFieldAndSubmit extends React.C
                     {model.title} : {model.values.map(value=>model.getText(value)).join(", ")}
                 </div>:""
         )}</div>;
+        const predicateSearch = model.shouldShowSearch?<PredicateSearch model={model.predicateModel}/>:"";
         return (
             <div className='inputs-tool'>
-                <div id='inputs'>{searchInput}  {fastInputButton}  {showButton} {clearSearchButton}</div>
+                <div id='inputs'>{searchInput}  {fastInputButton}  {showButton} {clearSearchButton} {predicateSearch}</div>
                 {model.shouldShowHint?hint:""}
                 {/*hint*/}
                 {searchPreview}

@@ -9,6 +9,9 @@ export default class Model extends Updatable{
         this.custom = custom;
         this.tips = tips;
     }
+    getTitleInSingular(){
+        return this.title.substr(0,this.title.length-1);
+    }
     getNameInRequest(){}
     getView(){}
     getValueInRequest(){}
