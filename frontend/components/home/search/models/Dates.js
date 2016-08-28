@@ -70,16 +70,26 @@ export default class Dates extends Model{
         }))
     }
     getRequestRepresentation(){
-        const date = this.values[0];
-        if (date && this.isFilled(date)){
-            const dateString = function(date){
-                const year = date.getYear(),
-                    month = date.getMonth(),
-                    day = date.getDay();
-                return `${year}-${month}-${day}`
-            };
-            return `dateFrom=${dateString(date.lower)}&dateTo=${dateString(date.upper)}`
+        const from = [],
+              to = [];
+        const dateString = function(date){
+            const year = date.getFullYear(),
+                month = date.getMonth(),
+                day = date.getDay();
+            return `${year}-${month}-${day}`
+        };
+        this.values.map(date=>{
+            from.push(dateString(date.lower));
+            to.push(dateString(date.upper));
+        });
+        if (from.length){
+            return `dateFrom=${from.join(",")}&dateTo=${to.join(",")}`
         }
+        /*const date = this.values[0];
+        if (date && this.isFilled(date)){
+
+            return `dateFrom=${dateString(date.lower)}&dateTo=${dateString(date.upper)}`
+        }*/
     }
     clear(){
         this.values = [];
