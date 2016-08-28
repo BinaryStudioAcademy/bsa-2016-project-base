@@ -7,10 +7,10 @@ class Button extends Component {
         super(props);
     }
     render() {
-        const {id, value, onClick} = this.props;
+        const {id, value, onClick, className} = this.props;
         return (
             <button   
-                className={styles.generalBtn}             
+                className={className}             
                 id={id} 
                 type="button" 
                 onClick={onClick}>

@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../../actions/admin/UpsertProjectActions';
 import { Button, Checkbox, TextArea, DropDown, DateInput, TextInput, Editor } from '../../../common/';
-
+import styles from './styles/Inputs.sass';
 
 class Inputs extends Component {
     constructor(props) {
@@ -62,32 +62,38 @@ class Inputs extends Component {
     	return (
 	        <div>
 	        	<TextInput
+                    className = {styles["text-input"]}
 		        	label='Project name *' 
 		        	placeholder='My first project'
 		        	onChange={this.onProjectNameChange}
 	        	/>
 	        	<TextInput 
+                    className = {styles["text-input"]}
 	        		label='Link to project *' 
 	        		placeholder='Link to project'
 	        		onChange={this.onProjectLinkChange}
 	        	/>
 	        	<DateInput 
+                    className = {styles["text-input"]}
 	        		label='Start date *' 
 	        		value={'2013-06-09'}
 	        		onChange={this.onStartDateChange}
 	        	/>
 	        	<DateInput 
+                    className = {styles["text-input"]}
 	        		label='Finish date *' 
 	        		value={'2014-02-09'}
 	        		onChange={this.onFinishDateChange}
 	        	/>
 	        	<DropDown
-	        		label='Condition *' 
+                    className = {styles["text-input"]}
+	        		label='Condition *'
 	        		data = {conditionOpts}
 	        		onChange={this.onConditionChange}
 	        	/>
 	        	<span>Description*</span>
                 <Editor 
+                    className={styles["editor"]}
                     handleChange={this.onDescriptionChange}
                     initialContent={'Enter project description'}
                 />

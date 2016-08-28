@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions/admin/UpsertProjectActions';
-import { TabPanel, TabBody, TabHead, Button } from '../../common/';
+import { TabPanel, TabBody, TabHead } from '../../common/';
 import Inputs from './sections/Inputs';
 import UsersList from './sections/UsersList';
 import Tags from './sections/Tags';
@@ -10,6 +10,7 @@ import Techs from './sections/Techs';
 import Features from './sections/Features';
 import Attachments from './sections/Attachments';
 
+import Button from '../../common/RaisedButtonUI_Tags';
 import styles from './sections/styles/UpsertProject.sass';
 
 class UpsertProject extends Component {
@@ -137,7 +138,7 @@ class UpsertProject extends Component {
         		<Attachments/>
         		<br/>
         		<Button
-                    value="Create project"
+                    label="Create project"
                     onClick={this.createProject}
                 />
 	    	</div>

@@ -1,14 +1,40 @@
+@import "./UpsertProject.sass";
+
+=border-box
+	box-sizing: border-box
+
 #tags-list
+
 	.list-container
 		display: inline-block
 		width: 50%
 		height: 180px
-		
-	.list 
-		border: 1px solid black
-		overflow-y: auto
-		height: 180px
-	.tag-name
+
+	.add-tag-block
 		display: inline
 		div
 			display: inline
+
+
+	.list
+		display: block
+		height: 180px
+		overflow-y: auto
+		background-color: #f3f6f8
+		padding: 10px
+
+	.listAll
+		margin-right: 20px		
+
+	.tagItem
+		+border-box
+		display: inline-block
+		color: #555
+		padding: 0px 5px
+		padding-left: 1rem
+		margin: 4px 4px 4px 4px
+		//height: 30px
+		cursor: pointer
+		background: #E9f0f6
+		border-radius: 2rem
+		//width: 170px
