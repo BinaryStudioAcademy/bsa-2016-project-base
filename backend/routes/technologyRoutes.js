@@ -63,11 +63,11 @@ module.exports = function (app) {
 
     app.post('/api/technologies/', function (req, res, next) {
         console.log(req.body);
-        // technologieRepository.add(req.body, function (err, data) {
-        //     res.data = data;
-        //     res.err = err;
-        //     next();
-        // });
+        technologieRepository.add(req.body, function (err, data) {
+            res.data = data;
+            res.err = err;
+            next();
+        });
     }, apiResponse);
 
     app.get('/api/technologies/', function (req, res, next) {

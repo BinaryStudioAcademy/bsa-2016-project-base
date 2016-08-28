@@ -26,10 +26,10 @@ export function initTechnology(listOfTechno) {
 }
 export function saveTechology(params) {
     return dispatch=> {
-        fetch("/api/technologies/",  Object.assign({
+        fetch("/api/technologies/", Object.assign({
                 method: 'POST',
-                body: params
-            },  constants.cookieMarker,
+                body: JSON.stringify(params)
+            }, constants.cookieMarker,
             constants.jsonHedeaders
         ))
             .catch(error => dispatch(errorHandler('Bad Request')));
@@ -37,22 +37,6 @@ export function saveTechology(params) {
 
     }
 }
-// export function saveTechology(params) {
-//     return dispatch=> {
-//         fetch("/api/technologies/", {
-//             method: 'POST',
-//             body: JSON.stringify(params),
-//             headers: ({
-//                 'Content-Type': 'application/json',
-//                 Accept: 'application/json'
-//             }),
-//             credentials: constants.cookieMarker
-//         })
-//             .catch(error => dispatch(errorHandler('Bad Request')));
-//         dispatch(getTechnologies());
-//
-//     }
-// }
 export function searchTechnology(params) {
     const action = {
         type: 'SEARCH_TECHNOLOGY',
@@ -77,9 +61,10 @@ export function removeSelectedTechs(technologies) {
     return dispatch=> {
         technologies.forEach(tech=> {
             if (tech.checked === 'checked') {
-                fetch(`/api/technologies/${tech._id}`, {
-                    method: 'DELETE'
-                }, constants.cookieMarker)
+                fetch(`/api/technologies/${tech._id}`, Object.assign({
+                        method: 'DELETE',
+                    }, constants.cookieMarker
+                ))
                     .catch(error => dispatch(errorHandler('Bad Request')));
             }
         });
