@@ -1,26 +1,27 @@
 import promise from 'es6-promise';
-import fetch from 'isomorphic-fetch';
 promise.polyfill();
-
+import fetch from 'isomorphic-fetch';
+import * as constants from '../../constants/Api';
 
 class UpsertProjectService {
 
     getPredefinedData() {
-        return fetch('/api/predefined/');
+        return fetch(constants.URL + "predefined/",constants.cookieMarker);
     }
 
     addProject(project) {
-        return fetch('/api/projects', {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            method: "POST",
-            body: JSON.stringify(project)
-        });
+        return fetch(constants.URL + "projects/", 
+            Object.assign({
+                method: "POST",
+                body: JSON.stringify(project)
+            },  constants.cookieMarker,
+                constants.jsonHedeaders
+            )
+        );
     }
 
 }
+
 const upsertProjectService = new UpsertProjectService();
 export default upsertProjectService;
 

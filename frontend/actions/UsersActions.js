@@ -21,7 +21,6 @@ export function fetchUsers() {
                         }
                     }
                 }
-                console.log(project.users);
                 dispatch({
                     type: types.USERS_GET_ALL_LOADED,
                     payload: project.users
