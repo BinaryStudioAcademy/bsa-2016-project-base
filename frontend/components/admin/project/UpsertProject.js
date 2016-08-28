@@ -10,6 +10,8 @@ import Techs from './sections/Techs';
 import Features from './sections/Features';
 import Attachments from './sections/Attachments';
 
+import styles from './sections/styles/UpsertProject.sass';
+
 class UpsertProject extends Component {
 	constructor(props) {
 	    super(props);
@@ -121,7 +123,7 @@ class UpsertProject extends Component {
  	render() {
         console.log('Rerender Upsert');
 	    return (
-	    	<div>
+	    	<div id={styles["upsert-project"]}>
 	    		<Inputs/>
         		<br/>
         		<Features/>
