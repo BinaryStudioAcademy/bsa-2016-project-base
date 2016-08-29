@@ -175,9 +175,7 @@ class Features extends Component {
                     onClose={this.closeCreateFeatureModal}
                     onSave={this.addNewFeature}
                 />) )}
-                <header className={styles['features-header']}>
-                    <h2>Features</h2>
-                </header>
+                
                 <div className={styles.row}>
                     <div className={styles['list-container']}>
                         <header className={styles['sections-list-header']}>

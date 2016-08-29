@@ -46,7 +46,7 @@ class Tags extends Component {
     			return (
     				<div key={tag._id} className={styles["tag"]}>
 	    				<span>{tag.tagName}</span>
-		    			<Button onClick={(e) => this.addTagToProject(e, tag._id)}>
+		    			<Button className={styles["btnIcon"]} onClick={(e) => this.addTagToProject(e, tag._id)}>
 		            		<i className="fa fa-plus" aria-hidden="true"></i>
 		            	</Button>
 	            	</div>
@@ -56,9 +56,9 @@ class Tags extends Component {
     	const usedTags = tags.map( tag => {
     		if (tag.inProject) {
     			return (
-    				<div key={tag._id}>
+    				<div key={tag._id} className={styles["tag"]}>
 	    				<span>{tag.tagName}</span>
-		    			<Button onClick={(e) => this.removeTagFromProject(e, tag._id)}>
+		    			<Button className={styles["btnIcon"]} onClick={(e) => this.removeTagFromProject(e, tag._id)}>
 		            		<i className="fa fa-trash-o" aria-hidden="true"></i>
 		            	</Button>
 	            	</div>
@@ -72,9 +72,14 @@ class Tags extends Component {
                     <div className={styles['list-container']}>
                         <header className={styles['tags-list-header']}>
                             <div className={styles['col-1-2']}>
-                                <h3>Tags</h3>
+                                <h3>All tags</h3>
                             </div>
                         </header>
+                        
+                        <ul className={styles['section-list1']}>
+                                {predefinedTags}
+                        </ul>
+                        
                         <div className={styles['add-section2']}>
                             <div className={styles['col-1-2']}>
                                 <TextFieldTags 
@@ -93,71 +98,19 @@ class Tags extends Component {
                                 />
                             </div>
                         </div>
+                    </div>
+
+                    <div className={styles['list-container']}>
+                        <header className={styles['tags-list-header']}>
+                            <div className={styles['col-1-2']}>
+                                <h3>Used tags</h3>
+                            </div>
+                        </header>
                         <ul className={styles['section-list1']}>
-                                {predefinedTags}
+                                {usedTags}
                         </ul>
                     </div>
-                </div>
-                <fieldset>
-                    <legend>Tags</legend>
-                    <div className={styles['tag-name']}>
-                    <TextInput
-                        value={this.state.tagName}
-                        label='Add new tag' 
-                        placeholder='Type tag name'
-                        onChange={this.onTagNameChange}
-                    />
-                    <Button 
-                        value="Add"  
-                        onClick={this.addNewTagToProject}
-                    />      
-                </div>
-                <div>
-                    <div className={styles['list-container']}>
-                    All tags:
-                    <div className={styles['list']}>
-                        {predefinedTags}
-                    </div>
-                    </div>
-                   
-                     <div className={styles['list-container']}>
-                         Tags in project:
-                         <div className={styles['list']}>
-                            {usedTags}
-                         </div>
-                    </div>
-                </div>
-                </fieldset>
-                <fieldset>
-                    <legend>Tags</legend>
-                    <div className={styles['tag-name']}>
-                    <TextInput
-                        value={this.state.tagName}
-                        label='Add new tag' 
-                        placeholder='Type tag name'
-                        onChange={this.onTagNameChange}
-                    />
-                    <Button 
-                        value="Add"  
-                        onClick={this.addNewTagToProject}
-                    />      
-                </div>
-                <div>
-                    <div className={styles['list-container']}>
-                    All tags:
-                    <div className={styles['list']}>
-                        {predefinedTags}
-                    </div>
-                    </div>
-                   
-                     <div className={styles['list-container']}>
-                         Tags in project:
-                         <div className={styles['list']}>
-                            {usedTags}
-                         </div>
-                    </div>
-                </div>
-                </fieldset>
+                </div>                                
             </div>
     	);
     }

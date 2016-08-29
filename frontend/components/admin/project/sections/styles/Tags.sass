@@ -1,3 +1,4 @@
+@import "./UpsertProject.sass";
 #tags-list
 	display: flex
 	flex-direction: column
@@ -10,24 +11,24 @@
         padding: 0 1.2rem
         margin-bottom: 1rem
 
-	.tags-header
-        position: relative
-        padding-left: 1.2rem
-        margin-bottom: 1rem
-        font-size: .8rem
-        &:before
-            background: #2ecc71
-            content: ""
-            display: block
-            width: 10px
-            height: 10px
-            top: 50%
-            transform: translate(0, -50%)
-            left: 0
-            position: absolute
-            border-radius: 50%
-        h2
-            margin: 0
+	// .tags-header
+ //        position: relative
+ //        padding-left: 1.2rem
+ //        margin-bottom: 1rem
+ //        font-size: .8rem
+ //        &:before
+ //            background: #2ecc71
+ //            content: ""
+ //            display: block
+ //            width: 10px
+ //            height: 10px
+ //            top: 50%
+ //            transform: translate(0, -50%)
+ //            left: 0
+ //            position: absolute
+ //            border-radius: 50%
+ //        h2
+ //            margin: 0
 	
 	.list-container
 
@@ -62,10 +63,9 @@
 			justify-content: flex-start
 			border-radius: 5px
 			padding: 0 1.2rem
-			margin-bottom: 1rem
 			align-items: center
 			display: flex
-			margin: 1rem 0 2.5rem
+			margin: 1rem 0 2rem
 
 		// border-bottom: 1px solid #efefef
 			.col-1-2 + .col-1-2
@@ -74,21 +74,24 @@
 		.section-list1
 			overflow-y: auto
 			height: 200px
-			margin: 0 1rem 1rem
+			margin: 1rem
 			padding: 0
 			position: relative
 .tag
     background: #F1F2F6
     font-size: 18px
     cursor: pointer
-    height: 45px
-    display: flex
+    height: 35px
+    display: inline-flex
     align-items: center
     color: #C0C4D2
     // text-transform: uppercase
     font-weight: 900
     font-size: 0.9rem
     padding: 0 1.2rem
+    border-radius: 1.5rem
+    margin: 0 5px 5px 5px
+    width: 170px
     &:hover
         color: #b1b1b1
     .active
@@ -104,11 +107,11 @@
 
 
 
-.list  
-	border: 1px solid black
-	overflow-y: auto
-	height: 180px
-	.tag-name
-		display: inline
-		div
-			display: inline
+// .list  
+// 	border: 1px solid red
+// 	overflow-y: auto
+// 	height: 180px
+// 	.tag-name
+// 		display: inline
+// 		div
+// 			display: inline

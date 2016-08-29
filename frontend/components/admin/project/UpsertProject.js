@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions/admin/UpsertProjectActions';
-import { TabPanel, TabBody, TabHead, Button } from '../../common/';
+import { TabPanel, TabBody, TabHead, Button, RaisedButtonUITags } from '../../common/';
 import Inputs from './sections/Inputs';
 import UsersList from './sections/UsersList';
 import Tags from './sections/Tags';
@@ -26,10 +26,10 @@ const tabsStyles = {
     },
 
     tabBlock: {
-        "margin-top": "20px"
+        "margin-top": "40px"
     },
     inkBarStyle: {
-        backgroundColor: "#fc5a5a"
+        backgroundColor: "#2ecc71"
     }
 };
 
