@@ -19,6 +19,33 @@ module.exports = function(app) {
 		});
 	}, apiResponse);
 
+	app.put('/api/users/:id/addinprogressproject', function(req, res, next) {
+		userRepository.addinProgressProject(req.params.id, req.body, function(err, data) {
+			res.data = data;
+			res.err = err;
+			//res.json(data);
+			next();
+		});
+	}, apiResponse);
+
+	app.put('/api/users/:id/addcompletedproject', function(req, res, next) {
+		userRepository.addCompletedProject(req.params.id, req.body, function(err, data) {
+			res.data = data;
+			res.err = err;
+			//res.json(data);
+			next();
+		});
+	}, apiResponse);
+
+	app.put('/api/users/:id/changeproject', function(req, res, next) {
+		userRepository.changeProject(req.params.id, req.body, function(err, data) {
+			res.data = data;
+			res.err = err;
+			//res.json(data);
+			next();
+		});
+	}, apiResponse);
+
 	app.put('/api/users/:id', function(req, res, next) {
 		userRepository.update(req.params.id, req.body ,function(err, data) {
 			res.data = data;
