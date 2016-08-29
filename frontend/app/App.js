@@ -58,9 +58,9 @@ class App extends Component {
                                 }}/>
                             </div>
                             {children}
-				{/*<ReduxToastr timeOut={3000}
+				{<ReduxToastr timeOut={3000}
                                         newestOnTop={true}
-                                       position="bottom-left"/>*/}
+                                       position="bottom-left"/>}
                         </div>
                     </div>
                 </div>

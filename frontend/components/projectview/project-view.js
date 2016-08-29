@@ -152,7 +152,6 @@ class ProjectView extends Component {
 			let viewStartedDate = (currentProject == 'none') ? 'Loading... please wait!' : this.formatDate(new Date(currentProject.timeBegin));
 			let viewEndDate = (currentProject == 'none') ? 'Loading... please wait!' : this.formatDate(new Date(currentProject.timeEnd));
 			//let viewCondition = (currentProject == 'none') ? 'Loading... please wait!' : currentProject.condition.conditionName;
-    	
 		//let viewUsers = (currentProject !== 'none') ? currentProject.users.toString() : 'Users list: Loading... please wait!';
 			let viewUsers = (currentProject == 'none') ? 'Users list: Loading... please wait!' : 'Users list: ...under develop.';
 		//let viewOwners = (currentProject !== 'none') ? currentProject.owners.toString() : 'Owners list: Loading... please wait!';
@@ -178,8 +177,6 @@ class ProjectView extends Component {
                         viewEndDate={viewEndDate}  averageRating="5" questions={currentProject.questions}/>
 					</div>
 				</div>
-
-
 
 			    	<div className={styles.info}>
                         {/*<div eventKey={5} title="Features" onClick={this.props.getProjectFeatures}><div>Table of features</div></div>*/}

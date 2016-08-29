@@ -1,8 +1,20 @@
-#feature
-	background: #f1eded
-	font-size: 18px
-	border-bottom: 1px solid black
-	cursor: pointer
-	.active
-		background: #7ebf5d
-		color: white
+.feature
+    background: #F1F2F6
+    font-size: 18px
+    cursor: pointer
+    height: 45px
+    display: flex
+    align-items: center
+    color: #C0C4D2
+    // text-transform: uppercase
+    font-weight: 900
+    font-size: 0.9rem
+    padding: 0 1.2rem
+    &:hover
+        color: #b1b1b1
+    .active
+        color: #627484
+        transition: all .3s
+.feature + .feature
+    background: #EDEEF3
+    border-top: 1px solid #E1E3EB

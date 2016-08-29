@@ -96,7 +96,8 @@ export default class MyEditor extends React.Component {
     shouldComponentUpdate(){return false}
     render() {
         const self = this;
-        return (<div>
+        const {className} = this.props
+        return (<div className={className}>
                 <TinyMCE
                     content={this.props.initialContent || "<p>This is the initial content of the editor</p>"}
                     config={{

@@ -2,18 +2,15 @@ import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-const style = {
-  margin: 12,
-};
 
-const RaisedButtonUI = ({id, label, onAdd, style, backgroundColor}) => (
+const RaisedButtonUI = ({id, label, onClick, style, backgroundColor, className}) => (
   <div className='button-add-tags'>
     <MuiThemeProvider>
       <RaisedButton
         id={id}
         label={label}
         // onTouchTap={onAdd}
-        onClick={onAdd}
+        onClick={onClick}
         style={style}
         labelStyle={{
             color: '#fff',
@@ -21,7 +18,8 @@ const RaisedButtonUI = ({id, label, onAdd, style, backgroundColor}) => (
             fontSize: '0.9rem',
             textTransform: 'none'
         }}
-        backgroundColor= {backgroundColor}
+        backgroundColor= {backgroundColor || '#627484'}
+        className={className}
       />
     </MuiThemeProvider>
   </div>

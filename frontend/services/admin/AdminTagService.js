@@ -1,34 +1,39 @@
 import promise from 'es6-promise';
-import fetch from 'isomorphic-fetch';
 promise.polyfill();
+import fetch from 'isomorphic-fetch';
+import * as constants from '../../constants/Api';
 
 class AdminTagService {
 
+    constructor(){
+        this.url = constants.URL + "tags";
+    }
+
     getAllTags() {
-        return fetch('/api/tags');
+        return fetch(this.url,constants.cookieMarker);
     }
 
     deleteTags(tags) {
-        return fetch('/api/tags', {
-            headers: {
-               'Accept': 'application/json',
-               'Content-Type': 'application/json'
-            },
-            method: "DELETE",
-            body: JSON.stringify(tags)
-        });
+        return fetch(this.url,Object.assign({
+                method: "DELETE",
+                body: JSON.stringify(tags)
+            },  constants.cookieMarker,
+                constants.jsonHedeaders
+            )
+        );
     }
 
     addTag(tag) {
-        return fetch('/api/tags', {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            method: "POST",
-            body: JSON.stringify(tag)
-        });
+        return fetch(this.url,Object.assign({
+                method: "POST",
+                body: JSON.stringify(tag)
+            },  constants.cookieMarker,
+                constants.jsonHedeaders
+            )
+        );
     }
+
 }
+
 const adminTagService = new AdminTagService();
 export default adminTagService;

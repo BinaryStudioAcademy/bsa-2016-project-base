@@ -1,16 +1,20 @@
 import promise from 'es6-promise';
 promise.polyfill();
 import fetch from 'isomorphic-fetch';
-import { API } from '../constants/Api';
+import * as constants from '../constants/Api';
 
 class HomeService {
 
+	constructor(){
+		this.url = constants.URL + "mainpage/";
+	}
+
     getAllProjects() {
-        return fetch(`${API}mainpage`);
+        return fetch(this.url, constants.cookieMarker);
     }
 
     getAllFeaturesSorted(orderBy) {
-        return fetch(`${API}mainpage/${orderBy}`);
+        return fetch(this.url + orderBy, constants.cookieMarker);
     }
 
     getProjects(query) {
@@ -18,4 +22,6 @@ class HomeService {
     }
 
 }
-export default new HomeService();
+
+const homeService = new HomeService();
+export default homeService;

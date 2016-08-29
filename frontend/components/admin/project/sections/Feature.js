@@ -11,7 +11,7 @@ class Feature extends Component {
         console.log('isActive ',isActive);
         return (
             <div 
-                id={styles["feature"]}  
+                className={styles["feature"]}  
                 onClick={onClick && ((e) => onClick(e, feature._id))}>
                 <div className={( isActive ? styles["active"] : '' )} >
                     {feature.featureName}

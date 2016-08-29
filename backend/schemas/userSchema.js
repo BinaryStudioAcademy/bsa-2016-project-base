@@ -8,7 +8,14 @@ var userSchema = new Schema({
     userSurname: String,
     avatar: String,
     rights: [String],
-    position: String
+    position: String,
+    userHistory: [
+        {
+            ProjectId: {type: Schema.Types.ObjectId, ref: 'Project'},
+            DateFrom: {type: Date},
+            DateTo: {type: Date},
+        }
+]
 });
 
 module.exports = mongoose.model('User', userSchema); 

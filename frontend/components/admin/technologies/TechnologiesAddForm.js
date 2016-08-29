@@ -2,8 +2,6 @@
  * Created by razorka on 04.08.16.
  */
 import React, {Component, PropTypes} from 'react';
-// import styles from './styles.sass';
-import {Button, FormGroup, ControlLabel, FormControl, Col, Form} from 'react-bootstrap';
 import styles from  './styles.sass';
 import TextArea from '../../common/TextArea.js';
 import TextInput from '../../common/TextInput.js';
@@ -17,10 +15,12 @@ class TechnologiesAddForm extends Component {
         this.upload = this.upload.bind(this);
         this.validate = this.validate.bind(this);
         this.saveTechDescription = this.saveTechDescription.bind(this);
+        this.saveVersion = this.saveVersion.bind(this);
         this.state = {
             formState: this.props.formState,
             techName: '',
-            techDescription: ''
+            techDescription: '',
+            techVersion: ''
         }
     }
 
@@ -56,7 +56,8 @@ class TechnologiesAddForm extends Component {
         let data = {
             techName: this.state.techName,
             techDescription: this.state.techDescription,
-            techAvatar: form.elements['techAvatar'].value
+            techAvatar: form.elements['techAvatar'].value,
+            techVersion: this.state.techVersion
         };
         form.reset();
         this.props.saveTechnologie(data);
@@ -88,11 +89,12 @@ class TechnologiesAddForm extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-
         this.setState({
             formState: nextProps.formState,
             filepath: nextProps.filepath,
-            techName: nextProps.techName
+            techName: nextProps.techName,
+            techDescription: nextProps.techDescription,
+            techDescription: nextProps.techVersion
         });
     }
 
@@ -108,6 +110,10 @@ class TechnologiesAddForm extends Component {
         this.setState({techDescription: e.target.value})
     }
 
+    saveVersion(e){
+        this.setState({techVersion: e.target.value})
+    }
+
     render() {
 
         return (
@@ -121,6 +127,13 @@ class TechnologiesAddForm extends Component {
                             />
                             <div id="error" className={styles['error'] + " hidden"}>Technology length must be less 50 symbols</div>
                         </div>
+                    <div className="inputField">
+                        <TextInput
+                            label="Version"
+                            onChange={this.saveVersion}
+                            placeholder="Enter version"
+                        />
+                    </div>
                         <div className="inputField">
                               <TextArea
                                   label="Description"
