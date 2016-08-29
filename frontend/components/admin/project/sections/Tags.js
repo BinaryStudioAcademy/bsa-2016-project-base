@@ -69,10 +69,8 @@ class Tags extends Component {
     	});
     	
     	return (
-    		<div id={styles['tags-list']}>
-                <fieldset>
-                    <legend>Tags</legend>
-                    <div className={styles['add-tag-block']}>
+    		<div id={styles['tags-list']}>                
+                <div className={styles['add-tag-block']}>
                     <TextInput
                         value={this.state.tagName}
                         label='Add new tag' 
@@ -100,7 +98,6 @@ class Tags extends Component {
                          </div>
                     </div>
                 </div>
-                </fieldset>
             </div>
     	);
     }

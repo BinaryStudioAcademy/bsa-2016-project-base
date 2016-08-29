@@ -156,13 +156,10 @@ class Features extends Component {
     	return (
 
     		<div id={styles['features-list']}>
-                <fieldset>
                 {(this.state.isModalActive && (<CreateFeature 
                 	onClose={this.closeCreateFeatureModal}
                 	onSave={this.addNewFeature}
                 />) )}
-                
-                    <legend>Features</legend>
 
                     <div>
                     <div className={styles['list-container']}>
@@ -191,7 +188,6 @@ class Features extends Component {
 	                    </div>
                      </div>
                    </div>
-                </fieldset>
             </div>
     	);
     }
