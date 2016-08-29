@@ -88,7 +88,7 @@ class Tags extends Component {
                             <div className={styles['col-1-2']}>
                                 <RaisedButtonUITags
                                     label='Add'
-                                    onAdd={this.addNewTagToProject}
+                                    onClick={this.addNewTagToProject}
                                     backgroundColor='#8D97A4'
                                 />
                             </div>

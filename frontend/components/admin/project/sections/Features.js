@@ -97,7 +97,7 @@ class Features extends Component {
                 <div className={styles['col-1-2']}>
                     <RaisedButtonUITags
                         label='Add'
-                        onAdd={this.showCreateFeatureModal}
+                        onClick={this.showCreateFeatureModal}
                         backgroundColor='#8D97A4'
                     />
                 </div>
@@ -198,7 +198,7 @@ class Features extends Component {
                             <div className={styles['col-1-2']}>
                                 <RaisedButtonUITags
                                     label='Add'
-                                    onAdd={this.addNewSection}
+                                    onClick={this.addNewSection}
                                     backgroundColor='#8D97A4'
                                 />
                             </div>
