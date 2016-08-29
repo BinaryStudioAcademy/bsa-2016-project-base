@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
 import styles from './styles/textInput.sass';
 
-const TextInput = ({id, label, value, placeholder, onChange, className}) => {
+
+const TextInput = ({id, label, value, placeholder, onChange,name}) => {
 	const labelHtml = label ? <label htmlFor={id}>{label}</label> : '';
     return (
         <div className={className}>
@@ -13,6 +14,7 @@ const TextInput = ({id, label, value, placeholder, onChange, className}) => {
                 value={value} 
                 placeholder={placeholder}
                 onChange={onChange}
+                name={name}
             />
         </div>
     );

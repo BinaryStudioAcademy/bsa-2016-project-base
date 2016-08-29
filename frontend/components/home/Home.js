@@ -13,11 +13,13 @@ export default class Home extends Component {
     componentDidMount() {
         const self = this;
         const {model} = this.state;
-        console.log(model);
         model.component = this;
         model.searchContainer.component = this;
         model.searchContainer.searchModels.forEach(model=>model.component = self);
-        model.goSearch();
+        if (!model.projects.length) {
+            //not to upload projects if there are some (on repeated visit)
+            model.goSearch();
+        }
     }
 
 

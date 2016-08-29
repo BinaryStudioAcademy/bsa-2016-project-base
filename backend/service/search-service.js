@@ -85,13 +85,13 @@ class SearchService {
 	                    path: 'technologies',
 	                    model: 'Technologies',
 	                    select: 'techName techDescription techVersion'
-	                },{
+	                }/*,{
 	                    path: 'stage',
 	                    model: 'Stage'
 	                },{
 	                    path: 'condition',
 	                    model: 'Condition'
-	                }]);
+	                }*/]);
 	                
 	    query.exec((err, result)=>{
 	        let passedProject = true;
@@ -278,13 +278,13 @@ class SearchService {
 	                    path: 'technologies',
 	                    model: 'Technologies',
 	                    select: 'techName techDescription techVersion'
-	                },{
+	                }/*,{
 	                    path: 'stage',
 	                    model: 'Stage'
 	                },{
 	                    path: 'condition',
 	                    model: 'Condition'
-	                }]);
+	                }*/]);
 	                
 	    query.exec((err, result)=>{
 	        let passedProject = true;

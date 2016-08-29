@@ -49,14 +49,11 @@ class Inputs extends Component {
         return nextProps.conditions !== this.props.conditions;
     }
     render() {
-        const {conditions} = this.props;
-
-        const conditionOpts = conditions.map( item => {
-            return {
-                value: item._id,
-                name: item.conditionName
-            }
-        });
+        const conditionOpts = [
+            {value:'Estimation', name:'Estimation'},
+            {value:'InProgress', name:'InProgress'},
+            {value:'Completed', name:'Completed'}
+        ]
 
         console.log('Rerender Inputs');
     	return (

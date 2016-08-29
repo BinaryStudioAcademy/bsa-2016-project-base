@@ -2,10 +2,16 @@ var Cookies = require('cookies');
 
 module.exports = function(req, res, next) {
 	var directions = [], cookies = new Cookies(req, res),
+<<<<<<< HEAD
         role = cookies.get('userRole'),
 		matches = req.url.split('/'),
 		currentDirection = matches[2];
     if(role)  role = role.toLowerCase();
+=======
+	role = cookies.get('userRole').toLowerCase(),
+		matches = req.url.split('/'),
+		currentDirection = matches[2];
+>>>>>>> 5ad960bdad6491ea74f016f80c5b0e68c0fde955
     switch(req.method.toLowerCase()){
     	case 'get':
     		if(role != 'admin'){
@@ -32,11 +38,12 @@ module.exports = function(req, res, next) {
     	case 'delete':
     		directions.push('users');
     		if(role != 'admin'){
-    			directions = ['technologies','tags','stages','projects','conditions'];
+    			directions = ['technologies','tags','stages','projects','conditions','file'];
     			if(role == 'user') directions.push('file','sections','features');
     		}
     		break;
     }
+    //console.log(currentDirection,directions.indexOf(currentDirection),directions);
 	if(directions.indexOf(currentDirection) != -1) res.send(500, { error: 'You have not rights' });
 	next();
 }

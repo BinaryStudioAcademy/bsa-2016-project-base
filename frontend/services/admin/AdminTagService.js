@@ -6,7 +6,7 @@ import * as constants from '../../constants/Api';
 class AdminTagService {
 
     constructor(){
-        this.url = constants.URL + "/tags";
+        this.url = constants.URL + "tags";
     }
 
     getAllTags() {

@@ -44,7 +44,7 @@ const tabsStyles = {
 function handleActive(tab) {
 	alert(`A tab with this route property ${tab.props['data-route']} was activated.`);
 }
-const TabsExampleSimple = ({viewStartedDate, viewEndDate, averageRating, questions}) => (
+const TabsExampleSimple = ({viewStatusName, viewStartedDate, viewEndDate, averageRating, questions}) => (
 	<MuiThemeProvider >
 	<Tabs tabItemContainerStyle={tabsStyles.tabItemContainerStyle} contentContainerStyle={tabsStyles.tabBlock}>
 		<Tab label="Users" className='fsgwarfw' >
@@ -62,6 +62,10 @@ const TabsExampleSimple = ({viewStartedDate, viewEndDate, averageRating, questio
 				<Table>
 					<TableBody>
 						<TableRow>
+							<TableRowColumn>Status</TableRowColumn>
+							<TableRowColumn>{viewStatusName}</TableRowColumn>
+						</TableRow>
+						<TableRow>
 							<TableRowColumn>Started</TableRowColumn>
 							<TableRowColumn>{viewStartedDate}</TableRowColumn>
 						</TableRow>
@@ -69,7 +73,7 @@ const TabsExampleSimple = ({viewStartedDate, viewEndDate, averageRating, questio
 							<TableRowColumn>Completed</TableRowColumn>
 							<TableRowColumn>{viewEndDate}</TableRowColumn>
 						</TableRow>
-						<TableRow>
+                        <TableRow>
                             <TableRowColumn>Average Rating</TableRowColumn>
                             <TableRowColumn>{averageRating}</TableRowColumn>
                         </TableRow>
@@ -143,7 +147,8 @@ class ProjectView extends Component {
 			  " default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. " +
 			  "Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour " +
 			  "and the like).";
-    		//let viewStageName = (currentProject == 'none') ? 'Loading... please wait!' : currentProject.stage.stageName;
+
+    	let viewStatusName = (currentProject == 'none') ? 'Loading... please wait!' : currentProject.status;
 			let viewStartedDate = (currentProject == 'none') ? 'Loading... please wait!' : this.formatDate(new Date(currentProject.timeBegin));
 			let viewEndDate = (currentProject == 'none') ? 'Loading... please wait!' : this.formatDate(new Date(currentProject.timeEnd));
 			//let viewCondition = (currentProject == 'none') ? 'Loading... please wait!' : currentProject.condition.conditionName;
@@ -168,13 +173,10 @@ class ProjectView extends Component {
 						<span className="technologies">
 							<TechnologiesList />
 						</span>
-						<TabsExampleSimple viewStartedDate={viewStartedDate}
-                        viewEndDate={viewEndDate} averageRating="5"
-                                           questions={currentProject.questions}/>
+						<TabsExampleSimple viewStatusName={viewStatusName} viewStartedDate={viewStartedDate}
+                        viewEndDate={viewEndDate}  averageRating="5" questions={currentProject.questions}/>
 					</div>
 				</div>
-
-
 
 			    	<div className={styles.info}>
                         {/*<div eventKey={5} title="Features" onClick={this.props.getProjectFeatures}><div>Table of features</div></div>*/}

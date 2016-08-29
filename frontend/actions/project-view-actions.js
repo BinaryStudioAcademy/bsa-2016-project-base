@@ -55,7 +55,7 @@ export function getProject(projId) {
     };
 }
 
-export function getProjectStage(projectStageId) {
+/*export function getProjectStage(projectStageId) {
     return (dispatch, getState) => {
     	const state = getState().ProjectViewReducer;
 		console.log('action "getProjectsStage" state: ', state);
@@ -69,7 +69,7 @@ export function getProjectStage(projectStageId) {
     	console.log('getProjectStage() -> aquireProjectStages: ', aquireProjectStages);
     	projectViewService.getProjectStage(state.CONST_stagesRestPath, dispatch, aquireProjectStages);
     };
-}
+}*/
 
 export function getProjectTags() {
     return (dispatch, getState) => {
