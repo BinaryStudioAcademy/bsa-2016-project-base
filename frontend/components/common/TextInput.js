@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
 import styles from './styles/textInput.sass';
 
-const TextInput = ({id, label, value, placeholder, onChange}) => {
+const TextInput = ({id, label, value, placeholder, onChange, className}) => {
 	const labelHtml = label ? <label htmlFor={id}>{label}</label> : '';
     return (
-        <div>
+        <div className={className}>
          	{labelHtml}
         	<input 
                 className={styles.myinput} 

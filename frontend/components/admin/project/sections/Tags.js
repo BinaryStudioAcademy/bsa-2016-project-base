@@ -5,6 +5,8 @@ import * as actions from '../../../../actions/admin/UpsertProjectActions';
 import { Button, TextInput } from '../../../common/';
 import styles from './styles/Tags.sass';
 
+import RaisedButtonUI from '../../../common/RaisedButtonUI_Tags.js';
+
 class Tags extends Component {
     constructor(props) {
         super(props);
@@ -44,9 +46,9 @@ class Tags extends Component {
     	const predefinedTags = tags.map( tag => {
     		if (!tag.inProject) {
     			return (
-    				<div key={tag._id}>
-	    				<span>{tag.tagName}</span>
-		    			<Button onClick={(e) => this.addTagToProject(e, tag._id)}>
+    				<div key={tag._id} className={styles.tagItem}>
+	    				<span class={styles["tagName"]}>{tag.tagName}</span>
+		    			<Button className={styles["btnIcon"]} onClick={(e) => this.addTagToProject(e, tag._id)}>
 		            		<i className="fa fa-plus" aria-hidden="true"></i>
 		            	</Button>
 	            	</div>
@@ -56,9 +58,9 @@ class Tags extends Component {
     	const usedTags = tags.map( tag => {
     		if (tag.inProject) {
     			return (
-    				<div key={tag._id}>
-	    				<span>{tag.tagName}</span>
-		    			<Button onClick={(e) => this.removeTagFromProject(e, tag._id)}>
+    				<div key={tag._id} className={styles.tagItem}>
+	    				<span class={styles["tagName"]}>{tag.tagName}</span>
+		    			<Button className={styles["btnIcon"]} onClick={(e) => this.removeTagFromProject(e, tag._id)}>
 		            		<i className="fa fa-trash-o" aria-hidden="true"></i>
 		            	</Button>
 	            	</div>
@@ -67,37 +69,35 @@ class Tags extends Component {
     	});
     	
     	return (
-    		<div id={styles['tags-list']}>
-                <fieldset>
-                    <legend>Tags</legend>
-                    <div className={styles['tag-name']}>
+    		<div id={styles['tags-list']}>                
+                <div className={styles['add-tag-block']}>
                     <TextInput
                         value={this.state.tagName}
                         label='Add new tag' 
                         placeholder='Type tag name'
                         onChange={this.onTagNameChange}
                     />
-                    <Button 
-                        value="Add"  
+                    <RaisedButtonUI 
+                        label="Add"  
                         onClick={this.addNewTagToProject}
+                        backgroundColor='#8D97A4'
                     />      
                 </div>
                 <div>
                     <div className={styles['list-container']}>
                     All tags:
-                    <div className={styles['list']}>
+                    <div className={styles['list'] + ' ' + styles["listAll"]}>
                         {predefinedTags}
                     </div>
                     </div>
                    
                      <div className={styles['list-container']}>
                          Tags in project:
-                         <div className={styles['list']}>
+                         <div className={styles['list']  + ' ' + styles["listUsed"]}>
                             {usedTags}
                          </div>
                     </div>
                 </div>
-                </fieldset>
             </div>
     	);
     }

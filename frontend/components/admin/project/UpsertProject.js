@@ -2,13 +2,67 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions/admin/UpsertProjectActions';
-import { TabPanel, TabBody, TabHead, Button } from '../../common/';
+import { TabPanel, TabBody, TabHead } from '../../common/';
 import Inputs from './sections/Inputs';
 import UsersList from './sections/UsersList';
 import Tags from './sections/Tags';
 import Techs from './sections/Techs';
 import Features from './sections/Features';
 import Attachments from './sections/Attachments';
+
+import Button from '../../common/RaisedButtonUI_Tags';
+import styles from './sections/styles/UpsertProject.sass';
+import {Tabs, Tab} from 'material-ui/Tabs';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+const tabsStyles = {
+  headline: {
+        fontSize: 24,
+        paddingTop: 16,
+        marginBottom: 12,
+        fontWeight: 400
+    },
+    tabItemContainerStyle: {
+        backgroundColor: "#8D97A4"
+    },
+
+    tabBlock: {
+        "margin-top": "20px"
+    },
+    inkBarStyle: {
+        backgroundColor: "#fc5a5a"
+    }
+};
+
+const TabsExampleSimple = () => (
+<MuiThemeProvider>
+  <Tabs tabItemContainerStyle={tabsStyles.tabItemContainerStyle} contentContainerStyle={tabsStyles.tabBlock} inkBarStyle={tabsStyles.inkBarStyle}>
+    <Tab label="Sections & Features">
+      <div>
+        <Features/>        
+      </div>
+    </Tab>
+    <Tab label="Tags" >
+      <div>
+        <Tags/>
+      </div>
+    </Tab>
+    <Tab label="Tecnologies" >
+      <div>
+        <Techs/>
+      </div>
+    </Tab>
+    <Tab label="Users" >
+      <div>
+        <UsersList/>
+      </div>
+    </Tab>
+  </Tabs>
+</MuiThemeProvider>
+);
+
+                
+
 
 class UpsertProject extends Component {
 	constructor(props) {
@@ -121,22 +175,17 @@ class UpsertProject extends Component {
  	render() {
         console.log('Rerender Upsert');
 	    return (
-	    	<div>
+	    	<div id={styles["upsert-project"]}>
 	    		<Inputs/>
         		<br/>
-        		<Features/>
-        		<br/>
-        		<Tags/>
-        		<br/>
-        		<Techs/>
-        		<br/>
-        		<UsersList/>
+        		<TabsExampleSimple />
         		<br/>
         		<Attachments/>
         		<br/>
         		<Button
-                    value="Create project"
+                    label="Create project"
                     onClick={this.createProject}
+                    backgroundColor="rgba(46, 204, 113, 0.9)"
                 />
 	    	</div>
 	    )

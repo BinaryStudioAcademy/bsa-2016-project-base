@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import styles from './styles/dropdown.sass';
 
-const DropDown = ({id, label, data, onChange}) => {
+const DropDown = ({id, label, data, onChange, className}) => {
 	const labelHtml = label ? <label htmlFor={id}>{label}</label> : '';
 	const options = data.map( option => {
 		return (
@@ -14,7 +14,7 @@ const DropDown = ({id, label, data, onChange}) => {
 	});
 
     return (
-        <div>
+        <div className={className}>
          	{labelHtml}
         	<select id={id} onChange={onChange}>
             <option 

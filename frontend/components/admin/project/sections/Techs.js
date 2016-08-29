@@ -77,7 +77,7 @@ class Techs extends Component {
                         <img src={tech.techAvatar} alt="tech logo"/>
 	    				<span>{tech.techName} {tech.techVersion}</span>
                         <span>{tech.techDescription}</span>
-		    			<Button onClick={(e) => this.addTechToProject(e, tech._id)}>
+		    			<Button className={styles["btnIcon"]} onClick={(e) => this.addTechToProject(e, tech._id)}>
 		            		<i className="fa fa-plus" aria-hidden="true"></i>
 		            	</Button>
 	            	</div>
@@ -102,52 +102,49 @@ class Techs extends Component {
     	
     	return (
     		<div id={styles['techs-list']}>
-                <fieldset>
-                    <legend>Technologies</legend>
-        			<div className={styles['tech-name']}>
-        				<TextInput
-    	    				value={this.state.techName}
-    			        	label='Name *' 
-    			        	placeholder='Type tecnology name'
-    			        	onChange={this.onTechNameChange}
-    		        	/>
-                        <TextInput
-                            value={this.state.techVersion}
-                            label='Version *' 
-                            placeholder='Type tecnology version'
-                            onChange={this.onTechVersionChange}
-                        />
-                        <TextArea
-                            value={this.state.techDescription}
-                            label='Description *' 
-                            placeholder='Type tecnology description here'
-                            onChange={this.onTechDescriptionChange}
-                        />
-                        <FileUpload
-                            onChange={this.onTechLogoChange}
-                        />
-    		        	<Button 
-                            value="Add" 
-                            onClick={this.addNewTechToProject}
-                        />  	
-        			</div>
-        			
-    	    		<div>
-    	    			<div className={styles['list-container']}>
-                        All technologies:
-                        <div className={styles['list']}>
-                         	{predefinedTags}
-                        </div>
-    	                </div>
-    	               
-    	                 <div className={styles['list-container']}>
-    	                     Technologies in project:
-    	                     <div className={styles['list']}>
-    	                        {usedTags}
-    	                     </div>
-    	                </div>
-    	    		</div>
-                </fieldset>
+    			<div className={styles['tech-name']}>
+    				<TextInput
+	    				value={this.state.techName}
+			        	label='Name *' 
+			        	placeholder='Type tecnology name'
+			        	onChange={this.onTechNameChange}
+		        	/>
+                    <TextInput
+                        value={this.state.techVersion}
+                        label='Version *' 
+                        placeholder='Type tecnology version'
+                        onChange={this.onTechVersionChange}
+                    />
+                    <TextArea
+                        value={this.state.techDescription}
+                        label='Description *' 
+                        placeholder='Type tecnology description here'
+                        onChange={this.onTechDescriptionChange}
+                    />
+                    <FileUpload
+                        onChange={this.onTechLogoChange}
+                    />
+		        	<Button 
+                        value="Add" 
+                        onClick={this.addNewTechToProject}
+                    />  	
+    			</div>
+    			
+	    		<div>
+	    			<div className={styles['list-container']}>
+                    All technologies:
+                    <div className={styles['list']}>
+                     	{predefinedTags}
+                    </div>
+	                </div>
+	               
+	                 <div className={styles['list-container']}>
+	                     Technologies in project:
+	                     <div className={styles['list']}>
+	                        {usedTags}
+	                     </div>
+	                </div>
+	    		</div>
             </div>
     	);
     }
