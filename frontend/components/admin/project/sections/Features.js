@@ -24,6 +24,7 @@ class Features extends Component {
         this.closeCreateFeatureModal = this.closeCreateFeatureModal.bind(this);
         this.addNewFeature = this.addNewFeature.bind(this);
         this.setNewFeatureName = this.setNewFeatureName.bind(this);
+        this.removeSection = this.removeSection.bind(this);
     }
     setNewSectionName(e){
     	this.setState({
@@ -42,9 +43,13 @@ class Features extends Component {
     		})
     	}
     }
+	removeSection(id){
+		this.props.deleteSection(id);
+	}
     onSectionSelected(e, id) {
     	this.props.selectSection(id);
     }
+
     showCreateFeatureModal() {
     	console.log('showCreateFeatureModal');
     	this.setState({
@@ -134,6 +139,7 @@ class Features extends Component {
     				 section={section}
     				 isActive={activeSection._id === section._id}
     				 onClick={this.onSectionSelected}
+					 removeSection={this.removeSection}
     			/>
     		);
     	});

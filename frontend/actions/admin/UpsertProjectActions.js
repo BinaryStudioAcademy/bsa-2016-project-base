@@ -70,7 +70,16 @@ export function createProjectData() {
         type: types.UP_CREATE_PROJECT_DATA
     };
 };
+export function deleteSection(id) {
+    console.log(id);
 
+    return dispatch => {
+        sectionService.removeSection(id)
+            .then(dispatch(getPredefinedData()))
+
+    }
+
+}
 
 export function postTag(tag) {
     return dispatch => {

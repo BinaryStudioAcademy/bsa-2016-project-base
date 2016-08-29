@@ -16,7 +16,7 @@ class Feature extends Component {
                 <div className={( isActive ? styles["active"] : '' )} >
                     {feature.featureName}
                 </div>
-               
+
             </div>
         );
     }
