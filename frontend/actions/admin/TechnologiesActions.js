@@ -2,11 +2,11 @@
  * Created by razor on 04.08.16.
  */
 import fetch from 'isomorphic-fetch'
-
+import * as constants from '../../constants/Api';
 export function getTechnologies() {
     let error_code;
     return dispatch=> {
-        fetch(`/api/technologies/`)
+        fetch(`/api/technologies/`, constants.cookieMarker)
             .then(response => response.json())
             .then(json => dispatch(initTechnology(json)))
             .catch(error => {
@@ -26,14 +26,12 @@ export function initTechnology(listOfTechno) {
 }
 export function saveTechology(params) {
     return dispatch=> {
-        fetch("/api/technologies/", {
-            method: 'POST',
-            body: JSON.stringify(params),
-            headers: ({
-                'Content-Type': 'application/json',
-                Accept: 'application/json'
-            })
-        })
+        fetch("/api/technologies/", Object.assign({
+                method: 'POST',
+                body: JSON.stringify(params)
+            }, constants.cookieMarker,
+            constants.jsonHedeaders
+        ))
             .catch(error => dispatch(errorHandler('Bad Request')));
         dispatch(getTechnologies());
 
@@ -63,9 +61,10 @@ export function removeSelectedTechs(technologies) {
     return dispatch=> {
         technologies.forEach(tech=> {
             if (tech.checked === 'checked') {
-                fetch(`/api/technologies/${tech._id}`, {
-                    method: 'DELETE'
-                })
+                fetch(`/api/technologies/${tech._id}`, Object.assign({
+                        method: 'DELETE',
+                    }, constants.cookieMarker
+                ))
                     .catch(error => dispatch(errorHandler('Bad Request')));
             }
         });

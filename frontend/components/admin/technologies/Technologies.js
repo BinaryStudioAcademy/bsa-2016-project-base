@@ -117,7 +117,6 @@ class Technologies extends Component {
 
         return (
             <div id="technologies" className={styles["technologies-tab"]}>
-                <ReduxToastr/>
                 <div className={styles['technologies-tool-bar']}>
                     <div className={styles["technologies-tools"]}>
                         <div className="searchBlock">

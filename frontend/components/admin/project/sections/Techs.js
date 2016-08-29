@@ -77,7 +77,7 @@ class Techs extends Component {
                         <img src={tech.techAvatar} alt="tech logo"/>
 	    				<span>{tech.techName} {tech.techVersion}</span>
                         <span>{tech.techDescription}</span>
-		    			<Button onClick={(e) => this.addTechToProject(e, tech._id)}>
+		    			<Button className={styles["btnIcon"]} onClick={(e) => this.addTechToProject(e, tech._id)}>
 		            		<i className="fa fa-plus" aria-hidden="true"></i>
 		            	</Button>
 	            	</div>

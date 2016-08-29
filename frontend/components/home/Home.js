@@ -13,7 +13,6 @@ export default class Home extends Component {
     componentDidMount() {
         const self = this;
         const {model} = this.state;
-        console.log(model);
         model.component = this;
         model.searchContainer.component = this;
         model.searchContainer.searchModels.forEach(model=>model.component = self);

@@ -6,7 +6,6 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as actions from "../../../../actions/admin/TechnologiesDetailActions";
 import styles from  '../styles.sass';
-import {Button, FormGroup, ControlLabel, FormControl, Col, Form} from 'react-bootstrap';
 import {Link} from 'react-router'
 import TextArea from '../../../common/TextArea.js';
 import TextInput from '../../../common/TextInput.js';
@@ -18,12 +17,13 @@ class TechDetailPage extends Component {
         this.changeTechDescription = this.changeTechDescription.bind(this);
         this.deleteImage = this.deleteImage.bind(this);
         this.submitForm = this.submitForm.bind(this);
-        this.makeDoc = this.makeDoc.bind(this);
+        this.saveVersion = this.saveVersion.bind(this);
         this.state = {
             techName: '',
             techDescription: '',
             techAvatar: '',
-            doc: ''
+            doc: '',
+            techVersion: ''
         }
     }
 
@@ -33,13 +33,11 @@ class TechDetailPage extends Component {
             techName: this.state.techName,
             techDescription: this.state.techDescription,
             techAvatar: '',
+            techVersion: this.state.techVersion
         };
         this.props.updateData(this.props.routeParams.id, data);
     }
 
-    makeDoc() {
-        this.props.makeDoc(this.state);
-    }
 
     changeTechName(e) {
         if (e.target.value.length < 50) {
@@ -60,6 +58,7 @@ class TechDetailPage extends Component {
             techDescription: e.target.value
         })
     }
+
     submitForm(e) {
         e.preventDefault();
         let pic;
@@ -72,7 +71,8 @@ class TechDetailPage extends Component {
         let data = {
             techName: form.elements['techName'].value,
             techDescription: form.elements['techDescription'].value,
-            techAvatar: pic
+            techAvatar: pic,
+            techVersion: form.elements['techVersion'].value,
         };
         form.reset();
         this.props.updateData(this.props.routeParams.id, data);
@@ -80,18 +80,18 @@ class TechDetailPage extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps.state.doc);
         this.setState({
                 techName: nextProps.state.listOfTechnologies.techName,
                 techDescription: nextProps.state.listOfTechnologies.techDescription,
                 techAvatar: nextProps.state.listOfTechnologies.techAvatar,
                 doc: nextProps.state.doc,
+                techVersion: nextProps.state.listOfTechnologies.techVersion,
             }
         );
     }
 
     upload(e) {
-        var error =  document.getElementById('error');
+        var error = document.getElementById('error');
         error.classList.add('hidden');
         error.classList.remove('visible');
         var file = document.getElementById('file').files[0];
@@ -104,9 +104,9 @@ class TechDetailPage extends Component {
             if (this.readyState != 4) return;
             if (this.status === 200) {
                 var result = JSON.parse(xhr.responseText);
-                if(result.type === 'success') {
+                if (result.type === 'success') {
                     document.getElementById('file_path').value = result.file;
-                }else{
+                } else {
                     error.classList.remove('hidden');
                     error.classList.add('visible');
                 }
@@ -117,6 +117,10 @@ class TechDetailPage extends Component {
 
     componentWillMount() {
         this.props.getTechnologies(this.props.routeParams.id);
+    }
+
+    saveVersion(e) {
+        this.setState({techVersion: e.target.value})
     }
 
     render() {
@@ -143,9 +147,19 @@ class TechDetailPage extends Component {
                                 value={this.state.techName}
                                 placeholder="Enter name"
                             />
-                            <div id="error" className={styles['error'] + " hidden"}>Technology length must be less 50 symbols</div>
+                            <div id="error" className={styles['error'] + " hidden"}>Technology length must be less 50
+                                symbols
+                            </div>
                         </div>
-
+                        <div className="inputField">
+                            <TextInput
+                                label="Version"
+                                name="techVersion"
+                                onChange={this.saveVersion}
+                                value={this.state.techVersion}
+                                placeholder="Enter version"
+                            />
+                        </div>
                         <div className="inputField">
                            <TextArea
                                label="Description"
@@ -153,13 +167,15 @@ class TechDetailPage extends Component {
                                className={styles['text-select-input']}
                                onChange={this.changeTechDescription}
                                placeholder="Enter description"
+                               value={this.state.techDescription}
                            />
                         </div>
 
                         <div className="inputField">
                             {(this.state.techAvatar.length === 0) ?
                                 <div>
-                                    <input type="hidden" id="file_path" name="techAvatar" value={this.state.techAvatar}/>
+                                    <input type="hidden" id="file_path" name="techAvatar"
+                                           value={this.state.techAvatar}/>
                                     <div id="error" className={styles['error'] + " hidden"}>Wrong file formant</div>
                                     <input type="file" id="file" name="afile" onChange={this.upload}/>
                                 </div>

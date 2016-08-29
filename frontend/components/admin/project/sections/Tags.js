@@ -16,7 +16,7 @@ class Tags extends Component {
         this.onTagNameChange = this.onTagNameChange.bind(this);
         this.addNewTagToProject = this.addNewTagToProject.bind(this);
         
-    } 
+    }
     addTagToProject(e, tagId) {
         if (tagId) this.props.addTagToProject(tagId);
     }

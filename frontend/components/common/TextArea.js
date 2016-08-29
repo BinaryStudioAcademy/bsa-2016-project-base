@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import styles from './styles/textarea.sass';
 
-const TextArea = ({id, label, value, placeholder, onChange, rows, cols}) => {
+const TextArea = ({id, label, value, placeholder, onChange, rows, cols,name}) => {
 	const labelHtml = label ? <label htmlFor={id}>{label}</label> : '';
     return (
         <div>
@@ -14,6 +14,7 @@ const TextArea = ({id, label, value, placeholder, onChange, rows, cols}) => {
                 cols={cols}
                 onChange={onChange}
                 placeholder={placeholder}
+                name={name}
             />
         </div>
     );

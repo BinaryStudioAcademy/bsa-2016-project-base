@@ -1,18 +1,22 @@
 import promise from 'es6-promise';
 promise.polyfill();
 import fetch from 'isomorphic-fetch';
-import { API } from '../constants/Api';
-
+import * as constants from '../constants/Api';
 
 class ReviewService {
 
+	constructor(){
+		this.url = constants.URL + "review/";
+	}
+
     getAllProjects() {
-        return fetch(`${API}review`);
+        return fetch(this.url, constants.cookieMarker);
     }
 
     getProject(id) {
-        return fetch(`${API}review/${id}`);
+        return fetch(this.url + id, constants.cookieMarker);
     }
+
 }
 
 const reviewService = new ReviewService();

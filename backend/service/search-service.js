@@ -1,3 +1,5 @@
+"use strict";
+
 var Tags = require('../schemas/tagSchema');
 var Techs = require('../schemas/technologySchema');
 var Users = require('../schemas/userSchema');

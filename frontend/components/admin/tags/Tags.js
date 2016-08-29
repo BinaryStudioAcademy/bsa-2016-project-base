@@ -104,7 +104,7 @@ class Tags extends Component {
 				    		/>
 				    		<Button
 				    			label='Remove'
-				    			onAdd={this.deleteMany}
+				    			onClick={this.deleteMany}
 				    			backgroundColor='#FC5A5A'
 				    		/>
 				    		</div>
@@ -116,7 +116,7 @@ class Tags extends Component {
 				    			/>
 				    			<Button
 				    				label='Add tag'
-				    				onAdd={this.addTag}
+				    				onClick={this.addTag}
 				    				backgroundColor='#8D97A4'
 				    			/>
 				    		</div>
