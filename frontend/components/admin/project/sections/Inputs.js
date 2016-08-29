@@ -2,7 +2,7 @@ import React, { Component,PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../../actions/admin/UpsertProjectActions';
-import { Button, Checkbox, TextArea,  DropDownNewProject, DateInput, TextInput, Editor, TextFieldProject, DatePickerControlled} from '../../../common/';
+import { Button, Checkbox, TextArea, DropDownNewProject, DateInput, TextInput, Editor, TextFieldProject, DatePickerControlled} from '../../../common/';
 import styles from './styles/inputs.sass';
 import FaAngleDown from 'react-icons/lib/fa/angle-down';
 
@@ -85,12 +85,14 @@ class Inputs extends Component {
                         <DatePickerControlled 
                             hint='Start Date'
                             style={{width: '100%'}}
+                            onChange={this.onStartDateChange}
                         />
                     </div>
                     <div className={styles['col-1-3']}>
                         <DatePickerControlled
                             hint='End Date'
                             style={{width: '100%'}}
+                            onChange={this.onFinishDateChange}
                         />
                     </div>
                     <div className={styles['col-1-3']}>
