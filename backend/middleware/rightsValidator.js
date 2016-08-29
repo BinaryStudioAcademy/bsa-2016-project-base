@@ -2,16 +2,10 @@ var Cookies = require('cookies');
 
 module.exports = function(req, res, next) {
 	var directions = [], cookies = new Cookies(req, res),
-<<<<<<< HEAD
         role = cookies.get('userRole'),
 		matches = req.url.split('/'),
 		currentDirection = matches[2];
     if(role)  role = role.toLowerCase();
-=======
-	role = cookies.get('userRole').toLowerCase(),
-		matches = req.url.split('/'),
-		currentDirection = matches[2];
->>>>>>> 5ad960bdad6491ea74f016f80c5b0e68c0fde955
     switch(req.method.toLowerCase()){
     	case 'get':
     		if(role != 'admin'){
