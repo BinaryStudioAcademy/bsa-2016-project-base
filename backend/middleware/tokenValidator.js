@@ -6,7 +6,6 @@ var JWT = require('jsonwebtoken'),
 module.exports = function(req, res, next) {
     var cookies = new Cookies(req, res),
         token = cookies.get('x-access-token');
-        console.log(cookies.get('userEmail'),cookies.get('userRole'));
     if (token){
         JWT.verify(token, configTocken['key'], function (err, decoded) {
             if (err) {
