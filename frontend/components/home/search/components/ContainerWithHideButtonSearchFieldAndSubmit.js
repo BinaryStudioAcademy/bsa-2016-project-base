@@ -59,11 +59,20 @@ export default class ContainerWithHideButtonSearchFieldAndSubmit extends React.C
             label="Clear Search"
             secondary={true}
             onClick={model.clearSearch}/></div>:"";
+        const searchPreview = <div>
+            <div>Search Preview</div>
+            {model.searchModels.map(model=>
+                model.values.length?
+                <div>
+                    {model.title} : {model.values.map(value=>model.getText(value)).join(", ")}
+                </div>:""
+        )}</div>;
         return (
             <div className='inputs-tool'>
                 <div id='inputs'>{searchInput}  {fastInputButton}  {showButton} {clearSearchButton}</div>
                 {model.shouldShowHint?hint:""}
                 {/*hint*/}
+                {searchPreview}
                 {body}
 
             </div>

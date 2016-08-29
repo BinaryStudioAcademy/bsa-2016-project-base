@@ -14,11 +14,11 @@ class Attachments extends Component {
             fileInput: null
         }
         this.loadAttachment = this.loadAttachment.bind(this);
-        this.onTechLogoChange = this.onTechLogoChange.bind(this);
+        this.onFilePathChange = this.onFilePathChange.bind(this);
         this.removeFile = this.removeFile.bind(this);
     }
-    onTechLogoChange(e) {
-        console.log('onTechLogoChange url', e.target.value);
+    onFilePathChange(e) {
+        console.log('onFilePathChange url', e.target.value);
         /*this.setState({
             file:  e.target.files[0]
         })*/
@@ -74,8 +74,8 @@ class Attachments extends Component {
                 <fieldset>
                     <legend>Attachments</legend>
                     <FileUpload
-                        accept="image/jpeg,image/png,image/gif"
-                        onChange={this.onTechLogoChange}
+                        accept="image/jpeg,image/png,image/gif,application/xml"
+                        onChange={this.onFilePathChange}
                     />
                     
                     <div className={styles["list"]}>
