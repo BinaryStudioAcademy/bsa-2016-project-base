@@ -58,22 +58,19 @@ class UsersList extends Component {
 
         return (
             <div id={styles['user-list']}>
-                <fieldset>
-                    <legend>Users</legend>
-                    <div className={styles['list-container']}>
-                        All users:
-                        <div className={styles['list']}>
-                         	{usersList}
-                        </div>
+                <div className={styles['list-container']}>
+                    All users:
+                    <div className={styles['list']}>
+                     	{usersList}
                     </div>
-                   
-                     <div className={styles['list-container']}>
-                         Project developers:
-                         <div className={styles['list']}>
-                            {developersList}
-                         </div>
-                    </div>
-                 </fieldset>
+                </div>
+               
+                 <div className={styles['list-container']}>
+                     Project developers:
+                     <div className={styles['list']}>
+                        {developersList}
+                     </div>
+                </div>
             </div>
         );
     }

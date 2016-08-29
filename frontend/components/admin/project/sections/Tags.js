@@ -68,9 +68,6 @@ class Tags extends Component {
     	
     	return (
             <div id={styles['tags-list']}>
-                <header className={styles['tags-header']}>
-                    <h2>Tags</h2>
-                </header>
                 <div className={styles.row}>
                     <div className={styles['list-container']}>
                         <header className={styles['tags-list-header']}>
