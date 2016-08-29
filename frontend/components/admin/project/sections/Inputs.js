@@ -27,14 +27,14 @@ class Inputs extends Component {
     	const link = e.target.value;
     	this.props.changeProjectLink(link);
     }
-    onStartDateChange(e){
-    	console.log('onStartDateChange: ',e.target.value);
-    	const date = e.target.value;
+    onStartDateChange(e, d){
+    	console.log('onStartDateChange: ', d);
+    	const date = d;
     	this.props.changeStartDate(date);
     }
-    onFinishDateChange(e){
-    	console.log('onFinishDateChange: ',e.target.value);
-    	const date = e.target.value;
+    onFinishDateChange(e, d){
+    	console.log('onFinishDateChange: ', d);
+    	const date = d;
     	this.props.changeFinishDate(date);
     }
     onConditionChange(e){
