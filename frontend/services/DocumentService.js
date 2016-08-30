@@ -6,7 +6,7 @@ import * as constants from '../constants/Api';
 class DocumentService {
 
     constructor() {
-        this.url = constants + "documents/";
+        this.url = constants.URL + "documents/";
     }
 
     getAuthLink(){
@@ -22,7 +22,7 @@ class DocumentService {
     }
 
     setDataToFile(featureObj, token) {
-        return fetch(`${this.url}documents/estimation/${token}`, 
+        return fetch(`${this.url}estimation/${token}`,
             Object.assign({
                 method: 'POST',
                 body: JSON.stringify({sections: featureObj})
