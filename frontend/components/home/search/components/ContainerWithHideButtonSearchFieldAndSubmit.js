@@ -40,7 +40,7 @@ export default class ContainerWithHideButtonSearchFieldAndSubmit extends React.C
                               onClick={model.goExtendedSearch}/>
             </div>:"";
         const hint = <div className='hint'><div className='s'>
-            <div>#: tags,  @: users,  !: techs,  ~: owners,  nothing:  name</div>
+            <div>#: tags,  @: users,  !: techs,  ~: owners,  nothing:  name, $: description</div>
             <div>Example: #partOfTag !partOfTech partOfName</div></div>
         </div>;
 
