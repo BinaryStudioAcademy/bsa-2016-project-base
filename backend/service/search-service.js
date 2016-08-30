@@ -56,6 +56,7 @@ class SearchService {
 	    	queryDateTo: searchFilters.queryProjDateTo,
 	    	querySkip: searchFilters.queryProjSkip,
 	    	queryLimit: searchFilters.queryProjLimit,
+	    	queryDescr: searchFilters.queryProjDescription,
 	    	sortedProjList: [],
 	    	found: 0
 	    };

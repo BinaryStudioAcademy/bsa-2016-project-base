@@ -16,6 +16,7 @@ class SearchServiceSubTools {
         queryFilters.queryProjTechs = (req.query.techs == undefined)? []: req.query.techs.split(',');
         queryFilters.queryProjSkip = (req.query.skip == undefined)? 0: Number.parseInt(req.query.skip);
         queryFilters.queryProjLimit = (req.query.limit == undefined)? Number.MAX_SAFE_INTEGER: Number.parseInt(req.query.limit);
+        queryFilters.queryProjDescription = (req.query.description == undefined)? '': req.query.description;
 
         var now = new Date();
         var timeOffset = now.getTimezoneOffset();
@@ -24,7 +25,7 @@ class SearchServiceSubTools {
         queryFilters.queryProjDateTo = (req.query.dateTo == undefined)? [now]: req.query.dateTo.split(',').map(elem=>new Date(new Date(elem).valueOf() + 86399999));
         console.log(`getFilteredProjects() -> acquired request patterns: projName= ${queryFilters.queryProjName}, users = ${queryFilters.queryProjUsers},
             owners = ${queryFilters.queryProjOwners}, tags = ${queryFilters.queryProjTags}, techs = ${queryFilters.queryProjTechs}, dateFrom = ${queryFilters.queryProjDateFrom},
-            dateTo = ${queryFilters.queryProjDateTo}, skip = ${queryFilters.queryProjSkip}, limit = ${queryFilters.queryProjLimit}`);
+            dateTo = ${queryFilters.queryProjDateTo}, skip = ${queryFilters.queryProjSkip}, limit = ${queryFilters.queryProjLimit}, description = ${queryFilters.queryProjDescription}`);
 
         queryFilters.queryProjPredicate = (req.query.predicate == undefined)? null: req.query.predicate;
 
@@ -271,6 +272,10 @@ class SearchServiceSubTools {
             projQueryObj = {
                 projectName: {$regex: searchFilters.queryProjName, $options:'$i'},
                 $and: [
+                    {$or: [
+                        {'description.descrText': {$regex: searchFilters.queryProjDescription, $options:'$i'}},
+                        {'description.descrFullText': {$regex: searchFilters.queryProjDescription, $options:'$i'}}
+                    ]},
                     {$or: datesQuerySelection},
                     {$or: preparedQueryConditions}
                 ]
@@ -280,8 +285,15 @@ class SearchServiceSubTools {
             
             projQueryObj = {
                 projectName: {$regex: searchFilters.queryProjName, $options:'$i'},
-                $or: datesQuerySelection
+                $and: [
+                    {$or: [
+                        {'description.descrText': {$regex: searchFilters.queryProjDescription, $options:'$i'}},
+                        {'description.descrFullText': {$regex: searchFilters.queryProjDescription, $options:'$i'}}
+                    ]},
+                    {$or: datesQuerySelection}
+                ]
             };
+
             if (res.filteredUsersIds != null) {projQueryObj.users = {$in: res.filteredUsersIds}};
             if (res.filteredOwnersIds != null) {projQueryObj.owners = {$in: res.filteredOwnersIds}};
             if (res.filteredTagsIds != null) {projQueryObj.tags = {$in: res.filteredTagsIds}};
@@ -371,8 +383,6 @@ class SearchServiceSubTools {
         });
         return selectionConditionsOr;
     }
-
-
 }
 const searchServiceSubTools = new SearchServiceSubTools();
 module.exports = searchServiceSubTools;
