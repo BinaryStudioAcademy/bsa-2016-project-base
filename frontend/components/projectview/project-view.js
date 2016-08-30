@@ -10,19 +10,12 @@ import UserList from './users-component/users_list';
 import styles from './project-view.sass';
 import EstimationFile from "./estimationFile/EstimationFileReceiverComponentWithLinkField"
 import Questions from './questions/Questions'; // QuestionsStatic is just for static representation
-import FaList from 'react-icons/lib/fa/list';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import Slider from 'material-ui/Slider';
 import RaisedButtonUI from '../../components/common/RaisedButton-ui';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {List, ListItem} from 'material-ui/List';
-import ContentInbox from 'material-ui/svg-icons/content/inbox';
-import ActionGrade from 'material-ui/svg-icons/action/grade';
-import ContentSend from 'material-ui/svg-icons/content/send';
-import ContentDrafts from 'material-ui/svg-icons/content/drafts';
-import Divider from 'material-ui/Divider';
-import ActionInfo from 'material-ui/svg-icons/action/info';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, averageRating} from 'material-ui/Table';
+import {Link} from 'react-router'
 
 
 const tabsStyles = {
@@ -165,7 +158,9 @@ class ProjectView extends Component {
 
 				<div className="projectMain">
 					<div className="firstPart">
-						<span  className="nameProject">{viewProjectName}</span>
+						<span  className="nameProject">{viewProjectName}
+							<Link to={'/edit-project/' + currentProject._id} className="editLabel">Edit</Link>
+						</span>
 						<span className="tags"><TagsList/></span>
 						<div className="fullDescriptionProject">
 							{fullDescription}
