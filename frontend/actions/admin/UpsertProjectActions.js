@@ -1,12 +1,10 @@
-    import * as types from './UpsertProjectActionTypes';
+import * as types from './UpsertProjectActionTypes';
 import upsertProjectService from '../../services/admin/UpsertProjectService';
 import adminTagService from '../../services/admin/AdminTagService';
 import techService from '../../services/TechnologieService';
 import uploadService from '../../services/UploadService';
 import sectionService from '../../services/sectionService';
 import featureService from '../../services/featureService';
-
-
 
 
 export function getPredefinedData() {
@@ -21,13 +19,13 @@ export function getPredefinedData() {
                 }
                 return response.json();
             })
-            .then( json =>  {
+            .then(json => {
                 dispatch({
                     type: types.UP_GET_DATA_SUCCESS,
                     data: json
                 });
             })
-            .catch( error => {
+            .catch(error => {
                 dispatch({
                     type: types.UP_GET_DATA_ERROR,
                     error: error
@@ -45,16 +43,16 @@ export function postProject(project) {
             .then(response => {
                 if (response.status != 201) {
                     throw Error(response.statusText);
-                } 
+                }
                 return response.json();
             })
-            .then( json =>  {
+            .then(json => {
                 dispatch({
                     type: types.UP_POST_PROJECT_SUCCESS,
                     data: json
                 });
             })
-            .catch( error => {
+            .catch(error => {
                 dispatch({
                     type: types.UP_POST_PROJECT_ERROR,
                     error: error
@@ -64,21 +62,31 @@ export function postProject(project) {
 };
 
 
-
 export function createProjectData() {
     return {
         type: types.UP_CREATE_PROJECT_DATA
     };
 };
-export function deleteSection(id) {
-    console.log(id);
-
+export function deleteSection(id, sections) {
+    console.log(sections);
+    sections.forEach(function (el, indx) {
+        if (el._id === id) {
+            sections.splice(indx, 1);
+        }
+    });
     return dispatch => {
         sectionService.removeSection(id)
-            .then(dispatch(getPredefinedData()))
-
+            .then(dispatch({
+                type: types.UP_POST_SECTION_DELETE,
+                data: sections
+            }))
+            .catch(error => {
+                dispatch({
+                    type: types.UP_POST_SECTION_ERROR,
+                    error: error
+                });
+            });
     }
-
 }
 
 export function postTag(tag) {
@@ -93,13 +101,13 @@ export function postTag(tag) {
                 }
                 return response.json();
             })
-            .then( json =>  {
+            .then(json => {
                 dispatch({
                     type: types.UP_POST_TAG_SUCCESS,
                     data: json
                 });
             })
-            .catch( error => {
+            .catch(error => {
                 dispatch({
                     type: types.UP_POST_TAG_ERROR,
                     error: error
@@ -120,13 +128,13 @@ export function postTech(tech) {
                 }
                 return response.json();
             })
-            .then( json =>  {
+            .then(json => {
                 dispatch({
                     type: types.UP_POST_TECH_SUCCESS,
                     data: json
                 });
             })
-            .catch( error => {
+            .catch(error => {
                 dispatch({
                     type: types.UP_POST_TECH_ERROR,
                     error: error
@@ -145,16 +153,16 @@ export function postSection(section) {
             .then(response => {
                 if (response.status != 201) {
                     throw Error(response.statusText);
-                } 
+                }
                 return response.json();
             })
-            .then( json =>  {
+            .then(json => {
                 dispatch({
                     type: types.UP_POST_SECTION_SUCCESS,
                     data: json
                 });
             })
-            .catch( error => {
+            .catch(error => {
                 dispatch({
                     type: types.UP_POST_SECTION_ERROR,
                     error: error
@@ -162,8 +170,6 @@ export function postSection(section) {
             });
     };
 };
-
-
 
 
 export function postFeature(feature) {
@@ -175,16 +181,16 @@ export function postFeature(feature) {
             .then(response => {
                 if (response.status != 201) {
                     throw Error(response.statusText);
-                } 
+                }
                 return response.json();
             })
-            .then( json =>  {
+            .then(json => {
                 dispatch({
                     type: types.UP_POST_FEATURE_SUCCESS,
                     data: json
                 });
             })
-            .catch( error => {
+            .catch(error => {
                 dispatch({
                     type: types.UP_POST_FEATURE_ERROR,
                     error: error
@@ -192,9 +198,6 @@ export function postFeature(feature) {
             });
     };
 };
-
-
-
 
 
 export function uploadFile(file) {
@@ -209,13 +212,13 @@ export function uploadFile(file) {
                 }
                 return response.json();
             })
-            .then( json =>  {
+            .then(json => {
                 dispatch({
                     type: types.UP_UPLOAD_FILE_SUCCESS,
                     data: json
                 });
             })
-            .catch( error => {
+            .catch(error => {
                 dispatch({
                     type: types.UP_UPLOAD_FILE_ERROR,
                     error: error

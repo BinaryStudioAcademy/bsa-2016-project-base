@@ -44,7 +44,8 @@ class Features extends Component {
     	}
     }
 	removeSection(id){
-		this.props.deleteSection(id);
+		const {sections} = this.props;
+		this.props.deleteSection(id,sections);
 	}
     onSectionSelected(e, id) {
     	this.props.selectSection(id);

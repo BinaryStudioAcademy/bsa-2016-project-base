@@ -128,6 +128,14 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 sections: sections.concat(data)
             });
         }
+        case types.UP_POST_SECTION_DELETE: {
+            const {data} = action;
+            const {sections} = state;
+            console.log('DELETE_SECTION_SUCCESS',sections);
+            return Object.assign({}, state, {
+                sections:data
+            });
+        }
         case types.UP_POST_FEATURE_SUCCESS: {
             const {data} = action;
             const {features} = state;
