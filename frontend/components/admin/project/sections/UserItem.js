@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Button } from '../../../common/';
-import styles from './styles/UsersList.sass';
+//import styles from './styles/UsersList.sass';
 
 
 const UserItem = ({user, onAddClick}) => {
@@ -9,7 +9,7 @@ const UserItem = ({user, onAddClick}) => {
             <img src={user.avatar} alt="user avatar"/>
             <span>{user.name}</span>
             <span>{user.position}</span>
-            <Button className={styles["btnIcon"]} onClick={(e) => onAddClick(e, user._id)}>
+            <Button onClick={(e) => onAddClick(e, user._id)}>
             	<i className="fa fa-plus" aria-hidden="true"></i>
             </Button>
         </div>
