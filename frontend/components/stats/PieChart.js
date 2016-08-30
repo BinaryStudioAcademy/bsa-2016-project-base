@@ -10,7 +10,7 @@ export default class PieChart extends AbstractChart {
 
     static get propTypes() {
         return {
-            data:PropTypes.array.isRequired
+            data:PropTypes.object.isRequired
         }
     }
 

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Old from "./HomeOld"
 import New from "./HomeProjects"
 import Search from "./search/components/ContainerWithHideButtonSearchFieldAndSubmit"
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -8,6 +7,7 @@ export default class Home extends Component {
     constructor(props) {
         super(props);
         this.state = HomeInitialState(this);
+      
     }
 
     componentDidMount() {
@@ -17,13 +17,16 @@ export default class Home extends Component {
         model.searchContainer.component = this;
         model.searchContainer.searchModels.forEach(model=>model.component = self);
         if (!model.projects.length) {
-            model.loadMore()
+            //not to upload projects if there are some (on repeated visit)
+            model.goSearch();
         }
     }
 
+
+
     render() {
         const model = this.state.model;
-        return (<div>
+        return (<div className='section-cont'>
                 <MuiThemeProvider>
                     <Search model={model.searchContainer}/>
                 </MuiThemeProvider>

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { ListGroup } from 'react-bootstrap';
 import Project from './Project';
 
 import styles from './ListProjects.sass';
@@ -27,15 +26,16 @@ export default class ListProjects extends Component {
 
         return (
                 (projects.length > 0) ?
-                <ListGroup id="list-projects" className={styles['list-group']}>
-                    {projects.map( project =>
+                <div className='row-project'>
+                    {projects.map( (project, index) =>
                         <Project
-                            key={project._id}
+                            id={project._id}
+                            key={index}
                             data-id={project._id}
                             project={project}
                             ranking={this.ranking(project.rating)}/>
                     )}
-                </ListGroup> : null
+                </div> : null
         )
     }
 }

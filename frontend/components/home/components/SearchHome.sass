@@ -1,120 +1,92 @@
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons|Rajdhani:300,400)
 @import "../common.sass"
 
-#search-home
+=forSmallScreens($media)
+    @media (max-width: $media/16+em)
+        @content
 
-	.filer-by-technologies
-	  padding-left: 105px
+.home-content-row
+    display: flex
+    margin-bottom: 20px
+    +forSmallScreens(640)
+        display: block
 
-	.filer-by-description
-	  padding-left: 92px
+#project-search
+    width: 50%
+    color: #8D97A4
+    font-family: "Lato", sans-serif
+    font-size: 1.5em
+    font-weight: 300
+    padding: 4.4rem 0
+    box-sizing: border-box
 
-	.filer-by-users
-	  padding-left: 55px
+    .search-wrapper
+        border-bottom: 1px solid #D5D7DA
+        padding-bottom: 10px
 
-	.filer-by-tags, .filer-by-date
-	  padding-left: 50px
+        .input-search
+            border: none
+            background-color: transparent
+            vertical-align: middle
+            padding-left: 0.7em
+            color: #8D97A4
+            width: 80%
 
-	.filer-by-types-label
-	  width: 0px
+            &:focus
+                outline: none
 
-	.filer-by-types-label:before
-	  content: attr(data-text)
-	  border: 1px solid #9e9e9e
-	  background-color: gainsboro
-	  padding: 4px
-	  border-radius: 3px
-	  color: #504e4e
-	  font-weight: bold
-	  position: absolute
-	  bottom: 3px
-	  left: 47px
-	  z-index: 3
-	  float: left
+#filters-wrapper
+    width: 50%
+    display: flex
+    justify-content: flex-end
+    padding: 4.4rem 0
 
+    .sort
+        font-family: "Lato", sans-serif
+        margin-bottom: 20px
+        margin-right: 0.6rem
 
-	.search-form
-	  padding-top: 30px
+        .search-order-tooltip
+            font-weight: 400
+            font-size: 1.2em
+            margin-right: 13px
+            color: #505E6B
+        label
+            display: inline-block
+            padding: 0.5em
+            cursor: pointer
+            margin: 0
 
-	  background: #efefef
+    .filter
+        font-family: "Lato", sans-serif
+        display: inline-block
+        vertical-align: top
 
-	.form-group
-	  margin-right: 15px
-	  margin-left: 15px
+        .filter-tooltip
+            font-weight: 300
+            font-size: 1em
+            margin-right: 7px
+            color: #8D97A4
+            text-transform: uppercase
 
-	.form-control
-	  border: 0
-	  border-bottom: 1px solid #d6d3d3
-	  border-radius: 0
-	  color: #555
-	  font-size: 21px
-	  font-family: 'Rajdhani', sans-serif
-	  font-weight: 400
-	  box-shadow: none
+        label
+            cursor: pointer
+            padding: 0.5em
+            background-color: #505E6B
+            background:#95a5a6
+            margin-top: 0
+            color: #fff
+            border-left: 1px solid #f9f9f9
+            transition: background .3s
+            border-radius: 5px
+            display: block
 
-	.form-control::-webkit-input-placeholder
-	  font-family: 'Rajdhani', sans-serif
-	  font-weight: 200
-	  color: #aaa
-
-	.form-control:-moz-placeholder
-	  font-family: 'Rajdhani', sans-serif
-	  color: #aaa
-
-	.form-control::-moz-placeholder
-	  font-family: 'Rajdhani', sans-serif
-	  color: #aaa
-
-	.form-control:-ms-input-placeholder
-	  font-family: 'Rajdhani', sans-serif
-	  color: #aaa
-
-	.form-control:active,
-	.form-control:focus
-	  border-color: #555
-	  box-shadow: none
-
-	.button-search,
-	.button-search:active,
-	.button-search:hover,
-	.button-search:focus
-	  padding: 0 6px
-	  border: 0
-	  border-bottom: 1px solid #fbc959
-	  border-radius: 0
-	  background: #fbc959
-	  color: #555
-	  font-size: 21px
-	  font-weight: 900
-
-	.display-flex
-	  display: flex
-	  flex-flow: row wrap
-	  justify-content: space-around
-
-	.search-order-tooltip
-	  margin-right: 3px
-	  font-weight: 700
+            &:hover
+                background-color: #627484
+        input[type=checkbox]:checked + label
+            background: #2ecc71
 
 
-	input[type="radio"],
-	input[type="checkbox"]
-	  display: none
 
-	label
-	  margin: 0 3px
-	  padding: 5px
-	  background: #fff
-	  color: #555
-	  cursor: pointer
 
-	input[type="radio"]:checked + label,
-	input[type="checkbox"]:checked + label
-	  background: #c1cfd9
-	  color: #fff
-	.search-hint
-	  position: absolute
-	  top: 35px
-	  font-size: 12px
-	  font-style: italic
-	  color: lightsalmon
+

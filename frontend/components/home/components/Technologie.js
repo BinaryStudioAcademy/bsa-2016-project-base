@@ -12,7 +12,7 @@ export default class Technologie extends Component {
         const { name, filter } = this.props;
 
         return (
-            <span>
+            <div>
                 <input
                     type="checkbox"
                     value={name}
@@ -21,7 +21,7 @@ export default class Technologie extends Component {
                 <label htmlFor={name}>
                     {name}
                 </label>
-            </span>
+            </div>
         )
     }
 }

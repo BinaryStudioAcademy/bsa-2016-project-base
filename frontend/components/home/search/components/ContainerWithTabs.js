@@ -4,8 +4,8 @@ import {Tab, Tabs} from 'material-ui/Tabs';
 //import {Tab, Tabs} from "react-bootstrap"
 import MultiSelect  from "./MultiSelect"
 import DateSelect from "./RangeDateSelect"
-var injectTapEventPlugin = require("react-tap-event-plugin");
-injectTapEventPlugin();
+/*var injectTapEventPlugin = require("react-tap-event-plugin");
+injectTapEventPlugin();*/
 import Container from "./../models/SearchContainer"
 export default class ContainerWithTabs extends React.Component {
     constructor(props) {
@@ -16,12 +16,6 @@ export default class ContainerWithTabs extends React.Component {
         return {
             model:PropTypes.instanceOf(Container)
         }
-    }
-    componentDidMount(){
-        this.props.model.component = this;
-        this.props.model.searchModels.forEach(model=>{
-            model.component = this;
-        });
     }
     render() {
         const {model} = this.props;

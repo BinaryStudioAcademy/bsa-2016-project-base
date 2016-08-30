@@ -9,9 +9,9 @@ class ProjectsList extends Component {
  	render() {
 	    return (
 	    	<div>
-		    <div className={styles.alert}>Here you can find list of completed/required projects!
-		    	<Link to={"/project-view"}><u> One Project Viev</u></Link>
-		    </div>
+			    <div className={styles.alert}>Here you can find list of completed/required projects!
+			    	<Link to={"/project-view"}><u> One Project Viev</u></Link>
+			    </div>
 		    </div>
 	    )
 	}

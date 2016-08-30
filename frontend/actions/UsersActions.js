@@ -21,17 +21,17 @@ export function fetchUsers() {
                         }
                     }
                 }
-                console.log(project.users);
                 dispatch({
                     type: types.USERS_GET_ALL_LOADED,
                     payload: project.users
                 });
             })
-            .catch( err => {
-                dispatch({
-                    type: types.USERS_GET_ALL_ERROR,
-                    error: err
-                });
-            });
+            .catch(error => dispatch(errorHandler('Bad Request')));
     };
+}
+export function errorHandler(error) {
+    return {
+        type: 'SOMETHING_GONE_WRONG',
+        error: error
+    }
 }

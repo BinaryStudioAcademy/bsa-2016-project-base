@@ -11,7 +11,7 @@ export default class BarChart extends AbstractChart {
 
     static get propTypes() {
         return {
-            data:PropTypes.array.isRequired
+            data:PropTypes.object.isRequired
         }
     }
 
@@ -20,6 +20,9 @@ export default class BarChart extends AbstractChart {
         let _data = this.colors.same(data)
         return <ChartWrapper>
             <Bar data={_data} options={Object.assign({},data.options||{},{
+            legend: {
+                display:data.datasets.length>1
+            },
             scales: {
                 yAxes: [{
                         stacked: false,

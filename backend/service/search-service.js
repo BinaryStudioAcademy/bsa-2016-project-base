@@ -40,6 +40,7 @@ class SearchService {
 	    query.exec(callback);
 	}
 
+	
 	getFilteredProjects(req, callback) {
 
 	    let searchFilters = subtools.getSearchFiltersFromRequest(req);

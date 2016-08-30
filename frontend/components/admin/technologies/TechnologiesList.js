@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import styles from  './styles.sass';
 import {Link} from 'react-router'
+import CheckBox from './CheckBoxTech-ui.js';
 class TechnologiesList extends Component {
     constructor(props) {
         super(props);
@@ -28,18 +29,18 @@ class TechnologiesList extends Component {
     //     }
     // }
 
-    addTechnologiesToDeleteData(e) {
-        let id = e.target.id;
+    addTechnologiesToDeleteData(idEl, checked) {
+        let id = idEl;
         let action;
-        if (e.target.checked) {
+        if (checked) {
             action = 'add';
-            e.target.checked = false;
         } else {
             action = 'remove';
-            e.target.checked = 'checked';
         }
         this.props.controlCheckeditems(id, action);
     }
+
+
 
     render() {
 
@@ -49,11 +50,12 @@ class TechnologiesList extends Component {
                 <div className={styles['list_container']}>
                     { listOfTechnologies.map((elem, index, array) => {
                         return <div className={styles['list-item']} key={elem._id}>
-                            <input className={styles['select-all-checkbox']} onChange={this.addTechnologiesToDeleteData}
-                                   checked={elem.checked} type="checkbox"
-                                   id={elem._id} value={elem.techName}/>
-                            <label className={styles['select-all-label']} htmlFor={elem._id}>{elem.techName}</label>
-                            <Link to={'/admin/tech/' + elem._id}>Edit</Link>
+                            <CheckBox onChange={this.addTechnologiesToDeleteData}
+                                      checked={elem.checked} type="checkbox"
+                                      id={elem._id} value={elem.techName}
+                            label={elem.techName}/>
+
+                            <Link to={'/admin/tech/' + elem._id} className="editLabel">Edit</Link>
                             <div className={styles['hidden_block']}>
                                 {(elem.techAvatar.length > 0) ?
                                     <div className={styles['img_wrapper']}>

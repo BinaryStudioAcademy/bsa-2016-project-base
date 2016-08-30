@@ -7,7 +7,7 @@ import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 import Container from "./../models/SearchContainer"
 import DeferredTextInput from "./TextInput"
-
+import PredicateSearch from "./PredicateSearch"
 export default class ContainerWithHideButtonSearchFieldAndSubmit extends React.Component {
     constructor(props) {
         super(props)
@@ -24,10 +24,10 @@ export default class ContainerWithHideButtonSearchFieldAndSubmit extends React.C
     render() {
         const {model} = this.props;
         const showButton = model.shouldShowSearch?
-            <RaisedButton label="Hide Extended Search"
-                          onClick={model.hideSearch}/>:
-            <RaisedButton label="Show Extended Search"
-                          onClick={model.showSearch}/>
+            <div className='col-inputs'><RaisedButton label="Hide Extended Search"
+                          onClick={model.hideSearch}/></div>:
+            <div className='col-inputs'><RaisedButton label="Show Extended Search"
+                          onClick={model.showSearch}/></div>
 
         const body = model.shouldShowSearch?
             <div>
@@ -39,32 +39,43 @@ export default class ContainerWithHideButtonSearchFieldAndSubmit extends React.C
                 <RaisedButton label="Extended Search!"
                               onClick={model.goExtendedSearch}/>
             </div>:"";
-        const hint = <div>
-            <div>#: tags, @: users, !: techs, ~: owners, nothing: name</div>
-            <div>Example: #partOfTag !partOfTech partOfName</div>
+        const hint = <div className='hint'><div className='s'>
+            <div>#: tags,  @: users,  !: techs,  ~: owners,  nothing:  name, $: description</div>
+            <div>Example: #partOfTag !partOfTech partOfName</div></div>
         </div>;
 
-        const searchInput = <DeferredTextInput
+        const searchInput = <div className='col-inputs'><DeferredTextInput
             onFocus={model.showHint}
             onBlur={model.hideHint}
             value={model.searchString}
             hintText="Search"
-            floatingLabelText="Search"
             receiver={model.updateSearchString}
             onKeyUp={e=>(e.keyCode==13)&&model.goFastSearch()}
-        />;
-        const fastInputButton = <RaisedButton
+        /></div>;
+        const fastInputButton = <div className='col-inputs'><RaisedButton
             label="Search!"
-            onClick={model.goFastSearch}/>;
-        const clearSearchButton = model.shouldShowSearch?<RaisedButton
+            onClick={model.goFastSearch}/></div>;
+        const clearSearchButton = model.shouldShowSearch?<div><RaisedButton
             label="Clear Search"
             secondary={true}
-            onClick={model.clearSearch}/>:"";
+            onClick={model.clearSearch}/></div>:"";
+        const searchPreview = <div>
+            <div>Search Preview</div>
+            {model.searchModels.map((model,i)=>
+                model.values.length?
+                <div key={i}>
+                    {model.title} : {model.values.map(value=>model.getText(value)).join(", ")}
+                </div>:""
+        )}</div>;
+        const predicateSearch = model.shouldShowSearch?<PredicateSearch model={model.predicateModel}/>:"";
         return (
-            <div>
-                <div>{searchInput}  {fastInputButton}  {showButton} {clearSearchButton}</div>
+            <div className='inputs-tool'>
+                <div id='inputs'>{searchInput}  {fastInputButton}  {showButton} {clearSearchButton} {predicateSearch}</div>
                 {model.shouldShowHint?hint:""}
+                {/*hint*/}
+                {searchPreview}
                 {body}
+
             </div>
         );
     }

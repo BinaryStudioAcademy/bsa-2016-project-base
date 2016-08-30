@@ -1,11 +1,13 @@
 import React, { PropTypes } from 'react';
+import styles from './styles/dateinput.sass';
 
-const DateInput = ({id, label, value, onChange}) => {
+const DateInput = ({id, label, value, onChange, className}) => {
     const labelHtml = label ? <label htmlFor={id}>{label}</label> : '';
     return (
-        <div>
+        <div className={className}>
          	{labelHtml}
         	<input
+                className={styles.mydateinput}
                 id={id} 
                 type="date" 
                 defaultValue={value}

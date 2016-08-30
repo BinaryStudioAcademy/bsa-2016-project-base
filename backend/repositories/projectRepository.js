@@ -1,3 +1,4 @@
+var connection = require('../db/dbconnect');
 var Repository = require('./generalRepository');
 var Project = require('../schemas/projectSchema');
 
@@ -11,7 +12,7 @@ ProjectRepository.prototype = new Repository();
 ProjectRepository.prototype.getByIdWithStakeholders = function(id, callback){
 	var model = this.model;
 	var query = model.findOne({_id:id})
-//				.populate('stage')
+				// .populate('stage')
 //				.populate('condition')
 				.populate('users')
 				.populate('owners');
@@ -21,7 +22,7 @@ ProjectRepository.prototype.getByIdWithStakeholders = function(id, callback){
 ProjectRepository.prototype.getByIdWithTags = function(id, callback){
 	var model = this.model;
 	var query = model.findOne({_id:id})
-//				.populate('stage')
+				// .populate('stage')
 //				.populate('condition')
 				.populate('tags');
 	query.exec(callback);
@@ -53,5 +54,10 @@ ProjectRepository.prototype.getAll = function(callback){
     query.exec(callback);
 };
 
+ProjectRepository.prototype.getAllInProgress = function(callback){
+	var model = this.model;
+	var query = model.find({status: {$not: { $eq: 'Completed' }}}, {_id: 1, projectName: 1, description: 1});
+	query.exec(callback);
+};
 
 module.exports = new ProjectRepository();

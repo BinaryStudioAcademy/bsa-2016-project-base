@@ -1,47 +1,135 @@
+@import "../../common/styles/common"
+
 =border-box
   box-sizing: border-box
 
 =default-btn
-  vertical-align: baseline  !important
-  border: 1px solid transparent !important
-  border-radius: 0px !important
-  background: #fff !important
-  font-weight: bold !important
-  border-bottom: 1px solid #d6d3d3 !important
-  z-index: 0 !important
-  &:hover
-    transition: none !important
+  vertical-align: baseline
+  border: 1px solid transparent
+  border-radius: 0
+  background: #fff
+  font-weight: bold
+  border-bottom: 1px solid #d6d3d3
+  z-index: 0
   &:focus
-    outline: none !important
+    outline: none
   label
-    vertical-align: baseline  !important
-    word-break: break-all !important
+    vertical-align: baseline
+    word-break: break-all
 
 =reset-input
-  outline: none !important
-  border: 0 !important
-  margin: 0 !important
-  padding: 0 !important
-  border-radius: 0 !important
-  box-shadow: none !important
-  transition: none !important
-  border-bottom: 1px solid #d6d3d3 !important
+  outline: none
+  border: 0
+  margin: 0
+  padding: 0
+  border-radius: 0
+  box-shadow: none
+  transition: none
+  border-bottom: 1px solid #d6d3d3
 
 =default-panel
-  margin-bottom: 20px !important
-  //border: 1px solid #eee !important
-  border-color: transparent !important
-  border: 0 !important
-  border-radius: 0 !important
-  box-shadow: none !important
+  //border: 1px solid #eee
+  border-color: transparent
+  border: 0
+  border-radius: 0
+  box-shadow: none
+
+.addForm
+  background-color: white
+
+
+
 #technologies
+
+
+  .input-group,
+  .myinput
+    height: 36px
+    width: 100%
+    margin-left: 0
+
+  .technologies-btn-remove
+    display: inline-block
+    +default-btn
+    font-size: 14px
+    font-weight: 500
+    font-family: Lato
+    border-radius: 2px
+    transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms
+    //background: #f53d3d !important
+    background: #fc5a5a
+    //margin-left: 1px !important
+    color: #fff
+
+  .technologies-btn-remove:hover
+    background-color: #db5151
+
+
+  #delete_all_container,
+  #delete_all
+    height: 36px
+
+  .technologies-tools
+    display: flex
+    align-items: center
+    margin: 0
+
+    .searchBlock
+      flex-basis: 33%
+
+    .technologiesControlBlock
+      flex-basis: 67%
+
+  .section-control
+      display: flex
+
+  .searchTech
+    display: flex
+    flex-direction: row
+    justify-content: flex-start
+
+    svg
+      margin-top: 15px
+      margin-right: 5px
+      color: #8D97A4;
+
+  .checkAndButton
+    display: flex
+    align-items: center
+    flex-basis: 75%
+
+  .checkAndButton > div
+    width: auto !important
+    margin-left: 15px
+
+  #delete_all
+    flex-basis: 50%
+
+  .technologies-btn-remove
+    width: 88px
+    margin-left: 15px
+    height: 36px
+
+  .addButton
+    flex-basis: 25%
+
+
+
+  .editLabel
+    margin-left: 5px
+    margin-bottom: 10px
+
   .technologies-tool-bar
-    margin-bottom: 20px !important
-    background: #EFEFEF !important
-    border-radius: 0 !important
-    box-shadow: none !important
+    padding: 20px
+    background: white
+    border-radius: 0
+    box-shadow: none
   .technologies-tab
+    padding-bottom: 40vh
+    background-color: white !important
     +border-box
+    form
+      background-color: white
     margin: 0 auto
     font-family: "Open Sans"
     font-size: 16px
@@ -52,42 +140,43 @@
   .search-input-container
 
   .button-feature-remove
-    vertical-align: baseline !important
-    border: 1px solid transparent !important
-    border-radius: 0px !important
-    background: #fff !important
-    font-weight: bold !important
-    border-bottom: 1px solid #d6d3d3 !important
-    z-index: 0 !important
-    background: #F97E76 !important
-    color: #fff !important
+    vertical-align: baseline
+    border: 1px solid transparent
+    border-radius: 0px
+    background: #fff
+    font-weight: bold
+    border-bottom: 1px solid #d6d3d3
+    z-index: 0
+    background: $primaryBlue
+    color: #fff
   .button-feature-remove:focus
-    background: #F97E76 !important
+    background: $primaryBlue
   .button-feature-add
-    vertical-align: baseline !important
-    border: 1px solid transparent !important
-    border-radius: 0px !important
-    background: #fff !important
-    font-weight: bold !important
-    border-bottom: 1px solid #d6d3d3 !important
-    z-index: 0 !important
-    background: #C1CFD9 !important
-    color: #fff !important
+    vertical-align: baseline
+    border: 1px solid transparent
+    border-radius: 0px
+    background: #fff
+    font-weight: bold
+    border-bottom: 1px solid #d6d3d3
+    z-index: 0
+    background: #C1CFD9
+    color: #fff
 
 
   .list_container
+    background-color: white
     min-height: 300px
-    display: flex
-    flex-wrap: wrap
-    align-content: flex-start
+    padding-left: 25px
+
   .list-item
+    border-radius: 3px
     box-sizing: border-box
-    color: #333 !important
+    color: #333
     padding: 0px 5px
     margin: 4px 4px 4px 4px
-    background-color: #ededed !important
+    background-color: #f3f6f8
     min-width: 150px
-    height: 60px
+    height: 35px
     vertical-align: middle
     text-align: left
     display: inline-flex
@@ -95,12 +184,12 @@
     flex: 1 0 calc(25% - 10px)
     position: relative
   .visible
-    visibility: visible
+    display: block
     opacity: 1
     transition: opacity 2s linear
 
   .hidden
-    visibility: hidden
+    display: none
     opacity: 0
     transition: visibility 0s 2s, opacity 2s linear
   .hidden_block
@@ -115,7 +204,7 @@
     color: #231f20
     -webkit-box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.2)
     box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.2)
-    background: #fff
+    background: #f3f6f8
     z-index: 10
   .list-item:hover .hidden_block
     display: block
@@ -132,80 +221,27 @@
   .error
     color: red
     font-style: italic
-  .select-all-checkbox,
-  .select-checkbox
-    position: absolute
-    z-index: -1000
-    left: -1000px
-    clip: rect(0 0 0 0)
-    height: 1px
-    width: 1px
-    margin: -1px
-    padding: 0
-    border: 0
-
-  .select-all-checkbox + .select-all-label
-    //margin: 3px 0px 0px 0px !important
-    margin: 0px !important
-    margin-top: -2px !important
-    padding: 0px 10px 0px 40px
-    height: 34px
-    line-height: 34px
-  .list-item .select-all-checkbox + .select-all-label
-    padding: 0px 10px 0px 25px
-    height: 20px
-    line-height: 20px
-  .select-checkbox + .select-label
-    padding-left: 21px
-    height: 16px
-    line-height: 16px
-
-  .select-all-checkbox + .select-all-label,
-  .select-checkbox + .select-label
-    display: inline-block
-    background-repeat: no-repeat !important
-    background-position: 0 0 !important
-    vertical-align: middle
-    cursor: pointer
-    background-color: transparent !important
-    color: black !important
-
-  .select-all-checkbox:checked + .select-all-label
-    background-position: 0px -30px !important
-
-  .select-checkbox:checked + .select-label
-    background-position: 0px -16px !important
-
-  .select-all-label
-    background-image: url(http://csscheckbox.com/checkboxes/u/csscheckbox_b5478ce038d0182679c6e07d0ac4f6dd.png) !important
-    background-size: 34px 65px !important
-
-  .list-item .select-all-label
-    background-size: 20px 53px !important
-    font-size: 14px
-  .select-label
-    background-image: url(http://csscheckbox.com/checkboxes/u/csscheckbox_84d5db31bde6d14cf3610dde3534e162.png)!important
 
   .select-label,
   .select-all-label
     color: #656565
     font-family: 'Open Sans', arial
     font-size: 16px
-    margin-top: 0 !important
-    vertical-align: middle !important
+    margin-top: 0
+    vertical-align: middle
 
 
   .select-all-label
-  //margin-top: -1px !important
+  //margin-top: -1px
 
   .select-label:hover,
   .select-all-label:hover
-    color: #303030 !important
+    color: #303030
 
   .select-all-label,.select-label
     user-select: none
   .list-container span
-    background: none !important
+    background: none
 
   .technologies-tab label
     background-color: transparent
@@ -216,63 +252,47 @@
     min-height: 250px
     padding: 5px 1.5rem 0px 1.5rem
 
-  .technologies-tab  textarea,
-  .technologies-tab  input[type="text"],
-  .technologies-tab   select
-    transition: border-bottom-color 0.9s
-    border-bottom: 3px solid #C1CFD9
-  .technologies-tab textarea
-    border: none
-    resize: none
-    border-radius: 0
-    min-height: 250px
-    padding: 5px 1.5rem 0px 1.5rem
-  .technologies-tab  textarea:focus,
-  .technologies-tab  input[type="text"]:focus,
-  .technologies-tab   select:focus
-    border-bottom-color: #F97E76
+  .technologies-tab  textarea
+    width: 100%
+
   .technologies-tab .form
+    display: flex
+    justify-content: center
+    flex-wrap: wrap
     padding-top: 50px
 
-  .technologies-tab button
-    background-color: #9AAD54
-
-  .technologies-tab button:active,
-  .technologies-tab button:hover
-    background-color: #9AAD46 !important
-  .technologies-tab button:active,
-  .technologies-tab button:hover,
-  .technologies-tab button:active,
-  .technologies-tab button:hover
-    border: none
-    color: white
-    outline: none !important
-    box-shadow: none
-
-  .technologies-tab button:focus
-    outline: none
-    color: white
-
-  .technologies-tab button,
-  .technologies-tab button
-    border: none
-    color: white
-    height: 40px
-    border-radius: 0
+  .inputField
+    flex-basis: 66%
+    margin-bottom: 15px
 
   .detail_picture_wrapper
-    display: block
-    width: 100px
-    height: 100px
     margin: 0 auto
-    margin-top: 30px
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
   .detail_picture_wrapper img
-    width: 100%
+    margin: 15px 0
+    max-width: 200px
+    max-height: 200px
   .detail_picture_wrapper a
     color: red
+    margin-bottom: 15px
   .list-item a
     color: #337ab7
     padding-top: 3px
+
+@media all and (min-width: 768px)
+  .panel-body
+    padding-top: 20px
+    padding-bottom: 20px
+
+@media all and (max-width: 768px)
+  .search-input-container
+    margin-bottom: 1em
+
+
+
 
 
 

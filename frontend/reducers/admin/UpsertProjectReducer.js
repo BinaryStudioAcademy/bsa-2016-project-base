@@ -1,65 +1,189 @@
 import * as types from '../../actions/admin/UpsertProjectActionTypes';
 
+
 export default function UpsertProjectReducer(state=initialState, action) {
 	switch (action.type) {
-        case types.ADD_USER_TO_PROJECT: {
+		 case types.UP_GET_DATA_SUCCESS: {
+            const {users, tags, technologies, conditions } = action.data;
+            return Object.assign({}, state, {
+            	users,
+				tags,
+				technologies,
+				conditions
+            });
+        }
+        case types.UP_ADD_USER_TO_PROJECT: {
             const {_id} = action;
             const {users} = state;
             return Object.assign({}, state, {
                 users: addUserToProject(users, _id)
             });
         }
-        case types.REMOVE_USER_FROM_PROJECT: {
+        case types.UP_REMOVE_USER_FROM_PROJECT: {
             const {_id} = action;
             const {users} = state;
             return Object.assign({}, state, {
                 users: removeUserFromProject(users, _id)
             });
         }
-        case types.CHANGE_OWNERSHIP: {
+        case types.UP_CHANGE_OWNERSHIP: {
             const {_id, checked} = action;
             const {users} = state;
             return Object.assign({}, state, {
                 users: changeOwnership(users, _id, checked)
             });
         }
-        case types.CHANGE_PROJECT_NAME: {
+        case types.UP_CHANGE_PROJECT_NAME: {
             const {name} = action;
             return Object.assign({}, state, {
-            	projectName: name
+            	
+            		projectName: name
+            	
             });
         }
-        case types.CHANGE_PROJECT_LINK: {
+        case types.UP_CHANGE_PROJECT_LINK: {
             const {link} = action;
             return Object.assign({}, state, {
-            	projectLink: link
+            	
+            		projectLink: link
+            	
             });
         }
-        case types.CHANGE_START_DATE: {
+        case types.UP_CHANGE_START_DATE: {
             const {date} = action;
             return Object.assign({}, state, {
-            	startDate: date
+            	
+            		timeBegin: date
+            	
             });
         }
-        case types.CHANGE_FINISH_DATE: {
+        case types.UP_CHANGE_FINISH_DATE: {
             const {date} = action;
             return Object.assign({}, state, {
-            	finishDate: date
+            	
+            		timeEnd: date
+            	
+            	
             });
         }
-        case types.CHANGE_CONDITION: {
+        case types.UP_CHANGE_CONDITION: {
             const {option} = action;
             return Object.assign({}, state, {
-            	condition: option
+            	
+            		condition: option
+            	
             });
         }
-        case types.CHANGE_DESCRIPTION: {
+        case types.UP_CHANGE_DESCRIPTION: {
             const {text} = action;
             return Object.assign({}, state, {
-            	description: text
+            	
+            		description:{
+            			descrFullText:text
+            		} 
+            	
+            });
+        }
+        case types.UP_ADD_TAG_TO_PROJECT: {
+            const {_id} = action;
+            const {tags} = state;
+            return Object.assign({}, state, {
+                tags: addTagToProject(tags, _id)
+            });
+        }
+        case types.UP_REMOVE_TAG_FROM_PROJECT: {
+            const {_id} = action;
+            const {tags} = state;
+            return Object.assign({}, state, {
+                tags: removeTagFromProject(tags, _id)
+            });
+        }
+        case types.UP_POST_PROJECT_SUCCESS: {
+            const {data} = action;
+            const {added} = state;
+            return Object.assign({}, state, {
+                added: true
+            });
+        }
+        case types.UP_POST_TAG_SUCCESS: {
+            const {data} = action;
+            const {tags} = state;
+            return Object.assign({}, state, {
+                tags: addNewTag(tags, data)
+            });
+        }
+        case types.UP_POST_TECH_SUCCESS: {
+            const {data} = action;
+            const {technologies} = state;
+            console.log('POST_TECH',data);
+            return Object.assign({}, state, {
+                technologies: addNewTech(technologies, data)
+            });
+        }
+        case types.UP_POST_SECTION_SUCCESS: {
+            const {data} = action;
+            const {sections} = state;
+            console.log('POST_SECTION_SUCCESS',data);
+            return Object.assign({}, state, {
+                sections: sections.concat(data)
+            });
+        }
+        case types.UP_POST_FEATURE_SUCCESS: {
+            const {data} = action;
+            const {features} = state;
+            console.log('POST_FEATURE_SUCCESS',data);
+            return Object.assign({}, state, {
+                features: features.concat(data)
             });
         }
         
+        case types.UP_SELECT_SECTION: {
+            const {_id} = action;
+            const {sections, activeSection} = state;
+            return Object.assign({}, state, {
+                activeSection: selectSection(sections, _id)
+            });
+        }
+        
+        case types.UP_UPLOAD_FILE_SUCCESS: {
+            const {path,thumb} = action.data;
+            const {files} = state;
+            return Object.assign({}, state, {
+                files: files.concat({
+                	url: path,
+                	thumb: thumb,
+                	name: path.slice(path.lastIndexOf('/')+1,path.length)
+                })
+            });
+        }
+        case types.UP_REMOVE_FILE: {
+            const {name} = action;
+            const {files} = state;
+            return Object.assign({}, state, {
+                files: removeFile(files, name)
+            });
+        }
+        case types.UP_REMOVE_NEW_TAG_FROM_PROJECT: {
+            const {tagName} = action;
+            const {tags} = state;
+            return Object.assign({}, state, {
+                tags: removeNewTagFromProject(tags, tagName)
+            });
+        }
+        case types.UP_ADD_TECH_TO_PROJECT: {
+            const {_id} = action;
+            const {technologies} = state;
+            return Object.assign({}, state, {
+                technologies: addTechToProject(technologies, _id)
+            });
+        }
+        case types.UP_REMOVE_TECH_FROM_PROJECT: {
+            const {_id} = action;
+            const {technologies} = state;
+            return Object.assign({}, state, {
+                technologies: removeTechFromProject(technologies, _id)
+            });
+        }
         default: {
             return state;        
         }
@@ -68,114 +192,143 @@ export default function UpsertProjectReducer(state=initialState, action) {
 
 
 
+const selectSection = (sections, _id) => {
+    for(let i = 0; i < sections.length; i++) {
+         if (sections[i]._id === _id) {
+            return sections[i];
+        }
+    }
+    console.log('selectSection');
+    return null;
+}
 
+const removeFile = (files, name) => {
+	files.forEach( (file, index) => {
+		if (file.name === name) {
+			files.splice(index, 1);
+		}
+	});
+	return [].concat(files);
+}
+
+const addNewTech  = (technologies, tech) => {
+	tech.inProject = true;
+	technologies.push(tech);
+	return [].concat(technologies);
+}
+
+const addTechToProject = (techs, _id) => {
+	techs.forEach( item => {
+		if (item._id === _id) {
+			item.inProject = true;
+		}
+	});
+	console.log('addTechToProject 22');
+	return [].concat(techs);
+}
+
+const removeTechFromProject = (techs, _id) => {
+	techs.forEach( item => {
+		if (item._id === _id) {
+			item.inProject = false;
+		}
+	});
+	return [].concat(techs);
+}
+
+
+const addNewTag  = (tags, tag) => {
+	tag.inProject = true;
+	tags.push(tag);
+	return [].concat(tags);
+}
+
+const addTagToProject = (tags, _id) => {
+	tags.forEach( tag => {
+		if (tag._id === _id) {
+			tag.inProject = true;
+		}
+	});
+	return [].concat(tags);
+}
+
+const removeTagFromProject = (tags, _id) => {
+	tags.forEach( tag => {
+		if (tag._id === _id) {
+			tag.inProject = false;
+		}
+	});
+	return [].concat(tags);
+}
 
 const addUserToProject = (users, _id) => {
-	console.log(users);
 	users.forEach( user => {
 		if (user._id === _id) {
 			user.inProject = true;
-			return users;
 		}
 	});
-	return users;
+	return [].concat(users);
 }
 
 const removeUserFromProject = (users, _id) => {
-	console.log(users);
 	users.forEach( user => {
 		if (user._id === _id) {
 			user.inProject = false;
-			return users;
+			user.owner = false;
 		}
 	});
-	return users;
+	return [].concat(users);
 }
 
 const changeOwnership = (users, _id, value) => {
-	console.log(users);
 	users.forEach( user => {
 		if (user._id === _id) {
 			user.owner = value;
-			return users;
 		}
 	});
-	return users;
+	return [].concat(users);
 }
 
-const users = [{
- 			_id: '57a26314b42bbf5y67daa9965',
- 			avatar: 'http://digitalizacia.weblab.sk/wp-content/uploads/2015/03/female-ico-60x60.png', 
- 			name: 'Vasya', 
- 			position: 'IOS Developer',
- 			owner: false,
- 			inProject: false
- 		},{
- 			_id: '57a26314b42bbf5y67eaa9965',
- 			avatar: 'http://digitalizacia.weblab.sk/wp-content/uploads/2015/03/female-ico-60x60.png', 
- 			name: 'Sasha', 
- 			position: 'Android Developer',
- 			owner: true,
- 			inProject: false
- 		},{
- 			_id: '57a26314b42sbf5y67daa9965',
- 			avatar: 'http://digitalizacia.weblab.sk/wp-content/uploads/2015/03/female-ico-60x60.png', 
- 			name: 'Katya', 
- 			position: 'Beckend Developer',
- 			owner: false,
- 			inProject: false
- 		},{
- 			_id: '57a26314b42sbi5y67daa9965',
- 			avatar: 'http://digitalizacia.weblab.sk/wp-content/uploads/2015/03/female-ico-60x60.png', 
- 			name: 'Max', 
- 			position: 'Fontend Developer',
- 			owner: true,
- 			inProject: false
- 		}];
+
+
+
+
+const feature = {
+        _id : "57a2631ab42bbf5a2daa9997",
+        featureName : "5184",
+        section : "57b9c2e4acd14b1840a00c5c",
+        featureOrder : "Necesary",
+        isNecessary : false,
+        created : "24/04/2015",
+        isImplemented : false,
+        childFeatures : "57a237d2fc13ae319e002654",
+        isItSubFeature : false,
+        descriptionText : "Description Sample Text",
+        descriptionHTMLText : "Description HTML Sample Text"
+}
+
+
 
 const initialState = {
-	users: users,
-	project: {
-		
-	}
+    projectName:'Test',
+    projectLink:'Test',
+    timeBegin:'',
+    timeEnd:'',
+    condition:'',
+	users: [],
+	tags: [],
+	technologies: [],
+	conditions: [],
+    sections: [],
+    features: [],
+	files: [],
+    activeSection: {},
+	tagExists: false,
+    added: false,
+    description:{
+        descrFullText: 'Description'
+    } 
+
 };
 
 
-
-
-
-
-
-
-/*const initialState = {
-	update: false,
-	project: {
-		_id:"57acc61ab781f506fe6ca72a",
-		projectName:"First Web-project",
-		timeBegin:"2013-06-09",
-		timeEnd:"2014-06-09",
-		isCompleted:true,
-	}
-};*/
-
-/*
-{
-	_id:"57acc61ab781f506fe6ca72a",
-	projectName:"First Web-project",
-	isCompleted:true,
-	timeBegin:"2016-08-11T18:38:18.890Z"
-	timeEnd:"2016-08-11T18:38:18.890Z",
-	stage: {
-		_id:"57a2fac7d50c16908d4e0c33"
-		stageName:"Completed"
-		commissioned:"18/03/2014"
-		decommissioned:"13/03/2015"
-	},
-	condition: {
-		_id(pin):"57ac5379204135dfe49f780b"
-		conditionName(pin):"In use"
-		commisioned(pin):"12/12/12"
-		decomissioned(pin):"13/13/13"
-	},
-
-}*/

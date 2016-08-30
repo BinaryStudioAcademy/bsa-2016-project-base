@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import {Dropdown} from 'react-bootstrap';
+
 import styles from './styles/Features.sass';
 
 export default class MultiSelect extends Component {

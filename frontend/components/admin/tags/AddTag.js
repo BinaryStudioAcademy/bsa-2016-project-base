@@ -6,15 +6,15 @@ const AddTag = ({setTagName, addTag}) => {
   	return (
 		<Col xs={12} sm={12} md={4}>
             <div className={styles["tags-creation"]}>
-           
+
                 <InputGroup className={styles["tags-input-group"]}>
-                    <FormControl 
-                        type="text" 
-                        placeholder="Tag name" 
+                    <FormControl
+                        type="text"
+                        placeholder="Tag name"
                         onBlur={setTagName}
                     />
                     <InputGroup.Button className={styles["tags-input-group-btn"]}>
-                        <Button 
+                        <Button
                             className={styles["tags-add-btn"]}
                             onClick={addTag}>
                             Add

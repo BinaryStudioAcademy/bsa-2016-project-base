@@ -32,10 +32,7 @@ export function getAllFeaturesOfAllProjects() {
                     features: res,
                 })})
             .catch( err => {
-                dispatch({
-                    type: 'GET_ALL_FEATURES_OF_ALL_PROJECTS_LOADING_ERROR',
-                    error: err
-                });
+                dispatch(errorHandler('Bad Request'));
                 dispatch ({
                     type: 'GET_ALL_FEATURES_OF_ALL_PROJECTS',
                     features: [],
@@ -62,12 +59,7 @@ export function addNewFeature(features, newFeature) {
                     features: features,
                     newFeature: res
                 })})
-            .catch( err => {
-                dispatch({
-                    type: 'ADD_NEW_FEATURE_LOADING_ERROR',
-                    error: err
-                });
-            });
+            .catch(error => dispatch(errorHandler('Bad Request')));
     }
 }
 
@@ -120,12 +112,13 @@ export function editFeature(features, editFeature, index) {
             .then(
                 dispatch (getAllFeaturesOfAllProjects())
             )
-            .catch( err => {
-                dispatch({
-                    type: 'EDIT_FEATURE_ERROR',
-                    error: err
-                });
-            });
+            .catch(error => dispatch(errorHandler('Bad Request')));
     }
 
+}
+export function errorHandler(error) {
+    return {
+        type: 'SOMETHING_GONE_WRONG',
+        error: error
+    }
 }

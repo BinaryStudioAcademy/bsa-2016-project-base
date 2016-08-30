@@ -1,19 +1,38 @@
 import promise from 'es6-promise';
 promise.polyfill();
 import fetch from 'isomorphic-fetch';
-
+import * as constants from '../constants/Api';
 
 class DocumentService {
-    constructor() {
 
+    constructor() {
+        this.url = constants + "documents/";
     }
+
     getAuthLink(){
-        return fetch("/api/documents/authentication")
+        return fetch(`${this.url}authentication`,
+            constants.cookieMarker)
             .then(res=>res.json())
     }
+
     getTestDocument(tokens){
-        return fetch("/api/documents/test/"+tokens)
+        return fetch(`${this.url}test/${tokens}`,
+            constants.cookieMarker)
             .then(res=>res.json())
     }
+
+    setDataToFile(featureObj, token) {
+        return fetch(`${this.url}documents/estimation/${token}`, 
+            Object.assign({
+                method: 'POST',
+                body: JSON.stringify({sections: featureObj})
+            },  constants.cookieMarker,
+                constants.jsonHedeaders
+            )
+        );
+    }
+
 }
-export default new DocumentService();
+
+const documentService  = new DocumentService();
+export default documentService;

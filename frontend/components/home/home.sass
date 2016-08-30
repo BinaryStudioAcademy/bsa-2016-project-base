@@ -1,5 +1,100 @@
 @import "../common/styles/common"
 
-#home
-/*.bk
-    background: $primary-color*/
+=forSmallScreens($media)
+    @media (max-width: $media/16+em)
+        @content
+
+
+#homeContent
+    background-color: #FEFEFE
+    font-size: 0.7rem
+    width: 100%
+
+
+    .row
+        display: flex
+        width: 100%;
+        justify-content: flex-start
+        flex-flow: row wrap
+
+    #sectionContent
+        background-color: #f3f6f8
+        padding-bottom: 100px
+
+        .row
+            display: flex
+            width: 100%;
+            justify-content: space-between
+            flex-flow: row wrap
+            padding: 0 2.5rem
+
+
+#inputs
+    display: flex
+    align-items: center
+    margin-left: 2.5rem
+    margin-top: 5rem
+
+.col-inputs:last-child()
+    margin-right: 0
+
+.col-inputs
+        margin-right: 2rem
+
+.inputs-tool
+    position: relative
+
+.hint 
+    background: grey
+    display: inline-block
+    position: absolute;
+    top: -70px
+    left: 40px
+    border-radius: 15px
+    color: #8D97A4
+    font-family: "Lato", sans-serif;
+    font-size: 0.7rem
+
+
+
+.s
+    position: relative
+    background: #E9f0f6
+    border: 1px solid #c9c9c9
+    border-radius: 5px
+    padding: 1rem
+.s:after, .s:before 
+    top: 100%
+    left: 10%
+    border: 1px solid transparent
+    content: " "
+    height: 0
+    width: 0
+    position: absolute
+    pointer-events: none
+
+
+.s:after 
+    border-color: rgba(233, 240, 246, 0);
+    border-top-color: #E9f0f6
+    border-width: 10px
+    margin-left: -10px
+
+.s:before 
+    border-color: rgba(201, 201, 201, 0)
+    border-top-color: #8D97A4
+    border-width: 11px
+    margin-left: -11px
+
+
+.section-cont
+    width: 100%
+
+.body
+    margin-top: 2rem
+
+.row-project
+    padding: 0 2.5rem
+    display: flex
+    flex-flow: row wrap
+    justify-content: space-between

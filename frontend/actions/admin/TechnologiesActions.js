@@ -2,32 +2,38 @@
  * Created by razor on 04.08.16.
  */
 import fetch from 'isomorphic-fetch'
-
+import * as constants from '../../constants/Api';
 export function getTechnologies() {
+    let error_code;
     return dispatch=> {
-        fetch(`/api/technologies/`)
-            .then(response => (response.status !== 404)?response.json(): [])
+        fetch(`/api/technologies/`, constants.cookieMarker)
+            .then(response => response.json())
             .then(json => dispatch(initTechnology(json)))
+            .catch(error => {
+                dispatch(errorHandler('Bad Request'));
+                dispatch(initTechnology([]));
+            })
+
+
     }
 }
 export function initTechnology(listOfTechno) {
     let listOfTechnologies = listOfTechno || [];
     return {
-        type: 'INIT_TECHNOLOGY' ,
-        listOfTechnologies : listOfTechnologies
+        type: 'INIT_TECHNOLOGY',
+        listOfTechnologies: listOfTechnologies
     }
 }
 export function saveTechology(params) {
     return dispatch=> {
-        fetch("/api/technologies/", {
-            method: 'POST',
-            body: JSON.stringify(params),
-            headers: ({
-                'Content-Type': 'application/json',
-                Accept: 'application/json'
-            })
-        });
-            dispatch(getTechnologies());
+        fetch("/api/technologies/", Object.assign({
+                method: 'POST',
+                body: JSON.stringify(params)
+            }, constants.cookieMarker,
+            constants.jsonHedeaders
+        ))
+            .catch(error => dispatch(errorHandler('Bad Request')));
+        dispatch(getTechnologies());
 
     }
 }
@@ -54,13 +60,21 @@ export function setAddFormState(state) {
 export function removeSelectedTechs(technologies) {
     return dispatch=> {
         technologies.forEach(tech=> {
-             if(tech.checked === 'checked') {
-                 fetch(`/api/technologies/${tech._id}`, {
-                     method: 'DELETE'
-                 })
-             }
+            if (tech.checked === 'checked') {
+                fetch(`/api/technologies/${tech._id}`, Object.assign({
+                        method: 'DELETE',
+                    }, constants.cookieMarker
+                ))
+                    .catch(error => dispatch(errorHandler('Bad Request')));
+            }
         });
-       dispatch(getTechnologies())
+        dispatch(getTechnologies())
+    }
+}
+export function errorHandler(error) {
+    return {
+        type: 'SOMETHING_GONE_WRONG',
+        error: error
     }
 }
 

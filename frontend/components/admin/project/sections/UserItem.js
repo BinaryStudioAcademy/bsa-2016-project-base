@@ -1,16 +1,16 @@
 import React, { PropTypes } from 'react';
-import { Button, Checkbox } from '../../../common/';
+import { Button } from '../../../common/';
+import styles from './styles/UsersList.sass';
 
 
-const UserItem = ({user, onRemoveClick, onCheckboxChange}) => {
+const UserItem = ({user, onAddClick}) => {
     return (
         <div>
             <img src={user.avatar} alt="user avatar"/>
             <span>{user.name}</span>
             <span>{user.position}</span>
-            <Checkbox label="Owner" checked={user.owner} onChange={(e) => onCheckboxChange(e, user._id)}/>
-            <Button onClick={(e) => onRemoveClick(e, user._id)}>
-            	<i className="fa fa-trash-o" aria-hidden="true"></i>
+            <Button className={styles["btnIcon"]} onClick={(e) => onAddClick(e, user._id)}>
+            	<i className="fa fa-plus" aria-hidden="true"></i>
             </Button>
         </div>
     );
@@ -18,7 +18,7 @@ const UserItem = ({user, onRemoveClick, onCheckboxChange}) => {
 
 UserItem.propTypes = {
     user: PropTypes.object,
-    onRemoveClick: PropTypes.func.isRequired
+    onAddClick: PropTypes.func.isRequired
 };
 
 export default UserItem;

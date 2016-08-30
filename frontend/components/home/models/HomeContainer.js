@@ -11,13 +11,14 @@ export default class HomeContainer extends Updatable {
         this.pagination = {
             activePage: 0,
             total: 0,
-            recordsPerPage: 6
+            recordsPerPage: 3
         };
         this.setActivePage = this.setActivePage.bind(this)
         this.projects = [];
         this.loadMore = this.loadMore.bind(this)
     }
     loadMore(){
+        if (this.isLoading)return;
         const p = this.pagination;
         if (!p.total||(p.activePage+1)*p.recordsPerPage<p.total){
             p.activePage+=1;
@@ -59,6 +60,7 @@ export default class HomeContainer extends Updatable {
                 }else {
                     self.projects = data.projects
                 }
+                if (!self.projects) self.projects = [];
                 self.pagination.total = data.total;//should be response.length
                 self.isLoading = false;
                 self.errorMessage = !self.projects.length ? "Not found":undefined;

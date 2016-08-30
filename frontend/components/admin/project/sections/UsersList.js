@@ -3,34 +3,20 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../../actions/admin/UpsertProjectActions';
 import { Button, DropDown } from '../../../common/';
+import DeveloperItem from './DeveloperItem';
 import UserItem from './UserItem';
+import styles from './styles/UsersList.sass';
 
 class UsersList extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            userId: null
-        }
-        this.onSelectValue = this.onSelectValue.bind(this);
         this.addUserToProject = this.addUserToProject.bind(this);
         this.removeUserFromProject = this.removeUserFromProject.bind(this);
         this.onOwnershipChange = this.onOwnershipChange.bind(this);
     }
-    onSelectValue(e){
-        console.log('onSelectValue ',e.target.value);
-        this.setState({
-                userId: e.target.value
-        });
-    }
-    addUserToProject(e) {
+    addUserToProject(e, userId) {
         console.log('addUserToProject ',userId);
-        const { userId } = this.state;
-        if (userId) {
-            this.props.addUserToProject(userId);
-            this.setState({
-                userId: ''
-            });
-        } 
+        if (userId)  this.props.addUserToProject(userId);
     }
     removeUserFromProject(e, userId) {
         console.log('removeUserFromProject ',userId);
@@ -44,30 +30,48 @@ class UsersList extends Component {
     render() {
         const { users } = this.props.store;
         let opts = [];
-    	const list = users.map(user => {
+    	const usersList = users.map(user => {
+            if (!user.inProject) {
+                return (
+                     <UserItem 
+                        user={user} 
+                        key={user._id} 
+                        onAddClick={this.addUserToProject}
+                    />
+                );
+            }
+            
+        });
+
+        const developersList = users.map(user => {
             if (user.inProject) {
                 return (
-                    <UserItem 
+                    <DeveloperItem 
                         user={user} 
                         key={user._id} 
                         onRemoveClick={this.removeUserFromProject}
                         onCheckboxChange={this.onOwnershipChange}
                     />
                 );
-            } else {
-                opts.push({
-                    value: user._id,
-                    name:user.name
-                });
-            }
-            
+            } 
         });
+
         return (
-            <span>
-                <DropDown data={opts} onChange={this.onSelectValue}/>
-                <Button value="Add" onClick={this.addUserToProject}/>
-             	{list}
-            </span>
+            <div id={styles['user-list']}>
+                <div className={styles['list-container']}>
+                    All users:
+                    <div className={styles['list']}>
+                     	{usersList}
+                    </div>
+                </div>
+               
+                 <div className={styles['list-container']}>
+                     Project developers:
+                     <div className={styles['list']}>
+                        {developersList}
+                     </div>
+                </div>
+            </div>
         );
     }
 };
