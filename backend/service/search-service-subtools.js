@@ -25,6 +25,8 @@ class SearchServiceSubTools {
             owners = ${queryFilters.queryProjOwners}, tags = ${queryFilters.queryProjTags}, techs = ${queryFilters.queryProjTechs}, dateFrom = ${queryFilters.queryProjDateFrom},
             dateTo = ${queryFilters.queryProjDateTo}, skip = ${queryFilters.queryProjSkip}, limit = ${queryFilters.queryProjLimit}`);
 
+        queryFilters.queryProjPredicate = (req.query.predicate == undefined)? null: req.query.predicate;
+
         return queryFilters;
     }
 
@@ -65,7 +67,6 @@ class SearchServiceSubTools {
             });
         } else {callback(null, null)}
     }
-
 
     getOwnersIdFromSearchQuery(queryArr, callback){
 
@@ -153,7 +154,7 @@ class SearchServiceSubTools {
                 callback(null, selectedTechsId);
             });
         } else {callback(null, null)}
-    }
+    } 
 }
 const searchServiceSubTools = new SearchServiceSubTools();
 module.exports = searchServiceSubTools;
