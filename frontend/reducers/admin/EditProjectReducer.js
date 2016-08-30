@@ -14,23 +14,23 @@ export default function EditProjectReducer(state=initialState, action) {
         }
         case types.UP_ADD_USER_TO_PROJECT: {
             const {_id} = action;
-            const {users} = state;
+            const {predefinedUsers} = state;
             return Object.assign({}, state, {
-                users: addUserToProject(users, _id)
+                predefinedUsers: addUserToProject(predefinedUsers, _id)
             });
         }
         case types.UP_REMOVE_USER_FROM_PROJECT: {
             const {_id} = action;
-            const {users} = state;
+            const {predefinedUsers} = state;
             return Object.assign({}, state, {
-                users: removeUserFromProject(users, _id)
+                predefinedUsers: removeUserFromProject(predefinedUsers, _id)
             });
         }
         case types.UP_CHANGE_OWNERSHIP: {
             const {_id, checked} = action;
-            const {users} = state;
+            const {predefinedUsers} = state;
             return Object.assign({}, state, {
-                users: changeOwnership(users, _id, checked)
+                predefinedUsers: changeOwnership(predefinedUsers, _id, checked)
             });
         }
         case types.UP_CHANGE_PROJECT_NAME: {
@@ -86,9 +86,9 @@ export default function EditProjectReducer(state=initialState, action) {
         }
         case types.UP_ADD_TAG_TO_PROJECT: {
             const {_id} = action;
-            const {tags} = state;
+            const {predefinedTags} = state;
             return Object.assign({}, state, {
-                tags: addTagToProject(tags, _id)
+                predefinedTags: addTagToProject(predefinedTags, _id)
             });
         }
         case types.UP_REMOVE_TAG_FROM_PROJECT: {
@@ -107,17 +107,17 @@ export default function EditProjectReducer(state=initialState, action) {
         }
         case types.UP_POST_TAG_SUCCESS: {
             const {data} = action;
-            const {tags} = state;
+            const {predefinedTags} = state;
             return Object.assign({}, state, {
-                tags: addNewTag(tags, data)
+                predefinedTags: addNewTag(predefinedTags, data)
             });
         }
         case types.UP_POST_TECH_SUCCESS: {
             const {data} = action;
-            const {technologies} = state;
+            const {predefinedTechnologies} = state;
             console.log('POST_TECH',data);
             return Object.assign({}, state, {
-                technologies: addNewTech(technologies, data)
+                predefinedTechnologies: addNewTech(predefinedTechnologies, data)
             });
         }
         case types.UP_POST_SECTION_SUCCESS: {
@@ -172,47 +172,53 @@ export default function EditProjectReducer(state=initialState, action) {
         }
         case types.UP_ADD_TECH_TO_PROJECT: {
             const {_id} = action;
-            const {technologies} = state;
+            const {predefinedTechnologies} = state;
             return Object.assign({}, state, {
-                technologies: addTechToProject(technologies, _id)
+                predefinedTechnologies: addTechToProject(predefinedTechnologies, _id)
             });
         }
         case types.UP_REMOVE_TECH_FROM_PROJECT: {
             const {_id} = action;
-            const {technologies} = state;
+            const {predefinedTechnologies} = state;
             return Object.assign({}, state, {
-                technologies: removeTechFromProject(technologies, _id)
+                predefinedTechnologies: removeTechFromProject(predefinedTechnologies, _id)
             });
         }
         case 'INITIAL_STATE_FROM_DB': {
             const {project} = action;
             return Object.assign({}, state, {
+                projectId: project._id,
                 projectName: project.projectName,
                 projectLink: project.projectLink,
                 timeBegin: project.timeBegin,
                 timeEnd: project.timeEnd,
                 condition: project.status,
                 users: project.users,
+                owners: project.owners,
                 tags: project.tags,
                 technologies: project.technologies,
                 conditions: project.conditions,
                 features: project.features,
                 files: project.attachments,
                 initialTags: false,
+                initialTechnologies: false,
+                initialUsers: false,
                 description:{
                     descrFullText: project.description.descrFullText
                 }});
         }
         case 'CLEAN_STORE': {
             return Object.assign({}, state, {
+                projectId: null,
                 projectName:'',
                 projectLink:'',
                 timeBegin:'',
                 timeEnd:'',
                 condition:'',
-                users: [],
+                users: null,
+                owners: null,
                 tags: null,
-                technologies: [],
+                technologies: null,
                 conditions: [],
                 sections: [],
                 features: [],
@@ -221,6 +227,8 @@ export default function EditProjectReducer(state=initialState, action) {
                 tagExists: false,
                 added: false,
                 initialTags: false,
+                initialTechnologies: false,
+                initialUsers: false,
                 description:{
                     descrFullText: 'Description'
                 },
@@ -233,6 +241,14 @@ export default function EditProjectReducer(state=initialState, action) {
         case 'INITIAL_STATE_TAGS': {
             const {predefinedTags} = action;
             return Object.assign({}, state, {predefinedTags: predefinedTags}, {initialTags: true})
+        }
+        case 'INITIAL_STATE_TECHNOLOGIES': {
+            const {predefinedTechnologies} = action;
+            return Object.assign({}, state, {predefinedTechnologies: predefinedTechnologies}, {initialTechnologies: true})
+        }
+        case 'INITIAL_STATE_USERS': {
+            const {predefinedUsers} = action;
+            return Object.assign({}, state, {predefinedUsers: predefinedUsers}, {initialUsers: true})
         }
         default: {
             return state;
@@ -360,14 +376,16 @@ const feature = {
 
 
 const initialState = {
+    projectId: null,
     projectName:'',
     projectLink:'',
     timeBegin:'',
     timeEnd:'',
     condition:'',
-    users: [],
+    users: null,
+    owners: null,
     tags: null,
-    technologies: [],
+    technologies: null,
     conditions: [],
     sections: [],
     features: [],
@@ -376,6 +394,8 @@ const initialState = {
     tagExists: false,
     added: false,
     initialTags: false,
+    initialTechnologies: false,
+    initialUsers: false,
     description:{
         descrFullText: 'Description'
     },

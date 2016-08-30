@@ -28,9 +28,13 @@ class UsersList extends Component {
         if (userId) this.props.changeOwnership(userId, checked);
     }
     render() {
-        const { users } = this.props.store;
+        const { users, owners, predefinedUsers, initialUsers } = this.props.store;
+        if(users!= null && initialUsers == false) {
+            //alert("AGA!");
+            this.props.initialStateUsers(users, predefinedUsers, owners);
+        }
         let opts = [];
-    	const usersList = users.map(user => {
+    	const usersList = predefinedUsers.map(user => {
             if (!user.inProject) {
                 return (
                      <UserItem 
@@ -43,7 +47,7 @@ class UsersList extends Component {
             
         });
 
-        const developersList = users.map(user => {
+        const developersList = predefinedUsers.map(user => {
             if (user.inProject) {
                 return (
                     <DeveloperItem 

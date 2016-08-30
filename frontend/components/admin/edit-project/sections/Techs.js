@@ -69,8 +69,13 @@ class Techs extends Component {
     }
 
     render(){
-    	const { technologies } = this.props;
-    	const predefinedTags = technologies.map( tech => {
+        const { technologies, predefinedTechnologies, initialTechnologies } = this.props;
+        //alert(initialTags);
+        if(technologies!= null && initialTechnologies == false) {
+            //alert("AGA!");
+            this.props.initialStateTechnologies(technologies, predefinedTechnologies);
+        }
+    	const allUnUsedTechnologies = predefinedTechnologies.map( tech => {
     		if (!tech.inProject) {
     			return (
     				<div key={tech._id}>
@@ -84,7 +89,7 @@ class Techs extends Component {
     			);
     		}
     	});
-    	const usedTags = technologies.map( (tech, index) => {
+    	const usedTechnologies = predefinedTechnologies.map( (tech, index) => {
     		if (tech.inProject) {
     			return (
     				<div key={tech._id}>
@@ -134,14 +139,14 @@ class Techs extends Component {
 	    			<div className={styles['list-container']}>
                     All technologies:
                     <div className={styles['list']}>
-                     	{predefinedTags}
+                     	{allUnUsedTechnologies}
                     </div>
 	                </div>
 	               
 	                 <div className={styles['list-container']}>
 	                     Technologies in project:
 	                     <div className={styles['list']}>
-	                        {usedTags}
+	                        {usedTechnologies}
 	                     </div>
 	                </div>
 	    		</div>
@@ -157,7 +162,9 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
     return {
-        technologies: state.EditProjectReducer.technologies
+        technologies: state.EditProjectReducer.technologies,
+        predefinedTechnologies: state.EditProjectReducer.predefinedTechnologies,
+        initialTechnologies: state.EditProjectReducer.initialTechnologies
     };
 };
 

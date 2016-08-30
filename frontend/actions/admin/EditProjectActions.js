@@ -366,3 +366,53 @@ export function initialStateTags(tags, predefinedTags) {
     };
 return action;
 }
+
+export function initialStateTechnologies(technologies, predefinedTechnologies) {
+    var technologiesId = technologies.map(function(el) {
+        return el._id
+    });
+    var predefinedTechnologiesId = predefinedTechnologies.map(function(el) {
+        return el._id
+    });
+    const action = {
+        type: 'INITIAL_STATE_TECHNOLOGIES',
+        predefinedTechnologies: predefinedTechnologies.map(function(el, index) {
+            if (technologiesId.indexOf(predefinedTechnologiesId[index]) != -1) {
+                return Object.assign({}, el, {inProject: true})
+            }
+            else {
+                return el;
+            }
+        }),
+    };
+    return action;
+}
+
+export function initialStateUsers(users, predefinedUsers, owners) {
+    var usersId = users.map(function(el) {
+        return el._id
+    });
+    var predefinedUsersId = predefinedUsers.map(function(el) {
+        return el._id
+    });
+    var ownersLogins = owners.map(function(el) {
+        return el.login;
+    });
+    const action = {
+        type: 'INITIAL_STATE_USERS',
+        predefinedUsers: predefinedUsers.map(function(el, index) {
+            if (usersId.indexOf(predefinedUsersId[index]) != -1) {
+                if(ownersLogins.indexOf(el.login) != -1) {
+                    return Object.assign({}, el, {inProject: true}, {owner: true})
+                } else {
+                    return Object.assign({}, el, {inProject: true})
+                }
+
+            }
+            else {
+                return el;
+            }
+        }),
+    };
+    return action;
+}
