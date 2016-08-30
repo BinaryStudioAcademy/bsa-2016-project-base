@@ -51,6 +51,7 @@ export default class HomeProjects extends React.Component {
                             onClick={model.loadMore}/>*/}
                         {model.loadMoreErrorMessage}
                         {model.isLoading ? <CircularProgress size={0.6}/> : ""}
+                        <br/>
                     </div>
                 </div>
             </div>

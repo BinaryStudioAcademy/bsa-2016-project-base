@@ -1,7 +1,6 @@
 import MultiSelect from "./MultiSelectModel"
 import LocationView from "./../components/Location"
 import searchService from "./../../../../services/SearchService"
-import { default as update } from "react-addons-update";
 var labels = "ABCDEFGJKLMNOPRSTU";
 var labelIndex=0;
 export default class Location extends MultiSelect{

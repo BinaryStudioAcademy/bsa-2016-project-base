@@ -51,7 +51,7 @@ class SearchService {
     }
 
     getUsers(query){
-        return fetch(`${URL}users?user=${query}`,
+        return fetch(`${this.url}users?user=${query}`,
             constants.cookieMarker
            ).then(res=>res.json())
             .then(json=>({ tips:json }))
