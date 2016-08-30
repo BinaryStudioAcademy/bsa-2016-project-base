@@ -9,6 +9,18 @@ class SearchService {
         this.url = constants.URL + "search/";
     }
 
+    getLications(){
+        return new Promise((success,failure)=>{
+            success([
+                {lat:53.52604744889203,lng:-1.08411407470703125},
+                {lat:49.52604744889203,lng:-2.08411407470703125},
+                {lat:48.52604744889203,lng:1.08411407470703125},
+                {lat:47.52604744889203,lng:-0.08411407470703125},
+                {lat:52.52604744889203,lng:.08411407470703125},
+                {lat:51.52604744889203,lng:2.08411407470703125}
+            ])
+        });
+    }
     getProjects(query) {
 
         return fetch(`${this.url}projects?${query}`, 

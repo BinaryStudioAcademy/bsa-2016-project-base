@@ -35,7 +35,7 @@ export default class PredicateSearch extends React.Component {
             <FlatButton
                 key="2"
                 label="Go Search!"
-                disabled={model.validateMessage}
+                disabled={!!model.validateMessage}
                 primary={true}
                 keyboardFocused={true}
                 onTouchTap={model.goSearch}
