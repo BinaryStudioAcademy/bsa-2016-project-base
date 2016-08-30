@@ -9,11 +9,9 @@ class UploadService {
 		this.url = constants.URL + "upload/";
 	}
 
-    upload(files) {
+    upload(file) {
         var formData = new FormData();
-    	for (let i = 0; i < files.length; i++) {
-            formData.append(files[i].name, files[i]);
-        }
+        formData.append(file.name, file);
         return fetch(this.url,
         	Object.assign({
                 	method: "POST",

@@ -4,30 +4,25 @@ const iconsPath = 'icons/';
 const typesNeedThumb = ['doc','docx','txt','xml','pdf','zip','rar','xls','xlsx'];
 const imageTypes = ['png','jpg','jpeg','rtf'];
 
+
 class FileThumbService {
-
-	setThumb(files) {
+	
+	setThumb(item) {
 		const {ORIGIN} = constants;
-		for(let i=0; i < files.length; i++) {
-			const file = files[i];
-			const {path} = file;
-			const ext = path.slice(path.lastIndexOf('.')+1,path.length);
+		const {path} = item;
+		const ext = path.slice(path.lastIndexOf('.')+1,path.length);
 
-			if (typesNeedThumb.includes(ext)) {
-				file.thumb = iconsPath + ext +'.png';
+		if (typesNeedThumb.includes(ext)) {
+			item.thumb = iconsPath + ext +'.png';
+		} else {
+			if (imageTypes.includes(ext)) {
+				item.thumb = item.path;
 			} else {
-				if (imageTypes.includes(ext)) {
-					file.thumb = file.path;
-				} else {
-					file.thumb = iconsPath + 'unknown.png';
-				}
+				item.thumb = iconsPath + 'unknown.png';
 			}
-			//console.log('ORIGIN '+ORIGIN);
-			//console.log('file.path '+file.path);
-			file.path = ORIGIN + file.path;
 		}
-		
-		return files;
+		item.path = ORIGIN + item.path;
+		return item;
 	}
 
 }

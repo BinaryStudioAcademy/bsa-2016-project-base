@@ -29,14 +29,19 @@ module.exports = function(request, callback) {
 		size: 0
 	};
 
-	var maxSize = 2 * 1024 * 1024;
-	var sizeLimitMb = (maxSize / 1024 / 1024);
+	//var maxSize = 2 * 1024 * 1024;
+	//var sizeLimitMb = (maxSize / 1024 / 1024);
 	var errors = [];
-	var data = [];
-	var error = null;
+	var data = null;
 	var sourceName;
 	var sourceType;
 	var newFileName;
+
+	form.on('aborted', function(err){
+		console.log('aborted',err);
+		
+	});
+
 
 	form.on('error', function(err){
 		console.log('error',err);
@@ -48,29 +53,30 @@ module.exports = function(request, callback) {
 	form.on('close', function() {
 		if(errors.length == 0){
 			console.log('Close ',sourceName);
-			/*data = {
+			data = {
 				name: sourceName,
 				path: uploadFile.pathOnClient
-			};*/
-			callback(error, data);
+			};
+			callback(data);
 		} else {
-			error = {message: errors.join(' ')};
-			callback(error, data);
+			data = {error: errors.join(' '), name: sourceName};
+			callback(data);
 		}
 	});
 	
 	form.on('part', function(part) {
+		console.log('name ',part.name);
 		sourceName  = part.filename;
 		sourceType  = sourceName.slice(sourceName.lastIndexOf('.'),sourceName.length);
 		newFileName = String(uuid.v1()) + sourceType;
-        uploadFile.size = part.byteCount;
+        //uploadFile.size = part.byteCount;
         uploadFile.type = part.headers['content-type'];
         uploadFile.pathOnServer = './upload/' + newFileName;
 		uploadFile.pathOnClient = 'upload/' + newFileName;
 
-        if(uploadFile.size > maxSize) {
-	        errors.push('File size is ' + (uploadFile.size / 1024 / 1024).toFixed(2) + '. Limit is' + sizeLimitMb + ' MB.');
-	    }
+        /*if(uploadFile.size > maxSize) {
+	        errors.push('File size is ' + (uploadFile.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + sizeLimitMb + ' MB.');
+	    }*/
 
         if(supportMimeTypes.indexOf(uploadFile.type) == -1) {
     	    errors.push('Unsupported mimetype ' + uploadFile.type);
@@ -79,10 +85,6 @@ module.exports = function(request, callback) {
 		if(errors.length == 0) {
         	var out = fs.createWriteStream(uploadFile.pathOnServer);
         	part.pipe(out);
-        	data.push({
-				name: sourceName,
-				path: uploadFile.pathOnClient
-			});
     	}
     	else {
             part.resume();

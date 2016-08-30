@@ -145,13 +145,34 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 activeSection: selectSection(sections, _id)
             });
         }
+        case types.UP_UPLOAD_FILE: {
+            const {name} = action;
+            const {files} = state;
+            return Object.assign({}, state, {
+                files: files.concat({
+                    name, 
+                    good:true, 
+                    ready: false
+                })
+            });
+        }
         case types.UP_UPLOAD_FILE_SUCCESS: {
             const {data} = action;
             const {files} = state;
             return Object.assign({}, state, {
-                files: files.concat(data)
+                //files: files.concat(data)
+                files: updateFileSuccess(files, data)
             });
         }
+        /*case types.UP_UPLOAD_FILE_ERROR: {
+            const {error} = action;
+            const {files} = state;
+            return Object.assign({}, state, {
+                //files: files.concat(data)
+                files: updateFileFailure(files, error)
+            });
+        }*/
+        
         case types.UP_REMOVE_FILE: {
             const {name} = action;
             const {files} = state;
@@ -186,8 +207,46 @@ export default function UpsertProjectReducer(state=initialState, action) {
     }
 };
 
+const updateFileSuccess = (files, data) => {
+     if (!data.hasOwnProperty('error')) {
+         files.forEach( file => {
+            const {name, path, thumb} = data;
+            if (!file.ready && file.name === name) {
+                file.path = path;
+                file.thumb = thumb;
+                file.ready = true;
+            }
+        });
+     } else {
+         files.forEach( file => {
+            const {name, error} = data;
+            console.log('updateFileFailure ');
+            if (!file.ready && file.name === name) {
+                file.ready = true;
+                file.good = false;
+                file.error = error;
+            }
+        });
+
+     }
+    return [].concat(files);
+}
 
 
+
+const updateFileFailure = (files, error) => {
+    console.log('updateFileFailure ',error.name);
+    const {message, name} = error;
+    files.forEach( file => {
+        if (!file.ready && file.name === name) {
+
+            file.ready = true;
+            file.good = false;
+        }
+    });
+
+    return [].concat(files);
+}
 const selectSection = (sections, _id) => {
     for(let i = 0; i < sections.length; i++) {
          if (sections[i]._id === _id) {

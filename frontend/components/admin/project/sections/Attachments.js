@@ -11,46 +11,20 @@ const fileTypes = 'image/jpeg,image/png,image/gif,application/xml';
 class Attachments extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            file: null,
-            fileInput: null
-        }
-        /*this.host = window.location.origin;
-        this.iconsPath = '/icon/';*/
-        this.loadAttachment = this.loadAttachment.bind(this);
         this.onFilePathChange = this.onFilePathChange.bind(this);
         this.removeFile = this.removeFile.bind(this);
     }
     onFilePathChange(e) {
         console.log('onFilePathChange url', e.target.value);
-        //this.setState({
-        //    fileInput:  e.target
-        //})
         const files = e.target.files;
-        console.log(e.target.files);
+        console.log(e.target.files.length);
         if (files.length) {
-            this.props.uploadFile(files);
+            for (let i = 0; i < files.length; i++) {
+                this.props.uploadFile(files[i]);
+            }
             e.target.value = '';
         }
         
-    }
-    loadAttachment(e) {
-        /*console.log('loadAttachment ');
-        const {file} =  this.state;
-        if (file) {
-            this.props.uploadFile(file);
-            this.setState({
-                file: null
-            });
-        }
-
-            <Button
-                        value="Add"
-                        onClick={this.loadAttachment}
-                    />
-
-
-        */
     }
     removeFile(e, name) {
         console.log('removeFile ',name);
@@ -62,9 +36,7 @@ class Attachments extends Component {
             return (
                 <File
                     key={index}
-                    thumb={file.thumb}
-                    url={file.path}
-                    name={file.name}
+                    file={file}
                     onClick={this.removeFile}
                 />
             );

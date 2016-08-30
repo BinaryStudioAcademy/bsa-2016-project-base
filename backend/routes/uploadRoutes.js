@@ -3,10 +3,9 @@ var uploadMedia = require('../services/uploadMedia');
 
 module.exports = function(app) {
 	app.post('/api/upload/', function(req, res, next) {
-		uploadMedia(req, function(err, data){
+		uploadMedia(req, function(data){
 			res.data = data;
-			res.err = err;
 			next();
 		});
-	}, apiResponse);
+	},apiResponse);
 };
