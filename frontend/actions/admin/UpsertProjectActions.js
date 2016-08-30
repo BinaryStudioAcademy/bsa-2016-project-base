@@ -1,11 +1,11 @@
-    import * as types from './UpsertProjectActionTypes';
+import * as types from './UpsertProjectActionTypes';
 import upsertProjectService from '../../services/admin/UpsertProjectService';
 import adminTagService from '../../services/admin/AdminTagService';
 import techService from '../../services/TechnologieService';
 import uploadService from '../../services/UploadService';
 import sectionService from '../../services/sectionService';
 import featureService from '../../services/featureService';
-
+import fileThumbService from '../../services/FileThumbService';
 
 
 
@@ -185,33 +185,54 @@ export function postFeature(feature) {
 };
 
 
+const MAX_SIZE = 2 * 1024 * 1024;
 
 
 
 export function uploadFile(file) {
     return dispatch => {
         dispatch({
-            type: types.UP_UPLOAD_FILE
+            type: types.UP_UPLOAD_FILE,
+            name: file.name
         });
-        return uploadService.upload(file)
-            .then(response => {
-                if (response.status != 201) {
-                    throw Error(response.statusText);
-                }
-                return response.json();
-            })
-            .then( json =>  {
-                dispatch({
-                    type: types.UP_UPLOAD_FILE_SUCCESS,
-                    data: json
-                });
-            })
-            .catch( error => {
-                dispatch({
-                    type: types.UP_UPLOAD_FILE_ERROR,
-                    error: error
-                });
+        if (file.size > MAX_SIZE) {
+            const data = {
+                name: file.name,
+                error: 'File size is ' + (file.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + (MAX_SIZE / 1024 / 1024).toFixed(2) + ' MB.'
+            }
+            dispatch({
+                type: types.UP_UPLOAD_FILE_SUCCESS,
+                data: data
             });
+        } else {
+            return uploadService.upload(file)
+                .then(response => {
+                    if (response.status != 201) {
+                        throw Error(response.statusText);
+                    }
+                    return response.json();
+                })
+                .then( json =>  {
+                    let data = json;
+                    if (!json.hasOwnProperty('error')) {
+                        data = fileThumbService.setThumb(json);
+                    } 
+                    
+                    dispatch({
+                        type: types.UP_UPLOAD_FILE_SUCCESS,
+                        data: data
+                    });
+                    
+                })
+                .catch( error => {
+                    dispatch({
+                        type: types.UP_UPLOAD_FILE_ERROR,
+                        error: error
+
+                    });
+                });
+        }
+        
     };
 };
 
