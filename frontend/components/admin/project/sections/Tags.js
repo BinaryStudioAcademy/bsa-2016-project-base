@@ -44,24 +44,24 @@ class Tags extends Component {
     	const predefinedTags = tags.map( tag => {
     		if (!tag.inProject) {
     			return (
-    				<div key={tag._id} className={styles["tag"]}>
-	    				<span>{tag.tagName}</span>
-		    			<Button className={styles["btnIcon"]} onClick={(e) => this.addTagToProject(e, tag._id)}>
-		            		<i className="fa fa-plus" aria-hidden="true"></i>
-		            	</Button>
-	            	</div>
+                    <div className={styles["tag"]}>    				
+	    				<span key={tag._id} className={styles["tagName"]}>{tag.tagName}</span>
+                        <Button className={styles["btnIcon"]} onClick={(e) => this.addTagToProject(e, tag._id)}>
+                            <i className="fa fa-plus" aria-hidden="true"></i>
+                        </Button>
+                    </div>
     			);
     		}
     	});
     	const usedTags = tags.map( tag => {
     		if (tag.inProject) {
     			return (
-    				<div key={tag._id} className={styles["tag"]}>
-	    				<span>{tag.tagName}</span>
-		    			<Button className={styles["btnIcon"]} onClick={(e) => this.removeTagFromProject(e, tag._id)}>
-		            		<i className="fa fa-trash-o" aria-hidden="true"></i>
-		            	</Button>
-	            	</div>
+                    <div className={styles["tag"]}>                 
+                        <span key={tag._id} className={styles["tagName"]}>{tag.tagName}</span>
+                        <Button className={styles["btnIcon"]} onClick={(e) => this.removeTagFromProject(e, tag._id)}>
+                            <i className="fa fa-trash-o" aria-hidden="true"></i>
+                        </Button>
+                    </div>    				
     			);
     		}
     	});
@@ -76,9 +76,9 @@ class Tags extends Component {
                             </div>
                         </header>
                         
-                        <ul className={styles['section-list1']}>
+                        <div className={styles['section-list1']}>
                                 {predefinedTags}
-                        </ul>
+                        </div>
                         
                         <div className={styles['add-section2']}>
                             <div className={styles['col-1-2']}>
