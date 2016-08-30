@@ -6,6 +6,8 @@ var Users = require('../schemas/userSchema');
 var Projects = require('../schemas/projectSchema');
 var subtools = require('./search-service-subtools.js');
 
+var predicateCompiler = require('./search-parser/compile');
+
 class SearchService {
 
 	getFilteredTags(req, callback) {
@@ -38,11 +40,11 @@ class SearchService {
 	    query.exec(callback);
 	}
 
-	
 	getFilteredProjects(req, callback) {
 
 	    let searchFilters = subtools.getSearchFiltersFromRequest(req);
 
+	    
 	    var searchReturn = {
 	    	queryName: searchFilters.queryProjName,
 	    	queryUsers: searchFilters.queryProjUsers,
@@ -56,88 +58,90 @@ class SearchService {
 	    	sortedProjList: [],
 	    	found: 0
 	    };
-	    //console.log('searchReturn: ', searchReturn);
-		console.log('searchFilters: ', searchFilters);
 
-		async.parallel({
-	        filteredUsersIds: 	function(callback_){
-	            					subtools.getUsersIdFromSearchQuery(searchFilters.queryProjUsers, callback_);
-	        					},
-	        filteredOwnersIds:  function(callback_){
-	            					subtools.getOwnersIdFromSearchQuery(searchFilters.queryProjOwners, callback_);
-	        					},
-	        filteredTagsIds:    function(callback_){
-	        						subtools.getTagsIdFromSearchQuery(searchFilters.queryProjTags, callback_);
-	        					},
-	        filteredTechsIds:   function(callback_){
-	        						subtools.getTechsIdFromSearchQuery(searchFilters.queryProjTechs, callback_);	
-	        					}
-    	}, function(err, res){
-    		console.log('async res: ', res);
-    		//searchReturn.selectedIds = res;
-
-    		let datesQuerySelection = [];
-    		searchFilters.queryProjDateFrom.forEach((elem,ind,arr)=>{datesQuerySelection.push(
-    				{$and: [{timeBegin: {$lte: elem}}, {timeEnd: {$gte: elem}}]},
-    				{$and: [{timeBegin: {$gte: elem}}, {timeBegin: {$lte: searchFilters.queryProjDateTo[ind]}}]}
-    			)});
-
-    		let projQueryObj = {
-    			projectName: {$regex: searchFilters.queryProjName, $options:'$i'},
-    			$or: datesQuerySelection
-    		};
-    		if (res.filteredUsersIds != null) {projQueryObj.users = {$in: res.filteredUsersIds}};
-    		if (res.filteredOwnersIds != null) {projQueryObj.owners = {$in: res.filteredOwnersIds}};
-    		if (res.filteredTagsIds != null) {projQueryObj.tags = {$in: res.filteredTagsIds}};
-    		if (res.filteredTechsIds!= null) {projQueryObj.technologies = {$in: res.filteredTechsIds}};
-    		console.log('projQueryObj', projQueryObj);
-
-			var query = Projects.find(projQueryObj, 
-    								{features: 0, questions: 0, screenShots: 0, attachments: 0},
-    								{skip: searchFilters.queryProjSkip, limit: searchFilters.queryProjLimit, sort: {_id: -1}})
-    							.populate([{
-				                    path: 'users',
-				                    model: 'User',
-				                    select: 'login userName userSurname position'
-				                }, {
-				                    path: 'owners',
-				                    model: 'User',
-				                    select: 'login userName userSurname position'
-				                },{
-				                    path: 'tags',
-				                    model: 'Tag'
-				                },{
-				                    path: 'technologies',
-				                    model: 'Technologies',
-				                    select: 'techName techDescription techVersion'
-				                },{
-				                    path: 'stage',
-				                    model: 'Stage'
-				                },{
-				                    path: 'condition',
-				                    model: 'Condition'
-				                }]);
-
-			var queryCount = Projects.find(projQueryObj).count();
-
+	    if (searchFilters.queryProjPredicate) {
+	    	console.log('searchFilters.queryProjPredicate == true');
+	    	let queryCompiledPredicate = predicateCompiler(searchFilters.queryProjPredicate);
+	    	searchReturn.queryPredicate = searchFilters.queryProjPredicate;
+	    	searchReturn.queryCompiledPredicate = queryCompiledPredicate;
+	    
+		    console.log('searchReturn: ', searchReturn);
+			console.log('searchFilters: ', searchFilters);
 			async.parallel({
-				projList: 	function(cbk){
-	        					query.exec(cbk);
-	        				},
-	        	matchProj:  function(cbk){
-	        					queryCount.exec(cbk);
-	        				}
+		        filteredUsersIds: 	function(callback_){
+		            					subtools.getStrictUsersIdFromSearchQuery(searchFilters.queryProjUsers, callback_);
+		        					},
+		        filteredOwnersIds:  function(callback_){
+		            					subtools.getStrictOwnersIdFromSearchQuery(searchFilters.queryProjOwners, callback_);
+		        					},
+		        filteredTagsIds:    function(callback_){
+		        						subtools.getStrictTagsIdFromSearchQuery(searchFilters.queryProjTags, callback_);
+		        					},
+		        filteredTechsIds:   function(callback_){
+		        						subtools.getStrictTechsIdFromSearchQuery(searchFilters.queryProjTechs, callback_);	
+		        					}
+	    	}, function(err, res){
+	    		console.log('async res: ', res);
+	    		//searchReturn.selectedIds = res;
 
-			}, (err, result)=>{
-				searchReturn.found = result.matchProj;
-				searchReturn.sortedProjList = result.projList;
-				callback(null, searchReturn);
-			});
+	    		var [projQuery, projCounter] = subtools.prepareMainQuery(searchReturn, searchFilters, res);
 
+				async.parallel({
+					projList: 	function(cbk){
+		        					projQuery.exec(cbk);
+		        				},
+		        	matchProj:  function(cbk){
+		        					projCounter.exec(cbk);
+		        				}
 
+				}, (err, result)=>{
+					searchReturn.found = result.matchProj;
+					console.log('matchProj with predicates: ', result.matchProj);
+					searchReturn.sortedProjList = result.projList;
+					callback(null, searchReturn);
+				});
+	    	});
+		} else {
+			console.log('searchFilters.queryProjPredicate == false');
+			console.log('searchReturn: ', searchReturn);
+			console.log('searchFilters: ', searchFilters);
+			async.parallel({
+		        filteredUsersIds: 	function(callback_){
+		            					subtools.getUsersIdFromSearchQuery(searchFilters.queryProjUsers, callback_);
+		        					},
+		        filteredOwnersIds:  function(callback_){
+		            					subtools.getOwnersIdFromSearchQuery(searchFilters.queryProjOwners, callback_);
+		        					},
+		        filteredTagsIds:    function(callback_){
+		        						subtools.getTagsIdFromSearchQuery(searchFilters.queryProjTags, callback_);
+		        					},
+		        filteredTechsIds:   function(callback_){
+		        						subtools.getTechsIdFromSearchQuery(searchFilters.queryProjTechs, callback_);	
+		        					}
+	    	}, function(err, res){
+	    		console.log('async res: ', res);
+	    		//searchReturn.selectedIds = res;
 
+	    		console.log('async res: ', res);
+	    		//searchReturn.selectedIds = res;
 
-    	});
+	    		var [projQuery, projCounter] = subtools.prepareMainQuery(searchReturn, searchFilters, res);
+
+				async.parallel({
+					projList: 	function(cbk){
+		        					projQuery.exec(cbk);
+		        				},
+		        	matchProj:  function(cbk){
+		        					projCounter.exec(cbk);
+		        				}
+
+				}, (err, result)=>{
+					searchReturn.found = result.matchProj;
+					searchReturn.sortedProjList = result.projList;
+					callback(null, searchReturn);
+				});
+	    	});
+		}
 	}
 }
 
