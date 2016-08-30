@@ -6,6 +6,8 @@ import { Button, TextInput, TextArea, FileUpload } from '../../../common/';
 import File from './File';
 import styles from './styles/Attachments.sass';
 
+const fileTypes = 'image/jpeg,image/png,image/gif,application/xml';
+
 class Attachments extends Component {
     constructor(props) {
         super(props);
@@ -13,23 +15,21 @@ class Attachments extends Component {
             file: null,
             fileInput: null
         }
+        /*this.host = window.location.origin;
+        this.iconsPath = '/icon/';*/
         this.loadAttachment = this.loadAttachment.bind(this);
         this.onFilePathChange = this.onFilePathChange.bind(this);
         this.removeFile = this.removeFile.bind(this);
     }
     onFilePathChange(e) {
         console.log('onFilePathChange url', e.target.value);
-        /*this.setState({
-            file:  e.target.files[0]
-        })*/
-        
-        this.setState({
-            fileInput:  e.target
-        })
-        const file = e.target.files[0];
-        if (file) {
-            this.props.uploadFile(file);
-
+        //this.setState({
+        //    fileInput:  e.target
+        //})
+        const files = e.target.files;
+        console.log(e.target.files);
+        if (files.length) {
+            this.props.uploadFile(files);
             e.target.value = '';
         }
         
@@ -63,7 +63,7 @@ class Attachments extends Component {
                 <File
                     key={index}
                     thumb={file.thumb}
-                    url={file.url}
+                    url={file.path}
                     name={file.name}
                     onClick={this.removeFile}
                 />
@@ -74,7 +74,8 @@ class Attachments extends Component {
                 <fieldset>
                     <legend>Attachments</legend>
                     <FileUpload
-                        accept="image/jpeg,image/png,image/gif,application/xml"
+                        accept={fileTypes}
+                        multiple={true}
                         onChange={this.onFilePathChange}
                     />
                     

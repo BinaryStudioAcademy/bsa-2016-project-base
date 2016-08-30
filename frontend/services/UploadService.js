@@ -9,9 +9,11 @@ class UploadService {
 		this.url = constants.URL + "upload/";
 	}
 
-    upload(file) {
-    	var formData = new FormData();
-        formData.append("attachment", file);
+    upload(files) {
+        var formData = new FormData();
+    	for (let i = 0; i < files.length; i++) {
+            formData.append(files[i].name, files[i]);
+        }
         return fetch(this.url,
         	Object.assign({
                 	method: "POST",
@@ -20,7 +22,6 @@ class UploadService {
             )
         );    
     }
-
 }
 
 const uploadService = new UploadService();

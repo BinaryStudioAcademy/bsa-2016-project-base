@@ -1,6 +1,8 @@
 import * as types from '../../actions/admin/UpsertProjectActionTypes';
 
 
+
+
 export default function UpsertProjectReducer(state=initialState, action) {
 	switch (action.type) {
 		 case types.UP_GET_DATA_SUCCESS: {
@@ -136,7 +138,6 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 features: features.concat(data)
             });
         }
-        
         case types.UP_SELECT_SECTION: {
             const {_id} = action;
             const {sections, activeSection} = state;
@@ -144,16 +145,11 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 activeSection: selectSection(sections, _id)
             });
         }
-        
         case types.UP_UPLOAD_FILE_SUCCESS: {
-            const {path,thumb} = action.data;
+            const {data} = action;
             const {files} = state;
             return Object.assign({}, state, {
-                files: files.concat({
-                	url: path,
-                	thumb: thumb,
-                	name: path.slice(path.lastIndexOf('/')+1,path.length)
-                })
+                files: files.concat(data)
             });
         }
         case types.UP_REMOVE_FILE: {

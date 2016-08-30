@@ -1,11 +1,11 @@
-    import * as types from './UpsertProjectActionTypes';
+import * as types from './UpsertProjectActionTypes';
 import upsertProjectService from '../../services/admin/UpsertProjectService';
 import adminTagService from '../../services/admin/AdminTagService';
 import techService from '../../services/TechnologieService';
 import uploadService from '../../services/UploadService';
 import sectionService from '../../services/sectionService';
 import featureService from '../../services/featureService';
-
+import fileThumbService from '../../services/FileThumbService';
 
 
 
@@ -188,12 +188,12 @@ export function postFeature(feature) {
 
 
 
-export function uploadFile(file) {
+export function uploadFile(files) {
     return dispatch => {
         dispatch({
             type: types.UP_UPLOAD_FILE
         });
-        return uploadService.upload(file)
+        return uploadService.upload(files)
             .then(response => {
                 if (response.status != 201) {
                     throw Error(response.statusText);
@@ -201,12 +201,16 @@ export function uploadFile(file) {
                 return response.json();
             })
             .then( json =>  {
+                return fileThumbService.setThumb(json);
+            })
+            .then(filesWithThumb => {
                 dispatch({
                     type: types.UP_UPLOAD_FILE_SUCCESS,
-                    data: json
+                    data: filesWithThumb
                 });
             })
             .catch( error => {
+                console.log('UP_UPLOAD_FILE_ERROR ',error);
                 dispatch({
                     type: types.UP_UPLOAD_FILE_ERROR,
                     error: error
