@@ -9,7 +9,7 @@ class SearchService {
         this.url = constants.URL + "search/";
     }
 
-    getLications(){
+    getLocations(){
         return new Promise((success,failure)=>{
             success([
                 {lat:53.52604744889203,lng:-1.08411407470703125},
@@ -22,7 +22,7 @@ class SearchService {
         });
     }
     getProjects(query) {
-
+        console.log("Request", `${this.url}projects?${query}`)
         return fetch(`${this.url}projects?${query}`, 
             constants.cookieMarker
            ).then(res => res.json())

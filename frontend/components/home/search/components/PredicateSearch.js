@@ -54,8 +54,8 @@ export default class PredicateSearch extends React.Component {
             <div>Example: tag0 & (tag1 -> !tech0)</div>
             <Divider/>
         </div>;
-        const varsValues = model.varsValues().map(varValue=>
-                <div>{varValue.var} : {varValue.value}</div>
+        const varsValues = model.varsValues().map((varValue,i)=>
+                <div key={i}>{varValue.var} : {varValue.value}</div>
         );
         const input = <TextInput
                         value={model.predicate}

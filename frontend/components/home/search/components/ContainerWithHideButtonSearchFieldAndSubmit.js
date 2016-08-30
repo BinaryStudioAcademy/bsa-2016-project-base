@@ -61,9 +61,9 @@ export default class ContainerWithHideButtonSearchFieldAndSubmit extends React.C
             onClick={model.clearSearch}/></div>:"";
         const searchPreview = <div>
             <div>Search Preview</div>
-            {model.searchModels.map(model=>
+            {model.searchModels.map((model,i)=>
                 model.values.length?
-                <div>
+                <div key={i}>
                     {model.title} : {model.values.map(value=>model.getText(value)).join(", ")}
                 </div>:""
         )}</div>;
