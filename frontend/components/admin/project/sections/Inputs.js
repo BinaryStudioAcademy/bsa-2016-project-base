@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../../actions/admin/UpsertProjectActions';
 import { Button, Checkbox, TextArea, DropDownNewProject, DateInput, TextInput, Editor, TextFieldProject, DatePickerControlled} from '../../../common/';
-import styles from './styles/Inputs.sass';
+import styles from './styles/inputs.sass';
 import FaAngleDown from 'react-icons/lib/fa/angle-down';
 
 class Inputs extends Component {
