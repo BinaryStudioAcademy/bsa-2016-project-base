@@ -275,6 +275,7 @@ class SearchServiceSubTools {
                     {$or: preparedQueryConditions}
                 ]
             };
+           
         } else {
             
             projQueryObj = {
@@ -356,14 +357,14 @@ class SearchServiceSubTools {
             let outputAnd = {
                 $and: []
             }
-            if (selectionsConditionsAnd.usersIn.length != 0) outputAnd.$and.push({users: {$in: selectionsConditionsAnd.usersIn}});
+            if (selectionsConditionsAnd.usersIn.length != 0) outputAnd.$and.push({users: {$all: selectionsConditionsAnd.usersIn}});
             if (selectionsConditionsAnd.usersNin.length != 0) outputAnd.$and.push({users: {$nin: selectionsConditionsAnd.usersNin}});
-            if (selectionsConditionsAnd.ownersIn.length != 0) outputAnd.$and.push({owners: {$in: selectionsConditionsAnd.ownersIn}});
+            if (selectionsConditionsAnd.ownersIn.length != 0) outputAnd.$and.push({owners: {$all: selectionsConditionsAnd.ownersIn}});
             if (selectionsConditionsAnd.ownersNin.length != 0) outputAnd.$and.push({owners: {$nin: selectionsConditionsAnd.ownersNin}});
-            if (selectionsConditionsAnd.tagsIn.length != 0) outputAnd.$and.push({tags: {$in: selectionsConditionsAnd.tagsIn}});
+            if (selectionsConditionsAnd.tagsIn.length != 0) outputAnd.$and.push({tags: {$all: selectionsConditionsAnd.tagsIn}});
             if (selectionsConditionsAnd.tagsNin.length != 0) outputAnd.$and.push({tags: {$nin: selectionsConditionsAnd.tagsNin}});
-            if (selectionsConditionsAnd.techsIn.length != 0) outputAnd.$and.push({techs: {$in: selectionsConditionsAnd.techsIn}});
-            if (selectionsConditionsAnd.techsNin.length != 0) outputAnd.$and.push({techs: {$nin: selectionsConditionsAnd.techsNin}});
+            if (selectionsConditionsAnd.techsIn.length != 0) outputAnd.$and.push({technologies: {$all: selectionsConditionsAnd.techsIn}});
+            if (selectionsConditionsAnd.techsNin.length != 0) outputAnd.$and.push({technologies: {$nin: selectionsConditionsAnd.techsNin}});
             selectionConditionsOr.push(outputAnd);
             console.log('selectionConditionsOr:', selectionConditionsOr);
         
