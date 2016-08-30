@@ -133,7 +133,7 @@ export default function UpsertProjectReducer(state=initialState, action) {
             const {sections} = state;
             console.log('DELETE_SECTION_SUCCESS',sections);
             return Object.assign({}, state, {
-                sections:data
+                sections: [].concat(data)
             });
         }
         case types.UP_POST_FEATURE_SUCCESS: {
@@ -142,6 +142,14 @@ export default function UpsertProjectReducer(state=initialState, action) {
             console.log('POST_FEATURE_SUCCESS',data);
             return Object.assign({}, state, {
                 features: features.concat(data)
+            });
+        }
+        case types.UP_POST_FEATURE_DELETE: {
+            const {data} = action;
+            const {features} = state;
+            console.log('DELETE_FEATURES_SUCCESS',data);
+            return Object.assign({}, state, {
+                features: [].concat(data)
             });
         }
         

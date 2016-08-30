@@ -68,7 +68,6 @@ export function createProjectData() {
     };
 };
 export function deleteSection(id, sections) {
-    console.log(sections);
     sections.forEach(function (el, indx) {
         if (el._id === id) {
             sections.splice(indx, 1);
@@ -77,8 +76,29 @@ export function deleteSection(id, sections) {
     return dispatch => {
         sectionService.removeSection(id)
             .then(dispatch({
-                type: types.UP_POST_SECTION_DELETE,
+                type: types.UP_POST_FEATURE_DELETE,
                 data: sections
+            }))
+            .catch(error => {
+                dispatch({
+                    type: types.UP_POST_SECTION_ERROR,
+                    error: error
+                });
+            });
+    }
+}
+export function deleteFeature(id, features) {
+    features.forEach(function (el, indx) {
+        if (el._id === id) {
+            features.splice(indx, 1);
+        }
+    });
+
+    return dispatch => {
+        featureService.removeFeature(id)
+            .then(dispatch({
+                type: types.UP_POST_FEATURE_DELETE,
+                data: features
             }))
             .catch(error => {
                 dispatch({

@@ -25,6 +25,7 @@ class Features extends Component {
         this.addNewFeature = this.addNewFeature.bind(this);
         this.setNewFeatureName = this.setNewFeatureName.bind(this);
         this.removeSection = this.removeSection.bind(this);
+        this.removeFeature = this.removeFeature.bind(this);
     }
     setNewSectionName(e){
     	this.setState({
@@ -47,8 +48,13 @@ class Features extends Component {
 		const {sections} = this.props;
 		this.props.deleteSection(id,sections);
 	}
+	removeFeature(id){
+		const {features} = this.props;
+		this.props.deleteFeature(id,features);
+	}
     onSectionSelected(e, id) {
-    	this.props.selectSection(id);
+		const {features} = this.props;
+    	this.props.selectSection(id,features);
     }
 
     showCreateFeatureModal() {
@@ -85,7 +91,6 @@ class Features extends Component {
             featureName: e.target.value.trim()
         })
     }
-
 
     renderFeatures(featuresList, sectionsList){
     	const {sections, activeSection} = this.props;
@@ -152,7 +157,7 @@ class Features extends Component {
 	    				 key={feature._id}
 	    				 feature={feature}
 	    				 isActive={false}
-	    				 
+						 removeFeature={this.removeFeature}
 	    			/>
     			);
     		}
