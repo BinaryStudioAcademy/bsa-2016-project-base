@@ -76,7 +76,7 @@ class Inputs extends Component {
 	        		        hintText='Link to project' 
 	        	 	        placeholder='Link to project'
 	        		        onChange={this.onProjectLinkChange}
-                            style={{width: '100%', borderRadius: '5px'}}
+                            style={{width: '100%'}}
 	        	        />
                     </div>
                 </div>
@@ -84,7 +84,8 @@ class Inputs extends Component {
                     <div className={styles['col-1-3']}>
                         <DatePickerControlled 
                             hint='Start Date'
-                            style={{width: '100%'}}
+                            style={{width: '100%' ,
+                                    cursor: 'pointer'}}
                             onChange={this.onStartDateChange}
                         />
                     </div>
