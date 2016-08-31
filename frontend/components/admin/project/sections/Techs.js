@@ -12,7 +12,7 @@ class Techs extends Component {
         	techName: '',
             techVersion: '',
             techDescription: '',
-            techAvatar: ''
+            addBtnEnabled: false
         }
         this.addTechToProject = this.addTechToProject.bind(this);
         this.removeTechFromProject = this.removeTechFromProject.bind(this);
@@ -23,27 +23,48 @@ class Techs extends Component {
         this.onTechDescriptionChange = this.onTechDescriptionChange.bind(this);
         this.onTechLogoChange = this.onTechLogoChange.bind(this);
     }
+    componentWillReceiveProps(newProps) {
+        this.isAllFilled(newProps);
+    }
+    isAllFilled(newProps){
+        const {techName, techVersion, techDescription} = this.state;
+        const {iconLoaded} = newProps || this.props;
+        if (techName != '' && techName != '' && techDescription != '' && iconLoaded) {
+            this.setState({
+                addBtnEnabled: true
+            });
+        } else {
+            this.setState({
+                addBtnEnabled: false
+            });
+        }
+        console.log('addBtnEnabled ', this.state.addBtnEnabled);
+        
+    }
     onTechNameChange(e){
         this.setState({
-            techName: e.target.value.trim()
+            techName: e.target.value
         });
-        
+        this.isAllFilled();
     }
     onTechVersionChange(e){
         this.setState({
-            techVersion: e.target.value.trim()
+            techVersion: e.target.value
         });
+        this.isAllFilled();
     }
     onTechDescriptionChange(e){
         this.setState({
-            techDescription: e.target.value.trim()
+            techDescription: e.target.value
         });
+        this.isAllFilled();
     }
     onTechLogoChange(e){
         console.log('onTechLogoChange ',e.target.value);
-        this.setState({
-            techAvatar: e.target.value
-        });
+        const file = e.target.files[0];
+        if (file) {
+            this.props.uploadIcon(file);
+        }
     }
     addTechToProject(e, techId) {
         console.log('addTechToProject ',techId);
@@ -54,22 +75,31 @@ class Techs extends Component {
         if (techId) this.props.removeTechFromProject(techId);
     }
     addNewTechToProject(e) {
-    	const tech = this.state;
-		//this.props.addNewTechToProject(tech);
-        this.props.postTech(tech);
-		this.state = {
+    	const {techName, techVersion, techDescription} = this.state;
+        const { techIcon } = this.props;
+        const newTech = {
+            techName,
+            techVersion,
+            techDescription,
+            techAvatar: techIcon.path
+        }
+        this.props.postTech(newTech);
+        this.state = {
             techName: '',
             techVersion: '',
-            techDescription: '',
-            techAvatar: ''
+            techDescription: ''
         }
+        const fileInput = document.querySelector('#tech-icon');
+        fileInput.value = '';
+        
+        
     }
     removeNewTechFromProject(e, tech) {
     	if (tech) this.props.removeNewTechFromProject(tech);
     }
 
     render(){
-    	const { technologies } = this.props;
+    	const { technologies, iconLoaded, techIcon, techIconError } = this.props;
     	const predefinedTags = technologies.map( tech => {
     		if (!tech.inProject) {
     			return (
@@ -122,12 +152,19 @@ class Techs extends Component {
                         onChange={this.onTechDescriptionChange}
                     />
                     <FileUpload
+                        id={'tech-icon'}
+                        multiple={false}
+                        accept='image/jpeg,image/png,image/gif'
                         onChange={this.onTechLogoChange}
+                        error={techIconError}
                     />
+                    {iconLoaded && <img src={techIcon.path} alt="tech icon"/>}  
 		        	<Button 
                         value="Add" 
+                        disabled = {!this.state.addBtnEnabled}
                         onClick={this.addNewTechToProject}
-                    />  	
+                    />  
+                   
     			</div>
     			
 	    		<div>
@@ -157,7 +194,10 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
     return {
-        technologies: state.UpsertProjectReducer.technologies
+        technologies: state.UpsertProjectReducer.technologies,
+        techIconError: state.UpsertProjectReducer.techIconError,
+        iconLoaded: state.UpsertProjectReducer.iconLoaded,
+        techIcon: state.UpsertProjectReducer.techIcon
     };
 };
 

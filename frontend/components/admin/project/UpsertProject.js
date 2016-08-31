@@ -9,6 +9,7 @@ import Tags from './sections/Tags';
 import Techs from './sections/Techs';
 import Features from './sections/Features';
 import Attachments from './sections/Attachments';
+import {toastr} from 'react-redux-toastr';
 
 import Button from '../../common/RaisedButtonUI_Tags';
 import styles from './sections/styles/UpsertProject.sass';
@@ -69,15 +70,15 @@ class UpsertProject extends Component {
 	    super(props);
 	    this.createProject = this.createProject.bind(this);
 	}
-    shouldComponentUpdate(){
-        return false;
+    componentWillReceiveProps(nextProps){
+        if(nextProps.store.added) toastr.success('Project', nextProps.store.projectName + ' was added!');
     }
 	componentDidMount() {
 		this.props.getPredefinedData();
 	}
 	createProject(e) {
 		console.log('createProject');
-        const {projectName,projectLink,timeBegin,timeEnd,condition,description} = this.props.store;
+        const {projectName,projectLink,timeBegin,timeEnd,status,description} = this.props.store;
         const {users,tags,technologies,sections,features,files} = this.props.store;
         console.log('features ',features);
         console.log('sections ',sections);
@@ -107,7 +108,7 @@ class UpsertProject extends Component {
             users: (() => {
                 const temp = [];
                 users.forEach( user => {
-                    if (user.inProject && !user.owner) temp.push(user._id);
+                    if (user.inProject) temp.push(user._id);
                 });
                 return temp;
             })(),
@@ -124,29 +125,41 @@ class UpsertProject extends Component {
                     temp.push(feature._id);
                 });
                 return temp;
+            })(),
+            attachments: (() => {
+                const temp = [];
+                console.log('files ',files);
+                files.forEach( file => {
+                    temp.push({
+                        name: file.name,
+                        link: file.path
+                    });
+                });
+                console.log('temp ',temp);
+                return temp;
             })()
         }
         console.log('inProject.sections ',inProject.sections);
         console.log('inProject.features ',inProject.features);
         console.log('inProject.users ',inProject.users);
+        console.log('inProject.owners ',inProject.owners);
         const project = {
             projectName,
-            /*projectLink,
-             files,*/
+            /*projectLink,*/
             timeBegin: new Date(timeBegin),
             timeEnd: new Date(timeEnd),
-            stage : "57a2fac7d50c16908d4e0c33", 
-            isCompleted: false,
+            attachments:attachments.inProject,
             sections: inProject.sections,
             features: inProject.features,
             tags: inProject.tags,
             technologies: inProject.technologies,
-            owners: inProject.users,
+            owners: inProject.owners,
             users: inProject.users,
-            condition,
-            description
+            status,
+            description,
+           
         };
-
+        console.log('project ',project);
         /*const project = {
             users: ["57a262f6b42bbf5a2daa98c1"],
             owners: ["57a262f6b42bbf5a2daa98c1"],
