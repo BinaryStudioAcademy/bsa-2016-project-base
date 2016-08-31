@@ -73,9 +73,9 @@ export default class Dates extends Model{
         const from = [],
               to = [];
         const dateString = function(date){
-            const year = date.getFullYear(),
-                month = date.getMonth(),
-                day = date.getDay();
+            const year = date.getUTCFullYear(),
+                month = date.getUTCMonth()+1,
+                day = date.getUTCDate()+1;
             return `${year}-${month}-${day}`
         };
         this.values.map(date=>{
