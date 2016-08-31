@@ -1,5 +1,6 @@
 import Updatable from "./../../models/Updatable"
 const skipSymbols = "&|->+()! ";
+import JoinStrategy from "./../const/SearchStratrgy"
 import parse from "./parser/parse"
 function names(p) {
     const result = [];
@@ -31,6 +32,7 @@ function error(p) {
 export default class PredicateModel extends Updatable {
     constructor({searchContainer,component}) {
         super(component);
+        this.values = []
         this.searchContainer = searchContainer;
         this.predicate = "";
         this.isOpen = false;
@@ -83,20 +85,14 @@ export default class PredicateModel extends Updatable {
     }
 
     varsValues() {
-        return this.searchContainer.searchModels.map(model=> {
-            return model.values.map((value, index)=> {
-                return {
-                    "var": model.getTitleInSingular().toLowerCase() + index,
-                    value: model.getText(value)
-                }
-            })
-        }).reduce((arr, elems)=>arr.concat(elems), []);
+        return this.searchContainer.varsValues();
     }
 
     goSearch() {
         this.validatePredicate();
         if (!this.validateMessage){
             this.handleClose();
+            this.searchContainer.joinStrategy = JoinStrategy.DEFAULT;
             this.searchContainer.searchModels.push(this);
             this.searchContainer.goExtendedSearch();
             if (this.searchContainer.searchModels.pop() !== this) {

@@ -1,6 +1,6 @@
 import Updatable from "./../../models/Updatable"
 import parser from "./searchStringParser/parser"
-
+import SearchStrategy from "./../const/SearchStratrgy"
 export default class SearchContainer extends Updatable{
     constructor({searchString,showSearch,selectedTab,
         searchModels, component}) {
@@ -11,6 +11,7 @@ export default class SearchContainer extends Updatable{
         this.currentQuery = [];
         this.searchModels = searchModels;
         this.shouldShowHint = false;
+        this.searchStrategy = SearchStrategy.DEFAULT;
         this.selectTab = this.selectTab.bind(this);
         this.showSearch = this.showSearch.bind(this);
         this.hideSearch = this.hideSearch.bind(this);
@@ -20,6 +21,19 @@ export default class SearchContainer extends Updatable{
         this.showHint = this.showHint.bind(this);
         this.hideHint = this.hideHint.bind(this);
         this.clearSearch = this.clearSearch.bind(this);
+    }
+    varsValues(){
+        return this.searchModels.map(model=> {
+            return model.values.map((value, index)=> {
+                return {
+                    "var": model.getTitleInSingular().toLowerCase() + index,
+                    value: model.getText(value)
+                }
+            })
+        }).reduce((arr, elems)=>arr.concat(elems), []);
+    }
+    setStrategy(strategy){
+        this.searchStrategy = strategy;
     }
     updateSearchString(searchString){
         this.searchString = searchString;

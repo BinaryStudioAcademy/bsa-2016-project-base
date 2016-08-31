@@ -8,6 +8,7 @@ import Divider from 'material-ui/Divider';
 import Container from "./../models/SearchContainer"
 import DeferredTextInput from "./TextInput"
 import PredicateSearch from "./PredicateSearch"
+import SearchStrategy from "./SearchStrategy"
 export default class ContainerWithHideButtonSearchFieldAndSubmit extends React.Component {
     constructor(props) {
         super(props)
@@ -28,10 +29,12 @@ export default class ContainerWithHideButtonSearchFieldAndSubmit extends React.C
                           onClick={model.hideSearch}/></div>:
             <div className='col-inputs'><RaisedButton label="Show Extended Search"
                           onClick={model.showSearch}/></div>
+        const searchStrategy = <SearchStrategy model={model}/>;
 
         const body = model.shouldShowSearch?
             <div>
                 <h3>Extended Search</h3>
+                {searchStrategy}
                 <ComponentContainer
                     model={model}
                 />
@@ -67,6 +70,7 @@ export default class ContainerWithHideButtonSearchFieldAndSubmit extends React.C
                     {model.title} : {model.values.map(value=>model.getText(value)).join(", ")}
                 </div>:""
         )}</div>;
+
         const predicateSearch = model.shouldShowSearch?<PredicateSearch model={model.predicateModel}/>:"";
         return (
             <div className='inputs-tool'>

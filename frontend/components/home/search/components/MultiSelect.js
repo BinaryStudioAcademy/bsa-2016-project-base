@@ -12,44 +12,57 @@ import Modelable from "./Modelable"
 export default class MultiSelect extends Modelable {
     constructor(props) {
         super(props);
+        this.leftBlockWidth = "40%";
+        this.rightBlockWidth = "60%";
     }
 
     static get propTypes() {
         return {
-            model:PropTypes.instanceOf(MultiSelectModel)
+            model: PropTypes.instanceOf(MultiSelectModel)
         }
     }
-    getListRightIcon(value){}
-    render() {
+
+    getListRightIcon(value) {
+    }
+
+    getRightBlock() {
+        const {model} = this.props
+        const values = <DeletableList model={model}/>;
+
+        return (<div style={{width:this.rightBlockWidth,overflow:"auto", "maxHeight":"300px"}}>
+            {values}
+        </div>)
+    }
+
+    getLeftBlock() {
         const {model} = this.props;
         const self = this;
         const tips = <List>
-            {model.tipsError?
-                <Subheader>{model.tipsError}</Subheader>:""}
-            {model.tips.map((tip,index)=>{
+            {model.tipsError ?
+                <Subheader>{model.tipsError}</Subheader> : ""}
+            {model.tips.map((tip, index)=> {
                 return <ListItem key={index}
                                  primaryText={model.getText(tip)}
                                  onClick={()=>model.addValue(tip)}
                                  rightIcon={self.getListRightIcon(tip)}/>
             })}</List>;
+        return (<div style={{width:this.leftBlockWidth}}>
+            <div style={{display:"flex",position:"absolute"}}>
+                <DeferredTextInput
+                    value={model.custom}
+                    hintText={model.customHintText}
+                    receiver={model.setCustom}/>
+                {model.isLoading ? <CircularProgress size={0.5}/> : ""}
+            </div>
+            <div style={{"marginTop":"60px", overflow:"auto", "maxHeight":"260px"}}>
+                {tips}</div>
+        </div>)
+    }
 
-        const values = <DeletableList model={model}/>;
-
+    render() {
         return (<div style={{display:"flex"}}>
-            <div style={{width:"40%"}}  >
-                <div style={{display:"flex",position:"absolute"}}>
-                    <DeferredTextInput
-                        value={model.custom}
-                        hintText={model.customHintText}
-                        receiver={model.setCustom}/>
-                    {model.isLoading?<CircularProgress size={0.5}/>:""}
-                </div>
-                <div style={{"marginTop":"60px", overflow:"auto", "maxHeight":"260px"}}>
-                    {tips}</div>
-            </div>
-            <div style={{width:"60%",overflow:"auto", "maxHeight":"300px"}} >
-                {values}
-            </div>
+            {this.getLeftBlock()}
+            {this.getRightBlock()}
         </div>)
     }
 }
