@@ -247,7 +247,7 @@ class SearchServiceSubTools {
                 if (err) {
                     console.log('Error');
                 }
-                console.log(result);
+                console.log('getStrictTechsIdFromSearchQuery() -> result: ', result);
                 selectedTechsId = result.map((elem)=> {return elem._id});
                 callback(null, selectedTechsId);
             });
@@ -269,6 +269,17 @@ class SearchServiceSubTools {
 
             //searchReturn.selectedConditionsOr = preparedQueryConditions;
 
+            // projQueryObj = {
+            //     projectName: {$regex: searchFilters.queryProjName, $options:'$i'},
+            //     $and: [
+            //         {$or: [
+            //             {'description.descrText': {$regex: searchFilters.queryProjDescription, $options:'$i'}},
+            //             {'description.descrFullText': {$regex: searchFilters.queryProjDescription, $options:'$i'}}
+            //         ]},
+            //         {$or: datesQuerySelection},
+            //         {$or: preparedQueryConditions}
+            //     ]
+            // };
             projQueryObj = {
                 projectName: {$regex: searchFilters.queryProjName, $options:'$i'},
                 $and: [
@@ -276,10 +287,14 @@ class SearchServiceSubTools {
                         {'description.descrText': {$regex: searchFilters.queryProjDescription, $options:'$i'}},
                         {'description.descrFullText': {$regex: searchFilters.queryProjDescription, $options:'$i'}}
                     ]},
-                    {$or: datesQuerySelection},
-                    {$or: preparedQueryConditions}
+                    {$or: datesQuerySelection}
                 ]
             };
+
+            if (preparedQueryConditions!= null) {
+                projQueryObj.$and.push(preparedQueryConditions.map(elem=> {$or: elem}));
+            }
+            console.log('projQueryObj: ', projQueryObj);
            
         } else {
             
@@ -377,7 +392,10 @@ class SearchServiceSubTools {
             if (selectionsConditionsAnd.tagsNin.length != 0) outputAnd.$and.push({tags: {$nin: selectionsConditionsAnd.tagsNin}});
             if (selectionsConditionsAnd.techsIn.length != 0) outputAnd.$and.push({technologies: {$all: selectionsConditionsAnd.techsIn}});
             if (selectionsConditionsAnd.techsNin.length != 0) outputAnd.$and.push({technologies: {$nin: selectionsConditionsAnd.techsNin}});
-            selectionConditionsOr.push(outputAnd);
+
+            if (outputAnd.$and.length != 0){
+                selectionConditionsOr.push(outputAnd);
+            } else {selectionConditionsOr = null}
             console.log('selectionConditionsOr:', selectionConditionsOr);
         
         });
