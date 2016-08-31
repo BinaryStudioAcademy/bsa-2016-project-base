@@ -114,11 +114,12 @@ export default function UpsertProjectReducer(state=initialState, action) {
             });
         }
         case types.UP_POST_TECH_SUCCESS: {
-            const {data} = action;
+            const {data, iconLoaded} = action;
             const {technologies} = state;
             console.log('POST_TECH',data);
             return Object.assign({}, state, {
-                technologies: addNewTech(technologies, data)
+                technologies: addNewTech(technologies, data),
+                iconLoaded
             });
         }
         case types.UP_POST_SECTION_SUCCESS: {
@@ -144,6 +145,7 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 activeSection: selectSection(sections, _id)
             });
         }
+        
         case types.UP_UPLOAD_FILE: {
             const {name} = action;
             const {files} = state;
@@ -159,19 +161,18 @@ export default function UpsertProjectReducer(state=initialState, action) {
             const {data} = action;
             const {files} = state;
             return Object.assign({}, state, {
-                //files: files.concat(data)
                 files: updateFileSuccess(files, data)
             });
         }
-        /*case types.UP_UPLOAD_FILE_ERROR: {
-            const {error} = action;
-            const {files} = state;
+         case types.UP_UPLOAD_ICON_SUCCESS: {
+            const {data, iconLoaded, error} = action;
+            const {techIcon} = state;
             return Object.assign({}, state, {
-                //files: files.concat(data)
-                files: updateFileFailure(files, error)
+                techIcon: data,
+                iconLoaded: iconLoaded,
+                techIconError: error
             });
-        }*/
-        
+        }
         case types.UP_REMOVE_FILE: {
             const {name} = action;
             const {files} = state;
@@ -378,6 +379,9 @@ const initialState = {
     activeSection: {},
 	tagExists: false,
     added: false,
+    iconLoaded: false,
+    techIcon: {},
+    techIconError: null,
     description:{
         descrFullText: 'Description'
     } 
