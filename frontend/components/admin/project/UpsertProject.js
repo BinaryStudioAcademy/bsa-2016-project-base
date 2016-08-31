@@ -129,6 +129,7 @@ class UpsertProject extends Component {
         console.log('inProject.sections ',inProject.sections);
         console.log('inProject.features ',inProject.features);
         console.log('inProject.users ',inProject.users);
+        console.log('inProject.owners ',inProject.owners);
         const project = {
             projectName,
             /*projectLink,
@@ -141,7 +142,7 @@ class UpsertProject extends Component {
             features: inProject.features,
             tags: inProject.tags,
             technologies: inProject.technologies,
-            owners: inProject.users,
+            owners: inProject.owners,
             users: inProject.users,
             condition,
             description
