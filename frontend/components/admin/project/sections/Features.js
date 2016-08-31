@@ -73,6 +73,9 @@ class Features extends Component {
     		descriptionHTMLText,
     		section: activeSection._id
     	})
+        this.setState({
+            featureName: ''
+        })
     }
      setNewFeatureName(e) {
         this.setState({
