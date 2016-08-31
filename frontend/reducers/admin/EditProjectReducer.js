@@ -1,9 +1,9 @@
-import * as types from '../../actions/admin/UpsertProjectActionTypes';
+import * as types from '../../actions/admin/EditProjectActionsTypes';
 
 
 export default function EditProjectReducer(state=initialState, action) {
     switch (action.type) {
-        case types.UP_GET_DATA_SUCCESS: {
+        case types.UP_GET_DATA_SUCCESS_ED: {
             const {users, tags, technologies, conditions } = action.data;
             return Object.assign({}, state, {
                 predefinedUsers: users,
@@ -12,28 +12,28 @@ export default function EditProjectReducer(state=initialState, action) {
                 predefinedConditions: conditions
             });
         }
-        case types.UP_ADD_USER_TO_PROJECT: {
+        case types.UP_ADD_USER_TO_PROJECT_ED: {
             const {_id} = action;
             const {predefinedUsers} = state;
             return Object.assign({}, state, {
                 predefinedUsers: addUserToProject(predefinedUsers, _id)
             });
         }
-        case types.UP_REMOVE_USER_FROM_PROJECT: {
+        case types.UP_REMOVE_USER_FROM_PROJECT_ED: {
             const {_id} = action;
             const {predefinedUsers} = state;
             return Object.assign({}, state, {
                 predefinedUsers: removeUserFromProject(predefinedUsers, _id)
             });
         }
-        case types.UP_CHANGE_OWNERSHIP: {
+        case types.UP_CHANGE_OWNERSHIP_ED: {
             const {_id, checked} = action;
             const {predefinedUsers} = state;
             return Object.assign({}, state, {
                 predefinedUsers: changeOwnership(predefinedUsers, _id, checked)
             });
         }
-        case types.UP_CHANGE_PROJECT_NAME: {
+        case types.UP_CHANGE_PROJECT_NAME_ED: {
             const {name} = action;
             return Object.assign({}, state, {
 
@@ -41,7 +41,7 @@ export default function EditProjectReducer(state=initialState, action) {
 
             });
         }
-        case types.UP_CHANGE_PROJECT_LINK: {
+        case types.UP_CHANGE_PROJECT_LINK_ED: {
             const {link} = action;
             return Object.assign({}, state, {
 
@@ -49,7 +49,7 @@ export default function EditProjectReducer(state=initialState, action) {
 
             });
         }
-        case types.UP_CHANGE_START_DATE: {
+        case types.UP_CHANGE_START_DATE_ED: {
             const {date} = action;
             return Object.assign({}, state, {
 
@@ -57,7 +57,7 @@ export default function EditProjectReducer(state=initialState, action) {
 
             });
         }
-        case types.UP_CHANGE_FINISH_DATE: {
+        case types.UP_CHANGE_FINISH_DATE_ED: {
             const {date} = action;
             return Object.assign({}, state, {
 
@@ -66,7 +66,7 @@ export default function EditProjectReducer(state=initialState, action) {
 
             });
         }
-        case types.UP_CHANGE_CONDITION: {
+        case types.UP_CHANGE_CONDITION_ED: {
             const {option} = action;
             return Object.assign({}, state, {
 
@@ -74,7 +74,7 @@ export default function EditProjectReducer(state=initialState, action) {
 
             });
         }
-        case types.UP_CHANGE_DESCRIPTION: {
+        case types.UP_CHANGE_DESCRIPTION_ED: {
             const {text} = action;
             return Object.assign({}, state, {
 
@@ -84,35 +84,35 @@ export default function EditProjectReducer(state=initialState, action) {
 
             });
         }
-        case types.UP_ADD_TAG_TO_PROJECT: {
+        case types.UP_ADD_TAG_TO_PROJECT_ED: {
             const {_id} = action;
             const {predefinedTags} = state;
             return Object.assign({}, state, {
                 predefinedTags: addTagToProject(predefinedTags, _id)
             });
         }
-        case types.UP_REMOVE_TAG_FROM_PROJECT: {
+        case types.UP_REMOVE_TAG_FROM_PROJECT_ED: {
             const {_id} = action;
             const {predefinedTags} = state;
             return Object.assign({}, state, {
                 predefinedTags: removeTagFromProject(predefinedTags, _id)
             });
         }
-        case types.UP_POST_PROJECT_SUCCESS: {
+        case "UPDATE_PROJECT_SUCCESS": {
             const {data} = action;
             const {added} = state;
             return Object.assign({}, state, {
                 added: true
             });
         }
-        case types.UP_POST_TAG_SUCCESS: {
+        case types.UP_POST_TAG_SUCCESS_ED: {
             const {data} = action;
             const {predefinedTags} = state;
             return Object.assign({}, state, {
                 predefinedTags: addNewTag(predefinedTags, data)
             });
         }
-        case types.UP_POST_TECH_SUCCESS: {
+        case types.UP_POST_TECH_SUCCESS_ED: {
             const {data} = action;
             const {predefinedTechnologies} = state;
             console.log('POST_TECH',data);
@@ -120,7 +120,7 @@ export default function EditProjectReducer(state=initialState, action) {
                 predefinedTechnologies: addNewTech(predefinedTechnologies, data)
             });
         }
-        case types.UP_POST_SECTION_SUCCESS: {
+        case types.UP_POST_SECTION_SUCCESS_ED: {
             const {data} = action;
             const {sections} = state;
             console.log('POST_SECTION_SUCCESS',data);
@@ -128,7 +128,7 @@ export default function EditProjectReducer(state=initialState, action) {
                 sections: sections.concat(data)
             });
         }
-        case types.UP_POST_FEATURE_SUCCESS: {
+        case types.UP_POST_FEATURE_SUCCESS_ED: {
             const {data} = action;
             const {features} = state;
             console.log('POST_FEATURE_SUCCESS',data);
@@ -137,7 +137,7 @@ export default function EditProjectReducer(state=initialState, action) {
             });
         }
 
-        case types.UP_SELECT_SECTION: {
+        case types.UP_SELECT_SECTION_ED: {
             const {_id} = action;
             const {sections, activeSection} = state;
             return Object.assign({}, state, {
@@ -145,7 +145,7 @@ export default function EditProjectReducer(state=initialState, action) {
             });
         }
 
-        case types.UP_UPLOAD_FILE_SUCCESS: {
+        case types.UP_UPLOAD_FILE_SUCCESS_ED: {
             const {path,thumb} = action.data;
             const {files} = state;
             return Object.assign({}, state, {
@@ -156,28 +156,28 @@ export default function EditProjectReducer(state=initialState, action) {
                 })
             });
         }
-        case types.UP_REMOVE_FILE: {
+        case types.UP_REMOVE_FILE_ED: {
             const {name} = action;
             const {files} = state;
             return Object.assign({}, state, {
                 files: removeFile(files, name)
             });
         }
-        case types.UP_REMOVE_NEW_TAG_FROM_PROJECT: {
+        case types.UP_REMOVE_NEW_TAG_FROM_PROJECT_ED: {
             const {tagName} = action;
             const {tags} = state;
             return Object.assign({}, state, {
                 tags: removeNewTagFromProject(tags, tagName)
             });
         }
-        case types.UP_ADD_TECH_TO_PROJECT: {
+        case types.UP_ADD_TECH_TO_PROJECT_ED: {
             const {_id} = action;
             const {predefinedTechnologies} = state;
             return Object.assign({}, state, {
                 predefinedTechnologies: addTechToProject(predefinedTechnologies, _id)
             });
         }
-        case types.UP_REMOVE_TECH_FROM_PROJECT: {
+        case types.UP_REMOVE_TECH_FROM_PROJECT_ED: {
             const {_id} = action;
             const {predefinedTechnologies} = state;
             return Object.assign({}, state, {
@@ -203,6 +203,7 @@ export default function EditProjectReducer(state=initialState, action) {
                 initialTags: false,
                 initialTechnologies: false,
                 initialUsers: false,
+                initialSections: false,
                 description:{
                     descrFullText: project.description.descrFullText
                 }});
@@ -229,6 +230,7 @@ export default function EditProjectReducer(state=initialState, action) {
                 initialTags: false,
                 initialTechnologies: false,
                 initialUsers: false,
+                initialSections: false,
                 description:{
                     descrFullText: 'Description'
                 },
@@ -250,6 +252,10 @@ export default function EditProjectReducer(state=initialState, action) {
             const {predefinedUsers} = action;
             return Object.assign({}, state, {predefinedUsers: predefinedUsers}, {initialUsers: true})
         }
+        case 'INITIAL_STATE_SECTIONS': {
+            const {sections} = action;
+            return Object.assign({}, state, {sections: sections}, {initialSections: true})
+        }
         default: {
             return state;
         }
@@ -266,7 +272,7 @@ const selectSection = (sections, _id) => {
     }
     console.log('selectSection');
     return null;
-}
+};
 
 const removeFile = (files, name) => {
     files.forEach( (file, index) => {
@@ -327,32 +333,32 @@ const removeTagFromProject = (predefinedTags, _id) => {
     return [].concat(predefinedTags);
 }
 
-const addUserToProject = (users, _id) => {
+const addUserToProject = (predefinedUsers, _id) => {
     users.forEach( user => {
         if (user._id === _id) {
             user.inProject = true;
         }
     });
-    return [].concat(users);
+    return [].concat(predefinedUsers);
 }
 
-const removeUserFromProject = (users, _id) => {
+const removeUserFromProject = (predefinedUsers, _id) => {
     users.forEach( user => {
         if (user._id === _id) {
             user.inProject = false;
             user.owner = false;
         }
     });
-    return [].concat(users);
+    return [].concat(predefinedUsers);
 }
 
-const changeOwnership = (users, _id, value) => {
-    users.forEach( user => {
+const changeOwnership = (predefinedUsers, _id, value) => {
+    predefinedUsers.forEach( user => {
         if (user._id === _id) {
             user.owner = value;
         }
     });
-    return [].concat(users);
+    return [].concat(predefinedUsers);
 }
 
 
@@ -382,7 +388,7 @@ const initialState = {
     timeBegin:'',
     timeEnd:'',
     condition:'',
-    users: null,
+    users_: [],
     owners: null,
     tags: null,
     technologies: null,
@@ -396,6 +402,7 @@ const initialState = {
     initialTags: false,
     initialTechnologies: false,
     initialUsers: false,
+    initialSections: false,
     description:{
         descrFullText: 'Description'
     },

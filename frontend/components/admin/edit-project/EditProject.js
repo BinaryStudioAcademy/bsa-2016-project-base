@@ -68,12 +68,16 @@ const TabsExampleSimple = () => (
 class EditProject extends Component {
     constructor(props) {
         super(props);
-        this.props.initialStateFromDB(this.props.routeParams.id);
-        this.props.getPredefinedData();
-        this.createProject = this.createProject.bind(this);
+
+        this.editProject = this.editProject.bind(this);
     }
     shouldComponentUpdate(){
     return false;
+}
+
+componentWillMount() {
+    this.props.getPredefinedData();
+    this.props.initialStateFromDB(this.props.routeParams.id);
 }
 
     componentWillUnmount() {
@@ -82,39 +86,42 @@ class EditProject extends Component {
     componentDidMount() {
 
     }
-    createProject(e) {
-        console.log('createProject');
-        const {projectName,projectLink,timeBegin,timeEnd,condition,description} = this.props.store;
-        const {users,tags,technologies,sections,features,files} = this.props.store;
+    editProject(e) {
+        console.log('editProject');
+        const {projectName,projectLink,timeBegin,timeEnd,condition,description, projectId} = this.props.store;
+        const {predefinedUsers,predefinedTags,predefinedTechnologies,sections,features,files} = this.props.store;
         console.log('features ',features);
         console.log('sections ',sections);
 
         const inProject = {
+            _id: projectId,
             tags: (() => {
                 const temp = [];
-                tags.forEach( tag => {
+                predefinedTags.forEach( tag => {
                     if (tag.inProject) temp.push(tag._id)
                 });
                 return temp;
             })(),
             technologies: (() => {
                 const temp = [];
-                technologies.forEach( tech => {
+                predefinedTechnologies.forEach( tech => {
                     if (tech.inProject) temp.push(tech._id)
                 });
                 return temp;
             })(),
             owners: (() => {
                 const temp = [];
-                users.forEach( user => {
-                    if (user.inProject && user.owner)  temp.push(user._id);
+                predefinedUsers.forEach( user => {
+                    if (user.inProject === true && user.owner) {
+                        temp.push(user._id);
+                    }
                 });
                 return temp;
             })(),
             users: (() => {
                 const temp = [];
-                users.forEach( user => {
-                    if (user.inProject && !user.owner) temp.push(user._id);
+                predefinedUsers.forEach( user => {
+                    if (user.inProject === true && !user.owner) temp.push(user._id);
                 });
                 return temp;
             })(),
@@ -137,6 +144,7 @@ class EditProject extends Component {
         console.log('inProject.features ',inProject.features);
         console.log('inProject.users ',inProject.users);
         const project = {
+            _id: projectId,
             projectName,
             /*projectLink,
              files,*/
@@ -171,7 +179,7 @@ class EditProject extends Component {
          }],
          }*/
 
-        this.props.postProject(project);
+        this.props.updateProject(project);
     }
 
 
@@ -192,7 +200,7 @@ class EditProject extends Component {
                 <br/>
                 <Button
                     label="Create project"
-                    onClick={this.createProject}
+                    onClick={this.editProject}
                     backgroundColor="rgba(46, 204, 113, 0.9)"
                 />
             </div>

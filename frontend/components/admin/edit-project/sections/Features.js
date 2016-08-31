@@ -125,7 +125,11 @@ class Features extends Component {
     }
 
     render(){
-    	const {sections, features, activeSection} = this.props;
+    	const {sections, features, activeSection, initialSections} = this.props;
+		if(initialSections == false) {
+			//alert("AGA!");
+			this.props.initialStateSections(features);
+		}
     	console.log('sections ',sections);
     	const sectionsList = sections.map( section => {
     		return (
@@ -139,7 +143,7 @@ class Features extends Component {
     	});
 
     	const featuresList = features.map( feature => {
-    		if (feature.section === activeSection._id) {
+    		if (feature.section._id === activeSection._id) {
     			return (
 	    			<Feature
 	    				 key={feature._id}
@@ -202,7 +206,9 @@ function mapStateToProps(state) {
     return {
         sections: state.EditProjectReducer.sections,
         features:  state.EditProjectReducer.features,
-        activeSection: state.EditProjectReducer.activeSection
+        activeSection: state.EditProjectReducer.activeSection,
+		initialSections: state.EditProjectReducer.initialSections
+
     };
 };
 

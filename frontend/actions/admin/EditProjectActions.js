@@ -1,4 +1,4 @@
-import * as types from './UpsertProjectActionTypes';
+import * as types from './EditProjectActionsTypes';
 import upsertProjectService from '../../services/admin/UpsertProjectService';
 import editProjectService from '../../services/admin/EditProjectService';
 import adminTagService from '../../services/admin/AdminTagService';
@@ -9,11 +9,10 @@ import featureService from '../../services/featureService';
 
 
 
-
 export function getPredefinedData() {
     return dispatch => {
         dispatch({
-            type: types.UP_GET_DATA
+            type: types.UP_GET_DATA_ED
         });
         return upsertProjectService.getPredefinedData()
             .then(response => {
@@ -24,25 +23,25 @@ export function getPredefinedData() {
             })
             .then( json =>  {
                 dispatch({
-                    type: types.UP_GET_DATA_SUCCESS,
+                    type: types.UP_GET_DATA_SUCCESS_ED,
                     data: json
                 });
             })
             .catch( error => {
                 dispatch({
-                    type: types.UP_GET_DATA_ERROR,
+                    type: types.UP_GET_DATA_ERROR_ED,
                     error: error
                 });
             });
     };
 };
 
-export function postProject(project) {
+export function updateProject(project) {
     return dispatch => {
         dispatch({
-            type: types.UP_POST_PROJECT
+            type: types.UP_POST_PROJECT_ED
         });
-        return upsertProjectService.addProject(project)
+        return editProjectService.updateProjectService(project)
             .then(response => {
                 if (response.status != 201) {
                     throw Error(response.statusText);
@@ -51,13 +50,13 @@ export function postProject(project) {
             })
             .then( json =>  {
                 dispatch({
-                    type: types.UP_POST_PROJECT_SUCCESS,
+                    type: types.UP_POST_PROJECT_SUCCESS_ED,
                     data: json
                 });
             })
             .catch( error => {
                 dispatch({
-                    type: types.UP_POST_PROJECT_ERROR,
+                    type: types.UP_POST_PROJECT_ERROR_ED,
                     error: error
                 });
             });
@@ -68,7 +67,7 @@ export function postProject(project) {
 
 export function createProjectData() {
     return {
-        type: types.UP_CREATE_PROJECT_DATA
+        type: types.UP_CREATE_PROJECT_DATA_ED
     };
 };
 
@@ -76,7 +75,7 @@ export function createProjectData() {
 export function postTag(tag) {
     return dispatch => {
         dispatch({
-            type: types.UP_POST_TAG
+            type: types.UP_POST_TAG_ED
         });
         return adminTagService.addTag(tag)
             .then(response => {
@@ -87,13 +86,13 @@ export function postTag(tag) {
             })
             .then( json =>  {
                 dispatch({
-                    type: types.UP_POST_TAG_SUCCESS,
+                    type: types.UP_POST_TAG_SUCCESS_ED,
                     data: json
                 });
             })
             .catch( error => {
                 dispatch({
-                    type: types.UP_POST_TAG_ERROR,
+                    type: types.UP_POST_TAG_ERROR_ED,
                     error: error
                 });
             });
@@ -103,7 +102,7 @@ export function postTag(tag) {
 export function postTech(tech) {
     return dispatch => {
         dispatch({
-            type: types.UP_POST_TECH
+            type: types.UP_POST_TECH_ED
         });
         return techService.addTechology(tech)
             .then(response => {
@@ -114,13 +113,13 @@ export function postTech(tech) {
             })
             .then( json =>  {
                 dispatch({
-                    type: types.UP_POST_TECH_SUCCESS,
+                    type: types.UP_POST_TECH_SUCCESS_ED,
                     data: json
                 });
             })
             .catch( error => {
                 dispatch({
-                    type: types.UP_POST_TECH_ERROR,
+                    type: types.UP_POST_TECH_ERROR_ED,
                     error: error
                 });
             });
@@ -131,7 +130,7 @@ export function postTech(tech) {
 export function postSection(section) {
     return dispatch => {
         dispatch({
-            type: types.UP_POST_SECTION
+            type: types.UP_POST_SECTION_ED
         });
         return sectionService.addNewSection(section)
             .then(response => {
@@ -142,13 +141,13 @@ export function postSection(section) {
             })
             .then( json =>  {
                 dispatch({
-                    type: types.UP_POST_SECTION_SUCCESS,
+                    type: types.UP_POST_SECTION_SUCCESS_ED,
                     data: json
                 });
             })
             .catch( error => {
                 dispatch({
-                    type: types.UP_POST_SECTION_ERROR,
+                    type: types.UP_POST_SECTION_ERROR_ED,
                     error: error
                 });
             });
@@ -161,7 +160,7 @@ export function postSection(section) {
 export function postFeature(feature) {
     return dispatch => {
         dispatch({
-            type: types.UP_POST_FEATURE
+            type: types.UP_POST_FEATURE_ED
         });
         return featureService.addNewFeature(feature)
             .then(response => {
@@ -172,13 +171,13 @@ export function postFeature(feature) {
             })
             .then( json =>  {
                 dispatch({
-                    type: types.UP_POST_FEATURE_SUCCESS,
+                    type: types.UP_POST_FEATURE_SUCCESS_ED,
                     data: json
                 });
             })
             .catch( error => {
                 dispatch({
-                    type: types.UP_POST_FEATURE_ERROR,
+                    type: types.UP_POST_FEATURE_ERROR_ED,
                     error: error
                 });
             });
@@ -192,7 +191,7 @@ export function postFeature(feature) {
 export function uploadFile(file) {
     return dispatch => {
         dispatch({
-            type: types.UP_UPLOAD_FILE
+            type: types.UP_UPLOAD_FILE_ED
         });
         return uploadService.upload(file)
             .then(response => {
@@ -203,13 +202,13 @@ export function uploadFile(file) {
             })
             .then( json =>  {
                 dispatch({
-                    type: types.UP_UPLOAD_FILE_SUCCESS,
+                    type: types.UP_UPLOAD_FILE_SUCCESS_ED,
                     data: json
                 });
             })
             .catch( error => {
                 dispatch({
-                    type: types.UP_UPLOAD_FILE_ERROR,
+                    type: types.UP_UPLOAD_FILE_ERROR_ED,
                     error: error
                 });
             });
@@ -219,70 +218,70 @@ export function uploadFile(file) {
 
 export function removeFile(name) {
     return {
-        type: types.UP_REMOVE_FILE,
+        type: types.UP_REMOVE_FILE_ED,
         name
     };
 };
 
 export function changeProjectName(name) {
     return {
-        type: types.UP_CHANGE_PROJECT_NAME,
+        type: types.UP_CHANGE_PROJECT_NAME_ED,
         name
     };
 };
 
 export function changeProjectLink(link) {
     return {
-        type: types.UP_CHANGE_PROJECT_LINK,
+        type: types.UP_CHANGE_PROJECT_LINK_ED,
         link
     };
 };
 
 export function changeStartDate(date) {
     return {
-        type: types.UP_CHANGE_START_DATE,
+        type: types.UP_CHANGE_START_DATE_ED,
         date
     };
 };
 
 export function changeFinishDate(date) {
     return {
-        type: types.UP_CHANGE_FINISH_DATE,
+        type: types.UP_CHANGE_FINISH_DATE_ED,
         date
     };
 };
 
 export function changeCondition(option) {
     return {
-        type: types.UP_CHANGE_CONDITION,
+        type: types.UP_CHANGE_CONDITION_ED,
         option
     };
 };
 
 export function changeDescription(text) {
     return {
-        type: types.UP_CHANGE_DESCRIPTION,
+        type: types.UP_CHANGE_DESCRIPTION_ED,
         text
     };
 };
 
 export function addUserToProject(_id) {
     return {
-        type: types.UP_ADD_USER_TO_PROJECT,
+        type: types.UP_ADD_USER_TO_PROJECT_ED,
         _id
     };
 };
 
 export function removeUserFromProject(_id) {
     return {
-        type: types.UP_REMOVE_USER_FROM_PROJECT,
+        type: types.UP_REMOVE_USER_FROM_PROJECT_ED,
         _id
     };
 };
 
 export function changeOwnership(_id, checked) {
     return {
-        type: types.UP_CHANGE_OWNERSHIP,
+        type: types.UP_CHANGE_OWNERSHIP_ED,
         _id,
         checked
     };
@@ -290,28 +289,28 @@ export function changeOwnership(_id, checked) {
 
 export function addTagToProject(_id) {
     return {
-        type: types.UP_ADD_TAG_TO_PROJECT,
+        type: types.UP_ADD_TAG_TO_PROJECT_ED,
         _id
     };
 };
 
 export function removeTagFromProject(_id) {
     return {
-        type: types.UP_REMOVE_TAG_FROM_PROJECT,
+        type: types.UP_REMOVE_TAG_FROM_PROJECT_ED,
         _id
     };
 };
 
 export function addTechToProject(_id) {
     return {
-        type: types.UP_ADD_TECH_TO_PROJECT,
+        type: types.UP_ADD_TECH_TO_PROJECT_ED,
         _id
     };
 };
 
 export function removeTechFromProject(_id) {
     return {
-        type: types.UP_REMOVE_TECH_FROM_PROJECT,
+        type: types.UP_REMOVE_TECH_FROM_PROJECT_ED,
         _id
     };
 };
@@ -319,7 +318,7 @@ export function removeTechFromProject(_id) {
 
 export function selectSection(_id) {
     return {
-        type: types.UP_SELECT_SECTION,
+        type: types.UP_SELECT_SECTION_ED,
         _id
     };
 };
@@ -413,6 +412,17 @@ export function initialStateUsers(users, predefinedUsers, owners) {
                 return el;
             }
         }),
+    };
+    return action;
+}
+
+export function initialStateSections(features) {
+
+    const action = {
+        type: 'INITIAL_STATE_SECTIONS',
+        sections: features.map(function(el)  {
+            return el.section;
+                    }),
     };
     return action;
 }

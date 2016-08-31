@@ -23,7 +23,10 @@ ProjectRepository.prototype.getByAllData = function(id, callback) {
 	var model = this.model;
 	var query = model.findOne({_id: id})
 		.populate("tags")
-		.populate("features")
+		.populate({
+			path: "features",
+			populate: {path: "section"}
+		})
 		.populate("technologies")
 		.populate("owners")
 		.populate("users");
