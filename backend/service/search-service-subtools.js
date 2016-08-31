@@ -292,8 +292,8 @@ class SearchServiceSubTools {
             };
 
             if (preparedQueryConditions!= null) {
-                projQueryObj.$and.push(preparedQueryConditions.map(elem=> {$or: elem}));
-            }
+                projQueryObj.$and.push({$or: preparedQueryConditions});
+            };
             console.log('projQueryObj: ', projQueryObj);
            
         } else {
@@ -395,6 +395,7 @@ class SearchServiceSubTools {
 
             if (outputAnd.$and.length != 0){
                 selectionConditionsOr.push(outputAnd);
+                console.log('outputAnd: ', outputAnd);
             } else {selectionConditionsOr = null}
             console.log('selectionConditionsOr:', selectionConditionsOr);
         
