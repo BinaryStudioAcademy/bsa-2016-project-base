@@ -67,24 +67,23 @@ export function createProjectData() {
         type: types.UP_CREATE_PROJECT_DATA
     };
 };
-export function deleteSection(id, sections) {
+export function deleteSection(id, sections, feturesToDelete) {
     sections.forEach(function (el, indx) {
         if (el._id === id) {
             sections.splice(indx, 1);
         }
     });
     return dispatch => {
+
+        featureService.removeFeatures(feturesToDelete)
+            .catch(error => dispatch(errorHandler('Bad Request')));
+
         sectionService.removeSection(id)
             .then(dispatch({
                 type: types.UP_POST_FEATURE_DELETE,
                 data: sections
             }))
-            .catch(error => {
-                dispatch({
-                    type: types.UP_POST_SECTION_ERROR,
-                    error: error
-                });
-            });
+            .catch(error => dispatch(errorHandler('Bad Request')));
     }
 }
 export function deleteFeature(id, features) {
@@ -100,12 +99,7 @@ export function deleteFeature(id, features) {
                 type: types.UP_POST_FEATURE_DELETE,
                 data: features
             }))
-            .catch(error => {
-                dispatch({
-                    type: types.UP_POST_SECTION_ERROR,
-                    error: error
-                });
-            });
+            .catch(error => dispatch(errorHandler('Bad Request')));
     }
 }
 
@@ -354,3 +348,10 @@ export function selectSection(_id) {
         _id
     };
 };
+
+export function errorHandler(error) {
+    return {
+        type: 'SOMETHING_GONE_WRONG',
+        error: error
+    }
+}

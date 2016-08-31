@@ -45,8 +45,14 @@ class Features extends Component {
     	}
     }
 	removeSection(id){
-		const {sections} = this.props;
-		this.props.deleteSection(id,sections);
+		const {sections,features} = this.props;
+		let featuresToDelete = [];
+		features.forEach(function (el,indx) {
+			if(el.section === id){
+				featuresToDelete.push(el);
+			}
+		});
+		this.props.deleteSection(id,sections,featuresToDelete);
 	}
 	removeFeature(id){
 		const {features} = this.props;
