@@ -148,7 +148,7 @@ class UpsertProject extends Component {
             /*projectLink,*/
             timeBegin: new Date(timeBegin),
             timeEnd: new Date(timeEnd),
-            attachments:attachments.inProject,
+            attachments: inProject.attachments,
             sections: inProject.sections,
             features: inProject.features,
             tags: inProject.tags,
