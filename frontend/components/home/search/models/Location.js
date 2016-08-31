@@ -14,6 +14,7 @@ export default class Location extends MultiSelectModel {
         });
         this.ComponentClass = LocationView;
         this.mapZoom = 5;
+        this.displayOnMap = this.displayOnMap.bind(this);
     }
 
     startLoadTips() {
@@ -32,14 +33,16 @@ export default class Location extends MultiSelectModel {
                     return tip.marker.setMap(null);
                 }
             }
-            tip.marker.setMap(this.map);
-            tip.infoWindow.open(this.map, tip.marker);
+            this.displayOnMap(tip);
             this.tips.push(tip);
             this.isLoading = false;
             //this.notifyUpdated();
         }.bind(this))
     }
-
+    displayOnMap(value){
+        value.marker.setMap(this.map);
+        value.infoWindow.open(this.map, value.marker);
+    }
     getTips(value, callback) {
         searchService.getLocations()
             .then(function (locs) {
@@ -100,15 +103,17 @@ export default class Location extends MultiSelectModel {
     }
 
     removeValue(value) {
-        value.marker.setMap(this.map);
-        value.infoWindow.open(this.map, value.marker);
+        this.displayOnMap(value)
         super.removeValue(value)
     }
 
     setMap(map) {
         this.map = map;
+        if (this.tips){
+            this.tips.forEach(this.displayOnMap)
+        }
         map.setZoom(this.mapZoom);
-        this.geocoder = new google.maps.Geocoder();
+        if (!this.geocoder) this.geocoder = new google.maps.Geocoder();
         this.startLoadTips();
     }
     getValueInRequest(){
