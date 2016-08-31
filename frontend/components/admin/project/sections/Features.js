@@ -55,7 +55,10 @@ class Features extends Component {
     	console.log('closeCreateFeatureModal');
     	this.setState({
     		isModalActive: false
-    	})
+    	});
+         this.setState({
+            featureName: ''
+        });
     }
     addNewFeature(descriptionHTMLText) {
     	
@@ -72,15 +75,15 @@ class Features extends Component {
     		featureName,
     		descriptionHTMLText,
     		section: activeSection._id
-    	})
+    	});
         this.setState({
             featureName: ''
-        })
+        });
     }
      setNewFeatureName(e) {
         this.setState({
             featureName: e.target.value
-        })
+        });
     }
 
 
