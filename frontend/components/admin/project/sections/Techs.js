@@ -77,24 +77,21 @@ class Techs extends Component {
     addNewTechToProject(e) {
     	const {techName, techVersion, techDescription} = this.state;
         const { techIcon } = this.props;
-        if (techIcon.hasOwnProperty('error')) {
-            
-            const fileInput = document.querySelector('#tech-icon');
-            fileInput.value = error;
-        } else {
-            const newTech = {
-                techName,
-                techVersion,
-                techDescription,
-                techAvatar: techIcon.path
-            }
-            this.props.postTech(newTech);
-            this.state = {
-                techName: '',
-                techVersion: '',
-                techDescription: ''
-            }
+        const newTech = {
+            techName,
+            techVersion,
+            techDescription,
+            techAvatar: techIcon.path
         }
+        this.props.postTech(newTech);
+        this.state = {
+            techName: '',
+            techVersion: '',
+            techDescription: ''
+        }
+        const fileInput = document.querySelector('#tech-icon');
+        fileInput.value = '';
+        
         
     }
     removeNewTechFromProject(e, tech) {
