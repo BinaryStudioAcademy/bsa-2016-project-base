@@ -76,7 +76,7 @@ class SearchServiceSubTools {
 
             let selectedUsersId = [];
            
-            let namesPatterns =  namesOrSurNames.map(elem=>{return {fullName: elem}});
+            let namesPatterns =  queryArr.map(elem=>{return {fullName: elem}});
             // console.log(surNames);
             // console.log(fullNames);
             console.log('namesPatterns: ', namesPatterns);
@@ -143,7 +143,7 @@ class SearchServiceSubTools {
         if (queryArr.length > 0){
             let selectedOwnersId = [];
 
-            let namesPatterns =  surNames.map(elem=>{return {fullName: {$regex: elem, $options:'$i'}}});
+            let namesPatterns =  queryArr.map(elem=>{return {fullName: {$regex: elem, $options:'$i'}}});
             // console.log(surNames);
             // console.log(fullNames);
 
