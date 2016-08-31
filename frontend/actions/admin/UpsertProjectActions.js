@@ -1,12 +1,11 @@
-    import * as types from './UpsertProjectActionTypes';
+import * as types from './UpsertProjectActionTypes';
 import upsertProjectService from '../../services/admin/UpsertProjectService';
 import adminTagService from '../../services/admin/AdminTagService';
 import techService from '../../services/TechnologieService';
 import uploadService from '../../services/UploadService';
 import sectionService from '../../services/sectionService';
 import featureService from '../../services/featureService';
-
-
+import fileThumbService from '../../services/FileThumbService';
 
 
 export function getPredefinedData() {
@@ -21,13 +20,13 @@ export function getPredefinedData() {
                 }
                 return response.json();
             })
-            .then( json =>  {
+            .then(json => {
                 dispatch({
                     type: types.UP_GET_DATA_SUCCESS,
                     data: json
                 });
             })
-            .catch( error => {
+            .catch(error => {
                 dispatch({
                     type: types.UP_GET_DATA_ERROR,
                     error: error
@@ -45,16 +44,16 @@ export function postProject(project) {
             .then(response => {
                 if (response.status != 201) {
                     throw Error(response.statusText);
-                } 
+                }
                 return response.json();
             })
-            .then( json =>  {
+            .then(json => {
                 dispatch({
                     type: types.UP_POST_PROJECT_SUCCESS,
                     data: json
                 });
             })
-            .catch( error => {
+            .catch(error => {
                 dispatch({
                     type: types.UP_POST_PROJECT_ERROR,
                     error: error
@@ -117,13 +116,13 @@ export function postTag(tag) {
                 }
                 return response.json();
             })
-            .then( json =>  {
+            .then(json => {
                 dispatch({
                     type: types.UP_POST_TAG_SUCCESS,
                     data: json
                 });
             })
-            .catch( error => {
+            .catch(error => {
                 dispatch({
                     type: types.UP_POST_TAG_ERROR,
                     error: error
@@ -144,14 +143,14 @@ export function postTech(tech) {
                 }
                 return response.json();
             })
-            .then( json =>  {
+            .then(json => {
                 dispatch({
                     type: types.UP_POST_TECH_SUCCESS,
                     iconLoaded: false,
                     data: json
                 });
             })
-            .catch( error => {
+            .catch(error => {
                 dispatch({
                     type: types.UP_POST_TECH_ERROR,
                     iconLoaded: false,
@@ -171,16 +170,16 @@ export function postSection(section) {
             .then(response => {
                 if (response.status != 201) {
                     throw Error(response.statusText);
-                } 
+                }
                 return response.json();
             })
-            .then( json =>  {
+            .then(json => {
                 dispatch({
                     type: types.UP_POST_SECTION_SUCCESS,
                     data: json
                 });
             })
-            .catch( error => {
+            .catch(error => {
                 dispatch({
                     type: types.UP_POST_SECTION_ERROR,
                     error: error
@@ -198,16 +197,16 @@ export function postFeature(feature) {
             .then(response => {
                 if (response.status != 201) {
                     throw Error(response.statusText);
-                } 
+                }
                 return response.json();
             })
-            .then( json =>  {
+            .then(json => {
                 dispatch({
                     type: types.UP_POST_FEATURE_SUCCESS,
                     data: json
                 });
             })
-            .catch( error => {
+            .catch(error => {
                 dispatch({
                     type: types.UP_POST_FEATURE_ERROR,
                     error: error
@@ -217,11 +216,10 @@ export function postFeature(feature) {
 };
 
 
-
 const ICON_MAX_SIZE = 0.5 * 1024 * 1024;
-const FILE_TYPES = ['image/jpeg','image/jpg','image/png','image/gif'];
+const FILE_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
 
-function uploadSuccess(iconLoaded,data,error) {
+function uploadSuccess(iconLoaded, data, error) {
     return {
         type: types.UP_UPLOAD_ICON_SUCCESS,
         iconLoaded,
@@ -239,14 +237,14 @@ export function uploadIcon(file) {
             const data = {
                 name: file.name
             }
-            const error =  'Unsupported mime type. Allowed ' + FILE_TYPES.join(',');
-            dispatch(uploadSuccess(false,data,error));
+            const error = 'Unsupported mime type. Allowed ' + FILE_TYPES.join(',');
+            dispatch(uploadSuccess(false, data, error));
         } else if (file.size > ICON_MAX_SIZE) {
             const data = {
                 name: file.name
             }
-            const error =  'File size is ' + (file.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + (ICON_MAX_SIZE / 1024 / 1024).toFixed(2) + ' MB.'
-            dispatch(uploadSuccess(false,data,error));
+            const error = 'File size is ' + (file.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + (ICON_MAX_SIZE / 1024 / 1024).toFixed(2) + ' MB.'
+            dispatch(uploadSuccess(false, data, error));
         } else {
             return uploadService.upload(file)
                 .then(response => {
@@ -255,7 +253,7 @@ export function uploadIcon(file) {
                     }
                     return response.json();
                 })
-                .then( json =>  {
+                .then(json => {
                     let data = json;
                     if (!json.hasOwnProperty('error')) {
                         data = fileThumbService.setThumb(json);
@@ -268,7 +266,7 @@ export function uploadIcon(file) {
                     });
 
                 })
-                .catch( error => {
+                .catch(error => {
                     dispatch({
                         type: types.UP_UPLOAD_ICON_ERROR,
                         iconLoaded: false,
@@ -306,7 +304,7 @@ export function uploadFile(file) {
                     }
                     return response.json();
                 })
-                .then( json =>  {
+                .then(json => {
                     let data = json;
                     if (!json.hasOwnProperty('error')) {
                         data = fileThumbService.setThumb(json);
@@ -318,7 +316,7 @@ export function uploadFile(file) {
                     });
 
                 })
-                .catch( error => {
+                .catch(error => {
                     dispatch({
                         type: types.UP_UPLOAD_FILE_ERROR,
                         error: error
