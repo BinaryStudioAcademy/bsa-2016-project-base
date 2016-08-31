@@ -9,6 +9,7 @@ import Tags from './sections/Tags';
 import Techs from './sections/Techs';
 import Features from './sections/Features';
 import Attachments from './sections/Attachments';
+import {toastr} from 'react-redux-toastr';
 
 import Button from '../../common/RaisedButtonUI_Tags';
 import styles from './sections/styles/UpsertProject.sass';
@@ -69,8 +70,8 @@ class UpsertProject extends Component {
 	    super(props);
 	    this.createProject = this.createProject.bind(this);
 	}
-    shouldComponentUpdate(){
-        return false;
+    componentWillReceiveProps(nextProps){
+        if(nextProps.store.added) toastr.success('Project', nextProps.store.projectName + ' was added!');
     }
 	componentDidMount() {
 		this.props.getPredefinedData();
