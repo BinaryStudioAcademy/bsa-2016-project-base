@@ -6,7 +6,7 @@ const Node = require("./Node");
 module.exports = function (string) {
     class Exception extends Error {
         constructor(token, expected) {
-            super(`Unknown symbol ${token} at position ${i}${expected?`, expected ${expected}`:``}`);
+            super(`Unknown symbol ${token} at position ${i}${expected?`, expected ${expected}`:``} in "${string}"`);
             Error.captureStackTrace(this, this.constructor);
         }
     }

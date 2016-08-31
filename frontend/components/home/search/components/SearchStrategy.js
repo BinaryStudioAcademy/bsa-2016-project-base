@@ -39,7 +39,7 @@ export default class searchStrategyComponent extends React.Component {
             />
         });
         return <div>
-                <h3>Search strategy</h3>
+                <h5>Search strategy</h5>
                 <RadioButtonGroup name="searchStrategy"
                                   defaultSelected={SearchStrategy.DEFAULT}
                                   onChange={this.onChange}

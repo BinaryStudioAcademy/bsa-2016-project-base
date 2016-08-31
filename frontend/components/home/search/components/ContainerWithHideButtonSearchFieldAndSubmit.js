@@ -29,10 +29,12 @@ export default class ContainerWithHideButtonSearchFieldAndSubmit extends React.C
                           onClick={model.hideSearch}/></div>:
             <div className='col-inputs'><RaisedButton label="Show Extended Search"
                           onClick={model.showSearch}/></div>
+        const searchStrategy = <SearchStrategy model={model}/>;
 
         const body = model.shouldShowSearch?
             <div>
                 <h3>Extended Search</h3>
+                {searchStrategy}
                 <ComponentContainer
                     model={model}
                 />
@@ -68,13 +70,11 @@ export default class ContainerWithHideButtonSearchFieldAndSubmit extends React.C
                     {model.title} : {model.values.map(value=>model.getText(value)).join(", ")}
                 </div>:""
         )}</div>;
-        const searchStrategy = <SearchStrategy model={model}/>;
 
         const predicateSearch = model.shouldShowSearch?<PredicateSearch model={model.predicateModel}/>:"";
         return (
             <div className='inputs-tool'>
                 <div id='inputs'>{searchInput}  {fastInputButton}  {showButton} {clearSearchButton} {predicateSearch}</div>
-                {searchStrategy}
                 {model.shouldShowHint?hint:""}
                 {/*hint*/}
                 {searchPreview}
