@@ -217,7 +217,6 @@ class Features extends Component {
                         </div>
                     </div>
                 </div>
-                <hr />
             </div>
     	);
     }

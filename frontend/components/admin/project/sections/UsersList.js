@@ -25,6 +25,9 @@ class UsersList extends Component {
     onOwnershipChange(e, userId) {
         console.log('onOwnershipChange ',userId);
         const checked = e.target.checked;
+        console.log('checked = ' + checked);
+        console.log(e);
+        console.log(e.target);
         if (userId) this.props.changeOwnership(userId, checked);
     }
     render() {
@@ -58,19 +61,32 @@ class UsersList extends Component {
 
         return (
             <div id={styles['user-list']}>
-                <div className={styles['list-container']}>
-                    All users:
-                    <div className={styles['list']}>
-                     	{usersList}
+                <div className={styles.row}>
+                    <div className={styles['list-container']}>
+                        <header className={styles['user-list-header']}>
+                            <div className={styles['col-1-2']}>
+                                <h3>All users</h3>
+                            </div>
+                        </header>
+                        
+                        <div className={styles['section-list1']}>
+                                {usersList}
+                        </div>
+                        
+                        
                     </div>
-                </div>
-               
-                 <div className={styles['list-container']}>
-                     Project developers:
-                     <div className={styles['list']}>
-                        {developersList}
-                     </div>
-                </div>
+
+                    <div className={styles['list-container']}>
+                        <header className={styles['user-list-header']}>
+                            <div className={styles['col-1-2']}>
+                                <h3>Project developers</h3>
+                            </div>
+                        </header>
+                        <div className={styles['section-list1']}>
+                                {developersList}
+                        </div>
+                    </div>
+                </div>                                
             </div>
         );
     }

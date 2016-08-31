@@ -106,9 +106,9 @@ class Tags extends Component {
                                 <h3>Used tags</h3>
                             </div>
                         </header>
-                        <ul className={styles['section-list1']}>
+                        <div className={styles['section-list1']}>
                                 {usedTags}
-                        </ul>
+                        </div>
                     </div>
                 </div>                                
             </div>
