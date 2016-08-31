@@ -64,14 +64,6 @@ export function postProject(project) {
 };
 
 
-
-export function createProjectData() {
-    return {
-        type: types.UP_CREATE_PROJECT_DATA
-    };
-};
-
-
 export function postTag(tag) {
     return dispatch => {
         dispatch({
@@ -126,7 +118,6 @@ export function postTech(tech) {
     };
 };
 
-
 export function postSection(section) {
     return dispatch => {
         dispatch({
@@ -153,9 +144,6 @@ export function postSection(section) {
             });
     };
 };
-
-
-
 
 export function postFeature(feature) {
     return dispatch => {
