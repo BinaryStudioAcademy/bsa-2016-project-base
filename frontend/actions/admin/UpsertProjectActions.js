@@ -262,7 +262,7 @@ export function changeFinishDate(date) {
 
 export function changeCondition(option) {
     return {
-        type: types.UP_CHANGE_CONDITION,
+        type: types.UP_CHANGE_STATUS,
         option
     };
 };

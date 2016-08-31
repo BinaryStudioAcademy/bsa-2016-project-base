@@ -68,11 +68,10 @@ export default function UpsertProjectReducer(state=initialState, action) {
             	
             });
         }
-        case types.UP_CHANGE_CONDITION: {
+        case types.UP_CHANGE_STATUS: {
             const {option} = action;
             return Object.assign({}, state, {
-            	
-            		condition: option
+            		status: option
             	
             });
         }
@@ -369,11 +368,10 @@ const initialState = {
     projectLink:'Test',
     timeBegin:'',
     timeEnd:'',
-    condition:'',
+    status:'',
 	users: [],
 	tags: [],
 	technologies: [],
-	conditions: [],
     sections: [],
     features: [],
 	files: [],
