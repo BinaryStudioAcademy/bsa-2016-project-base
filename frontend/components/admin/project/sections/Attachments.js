@@ -6,51 +6,25 @@ import { Button, TextInput, TextArea, FileUpload } from '../../../common/';
 import File from './File';
 import styles from './styles/Attachments.sass';
 
+const fileTypes = 'image/jpeg,image/png,image/gif,application/xml';
+
 class Attachments extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            file: null,
-            fileInput: null
-        }
-        this.loadAttachment = this.loadAttachment.bind(this);
         this.onFilePathChange = this.onFilePathChange.bind(this);
         this.removeFile = this.removeFile.bind(this);
     }
     onFilePathChange(e) {
         console.log('onFilePathChange url', e.target.value);
-        /*this.setState({
-            file:  e.target.files[0]
-        })*/
-        
-        this.setState({
-            fileInput:  e.target
-        })
-        const file = e.target.files[0];
-        if (file) {
-            this.props.uploadFile(file);
-
+        const files = e.target.files;
+        console.log(e.target.files.length);
+        if (files.length) {
+            for (let i = 0; i < files.length; i++) {
+                this.props.uploadFile(files[i]);
+            }
             e.target.value = '';
         }
         
-    }
-    loadAttachment(e) {
-        /*console.log('loadAttachment ');
-        const {file} =  this.state;
-        if (file) {
-            this.props.uploadFile(file);
-            this.setState({
-                file: null
-            });
-        }
-
-            <Button
-                        value="Add"
-                        onClick={this.loadAttachment}
-                    />
-
-
-        */
     }
     removeFile(e, name) {
         console.log('removeFile ',name);
@@ -62,9 +36,7 @@ class Attachments extends Component {
             return (
                 <File
                     key={index}
-                    thumb={file.thumb}
-                    url={file.url}
-                    name={file.name}
+                    file={file}
                     onClick={this.removeFile}
                 />
             );
@@ -74,7 +46,8 @@ class Attachments extends Component {
                 <fieldset>
                     <legend>Attachments</legend>
                     <FileUpload
-                        accept="image/jpeg,image/png,image/gif,application/xml"
+                        accept={fileTypes}
+                        multiple={true}
                         onChange={this.onFilePathChange}
                     />
                     

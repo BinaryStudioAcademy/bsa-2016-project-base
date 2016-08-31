@@ -27,7 +27,7 @@ class Features extends Component {
     }
     setNewSectionName(e){
     	this.setState({
-    		sectionName: e.target.value.trim()
+    		sectionName: e.target.value
     	});
     }
     addNewSection(e) {
@@ -76,7 +76,7 @@ class Features extends Component {
     }
      setNewFeatureName(e) {
         this.setState({
-            featureName: e.target.value.trim()
+            featureName: e.target.value
         })
     }
 
