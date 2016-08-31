@@ -145,6 +145,18 @@ export default function EditProjectReducer(state=initialState, action) {
             });
         }
 
+        case types.UP_UPLOAD_FILE_ED: {
+            const {name} = action;
+            const {files} = state;
+            return Object.assign({}, state, {
+                files: files.concat({
+                    name,
+                    good:true,
+                    ready: false
+                })
+            });
+        }
+
         case types.UP_UPLOAD_FILE_SUCCESS_ED: {
             const {path,thumb} = action.data;
             const {files} = state;
@@ -231,6 +243,9 @@ export default function EditProjectReducer(state=initialState, action) {
                 initialTechnologies: false,
                 initialUsers: false,
                 initialSections: false,
+                iconLoaded: false,
+                techIcon: {},
+                techIconError: null,
                 description:{
                     descrFullText: 'Description'
                 },
@@ -255,6 +270,15 @@ export default function EditProjectReducer(state=initialState, action) {
         case 'INITIAL_STATE_SECTIONS': {
             const {sections} = action;
             return Object.assign({}, state, {sections: sections}, {initialSections: true})
+        }
+        case types.UP_UPLOAD_ICON_SUCCESS: {
+            const {data, iconLoaded, error} = action;
+            const {techIcon} = state;
+            return Object.assign({}, state, {
+                techIcon: data,
+                iconLoaded: iconLoaded,
+                techIconError: error
+            });
         }
         default: {
             return state;
@@ -334,7 +358,7 @@ const removeTagFromProject = (predefinedTags, _id) => {
 }
 
 const addUserToProject = (predefinedUsers, _id) => {
-    users.forEach( user => {
+    predefinedUsers.forEach( user => {
         if (user._id === _id) {
             user.inProject = true;
         }
@@ -403,6 +427,9 @@ const initialState = {
     initialTechnologies: false,
     initialUsers: false,
     initialSections: false,
+    iconLoaded: false,
+    techIcon: {},
+    techIconError: null,
     description:{
         descrFullText: 'Description'
     },

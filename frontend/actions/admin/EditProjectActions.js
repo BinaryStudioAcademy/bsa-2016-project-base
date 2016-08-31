@@ -6,6 +6,7 @@ import techService from '../../services/TechnologieService';
 import uploadService from '../../services/UploadService';
 import sectionService from '../../services/sectionService';
 import featureService from '../../services/featureService';
+import fileThumbService from '../../services/FileThumbService';
 
 
 
@@ -187,31 +188,50 @@ export function postFeature(feature) {
 
 
 
-
 export function uploadFile(file) {
     return dispatch => {
         dispatch({
-            type: types.UP_UPLOAD_FILE_ED
+            type: types.UP_UPLOAD_FILE_ED,
+            name: file.name
         });
-        return uploadService.upload(file)
-            .then(response => {
-                if (response.status != 201) {
-                    throw Error(response.statusText);
-                }
-                return response.json();
-            })
-            .then( json =>  {
-                dispatch({
-                    type: types.UP_UPLOAD_FILE_SUCCESS_ED,
-                    data: json
-                });
-            })
-            .catch( error => {
-                dispatch({
-                    type: types.UP_UPLOAD_FILE_ERROR_ED,
-                    error: error
-                });
+        if (file.size > MAX_SIZE) {
+            const data = {
+                name: file.name,
+                error: 'File size is ' + (file.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + (MAX_SIZE / 1024 / 1024).toFixed(2) + ' MB.'
+            }
+            dispatch({
+                type: types.UP_UPLOAD_FILE_SUCCESS_ED,
+                data: data
             });
+        } else {
+            return uploadService.upload(file)
+                .then(response => {
+                    if (response.status != 201) {
+                        throw Error(response.statusText);
+                    }
+                    return response.json();
+                })
+                .then( json =>  {
+                    let data = json;
+                    if (!json.hasOwnProperty('error')) {
+                        data = fileThumbService.setThumb(json);
+                    }
+
+                    dispatch({
+                        type: types.UP_UPLOAD_FILE_SUCCESS_ED,
+                        data: data
+                    });
+
+                })
+                .catch( error => {
+                    dispatch({
+                        type: types.UP_UPLOAD_FILE_ERROR_ED,
+                        error: error
+
+                    });
+                });
+        }
+
     };
 };
 
@@ -387,6 +407,18 @@ export function initialStateTechnologies(technologies, predefinedTechnologies) {
     return action;
 }
 
+export function initialStateFiles(files) {
+    const action = {
+        type: 'INITIAL_STATE_TECHNOLOGIES',
+        files: files.map(function(el) {
+            return {
+
+            }
+        })
+    };
+    return action;
+}
+
 export function initialStateUsers(users, predefinedUsers, owners) {
     var usersId = users.map(function(el) {
         return el._id
@@ -426,3 +458,69 @@ export function initialStateSections(features) {
     };
     return action;
 }
+
+
+const ICON_MAX_SIZE = 0.5 * 1024 * 1024;
+const FILE_TYPES = ['image/jpeg','image/jpg','image/png','image/gif'];
+
+function uploadSuccess(iconLoaded,data,error) {
+    return {
+        type: types.UP_UPLOAD_ICON_SUCCESS_ED,
+        iconLoaded,
+        data,
+        error
+    };
+}
+
+export function uploadIcon(file) {
+    return dispatch => {
+        dispatch({
+            type: types.UP_UPLOAD_ICON_ED,
+            name: file.name
+        });
+        if (!FILE_TYPES.includes(file.type)) {
+            const data = {
+                name: file.name
+            }
+            const error =  'Unsupported mime type. Allowed ' + FILE_TYPES.join(',');
+            dispatch(uploadSuccess(false,data,error));
+        } else if (file.size > ICON_MAX_SIZE) {
+            const data = {
+                name: file.name
+            }
+            const error =  'File size is ' + (file.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + (ICON_MAX_SIZE / 1024 / 1024).toFixed(2) + ' MB.'
+            dispatch(uploadSuccess(false,data,error));
+        } else {
+            return uploadService.upload(file)
+                .then(response => {
+                    if (response.status != 201) {
+                        throw Error(response.statusText);
+                    }
+                    return response.json();
+                })
+                .then( json =>  {
+                    let data = json;
+                    if (!json.hasOwnProperty('error')) {
+                        data = fileThumbService.setThumb(json);
+                    }
+
+                    dispatch({
+                        type: types.UP_UPLOAD_ICON_SUCCESS_ED,
+                        iconLoaded: true,
+                        data: data
+                    });
+
+                })
+                .catch( error => {
+                    dispatch({
+                        type: types.UP_UPLOAD_ICON_ERROR_ED,
+                        iconLoaded: false,
+                        error: error
+
+                    });
+                });
+        }
+    };
+};
+
+const MAX_SIZE = 2 * 1024 * 1024;

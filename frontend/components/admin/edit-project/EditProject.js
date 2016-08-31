@@ -14,6 +14,7 @@ import Button from '../../common/RaisedButtonUI_Tags';
 import styles from './sections/styles/UpsertProject.sass';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {toastr} from 'react-redux-toastr';
 import editProjectService from '../../../services/admin/EditProjectService';
 
 const tabsStyles = {
@@ -68,33 +69,27 @@ const TabsExampleSimple = () => (
 class EditProject extends Component {
     constructor(props) {
         super(props);
-
-        this.editProject = this.editProject.bind(this);
+        this.updateProject = this.updateProject.bind(this);
     }
-    shouldComponentUpdate(){
-    return false;
-}
-
-componentWillMount() {
-    this.props.getPredefinedData();
-    this.props.initialStateFromDB(this.props.routeParams.id);
-}
+    componentWillReceiveProps(nextProps){
+        if(nextProps.store.added) toastr.success('Project', nextProps.store.projectName + ' was added!');
+    }
+    componentWillMount() {
+        this.props.getPredefinedData();
+        this.props.initialStateFromDB(this.props.routeParams.id);
+    }
 
     componentWillUnmount() {
         this.props.cleanStore();
     }
-    componentDidMount() {
-
-    }
-    editProject(e) {
-        console.log('editProject');
+    updateProject(e) {
+        console.log('createProject');
         const {projectName,projectLink,timeBegin,timeEnd,condition,description, projectId} = this.props.store;
         const {predefinedUsers,predefinedTags,predefinedTechnologies,sections,features,files} = this.props.store;
         console.log('features ',features);
         console.log('sections ',sections);
 
         const inProject = {
-            _id: projectId,
             tags: (() => {
                 const temp = [];
                 predefinedTags.forEach( tag => {
@@ -112,16 +107,14 @@ componentWillMount() {
             owners: (() => {
                 const temp = [];
                 predefinedUsers.forEach( user => {
-                    if (user.inProject === true && user.owner) {
-                        temp.push(user._id);
-                    }
+                    if (user.inProject && user.owner)  temp.push(user._id);
                 });
                 return temp;
             })(),
             users: (() => {
                 const temp = [];
                 predefinedUsers.forEach( user => {
-                    if (user.inProject === true && !user.owner) temp.push(user._id);
+                    if (user.inProject) temp.push(user._id);
                 });
                 return temp;
             })(),
@@ -138,30 +131,42 @@ componentWillMount() {
                     temp.push(feature._id);
                 });
                 return temp;
+            })(),
+            attachments: (() => {
+                const temp = [];
+                console.log('files ',files);
+                files.forEach( file => {
+                    temp.push({
+                        name: file.name,
+                        link: file.path
+                    });
+                });
+                console.log('temp ',temp);
+                return temp;
             })()
         }
         console.log('inProject.sections ',inProject.sections);
         console.log('inProject.features ',inProject.features);
         console.log('inProject.users ',inProject.users);
+        console.log('inProject.owners ',inProject.owners);
         const project = {
             _id: projectId,
             projectName,
-            /*projectLink,
-             files,*/
+            /*projectLink,*/
             timeBegin: new Date(timeBegin),
             timeEnd: new Date(timeEnd),
-            stage : "57a2fac7d50c16908d4e0c33",
-            isCompleted: false,
+            attachments: inProject.attachments,
             sections: inProject.sections,
             features: inProject.features,
             tags: inProject.tags,
             technologies: inProject.technologies,
-            owners: inProject.users,
+            owners: inProject.owners,
             users: inProject.users,
-            condition,
-            description
-        };
+            status,
+            description,
 
+        };
+        console.log('project ',project);
         /*const project = {
          users: ["57a262f6b42bbf5a2daa98c1"],
          owners: ["57a262f6b42bbf5a2daa98c1"],
@@ -189,10 +194,9 @@ componentWillMount() {
 
     render() {
         console.log('Rerender Upsert');
-
         return (
             <div id={styles["upsert-project"]}>
-                <Inputs />
+                <Inputs/>
                 <br/>
                 <TabsExampleSimple />
                 <br/>
@@ -200,7 +204,7 @@ componentWillMount() {
                 <br/>
                 <Button
                     label="Create project"
-                    onClick={this.editProject}
+                    onClick={this.updateProject}
                     backgroundColor="rgba(46, 204, 113, 0.9)"
                 />
             </div>
