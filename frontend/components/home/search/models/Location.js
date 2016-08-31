@@ -21,13 +21,18 @@ export default class Location extends MultiSelectModel {
         this.isLoading = true;
         this.notifyUpdated();
         this.getTips(undefined, function (error, tip) {
-            this.tipsError = error ? "Not found" : "";
+            //this.tipsError = error ? "Not found" : "";
             for (let value of self.values) {
                 if (self.equals(value, tip)) {
-                    tip.marker.setMap(null);
-                    return;
+                    return tip.marker.setMap(null);
                 }
             }
+            for (let value of self.tips) {
+                if (self.equals(value, tip)) {
+                    return tip.marker.setMap(null);
+                }
+            }
+            tip.marker.setMap(this.map);
             tip.infoWindow.open(this.map, tip.marker);
             this.tips.push(tip);
             this.isLoading = false;
@@ -45,7 +50,6 @@ export default class Location extends MultiSelectModel {
                         if (status === google.maps.GeocoderStatus.OK) {
                             var res = results[0];
                             var marker = new google.maps.Marker({
-                                map:this.map,
                                 position: res.geometry.location
                             });
                             var infoWindow = new google.maps.InfoWindow({
@@ -113,5 +117,4 @@ export default class Location extends MultiSelectModel {
     getNameInRequest(){
         return "locations"
     }
-
 }
