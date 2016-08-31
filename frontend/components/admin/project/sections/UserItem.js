@@ -7,7 +7,7 @@ const UserItem = ({user, onAddClick}) => {
     return (
         <div id={styles['user-item']}>
             <div className={styles['flex-avatar']}>
-                <img src={'/upload/icon.png' || user.avatar} alt="user avatar"/>
+                <img src={user.avatar} alt="user avatar"/>
             </div>
             <div className={styles['flex-info']}>
                 <span>

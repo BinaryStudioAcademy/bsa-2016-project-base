@@ -6,7 +6,7 @@ const DeveloperItem = ({user, onRemoveClick, onCheckboxChange}) => {
     return (
         <div id={styles['developer-item']}>
             <div className={styles['flex-avatar']}>
-                <img src={'/upload/icon.png' || user.avatar} alt="user avatar"/>
+                <img src={user.avatar} alt="user avatar"/>
             </div>
             <div className={styles['flex-info']}>
                 <span>
