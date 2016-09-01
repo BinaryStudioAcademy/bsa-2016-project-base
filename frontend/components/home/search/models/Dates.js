@@ -62,20 +62,13 @@ export default class Dates extends Model{
         return one.lower.getTime() == two.lower.getTime() &&
                 one.upper.getTime() == two.upper.getTime()
     }
-    getNameInRequest(){return "dates"}
-    getValueInRequest(){
-        return this.values.map(date=>({
-            from: date.lower.getTime(),
-            to:date.upper.getTime()
-        }))
-    }
     getRequestRepresentation(){
         const from = [],
               to = [];
         const dateString = function(date){
             const year = date.getUTCFullYear(),
-                month = date.getUTCMonth()+1,
-                day = date.getUTCDate()+1;
+                month = date.getMonth()+1,
+                day = date.getDate();
             return `${year}-${month}-${day}`
         };
         this.values.map(date=>{
