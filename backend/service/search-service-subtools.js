@@ -8,7 +8,7 @@ class SearchServiceSubTools {
 	getSearchFiltersFromRequest(req) {
         
         let queryFilters = {};
-        queryFilters.queryProjName = (req.query.name == undefined)? '': req.query.name;
+        queryFilters.queryProjNames = (req.query.name == undefined)? []: req.query.name.split(',');
         // queryFilters.queryProjName = (req.query.name == undefined)? '': '^'.concat(req.query.name);        
         queryFilters.queryProjUsers = (req.query.users == undefined)? []: req.query.users.split(',');
         queryFilters.queryProjOwners = (req.query.owners == undefined)? []: req.query.owners.split(',');
@@ -23,7 +23,7 @@ class SearchServiceSubTools {
         now = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59 - timeOffset, 59, 999);
         queryFilters.queryProjDateFrom = (req.query.dateFrom == undefined)? [new Date(0)]: req.query.dateFrom.split(',').map(elem=>new Date(new Date(elem).valueOf() - timeOffset));      
         queryFilters.queryProjDateTo = (req.query.dateTo == undefined)? [now]: req.query.dateTo.split(',').map(elem=>new Date(new Date(elem).valueOf() + 86399999));
-        console.log(`getFilteredProjects() -> acquired request patterns: projName= ${queryFilters.queryProjName}, users = ${queryFilters.queryProjUsers},
+        console.log(`getFilteredProjects() -> acquired request patterns: projName= ${queryFilters.queryProjNames}, users = ${queryFilters.queryProjUsers},
             owners = ${queryFilters.queryProjOwners}, tags = ${queryFilters.queryProjTags}, techs = ${queryFilters.queryProjTechs}, dateFrom = ${queryFilters.queryProjDateFrom},
             dateTo = ${queryFilters.queryProjDateTo}, skip = ${queryFilters.queryProjSkip}, limit = ${queryFilters.queryProjLimit}, description = ${queryFilters.queryProjDescription}`);
 
@@ -257,11 +257,11 @@ class SearchServiceSubTools {
     prepareMainQuery(searchReturn, searchFilters, res){
         let queriesArr = [];
         let projQueryObj = null;
-        let datesQuerySelection = [];
-            searchFilters.queryProjDateFrom.forEach((elem,ind,arr)=>{datesQuerySelection.push(
-                    {$and: [{timeBegin: {$lte: elem}}, {timeEnd: {$gte: elem}}]},
-                    {$and: [{timeBegin: {$gte: elem}}, {timeBegin: {$lte: searchFilters.queryProjDateTo[ind]}}]}
-                )});
+        // let datesQuerySelection = [];
+        //     searchFilters.queryProjDateFrom.forEach((elem,ind,arr)=>{datesQuerySelection.push(
+        //             {$and: [{timeBegin: {$lte: elem}}, {timeEnd: {$gte: elem}}]},
+        //             {$and: [{timeBegin: {$gte: elem}}, {timeBegin: {$lte: searchFilters.queryProjDateTo[ind]}}]}
+        //         )});
 
         if (searchFilters.queryProjPredicate){
             
@@ -281,13 +281,11 @@ class SearchServiceSubTools {
             //     ]
             // };
             projQueryObj = {
-                projectName: {$regex: searchFilters.queryProjName, $options:'$i'},
                 $and: [
                     {$or: [
                         {'description.descrText': {$regex: searchFilters.queryProjDescription, $options:'$i'}},
                         {'description.descrFullText': {$regex: searchFilters.queryProjDescription, $options:'$i'}}
-                    ]},
-                    {$or: datesQuerySelection}
+                    ]}
                 ]
             };
 
@@ -298,8 +296,18 @@ class SearchServiceSubTools {
            
         } else {
             
+            let datesQuerySelection = [];
+            searchFilters.queryProjDateFrom.forEach((elem,ind,arr)=>{datesQuerySelection.push(
+                    {$and: [{timeBegin: {$lte: elem}}, {timeEnd: {$gte: elem}}]},
+                    {$and: [{timeBegin: {$gte: elem}}, {timeBegin: {$lte: searchFilters.queryProjDateTo[ind]}}]}
+                )});
+
+            let namesQuerySelection =[];
+            searchFilters.queryProjNames.forEach((elem) =>{
+                namesQuerySelection.push({projectName: {$regex: elem, $options:'$i'}});
+            });
+            
             projQueryObj = {
-                projectName: {$regex: searchFilters.queryProjName, $options:'$i'},
                 $and: [
                     {$or: [
                         {'description.descrText': {$regex: searchFilters.queryProjDescription, $options:'$i'}},
@@ -309,6 +317,7 @@ class SearchServiceSubTools {
                 ]
             };
 
+            if (namesQuerySelection.length != 0){projQueryObj.$and.push({$or: namesQuerySelection})};
             if (res.filteredUsersIds != null) {projQueryObj.users = {$in: res.filteredUsersIds}};
             if (res.filteredOwnersIds != null) {projQueryObj.owners = {$in: res.filteredOwnersIds}};
             if (res.filteredTagsIds != null) {projQueryObj.tags = {$in: res.filteredTagsIds}};
@@ -345,6 +354,8 @@ class SearchServiceSubTools {
             console.log('Object.values(elem.vars): ', elem.vars);
             
             let selectionsConditionsAnd = {
+                namesIn: [],
+                namesNin: [],
                 usersIn: [],
                 usersNin: [],
                 ownersIn: [],
@@ -352,7 +363,9 @@ class SearchServiceSubTools {
                 tagsIn: [],
                 tagsNin: [],
                 techsIn: [],
-                techsNin: []
+                techsNin: [],
+                datesIn: [],
+                datesNin: []
             };
 
             let regexp = /(\w+)(\d+)/i;
@@ -377,6 +390,14 @@ class SearchServiceSubTools {
                                     {selectionsConditionsAnd.techsIn.push(selectedIds.filteredTechsIds[parseInt(keyParts[2])])}
                                 else {selectionsConditionsAnd.techsNin.push(selectedIds.filteredTechsIds[parseInt(keyParts[2])])};
                                 break;
+                    case 'date': if (elem.vars[elem_] == '1') 
+                                    {selectionsConditionsAnd.datesIn.push({from: searchReturn.queryDateFrom[parseInt(keyParts[2])], to: searchReturn.queryDateTo[parseInt(keyParts[2])]})}
+                                else {selectionsConditionsAnd.datesNin.push({from: searchReturn.queryDateFrom[parseInt(keyParts[2])], to: searchReturn.queryDateTo[parseInt(keyParts[2])]})};
+                                break;
+                    case 'name': if (elem.vars[elem_] == '1') 
+                                    {selectionsConditionsAnd.namesIn.push(searchReturn.queryProjNames[parseInt(keyParts[2])])}
+                                else {selectionsConditionsAnd.techsNin.push(searchReturn.queryProjNames[parseInt(keyParts[2])])};
+                                break;
                 }
             });
 
@@ -392,6 +413,43 @@ class SearchServiceSubTools {
             if (selectionsConditionsAnd.tagsNin.length != 0) outputAnd.$and.push({tags: {$nin: selectionsConditionsAnd.tagsNin}});
             if (selectionsConditionsAnd.techsIn.length != 0) outputAnd.$and.push({technologies: {$all: selectionsConditionsAnd.techsIn}});
             if (selectionsConditionsAnd.techsNin.length != 0) outputAnd.$and.push({technologies: {$nin: selectionsConditionsAnd.techsNin}});
+
+            if (selectionsConditionsAnd.datesIn.length != 0){
+                
+                selectionsConditionsAnd.datesIn.forEach((elem,ind,arr)=>{outputAnd.$and.push(
+                    {   $or: [
+                            {$and: [{timeBegin: {$lte: new Date(elem.from)}}, {timeEnd: {$gte: new Date(elem.from)}}]},
+                            {$and: [{timeBegin: {$gte: new Date(elem.from)}}, {timeBegin: {$lte: new Date(elem.to)}}]}
+                        ]
+                    }       
+                )});
+            }
+
+            if (selectionsConditionsAnd.datesNin.length != 0){
+
+                selectionsConditionsAnd.datesIn.forEach((elem,ind,arr)=>{outputAnd.$and.push(
+                    {$or: [
+                        {$and: [{timeBegin: {$lt: elem.from}}, {timeEnd: {$lt: elem.from}}]},
+                        {timeBegin: {$gt: elem.to}}
+                    ]}
+                )});
+            }
+
+            if (selectionsConditionsAnd.namesIn.length != 0){
+                selectionsConditionsAnd.namesIn.forEach((elem,ind,arr)=>{outputAnd.$and.push(
+                    {
+                        projectName: {$regex: elem}
+                    }       
+                )});
+            }
+
+            if (selectionsConditionsAnd.namesNin.length != 0){
+                selectionsConditionsAnd.namesNin.forEach((elem,ind,arr)=>{outputAnd.$and.push(
+                    {
+                        projectName: {$not: {$regex: elem}}
+                    }       
+                )});
+            }
 
             if (outputAnd.$and.length != 0){
                 selectionConditionsOr.push(outputAnd);
