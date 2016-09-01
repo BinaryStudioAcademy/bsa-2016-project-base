@@ -1,12 +1,11 @@
-    import * as types from './UpsertProjectActionTypes';
+import * as types from './UpsertProjectActionTypes';
 import upsertProjectService from '../../services/admin/UpsertProjectService';
 import adminTagService from '../../services/admin/AdminTagService';
 import techService from '../../services/TechnologieService';
 import uploadService from '../../services/UploadService';
 import sectionService from '../../services/sectionService';
 import featureService from '../../services/featureService';
-
-
+import fileThumbService from '../../services/FileThumbService';
 
 
 export function getPredefinedData() {
@@ -21,13 +20,13 @@ export function getPredefinedData() {
                 }
                 return response.json();
             })
-            .then( json =>  {
+            .then(json => {
                 dispatch({
                     type: types.UP_GET_DATA_SUCCESS,
                     data: json
                 });
             })
-            .catch( error => {
+            .catch(error => {
                 dispatch({
                     type: types.UP_GET_DATA_ERROR,
                     error: error
@@ -45,16 +44,16 @@ export function postProject(project) {
             .then(response => {
                 if (response.status != 201) {
                     throw Error(response.statusText);
-                } 
+                }
                 return response.json();
             })
-            .then( json =>  {
+            .then(json => {
                 dispatch({
                     type: types.UP_POST_PROJECT_SUCCESS,
                     data: json
                 });
             })
-            .catch( error => {
+            .catch(error => {
                 dispatch({
                     type: types.UP_POST_PROJECT_ERROR,
                     error: error
@@ -64,13 +63,46 @@ export function postProject(project) {
 };
 
 
-
 export function createProjectData() {
     return {
         type: types.UP_CREATE_PROJECT_DATA
     };
 };
+export function deleteSection(id, sections, feturesToDelete) {
+    sections.forEach(function (el, indx) {
+        if (el._id === id) {
+            sections.splice(indx, 1);
+        }
+    });
+    return dispatch => {
 
+        featureService.removeFeatures(feturesToDelete)
+            .catch(error => dispatch(errorHandler('Bad Request')));
+
+        sectionService.removeSection(id)
+            .then(dispatch({
+                type: types.UP_POST_FEATURE_DELETE,
+                data: sections
+            }))
+            .catch(error => dispatch(errorHandler('Bad Request')));
+    }
+}
+export function deleteFeature(id, features) {
+    features.forEach(function (el, indx) {
+        if (el._id === id) {
+            features.splice(indx, 1);
+        }
+    });
+
+    return dispatch => {
+        featureService.removeFeature(id)
+            .then(dispatch({
+                type: types.UP_POST_FEATURE_DELETE,
+                data: features
+            }))
+            .catch(error => dispatch(errorHandler('Bad Request')));
+    }
+}
 
 export function postTag(tag) {
     return dispatch => {
@@ -84,13 +116,13 @@ export function postTag(tag) {
                 }
                 return response.json();
             })
-            .then( json =>  {
+            .then(json => {
                 dispatch({
                     type: types.UP_POST_TAG_SUCCESS,
                     data: json
                 });
             })
-            .catch( error => {
+            .catch(error => {
                 dispatch({
                     type: types.UP_POST_TAG_ERROR,
                     error: error
@@ -111,15 +143,17 @@ export function postTech(tech) {
                 }
                 return response.json();
             })
-            .then( json =>  {
+            .then(json => {
                 dispatch({
                     type: types.UP_POST_TECH_SUCCESS,
+                    iconLoaded: false,
                     data: json
                 });
             })
-            .catch( error => {
+            .catch(error => {
                 dispatch({
                     type: types.UP_POST_TECH_ERROR,
+                    iconLoaded: false,
                     error: error
                 });
             });
@@ -136,16 +170,16 @@ export function postSection(section) {
             .then(response => {
                 if (response.status != 201) {
                     throw Error(response.statusText);
-                } 
+                }
                 return response.json();
             })
-            .then( json =>  {
+            .then(json => {
                 dispatch({
                     type: types.UP_POST_SECTION_SUCCESS,
                     data: json
                 });
             })
-            .catch( error => {
+            .catch(error => {
                 dispatch({
                     type: types.UP_POST_SECTION_ERROR,
                     error: error
@@ -153,9 +187,6 @@ export function postSection(section) {
             });
     };
 };
-
-
-
 
 export function postFeature(feature) {
     return dispatch => {
@@ -166,16 +197,16 @@ export function postFeature(feature) {
             .then(response => {
                 if (response.status != 201) {
                     throw Error(response.statusText);
-                } 
+                }
                 return response.json();
             })
-            .then( json =>  {
+            .then(json => {
                 dispatch({
                     type: types.UP_POST_FEATURE_SUCCESS,
                     data: json
                 });
             })
-            .catch( error => {
+            .catch(error => {
                 dispatch({
                     type: types.UP_POST_FEATURE_ERROR,
                     error: error
@@ -185,33 +216,115 @@ export function postFeature(feature) {
 };
 
 
+const ICON_MAX_SIZE = 0.5 * 1024 * 1024;
+const FILE_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
 
+function uploadSuccess(iconLoaded, data, error) {
+    return {
+        type: types.UP_UPLOAD_ICON_SUCCESS,
+        iconLoaded,
+        data,
+        error
+    };
+}
+export function uploadIcon(file) {
+    return dispatch => {
+        dispatch({
+            type: types.UP_UPLOAD_ICON,
+            name: file.name
+        });
+        if (!FILE_TYPES.includes(file.type)) {
+            const data = {
+                name: file.name
+            }
+            const error = 'Unsupported mime type. Allowed ' + FILE_TYPES.join(',');
+            dispatch(uploadSuccess(false, data, error));
+        } else if (file.size > ICON_MAX_SIZE) {
+            const data = {
+                name: file.name
+            }
+            const error = 'File size is ' + (file.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + (ICON_MAX_SIZE / 1024 / 1024).toFixed(2) + ' MB.'
+            dispatch(uploadSuccess(false, data, error));
+        } else {
+            return uploadService.upload(file)
+                .then(response => {
+                    if (response.status != 201) {
+                        throw Error(response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(json => {
+                    let data = json;
+                    if (!json.hasOwnProperty('error')) {
+                        data = fileThumbService.setThumb(json);
+                    }
+
+                    dispatch({
+                        type: types.UP_UPLOAD_ICON_SUCCESS,
+                        iconLoaded: true,
+                        data: data
+                    });
+
+                })
+                .catch(error => {
+                    dispatch({
+                        type: types.UP_UPLOAD_ICON_ERROR,
+                        iconLoaded: false,
+                        error: error
+
+                    });
+                });
+        }
+    };
+};
+
+const MAX_SIZE = 2 * 1024 * 1024;
 
 
 export function uploadFile(file) {
     return dispatch => {
         dispatch({
-            type: types.UP_UPLOAD_FILE
+            type: types.UP_UPLOAD_FILE,
+            name: file.name
         });
-        return uploadService.upload(file)
-            .then(response => {
-                if (response.status != 201) {
-                    throw Error(response.statusText);
-                }
-                return response.json();
-            })
-            .then( json =>  {
-                dispatch({
-                    type: types.UP_UPLOAD_FILE_SUCCESS,
-                    data: json
-                });
-            })
-            .catch( error => {
-                dispatch({
-                    type: types.UP_UPLOAD_FILE_ERROR,
-                    error: error
-                });
+        if (file.size > MAX_SIZE) {
+            const data = {
+                name: file.name,
+                error: 'File size is ' + (file.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + (MAX_SIZE / 1024 / 1024).toFixed(2) + ' MB.'
+            }
+            dispatch({
+                type: types.UP_UPLOAD_FILE_SUCCESS,
+                data: data
             });
+        } else {
+            return uploadService.upload(file)
+                .then(response => {
+                    if (response.status != 201) {
+                        throw Error(response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(json => {
+                    let data = json;
+                    if (!json.hasOwnProperty('error')) {
+                        data = fileThumbService.setThumb(json);
+                    }
+
+                    dispatch({
+                        type: types.UP_UPLOAD_FILE_SUCCESS,
+                        data: data
+                    });
+
+                })
+                .catch(error => {
+                    dispatch({
+                        type: types.UP_UPLOAD_FILE_ERROR,
+                        error: error
+
+                    });
+                });
+        }
+
     };
 };
 
@@ -253,7 +366,7 @@ export function changeFinishDate(date) {
 
 export function changeCondition(option) {
     return {
-        type: types.UP_CHANGE_CONDITION,
+        type: types.UP_CHANGE_STATUS,
         option
     };
 };
@@ -322,3 +435,10 @@ export function selectSection(_id) {
         _id
     };
 };
+
+export function errorHandler(error) {
+    return {
+        type: 'SOMETHING_GONE_WRONG',
+        error: error
+    }
+}
