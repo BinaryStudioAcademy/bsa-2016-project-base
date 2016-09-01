@@ -1,4 +1,4 @@
-import * as constants  from '../constants/Api';
+
 
 const iconsPath = 'icons/';
 const typesNeedThumb = ['doc','docx','txt','xml','pdf','zip','rar','xls','xlsx'];
@@ -8,7 +8,6 @@ const imageTypes = ['png','jpg','jpeg','rtf'];
 class FileThumbService {
 	
 	setThumb(item) {
-		const {ORIGIN} = constants;
 		const {path} = item;
 		const ext = path.slice(path.lastIndexOf('.')+1,path.length);
 
@@ -21,7 +20,6 @@ class FileThumbService {
 				item.thumb = iconsPath + 'unknown.png';
 			}
 		}
-		item.path = ORIGIN + item.path;
 		return item;
 	}
 

@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { Button } from '../../../common/';
 import styles from './styles/File.sass';
-
-
+import * as constants  from '../../../../constants/Api';
+const {ORIGIN} = constants;
 
 class File extends Component {
     constructor(props) {
@@ -14,6 +14,7 @@ class File extends Component {
        document.execCommand("Copy");
     }
     renderStatus(){
+
          const {path, thumb, name, ready, good}  = this.props.file;
          const {onClick} = this.props;
          if (ready && good) {
@@ -34,7 +35,7 @@ class File extends Component {
                         />
                         <input className={styles["copyInput"]} type="text"
                             ref='inputcopy'
-                            value={path}
+                            value={ORIGIN+path}
                         />
                     </div>
                 </div>

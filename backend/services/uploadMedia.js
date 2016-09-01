@@ -72,7 +72,7 @@ module.exports = function(request, callback) {
         //uploadFile.size = part.byteCount;
         uploadFile.type = part.headers['content-type'];
         uploadFile.pathOnServer = './upload/' + newFileName;
-		uploadFile.pathOnClient = 'upload/' + newFileName;
+		uploadFile.pathOnClient = '/upload/' + newFileName;
 
         /*if(uploadFile.size > maxSize) {
 	        errors.push('File size is ' + (uploadFile.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + sizeLimitMb + ' MB.');
