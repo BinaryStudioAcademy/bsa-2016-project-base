@@ -14,6 +14,9 @@ class UsersList extends Component {
         this.removeUserFromProject = this.removeUserFromProject.bind(this);
         this.onOwnershipChange = this.onOwnershipChange.bind(this);
     }
+    shouldComponentUpdate(nextProps, nextState){
+        return nextProps.users !== this.props.users;
+    }
     addUserToProject(e, userId) {
         console.log('addUserToProject ',userId);
         if (userId)  this.props.addUserToProject(userId);
@@ -26,12 +29,11 @@ class UsersList extends Component {
         console.log('onOwnershipChange ',userId);
         const checked = e.target.checked;
         console.log('checked = ' + checked);
-        console.log(e);
-        console.log(e.target);
         if (userId) this.props.changeOwnership(userId, checked);
     }
     render() {
-        const { users } = this.props.store;
+        console.log('UsersList LLLLLLL');
+        const { users } = this.props;
         let opts = [];
     	const usersList = users.map(user => {
             if (!user.inProject) {
@@ -98,8 +100,9 @@ function mapDispatchToProps(dispatch) {
 };
 
 function mapStateToProps(state) {
+    console.log('developersList mapStateToProps')
     return {
-        store: state.UpsertProjectReducer
+        users: state.UpsertProjectReducer.users
     };
 };
 
