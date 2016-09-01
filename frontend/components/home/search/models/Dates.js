@@ -48,7 +48,7 @@ export default class Dates extends Model{
     getView(){
         return <Tab key={this.number} value={this.number}
                     label={`${this.title} (${this.values.length})`}>
-            <DateSelect model={this}/>
+            <div><DateSelect model={this}/></div>
         </Tab>
     }
     addValue(){
