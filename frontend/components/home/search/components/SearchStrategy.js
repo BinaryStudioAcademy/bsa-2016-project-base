@@ -8,10 +8,10 @@ const styles = {
         display: 'flex', flexDirection: 'row'
     },
     radioButton: {
-
+        width:"150px"
     },
 };
-export default class searchStrategyComponent extends React.Component {
+export default class SearchStrategyComponent extends React.Component {
     constructor() {
         super()
         this.onChange = this.onChange.bind(this)
@@ -38,10 +38,11 @@ export default class searchStrategyComponent extends React.Component {
             />
         });
         return <div>
-                <h5>Search strategy</h5>
+                <div style={{margin:"5px"}}>Select Search Strategy</div>
                 <RadioButtonGroup name="searchStrategy"
                                   valueSelected={model.searchStrategy}
-                                  onChange={this.onChange}>
+                                  onChange={this.onChange}
+                                  style={styles.inline}>
                     {buttons}
                 </RadioButtonGroup>
             </div>

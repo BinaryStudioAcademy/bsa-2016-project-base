@@ -2,6 +2,26 @@ import Updatable from "./../../models/Updatable"
 const skipSymbols = "&|->+()! ";
 import JoinStrategy from "./../const/SearchStratrgy"
 import parse from "./parser/parse"
+function doGetCaretPosition (ctrl) {
+
+    var CaretPos = 0;
+    // IE Support
+    if (document.selection) {
+
+        ctrl.focus ();
+        var Sel = document.selection.createRange ();
+
+        Sel.moveStart ('character', -ctrl.value.length);
+
+        CaretPos = Sel.text.length;
+    }
+    // Firefox support
+    else if (ctrl.selectionStart || ctrl.selectionStart == '0')
+        CaretPos = ctrl.selectionStart;
+
+    return (CaretPos);
+
+}
 function names(p) {
     const result = [];
     let i;
@@ -13,6 +33,10 @@ function names(p) {
         const _i = i;
         while (p[i] && skipSymbols.indexOf(p[i]) < 0){
             i += 1;
+        }
+        if (i == _i) {
+            i+=1;
+            return name();
         }
         return p.slice(_i, i);
     }
@@ -29,6 +53,7 @@ function error(p) {
         return e.message;
     }
 }
+
 export default class PredicateModel extends Updatable {
     constructor({searchContainer,component}) {
         super(component);
@@ -43,8 +68,24 @@ export default class PredicateModel extends Updatable {
         this.validateMessage = "";
         this.validatePredicateTimeoutId = 0;
         this.validatePredicate = this.validatePredicate.bind(this);
+        this.setPredicateInput = this.setPredicateInput.bind(this);
+        this.clearSearch = this.clearSearch.bind(this);
     }
-
+    clearSearch(){
+        this.searchContainer.clearSearch();
+        this.predicate = "";
+        this.validateMessage = "";
+    }
+    insertInPredicate(string){
+        //var pos = doGetCaretPosition(this.predicateInput);
+        //var pos = this.predicate.length-1;//TODO: allow insert in current caret position
+        //this.setPredicate([this.predicate.slice(0, pos), string, this.predicate.slice(pos)].join(''));
+        this.setPredicate(this.predicate+string);
+        this.notifyUpdated();
+    }
+    setPredicateInput(input){
+        this.predicateInput = input;
+    }
     handleOpen() {
         this.isOpen = true;
         this.validatePredicate();
@@ -84,8 +125,35 @@ export default class PredicateModel extends Updatable {
         this.validatePredicateTimeoutId = setTimeout(this.validatePredicate, 1000)
     }
 
+    insertSymbol(symbol){
+        if (symbol == ")" || symbol == "(" || symbol == "!"){
+            this.insertInPredicate(symbol)
+        }else{
+            this.insertInPredicate(` ${symbol} `)
+        }
+    }
+    insertVariable(variable){
+        this.insertInPredicate(variable)
+    }
     varsValues() {
         return this.searchContainer.varsValues();
+    }
+    symbols(){
+        return [{
+            var:"&",value:"And"
+        },{
+            var:"|",value:"Or"
+        }, {
+            var:"->",value:"Implication"
+        }, {
+            var:"!",value:"Not"
+        }, {
+            var:"+",value:"Mod 2"
+        }, {
+            var:"(",value:"Left bracket"
+        }, {
+            var:")",value:"Right bracket"
+        }]
     }
 
     goSearch() {
