@@ -74,18 +74,19 @@ class Attachments extends Component {
                 <header>
                     <h2>Attachments</h2>
                 </header>
-                <fieldset>
-                    <legend>Attachments</legend>
-                    <FileUpload
-                        accept="image/jpeg,image/png,image/gif,application/xml"
-                        onChange={this.onFilePathChange}
-                    />
+                <div className={styles.row}>
+                    <div className={styles['field-container']}>
+                        <FileUpload
+                            accept="image/jpeg,image/png,image/gif,application/xml"
+                            onChange={this.onFilePathChange}
+                        />
                     
-                    <div className={styles["list"]}>
-                        {list}
-                    </div>
-                    
-                </fieldset>
+                        <div className={styles["list"]}>
+                            {list}
+                        </div> 
+                    </div>                   
+                                       
+                </div>
             </div>
         );
     }
