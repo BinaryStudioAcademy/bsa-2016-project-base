@@ -71,6 +71,9 @@ class Attachments extends Component {
         });
         return (
             <div id={styles["attachments"]}>
+                <header>
+                    <h2>Attachments</h2>
+                </header>
                 <fieldset>
                     <legend>Attachments</legend>
                     <FileUpload

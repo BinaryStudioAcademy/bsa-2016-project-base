@@ -36,6 +36,16 @@ const tabsStyles = {
 const TabsUI = () => (
 <MuiThemeProvider>
   <Tabs tabItemContainerStyle={tabsStyles.tabItemContainerStyle} contentContainerStyle={tabsStyles.tabBlock} inkBarStyle={tabsStyles.inkBarStyle}>
+    <Tab label="Tecnologies *" >
+      <div>
+        <Techs/>
+      </div>
+    </Tab>
+    <Tab label="Users *" >
+      <div>
+        <UsersList/>
+      </div>
+    </Tab>
     <Tab label="Sections & Features">
       <div>
         <Features/>        
@@ -44,16 +54,6 @@ const TabsUI = () => (
     <Tab label="Tags" >
       <div>
         <Tags/>
-      </div>
-    </Tab>
-    <Tab label="Tecnologies" >
-      <div>
-        <Techs/>
-      </div>
-    </Tab>
-    <Tab label="Users" >
-      <div>
-        <UsersList/>
       </div>
     </Tab>
   </Tabs>

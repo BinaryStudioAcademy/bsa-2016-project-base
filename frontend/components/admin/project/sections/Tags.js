@@ -44,8 +44,8 @@ class Tags extends Component {
     	const predefinedTags = tags.map( tag => {
     		if (!tag.inProject) {
     			return (
-                    <div className={styles["tag"]}>    				
-	    				<span key={tag._id} className={styles["tagName"]}>{tag.tagName}</span>
+                    <div key={tag._id} className={styles["tag"]}>    				
+	    				<span className={styles["tagName"]}>{tag.tagName}</span>
                         <Button className={styles["btnIcon"]} onClick={(e) => this.addTagToProject(e, tag._id)}>
                             <i className="fa fa-plus" aria-hidden="true"></i>
                         </Button>

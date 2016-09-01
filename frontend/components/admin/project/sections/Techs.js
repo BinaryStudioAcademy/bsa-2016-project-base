@@ -70,13 +70,18 @@ class Techs extends Component {
 
     render(){
     	const { technologies } = this.props;
-    	const predefinedTags = technologies.map( tech => {
+    	const predefinedTechs = technologies.map( tech => {
     		if (!tech.inProject) {
     			return (
-    				<div key={tech._id}>
-                        <img src={tech.techAvatar} alt="tech logo"/>
-	    				<span>{tech.techName} {tech.techVersion}</span>
-                        <span>{tech.techDescription}</span>
+    				<div key={tech._id} className={styles.techItem}>
+                        {/*<img src={tech.techAvatar} alt="tech logo"/>*/}
+                        <div>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/480px-Unofficial_JavaScript_logo_2.svg.png" alt="tech logo"/>
+	    				</div>
+                        <div className={styles.nameAndVers}>
+                            <span>{tech.techName} {tech.techVersion}</span>
+                            {/*<span>{tech.techDescription}</span>*/}
+                        </div>
 		    			<Button className={styles["btnIcon"]} onClick={(e) => this.addTechToProject(e, tech._id)}>
 		            		<i className="fa fa-plus" aria-hidden="true"></i>
 		            	</Button>
@@ -84,17 +89,22 @@ class Techs extends Component {
     			);
     		}
     	});
-    	const usedTags = technologies.map( (tech, index) => {
+    	const usedTechs = technologies.map( (tech, index) => {
     		if (tech.inProject) {
     			return (
-    				<div key={tech._id}>
-                        <img src={tech.techAvatar} alt="tech logo"/>
-	    				<span>{tech.techName} {tech.techVersion}</span>
-                        <span>{tech.techDescription}</span>
-		    			<Button onClick={(e) => this.removeTechFromProject(e, tech._id)}>
-		            		<i className="fa fa-trash-o" aria-hidden="true"></i>
-		            	</Button>
-	            	</div>
+                    <div key={tech._id} className={styles.techItem}>
+                        {/*<img src={tech.techAvatar} alt="tech logo"/>*/}
+                        <div>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/480px-Unofficial_JavaScript_logo_2.svg.png" alt="tech logo"/>
+                        </div>
+                        <div className={styles.nameAndVers}>
+                            <span>{tech.techName} {tech.techVersion}</span>
+                            {/*<span>{tech.techDescription}</span>*/}
+                        </div>
+                        <Button className={styles["btnIcon"]} onClick={(e) => this.removeTechFromProject(e, tech._id)}>
+                            <i className="fa fa-trash-o" aria-hidden="true"></i>
+                        </Button>
+                    </div>
     			);
     		}
     		
@@ -102,13 +112,40 @@ class Techs extends Component {
     	
     	return (
     		<div id={styles['techs-list']}>
-    			<div className={styles['tech-name']}>
-    				<TextInput
-	    				value={this.state.techName}
-			        	label='Name *' 
-			        	placeholder='Type tecnology name'
-			        	onChange={this.onTechNameChange}
-		        	/>
+                <div className={styles.row}>
+                    <div className={styles['list-container']}>
+                        <header className={styles['user-list-header']}>
+                            <div className={styles['col-1-2']}>
+                                <h3>All technologies</h3>
+                            </div>
+                        </header>
+                        
+                        <div className={styles['section-list1']}>
+                                {predefinedTechs}
+                        </div>
+                        
+                        
+                    </div>
+
+                    <div className={styles['list-container']}>
+                        <header className={styles['user-list-header']}>
+                            <div className={styles['col-1-2']}>
+                                <h3>Technologies in project</h3>
+                            </div>
+                        </header>
+                        <div className={styles['section-list1']}>
+                                {usedTechs}
+                        </div>
+                    </div>
+                </div>         
+
+                <div className={styles['add-tech-block']}>
+                    <TextInput
+                        value={this.state.techName}
+                        label='Name *' 
+                        placeholder='Type tecnology name'
+                        onChange={this.onTechNameChange}
+                    />
                     <TextInput
                         value={this.state.techVersion}
                         label='Version *' 
@@ -124,27 +161,11 @@ class Techs extends Component {
                     <FileUpload
                         onChange={this.onTechLogoChange}
                     />
-		        	<Button 
+                    <Button 
                         value="Add" 
                         onClick={this.addNewTechToProject}
-                    />  	
-    			</div>
-    			
-	    		<div>
-	    			<div className={styles['list-container']}>
-                    All technologies:
-                    <div className={styles['list']}>
-                     	{predefinedTags}
-                    </div>
-	                </div>
-	               
-	                 <div className={styles['list-container']}>
-	                     Technologies in project:
-	                     <div className={styles['list']}>
-	                        {usedTags}
-	                     </div>
-	                </div>
-	    		</div>
+                    />      
+                </div>
             </div>
     	);
     }
