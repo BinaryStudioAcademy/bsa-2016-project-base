@@ -100,7 +100,7 @@ class Techs extends Component {
 
     render(){
     	const { technologies, iconLoaded, techIcon, techIconError } = this.props;
-    	const predefinedTags = technologies.map( tech => {
+    	const predefinedTechs = technologies.map( tech => {
     		if (!tech.inProject) {
     			return (
     				<div key={tech._id} className={styles.techItem}>
@@ -119,7 +119,7 @@ class Techs extends Component {
     			);
     		}
     	});
-    	const usedTechs = technologies.map( (tech, index) => {
+    	const usedTechs= technologies.map( (tech, index) => {
     		if (tech.inProject) {
     			return (
                     <div key={tech._id} className={styles.techItem}>
@@ -203,22 +203,6 @@ class Techs extends Component {
                     />  
                    
     			</div>
-    			
-	    		<div>
-	    			<div className={styles['list-container']}>
-                    All technologies:
-                    <div className={styles['list']}>
-                     	{predefinedTags}
-                    </div>
-	                </div>
-	               
-	                 <div className={styles['list-container']}>
-	                     Technologies in project:
-	                     <div className={styles['list']}>
-	                        {usedTags}
-	                     </div>
-	                </div>
-	    		</div>
             </div>
     	);
     }
