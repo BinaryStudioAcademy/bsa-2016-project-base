@@ -54,7 +54,7 @@ const TabsUI = () => (
     </Tab>
     <Tab label="Tags" >
       <div>
-        <Tags/>
+      <Tags/>
       </div>
     </Tab>
   </Tabs>
@@ -191,9 +191,9 @@ class UpsertProject extends Component {
 	    		<Inputs/>
         		<br/>
         		<TabsUI />
-        		<br/>
-        		<Attachments/>
-        		<br/>
+                <br/>
+                <Attachments/>
+                <br/>
                 <RaisedButtonUITags
                     className={styles.btnCreate}
                     label='Create project'
