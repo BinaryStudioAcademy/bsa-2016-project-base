@@ -7,12 +7,13 @@ class Button extends Component {
         super(props);
     }
     render() {
-        const {id, value, onClick, className} = this.props;
+        const {id, value, disabled, onClick, className} = this.props;
         return (
             <button    
                 className={className}             
                 id={id} 
-                type="button" 
+                type="button"
+                disabled={disabled} 
                 onClick={onClick}>
             {value || this.props.children}
             </button>
@@ -23,6 +24,7 @@ class Button extends Component {
 Button.propTypes = {
     id: PropTypes.string,
     value: PropTypes.string,
+    disabled: PropTypes.bool,
     onClick: PropTypes.func
 };
 

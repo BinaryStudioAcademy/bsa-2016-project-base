@@ -50,6 +50,17 @@ class FeatureService {
         );
     }
 
+    removeFeatures(features){
+        return fetch(this.url,
+            Object.assign({
+                    method: 'DELETE',
+                    body: JSON.stringify(features)
+                }, constants.cookieMarker,
+                constants.jsonHedeaders
+            )
+        );
+    }
+
 }
 
 const featureService = new FeatureService();

@@ -12,52 +12,70 @@ class File extends Component {
     CopyToClip(u_id){
        u_id.select();
        document.execCommand("Copy");
-  }
-
-    render() {
-        const {id, url, thumb, name, onClick} = this.props;
-        return (
-
-            <div id={styles["file-holder"]}>
-                <Button className={styles.btnIcon} onClick={onClick && ((e) => onClick(e,name))}>
-                    <i className="fa fa-times" aria-hidden="true"></i>
-                </Button>
-                <a href={url} target="_blank">
-                    <img src={thumb} alt={name} />
-                </a>
+    }
+    renderStatus(){
+         const {path, thumb, name, ready, good}  = this.props.file;
+         const {onClick} = this.props;
+         if (ready && good) {
+            return (
                 <div>
-                    <span className={styles["name"]}>{name}</span>
+                    <Button className={styles["btnIcon"]} onClick={onClick && ((e) => onClick(e,name))}>
+                        <i className="fa fa-times" aria-hidden="true"></i>
+                    </Button>
+                    <a href={path} target="_blank">
+                        <img src={thumb} alt={name} />
+                    </a>
+                    <div>
+                        <span className={styles["name"]}>{name}</span>                        
 
-                    <RaisedButtonUITags
-                      className={styles.btnCopy}
-                      label='Copy url'
-                      onClick={()=>{this.CopyToClip(this.refs.inputcopy);}}
-                      backgroundColor='#8d97a4'
-                    />                 
-
-                    {/*<Button                      
-                      value="Copy url"
-                      onClick={()=>{this.CopyToClip(this.refs.inputcopy);}}
-                   />*/}
-                   <input className={styles["copyInput"]} type="text"
-                   ref='inputcopy'
-                   value={url}
-                   />
-
+                        <RaisedButtonUITags
+                            className={styles["btnCopy"]}
+                            label='Copy url'
+                            onClick={()=>{this.CopyToClip(this.refs.inputcopy);}}
+                            backgroundColor= '#8d97a4'                         
+                        />
+                        <input className={styles["copyInput"]} type="text"
+                            ref='inputcopy'
+                            value={path}
+                        />
+                    </div>
                 </div>
-
+            );
+        } else if (ready && !good) {
+            const {error} = this.props.file;
+            return (
+                <div>
+                    <Button className={styles["btnIcon"]} onClick={onClick && ((e) => onClick(e,name))}>
+                            <i className="fa fa-times" aria-hidden="true"></i>
+                    </Button>
+                    <span className={styles["error"]}>Error:</span>
+                     {error}
+                </div>
+            );
+        }
+        else {
+            return (
+                <div>
+                    <a href={path} target="_blank">
+                        <div className={styles["loader"]}></div>
+                    </a>
+                    <span className={styles["name"]}>{name}</span>
+                </div>
+            );
+         }
+    }
+    render() {
+        const {id} = this.props;
+        return (
+            <div id={styles["file-holder"]}>
+               {this.renderStatus()}
             </div>
-
         );
-
     }
 }
 
 File.propTypes = {
-    id: PropTypes.string,
-    thumb: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired,
-    name: PropTypes.string
+    id: PropTypes.string
 };
 
 export default File;
