@@ -407,13 +407,28 @@ export function initialStateTechnologies(technologies, predefinedTechnologies) {
     return action;
 }
 
-export function initialStateFiles(files) {
-    const action = {
-        type: 'INITIAL_STATE_TECHNOLOGIES',
-        files: files.map(function(el) {
-            return {
+export function initialStateFiles() {
+    return dispatch => {
+        dispatch({
+            type: "INITIAL_STATE_FI",
+            name: file.name
+        });
+        const data = {
+            name: file.name,
+            error: 'File size is ' + (file.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + (MAX_SIZE / 1024 / 1024).toFixed(2) + ' MB.'
+        }
+        dispatch({
+            type: types.UP_UPLOAD_FILE_SUCCESS,
+            data: data
+        });
+    }
+}
 
-            }
+export function initialStateF(files) {
+    const action = {
+        type: 'INITIAL_STATE_FI',
+        files: files.map(function(el) {
+            return Object.assign({}, el, { good: true}, {ready: true})
         })
     };
     return action;

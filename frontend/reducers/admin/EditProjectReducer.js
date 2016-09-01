@@ -1,4 +1,5 @@
 import * as types from '../../actions/admin/EditProjectActionsTypes';
+import fileThumbService from '../../services/FileThumbService';
 
 
 export default function EditProjectReducer(state=initialState, action) {
@@ -70,7 +71,7 @@ export default function EditProjectReducer(state=initialState, action) {
             const {option} = action;
             return Object.assign({}, state, {
 
-                condition: option
+                status: option
 
             });
         }
@@ -158,14 +159,10 @@ export default function EditProjectReducer(state=initialState, action) {
         }
 
         case types.UP_UPLOAD_FILE_SUCCESS_ED: {
-            const {path,thumb} = action.data;
+            const {data} = action;
             const {files} = state;
             return Object.assign({}, state, {
-                files: files.concat({
-                    url: path,
-                    thumb: thumb,
-                    name: path.slice(path.lastIndexOf('/')+1,path.length)
-                })
+                files: updateFileSuccess(files, data)
             });
         }
         case types.UP_REMOVE_FILE_ED: {
@@ -198,24 +195,32 @@ export default function EditProjectReducer(state=initialState, action) {
         }
         case 'INITIAL_STATE_FROM_DB': {
             const {project} = action;
+            if(project.attachments.length != 0) {
+                var data = project.attachments.map(function (el) {
+                    return fileThumbService.setThumb(Object.assign({}, el, {path: el.link.indexOf("http") == 0? el.link.slice(22) : el.link}));
+                });
+            }
             return Object.assign({}, state, {
                 projectId: project._id,
                 projectName: project.projectName,
                 projectLink: project.projectLink,
                 timeBegin: project.timeBegin,
                 timeEnd: project.timeEnd,
-                condition: project.status,
+                status: project.status,
                 users: project.users,
                 owners: project.owners,
                 tags: project.tags,
                 technologies: project.technologies,
                 conditions: project.conditions,
                 features: project.features,
-                files: project.attachments,
+                files: data.map(function(el) {
+                    return Object.assign({}, el, {ready: true}, {good: true}, {inBase: true})
+                }),
                 initialTags: false,
                 initialTechnologies: false,
                 initialUsers: false,
                 initialSections: false,
+                initialFiles: false,
                 description:{
                     descrFullText: project.description.descrFullText
                 }});
@@ -227,7 +232,7 @@ export default function EditProjectReducer(state=initialState, action) {
                 projectLink:'',
                 timeBegin:'',
                 timeEnd:'',
-                condition:'',
+                status:'',
                 users: null,
                 owners: null,
                 tags: null,
@@ -244,6 +249,7 @@ export default function EditProjectReducer(state=initialState, action) {
                 initialUsers: false,
                 initialSections: false,
                 iconLoaded: false,
+                initialFiles: false,
                 techIcon: {},
                 techIconError: null,
                 description:{
@@ -280,11 +286,56 @@ export default function EditProjectReducer(state=initialState, action) {
                 techIconError: error
             });
         }
+        case "INITIAL_STATE_FI": {
+            const {files} = action;
+            return Object.assign({}, state, {files: files}, {initialFiles: true});
+        }
         default: {
             return state;
         }
     }
 };
+
+const updateFileSuccess = (files, data) => {
+    if (!data.hasOwnProperty('error')) {
+        files.forEach( file => {
+            const {name, path, thumb} = data;
+            if (!file.ready && file.name === name) {
+                file.path = path;
+                file.thumb = thumb;
+                file.ready = true;
+            }
+        });
+    } else {
+        files.forEach( file => {
+            const {name, error} = data;
+            console.log('updateFileFailure ');
+            if (!file.ready && file.name === name) {
+                file.ready = true;
+                file.good = false;
+                file.error = error;
+            }
+        });
+
+    }
+    return [].concat(files);
+}
+
+
+
+const updateFileFailure = (files, error) => {
+    console.log('updateFileFailure ',error.name);
+    const {message, name} = error;
+    files.forEach( file => {
+        if (!file.ready && file.name === name) {
+
+            file.ready = true;
+            file.good = false;
+        }
+    });
+
+    return [].concat(files);
+}
 
 
 
@@ -411,7 +462,7 @@ const initialState = {
     projectLink:'',
     timeBegin:'',
     timeEnd:'',
-    condition:'',
+    status:'',
     users_: [],
     owners: null,
     tags: null,
@@ -420,6 +471,7 @@ const initialState = {
     sections: [],
     features: [],
     files: [],
+    filesS: [],
     activeSection: {},
     tagExists: false,
     added: false,
@@ -427,6 +479,7 @@ const initialState = {
     initialTechnologies: false,
     initialUsers: false,
     initialSections: false,
+    initialFiles: false,
     iconLoaded: false,
     techIcon: {},
     techIconError: null,

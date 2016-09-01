@@ -103,7 +103,7 @@ class Inputs extends Component {
 	        		onChange={this.onFinishDateChange}
 	        	/>
 	        	<DropDown
-					selectValue={this.props.store.condition}
+					selectValue={this.props.store.status}
                     className = {styles["text-input"]}
 	        		label='Condition *'
 	        		data = {conditionOpts}

@@ -84,7 +84,7 @@ class EditProject extends Component {
     }
     updateProject(e) {
         console.log('createProject');
-        const {projectName,projectLink,timeBegin,timeEnd,condition,description, projectId} = this.props.store;
+        const {projectName,projectLink,timeBegin,timeEnd,status,description, projectId} = this.props.store;
         const {predefinedUsers,predefinedTags,predefinedTechnologies,sections,features,files} = this.props.store;
         console.log('features ',features);
         console.log('sections ',sections);

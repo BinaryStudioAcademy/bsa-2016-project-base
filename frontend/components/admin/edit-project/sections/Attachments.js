@@ -14,6 +14,10 @@ class Attachments extends Component {
         this.onFilePathChange = this.onFilePathChange.bind(this);
         this.removeFile = this.removeFile.bind(this);
     }
+
+    componentWillMount() {
+
+    }
     onFilePathChange(e) {
         console.log('onFilePathChange url', e.target.value);
         const files = e.target.files;
@@ -31,7 +35,16 @@ class Attachments extends Component {
         this.props.removeFile(name);
     }
     render() {
-        const {files} = this.props;
+        const {files, initialFiles} = this.props;
+        /*
+        if(files.length != filesS.length) {
+            for(let i = 0; i < files.length; i++) {
+                alert('f');
+                this.props.uploadFile(files[i]);
+            }
+
+        }
+        */
         const list = files.map( (file, index) => {
             return (
                 <File

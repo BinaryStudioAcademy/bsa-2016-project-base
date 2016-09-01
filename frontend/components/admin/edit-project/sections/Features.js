@@ -126,7 +126,7 @@ class Features extends Component {
 
     render(){
     	const {sections, features, activeSection, initialSections} = this.props;
-		if(initialSections == false) {
+		if(features!= null && initialSections == false) {
 			//alert("AGA!");
 			this.props.initialStateSections(features);
 		}
