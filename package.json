@@ -47,6 +47,7 @@
     "mongoose": "^4.5.8",
     "multer": "^1.2.0",
     "multiparty": "^4.1.2",
+    "node-uuid": "^1.4.7",
     "normalize.css": "^4.2.0",
     "npm": "^3.10.5",
     "open": "0.0.5",

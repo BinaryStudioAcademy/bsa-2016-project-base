@@ -20,7 +20,7 @@ const styles = {
   floatingLabelFocusStyle: {
     color: '#2ecc71'
   },
-  inputStyle: {
+  inputStyle: { 
     color: '#627484',
     fontfamily: 'Lato, sans-serif',
     paddingLeft: ".5rem"

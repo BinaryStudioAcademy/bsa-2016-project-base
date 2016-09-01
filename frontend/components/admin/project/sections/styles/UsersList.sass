@@ -1,13 +1,74 @@
 @import "./UpsertProject.sass";
 
 #user-list
+	display: flex
+	flex-direction: column
+	
+	.row
+        display: flex 
+        justify-content: space-between
+        padding: 0 1.2rem
+        margin-bottom: 1rem
+	
 	.list-container
-		display: inline-block
-		width: 50%
-		height: 180px
+		display:flex
+		flex-basis: 47%
+		box-shadow: 0px 1px 15px -6px #777
+		background-color: #fff
+		.user-list-header
+    		display: flex
+    		height: 50px
+    		border-bottom: 1px solid #efefef
+    		.col-1-2
+    			// flex-basis: 50%
+
+    			h3
+    				font-family: 'Lato', sans-serif
+    				font-size: 1rem
+    				margin-left: 1rem
+    				// color: #c9c9c9
+    		.col-1-2:nth-of-type(1)
+    			display: flex
+    			align-items: center
+    			//flex-basis: 20%
+    			border-left: 3px solid #627484
 		
-	.list 
-		
-		border: 1px solid black
-		overflow-y: auto
-		height: 180px
+
+		.section-list1            
+      overflow-y: auto
+      height: 330px
+      margin: 1rem
+      padding: 0 1.7rem
+      .listItem
+	      background-color: white
+	      display: flex
+	      flex-direction: row
+	      padding: 0.5rem
+	      &:hover
+        	color: #b1b1b1
+
+	      .userImage
+	        width: 50px
+	        height: 50px
+	        img
+	        	border-radius: 50%
+
+	      .nameAndPosition
+	        width: 200px
+	        display: flex
+	        flex-direction: column
+	        align-items: flex-start
+	        align-self: center
+	        margin-left: 22px
+
+	      .userName
+	        font-size: 1.2rem
+
+      	.userPosition
+	        font-size: 1rem
+	        margin-top: 0.3rem
+
+	      .checkbox
+	      	align-self: center
+	      	margin-right: 2rem
+	      	font-size: 1rem

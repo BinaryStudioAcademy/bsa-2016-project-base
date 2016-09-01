@@ -77,7 +77,6 @@ module.exports = function(app) {
 			next();
 		});
 	}, apiResponse);
-
 	app.get('/api/search/projects', function (req, res, next) {
 		console.log('GET request on "/api/search/projects" acquired.');
 		searchService.getFilteredProjects(req, function (err, data) {

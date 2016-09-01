@@ -24,10 +24,12 @@ class Features extends Component {
         this.closeCreateFeatureModal = this.closeCreateFeatureModal.bind(this);
         this.addNewFeature = this.addNewFeature.bind(this);
         this.setNewFeatureName = this.setNewFeatureName.bind(this);
+        this.removeSection = this.removeSection.bind(this);
+        this.removeFeature = this.removeFeature.bind(this);
     }
     setNewSectionName(e){
     	this.setState({
-    		sectionName: e.target.value.trim()
+    		sectionName: e.target.value
     	});
     }
     addNewSection(e) {
@@ -42,9 +44,28 @@ class Features extends Component {
     		})
     	}
     }
+	removeSection(id){
+		const {sections,features} = this.props;
+		let featuresToDelete = [];
+        let featuresToStay = [];
+		features.forEach(function (el,indx) {
+			if(el.section === id){
+				featuresToDelete.push(el);
+			}else{
+                featuresToStay.push(el);
+            }
+		});
+		this.props.deleteSection(id,sections,featuresToDelete,featuresToStay);
+	}
+	removeFeature(id){
+		const {features} = this.props;
+		this.props.deleteFeature(id,features);
+	}
     onSectionSelected(e, id) {
-    	this.props.selectSection(id);
+		const {features} = this.props;
+    	this.props.selectSection(id,features);
     }
+
     showCreateFeatureModal() {
     	console.log('showCreateFeatureModal');
     	this.setState({
@@ -55,7 +76,10 @@ class Features extends Component {
     	console.log('closeCreateFeatureModal');
     	this.setState({
     		isModalActive: false
-    	})
+    	});
+         this.setState({
+            featureName: ''
+        });
     }
     addNewFeature(descriptionHTMLText) {
     	
@@ -72,14 +96,16 @@ class Features extends Component {
     		featureName,
     		descriptionHTMLText,
     		section: activeSection._id
-    	})
+    	});
+        this.setState({
+            featureName: ''
+        });
     }
      setNewFeatureName(e) {
         this.setState({
-            featureName: e.target.value.trim()
-        })
+            featureName: e.target.value
+        });
     }
-
 
     renderFeatures(featuresList, sectionsList){
     	const {sections, activeSection} = this.props;
@@ -149,6 +175,7 @@ class Features extends Component {
     				 section={section}
     				 isActive={activeSection._id === section._id}
     				 onClick={this.onSectionSelected}
+					 removeSection={this.removeSection}
     			/>
     		);
     	});
@@ -160,7 +187,7 @@ class Features extends Component {
 	    				 key={feature._id}
 	    				 feature={feature}
 	    				 isActive={false}
-	    				 
+						 removeFeature={this.removeFeature}
 	    			/>
     			);
     		}
@@ -175,9 +202,7 @@ class Features extends Component {
                     onClose={this.closeCreateFeatureModal}
                     onSave={this.addNewFeature}
                 />) )}
-                <header className={styles['features-header']}>
-                    <h2>Features</h2>
-                </header>
+                
                 <div className={styles.row}>
                     <div className={styles['list-container']}>
                         <header className={styles['sections-list-header']}>
@@ -219,7 +244,6 @@ class Features extends Component {
                         </div>
                     </div>
                 </div>
-                <hr />
             </div>
     	);
     }

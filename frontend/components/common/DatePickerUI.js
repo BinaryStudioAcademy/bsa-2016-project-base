@@ -26,7 +26,14 @@ let styles = {
   underlineStyle: {
       borderColor: '#D5D7DA',
       borderBottom: '0px solid #D5D7DA'
-  }
+  },
+  inputStyle: { 
+    cursor: 'pointer',
+    color: '#627484',
+    fontfamily: 'Lato, sans-serif',
+    fontSize: '0.8rem',
+    paddingLeft: '3.2rem'
+  },
 }
 export default class DatePickerControlled extends React.Component {
 
@@ -61,6 +68,7 @@ export default class DatePickerControlled extends React.Component {
           // underLineStyle={styles.underlineStyle}
           underlineStyle={styles.underlineStyle}
           style={this.props.style}
+          inputStyle={styles.inputStyle}
         />
       </MuiThemeProvider>
       </div>

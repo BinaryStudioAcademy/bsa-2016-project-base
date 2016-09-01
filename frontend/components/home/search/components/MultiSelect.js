@@ -9,6 +9,9 @@ import MultiSelectModel from "./../models/MultiSelectModel"
 import CircularProgress from 'material-ui/CircularProgress';
 import Subheader from 'material-ui/Subheader';
 import Modelable from "./Modelable"
+import styles from "./styles/list.sass"
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 export default class MultiSelect extends Modelable {
     constructor(props) {
         super(props);
@@ -37,15 +40,18 @@ export default class MultiSelect extends Modelable {
     getLeftBlock() {
         const {model} = this.props;
         const self = this;
+
         const tips = <List>
             {model.tipsError ?
                 <Subheader>{model.tipsError}</Subheader> : ""}
             {model.tips.map((tip, index)=> {
-                return <ListItem key={index}
+                return <ListItem style={{WebkitAppearance:"none"}} key={index}
                                  primaryText={model.getText(tip)}
                                  onClick={()=>model.addValue(tip)}
                                  rightIcon={self.getListRightIcon(tip)}/>
             })}</List>;
+
+
         return (<div style={{width:this.leftBlockWidth}}>
             <div style={{display:"flex",position:"absolute"}}>
                 <DeferredTextInput
@@ -61,8 +67,15 @@ export default class MultiSelect extends Modelable {
 
     render() {
         return (<div style={{display:"flex"}}>
-            {this.getLeftBlock()}
-            {this.getRightBlock()}
+
+                {this.getLeftBlock()}
+                {this.getRightBlock()}
+
         </div>)
     }
 }
+
+/*
+ className={styles.listSearch}
+<div className={styles.rowSearch}>
+</div>*/

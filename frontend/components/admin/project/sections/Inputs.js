@@ -15,7 +15,9 @@ class Inputs extends Component {
         this.onFinishDateChange = this.onFinishDateChange.bind(this);
         this.onConditionChange = this.onConditionChange.bind(this);
         this.onDescriptionChange = this.onDescriptionChange.bind(this);
-        
+    }
+    shouldComponentUpdate(nextProps, nextState){
+        return false;
     }
     onProjectNameChange(e, id){
     	console.log('onProjectnameChange: ',e.target.value, id);
@@ -76,7 +78,7 @@ class Inputs extends Component {
 	        		        hintText='Link to project' 
 	        	 	        placeholder='Link to project'
 	        		        onChange={this.onProjectLinkChange}
-                            style={{width: '100%', borderRadius: '5px'}}
+                            style={{width: '100%'}}
 	        	        />
                     </div>
                 </div>
@@ -84,7 +86,8 @@ class Inputs extends Component {
                     <div className={styles['col-1-3']}>
                         <DatePickerControlled 
                             hint='Start Date'
-                            style={{width: '100%'}}
+                            style={{width: '100%' ,
+                                    cursor: 'pointer'}}
                             onChange={this.onStartDateChange}
                         />
                     </div>
@@ -116,7 +119,7 @@ class Inputs extends Component {
                 <div className={styles.row}>
                      <Editor 
                     handleChange={this.onDescriptionChange}
-                    initialContent={'Enter project description'}
+                    initialContent={''}
                     />
                 </div>
                 <hr />
@@ -132,7 +135,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
     return {
-        conditions: state.UpsertProjectReducer.conditions
+        
     };
 };
 

@@ -1,5 +1,46 @@
 #attachments
-	.list
-		display: flex
-		flex-wrap: wrap
-		justify-content: flex-start
+  display: flex
+  flex-direction: column
+
+  header
+      position: relative
+      padding-left: 1.2rem
+      margin-bottom: 1rem
+      font-size: .8rem
+      &:before
+          background: #03A9F4
+          content: ""
+          display: block
+          width: 10px
+          height: 10px
+          top: 50%
+          transform: translate(0, -50%)
+          left: 0
+          position: absolute
+          border-radius: 50%
+      h2
+          margin: 0
+
+  .row
+    display: flex
+    justify-content: space-between
+    //border: '1px solid #c9c9c9',
+    //border-radius: 5px
+    padding: 0 1.2rem
+    margin-bottom: 1rem
+
+    .field-container
+      flex-basis: 100%
+      background-color: #fff
+      padding: 1rem
+      //border-radius: 5px
+      border: 1px solid #c9c9c9
+
+      .upload-container
+        margin-left: 5px
+
+    .list
+      display: flex
+      flex-wrap: wrap
+      justify-content: flex-start
+      margin-top: 0.5rem

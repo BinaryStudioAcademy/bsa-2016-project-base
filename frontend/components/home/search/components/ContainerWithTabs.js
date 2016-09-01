@@ -21,7 +21,7 @@ const tabsStyles = {
         },
 
         tabBlock: {
-            "margin-top": "40px"
+            //"margin-top": "40px"
         },
         inkBarStyle: {
             backgroundColor: "#2ecc71"
@@ -48,7 +48,8 @@ export default class ContainerWithTabs extends React.Component {
         <MuiThemeProvider>
             <Tabs value={model.selectedTab}
                   onChange={model.selectTab} 
-                  tabItemContainerStyle={tabsStyles.tabItemContainerStyle} contentContainerStyle={tabsStyles.tabBlock} inkBarStyle={tabsStyles.inkBarStyle}>
+                  tabItemContainerStyle={tabsStyles.tabItemContainerStyle}
+                  contentContainerStyle={tabsStyles.tabBlock} inkBarStyle={tabsStyles.inkBarStyle}>
                 {model.searchModels.map(model=>
                     model.getView())}
             </Tabs>

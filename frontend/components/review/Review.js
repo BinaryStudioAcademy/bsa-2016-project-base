@@ -1,16 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-//var injectTapEventPlugin = require("react-tap-event-plugin");
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
-import styles from './review.sass';
-
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import * as actions from '../../actions/ReviewAction';
-import { ProjectList } from './components';
+import EstimationStepper from './components/EstimationStepper';
 
-//injectTapEventPlugin();
 class Review extends Component {
 
 	componentDidMount() {
@@ -27,7 +22,7 @@ class Review extends Component {
 
 	    return (
 			<MuiThemeProvider>
-				<ProjectList
+				<EstimationStepper
 					projects = {projects}
 					selectedProject={selectedProject}
 					handleRequestChange={::this.handleRequestChange}
@@ -35,7 +30,7 @@ class Review extends Component {
 					project={project}
 				/>
 			</MuiThemeProvider>
-	    )
+	    );
 	}
 }
 

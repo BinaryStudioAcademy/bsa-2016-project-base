@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../../actions/admin/UpsertProjectActions';
 import { Button, TextInput, TextFieldTags, RaisedButtonUITags} from '../../../common/';
+import TagItem from './TagItem';
 import styles from './styles/Tags.sass';
 
 class Tags extends Component {
@@ -15,12 +16,14 @@ class Tags extends Component {
         this.removeTagFromProject = this.removeTagFromProject.bind(this);
         this.onTagNameChange = this.onTagNameChange.bind(this);
         this.addNewTagToProject = this.addNewTagToProject.bind(this);
-        
     }
+   
     addTagToProject(e, tagId) {
+        console.log('addTagToProject');
         if (tagId) this.props.addTagToProject(tagId);
     }
     removeTagFromProject(e, tagId) {
+         console.log('removeTagFromProject');
         if (tagId) this.props.removeTagFromProject(tagId);
     }
     onTagNameChange(e){
@@ -44,24 +47,22 @@ class Tags extends Component {
     	const predefinedTags = tags.map( tag => {
     		if (!tag.inProject) {
     			return (
-    				<div key={tag._id} className={styles["tag"]}>
-	    				<span>{tag.tagName}</span>
-		    			<Button onClick={(e) => this.addTagToProject(e, tag._id)}>
-		            		<i className="fa fa-plus" aria-hidden="true"></i>
-		            	</Button>
-	            	</div>
+                    <TagItem 
+                        key={tag._id}
+                        tag={tag}
+                        onAddClick={this.addTagToProject}
+                    />
     			);
     		}
     	});
     	const usedTags = tags.map( tag => {
     		if (tag.inProject) {
     			return (
-    				<div key={tag._id}>
-	    				<span>{tag.tagName}</span>
-		    			<Button onClick={(e) => this.removeTagFromProject(e, tag._id)}>
-		            		<i className="fa fa-trash-o" aria-hidden="true"></i>
-		            	</Button>
-	            	</div>
+                     <TagItem 
+                        key={tag._id}
+                        tag={tag}
+                        onRemoveClick={this.removeTagFromProject}
+                    />	
     			);
     		}
     	});
@@ -72,9 +73,14 @@ class Tags extends Component {
                     <div className={styles['list-container']}>
                         <header className={styles['tags-list-header']}>
                             <div className={styles['col-1-2']}>
-                                <h3>Tags</h3>
+                                <h3>All tags</h3>
                             </div>
                         </header>
+                        
+                        <div className={styles['section-list1']}>
+                                {predefinedTags}
+                        </div>
+                        
                         <div className={styles['add-section2']}>
                             <div className={styles['col-1-2']}>
                                 <TextFieldTags 
@@ -93,71 +99,19 @@ class Tags extends Component {
                                 />
                             </div>
                         </div>
-                        <ul className={styles['section-list1']}>
-                                {predefinedTags}
-                        </ul>
                     </div>
-                </div>
-                <fieldset>
-                    <legend>Tags</legend>
-                    <div className={styles['tag-name']}>
-                    <TextInput
-                        value={this.state.tagName}
-                        label='Add new tag' 
-                        placeholder='Type tag name'
-                        onChange={this.onTagNameChange}
-                    />
-                    <Button 
-                        value="Add"  
-                        onClick={this.addNewTagToProject}
-                    />      
-                </div>
-                <div>
+
                     <div className={styles['list-container']}>
-                    All tags:
-                    <div className={styles['list']}>
-                        {predefinedTags}
+                        <header className={styles['tags-list-header']}>
+                            <div className={styles['col-1-2']}>
+                                <h3>Used tags</h3>
+                            </div>
+                        </header>
+                        <div className={styles['section-list1']}>
+                                {usedTags}
+                        </div>
                     </div>
-                    </div>
-                   
-                     <div className={styles['list-container']}>
-                         Tags in project:
-                         <div className={styles['list']}>
-                            {usedTags}
-                         </div>
-                    </div>
-                </div>
-                </fieldset>
-                <fieldset>
-                    <legend>Tags</legend>
-                    <div className={styles['tag-name']}>
-                    <TextInput
-                        value={this.state.tagName}
-                        label='Add new tag' 
-                        placeholder='Type tag name'
-                        onChange={this.onTagNameChange}
-                    />
-                    <Button 
-                        value="Add"  
-                        onClick={this.addNewTagToProject}
-                    />      
-                </div>
-                <div>
-                    <div className={styles['list-container']}>
-                    All tags:
-                    <div className={styles['list']}>
-                        {predefinedTags}
-                    </div>
-                    </div>
-                   
-                     <div className={styles['list-container']}>
-                         Tags in project:
-                         <div className={styles['list']}>
-                            {usedTags}
-                         </div>
-                    </div>
-                </div>
-                </fieldset>
+                </div>                                
             </div>
     	);
     }

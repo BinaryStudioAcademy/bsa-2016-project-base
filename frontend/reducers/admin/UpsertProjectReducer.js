@@ -1,6 +1,8 @@
 import * as types from '../../actions/admin/UpsertProjectActionTypes';
 
 
+
+
 export default function UpsertProjectReducer(state=initialState, action) {
 	switch (action.type) {
 		 case types.UP_GET_DATA_SUCCESS: {
@@ -66,11 +68,10 @@ export default function UpsertProjectReducer(state=initialState, action) {
             	
             });
         }
-        case types.UP_CHANGE_CONDITION: {
+        case types.UP_CHANGE_STATUS: {
             const {option} = action;
             return Object.assign({}, state, {
-            	
-            		condition: option
+            		status: option
             	
             });
         }
@@ -113,11 +114,12 @@ export default function UpsertProjectReducer(state=initialState, action) {
             });
         }
         case types.UP_POST_TECH_SUCCESS: {
-            const {data} = action;
+            const {data, iconLoaded} = action;
             const {technologies} = state;
             console.log('POST_TECH',data);
             return Object.assign({}, state, {
-                technologies: addNewTech(technologies, data)
+                technologies: addNewTech(technologies, data),
+                iconLoaded
             });
         }
         case types.UP_POST_SECTION_SUCCESS: {
@@ -128,6 +130,14 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 sections: sections.concat(data)
             });
         }
+        case types.UP_POST_SECTION_DELETE: {
+            const {data} = action;
+            const {sections} = state;
+            console.log('DELETE_SECTION_SUCCESS',sections);
+            return Object.assign({}, state, {
+                sections: [].concat(data)
+            });
+        }
         case types.UP_POST_FEATURE_SUCCESS: {
             const {data} = action;
             const {features} = state;
@@ -136,7 +146,15 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 features: features.concat(data)
             });
         }
-        
+        case types.UP_POST_FEATURE_DELETE: {
+            const {data} = action;
+            const {features} = state;
+            console.log('DELETE_FEATURES_SUCCESS',data);
+            return Object.assign({}, state, {
+                features: [].concat(data)
+            });
+        }
+
         case types.UP_SELECT_SECTION: {
             const {_id} = action;
             const {sections, activeSection} = state;
@@ -145,15 +163,31 @@ export default function UpsertProjectReducer(state=initialState, action) {
             });
         }
         
-        case types.UP_UPLOAD_FILE_SUCCESS: {
-            const {path,thumb} = action.data;
+        case types.UP_UPLOAD_FILE: {
+            const {name} = action;
             const {files} = state;
             return Object.assign({}, state, {
                 files: files.concat({
-                	url: path,
-                	thumb: thumb,
-                	name: path.slice(path.lastIndexOf('/')+1,path.length)
+                    name,
+                    good:true,
+                    ready: false
                 })
+            });
+        }
+        case types.UP_UPLOAD_FILE_SUCCESS: {
+            const {data} = action;
+            const {files} = state;
+            return Object.assign({}, state, {
+                files: updateFileSuccess(files, data)
+            });
+        }
+         case types.UP_UPLOAD_ICON_SUCCESS: {
+            const {data, iconLoaded, error} = action;
+            const {techIcon} = state;
+            return Object.assign({}, state, {
+                techIcon: data,
+                iconLoaded: iconLoaded,
+                techIconError: error
             });
         }
         case types.UP_REMOVE_FILE: {
@@ -190,8 +224,46 @@ export default function UpsertProjectReducer(state=initialState, action) {
     }
 };
 
+const updateFileSuccess = (files, data) => {
+     if (!data.hasOwnProperty('error')) {
+         files.forEach( file => {
+            const {name, path, thumb} = data;
+            if (!file.ready && file.name === name) {
+                file.path = path;
+                file.thumb = thumb;
+                file.ready = true;
+            }
+        });
+     } else {
+         files.forEach( file => {
+            const {name, error} = data;
+            console.log('updateFileFailure ');
+            if (!file.ready && file.name === name) {
+                file.ready = true;
+                file.good = false;
+                file.error = error;
+            }
+        });
+
+     }
+    return [].concat(files);
+}
 
 
+
+const updateFileFailure = (files, error) => {
+    console.log('updateFileFailure ',error.name);
+    const {message, name} = error;
+    files.forEach( file => {
+        if (!file.ready && file.name === name) {
+
+            file.ready = true;
+            file.good = false;
+        }
+    });
+
+    return [].concat(files);
+}
 const selectSection = (sections, _id) => {
     for(let i = 0; i < sections.length; i++) {
          if (sections[i]._id === _id) {
@@ -325,6 +397,9 @@ const initialState = {
     activeSection: {},
 	tagExists: false,
     added: false,
+    iconLoaded: false,
+    techIcon: {},
+    techIconError: null,
     description:{
         descrFullText: 'Description'
     } 
