@@ -130,6 +130,14 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 sections: sections.concat(data)
             });
         }
+        case types.UP_POST_SECTION_DELETE: {
+            const {data} = action;
+            const {sections} = state;
+            console.log('DELETE_SECTION_SUCCESS',sections);
+            return Object.assign({}, state, {
+                sections: [].concat(data)
+            });
+        }
         case types.UP_POST_FEATURE_SUCCESS: {
             const {data} = action;
             const {features} = state;
@@ -138,6 +146,15 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 features: features.concat(data)
             });
         }
+        case types.UP_POST_FEATURE_DELETE: {
+            const {data} = action;
+            const {features} = state;
+            console.log('DELETE_FEATURES_SUCCESS',data);
+            return Object.assign({}, state, {
+                features: [].concat(data)
+            });
+        }
+
         case types.UP_SELECT_SECTION: {
             const {_id} = action;
             const {sections, activeSection} = state;
@@ -151,8 +168,8 @@ export default function UpsertProjectReducer(state=initialState, action) {
             const {files} = state;
             return Object.assign({}, state, {
                 files: files.concat({
-                    name, 
-                    good:true, 
+                    name,
+                    good:true,
                     ready: false
                 })
             });
@@ -369,10 +386,11 @@ const initialState = {
     projectLink:'Test',
     timeBegin:'',
     timeEnd:'',
-    status:'',
+    condition:'',
 	users: [],
 	tags: [],
 	technologies: [],
+	conditions: [],
     sections: [],
     features: [],
 	files: [],
