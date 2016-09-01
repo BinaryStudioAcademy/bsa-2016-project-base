@@ -103,6 +103,7 @@ class Tags extends Component {
 				    			onSelect={this.selectAll}
 				    		/>
 				    		<Button
+				    			className={styles["button-add-tags"]}
 				    			label='Remove'
 				    			onClick={this.deleteMany}
 				    			backgroundColor='#FC5A5A'
@@ -115,6 +116,7 @@ class Tags extends Component {
 
 				    			/>
 				    			<Button
+				    				className={styles["button-add-tags"]}
 				    				label='Add tag'
 				    				onClick={this.addTag}
 				    				backgroundColor='#8D97A4'

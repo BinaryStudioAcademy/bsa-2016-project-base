@@ -2,15 +2,16 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions/admin/UpsertProjectActions';
-import { TabPanel, TabBody, TabHead, Button } from '../../common/';
+import { TabPanel, TabBody, TabHead, Button, RaisedButtonUITags } from '../../common/';
 import Inputs from './sections/Inputs';
 import UsersList from './sections/UsersList';
 import Tags from './sections/Tags';
 import Techs from './sections/Techs';
 import Features from './sections/Features';
 import Attachments from './sections/Attachments';
-import styles from './sections/styles/wrapper.sass';
+import styles from './sections/styles/UpsertProject.sass';
 
+//import styles from './sections/styles/UpsertProject.sass';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
@@ -26,16 +27,26 @@ const tabsStyles = {
     },
 
     tabBlock: {
-        "margin-top": "20px"
+        "margin-top": "40px"
     },
     inkBarStyle: {
-        backgroundColor: "#fc5a5a"
+        backgroundColor: "#2ecc71"
     }
 };
 
 const TabsUI = () => (
 <MuiThemeProvider>
   <Tabs tabItemContainerStyle={tabsStyles.tabItemContainerStyle} contentContainerStyle={tabsStyles.tabBlock} inkBarStyle={tabsStyles.inkBarStyle}>
+    <Tab label="Tecnologies *" >
+      <div>
+        <Techs/>
+      </div>
+    </Tab>
+    <Tab label="Users *" >
+      <div>
+        <UsersList/>
+      </div>
+    </Tab>
     <Tab label="Sections & Features">
       <div>
         <Features/>        
@@ -43,22 +54,15 @@ const TabsUI = () => (
     </Tab>
     <Tab label="Tags" >
       <div>
-        <Tags/>
-      </div>
-    </Tab>
-    <Tab label="Tecnologies" >
-      <div>
-        <Techs/>
-      </div>
-    </Tab>
-    <Tab label="Users" >
-      <div>
-        <UsersList/>
+      <Tags/>
       </div>
     </Tab>
   </Tabs>
 </MuiThemeProvider>
 );
+
+                
+
 
 class UpsertProject extends Component {
 	constructor(props) {
@@ -73,7 +77,7 @@ class UpsertProject extends Component {
 	}
 	createProject(e) {
 		console.log('createProject');
-        const {projectName,projectLink,timeBegin,timeEnd,condition,description} = this.props.store;
+        const {projectName,projectLink,timeBegin,timeEnd,status,description} = this.props.store;
         const {users,tags,technologies,sections,features,files} = this.props.store;
         console.log('features ',features);
         console.log('sections ',sections);
@@ -103,7 +107,7 @@ class UpsertProject extends Component {
             users: (() => {
                 const temp = [];
                 users.forEach( user => {
-                    if (user.inProject && !user.owner) temp.push(user._id);
+                    if (user.inProject) temp.push(user._id);
                 });
                 return temp;
             })(),
@@ -120,29 +124,41 @@ class UpsertProject extends Component {
                     temp.push(feature._id);
                 });
                 return temp;
+            })(),
+            attachments: (() => {
+                const temp = [];
+                console.log('files ',files);
+                files.forEach( file => {
+                    temp.push({
+                        name: file.name,
+                        link: file.path
+                    });
+                });
+                console.log('temp ',temp);
+                return temp;
             })()
         }
         console.log('inProject.sections ',inProject.sections);
         console.log('inProject.features ',inProject.features);
         console.log('inProject.users ',inProject.users);
+        console.log('inProject.owners ',inProject.owners);
         const project = {
             projectName,
-            /*projectLink,
-             files,*/
+            /*projectLink,*/
             timeBegin: new Date(timeBegin),
             timeEnd: new Date(timeEnd),
-            stage : "57a2fac7d50c16908d4e0c33", 
-            isCompleted: false,
+            attachments: inProject.attachments,
             sections: inProject.sections,
             features: inProject.features,
             tags: inProject.tags,
             technologies: inProject.technologies,
-            owners: inProject.users,
+            owners: inProject.owners,
             users: inProject.users,
-            condition,
-            description
+            status,
+            description,
+           
         };
-
+        console.log('project ',project);
         /*const project = {
             users: ["57a262f6b42bbf5a2daa98c1"],
             owners: ["57a262f6b42bbf5a2daa98c1"],
@@ -175,12 +191,14 @@ class UpsertProject extends Component {
 	    		<Inputs/>
         		<br/>
         		<TabsUI />
-        		<br/>
-        		<Attachments/>
-        		<br/>
-        		<Button
-                    value="Create project"
+                <br/>
+                <Attachments/>
+                <br/>
+                <RaisedButtonUITags
+                    className={styles.btnCreate}
+                    label='Create project'
                     onClick={this.createProject}
+                    backgroundColor='#8D97A4'
                 />
 	    	</div>
 	    )

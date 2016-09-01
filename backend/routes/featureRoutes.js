@@ -66,6 +66,15 @@ module.exports = function(app) {
 		});
 	}, apiResponse);
 
+	app.delete('/api/features/', function(req, res, next) {
+		featureRepository.deleteMany(req.body,function(err, data) {
+			res.data = data;
+			// res.json(data);//0408
+			res.err = err;
+			next();
+		});
+	}, apiResponse);
+
 
 
 

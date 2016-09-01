@@ -69,10 +69,11 @@ const TabsExampleSimple = ({viewStatusName, viewStartedDate, viewEndDate, averag
 							<TableRowColumn>Started</TableRowColumn>
 							<TableRowColumn>{viewStartedDate}</TableRowColumn>
 						</TableRow>
-						<TableRow>
+						 {viewEndDate &&
+                		<TableRow>
 							<TableRowColumn>Completed</TableRowColumn>
 							<TableRowColumn>{viewEndDate}</TableRowColumn>
-						</TableRow>
+						</TableRow>}
                         <TableRow>
                             <TableRowColumn>Average Rating</TableRowColumn>
                             <TableRowColumn>{averageRating}</TableRowColumn>
@@ -150,8 +151,20 @@ class ProjectView extends Component {
 
     	let viewStatusName = (currentProject == 'none') ? 'Loading... please wait!' : currentProject.status;
 			let viewStartedDate = (currentProject == 'none') ? 'Loading... please wait!' : this.formatDate(new Date(currentProject.timeBegin));
-			let viewEndDate = (currentProject == 'none') ? 'Loading... please wait!' : this.formatDate(new Date(currentProject.timeEnd));
+			//let viewEndDate = (currentProject == 'none') ? 'Loading... please wait!' : this.formatDate(new Date(currentProject.timeEnd));
 			//let viewCondition = (currentProject == 'none') ? 'Loading... please wait!' : currentProject.condition.conditionName;
+		let viewEndDate;
+		if (currentProject == 'none') {
+			viewEndDate = 'Loading... please wait!'
+		} else {
+			if (currentProject.timeEnd) {
+				viewEndDate = this.formatDate(new Date(currentProject.timeEnd))
+			} else {
+				viewEndDate = currentProject.timeEnd;
+			}
+		}
+
+
 		//let viewUsers = (currentProject !== 'none') ? currentProject.users.toString() : 'Users list: Loading... please wait!';
 			let viewUsers = (currentProject == 'none') ? 'Users list: Loading... please wait!' : 'Users list: ...under develop.';
 		//let viewOwners = (currentProject !== 'none') ? currentProject.owners.toString() : 'Owners list: Loading... please wait!';

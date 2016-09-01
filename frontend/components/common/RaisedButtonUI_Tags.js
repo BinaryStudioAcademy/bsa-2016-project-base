@@ -4,7 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
 const RaisedButtonUI = ({id, label, onClick, style, backgroundColor, className}) => (
-  <div className='button-add-tags'>
+  <div className={className}>
     <MuiThemeProvider>
       <RaisedButton
         id={id}

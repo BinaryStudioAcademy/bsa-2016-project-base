@@ -8,35 +8,14 @@
         display: flex 
         justify-content: space-between
         //border: '1px solid #c9c9c9',
-        border-radius: 5px
+        //border-radius: 5px
         padding: 0 1.2rem
         margin-bottom: 1rem
-
-
-	.features-header
-        position: relative
-        padding-left: 1.2rem
-        margin-bottom: 1rem
-        font-size: .8rem
-        &:before
-            background: #2ecc71
-            content: ""
-            display: block
-            width: 10px
-            height: 10px
-            top: 50%
-            transform: translate(0, -50%)
-            left: 0
-            position: absolute
-            border-radius: 50%
-        h2
-            margin: 0
-
 
 	.list-container
 
 		display:flex
-		flex-basis: 46%
+		flex-basis: 47%
 		box-shadow: 0px 1px 15px -6px #777
 		// height: 180px
 		// overflow-y: auto
@@ -69,8 +48,6 @@
 		align-items: center
 		display: flex
 		margin: 1rem 0 2.5rem
-
-		// border-bottom: 1px solid #efefef
 		.col-1-2 + .col-1-2
 			margin-left: 1.8rem 
 	
@@ -88,6 +65,11 @@
 		left: 50%
 		transform: translate(-50%, -50%)
 		text-align: center
+
+	.btnFeature
+    position: absolute
+    right: 20px
+
 .sections-list 
 // border: 1px solid black
 	// overflow-y: auto
@@ -98,5 +80,5 @@
 	div
 		display: inline
 .section-name
-	color: orange
+	color: #2ecc71
 	font-weight: bold
