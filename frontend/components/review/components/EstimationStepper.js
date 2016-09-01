@@ -86,10 +86,10 @@ export default class EstimationStepper extends Component {
 
     getDataFromForm () {
         let data = [];
-        const section = document.getElementById('formSection').getElementsByClassName('section');
+        const section = document.getElementById('formSection').getElementsByClassName('review-section');
 
         for(let i = 0, l = section.length; i < l; i++) {
-            let feature = section[i].getElementsByClassName('feature');
+            let feature = section[i].getElementsByClassName('review-feature');
             let sectionName = section[i].dataset.name;
             let features = [].map.call(feature, item => {
                 let featureName = item.dataset.name;
