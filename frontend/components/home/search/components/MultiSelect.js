@@ -66,11 +66,16 @@ export default class MultiSelect extends Modelable {
     }
 
     render() {
-        return (<div className={styles.listSearch}>
-            <div className={styles.rowSearch}>
+        return (<div style={{display:"flex"}}>
+
                 {this.getLeftBlock()}
                 {this.getRightBlock()}
-            </div>
+
         </div>)
     }
 }
+
+/*
+ className={styles.listSearch}
+<div className={styles.rowSearch}>
+</div>*/
