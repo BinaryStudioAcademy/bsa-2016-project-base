@@ -32,7 +32,6 @@ export default class searchStrategyComponent extends React.Component {
             const str = SearchStrategy[key];
             return <RadioButton
                 key={i}
-                valueSelected={str === model.searchStrategy}
                 value={str}
                 label={SearchStrategy[key]}
                 style={styles.radioButton}
@@ -41,9 +40,9 @@ export default class searchStrategyComponent extends React.Component {
         return <div>
                 <h5>Search strategy</h5>
                 <RadioButtonGroup name="searchStrategy"
-                                  defaultSelected={SearchStrategy.DEFAULT}
-                                  onChange={this.onChange}
-                >{buttons}
+                                  valueSelected={model.searchStrategy}
+                                  onChange={this.onChange}>
+                    {buttons}
                 </RadioButtonGroup>
             </div>
     }

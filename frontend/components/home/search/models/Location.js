@@ -14,6 +14,7 @@ export default class Location extends MultiSelectModel {
         });
         this.ComponentClass = LocationView;
         this.mapZoom = 5;
+        this.displayOnMap = this.displayOnMap.bind(this);
     }
 
     startLoadTips() {
@@ -21,20 +22,27 @@ export default class Location extends MultiSelectModel {
         this.isLoading = true;
         this.notifyUpdated();
         this.getTips(undefined, function (error, tip) {
-            this.tipsError = error ? "Not found" : "";
+            //this.tipsError = error ? "Not found" : "";
             for (let value of self.values) {
                 if (self.equals(value, tip)) {
-                    tip.marker.setMap(null);
-                    return;
+                    return tip.marker.setMap(null);
                 }
             }
-            tip.infoWindow.open(this.map, tip.marker);
+            for (let value of self.tips) {
+                if (self.equals(value, tip)) {
+                    return tip.marker.setMap(null);
+                }
+            }
+            this.displayOnMap(tip);
             this.tips.push(tip);
             this.isLoading = false;
             //this.notifyUpdated();
         }.bind(this))
     }
-
+    displayOnMap(value){
+        value.marker.setMap(this.map);
+        value.infoWindow.open(this.map, value.marker);
+    }
     getTips(value, callback) {
         searchService.getLocations()
             .then(function (locs) {
@@ -45,7 +53,6 @@ export default class Location extends MultiSelectModel {
                         if (status === google.maps.GeocoderStatus.OK) {
                             var res = results[0];
                             var marker = new google.maps.Marker({
-                                map:this.map,
                                 position: res.geometry.location
                             });
                             var infoWindow = new google.maps.InfoWindow({
@@ -96,15 +103,17 @@ export default class Location extends MultiSelectModel {
     }
 
     removeValue(value) {
-        value.marker.setMap(this.map);
-        value.infoWindow.open(this.map, value.marker);
+        this.displayOnMap(value)
         super.removeValue(value)
     }
 
     setMap(map) {
         this.map = map;
+        if (this.tips){
+            this.tips.forEach(this.displayOnMap)
+        }
         map.setZoom(this.mapZoom);
-        this.geocoder = new google.maps.Geocoder();
+        if (!this.geocoder) this.geocoder = new google.maps.Geocoder();
         this.startLoadTips();
     }
     getValueInRequest(){
@@ -113,5 +122,4 @@ export default class Location extends MultiSelectModel {
     getNameInRequest(){
         return "locations"
     }
-
 }
