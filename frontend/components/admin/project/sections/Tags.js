@@ -59,7 +59,7 @@ class Tags extends Component {
                     <div className={styles["tag"]}>                 
                         <span key={tag._id} className={styles["tagName"]}>{tag.tagName}</span>
                         <Button className={styles["btnIcon"]} onClick={(e) => this.removeTagFromProject(e, tag._id)}>
-                            <i className="fa fa-trash-o" aria-hidden="true"></i>
+                            <i className="fa fa-times" aria-hidden="true"></i>
                         </Button>
                     </div>    				
     			);

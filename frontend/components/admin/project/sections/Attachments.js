@@ -77,6 +77,7 @@ class Attachments extends Component {
                 <div className={styles.row}>
                     <div className={styles['field-container']}>
                         <FileUpload
+                            className={styles["upload-container"]}
                             accept="image/jpeg,image/png,image/gif,application/xml"
                             onChange={this.onFilePathChange}
                         />
@@ -84,7 +85,7 @@ class Attachments extends Component {
                         <div className={styles["list"]}>
                             {list}
                         </div> 
-                    </div>                   
+                    </div>                 
                                        
                 </div>
             </div>

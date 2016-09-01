@@ -102,7 +102,7 @@ class Techs extends Component {
                             {/*<span>{tech.techDescription}</span>*/}
                         </div>
                         <Button className={styles["btnIcon"]} onClick={(e) => this.removeTechFromProject(e, tech._id)}>
-                            <i className="fa fa-trash-o" aria-hidden="true"></i>
+                            <i className="fa fa-times" aria-hidden="true"></i>
                         </Button>
                     </div>
     			);

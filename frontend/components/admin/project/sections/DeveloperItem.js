@@ -24,7 +24,7 @@ const DeveloperItem = ({user, onRemoveClick, onCheckboxChange}) => {
                 className={styles.checkbox}
             />
             <Button className={styles["btnIcon"]} onClick={(e) => onRemoveClick(e, user._id)}>
-                <i className="fa fa-trash-o" aria-hidden="true"></i>
+                <i className="fa fa-times" aria-hidden="true"></i>
             </Button>
         </div>
     );

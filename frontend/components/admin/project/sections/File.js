@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Button } from '../../../common/';
+import { Button, RaisedButtonUITags } from '../../../common/';
 import styles from './styles/File.sass';
 
 
@@ -19,19 +19,26 @@ class File extends Component {
         return (
 
             <div id={styles["file-holder"]}>
+                <Button className={styles.btnIcon} onClick={onClick && ((e) => onClick(e,name))}>
+                    <i className="fa fa-times" aria-hidden="true"></i>
+                </Button>
                 <a href={url} target="_blank">
                     <img src={thumb} alt={name} />
                 </a>
                 <div>
                     <span className={styles["name"]}>{name}</span>
-                    <Button onClick={onClick && ((e) => onClick(e,name))}>
-                        <i className="fa fa-trash-o" aria-hidden="true"></i>
-                    </Button>
 
-                    <Button
-                   value="Copy url"
-                   onClick={()=>{this.CopyToClip(this.refs.inputcopy);}}
-                   />
+                    <RaisedButtonUITags
+                      className={styles.btnCopy}
+                      label='Copy url'
+                      onClick={()=>{this.CopyToClip(this.refs.inputcopy);}}
+                      backgroundColor='#8d97a4'
+                    />                 
+
+                    {/*<Button                      
+                      value="Copy url"
+                      onClick={()=>{this.CopyToClip(this.refs.inputcopy);}}
+                   />*/}
                    <input className={styles["copyInput"]} type="text"
                    ref='inputcopy'
                    value={url}

@@ -9,7 +9,7 @@ import Tags from './sections/Tags';
 import Techs from './sections/Techs';
 import Features from './sections/Features';
 import Attachments from './sections/Attachments';
-import styles from './sections/styles/wrapper.sass';
+import styles from './sections/styles/UpsertProject.sass';
 
 import {Tabs, Tab} from 'material-ui/Tabs';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -178,9 +178,11 @@ class UpsertProject extends Component {
         		<br/>
         		<Attachments/>
         		<br/>
-        		<Button
-                    value="Create project"
+                <RaisedButtonUITags
+                    className={styles.btnCreate}
+                    label='Create project'
                     onClick={this.createProject}
+                    backgroundColor='#8D97A4'
                 />
 	    	</div>
 	    )
