@@ -51,7 +51,6 @@ export default class PredicateSearch extends React.Component{
                 keyboardFocused={true}
                 onTouchTap={model.goSearch}
             />
-
         ];
         const hint = <div className={styles.hintContainer}>
             <div><h3>Allowed Symbols</h3></div>
@@ -81,8 +80,6 @@ export default class PredicateSearch extends React.Component{
             value={model.predicate}
             floatingLabelText="Input Predicate"
             receiver={model.setPredicate}/>;
-
-
         return (
             <div>
                 <RaisedButton label="More extended" onTouchTap={model.handleOpen}
@@ -97,15 +94,13 @@ export default class PredicateSearch extends React.Component{
                     autoScrollBodyContent={true}
                 >
                     <div style={{display:"flex",minHeight:"360px"}}>
-                        <div className={styles.left}
-                             onClick={model.handleCloseSelect}>
+                        <div className={styles.left}>
                             {hint}
                             {varsValues}
                             {input}
                             <div>{model.validateMessage}</div>
                         </div>
-                        <div className={styles.right}
-                             onClick={model.handleOpenSelect}>
+                        <div className={styles.right}>
                             <div>
                                 <ExtendedSearchTabs model={model.searchContainer}/>
                             </div>

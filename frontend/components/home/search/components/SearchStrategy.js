@@ -11,7 +11,7 @@ const styles = {
         width:"150px"
     },
 };
-export default class searchStrategyComponent extends React.Component {
+export default class SearchStrategyComponent extends React.Component {
     constructor() {
         super()
         this.onChange = this.onChange.bind(this)

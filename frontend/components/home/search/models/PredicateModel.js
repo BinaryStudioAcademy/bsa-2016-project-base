@@ -34,6 +34,10 @@ function names(p) {
         while (p[i] && skipSymbols.indexOf(p[i]) < 0){
             i += 1;
         }
+        if (i == _i) {
+            i+=1;
+            return name();
+        }
         return p.slice(_i, i);
     }
 
@@ -57,7 +61,6 @@ export default class PredicateModel extends Updatable {
         this.searchContainer = searchContainer;
         this.predicate = "";
         this.isOpen = false;
-        this.isSelectOpened = false;
         this.handleOpen = this.handleOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.goSearch = this.goSearch.bind(this);
@@ -65,8 +68,6 @@ export default class PredicateModel extends Updatable {
         this.validateMessage = "";
         this.validatePredicateTimeoutId = 0;
         this.validatePredicate = this.validatePredicate.bind(this);
-        this.handleCloseSelect = this.handleCloseSelect.bind(this);
-        this.handleOpenSelect = this.handleOpenSelect.bind(this);
         this.setPredicateInput = this.setPredicateInput.bind(this);
         this.clearSearch = this.clearSearch.bind(this);
     }
@@ -80,17 +81,10 @@ export default class PredicateModel extends Updatable {
         //var pos = this.predicate.length-1;//TODO: allow insert in current caret position
         //this.setPredicate([this.predicate.slice(0, pos), string, this.predicate.slice(pos)].join(''));
         this.setPredicate(this.predicate+string);
+        this.notifyUpdated();
     }
     setPredicateInput(input){
         this.predicateInput = input;
-    }
-    handleOpenSelect(){
-        this.isSelectOpened = true;
-        this.notifyUpdated()
-    }
-    handleCloseSelect(){
-        this.isSelectOpened = false;
-        this.validatePredicate();
     }
     handleOpen() {
         this.isOpen = true;
