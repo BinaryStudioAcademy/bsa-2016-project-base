@@ -1,10 +1,14 @@
+//@import "./UpsertProject.sass";
+
 #file-holder
 	box-sizing: border-box
 	padding: 5px
-	margin: 10px
-	border: 5px solid #f1eaea
-	flex: 1 0 140px
-	max-width: 155px
+	padding-top: 20px
+	margin: 5px
+	border: 5px solid #efefef
+	flex: 1 0 110px
+	max-width: 150px
+	position: relative
 	.name
 	  display: block
 	  width: 130px
@@ -19,6 +23,26 @@
 		height: 100%
 	.copyInput
 	  opacity: 0
+
+	.btnCopy
+		//border: 1px solid red
+		margin-top: 10px
+		width: 100%
+
+	.btnIcon
+    background-color: transparent
+    border: none
+    cursor: pointer
+    color: #555
+    outline: none
+    position: absolute
+    top: 0
+    left: 115px
+    &:hover
+        color: #03A9F4
+    &:hover,
+    &:active
+    	outline: none
 	
 	.loader
 	  color: #000000

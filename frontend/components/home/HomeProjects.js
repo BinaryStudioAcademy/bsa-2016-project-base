@@ -28,33 +28,43 @@ export default class HomeProjects extends React.Component {
          model.onErrorSearch = model.onErrorSearch || errorGet;*/
         const projects = model.projects;
         const {activePage,recordsPerPage,total} = model.pagination;
-        return <div className='body'>
-            <div>
-                <div className={styles.bk}>
-                    <div style={{display:"flex",
-    fontFamily: "Lato, sans-serif",
-    fontSize: "1rem",
-    marginBottom: "2rem",
-    justifyContent: "flex-end",
-    paddingRight: "1.1rem"
-                }}>
-                        <GeneralInformation
-                            cnt={ total }/>
-                        {model.isLoading ? <CircularProgress size={0.6}/> : ""}
-                    </div>
-                    <ListProjects
-                        projects={projects}/>
-                    <div style={{display:"flex"}}>
-                        {model.projects.length?<Waypoint onEnter={model.loadMore}/>:""}
-                        {/*<RaisedButton
-                            label="Load More"
-                            onClick={model.loadMore}/>*/}
-                        {model.loadMoreErrorMessage}
-                        {model.isLoading ? <CircularProgress size={0.6}/> : ""}
+        return (
+            <div className='body'>
+                <div>
+                    <div className={styles.bk}>
+                        <div style={
+                            {
+                                display:"flex",
+                                fontFamily: "Lato, sans-serif",
+                                fontSize: "1rem",
+                                marginBottom: "2rem",
+                                justifyContent: "flex-end",
+                                paddingRight: "1.1rem"
+                            }
+                        }>
+                            <GeneralInformation
+                                cnt={ total }
+                            />
+                            {model.isLoading ? <CircularProgress size={0.6}/> : ""}
+                        </div>
+                        <ListProjects
+                            projects={projects}
+                        />
+                        <div style={{display:"flex"}}>
+                            {model.projects.length?<Waypoint onEnter={model.loadMore}/> : ""}
+                            <br />
+                            
+                            {/* <RaisedButton
+                                label="Load More"
+                                onClick={model.loadMore}/>*/}
+
+                            {model.loadMoreErrorMessage}
+                            {model.isLoading ? <CircularProgress size={0.6}/> : ""}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        );   
     }
 }
 /*

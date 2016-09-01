@@ -24,7 +24,6 @@ class Attachments extends Component {
             }
             e.target.value = '';
         }
-        
     }
     removeFile(e, name) {
         console.log('removeFile ',name);
@@ -43,19 +42,24 @@ class Attachments extends Component {
         });
         return (
             <div id={styles["attachments"]}>
-                <fieldset>
-                    <legend>Attachments</legend>
-                    <FileUpload
-                        accept={fileTypes}
-                        multiple={true}
-                        onChange={this.onFilePathChange}
-                    />
+                <header>
+                    <h2>Attachments</h2>
+                </header>
+                <div className={styles.row}>
+                    <div className={styles['field-container']}>
+                        <FileUpload
+							className={styles["upload-container"]}
+                            accept={fileTypes}
+                            multiple={true}
+                            onChange={this.onFilePathChange}
+                        />
                     
-                    <div className={styles["list"]}>
-                        {list}
-                    </div>
-                    
-                </fieldset>
+                        <div className={styles["list"]}>
+                            {list}
+                        </div> 
+                    </div>                 
+                                       
+                </div>
             </div>
         );
     }
