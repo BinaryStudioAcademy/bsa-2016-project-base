@@ -99,7 +99,7 @@ class Techs extends Component {
     }
 
     render(){
-        const { technologies, predefinedTechnologies, initialTechnologies, iconLoaded, techIcon, techIconError } = this.props;
+        const { technologies, iconLoaded, techIcon, techIconError, initialTechnologies, predefinedTechnologies } = this.props;
         if(technologies!= null && initialTechnologies == false) {
             //alert("AGA!");
             this.props.initialStateTechnologies(technologies, predefinedTechnologies);
@@ -192,6 +192,7 @@ class Techs extends Component {
 }
 
 
+
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(actions, dispatch);
 };
@@ -200,7 +201,10 @@ function mapStateToProps(state) {
     return {
         technologies: state.EditProjectReducer.technologies,
         predefinedTechnologies: state.EditProjectReducer.predefinedTechnologies,
-        initialTechnologies: state.EditProjectReducer.initialTechnologies
+        initialTechnologies: state.EditProjectReducer.initialTechnologies,
+        techIconError: state.EditProjectReducer.techIconError,
+        iconLoaded: state.EditProjectReducer.iconLoaded,
+        techIcon: state.EditProjectReducer.techIcon
     };
 };
 

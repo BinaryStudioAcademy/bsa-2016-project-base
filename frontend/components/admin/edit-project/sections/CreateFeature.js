@@ -11,7 +11,7 @@ class CreateFeature extends Component {
         };
         this.setNewFeatureName = this.setNewFeatureName.bind(this);
         this.setNewFeatureDescription = this.setNewFeatureDescription.bind(this);
-        
+
     }
     setNewFeatureName(e) {
         this.setState({
@@ -21,39 +21,39 @@ class CreateFeature extends Component {
     setNewFeatureDescription(html) {
         this.setState({
             descriptionHTMLText: html
-       });
-       
+        });
+
     }
-   
+
     render() {
         const {isActive, onClose, onSave} = this.props;
         const {featureName, descriptionHTMLText} = this.state;
         return (
-           
-                <div className={styles["modal"]} >
-                    <div className="modal-content">
+
+            <div className={styles["modal"]} >
+                <div className="modal-content">
                     <div className="modal-header">
                       <span className="close">
                         <Button value="Close" onClick={onClose}/>
                       </span>
-                      <h2>Create Feature</h2>
+                        <h2>Create Feature</h2>
                     </div>
                     <div className="modal-body">
-                        
-                        <Editor 
+
+                        <Editor
                             handleChange={this.setNewFeatureDescription}
                             initialContent={descriptionHTMLText}
                         />
                     </div>
                     <div className="modal-footer">
-                        <Button 
-                            value="Save"  
+                        <Button
+                            value="Save"
                             onClick={onSave && (() => onSave(descriptionHTMLText))}
-                        />  
+                        />
                     </div>
-                    </div>
-               </div>
-           
+                </div>
+            </div>
+
         );
     }
 }

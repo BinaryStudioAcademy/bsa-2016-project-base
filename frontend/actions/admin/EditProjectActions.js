@@ -103,7 +103,7 @@ export function postTag(tag) {
 export function postTech(tech) {
     return dispatch => {
         dispatch({
-            type: types.UP_POST_TECH_ED
+            type: types.UP_POST_TECH
         });
         return techService.addTechology(tech)
             .then(response => {
@@ -112,15 +112,17 @@ export function postTech(tech) {
                 }
                 return response.json();
             })
-            .then( json =>  {
+            .then(json => {
                 dispatch({
                     type: types.UP_POST_TECH_SUCCESS_ED,
+                    iconLoaded: false,
                     data: json
                 });
             })
-            .catch( error => {
+            .catch(error => {
                 dispatch({
                     type: types.UP_POST_TECH_ERROR_ED,
+                    iconLoaded: false,
                     error: error
                 });
             });
@@ -234,6 +236,42 @@ export function uploadFile(file) {
 
     };
 };
+
+export function deleteSection(id, sections, feturesToDelete) {
+    sections.forEach(function (el, indx) {
+        if (el._id === id) {
+            sections.splice(indx, 1);
+        }
+    });
+    return dispatch => {
+
+        featureService.removeFeatures(feturesToDelete)
+            .catch(error => dispatch(errorHandler('Bad Request')));
+
+        sectionService.removeSection(id)
+            .then(dispatch({
+                type: types.UP_POST_FEATURE_DELETE,
+                data: sections
+            }))
+            .catch(error => dispatch(errorHandler('Bad Request')));
+    }
+}
+export function deleteFeature(id, features) {
+    features.forEach(function (el, indx) {
+        if (el._id === id) {
+            features.splice(indx, 1);
+        }
+    });
+
+    return dispatch => {
+        featureService.removeFeature(id)
+            .then(dispatch({
+                type: types.UP_POST_FEATURE_DELETE_ED,
+                data: features
+            }))
+            .catch(error => dispatch(errorHandler('Bad Request')));
+    }
+}
 
 
 export function removeFile(name) {

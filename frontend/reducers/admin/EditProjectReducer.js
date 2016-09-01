@@ -138,6 +138,15 @@ export default function EditProjectReducer(state=initialState, action) {
             });
         }
 
+        case types.UP_POST_FEATURE_DELETE_ED: {
+            const {data} = action;
+            const {features} = state;
+            console.log('DELETE_FEATURES_SUCCESS',data);
+            return Object.assign({}, state, {
+                features: [].concat(data)
+            });
+        }
+
         case types.UP_SELECT_SECTION_ED: {
             const {_id} = action;
             const {sections, activeSection} = state;
@@ -197,7 +206,7 @@ export default function EditProjectReducer(state=initialState, action) {
             const {project} = action;
             if(project.attachments.length != 0) {
                 var data = project.attachments.map(function (el) {
-                    return fileThumbService.setThumb(Object.assign({}, el, {path: el.link.indexOf("http") == 0? el.link.slice(22) : el.link}));
+                    return fileThumbService.setThumb(Object.assign({}, el, {path: el.link}));
                 });
             }
             return Object.assign({}, state, {
@@ -277,7 +286,7 @@ export default function EditProjectReducer(state=initialState, action) {
             const {sections} = action;
             return Object.assign({}, state, {sections: sections}, {initialSections: true})
         }
-        case types.UP_UPLOAD_ICON_SUCCESS: {
+        case types.UP_UPLOAD_ICON_SUCCESS_ED: {
             const {data, iconLoaded, error} = action;
             const {techIcon} = state;
             return Object.assign({}, state, {

@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { Button } from '../../../common/';
 import styles from './styles/File.sass';
-import * as constants from '../../../../constants/Api';
-const imageTypes = ['png','jpg','jpeg','rtf'];
-
+import * as constants  from '../../../../constants/Api';
+const {ORIGIN} = constants;
 
 class File extends Component {
     constructor(props) {
@@ -15,13 +14,14 @@ class File extends Component {
         document.execCommand("Copy");
     }
     renderStatus(){
-        const {path, thumb, name, ready, good, inBase}  = this.props.file;
+
+        const {path, thumb, name, ready, good}  = this.props.file;
         const {onClick} = this.props;
         if (ready && good) {
             return (
                 <div>
-                    <a href={path} target="_blank">
-                        <img src={constants.ORIGIN + thumb } alt={name} />
+                    <a href={path.indexOf("http") == 0 ? path : constants.ORIGIN + path} target="_blank">
+                        <img src={thumb.indexOf("http") == 0 ? thumb : constants.ORIGIN + thumb} alt={name} />
                     </a>
                     <div>
                         <span className={styles["name"]}>{name}</span>
@@ -35,7 +35,7 @@ class File extends Component {
                         />
                         <input className={styles["copyInput"]} type="text"
                                ref='inputcopy'
-                               value={path}
+                               value={ORIGIN+path}
                         />
                     </div>
                 </div>
