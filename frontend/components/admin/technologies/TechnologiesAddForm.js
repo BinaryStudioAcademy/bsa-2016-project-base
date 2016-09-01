@@ -16,11 +16,14 @@ class TechnologiesAddForm extends Component {
         this.validate = this.validate.bind(this);
         this.saveTechDescription = this.saveTechDescription.bind(this);
         this.saveVersion = this.saveVersion.bind(this);
+        this.saveFileLink = this.saveFileLink.bind(this);
+        this.uploadFileByLink = this.uploadFileByLink.bind(this);
         this.state = {
             formState: this.props.formState,
             techName: '',
             techDescription: '',
-            techVersion: ''
+            techVersion: '',
+            fileLink : ''
         }
     }
 
@@ -74,16 +77,16 @@ class TechnologiesAddForm extends Component {
         }
     }
 
-    validate(e){
-        if(e.target.value.length < 50){
+    validate(e) {
+        if (e.target.value.length < 50) {
             this.setState({
                 techName: e.target.value
             });
             document.getElementById("error").className = 'visible';
-            document.getElementById("error").className ='hidden';
-        }else{
+            document.getElementById("error").className = 'hidden';
+        } else {
             e.preventDefault();
-            document.getElementById("error").className ='hidden';
+            document.getElementById("error").className = 'hidden';
             document.getElementById("error").className = 'visible';
         }
     }
@@ -94,7 +97,8 @@ class TechnologiesAddForm extends Component {
             filepath: nextProps.filepath,
             techName: nextProps.techName,
             techDescription: nextProps.techDescription,
-            techDescription: nextProps.techVersion
+            techVersion: nextProps.techVersion,
+            fileLink: nextProps.fileLink
         });
     }
 
@@ -110,8 +114,17 @@ class TechnologiesAddForm extends Component {
         this.setState({techDescription: e.target.value})
     }
 
-    saveVersion(e){
+    saveFileLink(e) {
+        this.setState({fileLink: e.target.value})
+    }
+
+    saveVersion(e) {
         this.setState({techVersion: e.target.value})
+    }
+
+    uploadFileByLink(e){
+        e.preventDefault();
+        this.props.uploadFileByLink(this.state.fileLink);
     }
 
     render() {
@@ -119,14 +132,16 @@ class TechnologiesAddForm extends Component {
         return (
             <div id="addForm" className={styles['technologies-tab'] + ' ' + this.state.formState}>
                 <form className={styles['form']} onSubmit={this.submitForm}>
-                        <div className="inputField">
-                            <TextInput
-                                label="Name"
-                                onChange={this.validate}
-                                placeholder="Enter name"
-                            />
-                            <div id="error" className={styles['error'] + " hidden"}>Technology length must be less 50 symbols</div>
+                    <div className="inputField">
+                        <TextInput
+                            label="Name"
+                            onChange={this.validate}
+                            placeholder="Enter name"
+                        />
+                        <div id="error" className={styles['error'] + " hidden"}>Technology length must be less 50
+                            symbols
                         </div>
+                    </div>
                     <div className="inputField">
                         <TextInput
                             label="Version"
@@ -134,14 +149,14 @@ class TechnologiesAddForm extends Component {
                             placeholder="Enter version"
                         />
                     </div>
-                        <div className="inputField">
+                    <div className="inputField">
                               <TextArea
                                   label="Description"
                                   className={styles['text-select-input']}
                                   onChange={this.saveTechDescription}
                                   placeholder="Enter description"
                               />
-                        </div>
+                    </div>
                     <input type="hidden" id="file_path" name="techAvatar" value=''/>
                     <div className="inputField">
                         <div id="error" className={styles['error'] + " hidden"}>Wrong file formant</div>
@@ -151,6 +166,21 @@ class TechnologiesAddForm extends Component {
                             style={{display: 'block', marginTop: '20px'}}
                         />
 
+                    </div>
+                </form>
+                <form className={styles['form']} onSubmit={this.uploadFileByLink}>
+                    <div className="inputField">
+                        <TextInput
+                            label="File Link"
+                            onChange={this.saveFileLink}
+                            placeholder="File link"
+                        />
+                    </div>
+                    <div className="inputField">
+                        <RaisedButtonUI
+                            label='UploadByLink'
+                            style={{display: 'block', marginTop: '20px'}}
+                        />
                     </div>
                 </form>
                 <Element name="myScrollToElement"></Element>

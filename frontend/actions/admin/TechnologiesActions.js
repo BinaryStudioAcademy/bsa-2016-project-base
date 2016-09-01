@@ -4,7 +4,6 @@
 import fetch from 'isomorphic-fetch'
 import * as constants from '../../constants/Api';
 export function getTechnologies() {
-    let error_code;
     return dispatch=> {
         fetch(`/api/technologies/`, constants.cookieMarker)
             .then(response => response.json())
@@ -14,6 +13,21 @@ export function getTechnologies() {
                 dispatch(initTechnology([]));
             })
 
+
+    }
+}
+export function uploadFileByLink(link) {
+    return dispatch=> {
+        fetch("/api/uploadByLink/", Object.assign({
+                method: 'POST',
+                body: JSON.stringify({
+                    link:link
+                })
+            }, constants.cookieMarker,
+            constants.jsonHedeaders
+        ))
+         //   .catch(error => dispatch(errorHandler('Bad Request')));
+      //  dispatch(getTechnologies());
 
     }
 }

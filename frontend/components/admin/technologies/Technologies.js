@@ -18,6 +18,7 @@ class Technologies extends Component {
         this.deleteChecked = this.deleteChecked.bind(this);
         this.formAddControlState = this.formAddControlState.bind(this);
         this.controlCheckeditems = this.controlCheckeditems.bind(this);
+        this.uploadFileByLink = this.uploadFileByLink.bind(this);
     }
 
     componentWillMount() {
@@ -104,6 +105,10 @@ class Technologies extends Component {
         this.props.saveTechology(data);
     }
 
+    uploadFileByLink(link){
+        this.props.uploadFileByLink(link);
+    }
+
     render() {
 
         let list;
@@ -129,7 +134,7 @@ class Technologies extends Component {
                         </div>
                 </div>
                 <TechnologiesList listOfTechnologies={list} controlCheckeditems={this.controlCheckeditems}/>
-                <TechnologiesAddForm formState={formState} saveTechnologie={this.saveTechnologie}/>
+                <TechnologiesAddForm formState={formState} saveTechnologie={this.saveTechnologie} uploadFileByLink={this.uploadFileByLink}/>
             </div>
         )
     }
