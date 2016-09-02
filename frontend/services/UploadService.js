@@ -16,8 +16,7 @@ class UploadService {
         	Object.assign({
                 	method: "POST",
             		body:formData
-            	}, constants.cookieMarker,
-               	   constants.jsonHedeaders 
+            	}, constants.cookieMarker
             )
         );    
     }

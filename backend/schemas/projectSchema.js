@@ -17,21 +17,11 @@ var Project = new Schema({
         Latitude: String,
         Longitude: String
     },
-
-    // isCompleted: Boolean,
-
     description: {
         date: {type: Date, default: Date.now},
         descrText: String,
         descrFullText: String
     },
-
-    // screenShots: [{
-    //     internal: Boolean,
-    //     linkToExternalShot: String,
-    //     internalShot: Buffer
-    // }],
-
     screenShots: [String],
 
     attachments: [{
@@ -73,8 +63,4 @@ var Project = new Schema({
     features: [{type: Schema.Types.ObjectId, ref: 'Feature'}]
 });
 
-// let ProjectScehma = mongoose.model('Project', Project);
-// ProjectScehma.populate('owners');
-
 module.exports = mongoose.model('Project', Project);
-// module.exports = ProjectScehma;
