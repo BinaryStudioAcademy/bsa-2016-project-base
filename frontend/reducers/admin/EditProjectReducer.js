@@ -211,8 +211,9 @@ export default function EditProjectReducer(state=initialState, action) {
         }
         case 'INITIAL_STATE_FROM_DB': {
             const {project} = action;
+            var data = [];
             if(project.attachments.length != 0) {
-                var data = project.attachments.map(function (el) {
+                data = project.attachments.map(function (el) {
                     return fileThumbService.setThumb(Object.assign({}, el, {path: el.link}));
                 });
             }
