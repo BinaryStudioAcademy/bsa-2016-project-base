@@ -103,7 +103,7 @@ export function postTag(tag) {
 export function postTech(tech) {
     return dispatch => {
         dispatch({
-            type: types.UP_POST_TECH
+            type: types.UP_POST_TECH_ED
         });
         return techService.addTechology(tech)
             .then(response => {
@@ -398,7 +398,7 @@ export function initialStateFromDB(projectId) {
 
 export function cleanStore() {
     const action = {
-        type: "CLEAN_STORE",
+        type: "CLEAN_STORE_ED",
     }
     return action;
 }

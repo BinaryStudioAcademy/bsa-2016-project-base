@@ -72,7 +72,7 @@ class EditProject extends Component {
         this.updateProject = this.updateProject.bind(this);
     }
     componentWillReceiveProps(nextProps){
-        if(nextProps.store.added) toastr.success('Project', nextProps.store.projectName + ' was added!');
+        if(nextProps.store.added) toastr.success('Project', nextProps.store.projectName + ' was updated!');
     }
     componentWillMount() {
         this.props.getPredefinedData();
@@ -203,7 +203,7 @@ class EditProject extends Component {
                 <Attachments/>
                 <br/>
                 <Button
-                    label="Create project"
+                    label="Update project"
                     onClick={this.updateProject}
                     backgroundColor="rgba(46, 204, 113, 0.9)"
                 />

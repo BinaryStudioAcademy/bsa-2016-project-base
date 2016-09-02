@@ -195,6 +195,13 @@ export default function EditProjectReducer(state=initialState, action) {
                 predefinedTechnologies: addTechToProject(predefinedTechnologies, _id)
             });
         }
+        case types.UP_POST_PROJECT_SUCCESS_ED: {
+            const {data} = action;
+            const {added} = state;
+            return Object.assign({}, state, {
+                added: true
+            });
+        }
         case types.UP_REMOVE_TECH_FROM_PROJECT_ED: {
             const {_id} = action;
             const {predefinedTechnologies} = state;
@@ -234,7 +241,7 @@ export default function EditProjectReducer(state=initialState, action) {
                     descrFullText: project.description.descrFullText
                 }});
         }
-        case 'CLEAN_STORE': {
+        case 'CLEAN_STORE_ED': {
             return Object.assign({}, state, {
                 projectId: null,
                 projectName:'',
