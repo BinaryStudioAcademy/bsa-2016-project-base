@@ -112,7 +112,8 @@ class ProjectView extends Component {
 					<div className={styles['project-view-firstPart']}>
 						<span className={styles['project-name']}>{name}</span>
 						<TagsList>{tags}</TagsList>
-						<div className={styles['project-description']} dangerouslySetInnerHTML={{__html: description}}  />
+						<div className={styles['project-description']} 
+						dangerouslySetInnerHTML={{__html: description}}  />
 						<TechnologiesList>{technologies}</TechnologiesList>
 						<MuiThemeProvider >
 							<Tabs tabItemContainerStyle={tabsStyles.tabItemContainerStyle} 

@@ -1,5 +1,3 @@
-"use strict";
-
 const Token = require("./Token");
 const Node = require("./Node");
 const letters = require("./letters");

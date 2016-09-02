@@ -85,14 +85,16 @@ class SearchService {
 		        					}
 	    	}, function(err, res){
 	    		console.log('async res: ', res);
-	    	
-	    		var query = subtools.prepareMainQuery(searchReturn, searchFilters, res);
+	    		//searchReturn.selectedIds = res;
+
+	    		var [projQuery, projCounter] = subtools.prepareMainQuery(searchReturn, searchFilters, res);
+
 				async.parallel({
 					projList: 	function(cbk){
-		        					query.projQuery.exec(cbk);
+		        					projQuery.exec(cbk);
 		        				},
 		        	matchProj:  function(cbk){
-		        					query.projCounter.exec(cbk);
+		        					projCounter.exec(cbk);
 		        				}
 
 				}, (err, result)=>{
@@ -126,15 +128,14 @@ class SearchService {
 	    		console.log('async res: ', res);
 	    		//searchReturn.selectedIds = res;
 
-	    		//var [projQuery, projCounter] = subtools.prepareMainQuery(searchReturn, searchFilters, res);
-				var query = subtools.prepareMainQuery(searchReturn, searchFilters, res);
-			
+	    		var [projQuery, projCounter] = subtools.prepareMainQuery(searchReturn, searchFilters, res);
+
 				async.parallel({
 					projList: 	function(cbk){
-		        				query.projQuery.exec(cbk);
+		        					projQuery.exec(cbk);
 		        				},
 		        	matchProj:  function(cbk){
-		        				query.projCounter.exec(cbk);
+		        					projCounter.exec(cbk);
 		        				}
 
 				}, (err, result)=>{
