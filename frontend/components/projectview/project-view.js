@@ -104,7 +104,7 @@ class ProjectView extends Component {
 	        				<ActionBuild size={10} className={styles['redirect-to-list']} />
 	        			</MuiThemeProvider >
 	        			<label>	
-	        				<Link to={'/edit-project/' + projectDetail._id} className="editLabel">Edit</Link>
+	        				<Link to={'/edit-project/' + projectDetail['_id']}>Edit</Link>
 						</label>
 	        		</div>
             	</div>	
@@ -112,7 +112,7 @@ class ProjectView extends Component {
 					<div className={styles['project-view-firstPart']}>
 						<span className={styles['project-name']}>{name}</span>
 						<TagsList>{tags}</TagsList>
-						<div className={styles['project-description']}>{description}</div>
+						<div className={styles['project-description']} dangerouslySetInnerHTML={{__html: description}}  />
 						<TechnologiesList>{technologies}</TechnologiesList>
 						<MuiThemeProvider >
 							<Tabs tabItemContainerStyle={tabsStyles.tabItemContainerStyle} 
