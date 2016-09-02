@@ -16,12 +16,12 @@ export default class ProjectsList extends Component {
                 <div>
                     {sectionsName.map((name, key) => {
                         return (
-                            <div key={key} className='section' data-name={name}>
+                            <div key={key} className='review-section' data-name={name}>
                                 <h4 style={{textAlign: 'center'}}>{name}</h4>
                                 <Divider />
                                 {this.props.project[name].map((feature, key)=>{
                                     return (
-                                        <div style={st} key={key} className='feature' data-name={feature.featureName}>
+                                        <div style={st} key={key} className='review-feature' data-name={feature.featureName}>
                                             <div style={nameStyleWrap}>
                                                 <div style={nameStyle}>{feature.featureName}</div>
                                             </div>

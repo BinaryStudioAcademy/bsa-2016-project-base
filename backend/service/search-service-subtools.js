@@ -296,11 +296,22 @@ class SearchServiceSubTools {
            
         } else {
             
+            // let datesQuerySelection = [];
+            // searchFilters.queryProjDateFrom.forEach((elem,ind,arr)=>{
+            //     console.log('Simple search, query dates: ', elem, searchFilters.queryProjDateTo[ind]);
+            //     datesQuerySelection.push(
+            //         {$and: [{timeBegin: {$lte: elem}}, {timeEnd: {$gte: elem}}]},
+            //         {$and: [{timeBegin: {$gte: elem}}, {timeBegin: {$lte: searchFilters.queryProjDateTo[ind]}}]}
+            //     )});
+
             let datesQuerySelection = [];
-            searchFilters.queryProjDateFrom.forEach((elem,ind,arr)=>{datesQuerySelection.push(
-                    {$and: [{timeBegin: {$lte: elem}}, {timeEnd: {$gte: elem}}]},
-                    {$and: [{timeBegin: {$gte: elem}}, {timeBegin: {$lte: searchFilters.queryProjDateTo[ind]}}]}
-                )});
+            console.log('Simple search, query dates: ', searchFilters.queryProjDateFrom, searchFilters.queryProjDateTo);
+            datesQuerySelection.push(
+                {$and: [{timeBegin: {$lte: searchFilters.queryProjDateFrom}}, {timeEnd: {$gte: searchFilters.queryProjDateFrom}}, {status: 'Completed'}]},
+                {$and: [{timeBegin: {$gte: searchFilters.queryProjDateFrom}}, {timeBegin: {$lte: searchFilters.queryProjDateTo}}, {status: 'Completed'}]},
+                {$and: [{timeBegin: {$lte: searchFilters.queryProjDateTo}}, {status: {$ne: 'Completed'}}]}
+            );
+            
 
             let namesQuerySelection =[];
             searchFilters.queryProjNames.forEach((elem) =>{
@@ -418,8 +429,9 @@ class SearchServiceSubTools {
                 
                 selectionsConditionsAnd.datesIn.forEach((elem,ind,arr)=>{outputAnd.$and.push(
                     {   $or: [
-                            {$and: [{timeBegin: {$lte: new Date(elem.from)}}, {timeEnd: {$gte: new Date(elem.from)}}]},
-                            {$and: [{timeBegin: {$gte: new Date(elem.from)}}, {timeBegin: {$lte: new Date(elem.to)}}]}
+                            {$and: [{timeBegin: {$lte: new Date(elem.from)}}, {timeEnd: {$gte: new Date(elem.from)}}, {status: 'Completed'}]},
+                            {$and: [{timeBegin: {$gte: new Date(elem.from)}}, {timeBegin: {$lte: new Date(elem.to)}}, {status: 'Completed'}]},
+                            {$and: [{timeBegin: {$lte: new Date(elem.to)}}, {status: {$ne: 'Completed'}}]}
                         ]
                     }       
                 )});
