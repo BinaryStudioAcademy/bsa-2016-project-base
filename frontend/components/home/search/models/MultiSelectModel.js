@@ -14,9 +14,9 @@ export default class MultiSelectModel extends Model{
     getView(){
         return <Tab key={this.number} value={this.number}
                     label={`${this.title} (${this.values.length})`}>
-            {React.createElement(this.ComponentClass, {
+            <div>{React.createElement(this.ComponentClass, {
                 model: this
-            })}
+            })}</div>
         </Tab>;
     }
     getText(value){

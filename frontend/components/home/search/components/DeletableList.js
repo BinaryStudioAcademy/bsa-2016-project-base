@@ -22,7 +22,7 @@ export default class DeletableList extends React.Component {
             <Subheader>{`Selected ${model.title}:`}</Subheader>
             {model.values.map((value,index)=> {
             const onClick = function(){model.removeValue(value)};
-            return <ListItem
+            return <ListItem style={{WebkitAppearance:"none"}}
                 key={index}
                 primaryText={model.getText(value)}
                 rightIcon={<Delete onClick={onClick}

@@ -1,7 +1,7 @@
-import Token from "./Token";
-import Node from "./Node";
-import letters from "./letters";
-
+const Token = require("./Token");
+const Node = require("./Node");
+const letters = require("./letters");
+const unique = require("./arrayUnique");
 function isName(value) {
     if ("string" !== typeof value) {
         return false;
@@ -13,16 +13,7 @@ function isName(value) {
     }
     return true;
 }
-function unique(array) {
-    for (let i = 0; i < array.length; i += 1) {
-        for (let j = i + 1; j < array.length; j += 1) {
-            if (array[i] == array[j]) {
-                array.splice(j--, 1);
-            }
-        }
-    }
-    return array;
-}
+
 function vars(node) {
     if (!node) {
         return [];
@@ -97,4 +88,4 @@ function evaluate(node) {
     }
     return res;
 }
-export default  evaluate;
+module.exports = evaluate;

@@ -7,7 +7,8 @@ const symbols = {
     '!': 'techs',
     '~': 'owners',
     //'^': 'name',
-    EMPTY:'name'
+    EMPTY:'name',
+    '$': 'description'
 };
 const SPACE = " ";
 
@@ -116,11 +117,11 @@ Object.defineProperty(Array.prototype, "equals", {enumerable: false});
 var s1 = _parser("#tag !tecsdf dfs");
 var s2 = _parser("@user erwer");
 var s3 = _parser("!t");
-var s4 = _parser("#Albanian q");
+var s4 = _parser("#Albanian q $de");
 if (!s1.equals([ 'tags=tag', 'techs=tecsdf', 'name=dfs' ]) ||
     !s2.equals([ 'users=user', 'name=erwer' ])||
     !s3.equals([ 'techs=t' ])||
-    !s4.equals([ 'tags=Albanian', 'name=q' ])){
+    !s4.equals([ 'tags=Albanian', 'name=q' , 'description=de'])){
 
     alert("Search string parser don't working!");
     throw new Error("Search string parser don't working!")
@@ -129,4 +130,5 @@ if (!s1.equals([ 'tags=tag', 'techs=tecsdf', 'name=dfs' ]) ||
 console.log(s2);
 console.log(s3);
 console.log(s4); */
+//console.log(_parser("$qwe !w f"))
 delete Array.prototype.equals;
