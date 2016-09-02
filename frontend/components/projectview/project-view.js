@@ -8,15 +8,15 @@ import { bindActionCreators, combineReducers} from 'redux';
 import * as actions from '../../actions/ProjectViewActions';
 
 /* developers components */
-import TagsList from './tags/TagsList';
-import Gallery from './gallery/Gallery';
+import TagsList from './tags/tagsList';
+import Gallery from './gallery/gallery';
 import UsersList from './users/usersList';
 import Questions from './questions/Questions';
-import TagsListItem from './tags/TagsListItem';
-import FeaturesList from './features/FeaturesList';;
-import FeaturesListItem from './features/FeaturesListItem';
-import TechnologiesList from './technologies/TechnologiesList';
-import TechnologiesListItem from './technologies/TechnologiesListItem';
+import TagsListItem from './tags/tagsListItem';
+import FeaturesList from './features/featuresList';;
+import FeaturesListItem from './features/featuresListItem';
+import TechnologiesList from './technologies/technologiesList';
+import TechnologiesListItem from './technologies/technologiesListItem';
 import EstimationFile from "./estimationFile/EstimationFileReceiverComponentWithLinkField";
 
 /* icons */
