@@ -195,7 +195,7 @@ class EditProject extends Component {
     render() {
         console.log('Rerender Upsert');
         return (
-            <div id={styles["upsert-project"]}>
+            <div id={styles["edit-project"]}>
                 <Inputs/>
                 <br/>
                 <TabsExampleSimple />

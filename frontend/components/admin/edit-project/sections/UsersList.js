@@ -61,7 +61,7 @@ class UsersList extends Component {
         });
 
         return (
-            <div id={styles['user-list']}>
+            <div id={styles['user-list_ed']}>
                 <div className={styles['list-container']}>
                     All users:
                     <div className={styles['list']}>
