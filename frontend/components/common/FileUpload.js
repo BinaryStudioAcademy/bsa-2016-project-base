@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 
-const FileUpload = ({id, accept, multiple, onChange, error}) => {
+const FileUpload = ({id, accept, multiple, onChange, error, className}) => {
     return (
-        <div>
+        <div className={className}>
             <input id={id} type="file" accept={accept} onChange={onChange} multiple={multiple}/>
             <span>{error}</span>
         </div>

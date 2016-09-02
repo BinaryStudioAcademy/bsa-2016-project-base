@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../../actions/admin/UpsertProjectActions';
-import { Button, TextInput } from '../../../common/';
+import { Button, TextInput, TextFieldTags, RaisedButtonUITags} from '../../../common/';
 import Section from './Section';
 import Feature from './Feature';
 import CreateFeature from './CreateFeature';
@@ -47,12 +47,15 @@ class Features extends Component {
 	removeSection(id){
 		const {sections,features} = this.props;
 		let featuresToDelete = [];
+        let featuresToStay = [];
 		features.forEach(function (el,indx) {
 			if(el.section === id){
 				featuresToDelete.push(el);
-			}
+			}else{
+                featuresToStay.push(el);
+            }
 		});
-		this.props.deleteSection(id,sections,featuresToDelete);
+		this.props.deleteSection(id,sections,featuresToDelete,featuresToStay);
 	}
 	removeFeature(id){
 		const {features} = this.props;
@@ -108,39 +111,54 @@ class Features extends Component {
     	const {sections, activeSection} = this.props;
 
     	const addFeature = (
-    		<div className={styles['add-section']}>
-               	<TextInput
-                    value={this.state.featureName}
-                    placeholder='Type feature name'
-                    onChange={this.setNewFeatureName}
-                />
-                <Button 
-                    value="Add"  
-                    onClick={this.showCreateFeatureModal}
-                />   
-        	</div>);
+    		<div className={styles['add-section2']}>
+                <div className={styles['col-1-2']}>
+                    <TextFieldTags 
+                        hintText='Feature Name' 
+                        onChange={this.setNewFeatureName}
+                        style={{width: '100%'}}
+                        value={this.state.featureName}
+                    />
+                </div>
+                <div className={styles['col-1-2']}>
+                    <RaisedButtonUITags
+                        label='Add'
+                        onClick={this.showCreateFeatureModal}
+                        backgroundColor='#8D97A4'
+                    />
+                </div>
+            </div>
+        );
 
 
 
     	if (featuresList.length) {
     		return (
     			<div>
-    				{addFeature} {featuresList}
+    				{addFeature}
+                    <ul className={styles['section-list1']}>
+                        {featuresList}
+                    </ul>
     			</div>
     		);
     	
     	} else if(sectionsList.length && !activeSection.name) {
-    		return 'Select section on the left side to start adding new features!';
+    		return (
+                 <ul className={styles['section-list1']}>
+                    <div className={styles.empty}>'Select section on the left side to start adding new features!'</div>
+                </ul>);
     	} else if(!sectionsList.length) {
-    		return 'Add new section first!';
+    		return (
+                <ul className={styles['section-list1']}>
+                    <div className={styles.empty}>'Add new section first!'</div>
+                </ul>);
     	} else if(activeSection.name) {
     		return (
     			<div>
     				{addFeature}
-    				<div>
-	    				There are no features in <span className={styles["section-name"]}>{activeSection.name}</span> section yet. Start adding new features...
-	    			</div>
-	    			
+    				<ul className={styles['section-list1']}>
+                       <div className={styles.empty}>There are no features in <span className={styles["section-name"]}>{activeSection.name}</span> section yet. Start adding new features...</div>
+                    </ul>
 	            </div>
     		);
     	}
@@ -181,37 +199,51 @@ class Features extends Component {
 
     		<div id={styles['features-list']}>
                 {(this.state.isModalActive && (<CreateFeature 
-                	onClose={this.closeCreateFeatureModal}
-                	onSave={this.addNewFeature}
+                    onClose={this.closeCreateFeatureModal}
+                    onSave={this.addNewFeature}
                 />) )}
-
-                    <div>
+                
+                <div className={styles.row}>
                     <div className={styles['list-container']}>
-                    	Sections:
-                    	<div className={styles['sections-list']}>
-	                    	 <div className={styles['add-section']}>
-			                   	<TextInput
-			                        value={this.state.sectionName}
-			                        placeholder='Type section name'
-			                        onChange={this.setNewSectionName}
-			                    />
-			                    <Button 
-			                        value="Add"  
-			                        onClick={this.addNewSection}
-			                    />   
-	                    	</div>
-                    	{(sectionsList.length ? sectionsList : "There are no sections yet. Start from adding one...")}
-                    	
-	                    </div>
-	                   
+                        <header className={styles['sections-list-header']}>
+                            <div className={styles['col-1-2']}>
+                                <h3>Sections</h3>
+                            </div>
+                        </header>
+                        <div className={styles['add-section2']}>
+                            <div className={styles['col-1-2']}>
+                                <TextFieldTags 
+                                    hintText='Section Name' 
+                                    placeholder='My first project'
+                                    onChange={this.setNewSectionName}
+                                    style={{width: '100%'}}
+                                    value={this.state.sectionName}
+                                />
+                            </div>
+                            <div className={styles['col-1-2']}>
+                                <RaisedButtonUITags
+                                    label='Add'
+                                    onClick={this.addNewSection}
+                                    backgroundColor='#8D97A4'
+                                />
+                            </div>
+
+                        </div>
+                        <ul className={styles['section-list1']}>
+                                {(sectionsList.length ? sectionsList : <div className={styles.empty}>"There are no sections yet. Start from adding one..."</div>)}
+                        </ul>
                     </div>
-                     <div className={styles['list-container']}>
-                     	Features:
-                      	<div className={styles['sections-list']}>
-                      		{this.renderFeatures(featuresList, sectionsList)}
-	                    </div>
-                     </div>
-                   </div>
+                    <div className={styles['list-container']}>
+                        <header className={styles['sections-list-header']}>
+                            <div className={styles['col-1-2']}>
+                                <h3>Features</h3>
+                            </div>
+                        </header>
+                        <div className={styles['sections-list']}>
+                            {this.renderFeatures(featuresList, sectionsList)}
+                        </div>
+                    </div>
+                </div>
             </div>
     	);
     }

@@ -8,7 +8,8 @@ const styles = {
     color: '#fc5a5a'
   },
   underlineStyle: {
-    borderColor: '#D5D7DA'
+    borderColor: '#D5D7DA',
+    borderBottom: '0px solid #D5D7DA'
   },
   underlineFocusStyle: {
     borderColor: '#2ecc71'
@@ -19,7 +20,7 @@ const styles = {
   floatingLabelFocusStyle: {
     color: '#2ecc71'
   },
-  inputStyle: {
+  inputStyle: { 
     color: '#627484',
     fontfamily: 'Lato, sans-serif',
     paddingLeft: ".5rem"
@@ -34,7 +35,7 @@ const styles = {
 
 };
 
-const TextFieldTags = ({hintText, defaultValue, onChange, style, inputStyle, onBlur, value}) => {
+const TextFieldProject = ({hintText, defaultValue, onChange, style, inputStyle, onBlur}) => {
     return (
         <div>
         <MuiThemeProvider>
@@ -52,11 +53,10 @@ const TextFieldTags = ({hintText, defaultValue, onChange, style, inputStyle, onB
               underlineStyle={styles.underlineStyle}
               inputStyle={styles.inputStyle}
               hintStyle={styles.hintStyle}
-              value={value}
             />
           </MuiThemeProvider>
         </div>
     );
 };
 
-export default TextFieldTags;
+export default TextFieldProject;

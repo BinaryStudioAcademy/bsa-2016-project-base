@@ -2,17 +2,16 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions/admin/UpsertProjectActions';
-import { TabPanel, TabBody, TabHead } from '../../common/';
+import { TabPanel, TabBody, TabHead, Button, RaisedButtonUITags } from '../../common/';
 import Inputs from './sections/Inputs';
 import UsersList from './sections/UsersList';
 import Tags from './sections/Tags';
 import Techs from './sections/Techs';
 import Features from './sections/Features';
 import Attachments from './sections/Attachments';
-import {toastr} from 'react-redux-toastr';
-
-import Button from '../../common/RaisedButtonUI_Tags';
 import styles from './sections/styles/UpsertProject.sass';
+import {toastr} from 'react-redux-toastr';
+//import styles from './sections/styles/UpsertProject.sass';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
@@ -28,16 +27,26 @@ const tabsStyles = {
     },
 
     tabBlock: {
-        "margin-top": "20px"
+        "margin-top": "40px"
     },
     inkBarStyle: {
-        backgroundColor: "#fc5a5a"
+        backgroundColor: "#2ecc71"
     }
 };
 
-const TabsExampleSimple = () => (
+const TabsUI = () => (
 <MuiThemeProvider>
   <Tabs tabItemContainerStyle={tabsStyles.tabItemContainerStyle} contentContainerStyle={tabsStyles.tabBlock} inkBarStyle={tabsStyles.inkBarStyle}>
+    <Tab label="Tecnologies *" >
+      <div>
+        <Techs/>
+      </div>
+    </Tab>
+    <Tab label="Users *" >
+      <div>
+        <UsersList/>
+      </div>
+    </Tab>
     <Tab label="Sections & Features">
       <div>
         <Features/>        
@@ -45,17 +54,7 @@ const TabsExampleSimple = () => (
     </Tab>
     <Tab label="Tags" >
       <div>
-        <Tags/>
-      </div>
-    </Tab>
-    <Tab label="Tecnologies" >
-      <div>
-        <Techs/>
-      </div>
-    </Tab>
-    <Tab label="Users" >
-      <div>
-        <UsersList/>
+      <Tags/>
       </div>
     </Tab>
   </Tabs>
@@ -70,8 +69,12 @@ class UpsertProject extends Component {
 	    super(props);
 	    this.createProject = this.createProject.bind(this);
 	}
+
     componentWillReceiveProps(nextProps){
-        if(nextProps.store.added) toastr.success('Project', nextProps.store.projectName + ' was added!');
+        if(nextProps.store.added) {
+            window.scrollTo(0, 0);
+            toastr.success('Project', `${nextProps.store.projectName} was added!`);
+        }
     }
 	componentDidMount() {
 		this.props.getPredefinedData();
@@ -188,17 +191,18 @@ class UpsertProject extends Component {
  	render() {
         console.log('Rerender Upsert');
 	    return (
-	    	<div id={styles["upsert-project"]}>
+	    	<div id={styles['add-project-wrapper']}>
 	    		<Inputs/>
         		<br/>
-        		<TabsExampleSimple />
-        		<br/>
-        		<Attachments/>
-        		<br/>
-        		<Button
-                    label="Create project"
+        		<TabsUI />
+                <br/>
+                <Attachments/>
+                <br/>
+                <RaisedButtonUITags
+                    className={styles.btnCreate}
+                    label='Create project'
                     onClick={this.createProject}
-                    backgroundColor="rgba(46, 204, 113, 0.9)"
+                    backgroundColor='#8D97A4'
                 />
 	    	</div>
 	    )
