@@ -53,7 +53,7 @@ export default class HomeProjects extends React.Component {
                         <div style={{display:"flex"}}>
                             {model.projects.length?<Waypoint onEnter={model.loadMore}/> : ""}
                             <br />
-                            
+
                             {/* <RaisedButton
                                 label="Load More"
                                 onClick={model.loadMore}/>*/}
@@ -64,7 +64,7 @@ export default class HomeProjects extends React.Component {
                     </div>
                 </div>
             </div>
-        );   
+        );
     }
 }
 /*

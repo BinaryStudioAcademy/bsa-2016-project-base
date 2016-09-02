@@ -1,4 +1,4 @@
-export default class Node {
+module.exports = class Node {
     constructor({left,right,value,child}) {
         if (left)this.left = left;
         if (right)this.right = right;

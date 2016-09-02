@@ -1,6 +1,7 @@
 import homeService from "./../../../services/homeService"
 import searchService from "./../../../services/SearchService"
 import Updatable from "./Updatable"
+import JoinStrategy from "./../search/const/SearchStratrgy"
 export default class HomeContainer extends Updatable {
     constructor({searchContainer, component}) {
         super(component);
@@ -29,6 +30,11 @@ export default class HomeContainer extends Updatable {
             this.notifyUpdated()
         }
     }
+
+    /**
+     * @deprecated
+     * @param page
+     */
     setActivePage(page) {
         if (this.pagination.activePage !== page.selected ||
             !page.selected && !this.projects.length) {
@@ -38,6 +44,19 @@ export default class HomeContainer extends Updatable {
         }
     }
 
+    getPredicate(query){
+        const vars = this.searchContainer.varsValues().map(entry=>entry.var);
+        if (vars.length){
+            const strategy = this.searchContainer.searchStrategy;
+            switch (strategy){
+                case JoinStrategy.BY_AND:
+                    return query.push(`predicate=${encodeURIComponent(vars.join("&"))}`);
+                case JoinStrategy.BY_OR:
+                    return query.push(`predicate=${encodeURIComponent(vars.join("|"))}`);
+                default:return;
+            }
+        }
+    }
     goSearch() {
         const self = this;
         this.isLoading = true;
@@ -51,6 +70,7 @@ export default class HomeContainer extends Updatable {
         //query.activePage = this.pagination.activePage;
         query.push(`limit=${this.pagination.recordsPerPage}`);
         query.push(`skip=${this.pagination.recordsPerPage * (this.pagination.activePage)}`);
+        this.getPredicate(query);
         searchService.getProjects(query.join("&"))
             //.then(res=>res.json())
             .then(data=> {

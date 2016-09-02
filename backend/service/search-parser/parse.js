@@ -1,11 +1,12 @@
-import letters from "./letters";
+const letters = require("./letters");
 const SPACE = " ";
-import Token from "./Token";
+const Token = require("./Token");
+const Node = require("./Node");
 
-export default function (string) {
+module.exports = function (string) {
     class Exception extends Error {
         constructor(token, expected) {
-            super(`Unknown symbol ${token} at position ${i}${expected?`, expected ${expected}`:``}`);
+            super(`Unknown symbol ${token} at position ${i}${expected?`, expected ${expected}`:``} in "${string}"`);
             Error.captureStackTrace(this, this.constructor);
         }
     }
@@ -62,10 +63,13 @@ export default function (string) {
             case Token.DIS:
                 const token = currentToken;
                 getToken();
-                return expr()
-
+                return new Node({
+                    value: token,
+                    left,
+                    right: expr()
+                });
             default:
-                return
+                return new Node({value: left});
         }
     }
 
@@ -74,9 +78,13 @@ export default function (string) {
         switch (currentToken) {
             case Token.CON:
                 getToken();
-                return term()
+                return new Node({
+                    value: Token.CON,
+                    left,
+                    right: term()
+                });
             default:
-                return
+                return new Node({value: left})
         }
     }
 
@@ -84,9 +92,9 @@ export default function (string) {
         switch (currentToken) {
             case Token.NOT:
                 getToken();
-                return prim()
+                return new Node({value: Token.NOT, child: prim()});
             case Token.NAME:
-                const name = ""
+                const name = new Node({value: currentTokenValue});
                 getToken();
                 return name;
             case Token.LP:
