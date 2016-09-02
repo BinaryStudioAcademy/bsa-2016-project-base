@@ -13,9 +13,12 @@ const customContentStyle = {
     width: '100%',
     maxWidth: 'none',
     height: '80%',
-    maxHeight: 'none',
-    minHeight: "640px"
 };
+const bodyStyle = {
+    maxHeight: '300px',
+    minHeight: '300px',
+    padding: '0 0 0 28px'
+}
 import Modelable from "./Modelable"
 export default class PredicateSearch extends React.Component{
     constructor(props) {
@@ -62,7 +65,7 @@ export default class PredicateSearch extends React.Component{
                 )}
             </div>
             <Divider/>
-            <div>Example: tag0 & (tag1 -> !tech0)</div>
+            <div className={styles.example}>Example: tag0 & (tag1 -> !tech0)</div>
             <Divider/>
         </div>;
         const varsValues = <div className={styles.hintContainer}>
@@ -87,17 +90,22 @@ export default class PredicateSearch extends React.Component{
                               onClick={model.handleOpen}/>
                 <Dialog
                     contentStyle={customContentStyle}
+                    bodyStyle={bodyStyle}
                     title="Predicate Search"
                     actions={actions}
                     modal={false}
                     open={model.isOpen}
                     onRequestClose={model.handleClose}
                     autoScrollBodyContent={true}
+
                 >
                     <div style={{display:"flex",minHeight:"360px"}}>
                         <div className={styles.left}>
+
                             {hint}
+                            
                             {varsValues}
+                            <Divider />
                             {input}
                             <div>{model.validateMessage}</div>
                         </div>
