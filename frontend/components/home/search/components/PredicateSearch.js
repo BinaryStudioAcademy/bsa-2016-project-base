@@ -76,6 +76,7 @@ export default class PredicateSearch extends React.Component{
             </div>
         </div>;
         const input = <TextInput
+            style={{width:"100%"}}
             ref={model.setPredicateInput}
             value={model.predicate}
             floatingLabelText="Input Predicate"

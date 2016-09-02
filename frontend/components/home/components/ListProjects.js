@@ -26,7 +26,7 @@ export default class ListProjects extends Component {
 
         return (
                 (projects.length > 0) ?
-                <div className='row-project'>
+                <div className={styles.row}>
                     {projects.map( (project, index) =>
                         <Project
                             id={project._id}

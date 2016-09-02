@@ -1,6 +1,6 @@
 import Updatable from "./../../models/Updatable"
 const skipSymbols = "&|->+()! ";
-import JoinStrategy from "./../const/SearchStratrgy"
+import SearchStrategy from "./../const/SearchStratrgy"
 import parse from "./parser/parse"
 function doGetCaretPosition (ctrl) {
 
@@ -34,7 +34,7 @@ function names(p) {
         while (p[i] && skipSymbols.indexOf(p[i]) < 0){
             i += 1;
         }
-        if (i == _i) {
+        if (p[i] && i == _i) {
             i+=1;
             return name();
         }
@@ -160,9 +160,11 @@ export default class PredicateModel extends Updatable {
         this.validatePredicate();
         if (!this.validateMessage){
             this.handleClose();
-            this.searchContainer.joinStrategy = JoinStrategy.DEFAULT;
+            var prevStr = this.searchContainer.searchStrategy;
+            this.searchContainer.searchStrategy = SearchStrategy.DEFAULT
             this.searchContainer.searchModels.push(this);
             this.searchContainer.goExtendedSearch();
+            this.searchContainer.searchStrategy = prevStr;
             if (this.searchContainer.searchModels.pop() !== this) {
                 throw new Error("Cant pop back")
             }
