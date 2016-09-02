@@ -1,11 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { Button } from '../../../common/';
 import styles from './styles/UsersList.sass';
-
+import { DEFAULT } from '../../../../constants/Api';
 
 class UserItem extends Component {
     constructor(props) {
         super(props);
+        this.state = { 
+            defaultImage: DEFAULT + "user.png"
+        };
     }
     shouldComponentUpdate(nextProps, nextState){
         return nextProps.user.inProject !== this.props.user.inProject;
@@ -13,10 +16,10 @@ class UserItem extends Component {
     render(){
         const {user, onAddClick} = this.props;
         return (
-            <div className={styles.listItem}>
-                {/*<img src={user.avatar} alt="user avatar"/>*/}
+            <div className={styles.listItem}>                
                 <div className={styles.userImage}>
-                    <img src="http://99px.ru/sstorage/1/2016/03/image_12303160026034150433.gif" alt="user avatar"/>
+                    <img src={ this.state.defaultImage } alt="user avatar"/>
+                    {/*<img src={user.avatar} alt="user avatar"/>*/}
                 </div>
                 <div className={styles.nameAndPosition}>
                     <div className={styles.userName}>{user.userName + " " + user.userSurname}</div>
