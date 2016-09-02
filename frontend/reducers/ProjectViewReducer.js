@@ -9,7 +9,7 @@ export default function ProjectViewReducer(state = {}, action) {
                     isLoading: false
                 },action.projectData
             );
-        case types.PROJECT_VIEW_ERROR_LOADING : 
+        case types.PROJECT_VIEW_ERROR_LOADING: 
             return Object.assign({
                     isLoading: false
                 },action.error

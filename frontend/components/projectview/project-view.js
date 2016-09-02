@@ -58,6 +58,10 @@ const tabsStyles = {
 	}
 };
 
+function handleActive(tab) {
+	alert(`A tab with this route property ${tab.props['data-route']} was activated.`);
+}
+
 class ProjectView extends Component {
 
     constructor(props){
@@ -85,7 +89,6 @@ class ProjectView extends Component {
 		for(var i in projectDetail.tags) tags.push(<TagsListItem name={projectDetail.tags[i].tagName} key={i} />);
 		for(var i in projectDetail.technologies) technologies.push(<TechnologiesListItem key={i} data={projectDetail.technologies[i]} />);
   		for(var i in projectDetail.features) features.push(<FeaturesListItem key={i} data={projectDetail.features[i]} />);
-
     	return (
             <div id={styles["project-view-content"]}>
             	<div className={styles['project-view-navigation']}>

@@ -19,7 +19,7 @@ class TechnologiesList extends Component {
         });
     }
 
-    // shouldComponentUpdate(nextProps, nextState) {
+        // shouldComponentUpdate(nextProps, nextState) {
     //
     //
     //     if (nextProps.listOfTechnologies.length !== this.props.listOfTechnologies.length || nextProps.allChecked !== this.props.allChecked) {

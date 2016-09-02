@@ -56,7 +56,7 @@ ProjectRepository.prototype.getAll = function(callback){
 
 ProjectRepository.prototype.getAllInProgress = function(callback){
 	var model = this.model;
-	var query = model.find({status: {$not: { $eq: 'Completed' }}}, {_id: 1, projectName: 1, description: 1});
+	var query = model.find({status: {$not: { $eq: 'Completed' }}, features: {$not: {$size: 0}}}, {_id: 1, projectName: 1, description: 1});
 	query.exec(callback);
 };
 

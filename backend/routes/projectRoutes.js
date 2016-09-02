@@ -77,7 +77,6 @@ module.exports = function(app) {
 			next();
 		});
 	}, apiResponse);
-
 	app.get('/api/search/projects', function (req, res, next) {
 		searchService.getFilteredProjects2(req, function (err, data) {
 			res.data = data;

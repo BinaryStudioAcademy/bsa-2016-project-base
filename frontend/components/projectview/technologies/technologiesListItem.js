@@ -17,7 +17,7 @@ class TechnologiesListItem extends React.Component {
 			<div>
 				<img alt={item.techName} src={this.state.defultImage
 					/* (item.techAvatar ? item.techAvatar : this.state.defultImage)}*/ 
-				}/>
+				} />
 				<div>
 					<div>{item.techName}</div>
 					<div>
