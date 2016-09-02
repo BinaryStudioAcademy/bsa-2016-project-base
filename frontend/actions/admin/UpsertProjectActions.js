@@ -446,3 +446,9 @@ export function errorHandler(error) {
         error: error
     }
 }
+
+export function clearData() {
+    return {
+        type: 'UP_CLEAR_DATA'
+    }
+}
