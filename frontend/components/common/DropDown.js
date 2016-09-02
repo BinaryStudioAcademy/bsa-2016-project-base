@@ -1,16 +1,27 @@
 import React, { PropTypes } from 'react';
 import styles from './styles/dropdown.sass';
 
-const DropDown = ({id, label, data, onChange, className}) => {
+const DropDown = ({id, label, data, onChange, className, selectValue}) => {
 	const labelHtml = label ? <label htmlFor={id}>{label}</label> : '';
 	const options = data.map( option => {
-		return (
-			<option 
-                value={option.value} 
-                key={'option_'+option.value}>
-            {option.name}
-            </option>
-		);
+	    if (selectValue == option.name) {
+            return (
+                <option
+                    value={option.value}
+                    key={'option_'+option.value} selected>
+                    {option.name}
+                </option>
+            );
+        } else {
+            return (
+                <option
+                    value={option.value}
+                    key={'option_'+option.value}>
+                    {option.name}
+                </option>
+            );
+        }
+
 	});
 
     return (

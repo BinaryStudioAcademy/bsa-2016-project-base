@@ -8,6 +8,7 @@ import thunk from "redux-thunk";
 import App from './App.js';
 import {Admin, Rights, Tags, Tech} from '../components/admin/';
 import UpsertProject from '../components/admin/project/UpsertProject';
+import EditProject from '../components/admin/edit-project/EditProject'
 import TechDetail from '../components/admin/technologies/detail/TechDetail';
 import ProjectsList from '../components/projects/ProjectsList';
 import ProjectView from '../components/projectview/project-view';
@@ -47,6 +48,7 @@ render(
             <Route path="test" component={Test} />
             <Route path="project-summary/:id" component={ProjectSummary}/>
             <Route path="add-project" component={UpsertProject} title='add project'/>
+            <Route path="edit-project/:id" component={EditProject} title='edit project'/>
             <Route path="admin" component={Admin} title='admin menu'>
               <Route path="rights" component={Rights} />
               <Route path="tags" component={Tags} />

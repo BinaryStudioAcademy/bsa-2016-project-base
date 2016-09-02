@@ -40,6 +40,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import {List, ListItem} from 'material-ui/List';
 import RaisedButtonUI from '../common/RaisedButton-ui';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, averageRating} from 'material-ui/Table';
+import {Link} from 'react-router'
 
 
 const tabsStyles = {
@@ -102,7 +103,9 @@ class ProjectView extends Component {
 	        			<MuiThemeProvider >
 	        				<ActionBuild size={10} className={styles['redirect-to-list']} />
 	        			</MuiThemeProvider >
-	        			<label>Edit</label>
+	        			<label>	
+	        				<Link to={'/edit-project/' + projectDetail._id} className="editLabel">Edit</Link>
+						</label>
 	        		</div>
             	</div>	
 				<div className={styles['projectMain']}>
