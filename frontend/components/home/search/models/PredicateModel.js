@@ -161,10 +161,10 @@ export default class PredicateModel extends Updatable {
         if (!this.validateMessage){
             this.handleClose();
             var prevStr = this.searchContainer.searchStrategy;
-            this.searchContainer.searchStrategy = SearchStrategy.DEFAULT
+            this.searchContainer.setStrategy(SearchStrategy.DEFAULT);
             this.searchContainer.searchModels.push(this);
             this.searchContainer.goExtendedSearch();
-            this.searchContainer.searchStrategy = prevStr;
+            this.searchContainer.setStrategy(prevStr);
             if (this.searchContainer.searchModels.pop() !== this) {
                 throw new Error("Cant pop back")
             }
