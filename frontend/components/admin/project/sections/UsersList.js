@@ -78,7 +78,7 @@ class UsersList extends Component {
                         
                     </div>
 
-                    <div className={styles['list-container']}>
+                    <div className={styles['list-container']} style={{width:"49%"}}>
                         <header className={styles['user-list-header']}>
                             <div className={styles['col-1-2']}>
                                 <h3>Project developers</h3>
