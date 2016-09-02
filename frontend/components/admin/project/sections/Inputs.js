@@ -120,6 +120,7 @@ class Inputs extends Component {
                      <Editor 
                     handleChange={this.onDescriptionChange}
                     initialContent={''}
+                    className='editor'
                     />
                 </div>
                 <hr />
