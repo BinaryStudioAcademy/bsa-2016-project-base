@@ -273,6 +273,14 @@ export function deleteFeature(id, features) {
     }
 }
 
+export function errorHandler(error) {
+    return {
+        type: 'SOMETHING_GONE_WRONG_ED',
+        error: error
+    }
+}
+
+
 
 export function removeFile(name) {
     return {

@@ -14,6 +14,11 @@ export default function UpsertProjectReducer(state=initialState, action) {
 				conditions
             });
         }
+        case types.UP_CLEAR_DATA: {
+            return Object.assign({}, state, {
+                added: false
+            });
+        }
         case types.UP_ADD_USER_TO_PROJECT: {
             const {_id} = action;
             const {users} = state;

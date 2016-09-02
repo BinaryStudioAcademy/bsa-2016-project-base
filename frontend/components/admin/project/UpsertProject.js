@@ -74,6 +74,7 @@ class UpsertProject extends Component {
         if(nextProps.store.added) {
             window.scrollTo(0, 0);
             toastr.success('Project', `${nextProps.store.projectName} was added!`);
+            this.props.clearData();
         }
     }
 	componentDidMount() {

@@ -97,15 +97,21 @@ class ProjectView extends Component {
 	        			<MuiThemeProvider >
 	        				<ActionUndo size={13} className={styles['redirect-to-list']} />
 	        			</MuiThemeProvider >
-	        			<label>Back to projects list</label>
+	        			<label>
+	        				<Link to={'/home/'}>
+	        					Back to projects list
+	        				</Link>
+	        			</label>
 	        		</div>
 	        		<div>
 	        			<MuiThemeProvider >
 	        				<ActionBuild size={10} className={styles['redirect-to-list']} />
 	        			</MuiThemeProvider >
-	        			<label>	
-	        				<Link to={'/edit-project/' + projectDetail['_id']}>Edit</Link>
-						</label>
+	        			<label>
+	        				<Link to={'/edit-project/' + projectDetail['_id']}>
+	        					Edit
+	        				</Link>
+	        			</label>
 	        		</div>
             	</div>	
 				<div className={styles['projectMain']}>
