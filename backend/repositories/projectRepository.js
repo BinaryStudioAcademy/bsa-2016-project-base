@@ -75,4 +75,15 @@ ProjectRepository.prototype.getAllInProgress = function(callback){
 	query.exec(callback);
 };
 
+ProjectRepository.prototype.getDetailsById = function(id,callback){
+	var model = this.model;
+	var query = model.findOne({_id:id})
+		.populate(['technologies', 'tags', 'users','owners','features'])
+		.populate({
+   			path: 'features',
+   			populate: { path: 'section' }
+  		});
+  
+	query.exec(callback);
+};
 module.exports = new ProjectRepository();

@@ -87,7 +87,6 @@ module.exports = function(app) {
 		});
 	}, apiResponse);
 	app.get('/api/search/projects', function (req, res, next) {
-		console.log('GET request on "/api/search/projects" acquired.');
 		searchService.getFilteredProjects(req, function (err, data) {
 			res.data = data;
 			res.err = err;
@@ -148,6 +147,14 @@ module.exports = function(app) {
 				//res.json(data);
 				next();
 			});
+		});
+	}, apiResponse);
+
+	app.get('/api/project-view/:id', function(req, res, next) {
+		projectRepository.getDetailsById(req.params.id, function (err,data) {
+			res.data = data;
+			res.err = err;
+			next();
 		});
 	}, apiResponse);
 };

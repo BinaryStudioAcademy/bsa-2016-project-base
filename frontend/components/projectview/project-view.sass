@@ -9,13 +9,26 @@ $listItemColor: #FAFDFE
 $mainTextColor: #3C3C3C
 $activeBlue: #337ab7
 
-
+body
+    font-family: 'Play'
+    color: $mainTextColor
 
 .screenshots > div
     margin: 0 auto
 
-table input[type="checkbox"]
-    display: none
+.features-list-header > th
+    color: black !important
+    font-size: 15px !important
+
+.feature-item-column-center
+    width: 120px
+    text-align: center !important
+
+    .feature-notChecked > *
+        color: tomato
+
+    .feature-checked > *
+        color: green   
 
 #project-view-content
     font-size: 0.7em
@@ -37,32 +50,79 @@ table input[type="checkbox"]
         table
             font-size: 14px
 
-    .editLabel
-        display: inline-block
-        font-size: 10px
-        margin-left: 9px
+    .project-view-navigation
+        width: 100%
+        padding: 25px 0px 25px 50px
+        display: flex
+        flex-direction: row
+        justify-content: space-between
 
-    .nameHeader
-        margin-left: 10px
+        div
+            width: 170px
+            display: flex
+            color: #93A6AF
+            font-size: 15px
+            flex-direction: row
+            align-items: center
+            padding-bottom: 8px
+
+            label
+                margin-left: 8px
+                font-family: "Open Sans"
+                a
+                    color:#93A6AF
+
+            .redirect-to-list > *
+                cursor: pointer
+                color: #93A6AF
+
+            &:hover 
+                color: black   
+                .redirect-to-list > *, a
+                    color: #293541
 
     .projectMain
-        margin-top: 30px
         display: flex
         flex-direction: row
         justify-content: center
 
-        .firstPart
+        .project-view-firstPart
             display: flex
             flex-basis: 80%
             flex-direction: column
             align-items: flex-start
 
-    .nameProject
-        display: flex
-        justify-content: center
-        margin-bottom: 20px
-        font-family: Play
-        font-size: 2.5em
+            .project-name
+                display: flex
+                font-size: 3em
+                font-family: Play
+                margin-bottom: 20px
+                justify-content: center
+                
+            .project-description
+                margin: 0px 20px  
+                font-size: 14px
+                text-indent: 20px
+                width: calc(100% - 40px)
+                font-family: "Open Sans"
+                padding: 10px 0px 30px 0px 
+                border-bottom: 1px solid #F0F0F3
+
+            .project-tags
+                width: 100%
+                display: block
+                margin-bottom: 30px
+
+                span
+                    color: white
+                    font-size: 13px
+                    padding: 5px 12px
+                    font-family: Lato
+                    border-radius: 4px
+                    display: inline-block  
+                    margin: 8px 4px 8px 0px
+                    background-color: cadetBlue           
+
 
     .screenshots
         display: flex
@@ -79,76 +139,63 @@ table input[type="checkbox"]
                     width: 250px
                     height: 200px
 
-    .tags
-        display: block
-        margin-bottom: 40px
-
-        span
-            font-family: Lato
-            font-size: 12px
-            margin: 5px 5px 5px 0
-            display: inline-block
-            padding: 5px 10px
-            background-color: #d7dadc
-            color: black
-            border-radius: 15px
 
     .technologies
-        display: block
-        margin-bottom: 50px
-
-        ul
-            padding: 0
-
-            li
-                font-family: Lato
-                font-size: 12px
-                margin: 5px 5px 5px 0
-                padding: 5px 10px
-                color: black
-                border-radius: 50%
-                display: inline-block
-
-    .fullDescriptionProject
-        font-size: 14px
-
-
-    .shortDescription
+        width: 100%
         display: flex
-        justify-content: space-between
-        margin-top: 5px
-        font-size: 16px
-        font-family: "Open Sans"
+        flex-wrap: wrap
+        margin: 25px 0px
 
-        span
+        div
+            margin: 13px 10px
+            padding: 0px 10px
+            display: flex
+            height: 60px
+
+            img 
+                width: 60px
+                height: 60px
+                cursor: pointer
+
+            div
+                dislay: flex
+                padding: 0px
+                min-width: 140px
+                align-items: center
+                flex-direction: column
+                justify-content: center
+                margin: -4px 2px 2px 0px
+
+                div:first-child
+                    color: #555
+                    font-size: 15px 
+                        
+                div:last-child
+                    text-align: center
+
+                    span
+                        width: auto
+                        border-top: 2px solid cadetBlue 
+                        padding-top: 8px
+
+                        span
+                            color: white
+                            font-size: 14px 
+                            padding: 4px 10px
+                            border: none
+                            height: calc(100% - 8px)
+
+                        span:first-child
+                            background-color: #2ECC71
+
+                        span:last-child
+                            background-color: #2196F3
 
 
-        span:nth-child(odd)
-            color: #03A9F4
+    .button-redirect-container
+        text-align: center
+        margin: 20px 
 
-        span:nth-child(even)
-            padding-right: 50px
-
-
-
-
-    .tableDescriptionProject
-        display: flex
-        justify-content: center
-
-        table
-            font-size: 18px
-            font-family: Lato
-            border: 0
-
-            tr
-                height: 50px
-                line-height: 3.5rem
-                padding-bottom: 1.4rem
-
-                td:nth-child(even)
-                    display: inline-block
-                    padding-left: 50px
 
     span
         background-color: transparent //!important
@@ -160,13 +207,6 @@ table input[type="checkbox"]
         margin: 20px auto
         font-size: 14pt
 
-    //.info
-    //    width: 1000px
-    //    height: auto
-    //    padding: 20px
-    //    margin: auto
-    //    //text-align: center
-    //    color: $mainTextColor
 
     .header
         font-family: 'Russo One'
@@ -188,9 +228,6 @@ table input[type="checkbox"]
         display: inline-block
         padding: 10px
 
-        // &:hover
-        //   background-color: $activeBlue
-
     .tabpanels
         text-align: left
         font-size: 1em
@@ -209,20 +246,10 @@ table input[type="checkbox"]
         color: $mainTextColor
         cursor: pointer
 
-    .questionItem
-        //font-size: 10pt
-
     .userName
         color: $tomatoColor
         &+p
             cursor: text
-
-    .btn
-        background-color: $lightCadetBlueColor
-        font-size: 0.9em
-        &:hover
-            background-color: $activeBlue
-            color: #fff
 
     .tdbut
         text-align: center
@@ -232,15 +259,3 @@ table input[type="checkbox"]
         height: 300px
         overflow: auto
         margin: 0 auto
-    .project-view-content-header
-        width: 100%
-        box-sizing: border-box
-        font-family: "Lato", sans-serif
-        font-weight: 900
-        font-size: 1.2em
-        padding: 30px 2.5em
-        color: #7A929d
-        text-transform: uppercase
-        background-color: #FEFEFE
-        border-bottom: 1px solid #CED1D6
-        height: 79px
