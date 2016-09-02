@@ -4,7 +4,7 @@ function varsEquals(vars1,vars2){
     if (vars1.length != vars2.length){
         return false;
     }
-    for (let i = 0; i < vars1.length; i+=1){
+    for (var i = 0; i < vars1.length; i+=1){
         if (vars1[i] != vars2[i]) {
             return false;
         }

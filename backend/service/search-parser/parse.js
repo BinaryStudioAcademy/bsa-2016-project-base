@@ -1,3 +1,5 @@
+"use strict";
+
 const letters = require("./letters");
 const SPACE = " ";
 const Token = require("./Token");
