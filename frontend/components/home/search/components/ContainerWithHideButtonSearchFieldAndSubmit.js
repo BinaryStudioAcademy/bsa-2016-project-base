@@ -32,9 +32,12 @@ export default class ContainerWithHideButtonSearchFieldAndSubmit extends React.C
         const searchStrategy = <SearchStrategy model={model}/>;
 
         const body = model.shouldShowSearch?
-            <div>
-                <h3>Extended Search</h3>
-                {searchStrategy}
+            <div className='extended-search'>
+                <header className='extended-search-header'>
+                    <h3>Extended Search</h3>
+                    {searchStrategy}
+                </header>
+                
                 <ComponentContainer
                     model={model}
                 />
@@ -62,14 +65,16 @@ export default class ContainerWithHideButtonSearchFieldAndSubmit extends React.C
             label="Clear Search"
             secondary={true}
             onClick={model.clearSearch}/></div>:"";
-        const searchPreview = <div>
-            <div>Search Preview</div>
+        const searchPreview = <div className='search-pre'>
+            <header className='search-pre-header'><h3>Search Preview</h3></header>
+            <ul className='seach-pre-list'>
             {model.searchModels.map((model,i)=>
                 model.values.length?
-                <div key={i}>
-                    {model.title} : {model.values.map(value=>model.getText(value)).join(", ")}
+                <div key={i} className='search-pre-item'>
+                    <div className='model-title'>{model.title} :</div> <div className='mod'>{model.values.map(value=><div className='model-value'>{model.getText(value)}</div>)}</div>
                 </div>:""
-        )}</div>;
+
+        )}</ul></div>;
 
         const predicateSearch = model.shouldShowSearch?<PredicateSearch model={model.predicateModel}/>:"";
         return (
