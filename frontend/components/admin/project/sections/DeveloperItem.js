@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Button, Checkbox } from '../../../common/';
 import styles from './styles/UsersList.sass';
+import { DEFAULT } from '../../../../constants/Api';
 
 import CheckBoxUI from '../../../common/CheckBox-ui';
 
@@ -8,7 +9,8 @@ class DeveloperItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            checked: false
+            checked: false,
+            defaultImage: DEFAULT + "user.png"
         }
     }
     componentWillReceiveProps(nextProps) {
@@ -27,7 +29,7 @@ class DeveloperItem extends Component {
             <div className={styles.listItem}>
                 {/*<img src={user.avatar} alt="user avatar"/>*/}
                 <div className={styles.userImage}>
-                    <img src="http://99px.ru/sstorage/1/2016/03/image_12303160026034150433.gif" alt="user avatar"/>
+                    <img src={ this.state.defaultImage } alt="user avatar"/>
                 </div>
                 <div className={styles.nameAndPosition}>
                     <div className={styles.userName}>{user.userName + " " + user.userSurname}</div>

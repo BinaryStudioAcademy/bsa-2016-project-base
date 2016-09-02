@@ -11,7 +11,6 @@ import Features from './sections/Features';
 import Attachments from './sections/Attachments';
 import styles from './sections/styles/UpsertProject.sass';
 import {toastr} from 'react-redux-toastr';
-//import styles from './sections/styles/UpsertProject.sass';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
