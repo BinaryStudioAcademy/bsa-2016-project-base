@@ -10,7 +10,7 @@ import Techs from './sections/Techs';
 import Features from './sections/Features';
 import Attachments from './sections/Attachments';
 import styles from './sections/styles/UpsertProject.sass';
-
+import {toastr} from 'react-redux-toastr';
 //import styles from './sections/styles/UpsertProject.sass';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -69,8 +69,12 @@ class UpsertProject extends Component {
 	    super(props);
 	    this.createProject = this.createProject.bind(this);
 	}
-    shouldComponentUpdate(){
-        return false;
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.store.added) {
+            window.scrollTo(0, 0);
+            toastr.success('Project', `${nextProps.store.projectName} was added!`);
+        }
     }
 	componentDidMount() {
 		this.props.getPredefinedData();

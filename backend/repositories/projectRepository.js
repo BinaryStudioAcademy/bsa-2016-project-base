@@ -19,6 +19,21 @@ ProjectRepository.prototype.getByIdWithStakeholders = function(id, callback){
 	query.exec(callback);
 };
 
+ProjectRepository.prototype.getByAllData = function(id, callback) {
+	var model = this.model;
+	var query = model.findOne({_id: id})
+		.populate("tags")
+		.populate({
+			path: "features",
+			populate: {path: "section"}
+		})
+		.populate("technologies")
+		.populate("owners")
+		.populate("users");
+	query.exec(callback);
+};
+
+
 ProjectRepository.prototype.getByIdWithTags = function(id, callback){
 	var model = this.model;
 	var query = model.findOne({_id:id})

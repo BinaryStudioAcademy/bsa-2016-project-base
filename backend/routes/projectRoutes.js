@@ -40,6 +40,15 @@ module.exports = function(app) {
 		});
 	}, apiResponse);
 
+	app.get('/api/projects/:id/allData', function(req, res, next) {
+		projectRepository.getByAllData(req.params.id, function(err, data) {
+			res.data = data;
+			res.err = err;
+			//res.json(data);
+			next();
+		});
+	}, apiResponse);
+
 	app.get('/api/projects/:id/features', function(req, res, next) {
 		projectRepository.getByIdWithFeatures(req.params.id, function(err, data) {
 			res.data = data;
