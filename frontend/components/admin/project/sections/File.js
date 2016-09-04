@@ -37,7 +37,7 @@ class File extends Component {
                         />
                         <input className={styles["copyInput"]} type="text"
                             ref='inputcopy'
-                            value={ORIGIN+path}
+                            defaultValue={ORIGIN+path}
                         />
                     </div>
                 </div>

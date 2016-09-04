@@ -72,7 +72,9 @@ class UpsertProject extends Component {
     componentWillReceiveProps(nextProps){
         if(nextProps.store.added) {
             window.scrollTo(0, 0);
-            toastr.success('Project', `${nextProps.store.projectName} was added!`);
+            toastr.success('Project', `${nextProps.store.projectName} was added!`, {
+              timeOut: 10000
+            });
             this.props.clearData();
         }
     }
@@ -158,7 +160,7 @@ class UpsertProject extends Component {
             technologies: inProject.technologies,
             owners: inProject.owners,
             users: inProject.users,
-            status,
+            status: status.value,
             description,
            
         };

@@ -16,16 +16,14 @@ class Inputs extends Component {
         this.onConditionChange = this.onConditionChange.bind(this);
         this.onDescriptionChange = this.onDescriptionChange.bind(this);
     }
-    shouldComponentUpdate(nextProps, nextState){
-        return false;
-    }
+   
     onProjectNameChange(e, id){
-    	console.log('onProjectnameChange: ',e.target.value, id);
+        //console.log('onProjectNameChange: ',e.target.value, id);
     	const name = e.target.value;
     	this.props.changeProjectName(name);
     }
     onProjectLinkChange(e, id){
-    	console.log('onProjectLinkChange: ',e.target.value, id);
+    	//console.log('onProjectLinkChange: ',e.target.value, id);
     	const link = e.target.value;
     	this.props.changeProjectLink(link);
     }
@@ -39,25 +37,23 @@ class Inputs extends Component {
     	const date = d;
     	this.props.changeFinishDate(date);
     }
-    onConditionChange(e){
-    	console.log('onConditionChange: ',e.target.value);
-    	const option = e.target.value;
+    onConditionChange(e,option){
+    	console.log('onConditionChange: ',option);
+    	//const option = e.target.value;
     	this.props.changeCondition(option);
     }
     onDescriptionChange(html){
     	console.log('onDescriptionChange: ',html);
+        const {setEditorRerender} = this.props;
     	this.props.changeDescription(html);
     }
-    shouldComponentUpdate(nextProps, nextState ){
-        return nextProps.conditions !== this.props.conditions;
-    }
+    
     render() {
         const conditionOpts = [
             {value:'Estimation', name:'Estimation'},
             {value:'InProgress', name:'InProgress'},
             {value:'Completed', name:'Completed'}
         ]
-
         console.log('Rerender Inputs');
     	return (
 	        <div id={styles['basic-information']}>
@@ -67,6 +63,7 @@ class Inputs extends Component {
                 <div className={styles.row}>
                     <div className={styles['field-container']}>
 	        	        <TextFieldProject
+                            value={this.props.projectName}
 		        	        hintText='Project name' 
 		        	        placeholder='My first project'
 		        	        onChange={this.onProjectNameChange}
@@ -75,6 +72,7 @@ class Inputs extends Component {
                     </div>
                     <div className={styles['field-container']}>
 	        	        <TextFieldProject 
+                            value={this.props.projectLink}
 	        		        hintText='Link to project' 
 	        	 	        placeholder='Link to project'
 	        		        onChange={this.onProjectLinkChange}
@@ -85,6 +83,7 @@ class Inputs extends Component {
                 <div className={styles.row}>
                     <div className={styles['col-1-3']}>
                         <DatePickerControlled 
+                            value={this.props.timeBegin}
                             hint='Start Date'
                             style={{width: '100%' ,
                                     cursor: 'pointer'}}
@@ -93,6 +92,7 @@ class Inputs extends Component {
                     </div>
                     <div className={styles['col-1-3']}>
                         <DatePickerControlled
+                            value={this.props.timeEnd}
                             hint='End Date'
                             style={{width: '100%'}}
                             onChange={this.onFinishDateChange}
@@ -101,7 +101,7 @@ class Inputs extends Component {
                     <div className={styles['col-1-3']}>
                         
                         <DropDownNewProject
-                            label='Condition' 
+                            value={this.props.status}
                             data = {conditionOpts}
                             onChange={this.onConditionChange}
                             id='Condition'
@@ -118,9 +118,9 @@ class Inputs extends Component {
                 </header>
                 <div className={styles.row}>
                      <Editor 
-                    handleChange={this.onDescriptionChange}
-                    initialContent={''}
-                    className='editor'
+                        handleChange={this.onDescriptionChange}
+                        initialContent={this.props.description.descrFullText}
+                        className='editor'
                     />
                 </div>
                 <hr />
@@ -136,8 +136,15 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
     return {
-        
+        projectName: state.UpsertProjectReducer.projectName,
+        projectLink: state.UpsertProjectReducer.projectLink,
+        timeBegin: state.UpsertProjectReducer.timeBegin,
+        timeEnd: state.UpsertProjectReducer.timeEnd,
+        status: state.UpsertProjectReducer.status,
+        description: state.UpsertProjectReducer.description
     };
 };
 
+
+             
 export default connect(mapStateToProps, mapDispatchToProps)(Inputs);
