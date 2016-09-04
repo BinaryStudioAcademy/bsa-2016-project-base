@@ -270,8 +270,10 @@ class SearchServiceSubTools {
                 }
                 //console.log('getStrictTechsIdFromSearchQuery() -> result: ', result);
                 queryArr.forEach((elem, ind, arr)=>{
+                    console.log('Techs find: ', result.find(elem_=> elem_.techName == elem));
                     selectedTechsId.push(result.find(elem_=> elem_.techName == elem)._id);
                 });
+                console.log('getStrictTechsIdFromSearchQuery -> selectedTechsId: ', selectedTechsId);
                 callback(null, selectedTechsId);
             });
         } else {callback(null, null)}
@@ -401,7 +403,7 @@ class SearchServiceSubTools {
                                 break;
                     case 'date': if (elem.vars[elem_] == '1') 
                                     {selectionsConditionsAnd.datesIn.push({from: searchReturn.queryDates[parseInt(keyParts[2])].dateFrom, to: searchReturn.queryDates[parseInt(keyParts[2])].dateTo})}
-                                else {selectionsConditionsAnd.datesNin.push({from: searchReturn.queryDates[parseInt(keyParts[2]).dateFrom], to: searchReturn.queryDates[parseInt(keyParts[2])].dateTo})};
+                                else {selectionsConditionsAnd.datesNin.push({from: searchReturn.queryDates[parseInt(keyParts[2])].dateFrom, to: searchReturn.queryDates[parseInt(keyParts[2])].dateTo})};
                                 break;
                     case 'name': if (elem.vars[elem_] == '1') 
                                     {selectionsConditionsAnd.namesIn.push(searchReturn.queryProjNames[parseInt(keyParts[2])])}
