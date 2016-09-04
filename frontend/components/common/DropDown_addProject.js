@@ -6,27 +6,41 @@ export default class DropDownNewProject extends React.Component {
         super(props);
 
         this.state = {
-            selected: this.props.label
+            selected: this.props.data[0]
         };
     }
-
+    componentWillReceiveProps(nextProps) {
+        console.log('componentWillReceiveProps ',nextProps.value )
+        const value = nextProps.value || nextProps.data[0];
+        this.setState({selected: value});
+    }
     render() {
-        let labelHtml = <label htmlFor={this.props.id}>{this.state.selected}</label>;
+        console.log('this.state.selected.name ',this.state.selected)
+        let labelHtml = <label htmlFor={this.props.id}>{this.state.selected.name}</label>;
         const options = this.props.data.map( option => {
             return (
                 <option 
+                   
                     value={option.value} 
                     key={'option_'+option.value}>
                     {option.name}
                 </option>
             );
         });
+        //let labelHtml = <label htmlFor={this.props.id}>options.name</label>;
         return (
             <div>
                 {labelHtml}
-                <select id={this.props.id} onChange={(e) => {
-                    this.setState({selected: e.target.value});
-                    this.props.onChange(e);
+                <select id={this.props.id} value={this.state.selected.value} onChange={(e) => {
+                    /*this.setState({selected: this.props.data.filter(item => {
+                        return item.value === e.target.value;
+                    })[0]});*/
+                    const option = this.props.data.filter(item => {
+                        return item.value === e.target.value;
+                    })[0];
+
+                    this.props.onChange(e,option);
+                    
                 }}>
                     {options}
                 </select>
@@ -38,6 +52,7 @@ export default class DropDownNewProject extends React.Component {
 DropDownNewProject.propTypes = {
     id: PropTypes.string,
     label: PropTypes.string,
+    value: PropTypes.object,
     data: PropTypes.array.isRequired,
     onChange: PropTypes.func
 };
