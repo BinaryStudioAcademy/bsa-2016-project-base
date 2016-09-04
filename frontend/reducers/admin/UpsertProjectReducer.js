@@ -1,8 +1,6 @@
 import * as types from '../../actions/admin/UpsertProjectActionTypes';
 
 
-
-
 export default function UpsertProjectReducer(state=initialState, action) {
 	switch (action.type) {
 		 case types.UP_GET_DATA_SUCCESS: {
@@ -15,8 +13,28 @@ export default function UpsertProjectReducer(state=initialState, action) {
             });
         }
         case types.UP_CLEAR_DATA: {
+            const {users,tags,technologies} = state;
             return Object.assign({}, state, {
-                added: false
+                added: false,
+                tagExists: false,
+                iconLoaded: false,
+                sections: [],
+                features: [],
+                files: [],
+                activeSection: {},
+                projectName:'',
+                projectLink:'',
+                timeBegin:null,
+                timeEnd:null,
+                status:{value:'Estimation', name:'Estimation'},
+                techIcon:{},
+                techIconError: '',
+                description:{
+                    descrFullText: ''
+                },
+                users: setDefaults(users,{inProject: false,owner:false}),
+                tags: setDefaults(tags,{inProject: false}),
+                technologies: setDefaults(technologies,{inProject: false})
             });
         }
         case types.UP_ADD_USER_TO_PROJECT: {
@@ -83,10 +101,9 @@ export default function UpsertProjectReducer(state=initialState, action) {
         case types.UP_CHANGE_DESCRIPTION: {
             const {text} = action;
             return Object.assign({}, state, {
-            	
-            		description:{
+            	description:{
             			descrFullText:text
-            		} 
+            	}
             	
             });
         }
@@ -228,6 +245,17 @@ export default function UpsertProjectReducer(state=initialState, action) {
         }
     }
 };
+
+
+const setDefaults = (source, props) => {
+    source.forEach( (item, index) => {
+            for(var key in props){
+                const value = props[key];
+                item[key] = value;
+            }
+    });
+    return [].concat(source);
+}
 
 const updateFileSuccess = (files, data) => {
      if (!data.hasOwnProperty('error')) {
@@ -387,11 +415,11 @@ const feature = {
 
 
 const initialState = {
-    projectName:'Test',
-    projectLink:'Test',
-    timeBegin:'',
-    timeEnd:'',
-    condition:'',
+    projectName:'',
+    projectLink:'',
+    timeBegin:null,
+    timeEnd:null,
+    status: {value:'Estimation', name:'Estimation'},
 	users: [],
 	tags: [],
 	technologies: [],
@@ -404,9 +432,9 @@ const initialState = {
     added: false,
     iconLoaded: false,
     techIcon: {},
-    techIconError: null,
+    techIconError: '',
     description:{
-        descrFullText: 'Description'
+        descrFullText: ''
     } 
 
 };
