@@ -24,9 +24,9 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 errors: null,
                 activeSection: {},
                 projectName:'',
-                projectLink:{},
-                timeBegin:'',
-                timeEnd:null,
+                projectLink:'',
+                timeBegin:{},
+                timeEnd:{},
                 status:{value:'Estimation', name:'Estimation'},
                 techIcon:{},
                 techIconError: '',
@@ -422,11 +422,11 @@ const feature = {
 
 
 
-const initialState = { 
+const initialState = {
     projectName:'',
     projectLink:'',
     timeBegin:{},
-    timeEnd:null, 
+    timeEnd:{},
     status: {value:'Estimation', name:'Estimation'},
 	users: [],
 	tags: [],
