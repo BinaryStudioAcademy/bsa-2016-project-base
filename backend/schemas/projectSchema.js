@@ -13,6 +13,8 @@ var Project = new Schema({
 
     projectName: {type: String, required: true},
 
+    linkToProject: String,
+
     location: {
         Latitude: String,
         Longitude: String
