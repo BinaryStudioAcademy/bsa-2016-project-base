@@ -1,6 +1,8 @@
 import MultiSelectModel from "./MultiSelectModel"
 import LocationView from "./../components/Location"
 import searchService from "./../../../../services/SearchService"
+import SmallProjectView from "./../../components/Project"
+import React from "react"
 export default class Location extends MultiSelectModel {
     constructor({component}) {
         super({
@@ -11,53 +13,81 @@ export default class Location extends MultiSelectModel {
             component
         });
         this.ComponentClass = LocationView;
+        this.onMarkerMouseOver = this.onMarkerMouseOver.bind(this);
         //this.mapZoom = 5;
         //this.displayOnMap = this.displayOnMap.bind(this);
         if (!this.geocoder) this.geocoder = new google.maps.Geocoder();
+    }
 
+    onMarkerMouseOver(mapContentToDestination, projectId){
+        searchService.getProject(projectId)
+            .then(res=>{
+                var project = res.project;
+                mapContentToDestination(`
+Имя проекта: ${project.projectName}<br/>
+Cюда надо красивый лаяут<br/>
+Такой же будет появлятся при наведении<br/>
+на место в правом списке`);//TODO: make better layout
+            })
     }
 
     displayOnMap(value){
         value.marker.setMap(this.map);
-        value.infoWindow.open(this.map, value.marker);
+        value.shouldShowInfo ?
+            value.infoWindow.open(this.map, value.marker):
+            value.infoWindow.close();
+
     }
+
     getTips(value, callback) {
         var self = this;
         searchService.getLocations()
             .then(function(res){
-                var newTips = res.map(tip=>{
-                    var marker = new google.maps.Marker({
-                        position:tip.latLng
-                    });
+                var shouldShowInfo = res.locations.length < 30;
+                var newTips = res.locations.map(tip=>{
+                    try {
+                        if (!tip.location || !tip.location.Latitude || !tip.location.Longitude)return;
 
-                    var infoWindow = new google.maps.InfoWindow({
-                        content:tip.label
-                    });
+                        var marker = new google.maps.Marker({
+                            position:{
+                                lat: parseFloat(tip.location.Latitude),
+                                lng: parseFloat(tip.location.Longitude)
+                            }
+                        });
+                        var text = tip.label;
+                        var infoWindow = new google.maps.InfoWindow({
+                            content: shouldShowInfo?text:undefined
+                        });
 
-                    var newTip = {
-                        marker,
-                        text:tip.label,
-                        infoWindow
-                    };
+                        var newTip = {
+                            marker,
+                            text,
+                            infoWindow,
+                            shouldShowInfo
+                        };
 
-                    marker.addListener('mouseover', function () {
-                        infoWindow.open(self.map, marker);
-                    });
+                        marker.addListener('mouseover', function () {//TODO: optimize closure memory leak
+                            self.onMarkerMouseOver(content=>
+                                infoWindow.setContent(content), tip.projId
+                            );
+                            infoWindow.open(self.map, marker);
+                        });
 
-                    marker.addListener('mouseout', function() {
-                        infoWindow.setContent(newTip.text)
-                    });
+                        marker.addListener('mouseout', function() {//TODO: optimize closure memory leak
+                            newTip.shouldShowInfo ? infoWindow.setContent(newTip.text) : infoWindow.close();
+                        });
 
-                    marker.addListener('click', function(){
-                        self.addValue(newTip)
-                    })
+                        marker.addListener('click', function(){//TODO: optimize closure memory leak
+                            self.addValue(newTip)
+                        });
 
-                    self.displayOnMap(newTip)
-                    return newTip
-
+                        self.displayOnMap(newTip);
+                        return newTip
+                    }catch (e){/*empty*/}
                 });
                 self.map.setCenter(newTips[0].marker.position)
-                callback(res.err,newTips)
+                callback(res.err,newTips.filter(tip=>tip))
+                res = null;
             })
     }
 

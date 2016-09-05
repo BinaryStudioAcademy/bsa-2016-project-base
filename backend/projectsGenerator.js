@@ -64,7 +64,11 @@ function generate(count){
                 tags: values(tags),
                 technologies: values(techs),
                 timeBegin: new Date(new Date().getTime() - random(100000) - 10000),
-                status:["Completed", "Estimation", "InProgress"][random(2)]
+                status:["Completed", "Estimation", "InProgress"][random(2)],
+                location: {
+                    Latitude: ""+Math.random()*90-45,
+                    Longitude: ""+Math.random()*90-45
+                },
             });
             project.save(function (err) {
                 if (err) throw err;
