@@ -24,10 +24,7 @@ export default class Location extends MultiSelectModel {
             .then(res=>{
                 var project = res.project;
                 mapContentToDestination(`
-Имя проекта: ${project.projectName}<br/>
-Cюда надо красивый лаяут<br/>
-Такой же будет появлятся при наведении<br/>
-на место в правом списке`);//TODO: make better layout
+Project Name: ${project.projectName}`);//TODO: make better layout
             })
     }
 
