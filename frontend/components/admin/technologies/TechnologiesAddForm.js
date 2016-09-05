@@ -159,8 +159,9 @@ class TechnologiesAddForm extends Component {
         return (
             <div id="addForm" className={styles['technologies-tab'] + ' ' + this.state.formState}>
                 {(this.props.techAvatar) ?
-                    <div id="img">
+                    <div id="img" className={styles['detail_picture_wrapper']}>
                         <img src={this.props.techAvatar}/>
+                        <a href="javascript:void(0);" onClick={this.deleteImage}>Delete Image</a>
                     </div>
                     : <div className="inputField">
                     <a href="javascript:void(0)"
