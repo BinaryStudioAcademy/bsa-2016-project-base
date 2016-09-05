@@ -21,10 +21,11 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 sections: [],
                 features: [],
                 files: [],
+                errors: null,
                 activeSection: {},
                 projectName:'',
-                projectLink:'',
-                timeBegin:null,
+                projectLink:{},
+                timeBegin:'',
                 timeEnd:null,
                 status:{value:'Estimation', name:'Estimation'},
                 techIcon:{},
@@ -126,6 +127,13 @@ export default function UpsertProjectReducer(state=initialState, action) {
             const {added} = state;
             return Object.assign({}, state, {
                 added: true
+            });
+        }
+        case types.UP_POST_PROJECT_ERROR: {
+            const error = action.error;
+            const {added} = state;
+            return Object.assign({}, state, {
+                errors: error
             });
         }
         case types.UP_POST_TAG_SUCCESS: {
@@ -414,11 +422,11 @@ const feature = {
 
 
 
-const initialState = {
+const initialState = { 
     projectName:'',
     projectLink:'',
-    timeBegin:null,
-    timeEnd:null,
+    timeBegin:{},
+    timeEnd:null, 
     status: {value:'Estimation', name:'Estimation'},
 	users: [],
 	tags: [],

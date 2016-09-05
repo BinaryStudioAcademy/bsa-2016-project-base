@@ -85,5 +85,6 @@ export default class DatePickerControlled extends React.Component {
 }
 DatePickerControlled.propTypes = {
    hint: React.PropTypes.string.isRequired,
-   style: React.PropTypes.object.isRequired
+   style: React.PropTypes.object.isRequired,
+   value: React.PropTypes.object || React.PropTypes.string
 };
