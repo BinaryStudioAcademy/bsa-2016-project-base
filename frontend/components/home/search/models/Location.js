@@ -1,8 +1,6 @@
 import MultiSelectModel from "./MultiSelectModel"
 import LocationView from "./../components/Location"
 import searchService from "./../../../../services/SearchService"
-var labels = "ABCDEFGJKLMNOPRSTU";
-var labelIndex = 0;
 export default class Location extends MultiSelectModel {
     constructor({component}) {
         super({
@@ -18,106 +16,70 @@ export default class Location extends MultiSelectModel {
         if (!this.geocoder) this.geocoder = new google.maps.Geocoder();
 
     }
-/*
-    startLoadTips() {
-        var self = this;
-        this.isLoading = true;
-        this.notifyUpdated();
-        this.getTips(undefined, function (error, tip) {
-            //this.tipsError = error ? "Not found" : "";
-            for (let value of self.values) {
-                if (self.equals(value, tip)) {
-                    return tip.marker.setMap(null);
-                }
-            }
-            for (let value of self.tips) {
-                if (self.equals(value, tip)) {
-                    return tip.marker.setMap(null);
-                }
-            }
-            this.displayOnMap(tip);
-            this.tips.push(tip);
-            this.isLoading = false;
-            //this.notifyUpdated();
-        }.bind(this))
-    }
+
     displayOnMap(value){
         value.marker.setMap(this.map);
         value.infoWindow.open(this.map, value.marker);
     }
     getTips(value, callback) {
+        var self = this;
         searchService.getLocations()
-            .then(function (locs) {
-                var count = 0;
-                var loadData = function (loc, zeroResult) {
-                    this.geocoder.geocode({location: loc}, function (results, status) {
-                        console.log(status, count);
-                        if (status === google.maps.GeocoderStatus.OK) {
-                            var res = results[0];
-                            var marker = new google.maps.Marker({
-                                position: res.geometry.location
-                            });
-                            var infoWindow = new google.maps.InfoWindow({
-                                content: res.formatted_address
-                            });
-                            var tip = {
-                                marker: marker,
-                                text: res.formatted_address,
-                                infoWindow: infoWindow
-                            };
-                            //marker.addListener("click", this.addValue.bind(this, tip));
-                            marker.addListener('mouseover', function () {
-                                infoWindow.open(self.map, marker);
-                            });
+            .then(function(res){
+                var newTips = res.map(tip=>{
+                    var marker = new google.maps.Marker({
+                        position:tip.latLng
+                    });
 
-                            /*marker.addListener('mouseout', function() {
-                             infoWindow.close();
-                             });
-                            callback(null, tip);
+                    var infoWindow = new google.maps.InfoWindow({
+                        content:tip.label
+                    });
 
-                        }
-                        if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
-                            return setTimeout(function () {
-                                loadData(loc);
-                            }, 2500);
-                        }
-                        if (status === google.maps.GeocoderStatus.ZERO_RESULTS) {
-                            setTimeout(function () {
-                                if (zeroResult < 4) {
-                                    loadData(loc, (zeroResult||0) + 1);
-                                }
-                            }, 4000);
-                        }
+                    var newTip = {
+                        marker,
+                        text:tip.label,
+                        infoWindow
+                    };
 
-                        if (locs[count+1]) {
-                            count += 1;
-                            loadData(locs[count])
-                        }
-                    }.bind(this))
-                }.bind(this);
-                loadData(locs[0], 0);
-            }.bind(this));
+                    marker.addListener('mouseover', function () {
+                        infoWindow.open(self.map, marker);
+                    });
+
+                    marker.addListener('mouseout', function() {
+                        infoWindow.setContent(newTip.text)
+                    });
+
+                    marker.addListener('click', function(){
+                        self.addValue(newTip)
+                    })
+
+                    self.displayOnMap(newTip)
+                    return newTip
+
+                });
+                self.map.setCenter(newTips[0].marker.position)
+                callback(res.err,newTips)
+            })
     }
-*/
-    /*addValue(value) {
+
+    addValue(value) {
         value.marker.setMap(null);
         super.addValue(value);
-    }*/
+    }
 
-    /*removeValue(value) {
+    removeValue(value) {
         this.displayOnMap(value)
         super.removeValue(value)
-    }*/
+    }
 
-   /* setMap(map) {
+    setMap(map) {
         this.map = map;
         if (this.tips){
             this.tips.forEach(this.displayOnMap)
         }
-        map.setZoom(this.mapZoom);
+        map.setZoom(5);
         if (!this.geocoder) this.geocoder = new google.maps.Geocoder();
-        //this.startLoadTips();
-    }*/
+        this.startLoadTips();
+    }
     getValueInRequest(){
         return this.values.map(value=>JSON.stringify(value.marker.position))
     }

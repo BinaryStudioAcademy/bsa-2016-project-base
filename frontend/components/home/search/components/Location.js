@@ -19,19 +19,15 @@ export default class Location extends MultiSelect {
         this.mapElement = mapElementReference;
     }
 
-    setInput(input){
-        this.input = input;
-    }
-
     componentDidMount() {
         const {model} = this.props;
-        /*const map = new google.maps.Map(this.mapElement, {
+        const map = new google.maps.Map(this.mapElement, {
             zoom: 4,
             center: {lat: 53.52604744889203, lng: -1.08411407470703125}
         });
-        model.setMap(map);*/
-        var input = /** @type {!HTMLInputElement} */this.input;
-            //document.createElement("input");
+        model.setMap(map);
+        var input = /** @type {!HTMLInputElement} */
+            document.createElement("input");
         input.setAttribute("style", `background-color: #fff;
   font-family: Roboto;
   font-size: 15px;
@@ -40,27 +36,23 @@ export default class Location extends MultiSelect {
   padding: 0 11px 0 13px;
   text-overflow: ellipsis;
   width: 300px;`)
-       // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
         var autocomplete = new google.maps.places.Autocomplete(input);
-        //autocomplete.bindTo('bounds', map);
+        autocomplete.bindTo('bounds', map);
 
 
         autocomplete.addListener('place_changed', function () {
             var place = autocomplete.getPlace();
 
-            if (place && place.geometry){
-                model.addValue({text:place.name,location:place.geometry.location});
-                input.value = "";
-                // If the place has a geometry, then present it on a map.
-                /*if (place.geometry.viewport) {
-                    map.fitBounds(place.geometry.viewport);
-                } else {
-                    map.setCenter(place.geometry.location);
-                    map.setZoom(17);  // Why 17? Because it looks good.
-                }*/
-            }
 
+            // If the place has a geometry, then present it on a map.
+            if (place && place.geometry && place.geometry.viewport) {
+                map.fitBounds(place.geometry.viewport);
+            } else {
+                map.setCenter(place.geometry.location);
+                map.setZoom(17);  // Why 17? Because it looks good.
+            }
 
 
 
@@ -70,14 +62,9 @@ export default class Location extends MultiSelect {
 
     getLeftBlock() {
         return (
-            <div>
-                <input type="text"
-                     ref={this.setInput.bind(this)}/>
-                <div style={{height: `350px`,width:"70%"}}
-                     ref={this.setMapElementReference.bind(this)}>
-                </div>
+            <div style={{height: `350px`,width:"70%"}}
+                 ref={this.setMapElementReference.bind(this)}>
             </div>
-
         )
     }
 }
