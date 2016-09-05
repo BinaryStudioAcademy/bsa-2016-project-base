@@ -19,10 +19,15 @@ class Technologies extends Component {
         this.formAddControlState = this.formAddControlState.bind(this);
         this.controlCheckeditems = this.controlCheckeditems.bind(this);
         this.uploadFileByLink = this.uploadFileByLink.bind(this);
+        this.setVisibleUploadByLink = this.setVisibleUploadByLink.bind(this);
     }
 
     componentWillMount() {
         this.props.getTechnologies();
+    }
+
+    setVisibleUploadByLink(hideFile,hideForm){
+        this.props.setVisibleUploadByLink(hideFile,hideForm);
     }
 
     technologiesSearch(text) {
@@ -101,6 +106,7 @@ class Technologies extends Component {
     }
 
 
+
     saveTechnologie(data) {
         this.props.saveTechology(data);
     }
@@ -112,14 +118,13 @@ class Technologies extends Component {
     render() {
 
         let list;
-        const {listOfTechnologies, listOfTechnologiesFiltered, formState}
+        const {listOfTechnologies, listOfTechnologiesFiltered, formState,techAvatar,hideFile,hideForm}
             = this.props.stateFromReducer.TechnologiesReducer;
         if (listOfTechnologiesFiltered.length > 0) {
             list = listOfTechnologiesFiltered;
         } else {
             list = listOfTechnologies;
         }
-
         return (
             <div id="technologies" className={styles["technologies-tab"]}>
                 <div className={styles['technologies-tool-bar']}>
@@ -134,7 +139,9 @@ class Technologies extends Component {
                         </div>
                 </div>
                 <TechnologiesList listOfTechnologies={list} controlCheckeditems={this.controlCheckeditems}/>
-                <TechnologiesAddForm formState={formState} saveTechnologie={this.saveTechnologie} uploadFileByLink={this.uploadFileByLink}/>
+                <TechnologiesAddForm hideFile={hideFile} hideForm={hideForm} techAvatar={techAvatar}
+                                     formState={formState} saveTechnologie={this.saveTechnologie}
+                                     uploadFileByLink={this.uploadFileByLink} setVisibleUploadByLink={this.setVisibleUploadByLink}/>
             </div>
         )
     }

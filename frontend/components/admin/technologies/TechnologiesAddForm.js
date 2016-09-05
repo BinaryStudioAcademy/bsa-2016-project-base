@@ -18,16 +18,38 @@ class TechnologiesAddForm extends Component {
         this.saveVersion = this.saveVersion.bind(this);
         this.saveFileLink = this.saveFileLink.bind(this);
         this.uploadFileByLink = this.uploadFileByLink.bind(this);
+        this.setVisibleLinkForm = this.setVisibleLinkForm.bind(this);
         this.state = {
             formState: this.props.formState,
             techName: '',
             techDescription: '',
             techVersion: '',
-            fileLink : ''
+            fileLink: '',
+            techAvatar: this.props.techAvatar,
+            hideFile: this.props.hideFile,
+            hideForm: this.props.hideForm
         }
     }
 
+    setVisibleLinkForm() {
+        let {hideFile, hideForm} = this.state;
+
+
+        if (hideFile === 'visible') {
+            hideFile = 'hidden'
+        } else {
+            hideFile = 'visible'
+        }
+        if (hideForm === 'visible') {
+            hideForm = 'hidden'
+        } else {
+            hideForm = 'visible'
+        }
+        this.props.setVisibleUploadByLink(hideFile, hideForm);
+    }
+
     upload(e) {
+        var self = this;
         var error = document.getElementById('error');
         error.classList.add('hidden');
         error.classList.remove('visible');
@@ -42,7 +64,8 @@ class TechnologiesAddForm extends Component {
             if (this.status === 200) {
                 var result = JSON.parse(xhr.responseText);
                 if (result.type === 'success') {
-                    document.getElementById('file_path').value = result.file;
+                    console.log(result);
+                    self.setState({techAvatar: result.file});
                 } else {
                     error.classList.remove('hidden');
                     error.classList.add('visible');
@@ -59,9 +82,10 @@ class TechnologiesAddForm extends Component {
         let data = {
             techName: this.state.techName,
             techDescription: this.state.techDescription,
-            techAvatar: form.elements['techAvatar'].value,
+            techAvatar: this.state.techAvatar,
             techVersion: this.state.techVersion
         };
+        document.getElementById('img').remove();
         form.reset();
         this.props.saveTechnologie(data);
 
@@ -95,20 +119,23 @@ class TechnologiesAddForm extends Component {
         this.setState({
             formState: nextProps.formState,
             filepath: nextProps.filepath,
-            techName: nextProps.techName,
-            techDescription: nextProps.techDescription,
-            techVersion: nextProps.techVersion,
-            fileLink: nextProps.fileLink
+            techName: nextProps.techName || this.state.techName,
+            techDescription: nextProps.techDescription || this.state.techDescription,
+            techVersion: nextProps.techVersion || this.state.techVersion,
+            fileLink: nextProps.fileLink,
+            techAvatar: nextProps.techAvatar,
+            hideFile: nextProps.hideFile,
+            hideForm: nextProps.hideForm,
         });
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps.formState !== this.props.formState) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     if (nextProps.formState !== this.props.formState || nextProps.hideFile !== this.props.hideFile) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
     saveTechDescription(e) {
         this.setState({techDescription: e.target.value})
@@ -122,7 +149,7 @@ class TechnologiesAddForm extends Component {
         this.setState({techVersion: e.target.value})
     }
 
-    uploadFileByLink(e){
+    uploadFileByLink(e) {
         e.preventDefault();
         this.props.uploadFileByLink(this.state.fileLink);
     }
@@ -131,6 +158,15 @@ class TechnologiesAddForm extends Component {
 
         return (
             <div id="addForm" className={styles['technologies-tab'] + ' ' + this.state.formState}>
+                {(this.props.techAvatar) ?
+                    <div id="img">
+                        <img src={this.props.techAvatar}/>
+                    </div>
+                    : <div className="inputField">
+                    <a href="javascript:void(0)"
+                       onClick={this.setVisibleLinkForm}>{(this.state.hideForm === 'hidden') ? 'UploadByLink' : 'UploadByFile'}</a>
+                </div>
+                }
                 <form className={styles['form']} onSubmit={this.submitForm}>
                     <div className="inputField">
                         <TextInput
@@ -158,27 +194,30 @@ class TechnologiesAddForm extends Component {
                               />
                     </div>
                     <input type="hidden" id="file_path" name="techAvatar" value=''/>
+                    {(!this.props.techAvatar) ?
+                        <div className={this.state.hideForm + " inputField"}>
+                            <TextInput
+                                label="File Link"
+                                onChange={this.saveFileLink}
+                                placeholder="File link"
+                            />
+                            <input type="button"
+                                   label='UploadByLink'
+                                   onClick={this.uploadFileByLink}
+                                   style={{display: 'block', marginTop: '20px'}}
+                                   value='UploadByLink'
+                            />
+                        </div>
+                        : ''}
+
                     <div className="inputField">
                         <div id="error" className={styles['error'] + " hidden"}>Wrong file formant</div>
-                        <input type="file" id="file" name="afile" onChange={this.upload}/>
+                        <input className={this.state.hideFile} type="file" id="file" name="afile"
+                               onChange={this.upload}/>
+
+
                         <RaisedButtonUI
                             label='Send'
-                            style={{display: 'block', marginTop: '20px'}}
-                        />
-
-                    </div>
-                </form>
-                <form className={styles['form']} onSubmit={this.uploadFileByLink}>
-                    <div className="inputField">
-                        <TextInput
-                            label="File Link"
-                            onChange={this.saveFileLink}
-                            placeholder="File link"
-                        />
-                    </div>
-                    <div className="inputField">
-                        <RaisedButtonUI
-                            label='UploadByLink'
                             style={{display: 'block', marginTop: '20px'}}
                         />
                     </div>

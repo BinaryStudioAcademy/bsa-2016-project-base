@@ -12,11 +12,14 @@ module.exports = function(app) {
 	},apiResponse);
 
 	app.post('/api/uploadByLink/', function(req, res, next) {
-		var folder = './upload/';
+		var folder = './upload/resources/tech/';
 		var fileExt = req.body.link.slice(req.body.link.lastIndexOf('.'));
 		var newFileName = String(uuid.v1()) + fileExt;
 		download(req.body.link,folder+newFileName,function (el) {
 			console.log(el);
+			res.json({
+				'link' : newFileName
+			})
 		})
 	});
 };

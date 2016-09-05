@@ -12,8 +12,6 @@ export function getTechnologies() {
                 dispatch(errorHandler('Bad Request'));
                 dispatch(initTechnology([]));
             })
-
-
     }
 }
 export function uploadFileByLink(link) {
@@ -26,9 +24,22 @@ export function uploadFileByLink(link) {
             }, constants.cookieMarker,
             constants.jsonHedeaders
         ))
-         //   .catch(error => dispatch(errorHandler('Bad Request')));
-      //  dispatch(getTechnologies());
+            .then(response => response.json())
+            .then(json =>  dispatch(setImageFromLink(json)))
 
+    }
+}
+export function setImageFromLink(img) {
+    return {
+        type : 'SET_IMAGE_FROM_LINK',
+        techAvatar : '/upload/resources/tech/' + img.link
+    }
+}
+export function setVisibleUploadByLink(hideFile,hideForm) {
+    return {
+        type: 'SET_VISIBLE_FORM_BY_LINK',
+        hideFile :hideFile,
+        hideForm: hideForm
     }
 }
 export function initTechnology(listOfTechno) {
@@ -70,6 +81,9 @@ export function setAddFormState(state) {
         type: "SET_ADD_FORM_STATE",
         formState: state
     }
+}
+export function changeVisibleUpload() {
+
 }
 export function removeSelectedTechs(technologies) {
     return dispatch=> {
