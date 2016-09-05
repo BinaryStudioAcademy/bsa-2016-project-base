@@ -10,8 +10,7 @@ import Techs from './sections/Techs';
 import Features from './sections/Features';
 import Attachments from './sections/Attachments';
 import styles from './sections/styles/UpsertProject.sass';
-
-//import styles from './sections/styles/UpsertProject.sass';
+import {toastr} from 'react-redux-toastr';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
@@ -54,7 +53,7 @@ const TabsUI = () => (
     </Tab>
     <Tab label="Tags" >
       <div>
-        <Tags/>
+      <Tags/>
       </div>
     </Tab>
   </Tabs>
@@ -69,8 +68,15 @@ class UpsertProject extends Component {
 	    super(props);
 	    this.createProject = this.createProject.bind(this);
 	}
-    shouldComponentUpdate(){
-        return false;
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.store.added) {
+            window.scrollTo(0, 0);
+            toastr.success('Project', `${nextProps.store.projectName} was added!`, {
+              timeOut: 10000
+            });
+            this.props.clearData();
+        }
     }
 	componentDidMount() {
 		this.props.getPredefinedData();
@@ -154,7 +160,7 @@ class UpsertProject extends Component {
             technologies: inProject.technologies,
             owners: inProject.owners,
             users: inProject.users,
-            status,
+            status: status.value,
             description,
            
         };
@@ -186,14 +192,20 @@ class UpsertProject extends Component {
 
  	render() {
         console.log('Rerender Upsert');
+        console.log(this.props.store);
 	    return (
 	    	<div id={styles['add-project-wrapper']}>
 	    		<Inputs/>
         		<br/>
+                <div className={styles['valid-container']}>
+                {this.props.store.errors && this.props.store.errors.technologies && <div className={styles.validationTech}><div className={styles.tool}>{this.props.store.errors.technologies}</div></div>}
+
+               {this.props.store.errors && (this.props.store.errors.users || this.props.store.errors.owners) && <div className={styles.validationUser} style={this.props.store.errors.technologies ? {marginLeft: '3rem'} : {marginLeft: '17rem'}}><div className={styles.tool}>{this.props.store.errors.users || this.props.store.errors.owners}</div></div>}
+                </div>
         		<TabsUI />
-        		<br/>
-        		<Attachments/>
-        		<br/>
+                <br/>
+                <Attachments/>
+                <br/>
                 <RaisedButtonUITags
                     className={styles.btnCreate}
                     label='Create project'
@@ -210,6 +222,7 @@ function mapDispatchToProps(dispatch) {
 };
 
 function mapStateToProps(state) {
+    console.log(state);
     return {
         store: state.UpsertProjectReducer
     };

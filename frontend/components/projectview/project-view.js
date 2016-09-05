@@ -1,28 +1,46 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { bindActionCreators, combineReducers} from 'redux';
-import { connect } from 'react-redux';
-import * as actions from '../../actions/project-view-actions.js';
-import Screenshots from './gallery/gallery.js';
-import TechnologiesList from './technologies/technologiesList.js';
-import TagsList from './TagsList.js';
-import UserList from './users-component/users_list';
+/* general */
 import styles from './project-view.sass';
-import EstimationFile from "./estimationFile/EstimationFileReceiverComponentWithLinkField"
-import Questions from './questions/Questions'; // QuestionsStatic is just for static representation
+
+import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
+import React, { Component } from 'react';
+import { bindActionCreators, combineReducers} from 'redux';
+import * as actions from '../../actions/ProjectViewActions';
+
+/* developers components */
+import TagsList from './tags/tagsList';
+import Gallery from './gallery/gallery';
+import UsersList from './users/usersList';
+import Questions from './questions/Questions';
+import TagsListItem from './tags/tagsListItem';
+import FeaturesList from './features/featuresList';;
+import FeaturesListItem from './features/featuresListItem';
+import TechnologiesList from './technologies/technologiesList';
+import TechnologiesListItem from './technologies/technologiesListItem';
+import EstimationFile from "./estimationFile/EstimationFileReceiverComponentWithLinkField";
+
+/* icons */
+import FaPlus from 'react-icons/lib/fa/plus';
 import FaList from 'react-icons/lib/fa/list';
-import {Tabs, Tab} from 'material-ui/Tabs';
-import Slider from 'material-ui/Slider';
-import RaisedButtonUI from '../../components/common/RaisedButton-ui';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {List, ListItem} from 'material-ui/List';
-import ContentInbox from 'material-ui/svg-icons/content/inbox';
+import FaMinus from 'react-icons/lib/fa/minus'; 
+
+import ActionUndo from 'material-ui/svg-icons/content/undo';
+import ActionInfo from 'material-ui/svg-icons/action/info';
+import ActionBuild from 'material-ui/svg-icons/action/build';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
 import ContentSend from 'material-ui/svg-icons/content/send';
+import ContentInbox from 'material-ui/svg-icons/content/inbox';
 import ContentDrafts from 'material-ui/svg-icons/content/drafts';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+/* material-ui components */
+import Slider from 'material-ui/Slider';
 import Divider from 'material-ui/Divider';
-import ActionInfo from 'material-ui/svg-icons/action/info';
+import {Tabs, Tab} from 'material-ui/Tabs';
+import {List, ListItem} from 'material-ui/List';
+import RaisedButtonUI from '../common/RaisedButton-ui';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, averageRating} from 'material-ui/Table';
+import {Link} from 'react-router'
 
 
 const tabsStyles = {
@@ -37,171 +55,135 @@ const tabsStyles = {
 	},
 
 	tabBlock: {
-	    "margin-top": "20px",
+	    marginTop: 20,
 	}
 };
 
 function handleActive(tab) {
 	alert(`A tab with this route property ${tab.props['data-route']} was activated.`);
 }
-const TabsExampleSimple = ({viewStatusName, viewStartedDate, viewEndDate, averageRating, questions}) => (
-	<MuiThemeProvider >
-	<Tabs tabItemContainerStyle={tabsStyles.tabItemContainerStyle} contentContainerStyle={tabsStyles.tabBlock}>
-		<Tab label="Users" className='fsgwarfw' >
-					<UserList />
-		</Tab>
-		<Tab label="Screenshots" >
-			<div>
-				<div className="screenshots">
-					<Screenshots />
-				</div>
-			</div>
-		</Tab>
-		<Tab label="General information">
-			<div>
-				<Table>
-					<TableBody>
-						<TableRow>
-							<TableRowColumn>Status</TableRowColumn>
-							<TableRowColumn>{viewStatusName}</TableRowColumn>
-						</TableRow>
-						<TableRow>
-							<TableRowColumn>Started</TableRowColumn>
-							<TableRowColumn>{viewStartedDate}</TableRowColumn>
-						</TableRow>
-						 {viewEndDate &&
-                		<TableRow>
-							<TableRowColumn>Completed</TableRowColumn>
-							<TableRowColumn>{viewEndDate}</TableRowColumn>
-						</TableRow>}
-                        <TableRow>
-                            <TableRowColumn>Average Rating</TableRowColumn>
-                            <TableRowColumn>{averageRating}</TableRowColumn>
-                        </TableRow>
-					</TableBody>
-				</Table>
-			</div>
-		</Tab>
-        <Tab label="Questions" >
-            <div>
-                <div className="Questions">
-                    <Questions id="q-and-a" questions={questions} />
-                </div>
-            </div>
-        </Tab>
-	</Tabs>
-	</MuiThemeProvider>
-);
-
-
-
 
 class ProjectView extends Component {
 
     constructor(props){
         super(props);
+        this.state = {
+        	timeOptions :{
+				year: 'numeric',
+  				month: 'long',
+  				day: 'numeric'
+			},
+			defaultText:'Loading... please wait!'
+        }
     }
 
     componentWillMount() {
-        console.log('ProjectView: componentWillMount');
-        //debugger;
-        const aquiredProjectId = this.props.routeParams.id;
-        this.props.getProject(aquiredProjectId);
+        this.props.getProject(this.props['routeParams'].id);
     }
-
-    componentDidMount() {
-        console.log('ProjectView: componentDidMount');
-    }
-
-    shouldComponentUpdate(){
-    	return true;
-    }
-
-    formatDate(date) {
-	  let dd = date.getDate();
-	  if (dd < 10) dd = '0' + dd;
-	  let mm = date.getMonth() + 1;
-	  if (mm < 10) mm = '0' + mm;
-	  //let yy = date.getFullYear() % 100;
-	  let yy = date.getFullYear();
-	  if (yy < 10) yy = '0' + yy;
-	  return dd + '-' + mm + '-' + yy;
-	}
-
-	// tabClick(){
-	// 	//alert('Test');
-	// 	this.props.getProjectTags();
-	// }
 
     render() {
-    	//let idview = $r.props.location.pathname.match('/project-view/i');
-    	//const { projectsRestPath, selectedProjectId } = this.props.rootState.ProjectViewReducer;
-    	let currentProject = (this.props.rootState.ProjectViewReducer.currentProject) ?
-    		this.props.rootState.ProjectViewReducer.currentProject : 'none';
-
-    	let viewProjectName = (currentProject == 'none') ? 'Loading... please wait!' : currentProject.projectName;
-		//let fullDescription = (currentProject == 'none') ? 'Loading... please wait!' : currentProject.description[0].descrFullText;
-		  let fullDescription = "It is a long established fact that a reader will be distracted by the readable " +
-			  "content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less" +
-			  " normal distribution of letters, as opposed to using 'Content here, content here', making it look like " +
-			  "readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their" +
-			  " default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. " +
-			  "Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour " +
-			  "and the like).";
-
-    	let viewStatusName = (currentProject == 'none') ? 'Loading... please wait!' : currentProject.status;
-			let viewStartedDate = (currentProject == 'none') ? 'Loading... please wait!' : this.formatDate(new Date(currentProject.timeBegin));
-			//let viewEndDate = (currentProject == 'none') ? 'Loading... please wait!' : this.formatDate(new Date(currentProject.timeEnd));
-			//let viewCondition = (currentProject == 'none') ? 'Loading... please wait!' : currentProject.condition.conditionName;
-		let viewEndDate;
-		if (currentProject == 'none') {
-			viewEndDate = 'Loading... please wait!'
-		} else {
-			if (currentProject.timeEnd) {
-				viewEndDate = this.formatDate(new Date(currentProject.timeEnd))
-			} else {
-				viewEndDate = currentProject.timeEnd;
-			}
-		}
-
-
-		//let viewUsers = (currentProject !== 'none') ? currentProject.users.toString() : 'Users list: Loading... please wait!';
-			let viewUsers = (currentProject == 'none') ? 'Users list: Loading... please wait!' : 'Users list: ...under develop.';
-		//let viewOwners = (currentProject !== 'none') ? currentProject.owners.toString() : 'Owners list: Loading... please wait!';
-			let viewOwners = (currentProject == 'none') ? 'Owners list: Loading... please wait!' : 'Owners list: ...under develop.';
-    	// console.log("Selected property 'projectsRestPath' from central storage: ", projectsRestPath);
-    	// console.log("Selected property 'selectedProjectId' from central storage: ", selectedProjectId);
-    	// console.log("Selected property 'listProjects' from central storage: ", this.props.rootState.ProjectViewReducer.projectList);
-    	console.log('ProjectView -> render() -> currentProject.projectName: ', currentProject.projectName);
+    	let tags = [], technologies=[], features=[];
+    	const projectDetail = this.props['project'],
+    		  name = (projectDetail['projectName'] ? projectDetail['projectName'] : this.state['undefinedText']),
+    		  description = (projectDetail['description'] ? projectDetail.description['descrFullText'] : this.state['undefinedText']);
+		
+		for(var i in projectDetail.tags) tags.push(<TagsListItem name={projectDetail.tags[i].tagName} key={i} />);
+		for(var i in projectDetail.technologies) technologies.push(<TechnologiesListItem key={i} data={projectDetail.technologies[i]} />);
+  		for(var i in projectDetail.features) features.push(<FeaturesListItem key={i} data={projectDetail.features[i]} />);
     	return (
             <div id={styles["project-view-content"]}>
-
-				<div className="projectMain">
-					<div className="firstPart">
-						<span  className="nameProject">{viewProjectName}</span>
-						<span className="tags"><TagsList/></span>
-						<div className="fullDescriptionProject">
-							{fullDescription}
-						</div>
-						<span className="technologies">
-							<TechnologiesList />
-						</span>
-						<TabsExampleSimple viewStatusName={viewStatusName} viewStartedDate={viewStartedDate}
-                        viewEndDate={viewEndDate}  averageRating="5" questions={currentProject.questions}/>
+            	<div className={styles['project-view-navigation']}>
+	            	<div>
+	        			<MuiThemeProvider >
+	        				<ActionUndo size={13} className={styles['redirect-to-list']} />
+	        			</MuiThemeProvider >
+	        			<label>
+	        				<Link to={'/home/'}>
+	        					Back to projects list
+	        				</Link>
+	        			</label>
+	        		</div>
+	        		<div>
+	        			<MuiThemeProvider >
+	        				<ActionBuild size={10} className={styles['redirect-to-list']} />
+	        			</MuiThemeProvider >
+	        			<label>
+	        				<Link to={'/edit-project/' + projectDetail['_id']}>
+	        					Edit
+	        				</Link>
+	        			</label>
+	        		</div>
+            	</div>	
+				<div className={styles['projectMain']}>
+					<div className={styles['project-view-firstPart']}>
+						<span className={styles['project-name']}>{name}</span>
+						<TagsList>{tags}</TagsList>
+						<div className={styles['project-description']} 
+						dangerouslySetInnerHTML={{__html: description}}  />
+						<TechnologiesList>{technologies}</TechnologiesList>
+						<MuiThemeProvider >
+							<Tabs tabItemContainerStyle={tabsStyles.tabItemContainerStyle} 
+								contentContainerStyle={tabsStyles.tabBlock}>
+								<Tab label="General">
+									<Table  selectable={false} multiSelectable={false}>
+										<TableBody displayRowCheckbox={false}>
+											<TableRow>
+												<TableRowColumn>Status</TableRowColumn>
+												<TableRowColumn>
+													{ projectDetail['status'] ? projectDetail['status'] : this.state.undefinedText }
+												</TableRowColumn>
+											</TableRow>
+											<TableRow>
+												<TableRowColumn>Started</TableRowColumn>
+												<TableRowColumn>{ 
+													projectDetail['timeBegin'] ? (new Date(projectDetail['timeBegin'])
+													.toLocaleString("en-US",this.state.timeOptions)) : this.state.undefinedText
+												}</TableRowColumn>
+											</TableRow>
+											<TableRow>
+												<TableRowColumn>Completed</TableRowColumn>
+												<TableRowColumn>
+													{ projectDetail['isCompleted'] ? <FaPlus />: <FaMinus /> }
+												</TableRowColumn>
+											</TableRow>
+					                        <TableRow>
+					                            <TableRowColumn>Average Rating</TableRowColumn>
+												<TableRowColumn>{ 
+													projectDetail['timeEnd'] ? (new Date(projectDetail['timeEnd'])
+													.toLocaleString("en-US",this.state.timeOptions)) : ""
+												}</TableRowColumn>
+					                        </TableRow>
+										</TableBody>
+									</Table>
+								</Tab>
+								<Tab label="Users">
+									<UsersList />
+								</Tab>
+								<Tab label="Locations">
+								</Tab>
+								<Tab label="Features">
+									<FeaturesList>{features}</FeaturesList>
+								</Tab>
+								<Tab label="Screenshots" >
+									<Gallery data={projectDetail['screenShots']} />
+								</Tab>
+						        <Tab label="Questions" >
+				 					<Questions id="q-and-a" questions={projectDetail['questions']} />
+						        </Tab>
+							</Tabs>
+						</MuiThemeProvider>
 					</div>
 				</div>
-
-			    	<div className={styles.info}>
-                        {/*<div eventKey={5} title="Features" onClick={this.props.getProjectFeatures}><div>Table of features</div></div>*/}
-						<RaisedButtonUI
-							href='/'
-							className={styles.btn}
-							label='Back to Project List'
-							style={{display: 'block', marginTop: '30px', width: "40%", margin: "20px auto"}}
-						/>
-			    	</div>
-			    </div>
-          )
+				<div className={styles['button-redirect-container']}>
+		    		<RaisedButtonUI 
+		    			href="/"
+		    			label="Back to Project List"
+		    			icon={<ActionUndo  style={{size:14}}/>}
+		    			style={{width: '75%'}}
+		    		/>
+	    		</div>
+			</div>
+        )
     }
 }
 
@@ -210,11 +192,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-    return {
-        rootState: state
-    };
+    return { project: state['ProjectViewReducer'] };
 }
+
 const ProjectViewConnected = connect(mapStateToProps, mapDispatchToProps)(ProjectView);
 export default ProjectViewConnected;
-
-//export default ProjectView;

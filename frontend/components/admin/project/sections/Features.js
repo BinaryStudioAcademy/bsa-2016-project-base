@@ -13,7 +13,7 @@ class Features extends Component {
         super(props);
         this.state = {
         	sectionName: '',
-        	 featureName: '',
+        	featureName: '',
         	isModalActive: false
         }
         this.setNewSectionName = this.setNewSectionName.bind(this);
@@ -169,6 +169,7 @@ class Features extends Component {
     	const {sections, features, activeSection} = this.props;
     	console.log('sections ',sections);
     	const sectionsList = sections.map( section => {
+            console.log('section ',section)
     		return (
     			<Section
     				 key={section._id}

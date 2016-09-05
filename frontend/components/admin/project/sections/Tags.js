@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../../actions/admin/UpsertProjectActions';
 import { Button, TextInput, TextFieldTags, RaisedButtonUITags} from '../../../common/';
+import TagItem from './TagItem';
 import styles from './styles/Tags.sass';
 
 class Tags extends Component {
@@ -15,12 +16,14 @@ class Tags extends Component {
         this.removeTagFromProject = this.removeTagFromProject.bind(this);
         this.onTagNameChange = this.onTagNameChange.bind(this);
         this.addNewTagToProject = this.addNewTagToProject.bind(this);
-        
     }
+   
     addTagToProject(e, tagId) {
+        console.log('addTagToProject');
         if (tagId) this.props.addTagToProject(tagId);
     }
     removeTagFromProject(e, tagId) {
+         console.log('removeTagFromProject');
         if (tagId) this.props.removeTagFromProject(tagId);
     }
     onTagNameChange(e){
@@ -44,24 +47,22 @@ class Tags extends Component {
     	const predefinedTags = tags.map( tag => {
     		if (!tag.inProject) {
     			return (
-                    <div key={tag._id} className={styles["tag"]}>    				
-	    				<span className={styles["tagName"]}>{tag.tagName}</span>
-                        <Button className={styles["btnIcon"]} onClick={(e) => this.addTagToProject(e, tag._id)}>
-                            <i className="fa fa-plus" aria-hidden="true"></i>
-                        </Button>
-                    </div>
+                    <TagItem 
+                        key={tag._id}
+                        tag={tag}
+                        onAddClick={this.addTagToProject}
+                    />
     			);
     		}
     	});
     	const usedTags = tags.map( tag => {
     		if (tag.inProject) {
     			return (
-                    <div className={styles["tag"]}>                 
-                        <span key={tag._id} className={styles["tagName"]}>{tag.tagName}</span>
-                        <Button className={styles["btnIcon"]} onClick={(e) => this.removeTagFromProject(e, tag._id)}>
-                            <i className="fa fa-times" aria-hidden="true"></i>
-                        </Button>
-                    </div>    				
+                     <TagItem 
+                        key={tag._id}
+                        tag={tag}
+                        onRemoveClick={this.removeTagFromProject}
+                    />	
     			);
     		}
     	});

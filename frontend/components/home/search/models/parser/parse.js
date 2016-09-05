@@ -1,7 +1,6 @@
 import letters from "./letters";
 const SPACE = " ";
 import Token from "./Token";
-import Node from"./Node";
 
 export default function (string) {
     class Exception extends Error {
@@ -63,13 +62,10 @@ export default function (string) {
             case Token.DIS:
                 const token = currentToken;
                 getToken();
-                return new Node({
-                    value: token,
-                    left,
-                    right: expr()
-                });
+                return expr()
+
             default:
-                return new Node({value: left});
+                return
         }
     }
 
@@ -78,13 +74,9 @@ export default function (string) {
         switch (currentToken) {
             case Token.CON:
                 getToken();
-                return new Node({
-                    value: Token.CON,
-                    left,
-                    right: term()
-                });
+                return term()
             default:
-                return new Node({value: left})
+                return
         }
     }
 
@@ -92,9 +84,9 @@ export default function (string) {
         switch (currentToken) {
             case Token.NOT:
                 getToken();
-                return new Node({value: Token.NOT, child: prim()});
+                return prim()
             case Token.NAME:
-                const name = new Node({value: currentTokenValue});
+                const name = ""
                 getToken();
                 return name;
             case Token.LP:

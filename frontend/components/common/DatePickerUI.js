@@ -44,14 +44,22 @@ export default class DatePickerControlled extends React.Component {
       controlledDate: null,
     };
   }
-
-  handleChange = (event, date) => {
+  shouldComponentUpdate(nextProps, nextState){
+      return nextProps.value !== this.props.value;
+  }
+  componentWillReceivProps(nextProps){
+      this.setState({
+        controlledDate: nextProps.value
+      })
+  }
+  handleChange(event, date){
     this.setState({
       controlledDate: date,
     });
   };
 
   render() {
+    console.log('this.props.value ',this.props.value)
     return (
 
       <div>
@@ -61,7 +69,7 @@ export default class DatePickerControlled extends React.Component {
       <MuiThemeProvider>
         <DatePicker
           hintText={this.props.hint}
-          value={this.state.controlledDate}
+          value={this.props.value}
           onChange={(e, date) => { this.handleChange(e, date); this.props.onChange(e, date)}}
           textFieldStyle={styles.textFieldStyle}
           hintStyle={styles.hintStyle}
@@ -77,5 +85,6 @@ export default class DatePickerControlled extends React.Component {
 }
 DatePickerControlled.propTypes = {
    hint: React.PropTypes.string.isRequired,
-   style: React.PropTypes.object.isRequired
+   style: React.PropTypes.object.isRequired,
+   value: React.PropTypes.object || React.PropTypes.string
 };

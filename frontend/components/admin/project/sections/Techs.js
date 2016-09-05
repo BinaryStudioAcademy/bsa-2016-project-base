@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../../../actions/admin/UpsertProjectActions';
 import { Button, TextInput, TextArea, FileUpload } from '../../../common/';
 import styles from './styles/Techs.sass';
+import { DEFAULT } from '../../../../constants/Api';
 
 class Techs extends Component {
     constructor(props) {
@@ -12,7 +13,8 @@ class Techs extends Component {
         	techName: '',
             techVersion: '',
             techDescription: '',
-            addBtnEnabled: false
+            addBtnEnabled: false,
+            defaultImage: DEFAULT + "technology.png"
         }
         this.addTechToProject = this.addTechToProject.bind(this);
         this.removeTechFromProject = this.removeTechFromProject.bind(this);
@@ -103,10 +105,10 @@ class Techs extends Component {
     	const predefinedTechs = technologies.map( tech => {
     		if (!tech.inProject) {
     			return (
-    				<div key={tech._id} className={styles.techItem}>
-                        {/*<img src={tech.techAvatar} alt="tech logo"/>*/}
+    				<div key={tech._id} className={styles.techItem}>                        
                         <div>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/480px-Unofficial_JavaScript_logo_2.svg.png" alt="tech logo"/>
+                            <img src={ this.state.defaultImage } alt="tech logo"/>
+                            {/*<img src={tech.techAvatar} alt="tech logo"/>*/}
 	    				</div>
                         <div className={styles.nameAndVers}>
                             <span>{tech.techName} {tech.techVersion}</span>
@@ -125,7 +127,7 @@ class Techs extends Component {
                     <div key={tech._id} className={styles.techItem}>
                         {/*<img src={tech.techAvatar} alt="tech logo"/>*/}
                         <div>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/480px-Unofficial_JavaScript_logo_2.svg.png" alt="tech logo"/>
+                            <img src={ this.state.defaultImage } alt="tech logo"/>
                         </div>
                         <div className={styles.nameAndVers}>
                             <span>{tech.techName} {tech.techVersion}</span>

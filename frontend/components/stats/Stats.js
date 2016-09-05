@@ -70,7 +70,7 @@ class Stats extends Component {
             return <div className={styles['charts-wrap']} >
                 <div className={styles['chart-wrap-small']} ><LineChartComp data={data} /></div>
                 <div className={styles['chart-wrap-small']} ><BarChartComp data={data} /></div>
-                <div className={styles['chart-wrap']} ><PieChartComp data={data} /></div>
+                <div className={styles['chart-wrap-small']} ><PieChartComp data={data} /></div>
             </div>
         }
         switch (chartType){

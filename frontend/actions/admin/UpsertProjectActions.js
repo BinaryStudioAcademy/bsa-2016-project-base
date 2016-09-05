@@ -42,24 +42,27 @@ export function postProject(project) {
         });
         return upsertProjectService.addProject(project)
             .then(response => {
-                if (response.status != 201) {
-                    throw Error(response.statusText);
-                }
-                return response.json();
-            })
-            .then(json => {
-                dispatch({
-                    type: types.UP_POST_PROJECT_SUCCESS,
-                    data: json
+                return response.json()
+                .then(json => {
+                    if(response.ok) {
+                        dispatch({
+                            type: types.UP_POST_PROJECT_SUCCESS,
+                            data: json
+                        });
+                        return json; 
+                    }
+                    else {
+                        return Promise.reject(json);
+                    }
+                })
+                .catch(error => {
+                    dispatch({
+                        type: types.UP_POST_PROJECT_ERROR,
+                        error: error
+                    });
                 });
-            })
-            .catch(error => {
-                dispatch({
-                    type: types.UP_POST_PROJECT_ERROR,
-                    error: error
-                });
-            });
-    };
+        });
+    };   
 };
 
 
@@ -444,5 +447,11 @@ export function errorHandler(error) {
     return {
         type: 'SOMETHING_GONE_WRONG',
         error: error
+    }
+}
+
+export function clearData() {
+    return {
+        type: 'UP_CLEAR_DATA'
     }
 }

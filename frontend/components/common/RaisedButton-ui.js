@@ -6,21 +6,22 @@ const style = {
   margin: 12,
 };
 
-const RaisedButtonUI = ({id, label, onClick, style, href}) => (
+const RaisedButtonUI = ({id, label, onClick, style, href,icon}) => (
   <div>
     <MuiThemeProvider>
       <RaisedButton
-          type="submit"
+        type="submit"
         id={id}
         label={label}
+        icon={icon}
         onTouchTap={onClick}
-        style={style}
         labelStyle={{
             color: '#fff',
             fontFamily: 'Lato'
         }}
         backgroundColor='#627484'
-          href={href}
+        href={href}
+        style={style}
       />
     </MuiThemeProvider>
   </div>

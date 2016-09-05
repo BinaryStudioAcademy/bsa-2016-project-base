@@ -29,6 +29,11 @@ export default class HomeContainer extends Updatable {
             this.notifyUpdated()
         }
     }
+
+    /**
+     * @deprecated
+     * @param page
+     */
     setActivePage(page) {
         if (this.pagination.activePage !== page.selected ||
             !page.selected && !this.projects.length) {
@@ -37,6 +42,7 @@ export default class HomeContainer extends Updatable {
             this.goSearch();
         }
     }
+
 
     goSearch() {
         const self = this;

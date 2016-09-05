@@ -48,7 +48,7 @@ export default class Dates extends Model{
     getView(){
         return <Tab key={this.number} value={this.number}
                     label={`${this.title} (${this.values.length})`}>
-            <DateSelect model={this}/>
+            <div><DateSelect model={this}/></div>
         </Tab>
     }
     addValue(){
@@ -62,24 +62,27 @@ export default class Dates extends Model{
         return one.lower.getTime() == two.lower.getTime() &&
                 one.upper.getTime() == two.upper.getTime()
     }
-    getNameInRequest(){return "dates"}
-    getValueInRequest(){
-        return this.values.map(date=>({
-            from: date.lower.getTime(),
-            to:date.upper.getTime()
-        }))
-    }
     getRequestRepresentation(){
-        const date = this.values[0];
-        if (date && this.isFilled(date)){
-            const dateString = function(date){
-                const year = date.getYear(),
-                    month = date.getMonth(),
-                    day = date.getDay();
-                return `${year}-${month}-${day}`
-            };
-            return `dateFrom=${dateString(date.lower)}&dateTo=${dateString(date.upper)}`
+        const from = [],
+              to = [];
+        const dateString = function(date){
+            const year = date.getUTCFullYear(),
+                month = date.getMonth()+1,
+                day = date.getDate();
+            return `${year}-${month}-${day}`
+        };
+        this.values.map(date=>{
+            from.push(dateString(date.lower));
+            to.push(dateString(date.upper));
+        });
+        if (from.length){
+            return `dateFrom=${from.join(",")}&dateTo=${to.join(",")}`
         }
+        /*const date = this.values[0];
+        if (date && this.isFilled(date)){
+
+            return `dateFrom=${dateString(date.lower)}&dateTo=${dateString(date.upper)}`
+        }*/
     }
     clear(){
         this.values = [];
