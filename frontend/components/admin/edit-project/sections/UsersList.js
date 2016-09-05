@@ -14,6 +14,7 @@ class UsersList extends Component {
         this.removeUserFromProject = this.removeUserFromProject.bind(this);
         this.onOwnershipChange = this.onOwnershipChange.bind(this);
     }
+
     addUserToProject(e, userId) {
         console.log('addUserToProject ',userId);
         if (userId)  this.props.addUserToProject(userId);
@@ -25,55 +26,70 @@ class UsersList extends Component {
     onOwnershipChange(e, userId) {
         console.log('onOwnershipChange ',userId);
         const checked = e.target.checked;
+        console.log('checked = ' + checked);
         if (userId) this.props.changeOwnership(userId, checked);
     }
     render() {
+        console.log('UsersList LLLLLLL');
         const { users, owners, predefinedUsers, initialUsers } = this.props.store;
         if(users!= null && initialUsers == false) {
             //alert("AGA!");
             this.props.initialStateUsers(users, predefinedUsers, owners);
         }
         let opts = [];
-    	const usersList = predefinedUsers.map(user => {
+        const usersList = predefinedUsers.map(user => {
             if (!user.inProject) {
                 return (
-                     <UserItem 
-                        user={user} 
-                        key={user._id} 
+                    <UserItem
+                        user={user}
+                        key={user._id}
                         onAddClick={this.addUserToProject}
                     />
                 );
             }
-            
+
         });
 
         const developersList = predefinedUsers.map(user => {
             if (user.inProject) {
                 return (
-                    <DeveloperItem 
-                        user={user} 
-                        key={user._id} 
+                    <DeveloperItem
+                        user={user}
+                        key={user._id}
                         onRemoveClick={this.removeUserFromProject}
                         onCheckboxChange={this.onOwnershipChange}
                     />
                 );
-            } 
+            }
         });
 
         return (
-            <div id={styles['user-list_ed']}>
-                <div className={styles['list-container']}>
-                    All users:
-                    <div className={styles['list']}>
-                     	{usersList}
+            <div id={styles['user-list']}>
+                <div className={styles.row}>
+                    <div className={styles['list-container']}>
+                        <header className={styles['user-list-header']}>
+                            <div className={styles['col-1-2']}>
+                                <h3>All users</h3>
+                            </div>
+                        </header>
+
+                        <div className={styles['section-list1']}>
+                            {usersList}
+                        </div>
+
+
                     </div>
-                </div>
-               
-                 <div className={styles['list-container']}>
-                     Project developers:
-                     <div className={styles['list']}>
-                        {developersList}
-                     </div>
+
+                    <div className={styles['list-container']} style={{width:"49%"}}>
+                        <header className={styles['user-list-header']}>
+                            <div className={styles['col-1-2']}>
+                                <h3>Project developers</h3>
+                            </div>
+                        </header>
+                        <div className={styles['section-list1']}>
+                            {developersList}
+                        </div>
+                    </div>
                 </div>
             </div>
         );

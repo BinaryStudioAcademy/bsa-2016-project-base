@@ -196,7 +196,7 @@ class EditProject extends Component {
     render() {
         const {initialTags, initialTechnologies, initialUsers, initialSections, initialFiles} = this.props.store;
         var load = false;
-        if(initialTags && initialTechnologies && initialUsers && initialSections ) {
+        if(initialTags && initialTechnologies && initialSections ) {
             load = true;
         }
         return (
