@@ -9,10 +9,13 @@ import Tags from './sections/Tags';
 import Techs from './sections/Techs';
 import Features from './sections/Features';
 import Attachments from './sections/Attachments';
+import Screenshots from './sections/Screenshots';
 import styles from './sections/styles/UpsertProject.sass';
 import {toastr} from 'react-redux-toastr';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import * as constants  from '../../../constants/Api';
+const {ORIGIN} = constants;
 
 const tabsStyles = {
   headline: {
@@ -135,14 +138,35 @@ class UpsertProject extends Component {
                 const temp = [];
                 console.log('files ',files);
                 files.forEach( file => {
-                    temp.push({
-                        name: file.name,
-                        link: file.path
-                    });
+                    if (file.target === 'file') {
+                        temp.push({
+                            name: file.name,
+                            link: file.path
+                        });
+                    }
+                    
                 });
                 console.log('temp ',temp);
                 return temp;
+            })(),
+            screenshots: (() => {
+                const temp = [];
+                console.log('files ',files);
+                files.forEach( file => {
+                    if (file.target === 'screenshot') {
+                        temp.push(file.path);
+                    }
+                    
+                });
+                console.log('temp ',temp);
+                return temp;
+            })(),
+            descrFullText: (() => {
+                const text = description.descrFullText;
+                return text.replace(/<img src="upload/g,'<img src="'+ORIGIN+'/upload');
             })()
+
+            
         }
         console.log('inProject.sections ',inProject.sections);
         console.log('inProject.features ',inProject.features);
@@ -150,10 +174,11 @@ class UpsertProject extends Component {
         console.log('inProject.owners ',inProject.owners);
         const project = {
             projectName,
-            /*projectLink,*/
+            linkToProject:projectLink,
             timeBegin: new Date(timeBegin),
             timeEnd: new Date(timeEnd),
             attachments: inProject.attachments,
+            screenShots: inProject.screenshots,
             sections: inProject.sections,
             features: inProject.features,
             tags: inProject.tags,
@@ -161,28 +186,13 @@ class UpsertProject extends Component {
             owners: inProject.owners,
             users: inProject.users,
             status: status.value,
-            description,
+            description: {
+                descrFullText: inProject.descrFullText
+            } 
            
         };
         console.log('project ',project);
-        /*const project = {
-            users: ["57a262f6b42bbf5a2daa98c1"],
-            owners: ["57a262f6b42bbf5a2daa98c1"],
-            technologies : ["57a2f5f3d50c16908d4e0c2f"],
-            tags: ["57a26314b42bbf5a2daa9970"],
-            projectName : "Cool Web Projects",
-            isCompleted: false,
-            timeBegin: new Date('2014-02-09'),
-            timeEnd: new Date('2015-02-09'),
-            stage : "57a2fac7d50c16908d4e0c33", 
-            condition : "57ac5379204135dfe49f780b",     
-            description: [{
-                descrText: 'Short desc!',
-                descrFullText: '<p>long description goes here!</p>'
-            }],
-        }*/
-
-     this.props.postProject(project);
+        this.props.postProject(project);
 	}
 	
 
@@ -205,6 +215,8 @@ class UpsertProject extends Component {
         		<TabsUI />
                 <br/>
                 <Attachments/>
+                <br/>
+                <Screenshots/>
                 <br/>
                 <RaisedButtonUITags
                     className={styles.btnCreate}

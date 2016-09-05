@@ -435,7 +435,7 @@ const addUserToProject = (predefinedUsers, _id) => {
 }
 
 const removeUserFromProject = (predefinedUsers, _id) => {
-    users.forEach( user => {
+    predefinedUsers.forEach( user => {
         if (user._id === _id) {
             user.inProject = false;
             user.owner = false;
@@ -480,7 +480,6 @@ const initialState = {
     timeBegin:'',
     timeEnd:'',
     status:'',
-    users_: [],
     owners: null,
     tags: null,
     technologies: null,
