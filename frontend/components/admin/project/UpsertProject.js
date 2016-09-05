@@ -192,10 +192,16 @@ class UpsertProject extends Component {
 
  	render() {
         console.log('Rerender Upsert');
+        console.log(this.props.store);
 	    return (
 	    	<div id={styles['add-project-wrapper']}>
 	    		<Inputs/>
         		<br/>
+                <div className={styles['valid-container']}>
+                {this.props.store.errors && this.props.store.errors.technologies && <div className={styles.validationTech}><div className={styles.tool}>{this.props.store.errors.technologies}</div></div>}
+
+               {this.props.store.errors && (this.props.store.errors.users || this.props.store.errors.owners) && <div className={styles.validationUser} style={this.props.store.errors.technologies ? {marginLeft: '3rem'} : {marginLeft: '17rem'}}><div className={styles.tool}>{this.props.store.errors.users || this.props.store.errors.owners}</div></div>}
+                </div>
         		<TabsUI />
                 <br/>
                 <Attachments/>
@@ -216,6 +222,7 @@ function mapDispatchToProps(dispatch) {
 };
 
 function mapStateToProps(state) {
+    console.log(state);
     return {
         store: state.UpsertProjectReducer
     };

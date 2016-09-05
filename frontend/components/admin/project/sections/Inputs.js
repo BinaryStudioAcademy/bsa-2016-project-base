@@ -69,6 +69,7 @@ class Inputs extends Component {
 		        	        onChange={this.onProjectNameChange}
                             style={{width: '100%'}}
 	        	        />
+                         {this.props.errors && this.props.errors.projectName && <div className={styles.validation}><div className={styles.tool}>{this.props.errors.projectName}</div></div>}
                     </div>
                     <div className={styles['field-container']}>
 	        	        <TextFieldProject 
@@ -89,6 +90,7 @@ class Inputs extends Component {
                                     cursor: 'pointer'}}
                             onChange={this.onStartDateChange}
                         />
+                         {this.props.errors && this.props.errors.timeBegin && <div className={styles.validation}><div className={styles.tool}>{this.props.errors.timeBegin}</div></div>}
                     </div>
                     <div className={styles['col-1-3']}>
                         <DatePickerControlled
@@ -141,7 +143,8 @@ function mapStateToProps(state) {
         timeBegin: state.UpsertProjectReducer.timeBegin,
         timeEnd: state.UpsertProjectReducer.timeEnd,
         status: state.UpsertProjectReducer.status,
-        description: state.UpsertProjectReducer.description
+        description: state.UpsertProjectReducer.description,
+        errors: state.UpsertProjectReducer.errors
     };
 };
 
