@@ -98,12 +98,10 @@ module.exports = function(app) {
 	app.post('/api/projects/', function(req, res, next) {
 		projectRepository.add(req.body, function(err, data) {
 			if (err) {
-				console.log(err)
 				let errors =  {};
 				Object.keys(err.errors).forEach((key) => {
 					errors[key] = err.errors[key].message;
 				});
-				console.log(errors);
 				res.status(400).send(errors);
 				res.err = errors;
 			}
