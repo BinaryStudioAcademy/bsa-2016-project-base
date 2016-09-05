@@ -2,9 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../../actions/admin/EditProjectActions';
-import { Button, TextInput } from '../../../common/';
 import Section from './Section';
 import Feature from './Feature';
+import { Button, TextInput, TextFieldTags, RaisedButtonUITags} from '../../../common/';
 import CreateFeature from './CreateFeature';
 import styles from './styles/Features.sass';
 
@@ -108,45 +108,59 @@ class Features extends Component {
         const {sections, activeSection} = this.props;
 
         const addFeature = (
-            <div className={styles['add-section']}>
-                <TextInput
-                    value={this.state.featureName}
-                    placeholder='Type feature name'
-                    onChange={this.setNewFeatureName}
-                />
-                <Button
-                    value="Add"
-                    onClick={this.showCreateFeatureModal}
-                />
-            </div>);
+            <div className={styles['add-section2']}>
+                <div className={styles['col-1-2']}>
+                    <TextFieldTags
+                        hintText='Feature Name'
+                        onChange={this.setNewFeatureName}
+                        style={{width: '100%'}}
+                        value={this.state.featureName}
+                    />
+                </div>
+                <div className={styles['col-1-2']}>
+                    <RaisedButtonUITags
+                        label='Add'
+                        onClick={this.showCreateFeatureModal}
+                        backgroundColor='#8D97A4'
+                    />
+                </div>
+            </div>
+        );
 
 
 
         if (featuresList.length) {
             return (
                 <div>
-                    {addFeature} {featuresList}
+                    {addFeature}
+                    <ul className={styles['section-list1']}>
+                        {featuresList}
+                    </ul>
                 </div>
             );
 
         } else if(sectionsList.length && !activeSection.name) {
-            return 'Select section on the left side to start adding new features!';
+            return (
+                <ul className={styles['section-list1']}>
+                    <div className={styles.empty}>'Select section on the left side to start adding new features!'</div>
+                </ul>);
         } else if(!sectionsList.length) {
-            return 'Add new section first!';
+            return (
+                <ul className={styles['section-list1']}>
+                    <div className={styles.empty}>'Add new section first!'</div>
+                </ul>);
         } else if(activeSection.name) {
             return (
                 <div>
                     {addFeature}
-                    <div>
-                        There are no features in <span className={styles["section-name"]}>{activeSection.name}</span> section yet. Start adding new features...
-                    </div>
-
+                    <ul className={styles['section-list1']}>
+                        <div className={styles.empty}>There are no features in <span className={styles["section-name"]}>{activeSection.name}</span> section yet. Start adding new features...</div>
+                    </ul>
                 </div>
             );
         }
         //{(featuresList.length ? featuresList : `There are no features in ${activeSection.name} yet. Start adding new features...`)}
     }
-
     render(){
         const {sections, features, activeSection, initialSections} = this.props;
         if(features!= null && initialSections == false) {
@@ -155,6 +169,7 @@ class Features extends Component {
         }
         console.log('sections ',sections);
         const sectionsList = sections.map( section => {
+            console.log('section ',section)
             return (
                 <Section
                     key={section._id}
@@ -168,7 +183,6 @@ class Features extends Component {
 
         const featuresList = features.map( feature => {
             if (feature.section._id === activeSection._id || feature.section === activeSection._id) {
-                //alert("true");
                 return (
                     <Feature
                         key={feature._id}
@@ -190,28 +204,42 @@ class Features extends Component {
                     onSave={this.addNewFeature}
                 />) )}
 
-                <div>
+                <div className={styles.row}>
                     <div className={styles['list-container']}>
-                        Sections:
-                        <div className={styles['sections-list']}>
-                            <div className={styles['add-section']}>
-                                <TextInput
-                                    value={this.state.sectionName}
-                                    placeholder='Type section name'
+                        <header className={styles['sections-list-header']}>
+                            <div className={styles['col-1-2']}>
+                                <h3>Sections</h3>
+                            </div>
+                        </header>
+                        <div className={styles['add-section2']}>
+                            <div className={styles['col-1-2']}>
+                                <TextFieldTags
+                                    hintText='Section Name'
+                                    placeholder='My first project'
                                     onChange={this.setNewSectionName}
-                                />
-                                <Button
-                                    value="Add"
-                                    onClick={this.addNewSection}
+                                    style={{width: '100%'}}
+                                    value={this.state.sectionName}
                                 />
                             </div>
-                            {(sectionsList.length ? sectionsList : "There are no sections yet. Start from adding one...")}
+                            <div className={styles['col-1-2']}>
+                                <RaisedButtonUITags
+                                    label='Add'
+                                    onClick={this.addNewSection}
+                                    backgroundColor='#8D97A4'
+                                />
+                            </div>
 
                         </div>
-
+                        <ul className={styles['section-list1']}>
+                            {(sectionsList.length ? sectionsList : <div className={styles.empty}>"There are no sections yet. Start from adding one..."</div>)}
+                        </ul>
                     </div>
                     <div className={styles['list-container']}>
-                        Features:
+                        <header className={styles['sections-list-header']}>
+                            <div className={styles['col-1-2']}>
+                                <h3>Features</h3>
+                            </div>
+                        </header>
                         <div className={styles['sections-list']}>
                             {this.renderFeatures(featuresList, sectionsList)}
                         </div>
@@ -220,6 +248,7 @@ class Features extends Component {
             </div>
         );
     }
+
 }
 
 
