@@ -2,7 +2,7 @@ import React, { Component,PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../../actions/admin/EditProjectActions';
-import { Button, Checkbox, TextArea, DropDownNewProject, DateInput, TextInput, Editor, TextFieldProject, DatePickerControlled} from '../../../common/';
+import { Button, Checkbox, TextArea, DropDownEditProject, DropDownNewProject, DateInput, TextInput, Editor, TextFieldProject, DatePickerControlled} from '../../../common/';
 import styles from './styles/inputs.sass';
 import FaAngleDown from 'react-icons/lib/fa/angle-down';
 
@@ -16,6 +16,9 @@ class Inputs extends Component {
 		this.onConditionChange = this.onConditionChange.bind(this);
 		this.onDescriptionChange = this.onDescriptionChange.bind(this);
 		//alert(this.props.store.projectName);
+		this.state = {
+			selectedIndex: ''
+		}
         
     }
 	onProjectNameChange(e, id){
@@ -61,14 +64,26 @@ class Inputs extends Component {
 	}
 
     render() {
-        const conditionOpts = [
+        let conditionOpts = [
             {value:'Estimation', name:'Estimation'},
             {value:'InProgress', name:'InProgress'},
             {value:'Completed', name:'Completed'}
         ];
+
 		if(this.props.projectName == '') {
         	return null
 		}
+		else if(this.state.selectedIndex == '') {
+			var self = this;
+			conditionOpts.forEach(function(el, index) {
+				if(el.name == self.props.status) {
+					self.state.selectedIndex = index;
+				}
+
+
+			})
+		}
+
 
         console.log('Rerender Inputs');
     	return (
@@ -99,8 +114,7 @@ class Inputs extends Component {
 				<div className={styles.row}>
 					<div className={styles['col-1-3']}>
 						<DatePickerControlled
-							value={this.formatDate(new Date(this.props.timeBegin))}
-
+							value={new Date(this.props.timeBegin)}
 							hint='Start Date'
 							style={{width: '100%' ,
 								cursor: 'pointer'}}
@@ -109,7 +123,7 @@ class Inputs extends Component {
 					</div>
 					<div className={styles['col-1-3']}>
 						<DatePickerControlled
-							value={this.props.timeEnd}
+							value={new Date(this.props.timeEnd)}
 							hint='End Date'
 							style={{width: '100%'}}
 							onChange={this.onFinishDateChange}
@@ -117,8 +131,9 @@ class Inputs extends Component {
 					</div>
 					<div className={styles['col-1-3']}>
 
-						<DropDownNewProject
+						<DropDownEditProject
 							value={this.props.status}
+							selectedIndex={this.state.selectedIndex}
 							data = {conditionOpts}
 							onChange={this.onConditionChange}
 							id='Condition'

@@ -162,7 +162,7 @@ class EditProject extends Component {
             technologies: inProject.technologies,
             owners: inProject.owners,
             users: inProject.users,
-            status,
+            status: status.value,
             description,
 
         };
