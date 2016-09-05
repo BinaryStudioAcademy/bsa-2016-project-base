@@ -111,4 +111,12 @@ ProjectRepository.prototype.getAllwithLocations = function(callback){
     });
 };
 
+ProjectRepository.prototype.getByIdForLocations = function(id, callback){
+	var model = this.model;
+	var query = model.findOne({_id:id}, 
+		{features: 0, questions: 0, screenShots: 0,
+    	attachments: 0, users: 0, owners: 0, tags: 0, technologies: 0});
+	query.exec(callback);
+};
+
 module.exports = new ProjectRepository();
