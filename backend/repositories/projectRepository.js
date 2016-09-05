@@ -86,4 +86,29 @@ ProjectRepository.prototype.getDetailsById = function(id,callback){
   
 	query.exec(callback);
 };
+
+ProjectRepository.prototype.getAllwithLocations = function(callback){
+    var model = this.model;
+    var query = model.find({},{features: 0, questions: 0, screenShots: 0,
+    	attachments: 0, users: 0, owners: 0, tags: 0, technologies: 0, 
+    	description: 0, rating: 0, status: 0, timeBegin: 0, timeEnd: 0});
+    //query.exec(callback);
+    query.exec((err, result)=>{
+    	if (err) {
+            console.log('Get all locations Error');
+        }
+        //console.log(result);
+        let projLocations = [];
+        result.forEach((elem, ind, arr)=>{
+        	projLocations.push({
+        		label: 'place_'.concat(ind + 1),
+        		projId: elem._id,
+        		projName: elem.projectName,
+        		location: elem.location
+        	});
+        });
+        callback(null, projLocations);
+    });
+};
+
 module.exports = new ProjectRepository();

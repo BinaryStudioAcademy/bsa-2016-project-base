@@ -95,6 +95,15 @@ module.exports = function(app) {
 		});
 	}, apiResponse);
 
+	app.get('/api/search/locations', function (req,res,next) {
+		projectRepository.getAllwithLocations(function (err,data) {
+			res.data = data;
+			res.err = err;
+			//res.json(data);
+			next();
+		});
+	},apiResponse);
+
 	app.post('/api/projects/', function(req, res, next) {
 		projectRepository.add(req.body, function(err, data) {
 			if (err) {
