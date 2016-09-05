@@ -21,6 +21,7 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 sections: [],
                 features: [],
                 files: [],
+                errors: null,
                 activeSection: {},
                 projectName:'',
                 projectLink:'',
@@ -126,6 +127,13 @@ export default function UpsertProjectReducer(state=initialState, action) {
             const {added} = state;
             return Object.assign({}, state, {
                 added: true
+            });
+        }
+        case types.UP_POST_PROJECT_ERROR: {
+            const error = action.error;
+            const {added} = state;
+            return Object.assign({}, state, {
+                errors: error
             });
         }
         case types.UP_POST_TAG_SUCCESS: {
