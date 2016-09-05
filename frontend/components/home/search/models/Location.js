@@ -60,7 +60,8 @@ Project Name: ${project.projectName}`);//TODO: make better layout
                             marker,
                             text,
                             infoWindow,
-                            shouldShowInfo
+                            shouldShowInfo,
+                            projectId:tip.projId
                         };
 
                         marker.addListener('mouseover', function () {//TODO: optimize closure memory leak
@@ -108,9 +109,9 @@ Project Name: ${project.projectName}`);//TODO: make better layout
         this.startLoadTips();
     }
     getValueInRequest(){
-        return this.values.map(value=>JSON.stringify(value.marker.position))
+        return this.values.map(value=>JSON.stringify(value.projectid))
     }
     getNameInRequest(){
-        return "locations"
+        return "project_ids"
     }
 }
