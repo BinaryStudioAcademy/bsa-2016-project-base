@@ -101,9 +101,8 @@ ProjectRepository.prototype.getAllwithLocations = function(callback){
         let projLocations = [];
         result.forEach((elem, ind, arr)=>{
         	projLocations.push({
-        		label: 'place_'.concat(ind + 1),
+        		label: (elem.projectName.length > 21)? elem.projectName.substr(0, 21).concat('...'): elem.projectName,
         		projId: elem._id,
-        		projName: elem.projectName,
         		location: elem.location
         	});
         });
