@@ -13,10 +13,12 @@ export default class Location extends MultiSelectModel {
             component
         });
         this.ComponentClass = LocationView;
-        this.mapZoom = 5;
-        this.displayOnMap = this.displayOnMap.bind(this);
-    }
+        //this.mapZoom = 5;
+        //this.displayOnMap = this.displayOnMap.bind(this);
+        if (!this.geocoder) this.geocoder = new google.maps.Geocoder();
 
+    }
+/*
     startLoadTips() {
         var self = this;
         this.isLoading = true;
@@ -63,14 +65,14 @@ export default class Location extends MultiSelectModel {
                                 text: res.formatted_address,
                                 infoWindow: infoWindow
                             };
-                            marker.addListener("click", this.addValue.bind(this, tip));
+                            //marker.addListener("click", this.addValue.bind(this, tip));
                             marker.addListener('mouseover', function () {
                                 infoWindow.open(self.map, marker);
                             });
 
                             /*marker.addListener('mouseout', function() {
                              infoWindow.close();
-                             });*/
+                             });
                             callback(null, tip);
 
                         }
@@ -96,26 +98,26 @@ export default class Location extends MultiSelectModel {
                 loadData(locs[0], 0);
             }.bind(this));
     }
-
-    addValue(value) {
+*/
+    /*addValue(value) {
         value.marker.setMap(null);
         super.addValue(value);
-    }
+    }*/
 
-    removeValue(value) {
+    /*removeValue(value) {
         this.displayOnMap(value)
         super.removeValue(value)
-    }
+    }*/
 
-    setMap(map) {
+   /* setMap(map) {
         this.map = map;
         if (this.tips){
             this.tips.forEach(this.displayOnMap)
         }
         map.setZoom(this.mapZoom);
         if (!this.geocoder) this.geocoder = new google.maps.Geocoder();
-        this.startLoadTips();
-    }
+        //this.startLoadTips();
+    }*/
     getValueInRequest(){
         return this.values.map(value=>JSON.stringify(value.marker.position))
     }
