@@ -102,6 +102,7 @@ function mapDispatchToProps(dispatch) {
 };
 
 function mapStateToProps(state) {
+    console.log('developersList mapStateToProps')
     return {
         store: state.EditProjectReducer
     };
