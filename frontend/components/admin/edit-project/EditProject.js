@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions/admin/EditProjectActions';
-import { TabPanel, TabBody, TabHead } from '../../common/';
 import Inputs from './sections/Inputs';
 import UsersList from './sections/UsersList';
 import Tags from './sections/Tags';
@@ -10,12 +9,12 @@ import Techs from './sections/Techs';
 import Features from './sections/Features';
 import Attachments from './sections/Attachments';
 
-import Button from '../../common/RaisedButtonUI_Tags';
-import styles from './sections/styles/UpsertProject.sass';
+import styles from './sections/styles/EditProject.sass';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {toastr} from 'react-redux-toastr';
 const Loading = require('react-loading-animation');
+import { TabPanel, TabBody, TabHead, Button, RaisedButtonUITags } from '../../common/';
 import editProjectService from '../../../services/admin/EditProjectService';
 
 const tabsStyles = {
@@ -33,13 +32,23 @@ const tabsStyles = {
         "margin-top": "20px"
     },
     inkBarStyle: {
-        backgroundColor: "#fc5a5a"
+        backgroundColor: "#2ecc71"
     }
 };
 
-const TabsExampleSimple = () => (
+const TabsUI = () => (
     <MuiThemeProvider>
         <Tabs tabItemContainerStyle={tabsStyles.tabItemContainerStyle} contentContainerStyle={tabsStyles.tabBlock} inkBarStyle={tabsStyles.inkBarStyle}>
+            <Tab label="Tecnologies *" >
+                <div>
+                    <Techs/>
+                </div>
+            </Tab>
+            <Tab label="Users *" >
+                <div>
+                    <UsersList/>
+                </div>
+            </Tab>
             <Tab label="Sections & Features">
                 <div>
                     <Features/>
@@ -48,16 +57,6 @@ const TabsExampleSimple = () => (
             <Tab label="Tags" >
                 <div>
                     <Tags/>
-                </div>
-            </Tab>
-            <Tab label="Tecnologies" >
-                <div>
-                    <Techs/>
-                </div>
-            </Tab>
-            <Tab label="Users" >
-                <div>
-                    <UsersList/>
                 </div>
             </Tab>
         </Tabs>
@@ -200,24 +199,23 @@ class EditProject extends Component {
             load = true;
         }
         return (
-            <div id={styles["edit-project"]}>
+            <div id={styles["edit-project-wrapper"]}>
             <div className={"visible-" + !load + " " + "loading-animation"}>
                 <Loading />
             </div>
                 <div  className={"visible-" + load}>
                 <Inputs/>
                 <br/>
-
-                <TabsExampleSimple/>
-
+                <TabsUI/>
                 <br/>
                 <Attachments/>
                 <br/>
-                <Button
-                    label="Update project"
-                    onClick={this.updateProject}
-                    backgroundColor="rgba(46, 204, 113, 0.9)"
-                />
+                    <RaisedButtonUITags
+                        className={styles.btnCreate}
+                        label='Update project'
+                        onClick={this.updateProject}
+                        backgroundColor='#8D97A4'
+                    />
                 </div>
             </div>
         )

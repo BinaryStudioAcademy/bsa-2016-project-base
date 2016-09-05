@@ -19,16 +19,18 @@ class Section extends Component {
         console.log('isActive ',isActive);
         return (
             <div
-                id={styles["section"]}
+                className={styles["section"]}
                 onClick={onClick && ((e) => onClick(e, section._id))}>
                 <div className={( isActive ? styles["active"] : '' )} >
                     {section.name}
                 </div>
                 <Button
-                    className="technologies-btn-remove"
+                    className={styles["btnIcon"] + ' ' + styles["btnFeature"]}
                     label='Remove'
                     onClick={this.sendDeleteRequest}
-                >Remove</Button>
+                >
+                    <i className="fa fa-times" aria-hidden="true"></i>
+                </Button>
             </div>
         );
     }

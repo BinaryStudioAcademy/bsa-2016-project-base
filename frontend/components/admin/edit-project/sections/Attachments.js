@@ -43,19 +43,24 @@ class Attachments extends Component {
         });
         return (
             <div id={styles["attachments"]}>
-                <fieldset>
-                    <legend>Attachments</legend>
-                    <FileUpload
-                        accept={fileTypes}
-                        multiple={true}
-                        onChange={this.onFilePathChange}
-                    />
+                <header>
+                    <h2>Attachments</h2>
+                </header>
+                <div className={styles.row}>
+                    <div className={styles['field-container']}>
+                        <FileUpload
+                            className={styles["upload-container"]}
+                            accept={fileTypes}
+                            multiple={true}
+                            onChange={this.onFilePathChange}
+                        />
 
-                    <div className={styles["list"]}>
-                        {list}
+                        <div className={styles["list"]}>
+                            {list}
+                        </div>
                     </div>
 
-                </fieldset>
+                </div>
             </div>
         );
     }
