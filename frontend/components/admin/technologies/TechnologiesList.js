@@ -57,7 +57,7 @@ class TechnologiesList extends Component {
 
                             <Link to={'/admin/tech/' + elem._id} className="editLabel">Edit</Link>
                             <div className={styles['hidden_block']}>
-                                {(elem.techAvatar.length > 0) ?
+                                {(elem.techAvatar) ?
                                     <div className={styles['img_wrapper']}>
                                         <img src={elem.techAvatar}/>
                                     </div>

@@ -11,9 +11,9 @@ var userSchema = new Schema({
     position: String,
     userHistory: [
         {
-            ProjectId: {type: Schema.Types.ObjectId, ref: 'Project'},
-            DateFrom: {type: Date},
-            DateTo: {type: Date},
+            projectId: {type: Schema.Types.ObjectId, ref: 'Project'},
+            dateFrom: {type: Date},
+            dateTo: {type: Date},
         }
 ]
 });

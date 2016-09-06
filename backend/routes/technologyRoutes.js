@@ -31,6 +31,13 @@ module.exports = function (app) {
         });
     }, apiResponse);
 
+    // app.post('/api/file/', function(req, res, next) {
+    //     uploadMedia(req, function(data){
+    //         res.data = data;
+    //         next();
+    //     });
+    // },apiResponse);
+
     app.post('/api/file/', upload.single('afile'), function (req, res, next) {
         if (req.file.mimetype.indexOf('image/') === 0) {
             var tmp_path = req.file.path;
@@ -40,17 +47,16 @@ module.exports = function (app) {
 
             src.pipe(dest);
             fs.unlink(tmp_path);
-            //  fs.rename(tmp_path, req.file.originalname);
             res.json({
-                'file': '/upload/resources/tech/' + req.file.originalname,
+                'link': req.file.originalname,
                 'type': 'success'
             });
         } else {
             res.json({
-                'file': '',
+                'link': '',
                 'type': 'error'
             });
-        }
+         }
     });
 
     app.delete('/api/file/', function (req, res, next) {
