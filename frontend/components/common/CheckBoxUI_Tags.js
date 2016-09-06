@@ -20,6 +20,9 @@ export default class CheckBoxTags extends Component {
         super(props)
         this.state={checked:false};
     }
+    shouldComponentUpdate(nextProps, nextState){
+        return nextProps.checked !== this.props.checked;
+    }
     onChecked(arg){
         this.setState({checked:!this.state.checked})
 
