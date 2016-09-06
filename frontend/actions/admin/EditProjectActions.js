@@ -192,22 +192,62 @@ export function postFeature(feature) {
 
 
 
+const ICON_MAX_SIZE = 0.5 * 1024 * 1024;
+const IMG_TYPES = ['.jpeg', '.jpg', '.png', '.gif'];
+const MAX_SIZE = 10 * 1024 * 1024;
+const FILE_TYPES = ['.jpeg', '.jpg', '.png', '.gif', '.txt','.xml','.xlsx','.xls','.doc','.docx','.pdf','.zip','.rar'];
 
-export function uploadFile(file) {
+
+function uploadFileValidation(data, target) {
+    return {
+        type: types.UP_UPLOAD_FILE_SUCCESS_ED,
+        data: data,
+        target
+    };
+}
+export function uploadFile(file, target='file') {
+    const name = file.name;
+    const ext = name.slice(name.lastIndexOf('.'),name.legth);
+    const allowedTypes = (target === 'file') ? FILE_TYPES : IMG_TYPES;
+    console.log('ext',ext);
     return dispatch => {
         dispatch({
             type: types.UP_UPLOAD_FILE_ED,
-            name: file.name
+            name: file.name,
+            target
         });
-        if (file.size > MAX_SIZE) {
+        if (!allowedTypes.includes(ext)) {
+            const data = {
+                name: file.name,
+                error: 'Unsupported file type. Allowed ' + allowedTypes.join('/')
+            }
+            //const data = {
+            //    name: file.name
+            //}
+            //const error = 'Unsupported file type. Allowed ' + FILE_TYPES.join(',');
+            dispatch(uploadFileValidation(data,target));
+        } else if (file.size > MAX_SIZE) {
             const data = {
                 name: file.name,
                 error: 'File size is ' + (file.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + (MAX_SIZE / 1024 / 1024).toFixed(2) + ' MB.'
             }
-            dispatch({
-                type: types.UP_UPLOAD_FILE_SUCCESS_ED,
-                data: data
-            });
+            //const data = {
+            //    name: file.name
+            //}
+            //const error = 'File size is ' + (file.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + (MAX_SIZE / 1024 / 1024).toFixed(2) + ' MB.'
+            dispatch(uploadFileValidation(data,target));
+            /*} else {
+
+             if (file.size > MAX_SIZE) {
+             const data = {
+             name: file.name,
+             error: 'File size is ' + (file.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + (MAX_SIZE / 1024 / 1024).toFixed(2) + ' MB.'
+             }
+             dispatch({
+             type: types.UP_UPLOAD_FILE_SUCCESS,
+             data: data,
+             target
+             });*/
         } else {
             return uploadService.upload(file)
                 .then(response => {
@@ -216,7 +256,7 @@ export function uploadFile(file) {
                     }
                     return response.json();
                 })
-                .then( json =>  {
+                .then(json => {
                     let data = json;
                     if (!json.hasOwnProperty('error')) {
                         data = fileThumbService.setThumb(json);
@@ -224,14 +264,16 @@ export function uploadFile(file) {
 
                     dispatch({
                         type: types.UP_UPLOAD_FILE_SUCCESS_ED,
-                        data: data
+                        data: data,
+                        target
                     });
 
                 })
-                .catch( error => {
+                .catch(error => {
                     dispatch({
                         type: types.UP_UPLOAD_FILE_ERROR_ED,
-                        error: error
+                        error: error,
+                        target
 
                     });
                 });
@@ -523,10 +565,6 @@ export function initialStateSections(features) {
     return action;
 }
 
-
-const ICON_MAX_SIZE = 0.5 * 1024 * 1024;
-const FILE_TYPES = ['image/jpeg','image/jpg','image/png','image/gif'];
-
 function uploadSuccess(iconLoaded,data,error) {
     return {
         type: types.UP_UPLOAD_ICON_SUCCESS_ED,
@@ -536,24 +574,36 @@ function uploadSuccess(iconLoaded,data,error) {
     };
 }
 
+function uploadIconValidation(iconLoaded, data, error) {
+    return {
+        type: types.UP_UPLOAD_ICON_SUCCESS_ED,
+        iconLoaded,
+        data,
+        error
+    };
+}
 export function uploadIcon(file) {
+    const name = file.name;
+    const ext = name.slice(name.lastIndexOf('.'),name.legth);
+
     return dispatch => {
         dispatch({
             type: types.UP_UPLOAD_ICON_ED,
             name: file.name
         });
-        if (!FILE_TYPES.includes(file.type)) {
+
+        if (!IMG_TYPES.includes(ext)) {
             const data = {
                 name: file.name
             }
-            const error =  'Unsupported mime type. Allowed ' + FILE_TYPES.join(',');
-            dispatch(uploadSuccess(false,data,error));
+            const error = 'Unsupported file type. Allowed ' + IMG_TYPES.join('/');
+            dispatch(uploadIconValidation(false, data, error));
         } else if (file.size > ICON_MAX_SIZE) {
             const data = {
                 name: file.name
             }
-            const error =  'File size is ' + (file.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + (ICON_MAX_SIZE / 1024 / 1024).toFixed(2) + ' MB.'
-            dispatch(uploadSuccess(false,data,error));
+            const error = 'File size is ' + (file.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + (ICON_MAX_SIZE / 1024 / 1024).toFixed(2) + ' MB.'
+            dispatch(uploadIconValidation(false, data, error));
         } else {
             return uploadService.upload(file)
                 .then(response => {
@@ -562,7 +612,7 @@ export function uploadIcon(file) {
                     }
                     return response.json();
                 })
-                .then( json =>  {
+                .then(json => {
                     let data = json;
                     if (!json.hasOwnProperty('error')) {
                         data = fileThumbService.setThumb(json);
@@ -575,7 +625,7 @@ export function uploadIcon(file) {
                     });
 
                 })
-                .catch( error => {
+                .catch(error => {
                     dispatch({
                         type: types.UP_UPLOAD_ICON_ERROR_ED,
                         iconLoaded: false,
@@ -586,5 +636,3 @@ export function uploadIcon(file) {
         }
     };
 };
-
-const MAX_SIZE = 2 * 1024 * 1024;

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../../actions/admin/EditProjectActions';
-import { Button, TextInput, TextArea, FileUpload } from '../../../common/';
+import { Button, TextInput, TextArea, FileUpload, TextFieldTags, RaisedButtonUITags } from '../../../common/';
 import styles from './styles/Techs.sass';
 import { DEFAULT } from '../../../../constants/Api';
 
@@ -160,6 +160,57 @@ class Techs extends Component {
                             {allUnUsedTechnologies}
                         </div>
 
+                        <div className={styles['add-tech-block']}>
+                            <div className="inputField">
+                                <TextInput
+                                    value={this.state.techName}
+                                    label='Name *'
+                                    placeholder='Type tecnology name'
+                                    onChange={this.onTechNameChange}
+                                />
+                            </div>
+                            <div className="inputField">
+                                <TextInput
+                                    value={this.state.techVersion}
+                                    label='Version *'
+                                    placeholder='Type tecnology version'
+                                    onChange={this.onTechVersionChange}
+                                />
+                            </div>
+                            <div className="inputField">
+                                <TextArea
+                                    value={this.state.techDescription}
+                                    label='Description *'
+                                    className={styles['text-select-input']}
+                                    placeholder='Type tecnology description here'
+                                    onChange={this.onTechDescriptionChange}
+                                />
+                            </div>
+
+                            <FileUpload
+                                id={'tech-icon'}
+                                multiple={false}
+                                accept='image/jpeg,image/png,image/gif'
+                                onChange={this.onTechLogoChange}
+                                error={techIconError}
+                            />
+                            {iconLoaded && <img src={techIcon.path} alt="tech icon"/>}
+
+                            <div className="btnField">
+                                <RaisedButtonUITags
+                                    label='Add'
+                                    disabled={!this.state.addBtnEnabled}
+                                    onClick={this.addNewTechToProject}
+                                    backgroundColor='#8D97A4'
+                                />
+                            </div>
+                            {/*<Button
+                             value="Add"
+                             disabled = {!this.state.addBtnEnabled}
+                             onClick={this.addNewTechToProject}
+                             />  */}
+
+                        </div>
 
                     </div>
 
@@ -175,45 +226,10 @@ class Techs extends Component {
                     </div>
                 </div>
 
-                <div className={styles['add-tech-block']}>
-                    <TextInput
-                        value={this.state.techName}
-                        label='Name *'
-                        placeholder='Type tecnology name'
-                        onChange={this.onTechNameChange}
-                    />
-                    <TextInput
-                        value={this.state.techVersion}
-                        label='Version *'
-                        placeholder='Type tecnology version'
-                        onChange={this.onTechVersionChange}
-                    />
-                    <TextArea
-                        value={this.state.techDescription}
-                        label='Description *'
-                        placeholder='Type tecnology description here'
-                        onChange={this.onTechDescriptionChange}
-                    />
-                    <FileUpload
-                        id={'tech-icon'}
-                        multiple={false}
-                        accept='image/jpeg,image/png,image/gif'
-                        onChange={this.onTechLogoChange}
-                        error={techIconError}
-                    />
-                    {iconLoaded && <img src={techIcon.path} alt="tech icon"/>}
-                    <Button
-                        value="Add"
-                        disabled = {!this.state.addBtnEnabled}
-                        onClick={this.addNewTechToProject}
-                    />
-
-                </div>
             </div>
         );
     }
 }
-
 
 
 function mapDispatchToProps(dispatch) {

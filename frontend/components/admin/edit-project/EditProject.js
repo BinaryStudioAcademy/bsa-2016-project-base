@@ -8,12 +8,15 @@ import Tags from './sections/Tags';
 import Techs from './sections/Techs';
 import Features from './sections/Features';
 import Attachments from './sections/Attachments';
+import Screenshots from './sections/Screenshots'
 
 import styles from './sections/styles/EditProject.sass';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {toastr} from 'react-redux-toastr';
 const Loading = require('react-loading-animation');
+import * as constants  from '../../../constants/Api';
+const {ORIGIN} = constants;
 import { TabPanel, TabBody, TabHead, Button, RaisedButtonUITags } from '../../common/';
 import editProjectService from '../../../services/admin/EditProjectService';
 
@@ -142,13 +145,32 @@ class EditProject extends Component {
                 const temp = [];
                 console.log('files ',files);
                 files.forEach( file => {
-                    temp.push({
-                        name: file.name,
-                        link: file.path
-                    });
+                    if (file.target === 'file') {
+                        temp.push({
+                            name: file.name,
+                            link: file.path
+                        });
+                    }
+
                 });
                 console.log('temp ',temp);
                 return temp;
+            })(),
+            screenshots: (() => {
+                const temp = [];
+                console.log('files ',files);
+                files.forEach( file => {
+                    if (file.target === 'screenshot') {
+                        temp.push(file.path);
+                    }
+
+                });
+                console.log('temp ',temp);
+                return temp;
+            })(),
+            descrFullText: (() => {
+                const text = description.descrFullText;
+                return text.replace(/<img src="upload/g,'<img src="'+ORIGIN+'/upload');
             })()
         }
         console.log('inProject.sections ',inProject.sections);
@@ -157,11 +179,13 @@ class EditProject extends Component {
         console.log('inProject.owners ',inProject.owners);
         const project = {
             _id: projectId,
+            linkToProject:projectLink,
             projectName,
             /*projectLink,*/
             timeBegin: new Date(timeBegin),
             timeEnd: new Date(timeEnd),
             attachments: inProject.attachments,
+            screenShots: inProject.screenshots,
             sections: inProject.sections,
             features: inProject.features,
             tags: inProject.tags,
@@ -169,7 +193,9 @@ class EditProject extends Component {
             owners: inProject.owners,
             users: inProject.users,
             status: status.value,
-            description,
+            description: {
+                descrFullText: inProject.descrFullText
+            }
 
         };
         console.log('project ',project);
@@ -199,7 +225,7 @@ class EditProject extends Component {
 
 
     render() {
-        const {initialTags, initialTechnologies, initialUsers, initialSections, initialFiles} = this.props.store;
+        const {initialTags, initialTechnologies, initialUsers, initialSections, initialFiles, projectLink} = this.props.store;
         var load = false;
         if(initialTags && initialTechnologies && initialSections ) {
             load = true;
@@ -212,9 +238,16 @@ class EditProject extends Component {
                 <div  className={"visible-" + load}>
                 <Inputs load={load} fff="2"/>
                 <br/>
+                <div className={styles['valid-container']}>
+                    {this.props.store.errors && this.props.store.errors.technologies && <div className={styles.validationTech}><div className={styles.tool}>{this.props.store.errors.technologies}</div></div>}
+
+                    {this.props.store.errors && (this.props.store.errors.users || this.props.store.errors.owners) && <div className={styles.validationUser} style={this.props.store.errors.technologies ? {marginLeft: '3rem'} : {marginLeft: '17rem'}}><div className={styles.tool}>{this.props.store.errors.users || this.props.store.errors.owners}</div></div>}
+                </div>
                 <TabsUI/>
                 <br/>
                 <Attachments/>
+                <br/>
+                <Screenshots/>
                 <br/>
                     <RaisedButtonUITags
                         className={styles.btnCreate}
