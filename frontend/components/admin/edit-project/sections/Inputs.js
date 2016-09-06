@@ -64,19 +64,21 @@ class Inputs extends Component {
 	}
 
     render() {
+    	//alert(this.props.load);
+		//alert(this.state.selectedIndex);
         let conditionOpts = [
             {value:'Estimation', name:'Estimation'},
             {value:'InProgress', name:'InProgress'},
             {value:'Completed', name:'Completed'}
         ];
 
-		if(this.props.projectName == '') {
+		if(this.props.projectName == '' || this.props.load == false) {
         	return null
 		}
-		else if(this.state.selectedIndex == '') {
+		else if(this.state.selectedIndex === '') {
 			var self = this;
 			conditionOpts.forEach(function(el, index) {
-				if(el.name == self.props.status) {
+				if(el.name == self.props.status.name) {
 					self.state.selectedIndex = index;
 				}
 
