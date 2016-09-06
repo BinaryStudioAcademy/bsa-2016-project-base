@@ -114,11 +114,12 @@ export default function EditProjectReducer(state=initialState, action) {
             });
         }
         case types.UP_POST_TECH_SUCCESS_ED: {
-            const {data} = action;
+            const {data, iconLoaded} = action;
             const {predefinedTechnologies} = state;
             console.log('POST_TECH',data);
             return Object.assign({}, state, {
-                predefinedTechnologies: addNewTech(predefinedTechnologies, data)
+                predefinedTechnologies: addNewTech(predefinedTechnologies, data),
+                iconLoaded
             });
         }
         case types.UP_POST_SECTION_SUCCESS_ED: {
@@ -156,22 +157,23 @@ export default function EditProjectReducer(state=initialState, action) {
         }
 
         case types.UP_UPLOAD_FILE_ED: {
-            const {name} = action;
+            const {name, target} = action;
             const {files} = state;
             return Object.assign({}, state, {
                 files: files.concat({
                     name,
                     good:true,
-                    ready: false
+                    ready: false,
+                    target
                 })
             });
         }
 
         case types.UP_UPLOAD_FILE_SUCCESS_ED: {
-            const {data} = action;
+            const {data,target} = action;
             const {files} = state;
             return Object.assign({}, state, {
-                files: updateFileSuccess(files, data)
+                files: updateFileSuccess(files, data, target)
             });
         }
         case types.UP_REMOVE_FILE_ED: {
@@ -223,13 +225,18 @@ export default function EditProjectReducer(state=initialState, action) {
             var data = [];
             if(project.attachments.length != 0) {
                 data = project.attachments.map(function (el) {
-                    return fileThumbService.setThumb(Object.assign({}, el, {path: el.link}));
+                    return fileThumbService.setThumb(Object.assign({}, el, {path: el.link}, {target: "file"}));
+                });
+            }
+            if(project.screenShots.length != 0) {
+                 project.screenShots.forEach(function (el) {
+                     data.push(fileThumbService.setThumb(Object.assign({}, {path: el}, {target: "screenshot"})));
                 });
             }
             return Object.assign({}, state, {
                 projectId: project._id,
                 projectName: project.projectName,
-                projectLink: project.projectLink,
+                projectLink: project.linkToProject,
                 timeBegin: project.timeBegin,
                 timeEnd: project.timeEnd,
                 status: {name: project.status, value: project.status},
@@ -384,10 +391,10 @@ const removeFile = (files, name) => {
     return [].concat(files);
 }
 
-const addNewTech  = (technologies, tech) => {
+const addNewTech  = (predefinedTechnologies, tech) => {
     tech.inProject = true;
-    technologies.push(tech);
-    return [].concat(technologies);
+    predefinedTechnologies.push(tech);
+    return [].concat(predefinedTechnologies);
 }
 
 const addTechToProject = (techs, _id) => {
@@ -507,7 +514,7 @@ const initialState = {
     initialFiles: false,
     iconLoaded: false,
     techIcon: {},
-    techIconError: null,
+    techIconError: '',
     description:{
         descrFullText: 'Description'
     },
