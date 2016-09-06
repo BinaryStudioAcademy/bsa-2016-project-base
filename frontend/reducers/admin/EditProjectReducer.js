@@ -202,6 +202,15 @@ export default function EditProjectReducer(state=initialState, action) {
                 added: true
             });
         }
+
+        case types.UP_POST_PROJECT_ERROR_ED: {
+            const error = action.error;
+            const {added} = state;
+            return Object.assign({}, state, {
+                errors: error
+            });
+        }
+
         case types.UP_REMOVE_TECH_FROM_PROJECT_ED: {
             const {_id} = action;
             const {predefinedTechnologies} = state;
@@ -223,7 +232,7 @@ export default function EditProjectReducer(state=initialState, action) {
                 projectLink: project.projectLink,
                 timeBegin: project.timeBegin,
                 timeEnd: project.timeEnd,
-                status: project.status,
+                status: {name: project.status, value: project.status},
                 users: project.users,
                 owners: project.owners,
                 tags: project.tags,
