@@ -114,11 +114,12 @@ export default function EditProjectReducer(state=initialState, action) {
             });
         }
         case types.UP_POST_TECH_SUCCESS_ED: {
-            const {data} = action;
+            const {data, iconLoaded} = action;
             const {predefinedTechnologies} = state;
             console.log('POST_TECH',data);
             return Object.assign({}, state, {
-                predefinedTechnologies: addNewTech(predefinedTechnologies, data)
+                predefinedTechnologies: addNewTech(predefinedTechnologies, data),
+                iconLoaded
             });
         }
         case types.UP_POST_SECTION_SUCCESS_ED: {
@@ -390,10 +391,10 @@ const removeFile = (files, name) => {
     return [].concat(files);
 }
 
-const addNewTech  = (technologies, tech) => {
+const addNewTech  = (predefinedTechnologies, tech) => {
     tech.inProject = true;
-    technologies.push(tech);
-    return [].concat(technologies);
+    predefinedTechnologies.push(tech);
+    return [].concat(predefinedTechnologies);
 }
 
 const addTechToProject = (techs, _id) => {
@@ -513,7 +514,7 @@ const initialState = {
     initialFiles: false,
     iconLoaded: false,
     techIcon: {},
-    techIconError: null,
+    techIconError: '',
     description:{
         descrFullText: 'Description'
     },
