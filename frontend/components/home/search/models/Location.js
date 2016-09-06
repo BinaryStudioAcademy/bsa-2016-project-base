@@ -15,7 +15,7 @@ export default class Location extends MultiSelectModel {
         this.ComponentClass = LocationView;
         this.onMarkerMouseOver = this.onMarkerMouseOver.bind(this);
         //this.mapZoom = 5;
-        //this.displayOnMap = this.displayOnMap.bind(this);
+        this.displayOnMap = this.displayOnMap.bind(this);
         if (!this.geocoder) this.geocoder = new google.maps.Geocoder();
     }
 
@@ -101,9 +101,9 @@ Project Name: ${project.projectName}`);//TODO: make better layout
 
     setMap(map) {
         this.map = map;
-        if (this.tips){
+        /*if (this.tips){
             this.tips.forEach(this.displayOnMap)
-        }
+        }*/
         map.setZoom(5);
         if (!this.geocoder) this.geocoder = new google.maps.Geocoder();
         this.startLoadTips();
