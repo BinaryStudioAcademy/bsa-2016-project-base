@@ -38,6 +38,19 @@ export default class Location extends MultiSelect {
             zoom: 4,
             center: {lat: 53.52604744889203, lng: -1.08411407470703125}
         });
+        /*var self = this;
+        this.map.addListener("bounds_changed", function () {
+            clearTimeout(self.optimizeInfoWindowsTimeoutId)
+            self.optimizeInfoWindowsTimeoutId = setTimeout(()=>
+                model.tips.map(tip=> {
+                    if (map.getBounds().contains(tip.marker.position)) {
+                        tip.infoWindow.open(map, tip.marker);
+                    } else {
+                        tip.infoWindow.close()
+                    }
+                }), 200)
+
+        });*/
         this.map.__unique__id__ = getUniqueMapId();
         var map = this.map;
         model.currentActiveMapId = this.map.__unique__id__;
@@ -92,7 +105,6 @@ export default class Location extends MultiSelect {
             }
             if (map.__unique__id__ === model.currentActiveMapId) {
                 setTimeout(function () {
-
                     model.tips.map(tip=> {
                         if (tip.marker.map.__unique__id__ !== map.__unique__id__) {
                             model.displayOnMap(map, tip)

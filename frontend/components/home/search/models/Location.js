@@ -25,15 +25,14 @@ export default class Location extends MultiSelectModel {
             .then(res=>{
                 var project = res.project;
                 mapContentToDestination(`
-Project Name: ${project.projectName}`);//TODO: make better layout
+<h3>${project.projectName}</h3>
+${project.description.descrText}`);//TODO: make better layout
             })
     }
 
     displayOnMap(map, value){
         value.marker.setMap(map);
-        value.shouldShowInfo ?
-            value.infoWindow.open(map, value.marker):
-            value.infoWindow.close();
+        value.infoWindow.open(map, value.marker);
     }
 
     startLoadTips(map){
@@ -41,6 +40,11 @@ Project Name: ${project.projectName}`);//TODO: make better layout
         this.getTips(map, function(error, tips){
             this.tips.forEach(tip=>tip.marker.setMap(null));
             this.tips = tips;
+            new MarkerClusterer(map, tips.map(tip=>tip.marker), {
+                imagePath: 'https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/images/m',
+                gridSize: 100,
+                minimumClusterSize:3
+            });
             this.notifyUpdated();
         }.bind(this))
     }
@@ -50,7 +54,6 @@ Project Name: ${project.projectName}`);//TODO: make better layout
 
         searchService.getLocations()
             .then(function(res){
-                var shouldShowInfo = res.locations.length < 30;
                 var newTips = res.locations.map(tip=>{
                     try {
                         if (!tip.location || !tip.location.Latitude || !tip.location.Longitude)return;
@@ -63,14 +66,14 @@ Project Name: ${project.projectName}`);//TODO: make better layout
                         });
                         var text = tip.label;
                         var infoWindow = new google.maps.InfoWindow({
-                            content: shouldShowInfo?text:undefined
+                            content: text,
+                            disableAutoPan: true
                         });
 
                         var newTip = {
                             marker,
                             text,
                             infoWindow,
-                            shouldShowInfo,
                             projectId:tip.projId
                         };
 
@@ -82,7 +85,7 @@ Project Name: ${project.projectName}`);//TODO: make better layout
                         });
 
                         marker.addListener('mouseout', function() {//TODO: optimize closure memory leak
-                            newTip.shouldShowInfo ? infoWindow.setContent(newTip.text) : infoWindow.close();
+                            infoWindow.setContent(newTip.text)
                         });
 
                         marker.addListener('click', function(){//TODO: optimize closure memory leak
@@ -102,7 +105,6 @@ Project Name: ${project.projectName}`);//TODO: make better layout
                         return true;
                     });
 
-                map.setCenter(newTips[0].marker.position);
                 callback(res.err,newTips);
                 res = null;
             })
