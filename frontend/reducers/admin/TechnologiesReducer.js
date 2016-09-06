@@ -4,12 +4,13 @@
 const initialState = {
     listOfTechnologies: [],
     listOfTechnologiesFiltered:[],
-    formState: 'hidden'
+    formState: 'hidden',
+    hideFile : 'visible',
+    hideForm : 'hidden'
 };
 
 
-export default function technologieReducer(state = initialState, action) {
-
+export default function technologiesReducer(state = initialState, action) {
     switch (action.type) {
         case 'INIT_TECHNOLOGY': {
             const {listOfTechnologies} = action;
@@ -23,10 +24,23 @@ export default function technologieReducer(state = initialState, action) {
                 listOfTechnologies
             })
         }
+        case 'SET_IMAGE_FROM_LINK': {
+            const {techAvatar} = action;
+            return Object.assign({}, state, {
+                techAvatar
+            })
+        }
         case 'SET_ADD_FORM_STATE': {
             const {formState} = action;
             return Object.assign({}, state, {
                 formState
+            })
+        }
+        case 'SET_VISIBLE_FORM_BY_LINK': {
+            const {hideFile,hideForm} = action;
+            return Object.assign({}, state, {
+                hideFile,
+                hideForm
             })
         }
         case 'DELETE_TECHNOLOGY': {

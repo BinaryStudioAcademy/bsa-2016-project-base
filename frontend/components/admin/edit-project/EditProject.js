@@ -72,7 +72,13 @@ class EditProject extends Component {
         this.updateProject = this.updateProject.bind(this);
     }
     componentWillReceiveProps(nextProps){
-        if(nextProps.store.added) toastr.success('Project', nextProps.store.projectName + ' was updated!');
+        if(nextProps.store.added) {
+            window.scrollTo(0, 0);
+            toastr.success('Project', `${nextProps.store.projectName} was updated!`, {
+                timeOut: 10000
+            });
+            //this.props.clearData();
+        }
     }
     componentWillMount() {
         this.props.getPredefinedData();
@@ -204,7 +210,7 @@ class EditProject extends Component {
                 <Loading />
             </div>
                 <div  className={"visible-" + load}>
-                <Inputs/>
+                <Inputs load={load} fff="2"/>
                 <br/>
                 <TabsUI/>
                 <br/>
