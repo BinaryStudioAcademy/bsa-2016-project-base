@@ -49,8 +49,8 @@ class File extends Component {
                     <Button className={styles["btnIcon"]} onClick={onClick && ((e) => onClick(e,name))}>
                             <i className="fa fa-times" aria-hidden="true"></i>
                     </Button>
-                    <span className={styles["error"]}>Error:</span>
-                     {error}
+                    <span className={styles["error"]}>Error: </span>
+                    <span className={styles["error-message"]}>{error}</span>
                 </div>
             );
         }

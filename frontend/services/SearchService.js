@@ -9,8 +9,15 @@ class SearchService {
         this.url = constants.URL + "search/";
     }
 
+    getProject(id){
+        console.log(`${this.url}projects/${id}`)
+        return fetch(`${this.url}projects/${id}`, constants.cookieMarker)
+            .then(res => res.json())
+            .then(json => ({project:json}))
+            .catch(error => ({err:error}))
+    }
     getLocations(){
-        return new Promise((success,failure)=>{
+        /*return new Promise((success,failure)=>{
             success([
                 {label:"place1",latLng:{lat:50.425322,lng:30.513381}},
                 {label:"place2",latLng:{lat:49.846702,lng:24.025782}},
@@ -22,7 +29,11 @@ class SearchService {
                 {label:"place8",latLng:{lat:-33.973108,lng:24.173810}},
                 {label:"place8",latLng:{lat:-33.964978,lng:18.626915}}
                   ])
-        });
+        });*/
+        return fetch(`${this.url}locations`, constants.cookieMarker)
+            .then(res => res.json())
+            .then(json => ({locations:json}))
+            .catch(error => ({err:error}))
     }
     getProjects(query) {
         console.log("Request", `${this.url}projects?${query}`)

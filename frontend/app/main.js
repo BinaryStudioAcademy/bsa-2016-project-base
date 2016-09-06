@@ -10,7 +10,7 @@ import {Admin, Rights, Tags, Tech} from '../components/admin/';
 import UpsertProject from '../components/admin/project/UpsertProject';
 import EditProject from '../components/admin/edit-project/EditProject'
 import TechDetail from '../components/admin/technologies/detail/TechDetail';
-import ProjectsList from '../components/projects/ProjectsList';
+// import ProjectsList from '../components/projects/ProjectsList';
 import ProjectView from '../components/projectview/project-view';
 import ProjectSummary from '../components/project-summary/ProjectSummary';
 import Home from '../components/home/Home';
@@ -43,7 +43,7 @@ render(
           <Route path="/" component={App}>
             <IndexRoute component={Home}/>
             <Route path="home" component={Home} title='projects'/>
-            <Route path="projects" component={ProjectsList} title='projects'/>
+            {/*<Route path="projects" component={ProjectsList} title='projects'/>*/}
             <Route path="project-view/:id" component={ProjectView} title='project summary'/>
             <Route path="test" component={Test} />
             <Route path="project-summary/:id" component={ProjectSummary}/>
