@@ -16,6 +16,7 @@ export default class Location extends MultiSelectModel {
         this.onMarkerMouseOver = this.onMarkerMouseOver.bind(this);
         //this.mapZoom = 5;
         this.displayOnMap = this.displayOnMap.bind(this);
+        this.currentActiveMapId = null;
         if (!this.geocoder) this.geocoder = new google.maps.Geocoder();
     }
 
@@ -28,16 +29,25 @@ Project Name: ${project.projectName}`);//TODO: make better layout
             })
     }
 
-    displayOnMap(value){
-        value.marker.setMap(this.map);
+    displayOnMap(map, value){
+        value.marker.setMap(map);
         value.shouldShowInfo ?
-            value.infoWindow.open(this.map, value.marker):
+            value.infoWindow.open(map, value.marker):
             value.infoWindow.close();
-
     }
 
-    getTips(value, callback) {
+    startLoadTips(map){
+        this.currentActiveMapId = map.__unique__id__;
+        this.getTips(map, function(error, tips){
+            this.tips.forEach(tip=>tip.marker.setMap(null));
+            this.tips = tips;
+            this.notifyUpdated();
+        }.bind(this))
+    }
+
+    getTips(map, callback) {
         var self = this;
+
         searchService.getLocations()
             .then(function(res){
                 var shouldShowInfo = res.locations.length < 30;
@@ -68,7 +78,7 @@ Project Name: ${project.projectName}`);//TODO: make better layout
                             self.onMarkerMouseOver(content=>
                                 infoWindow.setContent(content), tip.projId
                             );
-                            infoWindow.open(self.map, marker);
+                            infoWindow.open(map, marker);
                         });
 
                         marker.addListener('mouseout', function() {//TODO: optimize closure memory leak
@@ -76,38 +86,38 @@ Project Name: ${project.projectName}`);//TODO: make better layout
                         });
 
                         marker.addListener('click', function(){//TODO: optimize closure memory leak
-                            self.addValue(newTip)
+                            self.addValue(map, newTip)
                         });
 
-                        self.displayOnMap(newTip);
                         return newTip
                     }catch (e){/*empty*/}
-                });
-                self.map.setCenter(newTips[0].marker.position)
-                callback(res.err,newTips.filter(tip=>tip))
+                }).filter(tip=>tip).filter(tip=>{
+                        for (let i = 0; i < self.values.length; i+=1){
+                            if (self.equals(tip,self.values[i])){
+                                self.values[i] = tip;
+                                return false;
+                            }
+                        }
+                        self.displayOnMap(map, tip);
+                        return true;
+                    });
+
+                map.setCenter(newTips[0].marker.position);
+                callback(res.err,newTips);
                 res = null;
             })
     }
 
-    addValue(value) {
+    addValue(map, value) {
         value.marker.setMap(null);
         super.addValue(value);
     }
 
-    removeValue(value) {
-        this.displayOnMap(value)
+    removeValue(map, value) {
+        this.displayOnMap(map, value);
         super.removeValue(value)
     }
 
-    setMap(map) {
-        this.map = map;
-        /*if (this.tips){
-            this.tips.forEach(this.displayOnMap)
-        }*/
-        map.setZoom(5);
-        if (!this.geocoder) this.geocoder = new google.maps.Geocoder();
-        this.startLoadTips();
-    }
     getValueInRequest(){
         return this.values.map(value=>value.projectId)
     }
