@@ -19,7 +19,9 @@ export function uploadFileByLink(link) {
         UploadService.uploadFileByLink(link)
             .then(response => response.json())
             .then(json => dispatch(setImageFromLink(json)))
-            .catch(dispatch(errorHandler('Bad Request')));
+            .catch(error=> {
+                dispatch(errorHandler('Bad Request'))
+            });
 
     }
 }
@@ -28,7 +30,9 @@ export function uploadFileByFile(file) {
         UploadService.uploadFileByFile(file)
             .then(response => response.json())
             .then(json => dispatch(setImageFromLink(json)))
-            .catch(dispatch(errorHandler('Bad Request')));
+            .catch(error=> {
+                dispatch(errorHandler('Bad Request'))
+            });
 
     }
 }
@@ -49,7 +53,9 @@ export function deleteImageFromList(img) {
     return dispatch => {
         UploadService.deleteFile(img)
             .then(dispatch(setImageFromLinkAfterDelete()))
-            .catch(dispatch(errorHandler('Bad Request')));
+            .catch(error=> {
+                dispatch(errorHandler('Bad Request'))
+            });
     }
 }
 export function setImageFromLinkAfterDelete() {
@@ -69,7 +75,9 @@ export function initTechnology(listOfTechno) {
 export function saveTechology(params) {
     return dispatch=> {
         TechnologieService.saveTechnology(params)
-            .catch(dispatch(errorHandler('Bad Request')));
+            .catch(error=> {
+                dispatch(errorHandler('Bad Request'))
+            });
         dispatch(getTechnologies());
         dispatch(setImageFromLinkAfterDelete());
 
@@ -100,7 +108,7 @@ export function removeSelectedTechs(technologies) {
     return dispatch=> {
         technologies.forEach(tech=> {
             if (tech.checked === 'checked') {
-                    TechnologieService.deleteTechnology(tech._id)
+                TechnologieService.deleteTechnology(tech._id)
                     .catch(error => dispatch(errorHandler('Bad Request')));
             }
         });
