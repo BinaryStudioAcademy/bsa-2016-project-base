@@ -4,12 +4,16 @@ var Users = require('../schemas/userSchema');
 var Tags = require('../schemas/tagSchema');
 var Techs = require('../schemas/technologySchema');
 var Projects = require('../schemas/projectSchema');
+var {ObjectId} = require('mongodb');
+//var mongoose = require('mongoose');
 
 class SearchServiceSubTools {
 
 	getSearchFiltersFromRequest(req) {
         
         let queryFilters = {};
+        queryFilters.queryProjIds = (req.query.id == undefined)? []: req.query.id.split(',').map(elem=> new ObjectId(elem)); 
+        //queryFilters.queryProjIds = (req.query.id == undefined)? []: req.query.id.split(',').map(elem=> mongoose.Types.ObjectId(elem)); 
         queryFilters.queryProjNames = (req.query.name == undefined)? []: req.query.name.split(',');     
         queryFilters.queryProjUsers = (req.query.users == undefined)? []: req.query.users.split(',');
         queryFilters.queryProjOwners = (req.query.owners == undefined)? []: req.query.owners.split(',');
@@ -328,6 +332,7 @@ class SearchServiceSubTools {
                 ]
             };
 
+            if (searchFilters.queryProjIds.length != 0) {projQueryObj._id = {$in: searchFilters.queryProjIds}};
             if (namesQuerySelection.length != 0){projQueryObj.$and.push({$or: namesQuerySelection})};
             if (res.filteredUsersIds != null) {projQueryObj.users = {$in: res.filteredUsersIds}};
             if (res.filteredOwnersIds != null) {projQueryObj.owners = {$in: res.filteredOwnersIds}};
@@ -365,6 +370,8 @@ class SearchServiceSubTools {
             console.log('Object.values(elem.vars): ', elem.vars);
             
             let selectionsConditionsAnd = {
+                idsIn: [],
+                idsNin: [],
                 namesIn: [],
                 namesNin: [],
                 usersIn: [],
@@ -409,6 +416,11 @@ class SearchServiceSubTools {
                                     {selectionsConditionsAnd.namesIn.push(searchReturn.queryProjNames[parseInt(keyParts[2])])}
                                 else {selectionsConditionsAnd.techsNin.push(searchReturn.queryProjNames[parseInt(keyParts[2])])};
                                 break;
+                    case 'id':   if (elem.vars[elem_] == '1') 
+                                    {selectionsConditionsAnd.idsIn.push(searchReturn.queryIds[parseInt(keyParts[2])])}
+                                else {selectionsConditionsAnd.idsNin.push(searchReturn.queryIds[parseInt(keyParts[2])])};
+                                break;
+                    default: throw new Error('Error in predicates selection: predicate was not recognized.');
                 }
             });
 
@@ -416,6 +428,8 @@ class SearchServiceSubTools {
             let outputAnd = {
                 $and: []
             }
+            if (selectionsConditionsAnd.idsIn.length != 0) outputAnd.$and.push({_id: {$in: selectionsConditionsAnd.idsIn}});
+            if (selectionsConditionsAnd.idsNin.length != 0) outputAnd.$and.push({_id: {$nin: selectionsConditionsAnd.idsNin}});
             if (selectionsConditionsAnd.usersIn.length != 0) outputAnd.$and.push({users: {$all: selectionsConditionsAnd.usersIn}});
             if (selectionsConditionsAnd.usersNin.length != 0) outputAnd.$and.push({users: {$nin: selectionsConditionsAnd.usersNin}});
             if (selectionsConditionsAnd.ownersIn.length != 0) outputAnd.$and.push({owners: {$all: selectionsConditionsAnd.ownersIn}});
