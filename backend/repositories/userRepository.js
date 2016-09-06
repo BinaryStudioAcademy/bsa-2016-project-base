@@ -16,9 +16,9 @@ UserRepository.prototype.addinProgressProject = function(userId, obj, callback) 
 		userId,
 		{$push: {"userHistory":
 		{
-			ProjectId: obj.ProjectId,
-			DateFrom: obj.DateFrom,
-			DateTo: null,
+			projectId: obj.ProjectId,
+			dateFrom: obj.DateFrom,
+			dateTo: null,
 
 		}}},
 		{}
