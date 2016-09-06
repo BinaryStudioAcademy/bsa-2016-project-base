@@ -12,22 +12,25 @@ export default class DeletableList extends React.Component {
 
     static get propTypes() {
         return {
-            model:PropTypes.instanceOf(Model)
+            model: PropTypes.instanceOf(Model),
+            onClick: PropTypes.func
         }
     }
 
     render() {
-        const {model} = this.props;
+        const {model, onClick} = this.props;
         return <List>
             <Subheader>{`Selected ${model.title}:`}</Subheader>
-            {model.values.map((value,index)=> {
-            const onClick = function(){model.removeValue(value)};
-            return <ListItem style={{WebkitAppearance:"none"}}
-                key={index}
-                primaryText={model.getText(value)}
-                rightIcon={<Delete onClick={onClick}
+            {model.values.map((value, index)=> {
+                const _onClick =  function () {
+                    onClick? onClick(value) : model.removeValue(value)
+                };
+                return <ListItem style={{WebkitAppearance:"none"}}
+                                 key={index}
+                                 primaryText={model.getText(value)}
+                                 rightIcon={<Delete onClick={_onClick}
                                    hoverColor={"#b00000"}/>}/>
 
-        })}</List>;
+            })}</List>;
     }
 }
