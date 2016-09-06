@@ -62,41 +62,31 @@ export default function UpsertProjectReducer(state=initialState, action) {
         case types.UP_CHANGE_PROJECT_NAME: {
             const {name} = action;
             return Object.assign({}, state, {
-            	
             		projectName: name
-            	
             });
         }
         case types.UP_CHANGE_PROJECT_LINK: {
             const {link} = action;
             return Object.assign({}, state, {
-            	
             		projectLink: link
-            	
             });
         }
         case types.UP_CHANGE_START_DATE: {
             const {date} = action;
             return Object.assign({}, state, {
-            	
-            		timeBegin: date
-            	
+            	timeBegin: date
             });
         }
         case types.UP_CHANGE_FINISH_DATE: {
             const {date} = action;
             return Object.assign({}, state, {
-            	
-            		timeEnd: date
-            	
-            	
+            	timeEnd: date
             });
         }
         case types.UP_CHANGE_STATUS: {
             const {option} = action;
             return Object.assign({}, state, {
-            		status: option
-            	
+            	status: option
             });
         }
         case types.UP_CHANGE_DESCRIPTION: {
@@ -105,7 +95,6 @@ export default function UpsertProjectReducer(state=initialState, action) {
             	description:{
             			descrFullText:text
             	}
-            	
             });
         }
         case types.UP_ADD_TAG_TO_PROJECT: {
@@ -184,7 +173,6 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 features: [].concat(data)
             });
         }
-
         case types.UP_SELECT_SECTION: {
             const {_id} = action;
             const {sections, activeSection} = state;
@@ -192,26 +180,26 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 activeSection: selectSection(sections, _id)
             });
         }
-        
         case types.UP_UPLOAD_FILE: {
-            const {name} = action;
+            const {name, target} = action;
             const {files} = state;
             return Object.assign({}, state, {
                 files: files.concat({
                     name,
                     good:true,
-                    ready: false
+                    ready: false,
+                    target
                 })
             });
         }
         case types.UP_UPLOAD_FILE_SUCCESS: {
-            const {data} = action;
+            const {data,target} = action;
             const {files} = state;
             return Object.assign({}, state, {
-                files: updateFileSuccess(files, data)
+                files: updateFileSuccess(files, data, target)
             });
         }
-         case types.UP_UPLOAD_ICON_SUCCESS: {
+        case types.UP_UPLOAD_ICON_SUCCESS: {
             const {data, iconLoaded, error} = action;
             const {techIcon} = state;
             return Object.assign({}, state, {
@@ -265,11 +253,11 @@ const setDefaults = (source, props) => {
     return [].concat(source);
 }
 
-const updateFileSuccess = (files, data) => {
+const updateFileSuccess = (files, data, target) => {
      if (!data.hasOwnProperty('error')) {
          files.forEach( file => {
             const {name, path, thumb} = data;
-            if (!file.ready && file.name === name) {
+            if (!file.ready && file.name === name && file.target === target) {
                 file.path = path;
                 file.thumb = thumb;
                 file.ready = true;

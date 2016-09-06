@@ -18,19 +18,19 @@ class Feature extends Component {
         const {feature,  isActive, onClick} = this.props;
         console.log('isActive ',isActive);
         return (
-            <div>
-                <div
-                    id={styles["feature"]}
-                    onClick={onClick && ((e) => onClick(e, feature._id))}>
-                    <div className={( isActive ? styles["active"] : '' )} >
-                        {feature.featureName}
-                    </div>
+            <div
+                className={styles["feature"]}
+                onClick={onClick && ((e) => onClick(e, feature._id))}>
+                <div className={( isActive ? styles["active"] : '' )} >
+                    {feature.featureName}
                 </div>
                 <Button
-                    className="technologies-btn-remove"
+                    className={styles["btnIcon"] + ' ' + styles["btnFeature"]}
                     label='Remove'
                     onClick={this.sendDeleteRequest}
-                >Remove</Button>
+                >
+                    <i className="fa fa-times" aria-hidden="true"></i>
+                </Button>
             </div>
         );
     }

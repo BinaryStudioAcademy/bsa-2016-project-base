@@ -2,6 +2,7 @@ export {default as Button} from './Button';
 export {default as DateInput} from './DateInput';
 export {default as DropDown} from './DropDown';
 export {default as DropDownNewProject} from './DropDown_addProject';
+export {default as DropDownEditProject} from './DropDownEditProject';
 export {default as TextArea} from './TextArea';
 export {default as TextInput} from './TextInput';
 export {default as Checkbox} from './Checkbox';

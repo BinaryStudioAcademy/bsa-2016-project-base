@@ -44,22 +44,25 @@ export function updateProject(project) {
         });
         return editProjectService.updateProjectService(project)
             .then(response => {
-                if (response.status != 201) {
-                    throw Error(response.statusText);
-                }
-                return response.json();
-            })
-            .then( json =>  {
-                dispatch({
-                    type: types.UP_POST_PROJECT_SUCCESS_ED,
-                    data: json
-                });
-            })
-            .catch( error => {
-                dispatch({
-                    type: types.UP_POST_PROJECT_ERROR_ED,
-                    error: error
-                });
+                return response.json()
+                    .then(json => {
+                        if(response.ok) {
+                            dispatch({
+                                type: types.UP_POST_PROJECT_SUCCESS_ED,
+                                data: json
+                            });
+                            return json;
+                        }
+                        else {
+                            return Promise.reject(json);
+                        }
+                    })
+                    .catch(error => {
+                        dispatch({
+                            type: types.UP_POST_PROJECT_ERROR_ED,
+                            error: error
+                        });
+                    });
             });
     };
 };
