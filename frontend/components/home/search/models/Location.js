@@ -109,7 +109,7 @@ Project Name: ${project.projectName}`);//TODO: make better layout
         this.startLoadTips();
     }
     getValueInRequest(){
-        return this.values.map(value=>JSON.stringify(value.projectId))
+        return this.values.map(value=>value.projectId)
     }
     getNameInRequest(){
         return "id"
