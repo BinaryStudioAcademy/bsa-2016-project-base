@@ -48,6 +48,7 @@ class SearchService {
 
 	    
 	    var searchReturn = {
+	    	queryIds: searchFilters.queryProjIds,
 	    	queryNames: searchFilters.queryProjNames,
 	    	queryUsers: searchFilters.queryProjUsers,
 	    	queryOwners: searchFilters.queryProjOwners,
