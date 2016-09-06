@@ -16,7 +16,13 @@ exports.config = {
 
   // Spec patterns are relative to the current working directory when
   // protractor is called.
-  specs: ['simple_search.js'],
+  specs: ['init.js',
+    'simple_search.js',
+    'extended_search.js',
+    'date1_search.js',
+    'date2_search.js',
+    'more_extended_search.js'
+    ],
 
   // Options to be passed to Jasmine.
   jasmineNodeOpts: {
