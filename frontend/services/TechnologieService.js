@@ -5,22 +5,38 @@ import * as constants from '../constants/Api';
 
 class TechnologieService {
 
-    constructor(){
+    constructor() {
         this.url = constants.URL + "technologies/";
     }
 
     getAllTechnologies() {
-        return fetch(this.url,constants.cookieMarker);
+        return fetch(this.url, constants.cookieMarker);
     }
 
     addTechology(tech) {
-    	return fetch(this.url, Object.assign({
+        return fetch(this.url, Object.assign({
                 method: 'POST',
                 body: JSON.stringify(tech)
             }, constants.cookieMarker,
-               constants.jsonHedeaders 
+            constants.jsonHedeaders
             )
         );
+    }
+
+    saveTechnology(technology) {
+        return fetch(this.url, Object.assign({
+                method: 'POST',
+                body: JSON.stringify(technology)
+            }, constants.cookieMarker,
+            constants.jsonHedeaders
+        ))
+    }
+
+    deleteTechnology(id){
+        return fetch(`/api/technologies/${id}`, Object.assign({
+                method: 'DELETE',
+            }, constants.cookieMarker
+        ))
     }
 
 }

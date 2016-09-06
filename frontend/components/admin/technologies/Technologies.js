@@ -6,7 +6,7 @@ import  TechnologiesList from "./TechnologiesList";
 import  TechnologiesSearch from "./TechnologiesSearch";
 import  TechnologiesControl from "./TechnologiesControl";
 import  TechnologiesAddForm from "./TechnologiesAddForm";
-import { Grid, Row, Panel, Col } from 'react-bootstrap';
+import {Grid, Row, Panel, Col} from 'react-bootstrap';
 import styles from  './styles.sass';
 import ReduxToastr, {toastr} from 'react-redux-toastr'
 class Technologies extends Component {
@@ -20,14 +20,16 @@ class Technologies extends Component {
         this.controlCheckeditems = this.controlCheckeditems.bind(this);
         this.uploadFileByLink = this.uploadFileByLink.bind(this);
         this.setVisibleUploadByLink = this.setVisibleUploadByLink.bind(this);
+        this.deleteImageList = this.deleteImageList.bind(this);
+        this.uploadFileByFile = this.uploadFileByFile.bind(this);
     }
 
     componentWillMount() {
         this.props.getTechnologies();
     }
 
-    setVisibleUploadByLink(hideFile,hideForm){
-        this.props.setVisibleUploadByLink(hideFile,hideForm);
+    setVisibleUploadByLink(hideFile, hideForm) {
+        this.props.setVisibleUploadByLink(hideFile, hideForm);
     }
 
     technologiesSearch(text) {
@@ -64,7 +66,7 @@ class Technologies extends Component {
 
     deleteChecked() {
         const {listOfTechnologies} = this.props.stateFromReducer.TechnologiesReducer;
-       // this.props.removeSelectedTechs(listOfTechnologies);
+        // this.props.removeSelectedTechs(listOfTechnologies);
         const toastrConfirmOptions = {
             onOk: () => this.props.removeSelectedTechs(listOfTechnologies),
             onCancel: () => ''
@@ -105,20 +107,28 @@ class Technologies extends Component {
         this.props.selectAllTechs(listOfTechnologies);
     }
 
+    deleteImageList() {
+        const {techAvatar} = this.props.stateFromReducer.TechnologiesReducer;
+        this.props.deleteImageFromList(techAvatar);
+    }
 
 
     saveTechnologie(data) {
         this.props.saveTechology(data);
     }
 
-    uploadFileByLink(link){
+    uploadFileByLink(link) {
         this.props.uploadFileByLink(link);
+    }
+
+    uploadFileByFile(file) {
+        this.props.uploadFileByFile(file);
     }
 
     render() {
 
         let list;
-        const {listOfTechnologies, listOfTechnologiesFiltered, formState,techAvatar,hideFile,hideForm}
+        const {listOfTechnologies, listOfTechnologiesFiltered, formState, techAvatar, hideFile, hideForm}
             = this.props.stateFromReducer.TechnologiesReducer;
         if (listOfTechnologiesFiltered.length > 0) {
             list = listOfTechnologiesFiltered;
@@ -130,18 +140,21 @@ class Technologies extends Component {
                 <div className={styles['technologies-tool-bar']}>
                     <div className={styles["technologies-tools"]}>
                         <div className="searchBlock">
-                    <TechnologiesSearch technologiesSearch={this.technologiesSearch}/>
+                            <TechnologiesSearch technologiesSearch={this.technologiesSearch}/>
                         </div>
                         <div className="technologiesControlBlock">
-                    <TechnologiesControl formState={formState} formAddControlState={this.formAddControlState}
-                                         deleteChecked={this.deleteChecked} setAllChecked={this.setAllChecked}/>
-                            </div>
+                            <TechnologiesControl formState={formState} formAddControlState={this.formAddControlState}
+                                                 deleteChecked={this.deleteChecked} setAllChecked={this.setAllChecked}/>
                         </div>
+                    </div>
                 </div>
                 <TechnologiesList listOfTechnologies={list} controlCheckeditems={this.controlCheckeditems}/>
                 <TechnologiesAddForm hideFile={hideFile} hideForm={hideForm} techAvatar={techAvatar}
                                      formState={formState} saveTechnologie={this.saveTechnologie}
-                                     uploadFileByLink={this.uploadFileByLink} setVisibleUploadByLink={this.setVisibleUploadByLink}/>
+                                     uploadFileByLink={this.uploadFileByLink}
+                                     setVisibleUploadByLink={this.setVisibleUploadByLink}
+                                     deleteImageList={this.deleteImageList}
+                                     uploadFileByFile={this.uploadFileByFile}/>
             </div>
         )
     }

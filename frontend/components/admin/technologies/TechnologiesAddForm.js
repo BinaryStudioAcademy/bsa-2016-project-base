@@ -19,6 +19,7 @@ class TechnologiesAddForm extends Component {
         this.saveFileLink = this.saveFileLink.bind(this);
         this.uploadFileByLink = this.uploadFileByLink.bind(this);
         this.setVisibleLinkForm = this.setVisibleLinkForm.bind(this);
+        this.deleteImage = this.deleteImage.bind(this);
         this.state = {
             formState: this.props.formState,
             techName: '',
@@ -57,37 +58,38 @@ class TechnologiesAddForm extends Component {
         var xhr = new XMLHttpRequest();
         var fd = new FormData();
         fd.append("afile", file);
-        xhr.open("POST", "/api/file/", true);
-        xhr.send(fd);
-        xhr.onreadystatechange = function () {
-            if (this.readyState != 4) return;
-            if (this.status === 200) {
-                var result = JSON.parse(xhr.responseText);
-                if (result.type === 'success') {
-                    console.log(result);
-                    self.setState({techAvatar: result.file});
-                } else {
-                    error.classList.remove('hidden');
-                    error.classList.add('visible');
-                }
-            }
-        }
+        this.props.uploadFileByFile(fd);
+
+        // xhr.open("POST", "/api/file/", true);
+        // xhr.send(fd);
+        // xhr.onreadystatechange = function () {
+        //     if (this.readyState != 4) return;
+        //     if (this.status === 200) {
+        //         var result = JSON.parse(xhr.responseText);
+        //         if (result.type === 'success') {
+        //             self.setState({techAvatar: result.file});
+        //         } else {
+        //             error.classList.remove('hidden');
+        //             error.classList.add('visible');
+        //         }
+        //     }
+        // }
 
     }
 
     submitForm(e) {
         e.preventDefault();
         let form = e.target;
-        var file = document.getElementById('file').files[0];
+      //  var file = document.getElementById('file').files[0];
         let data = {
             techName: this.state.techName,
             techDescription: this.state.techDescription,
             techAvatar: this.state.techAvatar,
             techVersion: this.state.techVersion
         };
-        document.getElementById('img').remove();
-        form.reset();
-        this.props.saveTechnologie(data);
+      // document.getElementById('img').remove();
+       form.reset();
+       this.props.saveTechnologie(data);
 
     }
 
@@ -123,7 +125,7 @@ class TechnologiesAddForm extends Component {
             techDescription: nextProps.techDescription || this.state.techDescription,
             techVersion: nextProps.techVersion || this.state.techVersion,
             fileLink: nextProps.fileLink,
-            techAvatar: nextProps.techAvatar,
+            techAvatar: nextProps.techAvatar || this.state.techAvatar,
             hideFile: nextProps.hideFile,
             hideForm: nextProps.hideForm,
         });
@@ -154,6 +156,10 @@ class TechnologiesAddForm extends Component {
         this.props.uploadFileByLink(this.state.fileLink);
     }
 
+    deleteImage(){
+        this.props.deleteImageList();
+    }
+
     render() {
 
         return (
@@ -163,10 +169,7 @@ class TechnologiesAddForm extends Component {
                         <img src={this.props.techAvatar}/>
                         <a href="javascript:void(0);" onClick={this.deleteImage}>Delete Image</a>
                     </div>
-                    : <div className="inputField">
-                    <a href="javascript:void(0)"
-                       onClick={this.setVisibleLinkForm}>{(this.state.hideForm === 'hidden') ? 'UploadByLink' : 'UploadByFile'}</a>
-                </div>
+                    : ''
                 }
                 <form className={styles['form']} onSubmit={this.submitForm}>
                     <div className="inputField">
@@ -194,8 +197,15 @@ class TechnologiesAddForm extends Component {
                                   placeholder="Enter description"
                               />
                     </div>
+                    {(!this.props.techAvatar) ?
+                        <div className="inputField">
+                            <a href="javascript:void(0)"
+                               onClick={this.setVisibleLinkForm}>{(this.state.hideForm === 'hidden') ? 'UploadByLink' : 'UploadByFile'}</a>
+                        </div>
+                        : ''}
                     <input type="hidden" id="file_path" name="techAvatar" value=''/>
                     {(!this.props.techAvatar) ?
+
                         <div className={this.state.hideForm + " inputField"}>
                             <TextInput
                                 label="File Link"
@@ -213,8 +223,10 @@ class TechnologiesAddForm extends Component {
 
                     <div className="inputField">
                         <div id="error" className={styles['error'] + " hidden"}>Wrong file formant</div>
+                        {(!this.props.techAvatar) ?
                         <input className={this.state.hideFile} type="file" id="file" name="afile"
                                onChange={this.upload}/>
+                            :''}
 
 
                         <RaisedButtonUI
