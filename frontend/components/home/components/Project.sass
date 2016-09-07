@@ -1,14 +1,18 @@
 @import url(https://fonts.googleapis.com/icon?family=Rambla:400,700|Source+Sans+Pro:200,400)
 @import "../common"
 =forSmallScreens($media)
-    @media (max-width: $media/16+em)
-        @content
-#home-project
+  @media (max-width: $media/16+em)
+    @content
+
+//#_project-view
+
 img
   max-width: 100%
+
 a
   display: block
   text-decoration: none
+
 .list-group-item
   display: block
   border: 0
@@ -29,13 +33,14 @@ a
     padding: 1em 0
   &:hover
     box-shadow: 0px 0px 25px 1px #777
+
 .stage-icon
   // display: inline-block
   margin: 25px 0 35px
   width: 100%
   padding-bottom: 1em
   text-align: center
-  border-bottom: 1px solid #DBDDE0
+  border-bottom: 1px solid #DBDDE0!important
   font-size: 0.6rem
   font-family: "Play"
   span
@@ -53,36 +58,41 @@ a > h4
   // display: inline-block
   text-align: center
   padding-bottom: 5px
-  border-bottom: 1px solid #A6A6A6
+  border-bottom: 1px solid #A6A6A6!important
 
 .labels-container
   display: flex
 
-
 .tech-label
-  display: block;
+  display: block
   margin-bottom: 5px
 
 .labels
   width: 50%
-  color: #fff
-  font-family: 'Lato', sans-serif;
+  color: #fff!important
+  font-family: 'Lato', sans-serif
   margin-bottom: 20px
+
 .rank-label, .label-rank-number, .tech-name, .label-version
   display: inline-block
   padding: .1em .5em
+
 .rank-label
-  background-color:  #555
+  background-color: #555!important
+
 .label-rank-number
-  background-color: #2ecc71
+  background-color: #2ecc71!important
+
 .list-group-item a
   color: #555
+
 .labels + .labels
-  border-left:  1px solid #DBDDE0
+  border-left: 1px solid #DBDDE0!important
+
 .description
   margin-top: 10px
   padding: 10px
-  background: #fff
+  background: #fff!important
   text-align: justify
   font-family: 'Source Sans Pro', sans-serif
   font-weight: 400
@@ -96,7 +106,7 @@ a > h4
 
 .labels > span > span:nth-of-type(odd)
   border-radius: 0
-  background: #555
+  background: #555!important
 
 .labels > span > span:nth-of-type(even)
   margin-right: 3px
@@ -104,25 +114,25 @@ a > h4
 
 .label-ranking,
 .label-downloads
-  background: #2ecc71
+  background: #2ecc71!important
 
 .label-os
-  background: #AA22FF
+  background: #AA22FF!important
 
 .label-version
-  background: #2196F3
+  background: #2196F3!important
 
 .label-license
-  background: #3a33d1
+  background: #3a33d1!important
 
 .label-language
-  background: #8BC34A
+  background: #8BC34A!important
 
 .label-framework
-  background: #FF9800
+  background: #FF9800!important
 
 .label-library
-  background: #2196F3
+  background: #2196F3!important
 
 .label-database
-  background: #F44336
+  background: #F44336!important

@@ -45,7 +45,10 @@ module.exports = function(table){
     }
     //console.log(util.inspect(table,null));
     for (var i = 0; i < table.length; i+=1){
-        if (table[i].value == 1)suitable(i);
+        if (table[i].value == 1){
+            console.log(i)
+            suitable(i);
+        }
     }
     //console.log(util.inspect(table,null));
     unique(table);

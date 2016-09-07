@@ -39,7 +39,7 @@ const store = createStore(
 );
 render(
     (<Provider store={store}>
-        <Router history={browserHistory}>
+        <Router history={browserHistory} onUpdate={() => window.scrollTo(0, 0)} >
           <Route path="/" component={App}>
             <IndexRoute component={Home}/>
             <Route path="home" component={Home} title='projects'/>
