@@ -79,10 +79,22 @@ class ProjectView extends Component {
         }
     }
 
-    componentWillMount() {
-        this.props.getProject(this.props['routeParams'].id);
+    loadProject(props) {
+        var projectId = (props||this.props)['routeParams'].id;
+
+        if (!this.currentProjectId || this.currentProjectId !== projectId) {
+            this.currentProjectId = projectId;
+            this.props.getProject(projectId);
+        }
     }
 
+    componentWillMount() {
+        this.loadProject()
+    }
+
+    componentWillReceiveProps(props) {
+        this.loadProject(props)
+    }
     render() {
     	let tags = [], technologies=[], features=[];
     	const projectDetail = this.props['project'],
@@ -177,7 +189,7 @@ class ProjectView extends Component {
 				</div>
                 <SimilarProjects project={this.props.project}/>
 				<div className={styles['button-redirect-container']}>
-		    		<RaisedButtonUI 
+		    		<RaisedButtonUI
 		    			href="/"
 		    			label="Back to Project List"
 		    			icon={<ActionUndo  style={{size:14}}/>}
