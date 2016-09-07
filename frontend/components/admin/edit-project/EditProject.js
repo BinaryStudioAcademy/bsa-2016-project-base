@@ -73,9 +73,16 @@ class EditProject extends Component {
     constructor(props) {
         super(props);
         this.updateProject = this.updateProject.bind(this);
+        this.state = {
+            nameError: false,
+            timeBeginError: false,
+            technologiesError: false,
+            usersError: false
+        }
     }
     componentWillReceiveProps(nextProps){
-        if(nextProps.store.added) {
+        const {nameError, technologiesError, timeBeginError, usersError} = this.props.store.errors;
+        if(nextProps.store.added && !nameError && !technologiesError && !timeBeginError && !usersError) {
             window.scrollTo(0, 0);
             toastr.success('Project', `${nextProps.store.projectName} was updated!`, {
                 timeOut: 10000
@@ -173,6 +180,7 @@ class EditProject extends Component {
                 return text.replace(/<img src="upload/g,'<img src="'+ORIGIN+'/upload');
             })()
         }
+
         console.log('inProject.sections ',inProject.sections);
         console.log('inProject.features ',inProject.features);
         console.log('inProject.users ',inProject.users);
@@ -239,9 +247,9 @@ class EditProject extends Component {
                 <Inputs load={load} fff="2"/>
                 <br/>
                 <div className={styles['valid-container']}>
-                    {this.props.store.errors && this.props.store.errors.technologies && <div className={styles.validationTech}><div className={styles.tool}>{this.props.store.errors.technologies}</div></div>}
+                    {this.props.store.errors.technologiesError && <div className={styles.validationTech}><div className={styles.tool}>You must add a technology</div></div>}
 
-                    {this.props.store.errors && (this.props.store.errors.users || this.props.store.errors.owners) && <div className={styles.validationUser} style={this.props.store.errors.technologies ? {marginLeft: '3rem'} : {marginLeft: '17rem'}}><div className={styles.tool}>{this.props.store.errors.users || this.props.store.errors.owners}</div></div>}
+                    {this.props.store.errors.usersError && <div className={styles.validationUser} style={this.props.store.errors.technologiesError ? {marginLeft: '3rem'} : {marginLeft: '17rem'}}><div className={styles.tool}>You must add user and owner</div></div>}
                 </div>
                 <TabsUI/>
                 <br/>

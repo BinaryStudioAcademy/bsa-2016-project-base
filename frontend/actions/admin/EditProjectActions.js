@@ -38,6 +38,38 @@ export function getPredefinedData() {
 };
 
 export function updateProject(project) {
+    let error = {};
+    if(project.projectName == '') {
+        error.nameError = true;
+    } else {
+        error.nameError = false;
+    }
+
+    if(project.technologies.length == 0) {
+        error.technologiesError = true;
+    } else {
+        error.technologiesError = false;
+    }
+
+    if(project.timeBegin == '') {
+        error.timeBeginError = true;
+    } else {
+        error.timeBeginError = false;
+    }
+
+    if(project.users.length == 0 || project.owners.length == 0) {
+        error.usersError = true;
+    } else {
+        error.usersError = false;
+    }
+
+    if(error.nameError || error.technologiesError || error.timeBeginError || error.usersError) {
+        return {
+            type: "UP_POST_PROJECT_ERROR_ED",
+            error: error,
+        }
+    }
+
     return dispatch => {
         dispatch({
             type: types.UP_POST_PROJECT_ED
@@ -295,7 +327,7 @@ export function deleteSection(id, sections, feturesToDelete) {
 
         sectionService.removeSection(id)
             .then(dispatch({
-                type: types.UP_POST_FEATURE_DELETE,
+                type: types.UP_POST_FEATURE_DELETE_ED,
                 data: sections
             }))
             .catch(error => dispatch(errorHandler('Bad Request')));
@@ -509,7 +541,7 @@ export function initialStateFiles() {
             error: 'File size is ' + (file.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + (MAX_SIZE / 1024 / 1024).toFixed(2) + ' MB.'
         }
         dispatch({
-            type: types.UP_UPLOAD_FILE_SUCCESS,
+            type: types.UP_UPLOAD_FILE_SUCCESS_ED,
             data: data
         });
     }

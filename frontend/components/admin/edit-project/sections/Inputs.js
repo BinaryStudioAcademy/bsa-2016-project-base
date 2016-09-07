@@ -72,7 +72,7 @@ class Inputs extends Component {
             {value:'Completed', name:'Completed'}
         ];
 
-		if(this.props.projectName == '' || this.props.load == false) {
+		if(this.props.load == false) {
         	return null
 		}
 		else if(this.state.selectedIndex === '') {
@@ -102,6 +102,7 @@ class Inputs extends Component {
 							onChange={this.onProjectNameChange}
 							style={{width: '100%'}}
 						/>
+						{this.props.errors.nameError && <div className={styles.validation}><div className={styles.tool}>This field is required</div></div>}
 					</div>
 					<div className={styles['field-container']}>
 						<TextFieldProject
@@ -122,6 +123,7 @@ class Inputs extends Component {
 								cursor: 'pointer'}}
 							onChange={this.onStartDateChange}
 						/>
+						{this.props.errors.timeBeginError && <div className={styles.validation}><div className={styles.tool}>This field is required</div></div>}
 					</div>
 					<div className={styles['col-1-3']}>
 						<DatePickerControlled
@@ -175,7 +177,8 @@ function mapStateToProps(state) {
 		timeBegin: state.EditProjectReducer.timeBegin,
 		timeEnd: state.EditProjectReducer.timeEnd,
 		status: state.EditProjectReducer.status,
-		description: state.EditProjectReducer.description
+		description: state.EditProjectReducer.description,
+		errors: state.EditProjectReducer.errors
     };
 };
 
