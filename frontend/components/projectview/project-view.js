@@ -18,7 +18,7 @@ import FeaturesListItem from './features/featuresListItem';
 import TechnologiesList from './technologies/technologiesList';
 import TechnologiesListItem from './technologies/technologiesListItem';
 import EstimationFile from "./estimationFile/EstimationFileReceiverComponentWithLinkField";
-
+import SimilarProjects from "./similarProjects/View"
 /* icons */
 import FaPlus from 'react-icons/lib/fa/plus';
 import FaList from 'react-icons/lib/fa/list';
@@ -79,10 +79,22 @@ class ProjectView extends Component {
         }
     }
 
-    componentWillMount() {
-        this.props.getProject(this.props['routeParams'].id);
+    loadProject(props) {
+        var projectId = (props||this.props)['routeParams'].id;
+
+        if (!this.currentProjectId || this.currentProjectId !== projectId) {
+            this.currentProjectId = projectId;
+            this.props.getProject(projectId);
+        }
     }
 
+    componentWillMount() {
+        this.loadProject()
+    }
+
+    componentWillReceiveProps(props) {
+        this.loadProject(props)
+    }
     render() {
     	let tags = [], technologies=[], features=[];
     	const projectDetail = this.props['project'],
@@ -175,8 +187,9 @@ class ProjectView extends Component {
 						</MuiThemeProvider>
 					</div>
 				</div>
+                <SimilarProjects project={this.props.project}/>
 				<div className={styles['button-redirect-container']}>
-		    		<RaisedButtonUI 
+		    		<RaisedButtonUI
 		    			href="/"
 		    			label="Back to Project List"
 		    			icon={<ActionUndo  style={{size:14}}/>}
