@@ -513,6 +513,7 @@ const initialState = {
     initialSections: false,
     initialFiles: false,
     iconLoaded: false,
+    errors: {nameError: false, technologiesError: false, timeBeginError: false, usersError: false},
     techIcon: {},
     techIconError: '',
     description:{
