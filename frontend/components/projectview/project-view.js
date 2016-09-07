@@ -42,21 +42,23 @@ import RaisedButtonUI from '../common/RaisedButton-ui';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, averageRating} from 'material-ui/Table';
 import {Link} from 'react-router'
 
-
 const tabsStyles = {
-	headline: {
-		fontSize: 24,
-		paddingTop: 16,
-		marginBottom: 12,
-		fontWeight: 400,
-	},
-	tabItemContainerStyle: {
-		backgroundColor: "#78909C",
-	},
+  headline: {
+        fontSize: 24,
+        paddingTop: 16,
+        marginBottom: 12,
+        fontWeight: 400
+    },
+    tabItemContainerStyle: {
+        backgroundColor: "#8D97A4"
+    },
 
-	tabBlock: {
-	    marginTop: 20,
-	}
+    tabBlock: {
+        marginTop: 20
+    },
+    inkBarStyle: {
+        backgroundColor: "#2ecc71"
+    }
 };
 
 function handleActive(tab) {
@@ -122,8 +124,7 @@ class ProjectView extends Component {
 						dangerouslySetInnerHTML={{__html: description}}  />
 						<TechnologiesList>{technologies}</TechnologiesList>
 						<MuiThemeProvider >
-							<Tabs tabItemContainerStyle={tabsStyles.tabItemContainerStyle} 
-								contentContainerStyle={tabsStyles.tabBlock}>
+							<Tabs tabItemContainerStyle={tabsStyles.tabItemContainerStyle} contentContainerStyle={tabsStyles.tabBlock} inkBarStyle={tabsStyles.inkBarStyle}>
 								<Tab label="General">
 									<Table  selectable={false} multiSelectable={false}>
 										<TableBody displayRowCheckbox={false}>

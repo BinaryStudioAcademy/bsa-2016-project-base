@@ -29,7 +29,7 @@ const tabsStyles = {
     },
 
     tabBlock: {
-        "margin-top": "40px"
+        marginTop: 40
     },
     inkBarStyle: {
         backgroundColor: "#2ecc71"
