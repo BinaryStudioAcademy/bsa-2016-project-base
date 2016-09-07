@@ -17,7 +17,6 @@ import Home from '../components/home/Home';
 import Stats from '../components/stats/Stats';
 import Review from '../components/review/Review';
 import NotFound from '../components/not-found/NotFound';
-import Test from '../components/common/test.js';
 import * as reducers from '../reducers/';
 import ReduxToastr, {toastr} from 'react-redux-toastr'
 const rootReducer = combineReducers({
@@ -45,7 +44,6 @@ render(
             <Route path="home" component={Home} title='projects'/>
             {/*<Route path="projects" component={ProjectsList} title='projects'/>*/}
             <Route path="project-view/:id" component={ProjectView} title='project summary'/>
-            <Route path="test" component={Test} />
             <Route path="project-summary/:id" component={ProjectSummary}/>
             <Route path="add-project" component={UpsertProject} title='add project'/>
             <Route path="edit-project/:id" component={EditProject} title='edit project'/>
