@@ -11,8 +11,9 @@ import {setAuthUser} from '../actions/UserAuthActions';
 import ReduxToastr from 'react-redux-toastr';
 import FaList from 'react-icons/lib/fa/list';
 
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
-
+injectTapEventPlugin();
 
 class App extends Component {
     constructor(props) {

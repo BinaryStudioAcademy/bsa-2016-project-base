@@ -5,8 +5,8 @@ export default class ChartWrapper extends React.Component {
     render() {
 
               return ( <ResizableBox
-              minWidth={260}
-              minHeight={260}
+              minWidth={300}
+              minHeight={300}
               isResizable={{
               top: false,
               right: false,

@@ -30,5 +30,3 @@ TagItem.propTypes = {
     tag: PropTypes.object.isRequired,
     selectOne: PropTypes.func.isRequired
 };
-
-export default TagItem;
