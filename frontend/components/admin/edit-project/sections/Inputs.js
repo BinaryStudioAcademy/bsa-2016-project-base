@@ -86,7 +86,7 @@ class Inputs extends Component {
 			})
 		}
 
-
+		var dataEnd = this.props.timeEnd == null ? {} : new Date(this.props.timeEnd);
         console.log('Rerender Inputs');
     	return (
 			<div id={styles['basic-information']}>
@@ -127,7 +127,7 @@ class Inputs extends Component {
 					</div>
 					<div className={styles['col-1-3']}>
 						<DatePickerControlled
-							value={new Date(this.props.timeEnd)}
+							value={dataEnd}
 							hint='End Date'
 							style={{width: '100%'}}
 							onChange={this.onFinishDateChange}
