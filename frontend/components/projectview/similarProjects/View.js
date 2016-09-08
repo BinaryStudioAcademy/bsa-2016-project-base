@@ -56,7 +56,7 @@ export default class View extends React.Component {
             var _predicate = techVars.concat(tagVars);
             var predicate = encodeURIComponent(_predicate.slice(0, _predicate.length > 8 ? 8 : _predicate.length).join("|"));
             predicate = `!id0&(${predicate})`;
-            searchService.getProjects(`skip=0&limit=3&techs=${techs.join(",")}&tags=${tags.join(",")}&id=${project._id}&predicate=${predicate}`)
+            searchService.getProjects(`skip=0&limit=3&${techs.length?"techs="+techs.join(","):""}&${tags.length?"tags="+tags.join(","):""}&id=${project._id}&predicate=${predicate}`)
                 .then(data=> {
                     self.setState({
                         error: data.err && data.err.message,
