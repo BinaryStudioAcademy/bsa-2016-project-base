@@ -12,26 +12,26 @@ export default class Project extends Component {
     };
 
     render() {
+
         const { project, ranking, id} = this.props;
+        console.log(project)
         return (
             <li key={id} className={styles['list-group-item']}>
                 <Link to={`/project-view/${project._id}`}>
-                <h4>
-                    {project.projectName}
-                </h4>
+                    <div className={styles["list-project-header"]}>
+                        <h4>
+                            {project.projectName}
+                        </h4>
+                        {
+                            (project.status === "Completed") ?
+                                <div className={styles["status-completed"]}><div className={styles["status-completed-label"]}>Completed</div></div> :
+                                <div className={styles["status-inprogress"]}><div className={styles["status-inprogress-label"]}>In Progress</div></div>
+                        }
+                        
+                    </div>
+                    <div className={styles.image}>
                 <img src="http://placehold.it/140x100" />
-                {
-                    (project.status === "Completed") ?
-                        <div className={styles['stage-icon']}>
-                            <FaCheckCircleO size={25} color="#2ECC71" />
-                            <span>PROJECT COMPLETED</span>
-                        </div>:
-                        <div className={styles['stage-icon']}>
-                            <FaCogs size={25} color="#FC5A5A"/>
-                            <span>PROJECT UNDER DEVELOPMENT</span>
-                        </div>
-                }
-
+                </div>
                 <div className={styles['labels-container']}>
                 <div className={styles.labels} >
                     <span className={styles['rank-label']}>ranking</span>

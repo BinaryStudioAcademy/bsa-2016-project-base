@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import styles from './styles/dropdown.sass';
+// import styles from './styles/dropdown.sass'
 
 const DropDown = ({id, label, data, onChange, className, selectValue}) => {
 	const labelHtml = label ? <label htmlFor={id}>{label}</label> : '';
@@ -28,8 +28,8 @@ const DropDown = ({id, label, data, onChange, className, selectValue}) => {
         <div className={className}>
          	{labelHtml}
         	<select id={id} onChange={onChange}>
-            <option 
-                value={''} 
+            <option
+                value={''}
                 key={'option_none'}>
             {'Select value'}
             </option>
