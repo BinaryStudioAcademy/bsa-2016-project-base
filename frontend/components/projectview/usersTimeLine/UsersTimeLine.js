@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import * as actions from '../../../actions/ProjectViewActions';
 import {connect} from 'react-redux';
+import TimeLine from 'material-ui/svg-icons/action/timeline';
 import styles from './usersTimeLine.sass';
 
 class UsersTimeLine extends Component {
@@ -16,46 +17,53 @@ class UsersTimeLine extends Component {
     }
 
     createLine() {
-        var self = this;
-        var oneDay = 24*60*60*1000;
-        const LENGTH_ALL_LINE = 88;
-        var numberDaysProject = '';
+        var self = this,
+            oneDay = 24*60*60*1000,
+            oneUnit = null,
+            numberDaysProject = null,
+            arrayUsers;
+
+        const LENGTH_ALL_LINE = 87;
+
         if(this.props.project.timeEnd != null) {
-            numberDaysProject = Math.round((new Date(this.props.project.timeEnd) - new Date(this.props.project.timeBegin) ) / oneDay);
+            numberDaysProject = (new Date(this.props.project.timeEnd) - new Date(this.props.project.timeBegin) ) / oneDay;
         } else {
-            numberDaysProject = Math.round((new Date() - new Date(this.props.project.timeBegin) ) / oneDay);
+            numberDaysProject = (new Date() - new Date(this.props.project.timeBegin) ) / oneDay;
         }
         console.log("numberDaysProject - " + numberDaysProject);
 
-        var oneUnit = numberDaysProject / LENGTH_ALL_LINE;
+        oneUnit = numberDaysProject / LENGTH_ALL_LINE;
 
-        var arrayUsers = this.props.users.map(function(el, index) {
-            var lineLengthUser;
-            var dataObj = '';
+         arrayUsers = this.props.users.map(function(el, index) {
+            var lineLengthUser,
+                dataObj = null,
+                numberDaysUser = null,
+                userOffset = null;
+
             el.userHistory.map(function(el) {
                 if(el.projectId == self.props.project._id) {
                     dataObj = Object.assign({}, el)
                 }
             });
 
-            var numberDaysUser = '';
             if(dataObj.dateTo) {
-                numberDaysUser = Math.round((new Date(dataObj.dateTo) - new Date(dataObj.dateFrom) ) / oneDay);
+                numberDaysUser = (new Date(dataObj.dateTo) - new Date(dataObj.dateFrom) ) / oneDay;
             } else {
-                numberDaysUser = Math.round((new Date() - new Date(dataObj.dateFrom) ) / oneDay);
+                numberDaysUser = (new Date() - new Date(dataObj.dateFrom) ) / oneDay;
             }
 
-            console.log("numberDaysUser - " + numberDaysUser);
+             userOffset = (((new Date(dataObj.dateFrom) - new Date(self.props.project.timeBegin)) / oneDay) / oneUnit);
 
+            console.log("numberDaysUser - " + numberDaysUser);
             lineLengthUser = numberDaysUser / oneUnit;
             console.log("lineLengthUser - " + lineLengthUser);
 
             return (
                 <div className="userLine">
                     <div className="userInfo">
-                        <span>{el.userName} </span>
-                        <span>{el.userSurname}</span>
+                        <span>{el.userName} {el.userSurname}</span>
                     </div>
+                    <div className="offsetLine" style={{"flex-basis": userOffset + "%"}}></div>
                     <div className="line" style={{"flex-basis": lineLengthUser + "%"}}></div>
                 </div>
             )
@@ -76,10 +84,17 @@ class UsersTimeLine extends Component {
 var self = this;
         return (
         <div id="usersTimeLine">
-            { arrayUsers }
-        <div className="dataLine">
-            <div className="dataLine-line"></div>
-        </div>
+            <div className="headerTimeLine">
+                <span className="iconTimeLine"><TimeLine style={{color: "#fff"}}/></span>
+                <span className="textHeader">Users TimeLine</span>
+            </div>
+            <div className="mainContent">
+                { arrayUsers }
+                <div className="dataLine">
+                    <div className="dataLine-line"></div>
+                </div>
+            </div>
+
         </div>
         )
     }

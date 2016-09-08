@@ -29,6 +29,7 @@ import ActionUndo from 'material-ui/svg-icons/content/undo';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import ActionBuild from 'material-ui/svg-icons/action/build';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
+import TimeLine from 'material-ui/svg-icons/action/timeline';
 import ContentSend from 'material-ui/svg-icons/content/send';
 import ContentInbox from 'material-ui/svg-icons/content/inbox';
 import ContentDrafts from 'material-ui/svg-icons/content/drafts';
@@ -172,7 +173,6 @@ class ProjectView extends Component {
 								</Tab>
 								<Tab label="Users">
 									<UsersList />
-									<UsersTimeLine />
 								</Tab>
 								<Tab label="Locations">
 								</Tab>
