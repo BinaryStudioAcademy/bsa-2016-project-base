@@ -19,6 +19,7 @@ describe("users should be able to login", function(){
 	it ("search by Techs", function(){
 		browser.get("http://localhost:6500/");
 		browser.ignoreSynchronization = true;
+		element(by.buttonText('Show Extended Search')).click();
 		element(by.partialButtonText('More')).click();
 		var EC = protractor.ExpectedConditions;
 		element(by.xpath('/html/body/div[2]/div/div[1]/div/div/div[1]/div/div[2]/div/div/div[1]/button[2]')).click();
