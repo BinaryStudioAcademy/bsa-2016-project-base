@@ -191,7 +191,7 @@ class EditProject extends Component {
             projectName,
             /*projectLink,*/
             timeBegin: new Date(timeBegin),
-            timeEnd: new Date(timeEnd),
+            timeEnd: timeEnd == null ? null : new Date(timeEnd),
             attachments: inProject.attachments,
             screenShots: inProject.screenshots,
             sections: inProject.sections,

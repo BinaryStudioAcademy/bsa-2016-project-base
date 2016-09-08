@@ -314,7 +314,7 @@ export function uploadFile(file, target='file') {
     };
 };
 
-export function deleteSection(id, sections, feturesToDelete) {
+export function deleteSection(id, sections, feturesToDelete,featuresToStay) {
     sections.forEach(function (el, indx) {
         if (el._id === id) {
             sections.splice(indx, 1);
@@ -323,11 +323,15 @@ export function deleteSection(id, sections, feturesToDelete) {
     return dispatch => {
 
         featureService.removeFeatures(feturesToDelete)
+            .then(dispatch({
+                type: types.UP_POST_FEATURE_DELETE_ED,
+                data: featuresToStay
+            }))
             .catch(error => dispatch(errorHandler('Bad Request')));
 
         sectionService.removeSection(id)
             .then(dispatch({
-                type: types.UP_POST_FEATURE_DELETE_ED,
+                type: types.UP_POST_SECTION_DELETE_ED,
                 data: sections
             }))
             .catch(error => dispatch(errorHandler('Bad Request')));

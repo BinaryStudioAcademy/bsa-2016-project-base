@@ -13,10 +13,11 @@ import Gallery from './gallery/gallery';
 import UsersList from './users/usersList';
 import Questions from './questions/Questions';
 import TagsListItem from './tags/tagsListItem';
-import FeaturesList from './features/featuresList';;
+import FeaturesList from './features/featuresList';
 import FeaturesListItem from './features/featuresListItem';
 import TechnologiesList from './technologies/technologiesList';
 import TechnologiesListItem from './technologies/technologiesListItem';
+import UsersTimeLine from './usersTimeLine/UsersTimeLine';
 import EstimationFile from "./estimationFile/EstimationFileReceiverComponentWithLinkField";
 
 /* icons */
@@ -158,6 +159,7 @@ class ProjectView extends Component {
 								</Tab>
 								<Tab label="Users">
 									<UsersList />
+									<UsersTimeLine />
 								</Tab>
 								<Tab label="Locations">
 								</Tab>
