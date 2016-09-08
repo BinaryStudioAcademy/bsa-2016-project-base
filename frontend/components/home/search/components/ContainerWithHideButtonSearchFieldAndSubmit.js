@@ -66,7 +66,7 @@ export default class ContainerWithHideButtonSearchFieldAndSubmit extends React.C
             secondary={true}
             onClick={model.clearSearch}/></div>:"";
         const searchPreview = <div className='search-pre'>
-            <header className='search-pre-header'><h3>Search Preview</h3></header>
+            <header className='search-pre-header'><h3>Extended Search Preview</h3></header>
             <ul className='seach-pre-list'>
             {model.searchModels.map((model,i)=>
                 model.values.length?

@@ -11,4 +11,4 @@ function print(s){
 //print(compile("tag1|tag0&(tech0->!tag1)"));
 //print(compile("A+B+C"));
 //print(compile("tag0 & (tag1 + !tech0)"));
-print(compile("tech0"))
+print(compile(`c&b&a&d&e|f&g&u&k&o|p|j`));

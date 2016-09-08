@@ -106,7 +106,7 @@ export default class Location extends MultiSelect {
             if (map.__unique__id__ === model.currentActiveMapId) {
                 setTimeout(function () {
                     model.tips.map(tip=> {
-                        if (tip.marker.map.__unique__id__ !== map.__unique__id__) {
+                        if (!tip.marker.isAdded || tip.marker.map.__unique__id__ !== map.__unique__id__) {
                             model.displayOnMap(map, tip)
                         }
                     });

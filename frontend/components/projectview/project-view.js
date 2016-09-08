@@ -19,7 +19,7 @@ import TechnologiesList from './technologies/technologiesList';
 import TechnologiesListItem from './technologies/technologiesListItem';
 import UsersTimeLine from './usersTimeLine/UsersTimeLine';
 import EstimationFile from "./estimationFile/EstimationFileReceiverComponentWithLinkField";
-
+import SimilarProjects from "./similarProjects/View"
 /* icons */
 import FaPlus from 'react-icons/lib/fa/plus';
 import FaList from 'react-icons/lib/fa/list';
@@ -43,21 +43,23 @@ import RaisedButtonUI from '../common/RaisedButton-ui';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, averageRating} from 'material-ui/Table';
 import {Link} from 'react-router'
 
-
 const tabsStyles = {
-	headline: {
-		fontSize: 24,
-		paddingTop: 16,
-		marginBottom: 12,
-		fontWeight: 400,
-	},
-	tabItemContainerStyle: {
-		backgroundColor: "#78909C",
-	},
+  headline: {
+        fontSize: 24,
+        paddingTop: 16,
+        marginBottom: 12,
+        fontWeight: 400
+    },
+    tabItemContainerStyle: {
+        backgroundColor: "#8D97A4"
+    },
 
-	tabBlock: {
-	    marginTop: 20,
-	}
+    tabBlock: {
+        marginTop: 20
+    },
+    inkBarStyle: {
+        backgroundColor: "#2ecc71"
+    }
 };
 
 function handleActive(tab) {
@@ -78,10 +80,22 @@ class ProjectView extends Component {
         }
     }
 
-    componentWillMount() {
-        this.props.getProject(this.props['routeParams'].id);
+    loadProject(props) {
+        var projectId = (props||this.props)['routeParams'].id;
+
+        if (!this.currentProjectId || this.currentProjectId !== projectId) {
+            this.currentProjectId = projectId;
+            this.props.getProject(projectId);
+        }
     }
 
+    componentWillMount() {
+        this.loadProject()
+    }
+
+    componentWillReceiveProps(props) {
+        this.loadProject(props)
+    }
     render() {
     	let tags = [], technologies=[], features=[];
     	const projectDetail = this.props['project'],
@@ -123,8 +137,7 @@ class ProjectView extends Component {
 						dangerouslySetInnerHTML={{__html: description}}  />
 						<TechnologiesList>{technologies}</TechnologiesList>
 						<MuiThemeProvider >
-							<Tabs tabItemContainerStyle={tabsStyles.tabItemContainerStyle} 
-								contentContainerStyle={tabsStyles.tabBlock}>
+							<Tabs tabItemContainerStyle={tabsStyles.tabItemContainerStyle} contentContainerStyle={tabsStyles.tabBlock} inkBarStyle={tabsStyles.inkBarStyle}>
 								<Tab label="General">
 									<Table  selectable={false} multiSelectable={false}>
 										<TableBody displayRowCheckbox={false}>
@@ -176,8 +189,9 @@ class ProjectView extends Component {
 						</MuiThemeProvider>
 					</div>
 				</div>
+                <SimilarProjects project={this.props.project}/>
 				<div className={styles['button-redirect-container']}>
-		    		<RaisedButtonUI 
+		    		<RaisedButtonUI
 		    			href="/"
 		    			label="Back to Project List"
 		    			icon={<ActionUndo  style={{size:14}}/>}

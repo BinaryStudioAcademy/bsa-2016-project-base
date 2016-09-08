@@ -7,6 +7,8 @@ import ProjectsList from './ProjectsList';
 import FeaturesList from './FeaturesList';
 import documentService from "../../../services/DocumentService";
 
+import styles from "../review.sass"
+
 export default class EstimationStepper extends Component {
     state = {
         loading: false,
@@ -145,12 +147,10 @@ export default class EstimationStepper extends Component {
     renderContent() {
         const {finished, stepIndex, link} = this.state;
         const {selectedProject} = this.props;
-        const contentStyle = {margin: '0 16px', overflow: 'hidden'};
-        const color = {color: 'rgb(0, 188, 212)'};
 
         if (finished) {
             return (
-                <div style={contentStyle}>
+                <div className={styles["contentStyle"]}>
                     <input type="hidden" id="tokens" ref="tokens"/>
                     <input type="hidden" id="auth-success" onClick={this.inputChangeHandler.bind(this)}/>
 
@@ -159,7 +159,7 @@ export default class EstimationStepper extends Component {
                             <p>
                                 <a  target="_blank"
                                     href={link}
-                                    style={color}
+                                    className={styles["a"]}
                                 >
                                     Link to Estimation
                                 </a>
@@ -168,7 +168,7 @@ export default class EstimationStepper extends Component {
                                 <a
                                     href="#"
                                     onClick={this.handleReset}
-                                    style={color}
+                                    className={styles["a"]}
                                 >
                                     Click here
                                 </a> to create a new estimation.
@@ -179,14 +179,14 @@ export default class EstimationStepper extends Component {
         }
 
         return (
-            <div style={contentStyle}>
+            <div className={styles["contentStyle"]}>
                 <div>{this.getStepContent(stepIndex)}</div>
-                <div style={{marginTop: 24, marginBottom: 12}}>
+                <div className={styles["btnContainer"]} >
                     <FlatButton
                         label="Back"
                         disabled={stepIndex === 0}
                         onClick={::this.handlePrev}
-                        style={{marginRight: 12}}
+                        
                     />
                     <RaisedButton
                         label={stepIndex === 2 ? 'Generate' : 'Next'}
@@ -203,7 +203,7 @@ export default class EstimationStepper extends Component {
         const {loading, stepIndex} = this.state;
 
         return (
-            <div style={{width: '100%', maxWidth: 768, margin: 'auto'}}>
+            <div className={styles["stepper"]}>
                 <Stepper activeStep={stepIndex}>
                     <Step>
                         <StepLabel>Select project</StepLabel>

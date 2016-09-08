@@ -63,6 +63,21 @@ var Project = new Schema({
     }],
 
     features: [{type: Schema.Types.ObjectId, ref: 'Feature'}]
+
+    contacts: {
+        countryCode: String,
+        countryName: String,
+        postalIndex: String,
+        state_region: String,
+        city: String,
+        street: String,
+        building: String,
+        appartment: String,
+        contactPerson: String,
+        phone: String,
+        email: String,
+        skype: String
+    }
 });
 
 
