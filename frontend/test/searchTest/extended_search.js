@@ -1,7 +1,7 @@
 describe("users should be able to login and use Extended Search", function(){
-	it ("to fill in user information and login", function(){
+	/*it ("to fill in user information and login", function(){
 		//"to fill in user information and login",
-		/*browser.get("http://localhost:2020/#/");
+		browser.get("http://localhost:2020/#/");
 		//fill in login
 		element(by.model("authLoginCtrl.user.email")).sendKeys("admin@default.com");
 		//fill in password
@@ -9,10 +9,9 @@ describe("users should be able to login and use Extended Search", function(){
 		//press Login button
 		var loginButton = element(by.cssContainingText(".btn", "Log in"));
 		loginButton.click()
-		//console.log("Hello");*/
-		browser.get("http://localhost:6500/");
-		 element(by.buttonText('Show Extended Search')).click();
-	})
+		//console.log("Hello");
+		
+	})*/
 
   describe('extended search', function() {
 it (" All by AND", function(){
