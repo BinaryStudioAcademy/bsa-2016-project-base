@@ -23,7 +23,7 @@ describe("users should be able to use simple Search", function(){
 		element(by.id("deferred-input-2")).clear();
 
 	});
-	it ("search by Projects name", function(){
+	it ("search by Projects name", function(){ 
 		
 		console.log("simple search");
 		//fill in search field
