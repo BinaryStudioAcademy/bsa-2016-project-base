@@ -1,5 +1,5 @@
 describe("users should be able to login", function(){
-	it ("to fill in user information and login", function(){
+	/*it ("to fill in user information and login", function(){
 		//"to fill in user information and login",
 		browser.get("http://localhost:2020/#/");
 		//fill in login
@@ -12,13 +12,14 @@ describe("users should be able to login", function(){
 		//console.log("Hello");
 		//browser.sleep(5000);
 		
-	})
+	})*/
 
 
 	it ("search by Users", function(){
 		browser.get("http://localhost:6500/");
+		browser.ignoreSynchronization = true;
 		element(by.buttonText('Show Extended Search')).click();
-		console.log("go to extended search");
+		//console.log("go to more extended search");
 		element(by.partialButtonText('More')).click();
 		element(by.xpath('/html/body/div[2]/div/div[1]/div/div/div[1]/div/div[2]/div/div/div[1]/button[3]')).click();
 		//fill in search field
@@ -26,19 +27,12 @@ describe("users should be able to login", function(){
 		element(by.id('deferred-input-10')).sendKeys(searchText);
 
 		var user = element(by.xpath('/html/body/div[2]/div/div[1]/div/div/div[1]/div/div[2]/div/div/div[3]/div[3]/div/div/div[1]/div[2]/div/div[1]/span'));//element(by.buttonText('News-Events'));		
-		//expect(element(by.partialButtonText('New'))).toContain('New')
-		//browser.driver.isElementPresent(by.partialButtonText('New')).toBeTruthy();
-		//browser.wait(10000);
-		//browser.sleep(10000);
-		browser.ignoreSynchronization = true;
+	
 		var EC = protractor.ExpectedConditions;
 
 		// Waits for the element with id 'abc' to be clickable.
 		browser.wait(EC.elementToBeClickable(user), 10000);
-		//browser.wait(EC.presenceOf(tag), 5000);
-		//browser.wait(EC.visibilityOf(tag), 5000);
-		//browser.sleep(10000);
-
+		
 		user.click();
 		
 		element(by.buttonText('Go Search!')).click();
