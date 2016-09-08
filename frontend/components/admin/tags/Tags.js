@@ -26,11 +26,12 @@ class Tags extends Component {
 	}
 	componentDidMount() {
 		this.props.getTags();
+		this.props.setFilterTerm('');
+		this.props.filterTags();
 	}
 	selectOne(e, id){
 		let checked = e.target.checked;
 		this.props.selectOne(id, checked);
-
 	}
 	setTagName(e){
 		let tagName = e.target.value.trim();
