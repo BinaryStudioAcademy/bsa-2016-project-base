@@ -35,13 +35,16 @@ class Tags extends Component {
 	}
 	setTagName(e){
 		let tagName = e.target.value.trim();
-		this.props.setTagName(tagName);
-		e.target.value = '';
+		if (tagName.length <= 14) {
+			this.props.setTagName(tagName);
+		}
+		
 	}
 	addTag(e){
 		let { tagNameToAdd } = this.props.store.AdminTagReducer;
 		if (tagNameToAdd) {
 			this.props.addTag({tagName:tagNameToAdd});
+			this.props.setTagName('');
 		}
 	}
 
@@ -84,7 +87,7 @@ class Tags extends Component {
 		
 	}
  	render() {
- 		let { tags, isAllChecked } = this.props.store.AdminTagReducer;
+ 		let { tags, isAllChecked, tagNameToAdd } = this.props.store.AdminTagReducer;
 	    return (
 	    	<div className={styles["tags-tab"]} id={styles["tags"]}>
 	    			<ReduxToastr/>
@@ -112,8 +115,9 @@ class Tags extends Component {
 				    		</div>
 				    		<div className={styles.col}>
 				    			<TextFieldTags
+				    				value={tagNameToAdd}
 				    				hintText="tag's name"
-				    				onBlur={this.setTagName}
+				    				onChange={this.setTagName}
 
 				    			/>
 				    			<Button
