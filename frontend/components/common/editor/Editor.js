@@ -3,8 +3,6 @@ import ReactDOM from "react-dom";
 import TinyMCE from "react-tinymce";
 //import fileService from "./../../../services/FileService"
 import uploadService from '../../../services/UploadService';
-import * as constants  from '../../../constants/Api';
-const {ORIGIN} = constants;
 
 export default class MyEditor extends React.Component {
     constructor(props) {
@@ -62,12 +60,7 @@ export default class MyEditor extends React.Component {
                 return response.json();
             })
             .then( json =>  {
-                console.log('json.path ',json.path);
-                if (json.path ){
-                    callback(ORIGIN+json.path);
-                } else {
-                    callback(json.error.message);
-                }
+                callback(json.path || json.error.message);
                
             })
             .catch( error => {
@@ -118,10 +111,10 @@ export default class MyEditor extends React.Component {
                 <TinyMCE
                     content={this.props.initialContent}
                     config={{
-                    relative_urls: 'false',
-                    remove_script_host : 'false',
-                    document_base_url : ORIGIN,
-                    images_upload_base_path: ORIGIN,
+                    //relative_urls: 'false',
+                    //remove_script_host : 'false',
+                    //document_base_url : ORIGIN,
+                    //images_upload_base_path: ORIGIN,
                     editor_selector: 'my_editor_id', 
                     height:300,
                     plugins: [

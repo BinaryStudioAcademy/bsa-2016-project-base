@@ -1,6 +1,6 @@
-describe("users should be able to login and use Extended Search", function(){
-	it ("to fill in user information and login", function(){
-		/*//"to fill in user information and login",
+describe("users should be able to use Extended Search", function(){
+	/*it ("to fill in user information and login", function(){
+		//"to fill in user information and login",
 		browser.get("http://localhost:2020/#/");
 		//fill in login
 		element(by.model("authLoginCtrl.user.email")).sendKeys("admin@default.com");
@@ -8,10 +8,10 @@ describe("users should be able to login and use Extended Search", function(){
 		element(by.model("authLoginCtrl.user.password")).sendKeys("123");
 		//press Login button
 		var loginButton = element(by.cssContainingText(".btn", "Log in"));
-		loginButton.click()*/
+		loginButton.click()
 		//console.log("Hello");
 		
-	})
+	})*/
 
 	it ("search by Dates", function(){
 		browser.get("http://localhost:6500/");
@@ -52,9 +52,6 @@ describe("users should be able to login and use Extended Search", function(){
 		end.click();
 		browser.sleep(5000);
 		//go to next month
-		//element(by.css('path[d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"]')).click();
-		//element(by.xpath('/html/body/div[4]/div/div[1]/div/div/div/div/div[2]/div[1]/div[1]/button[2]/div/svg')).click();
-		//element(by.xpath('/html/body/div[4]/div/div[1]/div/div/div/div/div[2]/div[1]/div[1]/button[2]/div/svg/path')).click();
 		element(by.xpath('/html/body/div[4]/div/div[1]/div/div/div/div/div[2]/div[1]/div[1]/button[2]/div')).click();
 		var endDate =element(by.buttonText('24'));
 		

@@ -1,6 +1,6 @@
-describe("users should be able to login and use simple Search", function(){
-	it ("to fill in user information and login", function(){
-		/*//"to fill in user information and login",
+describe("users should be able to use simple Search", function(){
+	/*it ("to fill in user information and login", function(){
+		//"to fill in user information and login",
 		browser.get("http://localhost:2020/#/");
 		//fill in login
 		element(by.model("authLoginCtrl.user.email")).sendKeys("admin@default.com");
@@ -9,20 +9,42 @@ describe("users should be able to login and use simple Search", function(){
 		//press Login button
 		var loginButton = element(by.cssContainingText(".btn", "Log in"));
 		loginButton.click()
-		//console.log("Hello");*/
-		browser.get("http://localhost:6500/");
-	})
+		
+		//browser.get("http://localhost:6500/");
+	})*/
 
   describe('simple search', function() {
-  
-
-    beforeEach(function() {
-
+	it("go to app", function(){
+		browser.get("http://localhost:6500/");
+	});
+	
+    	afterEach(function() {
+		
 		element(by.id("deferred-input-2")).clear();
 
 	});
-	
-	it ("search by Techs", function(){
+	it ("search by Projects name", function(){ 
+		
+		console.log("simple search");
+		//fill in search field
+		var searchText = "auto";
+		element(by.id("deferred-input-2")).sendKeys(searchText);
+		console.log("search");
+		element(by.buttonText('Search!')).click();
+		
+		//verify search results
+		var numberOfResults = element(by.css('.count'));
+		numberOfResults.getText().then(function(text){
+			console.log('Projects name');
+			console.log(text)
+		});
+		expect(numberOfResults.getText()).toContain('1');
+		
+		//browser.sleep(5000);
+		
+	});
+
+    	it ("search by Techs", function(){
 		
 		//fill in search field
 		
@@ -38,14 +60,14 @@ describe("users should be able to login and use simple Search", function(){
 			console.log(text)
 		});
 		expect(numberOfResults.getText()).toContain('1');
-		//console.log("we have texts ");
+		
 		//browser.sleep(5000);
 		
 		
 	})
 
 	it ("search by Tags", function(){
-		//browser.get("http://localhost:6500/");
+		
 		//fill in search field
 		
 		var searchText = "#apple";
@@ -60,13 +82,13 @@ describe("users should be able to login and use simple Search", function(){
 			console.log(text)
 		});
 		expect(numberOfResults.getText()).toContain('1');
-		//console.log("we have texts ");
+		
 		//browser.sleep(5000);
 		
 	})
 	
 	it ("search by Users surname", function(){
-		//browser.get("http://localhost:6500/");
+		
 		//fill in search field
 		var searchText = "@lewis";
 		element(by.id("deferred-input-2")).sendKeys(searchText);
@@ -80,13 +102,13 @@ describe("users should be able to login and use simple Search", function(){
 			console.log(text)
 		});
 		expect(numberOfResults.getText()).toContain('2');
-		//console.log("we have texts ");
+		
 		//browser.sleep(5000);
 		
 	})
 	
 	it ("search by Users name", function(){
-		//browser.get("http://localhost:6500/");
+		
 		//fill in search field
 		var searchText = "@andrew";
 		element(by.id("deferred-input-2")).sendKeys(searchText);
@@ -100,13 +122,13 @@ describe("users should be able to login and use simple Search", function(){
 			console.log(text)
 		});
 		expect(numberOfResults.getText()).toContain('5');
-		//console.log("we have texts ");
+		
 		//browser.sleep(5000);
 		
 	})
 	
 	it ("search by Owners name", function(){
-		//browser.get("http://localhost:6500/");
+		
 		//fill in search field
 		var searchText = "~ann";
 		element(by.id("deferred-input-2")).sendKeys(searchText);
@@ -120,13 +142,12 @@ describe("users should be able to login and use simple Search", function(){
 			console.log(text)
 		});
 		expect(numberOfResults.getText()).toContain('1');
-		//console.log("we have texts ");
 		//browser.sleep(5000);
 		
 	});
 	
 	it ("search by Owners surname", function(){
-		//browser.get("http://localhost:6500/");
+		
 		//fill in search field
 		var searchText = "~mendoza";
 		element(by.id("deferred-input-2")).sendKeys(searchText);
@@ -140,7 +161,7 @@ describe("users should be able to login and use simple Search", function(){
 			console.log(text)
 		});
 		expect(numberOfResults.getText()).toContain('1');
-		//console.log("we have texts ");
+		
 		//browser.sleep(5000);
 		
 	});
@@ -160,7 +181,7 @@ describe("users should be able to login and use simple Search", function(){
 			console.log(text)
 		});
 		expect(numberOfResults.getText()).toContain('1');
-		//console.log("we have texts ");
+		
 		//browser.sleep(5000);
 		
 	})

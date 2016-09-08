@@ -19,7 +19,7 @@ const RaisedButtonUI = ({id, label, onClick, style, href,icon}) => (
             color: '#fff',
             fontFamily: 'Lato'
         }}
-        backgroundColor='#627484'
+        backgroundColor='#8D97A4'
         href={href}
         style={style}
       />

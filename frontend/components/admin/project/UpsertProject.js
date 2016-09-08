@@ -138,7 +138,7 @@ class UpsertProject extends Component {
                 const temp = [];
                 console.log('files ',files);
                 files.forEach( file => {
-                    if (file.target === 'file') {
+                    if (file.target === 'file' && file.good) {
                         temp.push({
                             name: file.name,
                             link: file.path
@@ -153,7 +153,7 @@ class UpsertProject extends Component {
                 const temp = [];
                 console.log('files ',files);
                 files.forEach( file => {
-                    if (file.target === 'screenshot') {
+                    if (file.target === 'screenshot' && file.good) {
                         temp.push(file.path);
                     }
                     
@@ -222,7 +222,6 @@ class UpsertProject extends Component {
                     className={styles.btnCreate}
                     label='Create project'
                     onClick={this.createProject}
-                    backgroundColor='#8D97A4'
                 />
 	    	</div>
 	    )
