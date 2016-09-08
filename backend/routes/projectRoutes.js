@@ -2,6 +2,7 @@ var apiResponse = require('express-api-response');
 var projectRepository = require('../repositories/projectRepository');
 var featureRepository = require('../repositories/featureRepository');
 var searchService = require('../service/search-service');
+var statsService = require('../service/stat-service');
 
 module.exports = function(app) {
 	app.get('/api/projects/', function (req,res,next) {
@@ -111,7 +112,34 @@ module.exports = function(app) {
 			//res.json(data);
 			next();
 		});
-	},apiResponse);
+	}, apiResponse);
+
+	app.get('/api/stats/countries', function (req,res,next) {
+		statsService.getProjectsCountriesStat(req, function (err,data) {
+			res.data = data;
+			res.err = err;
+			//res.json(data);
+			next();
+		});
+	}, apiResponse);
+
+	app.get('/api/stats/tags', function (req,res,next) {
+		statsService.getProjectsTagsStat(req, function (err,data) {
+			res.data = data;
+			res.err = err;
+			//res.json(data);
+			next();
+		});
+	}, apiResponse);
+
+	app.get('/api/stats/technologies', function (req,res,next) {
+		statsService.getProjectsTechsStat(req, function (err,data) {
+			res.data = data;
+			res.err = err;
+			//res.json(data);
+			next();
+		});
+	}, apiResponse);
 
 	app.post('/api/projects/', function(req, res, next) {
 		projectRepository.add(req.body, function(err, data) {
