@@ -44,6 +44,7 @@ class SearchService {
 	
 	getFilteredProjects(req, callback) {
 
+		console.log('req.query: ', req.query);
 	    let searchFilters = subtools.getSearchFiltersFromRequest(req);
 
 	    
@@ -87,7 +88,16 @@ class SearchService {
 	    		console.log('async res: ', res);
 	    		//searchReturn.selectedIds = res;
 
-	    		var [projQuery, projCounter] = subtools.prepareMainQuery(searchReturn, searchFilters, res);
+	    		try{
+	    			var [projQuery, projCounter] = subtools.prepareMainQuery(searchReturn, searchFilters, res);
+	    		} catch (err){
+	    			searchReturn.error = {
+	    				text: err.message,
+	    				request: req.url
+	    			}
+	    			callback(null, searchReturn);
+	    			return err;
+	    		}
 
 				async.parallel({
 					projList: 	function(cbk){

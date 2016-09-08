@@ -222,7 +222,6 @@ class UpsertProject extends Component {
                     className={styles.btnCreate}
                     label='Create project'
                     onClick={this.createProject}
-                    backgroundColor='#8D97A4'
                 />
 	    	</div>
 	    )
