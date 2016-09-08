@@ -39,7 +39,7 @@ class TextFieldTags extends Component {
         super(props);
     }
     shouldComponentUpdate(nextProps, nextState){
-        return false;
+        return nextProps.value !== this.props.value;
     }
     render(){
         const {hintText, defaultValue, onChange, style, inputStyle, onBlur, value} = this.props;
@@ -47,7 +47,7 @@ class TextFieldTags extends Component {
             <div>
             <MuiThemeProvider>
                 <TextField
-                  hintText={hintText}
+                  placeholder={hintText}
                   defaultValue={defaultValue}
                   onChange={onChange}
                   onBlur={onBlur}
