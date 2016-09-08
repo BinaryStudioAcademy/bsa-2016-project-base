@@ -10,7 +10,7 @@ var {ObjectId} = require('mongodb');
 class SearchServiceSubTools {
 
 	getSearchFiltersFromRequest(req) {
-        
+        console.log('getSearchFiltersFromRequest() aquired request string: ', req.url);
         let queryFilters = {};
         queryFilters.queryProjIds = (req.query.id == undefined)? []: req.query.id.split(',').map(elem=> new ObjectId(elem)); 
         //queryFilters.queryProjIds = (req.query.id == undefined)? []: req.query.id.split(',').map(elem=> mongoose.Types.ObjectId(elem)); 
