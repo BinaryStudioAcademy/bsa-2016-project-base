@@ -42,24 +42,27 @@ export function postProject(project) {
         });
         return upsertProjectService.addProject(project)
             .then(response => {
-                if (response.status != 201) {
-                    throw Error(response.statusText);
-                }
-                return response.json();
-            })
-            .then(json => {
-                dispatch({
-                    type: types.UP_POST_PROJECT_SUCCESS,
-                    data: json
+                return response.json()
+                .then(json => {
+                    if(response.ok) {
+                        dispatch({
+                            type: types.UP_POST_PROJECT_SUCCESS,
+                            data: json
+                        });
+                        return json; 
+                    }
+                    else {
+                        return Promise.reject(json);
+                    }
+                })
+                .catch(error => {
+                    dispatch({
+                        type: types.UP_POST_PROJECT_ERROR,
+                        error: error
+                    });
                 });
-            })
-            .catch(error => {
-                dispatch({
-                    type: types.UP_POST_PROJECT_ERROR,
-                    error: error
-                });
-            });
-    };
+        });
+    };   
 };
 
 
@@ -68,6 +71,7 @@ export function createProjectData() {
         type: types.UP_CREATE_PROJECT_DATA
     };
 };
+
 export function deleteSection(id, sections, feturesToDelete,featuresToStay) {
     sections.forEach(function (el, indx) {
         if (el._id === id) {
@@ -221,9 +225,9 @@ export function postFeature(feature) {
 
 
 const ICON_MAX_SIZE = 0.5 * 1024 * 1024;
-const FILE_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+const IMG_TYPES = ['.jpeg', '.jpg', '.png', '.gif'];
 
-function uploadSuccess(iconLoaded, data, error) {
+function uploadIconValidation(iconLoaded, data, error) {
     return {
         type: types.UP_UPLOAD_ICON_SUCCESS,
         iconLoaded,
@@ -232,23 +236,27 @@ function uploadSuccess(iconLoaded, data, error) {
     };
 }
 export function uploadIcon(file) {
+    const name = file.name;
+    const ext = name.slice(name.lastIndexOf('.'),name.legth);
+
     return dispatch => {
         dispatch({
             type: types.UP_UPLOAD_ICON,
             name: file.name
         });
-        if (!FILE_TYPES.includes(file.type)) {
+
+        if (!IMG_TYPES.includes(ext)) {
             const data = {
                 name: file.name
             }
-            const error = 'Unsupported mime type. Allowed ' + FILE_TYPES.join(',');
-            dispatch(uploadSuccess(false, data, error));
+            const error = 'Unsupported file type. Allowed ' + IMG_TYPES.join('/');
+            dispatch(uploadIconValidation(false, data, error));
         } else if (file.size > ICON_MAX_SIZE) {
             const data = {
                 name: file.name
             }
             const error = 'File size is ' + (file.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + (ICON_MAX_SIZE / 1024 / 1024).toFixed(2) + ' MB.'
-            dispatch(uploadSuccess(false, data, error));
+            dispatch(uploadIconValidation(false, data, error));
         } else {
             return uploadService.upload(file)
                 .then(response => {
@@ -282,15 +290,50 @@ export function uploadIcon(file) {
     };
 };
 
-const MAX_SIZE = 2 * 1024 * 1024;
+const MAX_SIZE = 10 * 1024 * 1024;
+const FILE_TYPES = ['.jpeg', '.jpg', '.png', '.gif', '.txt','.xml','.xlsx','.xls','.doc','.docx','.pdf','.zip','.rar'];
 
 
-export function uploadFile(file) {
+function uploadFileValidation(data, target) {
+    return {
+        type: types.UP_UPLOAD_FILE_SUCCESS,
+        data: data,
+        target
+    };
+}
+export function uploadFile(file, target='file') {
+    const name = file.name;
+    const ext = name.slice(name.lastIndexOf('.'),name.legth);
+    const allowedTypes = (target === 'file') ? FILE_TYPES : IMG_TYPES;
+    console.log('ext',ext);
     return dispatch => {
         dispatch({
             type: types.UP_UPLOAD_FILE,
-            name: file.name
+            name: file.name,
+            target
         });
+        if (!allowedTypes.includes(ext)) {
+            const data = {
+                name: file.name,
+                error: 'Unsupported file type. Allowed ' + allowedTypes.join('/')
+            }
+            //const data = {
+            //    name: file.name
+            //}
+            //const error = 'Unsupported file type. Allowed ' + FILE_TYPES.join(',');
+            dispatch(uploadFileValidation(data,target));
+        } else if (file.size > MAX_SIZE) {
+            const data = {
+                name: file.name,
+                error: 'File size is ' + (file.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + (MAX_SIZE / 1024 / 1024).toFixed(2) + ' MB.'
+            }
+            //const data = {
+            //    name: file.name
+            //}
+            //const error = 'File size is ' + (file.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + (MAX_SIZE / 1024 / 1024).toFixed(2) + ' MB.'
+            dispatch(uploadFileValidation(data,target));
+        /*} else {
+
         if (file.size > MAX_SIZE) {
             const data = {
                 name: file.name,
@@ -298,8 +341,9 @@ export function uploadFile(file) {
             }
             dispatch({
                 type: types.UP_UPLOAD_FILE_SUCCESS,
-                data: data
-            });
+                data: data,
+                target
+            });*/
         } else {
             return uploadService.upload(file)
                 .then(response => {
@@ -316,14 +360,16 @@ export function uploadFile(file) {
 
                     dispatch({
                         type: types.UP_UPLOAD_FILE_SUCCESS,
-                        data: data
+                        data: data,
+                        target
                     });
 
                 })
                 .catch(error => {
                     dispatch({
                         type: types.UP_UPLOAD_FILE_ERROR,
-                        error: error
+                        error: error,
+                        target
 
                     });
                 });

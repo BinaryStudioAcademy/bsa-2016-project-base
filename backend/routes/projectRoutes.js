@@ -2,6 +2,7 @@ var apiResponse = require('express-api-response');
 var projectRepository = require('../repositories/projectRepository');
 var featureRepository = require('../repositories/featureRepository');
 var searchService = require('../service/search-service');
+var statsService = require('../service/stat-service');
 
 module.exports = function(app) {
 	app.get('/api/projects/', function (req,res,next) {
@@ -95,11 +96,75 @@ module.exports = function(app) {
 		});
 	}, apiResponse);
 
-	app.post('/api/projects/', function(req, res, next) {
-		projectRepository.add(req.body, function(err, data) {
+	app.get('/api/search/projects/:id', function(req, res, next) {
+		projectRepository.getByIdForLocations(req.params.id, function(err, data) {
 			res.data = data;
 			res.err = err;
 			//res.json(data);
+			next();
+		});
+	}, apiResponse);
+
+	app.get('/api/search/locations', function (req,res,next) {
+		projectRepository.getAllwithLocations(function (err,data) {
+			res.data = data;
+			res.err = err;
+			//res.json(data);
+			next();
+		});
+	}, apiResponse);
+
+	app.get('/api/stats/countries', function (req,res,next) {
+		statsService.getProjectsCountriesStat(req, function (err,data) {
+			res.data = data;
+			res.err = err;
+			//res.json(data);
+			next();
+		});
+	}, apiResponse);
+
+	app.get('/api/stats/tags', function (req,res,next) {
+		statsService.getProjectsTagsStat(req, function (err,data) {
+			res.data = data;
+			res.err = err;
+			//res.json(data);
+			next();
+		});
+	}, apiResponse);
+
+	app.get('/api/stats/technologies', function (req,res,next) {
+		statsService.getProjectsTechsStat(req, function (err,data) {
+			res.data = data;
+			res.err = err;
+			//res.json(data);
+			next();
+		});
+	}, apiResponse);
+
+	app.get('/api/stats/dates/start', function (req,res,next) {
+		statsService.getProjectsDatesStart(req, function (err,data) {
+			res.data = data;
+			res.err = err;
+			//res.json(data);
+			next();
+		});
+	}, apiResponse);
+
+	app.post('/api/projects/', function(req, res, next) {
+		projectRepository.add(req.body, function(err, data) {
+			if (err) {
+				let errors =  {};
+				Object.keys(err.errors).forEach((key) => {
+					errors[key] = err.errors[key].message;
+				});
+				res.status(400).send(errors);
+				res.err = errors;
+			}
+			else {
+				res.data = data;
+				//res.json(data);
+				res.err = err;
+			}
 			next();
 		});
 	}, apiResponse);

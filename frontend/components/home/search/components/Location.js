@@ -7,7 +7,14 @@ import React from "react"
  */
 import MultiSelect from "./MultiSelect"
 import TextField from "./../components/TextInput"
+import DeletableList from "./DeletableList"
 
+const getUniqueMapId = (function () {
+    var i = 0;
+    return function () {
+        return "" + ++i;
+    }
+})();
 export default class Location extends MultiSelect {
     constructor(params) {
         super(params);
@@ -19,13 +26,35 @@ export default class Location extends MultiSelect {
         this.mapElement = mapElementReference;
     }
 
+    componentWillUnmount() {
+        const {model} = this.props;
+        model.currentActiveMapId = null;
+        model.notifyUpdated();
+    }
+
     componentDidMount() {
         const {model} = this.props;
-        const map = new google.maps.Map(this.mapElement, {
+        this.map = new google.maps.Map(this.mapElement, {
             zoom: 4,
             center: {lat: 53.52604744889203, lng: -1.08411407470703125}
         });
-        model.setMap(map);
+        /*var self = this;
+        this.map.addListener("bounds_changed", function () {
+            clearTimeout(self.optimizeInfoWindowsTimeoutId)
+            self.optimizeInfoWindowsTimeoutId = setTimeout(()=>
+                model.tips.map(tip=> {
+                    if (map.getBounds().contains(tip.marker.position)) {
+                        tip.infoWindow.open(map, tip.marker);
+                    } else {
+                        tip.infoWindow.close()
+                    }
+                }), 200)
+
+        });*/
+        this.map.__unique__id__ = getUniqueMapId();
+        var map = this.map;
+        model.currentActiveMapId = this.map.__unique__id__;
+        model.startLoadTips(map);
         var input = /** @type {!HTMLInputElement} */
             document.createElement("input");
         input.setAttribute("style", `background-color: #fff;
@@ -54,8 +83,6 @@ export default class Location extends MultiSelect {
                 map.setZoom(17);  // Why 17? Because it looks good.
             }
 
-
-
         });
 
     }
@@ -66,5 +93,34 @@ export default class Location extends MultiSelect {
                  ref={this.setMapElementReference.bind(this)}>
             </div>
         )
+    }
+
+    getRightBlock() {
+        const {model} = this.props;
+        const map = this.map;
+
+        if (map) {
+            if (!model.currentActiveMapId) {
+                model.currentActiveMapId = map.__unique__id__;
+            }
+            if (map.__unique__id__ === model.currentActiveMapId) {
+                setTimeout(function () {
+                    model.tips.map(tip=> {
+                        if (!tip.marker.isAdded || tip.marker.map.__unique__id__ !== map.__unique__id__) {
+                            model.displayOnMap(map, tip)
+                        }
+                    });
+                }, 500);
+            }
+
+
+            var values = <DeletableList model={model} onClick={function(value){
+            model.removeValue(map,value)}
+        }/>;
+        }
+
+        return (<div style={{width:this.rightBlockWidth,overflow:"auto", "maxHeight":"300px"}}>
+            {values || null}
+        </div>)
     }
 }

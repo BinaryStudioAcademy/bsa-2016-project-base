@@ -6,7 +6,9 @@ import { Button, TextInput, TextArea, FileUpload } from '../../../common/';
 import File from './File';
 import styles from './styles/Attachments.sass';
 
-const fileTypes = 'image/jpeg,image/png,image/gif,application/xml';
+const fileTypes = 'image/jpeg,image/png,image/gif,application/xml,text/xml,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,\
+application/msword,application/zip,application/x-rar-compressed,application/octet-stream,text/plain,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+
 
 class Attachments extends Component {
     constructor(props) {
@@ -32,13 +34,15 @@ class Attachments extends Component {
     render() {
         const {files} = this.props;
         const list = files.map( (file, index) => {
-            return (
-                <File
-                    key={index}
-                    file={file}
-                    onClick={this.removeFile}
-                />
-            );
+            if (file.target === 'file') {
+                return (
+                    <File
+                        key={index}
+                        file={file}
+                        onClick={this.removeFile}
+                    />
+                );
+            }
         });
         return (
             <div id={styles["attachments"]}>

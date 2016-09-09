@@ -17,8 +17,8 @@ export default class ListProjects extends Component {
             ranking += rating[i].value;
         }
 
-        if (!length) '0.0';
-        return (ranking/length).toFixed(1);
+        if (!length) return 0;
+        return Math.round(ranking/length);
     }
 
     render() {
@@ -26,7 +26,7 @@ export default class ListProjects extends Component {
 
         return (
                 (projects.length > 0) ?
-                <div className={styles.row}>
+                <ul className={styles["project-list-home"]}>
                     {projects.map( (project, index) =>
                         <Project
                             id={project._id}
@@ -35,7 +35,7 @@ export default class ListProjects extends Component {
                             project={project}
                             ranking={this.ranking(project.rating)}/>
                     )}
-                </div> : null
+                </ul> : null
         )
     }
 }

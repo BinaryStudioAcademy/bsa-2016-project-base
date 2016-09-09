@@ -114,11 +114,12 @@ export default function EditProjectReducer(state=initialState, action) {
             });
         }
         case types.UP_POST_TECH_SUCCESS_ED: {
-            const {data} = action;
+            const {data, iconLoaded} = action;
             const {predefinedTechnologies} = state;
             console.log('POST_TECH',data);
             return Object.assign({}, state, {
-                predefinedTechnologies: addNewTech(predefinedTechnologies, data)
+                predefinedTechnologies: addNewTech(predefinedTechnologies, data),
+                iconLoaded
             });
         }
         case types.UP_POST_SECTION_SUCCESS_ED: {
@@ -156,22 +157,23 @@ export default function EditProjectReducer(state=initialState, action) {
         }
 
         case types.UP_UPLOAD_FILE_ED: {
-            const {name} = action;
+            const {name, target} = action;
             const {files} = state;
             return Object.assign({}, state, {
                 files: files.concat({
                     name,
                     good:true,
-                    ready: false
+                    ready: false,
+                    target
                 })
             });
         }
 
         case types.UP_UPLOAD_FILE_SUCCESS_ED: {
-            const {data} = action;
+            const {data,target} = action;
             const {files} = state;
             return Object.assign({}, state, {
-                files: updateFileSuccess(files, data)
+                files: updateFileSuccess(files, data, target)
             });
         }
         case types.UP_REMOVE_FILE_ED: {
@@ -202,6 +204,24 @@ export default function EditProjectReducer(state=initialState, action) {
                 added: true
             });
         }
+
+        case types.UP_POST_SECTION_DELETE_ED: {
+            const {data} = action;
+            const {sections} = state;
+            console.log('DELETE_SECTION_SUCCESS',sections);
+            return Object.assign({}, state, {
+                sections: [].concat(data)
+            });
+        }
+
+        case types.UP_POST_PROJECT_ERROR_ED: {
+            const error = action.error;
+            const {added} = state;
+            return Object.assign({}, state, {
+                errors: error
+            });
+        }
+
         case types.UP_REMOVE_TECH_FROM_PROJECT_ED: {
             const {_id} = action;
             const {predefinedTechnologies} = state;
@@ -214,16 +234,21 @@ export default function EditProjectReducer(state=initialState, action) {
             var data = [];
             if(project.attachments.length != 0) {
                 data = project.attachments.map(function (el) {
-                    return fileThumbService.setThumb(Object.assign({}, el, {path: el.link}));
+                    return fileThumbService.setThumb(Object.assign({}, el, {path: el.link}, {target: "file"}));
+                });
+            }
+            if(project.screenShots.length != 0) {
+                 project.screenShots.forEach(function (el) {
+                     data.push(fileThumbService.setThumb(Object.assign({}, {path: el}, {target: "screenshot"})));
                 });
             }
             return Object.assign({}, state, {
                 projectId: project._id,
                 projectName: project.projectName,
-                projectLink: project.projectLink,
+                projectLink: project.linkToProject,
                 timeBegin: project.timeBegin,
                 timeEnd: project.timeEnd,
-                status: project.status,
+                status: {name: project.status, value: project.status},
                 users: project.users,
                 owners: project.owners,
                 tags: project.tags,
@@ -375,10 +400,10 @@ const removeFile = (files, name) => {
     return [].concat(files);
 }
 
-const addNewTech  = (technologies, tech) => {
+const addNewTech  = (predefinedTechnologies, tech) => {
     tech.inProject = true;
-    technologies.push(tech);
-    return [].concat(technologies);
+    predefinedTechnologies.push(tech);
+    return [].concat(predefinedTechnologies);
 }
 
 const addTechToProject = (techs, _id) => {
@@ -435,7 +460,7 @@ const addUserToProject = (predefinedUsers, _id) => {
 }
 
 const removeUserFromProject = (predefinedUsers, _id) => {
-    users.forEach( user => {
+    predefinedUsers.forEach( user => {
         if (user._id === _id) {
             user.inProject = false;
             user.owner = false;
@@ -480,7 +505,6 @@ const initialState = {
     timeBegin:'',
     timeEnd:'',
     status:'',
-    users_: [],
     owners: null,
     tags: null,
     technologies: null,
@@ -498,8 +522,9 @@ const initialState = {
     initialSections: false,
     initialFiles: false,
     iconLoaded: false,
+    errors: {nameError: false, technologiesError: false, timeBeginError: false, usersError: false},
     techIcon: {},
-    techIconError: null,
+    techIconError: '',
     description:{
         descrFullText: 'Description'
     },

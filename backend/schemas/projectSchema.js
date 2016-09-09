@@ -11,7 +11,9 @@ var Project = new Schema({
 
     technologies: [{type: Schema.Types.ObjectId, ref: 'Technologies', required: true}],
 
-    projectName: {type: String, required: true},
+    projectName: {type: String, required: 'This field is required'},
+
+    linkToProject: String,
 
     location: {
         Latitude: String,
@@ -30,12 +32,12 @@ var Project = new Schema({
             link: String
     }],
 
-    timeBegin:{type: Date, default: Date.now, required: true},
+    timeBegin:{type: Date, default: Date.now, required: 'This field is required'},
 
     timeEnd: Date,
 
     tags: [{type: Schema.Types.ObjectId, ref: 'Tag'}],
-        
+
     // stage: {type: Schema.Types.ObjectId, ref: 'Stage'},
 
     // condition: {type: Schema.Types.ObjectId, ref: 'Condition'},
@@ -60,7 +62,40 @@ var Project = new Schema({
         description: String
     }],
 
-    features: [{type: Schema.Types.ObjectId, ref: 'Feature'}]
+    features: [{type: Schema.Types.ObjectId, ref: 'Feature'}],
+
+    contacts: {
+        countryCode: String,
+        countryName: String,
+        postalIndex: String,
+        state_region: String,
+        city: String,
+        street: String,
+        building: String,
+        appartment: String,
+        contactPerson: String,
+        phone: String,
+        email: String,
+        skype: String
+    }
 });
+
+
+// Custom validators for checking array-fields are empty or not
+Project.path('users').validate(function(users){
+    if(users.length === 0){return false}
+    return true;
+}, 'You must add user and owner');
+
+Project.path('owners').validate(function(owners){
+    if(owners.length === 0){return false}
+    return true;
+}, 'You must add user and owner');
+
+Project.path('technologies').validate(function(technologies){
+    if(technologies.length === 0){return false}
+    return true;
+}, 'You must add a technology');
+
 
 module.exports = mongoose.model('Project', Project);

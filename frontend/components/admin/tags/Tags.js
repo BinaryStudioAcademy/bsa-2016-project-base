@@ -26,27 +26,31 @@ class Tags extends Component {
 	}
 	componentWillMount() {
 		this.props.getTags();
+		this.props.setFilterTerm('');
+		this.props.filterTags();
 	}
 	selectOne(e, id){
 		let checked = e.target.checked;
 		this.props.selectOne(id, checked);
-
 	}
 	setTagName(e){
 		let tagName = e.target.value.trim();
-		this.props.setTagName(tagName);
-		e.target.value = '';
+		if (tagName.length <= 14) {
+			this.props.setTagName(tagName);
+		}
+		
 	}
 	addTag(e){
-		let { tagNameToAdd } = this.props.store.AdminTagReducer;
+		let { tagNameToAdd } = this.props;
 		if (tagNameToAdd) {
 			this.props.addTag({tagName:tagNameToAdd});
+			this.props.setTagName('');
 		}
 	}
 
 	searchTag(e){
 		let term = e.target.value.trim();
-		let { isAllChecked } = this.props.store.AdminTagReducer;
+		let { isAllChecked } = this.props;
 		if (!isAllChecked) {
 			this.props.selectAll(false);
 		} 
@@ -59,7 +63,7 @@ class Tags extends Component {
 		this.props.selectAll(checked);
 	}
 	deleteMany(e){
-		let { tags } = this.props.store.AdminTagReducer;
+		let { tags } = this.props;
 		let trash = []
 		tags.forEach(tag => {
 			if (tag.checked) {
@@ -83,7 +87,7 @@ class Tags extends Component {
 		
 	}
  	render() {
- 		let { tags, isAllChecked } = this.props.store.AdminTagReducer;
+ 		let { tags, isAllChecked, tagNameToAdd } = this.props;
 	    return (
 	    	<div className={styles["tags-tab"]} id={styles["tags"]}>
 	    			<ReduxToastr/>
@@ -92,6 +96,7 @@ class Tags extends Component {
 				    		<div className={styles.col}>
 				    			<FaSearch size={15} />
 				    			<TextFieldTags
+				    				id='search-tags'
 									hintText='search tags'
 									onChange={this.searchTag}
 				  				/>
@@ -111,8 +116,10 @@ class Tags extends Component {
 				    		</div>
 				    		<div className={styles.col}>
 				    			<TextFieldTags
+				    				id='add-tags'
+				    				value={tagNameToAdd}
 				    				hintText="tag's name"
-				    				onBlur={this.setTagName}
+				    				onChange={this.setTagName}
 
 				    			/>
 				    			<Button
@@ -140,7 +147,11 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
     return {
-        store: state
+        isAllChecked: state.AdminTagReducer.isAllChecked,
+        tagNameToAdd: state.AdminTagReducer.tagNameToAdd,
+        searchTerm: state.AdminTagReducer.searchTerm,
+        tags: state.AdminTagReducer.tags,
+        error: state.AdminTagReducer.error
     };
 };
 

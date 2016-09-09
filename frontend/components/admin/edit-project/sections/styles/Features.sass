@@ -1,19 +1,84 @@
-#edit-project
-	#features-list
-		.list-container
-			display: inline-block
-			width: 50%
-			height: 180px
+#features-list
+	display: flex
+	flex-direction: column
+	hr 
+        border: 1px solid #e4ecee
+        margin: 1.2rem 1.2rem 3rem
+	.row
+        display: flex 
+        justify-content: space-between
+        //border: '1px solid #c9c9c9',
+        //border-radius: 5px
+        padding: 0 1.2rem
+        margin-bottom: 1rem
+        flex-direction: row
+	.list-container
 
-		.sections-list
-			border: 1px solid black
-			overflow-y: auto
-			height: 180px
-		.add-section
-			width: 100%
-			display: block
-			div
-				display: inline
-		.section-name
-			color: orange
-			font-weight: bold
+		display:flex
+		flex-basis: 47%
+		box-shadow: 0px 1px 15px -6px #777
+		// height: 180px
+		// overflow-y: auto
+		// border: 1px solid black
+		background-color: #fff
+		.sections-list-header
+    		display: flex
+    		height: 50px
+    		border-bottom: 1px solid #efefef
+    		// border-right: 3px solid #627484
+    		.col-1-2
+    			flex-basis: 50%
+
+    			h3
+    				font-family: 'Lato', sans-serif
+    				font-size: 1rem
+    				margin-left: 1rem
+    				// color: #c9c9c9
+    		.col-1-2:nth-of-type(1)
+    			display: flex
+    			align-items: center
+    			flex-basis: 20%
+    			border-left: 3px solid #627484
+
+	.add-section2
+		justify-content: flex-start
+		border-radius: 5px
+		padding: 0 1.2rem
+		margin-bottom: 1rem
+		align-items: center
+		display: flex
+		margin: 1rem 0 2.5rem
+		.col-1-2 + .col-1-2
+			margin-left: 1.8rem 
+	
+	.section-list1
+		overflow-y: auto
+		height: 200px
+		margin: 0 1rem 1rem
+		padding: 0
+		position: relative
+		// border: 1px solid #E1E3EB
+	
+	.empty
+		position: absolute
+		top: 50%
+		left: 50%
+		transform: translate(-50%, -50%)
+		text-align: center
+
+	.btnFeature
+    position: absolute
+    right: 20px
+
+.sections-list 
+// border: 1px solid black
+	// overflow-y: auto
+	// height: 180px	
+.add-section	
+	width: 100%
+	display: block
+	div
+		display: inline
+.section-name
+	color: #2ecc71
+	font-weight: bold

@@ -10,12 +10,12 @@
   width: 100%
 
   .row
-    display: flex
-    width: 100%;
-    justify-content: space-between
-    flex-flow: row wrap
-    padding: 1.5rem 0 0.5rem
-    border-bottom: 1px solid #CED1D6
+      width: 100%
+      display: flex
+      padding: 1.3rem 0 
+      flex-flow: row wrap
+      justify-content: space-between
+      border-bottom: 1px solid #CED1D6
 
   =forSmallScreens($media)
     @media (max-width: $media/16+em)
@@ -51,6 +51,7 @@
       color: #79919D
       font-size: 0.75rem
       font-weight: 700
+      text-decoration: none
       text-transform: uppercase
       font-family: 'Lato', sans-serif
       transition: color .3s

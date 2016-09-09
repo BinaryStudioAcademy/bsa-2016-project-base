@@ -13,6 +13,14 @@ class File extends Component {
        u_id.select();
        document.execCommand("Copy");
     }
+    getRemoveButton(){
+        const {onClick} = this.props;
+        const {path, thumb, name, ready, good}  = this.props.file;
+
+        return <Button className={styles["btnIcon"]} onClick={onClick && ((e) => onClick(e,name))}>
+            <i className="fa fa-times" aria-hidden="true"></i>
+        </Button>
+    }
     renderStatus(){
 
          const {path, thumb, name, ready, good}  = this.props.file;
@@ -20,9 +28,7 @@ class File extends Component {
          if (ready && good) {
             return (
                 <div>
-                    <Button className={styles["btnIcon"]} onClick={onClick && ((e) => onClick(e,name))}>
-                        <i className="fa fa-times" aria-hidden="true"></i>
-                    </Button>
+                    {this.getRemoveButton()}
                     <a href={path} target="_blank">
                         <img src={thumb} alt={name} />
                     </a>
@@ -37,7 +43,7 @@ class File extends Component {
                         />
                         <input className={styles["copyInput"]} type="text"
                             ref='inputcopy'
-                            value={ORIGIN+path}
+                            defaultValue={path}
                         />
                     </div>
                 </div>
@@ -49,8 +55,8 @@ class File extends Component {
                     <Button className={styles["btnIcon"]} onClick={onClick && ((e) => onClick(e,name))}>
                             <i className="fa fa-times" aria-hidden="true"></i>
                     </Button>
-                    <span className={styles["error"]}>Error:</span>
-                     {error}
+                    <span className={styles["error"]}>Error: </span>
+                    <span className={styles["error-message"]}>{error}</span>
                 </div>
             );
         }

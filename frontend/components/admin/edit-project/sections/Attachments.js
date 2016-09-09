@@ -6,7 +6,9 @@ import { Button, TextInput, TextArea, FileUpload } from '../../../common/';
 import File from './File';
 import styles from './styles/Attachments.sass';
 
-const fileTypes = 'image/jpeg,image/png,image/gif,application/xml';
+const fileTypes = 'image/jpeg,image/png,image/gif,application/xml,text/xml,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,\
+application/msword,application/zip,application/x-rar-compressed,application/octet-stream,text/plain,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+
 
 class Attachments extends Component {
     constructor(props) {
@@ -24,7 +26,6 @@ class Attachments extends Component {
             }
             e.target.value = '';
         }
-
     }
     removeFile(e, name) {
         console.log('removeFile ',name);
@@ -33,29 +34,36 @@ class Attachments extends Component {
     render() {
         const {files} = this.props;
         const list = files.map( (file, index) => {
-            return (
-                <File
-                    key={index}
-                    file={file}
-                    onClick={this.removeFile}
-                />
-            );
+            if (file.target === 'file') {
+                return (
+                    <File
+                        key={index}
+                        file={file}
+                        onClick={this.removeFile}
+                    />
+                );
+            }
         });
         return (
             <div id={styles["attachments"]}>
-                <fieldset>
-                    <legend>Attachments</legend>
-                    <FileUpload
-                        accept={fileTypes}
-                        multiple={true}
-                        onChange={this.onFilePathChange}
-                    />
+                <header>
+                    <h2>Attachments</h2>
+                </header>
+                <div className={styles.row}>
+                    <div className={styles['field-container']}>
+                        <FileUpload
+                            className={styles["upload-container"]}
+                            accept={fileTypes}
+                            multiple={true}
+                            onChange={this.onFilePathChange}
+                        />
 
-                    <div className={styles["list"]}>
-                        {list}
+                        <div className={styles["list"]}>
+                            {list}
+                        </div>
                     </div>
 
-                </fieldset>
+                </div>
             </div>
         );
     }

@@ -17,9 +17,17 @@ export default class MyEditor extends React.Component {
             initialContent: PropTypes.string
         }
     }
+    shouldComponentUpdate(nextProps, nextState){
 
+        return false;
+    }
+
+    componentWillReceiveProps(nextProps){
+        if (nextProps.initialContent === '') {
+            tinyMCE.activeEditor.setContent('');
+        }
+    }
     handleEditorChange(e) {
-        //console.log('Content was updated:', e.target.getContent());
         const {handleChange} = this.props;
         handleChange && handleChange(e.target.getContent())
     }
@@ -51,7 +59,8 @@ export default class MyEditor extends React.Component {
                 return response.json();
             })
             .then( json =>  {
-               callback(json.path || json.error.message);
+                callback(json.path || json.error.message);
+               
             })
             .catch( error => {
                 callback("error while uploading file")
@@ -92,14 +101,20 @@ export default class MyEditor extends React.Component {
         };
         inputFile.click();
     }
-    shouldComponentUpdate(){return false}
+    
     render() {
         const self = this;
-        const {className} = this.props
+        const {className,initialContent} = this.props
+        console.log('EDITOR Rerender',this.props.initialContent);
         return (<div className={className}>
                 <TinyMCE
-                    content={this.props.initialContent || ""}
+                    content={this.props.initialContent}
                     config={{
+                    //relative_urls: 'false',
+                    //remove_script_host : 'false',
+                    //document_base_url : ORIGIN,
+                    //images_upload_base_path: ORIGIN,
+                    editor_selector: 'my_editor_id', 
                     height:300,
                     plugins: [
                         "advlist autolink lists link image charmap print preview anchor",
@@ -115,10 +130,20 @@ export default class MyEditor extends React.Component {
                             let field = win.document.getElementById(field_name);
                             self.selectImageByExplorerAndUpload(text=>{field.value = text}, field_name, win)
                         }
-                    }
+                    }/*,
+                    setup: function(editor) {
+                        editor.on('click', function(e) {
+                          console.log('Editor was clicked');
+                        });
+                        editor.on('change', function(e) {
+                          console.log('Editor was change');
+                         
+                        });
+                    }*/
 
                 }}
                     onChange={this.handleEditorChange.bind(this)}
+
                 />
             </div>
         );

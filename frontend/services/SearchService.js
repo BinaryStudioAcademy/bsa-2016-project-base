@@ -9,20 +9,18 @@ class SearchService {
         this.url = constants.URL + "search/";
     }
 
+    getProject(id){
+        console.log(`${this.url}projects/${id}`)
+        return fetch(`${this.url}projects/${id}`, constants.cookieMarker)
+            .then(res => res.json())
+            .then(json => ({project:json}))
+            .catch(error => ({err:error}))
+    }
     getLocations(){
-        return new Promise((success,failure)=>{
-            success([
-                {lat:50.425322,lng:30.513381},
-                {lat:49.846702,lng:24.025782},
-                {lat:46.972842,lng:32.030347},
-                {lat:49.875273,lng:36.130145},
-                {lat:51.275463,lng: -0.678218},
-                {lat:48.936869,lng:2.903663},
-                {lat:41.691581,lng:-74.733795},
-                {lat:-33.973108,lng:24.173810},
-                {lat:-33.964978,lng:18.626915}
-                  ])
-        });
+        return fetch(`${this.url}locations`, constants.cookieMarker)
+            .then(res => res.json())
+            .then(json => ({locations:json}))
+            .catch(error => ({err:error}))
     }
     getProjects(query) {
         console.log("Request", `${this.url}projects?${query}`)

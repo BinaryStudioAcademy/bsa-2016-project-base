@@ -41,7 +41,7 @@ module.exports = {
       loader: 'json'
     }, {
       test: /\.sass$/,
-      loader: "style!css?modules&localIdentName=[local]!postcss!sass"
+      loader: "style!css?&modules&localIdentName=[local]!postcss!sass?"
     }]
   }
 };

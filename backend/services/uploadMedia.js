@@ -1,7 +1,7 @@
 var fs = require('fs');
 var multiparty = require('multiparty');
 var uuid = require('node-uuid');
-
+var origin = 'http://localhost:6500/'
 var supportMimeTypes = [
 		'image/jpg', 
 		'image/jpeg', 
@@ -72,7 +72,7 @@ module.exports = function(request, callback) {
         //uploadFile.size = part.byteCount;
         uploadFile.type = part.headers['content-type'];
         uploadFile.pathOnServer = './upload/' + newFileName;
-		uploadFile.pathOnClient = '/upload/' + newFileName;
+		uploadFile.pathOnClient = origin + 'upload/' + newFileName;
 
         /*if(uploadFile.size > maxSize) {
 	        errors.push('File size is ' + (uploadFile.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + sizeLimitMb + ' MB.');

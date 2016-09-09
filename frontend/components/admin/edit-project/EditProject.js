@@ -2,19 +2,22 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions/admin/EditProjectActions';
-import { TabPanel, TabBody, TabHead } from '../../common/';
 import Inputs from './sections/Inputs';
 import UsersList from './sections/UsersList';
 import Tags from './sections/Tags';
 import Techs from './sections/Techs';
 import Features from './sections/Features';
 import Attachments from './sections/Attachments';
+import Screenshots from './sections/Screenshots'
 
-import Button from '../../common/RaisedButtonUI_Tags';
-import styles from './sections/styles/UpsertProject.sass';
+import styles from './sections/styles/EditProject.sass';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {toastr} from 'react-redux-toastr';
+const Loading = require('react-loading-animation');
+import * as constants  from '../../../constants/Api';
+const {ORIGIN} = constants;
+import { TabPanel, TabBody, TabHead, Button, RaisedButtonUITags } from '../../common/';
 import editProjectService from '../../../services/admin/EditProjectService';
 
 const tabsStyles = {
@@ -32,13 +35,23 @@ const tabsStyles = {
         "margin-top": "20px"
     },
     inkBarStyle: {
-        backgroundColor: "#fc5a5a"
+        backgroundColor: "#2ecc71"
     }
 };
 
-const TabsExampleSimple = () => (
+const TabsUI = () => (
     <MuiThemeProvider>
         <Tabs tabItemContainerStyle={tabsStyles.tabItemContainerStyle} contentContainerStyle={tabsStyles.tabBlock} inkBarStyle={tabsStyles.inkBarStyle}>
+            <Tab label="Tecnologies *" >
+                <div>
+                    <Techs/>
+                </div>
+            </Tab>
+            <Tab label="Users *" >
+                <div>
+                    <UsersList/>
+                </div>
+            </Tab>
             <Tab label="Sections & Features">
                 <div>
                     <Features/>
@@ -47,16 +60,6 @@ const TabsExampleSimple = () => (
             <Tab label="Tags" >
                 <div>
                     <Tags/>
-                </div>
-            </Tab>
-            <Tab label="Tecnologies" >
-                <div>
-                    <Techs/>
-                </div>
-            </Tab>
-            <Tab label="Users" >
-                <div>
-                    <UsersList/>
                 </div>
             </Tab>
         </Tabs>
@@ -70,9 +73,22 @@ class EditProject extends Component {
     constructor(props) {
         super(props);
         this.updateProject = this.updateProject.bind(this);
+        this.state = {
+            nameError: false,
+            timeBeginError: false,
+            technologiesError: false,
+            usersError: false
+        }
     }
     componentWillReceiveProps(nextProps){
-        if(nextProps.store.added) toastr.success('Project', nextProps.store.projectName + ' was updated!');
+        const {nameError, technologiesError, timeBeginError, usersError} = this.props.store.errors;
+        if(nextProps.store.added && !nameError && !technologiesError && !timeBeginError && !usersError) {
+            window.scrollTo(0, 0);
+            toastr.success('Project', `${nextProps.store.projectName} was updated!`, {
+                timeOut: 10000
+            });
+            //this.props.clearData();
+        }
     }
     componentWillMount() {
         this.props.getPredefinedData();
@@ -136,34 +152,58 @@ class EditProject extends Component {
                 const temp = [];
                 console.log('files ',files);
                 files.forEach( file => {
-                    temp.push({
-                        name: file.name,
-                        link: file.path
-                    });
+                    if (file.target === 'file') {
+                        temp.push({
+                            name: file.name,
+                            link: file.path
+                        });
+                    }
+
                 });
                 console.log('temp ',temp);
                 return temp;
+            })(),
+            screenshots: (() => {
+                const temp = [];
+                console.log('files ',files);
+                files.forEach( file => {
+                    if (file.target === 'screenshot') {
+                        temp.push(file.path);
+                    }
+
+                });
+                console.log('temp ',temp);
+                return temp;
+            })(),
+            descrFullText: (() => {
+                const text = description.descrFullText;
+                return text.replace(/<img src="upload/g,'<img src="'+ORIGIN+'/upload');
             })()
         }
+
         console.log('inProject.sections ',inProject.sections);
         console.log('inProject.features ',inProject.features);
         console.log('inProject.users ',inProject.users);
         console.log('inProject.owners ',inProject.owners);
         const project = {
             _id: projectId,
+            linkToProject:projectLink,
             projectName,
             /*projectLink,*/
             timeBegin: new Date(timeBegin),
-            timeEnd: new Date(timeEnd),
+            timeEnd: timeEnd == null ? null : new Date(timeEnd),
             attachments: inProject.attachments,
+            screenShots: inProject.screenshots,
             sections: inProject.sections,
             features: inProject.features,
             tags: inProject.tags,
             technologies: inProject.technologies,
             owners: inProject.owners,
             users: inProject.users,
-            status,
-            description,
+            status: status.value,
+            description: {
+                descrFullText: inProject.descrFullText
+            }
 
         };
         console.log('project ',project);
@@ -193,20 +233,37 @@ class EditProject extends Component {
 
 
     render() {
-        console.log('Rerender Upsert');
+        const {initialTags, initialTechnologies, initialUsers, initialSections, initialFiles, projectLink} = this.props.store;
+        var load = false;
+        if(initialTags && initialTechnologies && initialSections ) {
+            load = true;
+        }
         return (
-            <div id={styles["edit-project"]}>
-                <Inputs/>
+            <div id={styles["edit-project-wrapper"]}>
+            <div className={"visible-" + !load + " " + "loading-animation"}>
+                <Loading />
+            </div>
+                <div  className={"visible-" + load}>
+                <Inputs load={load} fff="2"/>
                 <br/>
-                <TabsExampleSimple />
+                <div className={styles['valid-container']}>
+                    {this.props.store.errors.technologiesError && <div className={styles.validationTech}><div className={styles.tool}>You must add a technology</div></div>}
+
+                    {this.props.store.errors.usersError && <div className={styles.validationUser} style={this.props.store.errors.technologiesError ? {marginLeft: '3rem'} : {marginLeft: '17rem'}}><div className={styles.tool}>You must add user and owner</div></div>}
+                </div>
+                <TabsUI/>
                 <br/>
                 <Attachments/>
                 <br/>
-                <Button
-                    label="Update project"
-                    onClick={this.updateProject}
-                    backgroundColor="rgba(46, 204, 113, 0.9)"
-                />
+                <Screenshots/>
+                <br/>
+                    <RaisedButtonUITags
+                        className={styles.btnCreate}
+                        label='Update project'
+                        onClick={this.updateProject}
+                        backgroundColor='#8D97A4'
+                    />
+                </div>
             </div>
         )
     }

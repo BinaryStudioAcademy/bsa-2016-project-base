@@ -39,10 +39,24 @@ export default class SearchContainer extends Updatable{
         this.searchString = searchString;
         //this.notifyUpdated()
     }
+    getPredicate(query){
+        const vars = this.varsValues().map(entry=>entry.var);
+        if (vars.length){
+            const strategy = this.searchStrategy;
+            switch (strategy){
+                case SearchStrategy.BY_AND:
+                    return query.push(`predicate=${encodeURIComponent(vars.join("&"))}`);
+                case SearchStrategy.BY_OR:
+                    return query.push(`predicate=${encodeURIComponent(vars.join("|"))}`);
+                default:return;
+            }
+        }
+    }
     goExtendedSearch(){
         this.currentQuery = this.searchModels
             .map(model=>model.getRequestRepresentation())
             .filter(value=>value);
+        this.getPredicate(this.currentQuery);
         if (this.homeContainer) this.homeContainer.pagination.activePage = 0;
         this.goSearch();
     }

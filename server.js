@@ -1,6 +1,4 @@
-﻿/* eslint no-console: 0 */
-
-const path = require('path');
+﻿const path = require('path');
 const express = require('express');
 const webpack = require('webpack');
 const webpackMiddleware = require('webpack-dev-middleware');
@@ -15,7 +13,11 @@ const app = express();
 //app.use(bodyParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 app.use(tockenMiddleware);
 app.use(rightsMiddleware);
 var routes = require('./backend/routes/routes')(app);

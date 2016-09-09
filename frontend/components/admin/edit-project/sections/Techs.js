@@ -2,8 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../../actions/admin/EditProjectActions';
-import { Button, TextInput, TextArea, FileUpload } from '../../../common/';
+import { Button, TextInput, TextArea, FileUpload, TextFieldTags, RaisedButtonUITags } from '../../../common/';
 import styles from './styles/Techs.sass';
+import { DEFAULT } from '../../../../constants/Api';
 
 class Techs extends Component {
     constructor(props) {
@@ -12,7 +13,8 @@ class Techs extends Component {
             techName: '',
             techVersion: '',
             techDescription: '',
-            addBtnEnabled: false
+            addBtnEnabled: false,
+            defaultImage: DEFAULT + "technology.png"
         }
         this.addTechToProject = this.addTechToProject.bind(this);
         this.removeTechFromProject = this.removeTechFromProject.bind(this);
@@ -107,10 +109,15 @@ class Techs extends Component {
         const allUnUsedTechnologies = predefinedTechnologies.map( tech => {
             if (!tech.inProject) {
                 return (
-                    <div key={tech._id}>
-                        <img src={tech.techAvatar} alt="tech logo"/>
-                        <span>{tech.techName} {tech.techVersion}</span>
-                        <span>{tech.techDescription}</span>
+                    <div key={tech._id} className={styles.techItem}>
+                        <div>
+                            <img src={ this.state.defaultImage } alt="tech logo"/>
+                            {/*<img src={tech.techAvatar} alt="tech logo"/>*/}
+                        </div>
+                        <div className={styles.nameAndVers}>
+                            <span>{tech.techName} {tech.techVersion}</span>
+                            {/*<span>{tech.techDescription}</span>*/}
+                        </div>
                         <Button className={styles["btnIcon"]} onClick={(e) => this.addTechToProject(e, tech._id)}>
                             <i className="fa fa-plus" aria-hidden="true"></i>
                         </Button>
@@ -121,12 +128,17 @@ class Techs extends Component {
         const usedTechnologies = predefinedTechnologies.map( (tech, index) => {
             if (tech.inProject) {
                 return (
-                    <div key={tech._id}>
-                        <img src={tech.techAvatar} alt="tech logo"/>
-                        <span>{tech.techName} {tech.techVersion}</span>
-                        <span>{tech.techDescription}</span>
-                        <Button onClick={(e) => this.removeTechFromProject(e, tech._id)}>
-                            <i className="fa fa-trash-o" aria-hidden="true"></i>
+                    <div key={tech._id} className={styles.techItem}>
+                        {/*<img src={tech.techAvatar} alt="tech logo"/>*/}
+                        <div>
+                            <img src={ this.state.defaultImage } alt="tech logo"/>
+                        </div>
+                        <div className={styles.nameAndVers}>
+                            <span>{tech.techName} {tech.techVersion}</span>
+                            {/*<span>{tech.techDescription}</span>*/}
+                        </div>
+                        <Button className={styles["btnIcon"]} onClick={(e) => this.removeTechFromProject(e, tech._id)}>
+                            <i className="fa fa-times" aria-hidden="true"></i>
                         </Button>
                     </div>
                 );
@@ -136,61 +148,88 @@ class Techs extends Component {
 
         return (
             <div id={styles['techs-list']}>
-                <div className={styles['tech-name']}>
-                    <TextInput
-                        value={this.state.techName}
-                        label='Name *'
-                        placeholder='Type tecnology name'
-                        onChange={this.onTechNameChange}
-                    />
-                    <TextInput
-                        value={this.state.techVersion}
-                        label='Version *'
-                        placeholder='Type tecnology version'
-                        onChange={this.onTechVersionChange}
-                    />
-                    <TextArea
-                        value={this.state.techDescription}
-                        label='Description *'
-                        placeholder='Type tecnology description here'
-                        onChange={this.onTechDescriptionChange}
-                    />
-                    <FileUpload
-                        id={'tech-icon'}
-                        multiple={false}
-                        accept='image/jpeg,image/png,image/gif'
-                        onChange={this.onTechLogoChange}
-                        error={techIconError}
-                    />
-                    {iconLoaded && <img src={techIcon.path} alt="tech icon"/>}
-                    <Button
-                        value="Add"
-                        disabled = {!this.state.addBtnEnabled}
-                        onClick={this.addNewTechToProject}
-                    />
-
-                </div>
-
-                <div>
+                <div className={styles.row}>
                     <div className={styles['list-container']}>
-                        All technologies:
-                        <div className={styles['list']}>
+                        <header className={styles['user-list-header']}>
+                            <div className={styles['col-1-2']}>
+                                <h3>All technologies</h3>
+                            </div>
+                        </header>
+
+                        <div className={styles['section-list1']}>
                             {allUnUsedTechnologies}
                         </div>
+
+                        <div className={styles['add-tech-block']}>
+                            <div className="inputField">
+                                <TextInput
+                                    value={this.state.techName}
+                                    label='Name *'
+                                    placeholder='Type tecnology name'
+                                    onChange={this.onTechNameChange}
+                                />
+                            </div>
+                            <div className="inputField">
+                                <TextInput
+                                    value={this.state.techVersion}
+                                    label='Version *'
+                                    placeholder='Type tecnology version'
+                                    onChange={this.onTechVersionChange}
+                                />
+                            </div>
+                            <div className="inputField">
+                                <TextArea
+                                    value={this.state.techDescription}
+                                    label='Description *'
+                                    className={styles['text-select-input']}
+                                    placeholder='Type tecnology description here'
+                                    onChange={this.onTechDescriptionChange}
+                                />
+                            </div>
+
+                            <FileUpload
+                                id={'tech-icon'}
+                                multiple={false}
+                                accept='image/jpeg,image/png,image/gif'
+                                onChange={this.onTechLogoChange}
+                                error={techIconError}
+                            />
+                            {iconLoaded && <img src={techIcon.path} alt="tech icon"/>}
+
+                            <div className="btnField">
+                                <RaisedButtonUITags
+                                    label='Add'
+                                    disabled={!this.state.addBtnEnabled}
+                                    onClick={this.addNewTechToProject}
+                                    backgroundColor='#8D97A4'
+                                />
+                            </div>
+                            {/*<Button
+                             value="Add"
+                             disabled = {!this.state.addBtnEnabled}
+                             onClick={this.addNewTechToProject}
+                             />  */}
+
+                        </div>
+
                     </div>
 
                     <div className={styles['list-container']}>
-                        Technologies in project:
-                        <div className={styles['list']}>
+                        <header className={styles['user-list-header']}>
+                            <div className={styles['col-1-2']}>
+                                <h3>Technologies in project</h3>
+                            </div>
+                        </header>
+                        <div className={styles['section-list1']}>
                             {usedTechnologies}
                         </div>
                     </div>
                 </div>
+
             </div>
         );
     }
 }
-
 
 
 function mapDispatchToProps(dispatch) {

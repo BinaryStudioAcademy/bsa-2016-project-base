@@ -8,6 +8,7 @@
 	border: 5px solid #efefef
 	flex: 1 0 110px
 	max-width: 150px
+	min-width: 150px
 	position: relative
 	.name
 	  display: block
@@ -18,6 +19,9 @@
 	.error
 		color: red
 		font-weight: bold
+	.error-message
+		word-wrap: break-word
+
 	img
 		width: 100%
 		height: 100%
@@ -35,9 +39,9 @@
     cursor: pointer
     color: #555
     outline: none
-    position: absolute
-    top: 0
-    left: 115px
+    //position: relative
+    //top: 0
+    //right: 205px
     &:hover
         color: #03A9F4
     &:hover,

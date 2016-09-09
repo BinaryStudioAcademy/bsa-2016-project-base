@@ -11,12 +11,10 @@ import { createStore, combineReducers, applyMiddleware, compose  } from 'redux';
 /* components */
 import App from './App.js';
 import Home from '../components/home/Home';
-import Stats from '../components/stats/Stats';
-import Test from '../components/common/test.js';
+//import Stats from '../components/stats/Stats';
 import Review from '../components/review/Review';
 import NotFound from '../components/not-found/NotFound';
 import {Admin, Rights, Tags, Tech} from '../components/admin/';
-import ProjectsList from '../components/projects/ProjectsList';
 import ProjectView from '../components/projectview/project-view';
 import UpsertProject from '../components/admin/project/UpsertProject';
 import EditProject from '../components/admin/edit-project/EditProject';
@@ -43,14 +41,11 @@ const store = createStore(
 
 render(
     (<Provider store={store}>
-        <Router history={browserHistory}>
+        <Router history={browserHistory} onUpdate={() => window.scrollTo(0, 0)} >
             <Route path="/" component={App}>
                 <IndexRoute component={Home}/>
-                <Route path="home" component={Home} title='home'/>
-                <Route path="projects" component={ProjectsList} title='projects'/>
+                <Route path="home" component={Home} title='projects'/>
                 <Route path="project-view/:id" component={ProjectView} title='project summary'/>
-                <Route path="stats" component={Stats} title='stats'/>
-                <Route path="review" component={Review} title='review'/>
                 <Route path="project-summary/:id" component={ProjectSummary}/>
                 <Route path="add-project" component={UpsertProject} title='add project'/>
                 <Route path="edit-project/:id" component={EditProject} title='edit project'/>
@@ -61,10 +56,11 @@ render(
                     <Route path="tech" component={Tech} />
                     <Route path="tech/:id" component={TechDetail}/>
                 </Route>
-                <Route path="*" component={NotFound} title='not found'/>
-                <Route path="test" component={Test} />
-            </Route>
+            </Route>    
         </Router>
     </Provider>),
     document.getElementById('root')
 );
+
+// <Route path="stats" component={Stats} title='statistics'/>
+

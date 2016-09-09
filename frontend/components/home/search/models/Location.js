@@ -1,8 +1,8 @@
 import MultiSelectModel from "./MultiSelectModel"
 import LocationView from "./../components/Location"
 import searchService from "./../../../../services/SearchService"
-var labels = "ABCDEFGJKLMNOPRSTU";
-var labelIndex = 0;
+import SmallProjectView from "./../../components/Project"
+import React from "react"
 export default class Location extends MultiSelectModel {
     constructor({component}) {
         super({
@@ -13,113 +13,117 @@ export default class Location extends MultiSelectModel {
             component
         });
         this.ComponentClass = LocationView;
-        this.mapZoom = 5;
+        this.onMarkerMouseOver = this.onMarkerMouseOver.bind(this);
+        //this.mapZoom = 5;
         this.displayOnMap = this.displayOnMap.bind(this);
+        this.currentActiveMapId = null;
+        if (!this.geocoder) this.geocoder = new google.maps.Geocoder();
     }
 
-    startLoadTips() {
-        var self = this;
-        this.isLoading = true;
-        this.notifyUpdated();
-        this.getTips(undefined, function (error, tip) {
-            //this.tipsError = error ? "Not found" : "";
-            for (let value of self.values) {
-                if (self.equals(value, tip)) {
-                    return tip.marker.setMap(null);
-                }
-            }
-            for (let value of self.tips) {
-                if (self.equals(value, tip)) {
-                    return tip.marker.setMap(null);
-                }
-            }
-            this.displayOnMap(tip);
-            this.tips.push(tip);
-            this.isLoading = false;
-            //this.notifyUpdated();
+    onMarkerMouseOver(mapContentToDestination, projectId){
+        searchService.getProject(projectId)
+            .then(res=>{
+                var project = res.project;
+                mapContentToDestination(`
+<h3>${project.projectName}</h3>
+${project.description.descrText}`);//TODO: make better layout
+            })
+    }
+
+    displayOnMap(map, value){
+        value.marker.setMap(map);
+        value.infoWindow.open(map, value.marker);
+    }
+
+    startLoadTips(map){
+        this.currentActiveMapId = map.__unique__id__;
+        this.getTips(map, function(error, tips){
+            this.tips.forEach(tip=>tip.marker.setMap(null));
+            this.tips = tips;
+            new MarkerClusterer(map, tips.map(tip=>tip.marker), {
+                imagePath: 'https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/images/m',
+                gridSize: 100,
+                minimumClusterSize:3
+            });
+            this.notifyUpdated();
         }.bind(this))
     }
-    displayOnMap(value){
-        value.marker.setMap(this.map);
-        value.infoWindow.open(this.map, value.marker);
-    }
-    getTips(value, callback) {
+
+    getTips(map, callback) {
+        var self = this;
+
         searchService.getLocations()
-            .then(function (locs) {
-                var count = 0;
-                var loadData = function (loc, zeroResult) {
-                    this.geocoder.geocode({location: loc}, function (results, status) {
-                        console.log(status, count);
-                        if (status === google.maps.GeocoderStatus.OK) {
-                            var res = results[0];
-                            var marker = new google.maps.Marker({
-                                position: res.geometry.location
-                            });
-                            var infoWindow = new google.maps.InfoWindow({
-                                content: res.formatted_address
-                            });
-                            var tip = {
-                                marker: marker,
-                                text: res.formatted_address,
-                                infoWindow: infoWindow
-                            };
-                            marker.addListener("click", this.addValue.bind(this, tip));
-                            marker.addListener('mouseover', function () {
-                                infoWindow.open(self.map, marker);
-                            });
+            .then(function(res){
+                var newTips = res.locations.map(tip=>{
+                    try {
+                        if (!tip.location || !tip.location.Latitude || !tip.location.Longitude)return;
 
-                            /*marker.addListener('mouseout', function() {
-                             infoWindow.close();
-                             });*/
-                            callback(null, tip);
+                        var marker = new google.maps.Marker({
+                            position:{
+                                lat: parseFloat(tip.location.Latitude),
+                                lng: parseFloat(tip.location.Longitude)
+                            }
+                        });
+                        var text = tip.label;
+                        var infoWindow = new google.maps.InfoWindow({
+                            content: text,
+                            disableAutoPan: true
+                        });
 
-                        }
-                        if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
-                            return setTimeout(function () {
-                                loadData(loc);
-                            }, 2500);
-                        }
-                        if (status === google.maps.GeocoderStatus.ZERO_RESULTS) {
-                            setTimeout(function () {
-                                if (zeroResult < 4) {
-                                    loadData(loc, (zeroResult||0) + 1);
-                                }
-                            }, 4000);
-                        }
+                        var newTip = {
+                            marker,
+                            text,
+                            infoWindow,
+                            projectId:tip.projId
+                        };
 
-                        if (locs[count+1]) {
-                            count += 1;
-                            loadData(locs[count])
+                        marker.addListener('mouseover', function () {//TODO: optimize closure memory leak
+                            self.onMarkerMouseOver(content=>
+                                infoWindow.setContent(content), tip.projId
+                            );
+                            infoWindow.open(map, marker);
+                        });
+
+                        marker.addListener('mouseout', function() {//TODO: optimize closure memory leak
+                            infoWindow.setContent(newTip.text)
+                        });
+
+                        marker.addListener('click', function(){//TODO: optimize closure memory leak
+                            self.addValue(map, newTip)
+                        });
+
+                        return newTip
+                    }catch (e){/*empty*/}
+                }).filter(tip=>tip).filter(tip=>{
+                        for (let i = 0; i < self.values.length; i+=1){
+                            if (self.equals(tip,self.values[i])){
+                                self.values[i] = tip;
+                                return false;
+                            }
                         }
-                    }.bind(this))
-                }.bind(this);
-                loadData(locs[0], 0);
-            }.bind(this));
+                        self.displayOnMap(map, tip);
+                        return true;
+                    });
+
+                callback(res.err,newTips);
+                res = null;
+            })
     }
 
-    addValue(value) {
+    addValue(map, value) {
         value.marker.setMap(null);
         super.addValue(value);
     }
 
-    removeValue(value) {
-        this.displayOnMap(value)
+    removeValue(map, value) {
+        this.displayOnMap(map, value);
         super.removeValue(value)
     }
 
-    setMap(map) {
-        this.map = map;
-        if (this.tips){
-            this.tips.forEach(this.displayOnMap)
-        }
-        map.setZoom(this.mapZoom);
-        if (!this.geocoder) this.geocoder = new google.maps.Geocoder();
-        this.startLoadTips();
-    }
     getValueInRequest(){
-        return this.values.map(value=>JSON.stringify(value.marker.position))
+        return this.values.map(value=>value.projectId)
     }
     getNameInRequest(){
-        return "locations"
+        return "id"
     }
 }

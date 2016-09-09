@@ -1,8 +1,6 @@
 import * as types from '../../actions/admin/UpsertProjectActionTypes';
 
 
-
-
 export default function UpsertProjectReducer(state=initialState, action) {
 	switch (action.type) {
 		 case types.UP_GET_DATA_SUCCESS: {
@@ -15,8 +13,29 @@ export default function UpsertProjectReducer(state=initialState, action) {
             });
         }
         case types.UP_CLEAR_DATA: {
+            const {users,tags,technologies} = state;
             return Object.assign({}, state, {
-                added: false
+                added: false,
+                tagExists: false,
+                iconLoaded: false,
+                sections: [],
+                features: [],
+                files: [],
+                errors: null,
+                activeSection: {},
+                projectName:'',
+                projectLink:'',
+                timeBegin:{},
+                timeEnd:{},
+                status:{value:'Estimation', name:'Estimation'},
+                techIcon:{},
+                techIconError: '',
+                description:{
+                    descrFullText: ''
+                },
+                users: setDefaults(users,{inProject: false,owner:false}),
+                tags: setDefaults(tags,{inProject: false}),
+                technologies: setDefaults(technologies,{inProject: false})
             });
         }
         case types.UP_ADD_USER_TO_PROJECT: {
@@ -43,51 +62,39 @@ export default function UpsertProjectReducer(state=initialState, action) {
         case types.UP_CHANGE_PROJECT_NAME: {
             const {name} = action;
             return Object.assign({}, state, {
-            	
             		projectName: name
-            	
             });
         }
         case types.UP_CHANGE_PROJECT_LINK: {
             const {link} = action;
             return Object.assign({}, state, {
-            	
             		projectLink: link
-            	
             });
         }
         case types.UP_CHANGE_START_DATE: {
             const {date} = action;
             return Object.assign({}, state, {
-            	
-            		timeBegin: date
-            	
+            	timeBegin: date
             });
         }
         case types.UP_CHANGE_FINISH_DATE: {
             const {date} = action;
             return Object.assign({}, state, {
-            	
-            		timeEnd: date
-            	
-            	
+            	timeEnd: date
             });
         }
         case types.UP_CHANGE_STATUS: {
             const {option} = action;
             return Object.assign({}, state, {
-            		status: option
-            	
+            	status: option
             });
         }
         case types.UP_CHANGE_DESCRIPTION: {
             const {text} = action;
             return Object.assign({}, state, {
-            	
-            		description:{
+            	description:{
             			descrFullText:text
-            		} 
-            	
+            	}
             });
         }
         case types.UP_ADD_TAG_TO_PROJECT: {
@@ -109,6 +116,13 @@ export default function UpsertProjectReducer(state=initialState, action) {
             const {added} = state;
             return Object.assign({}, state, {
                 added: true
+            });
+        }
+        case types.UP_POST_PROJECT_ERROR: {
+            const error = action.error;
+            const {added} = state;
+            return Object.assign({}, state, {
+                errors: error
             });
         }
         case types.UP_POST_TAG_SUCCESS: {
@@ -159,7 +173,6 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 features: [].concat(data)
             });
         }
-
         case types.UP_SELECT_SECTION: {
             const {_id} = action;
             const {sections, activeSection} = state;
@@ -167,26 +180,26 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 activeSection: selectSection(sections, _id)
             });
         }
-        
         case types.UP_UPLOAD_FILE: {
-            const {name} = action;
+            const {name, target} = action;
             const {files} = state;
             return Object.assign({}, state, {
                 files: files.concat({
                     name,
                     good:true,
-                    ready: false
+                    ready: false,
+                    target
                 })
             });
         }
         case types.UP_UPLOAD_FILE_SUCCESS: {
-            const {data} = action;
+            const {data,target} = action;
             const {files} = state;
             return Object.assign({}, state, {
-                files: updateFileSuccess(files, data)
+                files: updateFileSuccess(files, data, target)
             });
         }
-         case types.UP_UPLOAD_ICON_SUCCESS: {
+        case types.UP_UPLOAD_ICON_SUCCESS: {
             const {data, iconLoaded, error} = action;
             const {techIcon} = state;
             return Object.assign({}, state, {
@@ -229,11 +242,22 @@ export default function UpsertProjectReducer(state=initialState, action) {
     }
 };
 
-const updateFileSuccess = (files, data) => {
+
+const setDefaults = (source, props) => {
+    source.forEach( (item, index) => {
+            for(var key in props){
+                const value = props[key];
+                item[key] = value;
+            }
+    });
+    return [].concat(source);
+}
+
+const updateFileSuccess = (files, data, target) => {
      if (!data.hasOwnProperty('error')) {
          files.forEach( file => {
             const {name, path, thumb} = data;
-            if (!file.ready && file.name === name) {
+            if (!file.ready && file.name === name && file.target === target) {
                 file.path = path;
                 file.thumb = thumb;
                 file.ready = true;
@@ -387,11 +411,11 @@ const feature = {
 
 
 const initialState = {
-    projectName:'Test',
-    projectLink:'Test',
-    timeBegin:'',
-    timeEnd:'',
-    condition:'',
+    projectName:'',
+    projectLink:'',
+    timeBegin:{},
+    timeEnd:{},
+    status: {value:'Estimation', name:'Estimation'},
 	users: [],
 	tags: [],
 	technologies: [],
@@ -404,9 +428,9 @@ const initialState = {
     added: false,
     iconLoaded: false,
     techIcon: {},
-    techIconError: null,
+    techIconError: '',
     description:{
-        descrFullText: 'Description'
+        descrFullText: ''
     } 
 
 };
