@@ -60,6 +60,7 @@ export function postProject(project) {
                         type: types.UP_POST_PROJECT_ERROR,
                         error: error
                     });
+                    dispatch(errorHandler('Bad Request!'));
                 });
         });
     };   
