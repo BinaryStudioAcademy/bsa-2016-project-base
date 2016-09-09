@@ -18,8 +18,6 @@ export default class CheckBox extends Component {
         this.handleCheck = this.handleCheck.bind(this)
     }
 
-
-
     handleCheck(e){
         const {id} = this.props;
         this.props.onChange(id, e.target.checked)

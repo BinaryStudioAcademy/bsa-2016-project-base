@@ -1,217 +1,114 @@
 .rights-container
-  width: 100%
-  height: 100%
-  background-color: #FFF
-
-  .rights-UsersList::-webkit-scrollbar
-    width: 7px
-
-  .rights-UsersList::-webkit-scrollbar-track
-    background: rgba(0, 0, 0, 0.1)
-
-  .rights-UsersList::-webkit-scrollbar-thumb
-    background: rgba(0, 0, 0, 0.5)
-
-  .rights-UsersList
-    padding: 5px 30px
-    display: flex
-    flex-wrap: wrap
-    justify-content: center
-    overflow-y: auto
-    max-height: 100%
-
-  .rights-UsersList > div
-    width: 225px
-    min-height: 120px
-    margin: 10px
-    padding: 10px
-    border-bottom: 1px solid #E4E7EA
-    background-color: #E9f0f6
-    border-radius: 5px
-
-  .rights-UsersList > div > div:first-child
-    height: 65%
-    border-bottom: 1px solid #E4E7EA
-    padding-left: 10px
-    font-size: 20px
-    display: flex
-    align-items: center
-
-  .rights-UsersList > div > div:first-child > span
-    text-align: center
-    width: calc(100% - 20px)
-
-  .rights-UsersList > div > div:last-child
-    font-family: "Lato", sans-serif
-    height: calc(35% - 15px)
-    padding-top: 10px
-    font-size: 13px
-    text-align: center
-
-  .rights-UsersList > div > div:last-child > span:last-child
-    color: black
-    padding-left: 5px
-
-  .rights-searchBar
     width: 100%
-    height: 120px
-    display: flex
-    align-items: center
-    justify-content: center
-    margin-bottom: 3.25rem;
+    background-color: #FFF
 
-    .rights-searchWrapper
-      height: 30px
-      display: flex
-      justify-content: center
-      width: calc(65% - 50px)
+    .rights-toolBar
+        display: flex
+        padding: 10px 25px
+        flex-direction: row
+        align-items: center
+        flex-wrap: wrap
 
-      .rights-saveButton
-        width: 110px
-        margin: 0px 10px
-        height: 35px
-        border-radius: 3px
-        background-color: #2ECC71
-        cursor: pointer
-        color: white
-        text-align: center
-        padding-top: 8px
-        font-size: 15px
-        font-family: "Lato", sans-serif
-        &:hover
-          background-color: #293541
+        .projects-list
+            margin: 6px 0px 0px 15px
+            min-width: calc(50% -  200px)
+            width: 35%
 
-      .rights-searchInputContainer
-        width: calc(100% - 120px)
-        border-bottom: 1px solid #D5D7DA
-        margin: 0px 40px
-        padding: 0px 5px 8px 5px
+        .filters-TextInput
+            min-width: calc(50% - 200px)
+            margin: 0px 15px 0px 25px
 
-        .rights-searchInput
-          border: none
-          background-color: transparent
-          vertical-align: middle
-          padding-left: 0.7em
-          color: #8D97A4
-          font-size: 16px
-          width: calc(100% - 50px)
-          &:focus
-            outline: none
-            color: black
+        .filters-CheckBox
+            margin: 30px 10px 0px 0px 
 
-    .rights-filterWrapper
-      width: calc(35% - 20px)
-      height: 100%
-      display: flex
-      flex-direction: column
-      padding: 25px 5px 0px 10px
+    .rights-toolBar>*:first-child  
+        margin: 30px 50px 0px 0px
+ 
+    .rights-UsersList::-webkit-scrollbar
+        width: 7px
 
-      .rights-comboBox
-        width: 100%
+    .rights-UsersList::-webkit-scrollbar-track
+        background: rgba(0, 0, 0, 0.1)
 
-    .rights-filterWrapper > div
-      height: 35px
-      display: flex
-      align-items: center
-      margin: 5px
-      font-family: "Lato", sans-serif
-      font-size: 14px
-      color: #505E6B
-
-    .rights-filterWrapper > div span
-      margin: 0px 13px 0px 5px
-
-    .rights-filterWrapper > div span:nth-child(2)
-      margin-right: 25px
-
-  @media screen and (max-width: 1100px)
-    .rights-searchBar
-      .rights-searchWrapper
-        width: calc(55% - 50px)
-
-      .rights-filterWrapper
-        width: calc(45% - 20px)
-        padding-left: 30px
-
-  @media screen and (max-width: 1000px)
-    .rights-searchBar
-      .rights-filterWrapper
-        width: calc(50% - 20px)
-
-      .rights-searchWrapper
-        width: 50%
-        padding-bottom: 10px
-        .rights-searchInputContainer
-          height: 40px
-          width: calc(100% - 120px)
-
-          .rights-searchInput
-            margin: 10px
+    .rights-UsersList::-webkit-scrollbar-thumb
+        background: rgba(0, 0, 0, 0.5)
 
     .rights-UsersList
-      margin-top: 30px
-      height: calc(100%  - 70px)
+        display: flex
+        flex-wrap: wrap
+        padding: 5px 30px
+        justify-content: center
 
     .rights-UsersList > div
-      width: 250px
+        margin: 10px
+        padding: 10px
+        display: flex
+        min-width: 300px
+        min-height: 120px
+        border-radius: 5px
+        flex-direction: row
+        background-color: #E9f0f6
+        border-bottom: 1px solid #E4E7EA
 
-  @media screen and (max-width: 930px)
-    .rights-searchBar
-      flex-wrap: nowrap
-      flex-direction: column
-      padding: 10px
-
-      .rights-searchWrapper
-        padding: 0
-        width: 100%
-
-      .rights-filterWrapper
-        width: calc(100% - 20px)
+    .rights-UsersList > div > .image-Container
+        height: 100%
+        width: 80px
+        display: flex
+        align-items: center
         flex-direction: row
         justify-content: center
+            img
+                width: 80px
+                height: 80px
 
-  @media screen and (max-width: 835px)
+    .rights-UsersList > div > .description-Container
+        height: 100%
+        width: calc(100% - 80px)
 
-    .rights-searchBar
-      .rights-filterWrapper
-        flex-direction: column
-        margin-top: 10px
+    .rights-UsersList > div > .description-Container >
+      div:first-child
+        height: 65%
+        border-bottom: 1px solid #E4E7EA
+        padding: 0px 10px
+        font-size: 20px
+        display: flex
+        align-items: center
 
-      .rights-filterWrapper > div
-        padding: 15px  0px
-        justify-content: center
+    .rights-UsersList > div > .description-Container> 
+      div:first-child > span
+        text-align: center
+        width: calc(100% - 20px)
 
-      .rights-filterWrapper > div:first-child
-        margin-top: 20px
+    .rights-UsersList > div > .description-Container > 
+      div:last-child
+        font-size: 13px
+        padding-top: 10px
+        text-align: center
+        height: calc(35% - 15px)
+        font-family: "Lato", sans-serif
+        
+    .rights-UsersList > div > div:last-child > 
+      div:last-child > span:last-child
+        color: black
+        padding-left: 5px
 
-  @media screen and (max-width: 800px)
-    .rights-UsersList > div
-      width: 225px
+@media screen and (max-width: 1300px) 
+    .rights-container
+        .rights-toolBar 
+            .filters-TextInput, 
+            .projects-list  
+                min-width: calc(50% - 20px)
+                margin: 0px 10px
 
-  @media screen and (max-width: 767px)
-    .rights-searchBar
-      .rights-filterWrapper > div:first-child > svg
-        margin-top: -15px
+            .projects-list 
+                margin-top: 7px    
 
-  @media screen and (max-width: 705px)
-    .rights-UsersList > div
-      width: 195px
-
-  @media screen and (max-width: 640px)
-    .rights-UsersList > div
-      width: 250px
-
-  @media screen and (max-width: 640px)
-    .rights-UsersList > div
-      width: 225px
-
-  @media screen and (max-width: 550px)
-    .rights-UsersList > div
-      width: 195px
-
-  @media screen and (max-width: 490px)
-    .rights-UsersList > div
-      width: 275px
-
-
-
+        .rights-toolBar>*:nth-child(2)
+            margin-left: calc(100% - 400px)        
+   
+@media screen and (max-width: 980px) 
+    .rights-container
+        .rights-toolBar 
+            .filters-TextInput, 
+            .projects-list  
+                min-width: calc(100% - 20px)

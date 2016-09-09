@@ -9,36 +9,33 @@ function FeatureRepository() {
 
 FeatureRepository.prototype = new Repository();
 
-// Repository.prototype.getAllFeaturesWithSection = function(callback){
-//     var model = this.model;
-//     var query = model.find().populate('section');
-//     query.exec(callback);
-// };
-
 Repository.prototype.getAllFeaturesWithSection = function(callback){
-    var model = this.model;
-    var query = model.find()
-    			.populate({
-    				path: 'section',
-    				model: 'Section'
-    			});
+    var query = this.model.find()
+		.populate({
+			path: 'section',
+			model: 'Section'
+		});
     query.exec(callback);
 };
 
 Repository.prototype.getByIdWithSection = function(id, callback){
-    var model = this.model;
-    var query = model.find({_id:id})
-    			.populate({
-    				path: 'section',
-    				model: 'Section'
-    			});
+    var query = this.model.find({_id:id})
+		.populate({
+			path: 'section',
+			model: 'Section'
+		});
     query.exec(callback);
 };
 
 Repository.prototype.getFeaturesWithSections = function(project, callback){
-    var arrOfId = project['features'] || [];
-    var model = this.model;
-    var query = model.find({_id: {$in: arrOfId}}, {_id: 1, featureName: 1, section: 1}).populate('section');
+    var query = this.model.find({_id: {
+        $in: (project['features'] || [])
+    }}, {
+        _id: 1,
+        featureName: 1, 
+        section: 1
+    }).populate('section');
     query.exec(callback);
 };
+
 module.exports = new FeatureRepository();

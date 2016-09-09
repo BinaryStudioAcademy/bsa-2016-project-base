@@ -1,8 +1,3 @@
-/**
- * Created by user on 09.08.2016.
- */
-
-
 const initialState = {
     data: {
         options: {},

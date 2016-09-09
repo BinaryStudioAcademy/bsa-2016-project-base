@@ -2,8 +2,8 @@ import * as types from '../../constants/UsersRightsActionTypes';
 import usersRightsService from '../../services/admin/UsersRightsService';
 
 var concatUsers = function(data){
-    var users = {},concat = function(marker,flag){
-        for(var i in data[marker]) 
+    let users = {},concat = function(marker,flag){
+        for(let i in data[marker]) 
         users[data[marker][i]._id] = {
             isOwner: flag,
             userName: data[marker][i].userName,
@@ -45,7 +45,7 @@ export function fetchProjectsList(onLoadUsersByFirstPage){
         return usersRightsService.getProjectsList()
             .then(responseProjectsList => responseProjectsList.json())
             .then(projectsList => {
-                if(onLoadUsersByFirstPage && projectsList.length){
+                 if(onLoadUsersByFirstPage && projectsList.length){
                     usersRightsService.getProjectUsers(projectsList[0].id)
                     .then(responseCurrent => responseCurrent.json())
                     .then(current =>{
@@ -79,13 +79,15 @@ export function saveProjectUsers(projectId,data){
     return (dispatch) => {
         let request = {
             usersRight: data['usersRight'],
-            owners:[],
-            simples:[]
+            owners: new Array(),
+            simples:new Array()
         };
-        for(var i in data['users'])
+
+        for(var i in data['users']){
             if(data.users[i].isOwner) request['owners'].push(i);
             else request['simples'].push(i);   
-
+        }
+            
         return usersRightsService.saveProjectUsers(projectId,request)
             .then(response => response.json())
             .then(data =>{
