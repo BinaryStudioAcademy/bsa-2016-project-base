@@ -20,6 +20,7 @@ export default function technologiesReducer(state = initialState, action) {
         }
         case 'SAVE_TECHNOLOGY': {
             const {listOfTechnologies} = action;
+            console.log(state);
             return Object.assign({}, state, {
                 listOfTechnologies
             })

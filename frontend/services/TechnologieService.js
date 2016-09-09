@@ -23,6 +23,19 @@ class TechnologieService {
         );
     }
 
+    getTech(id) {
+        return fetch(`/api/technologies/` + id, constants.cookieMarker)
+    }
+
+    updateData(id, data) {
+        return fetch(`/api/technologies/${id}`,
+            Object.assign({
+                    method: 'PUT',
+                    body: JSON.stringify(data)
+                }, constants.cookieMarker,
+                constants.jsonHedeaders
+            ))
+    }
     saveTechnology(technology) {
         return fetch(this.url, Object.assign({
                 method: 'POST',
@@ -32,7 +45,7 @@ class TechnologieService {
         ))
     }
 
-    deleteTechnology(id){
+    deleteTechnology(id) {
         return fetch(`/api/technologies/${id}`, Object.assign({
                 method: 'DELETE',
             }, constants.cookieMarker

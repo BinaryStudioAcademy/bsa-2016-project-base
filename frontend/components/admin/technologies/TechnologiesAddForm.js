@@ -59,22 +59,6 @@ class TechnologiesAddForm extends Component {
         var fd = new FormData();
         fd.append("afile", file);
         this.props.uploadFileByFile(fd);
-
-        // xhr.open("POST", "/api/file/", true);
-        // xhr.send(fd);
-        // xhr.onreadystatechange = function () {
-        //     if (this.readyState != 4) return;
-        //     if (this.status === 200) {
-        //         var result = JSON.parse(xhr.responseText);
-        //         if (result.type === 'success') {
-        //             self.setState({techAvatar: result.file});
-        //         } else {
-        //             error.classList.remove('hidden');
-        //             error.classList.add('visible');
-        //         }
-        //     }
-        // }
-
     }
 
     submitForm(e) {
@@ -90,6 +74,14 @@ class TechnologiesAddForm extends Component {
       // document.getElementById('img').remove();
        form.reset();
        this.props.saveTechnologie(data);
+        this.setState({
+            techName: '',
+            techDescription:'',
+            techVersion:'',
+            fileLink:'',
+            techAvatar: ''
+        });
+
 
     }
 
