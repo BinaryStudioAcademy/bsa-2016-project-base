@@ -41,7 +41,7 @@ module.exports = {
       loader: 'json'
     }, {
       test: /\.sass$/,
-      loader: "style!css?sourceMap&modules&localIdentName=[local]!postcss!sass?sourceMap"
+      loader: "style!css?&modules&localIdentName=[local]!postcss!sass?"
     }]
   }
 };
