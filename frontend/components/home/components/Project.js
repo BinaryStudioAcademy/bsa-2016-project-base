@@ -17,10 +17,10 @@ export default class Project extends Component {
         for (let i = 0; i < 5; i++) {
             console.log(this.props.ranking - 1);
             if (i <= this.props.ranking - 1) {
-                lis.push(<li className={styles.ranked}></li>);
+                lis.push(<li key={i} className={styles.ranked}></li>);
             }
             else {
-                lis.push(<li className={styles.unranked}></li>); 
+                lis.push(<li key={i} className={styles.unranked}></li>); 
             }
         }
         return lis;
@@ -44,7 +44,7 @@ export default class Project extends Component {
                         }
                     </div>
                     <div className={styles.image}>
-                        <img src="http://placehold.it/140x100" />
+                        <img src="http://electron.atom.io/images/apps/particle.png" />
                     </div>
                     <div className={styles['description-t']}>
                         {project.description.descrText} 
