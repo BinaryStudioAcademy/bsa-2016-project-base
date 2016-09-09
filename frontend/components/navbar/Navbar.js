@@ -27,7 +27,7 @@ class Navbar extends Component {
             </div>
             <ul className={styles.mainNav}>
 
-            <li key={1}>
+            <li key={1} id="project-menuItem">
               <Link to="/home" activeClassName={styles.active}>
                 <span className={styles.icon}>
                   <FaHome size={15} />
@@ -36,7 +36,7 @@ class Navbar extends Component {
               </Link>
            </li>
 
-           <li key={2}>
+           <li key={2} id="review-menuItem">
               <Link to="/review" activeClassName={styles.active}>
                 <span className={styles.icon}>
                   <FaAsterisk size={15} />
@@ -45,7 +45,7 @@ class Navbar extends Component {
               </Link>
            </li>
 
-           <li key={3}>
+           <li key={3} id="stats-menuItem">
               <Link to="/stats" activeClassName={styles.active}>
                 <span className={styles.icon}>
                   <FaBarChart size={15} />
@@ -54,7 +54,7 @@ class Navbar extends Component {
               </Link>
            </li>
 
-           <li key={4}>
+           <li key={4} id="admin-menuItem">
               <Link to="/admin" activeClassName={styles.active}>
                 <span className={styles.icon}>
                   <FaCog size={15} />
@@ -63,7 +63,7 @@ class Navbar extends Component {
               </Link>
            </li>
 
-			<li key={5}>
+			<li key={5} id="addProject-menuItem">
               <Link to="/add-project" activeClassName={styles.active}>
                <span className={styles.icon}>
                   <FaPlus size={15} />

@@ -1,125 +1,83 @@
+/* general */
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import React, { Component, PropTypes } from 'react';
 import * as actions from '../../../actions/admin/UsersRightsActions';
 
 
+/* component */
+import MenuItem from 'material-ui/MenuItem';
+import TextField from 'material-ui/TextField';
+import CheckBox from '../../common/CheckBox-ui.js';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import RaisedButton from '../../common/RaisedButton-ui.js';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+/* styles */
 import styles from './Rights.sass';
-import FaSearch from 'react-icons/lib/fa/search';
-import FaRefresh from 'react-icons/lib/fa/refresh';
-import FaCircle from 'react-icons/lib/fa/circle-o';
-import FaChecked from 'react-icons/lib/fa/check-circle-o';
-import CustomDropDownComponent from './CustomDropDownComponent';
 
-const chBoxStyle = {
-  size: 18,
-  style:{
-    color:'#7A929D',
-    cursor:'pointer'
-  }
-}
+class RightsToolbar extends React.Component {
 
-class RightsToolbar extends Component {
-	constructor(props) {
-	    super(props);
-	}
-  componentWillMount(){
-    this.props.fetchProjectsList(true);
-  }
- 	render() {
-    let checkBoxes;
-    switch(this.props['usersRights'].filters['usersRight']){
-      case 'owners':
-        checkBoxes = {
-          simples: FaCircle,
-          owners: FaChecked
+    constructor(props) {
+    	super(props);
+        this.state = {
+          projectListStyles:{
+                backgroundColor: "white", 
+                webkitAppearance: "none"
+            }
         }
-      break;
-      case 'simples':
-       checkBoxes = {
-          simples: FaChecked,
-          owners: FaCircle
-        }
-      break;
-      default:
-       checkBoxes = {
-          simples: FaCircle,
-          owners: FaCircle
-        }
-      break;
     }
-    checkBoxes['simples'] = React.createElement(checkBoxes['simples'],Object.assign({
-        onClick: ()=>{
-          this.props.fetchUsers(
-            this.props['usersRights'].current['projectId'],
-            this.props['usersRights'].filters['name'],
-           (this.props['usersRights'].filters['usersRight'] == 'simples' ? '' : 'simples')
-          );  
-        }
-      },chBoxStyle));
 
-    checkBoxes['owners'] = React.createElement(checkBoxes['owners'],Object.assign({
-        onClick: ()=>{
-          this.props.fetchUsers(
-            this.props['usersRights'].current['projectId'],
-            this.props['usersRights'].filters['name'],
-           (this.props['usersRights'].filters['usersRight'] == 'owners' ? '' : 'owners')
-          ); 
-        }
-      },chBoxStyle));
+    componentWillMount(){
+        this.props.fetchProjectsList(true);
+    }
 
-    return (
-        <div className={styles['rights-searchBar']}>
-          <div className={styles['rights-searchWrapper']}>
-              <div className={styles['rights-saveButton']} onClick={()=>{
-                this.props.saveProjectUsers(
-                  this.props['usersRights'].current['projectId'],{
-                  users: this.props['usersRights'].current['users'],
-                  usersRight: this.props['usersRights'].filters['usersRight']
-                })
-              }}><FaRefresh size={12} /> Update </div>
-              <div className={styles['rights-searchInputContainer']}>
-                <FaSearch size={15} />
-                <input type="search" placeholder="Write to users filter"
-                    className={styles["rights-searchInput"]}
-                    onChange={(e)=>{
-                      this.props.fetchUsers(
-                        this.props['usersRights'].current['projectId'],
-                        e['target'].value.trim().replace(/['"]+/g,''),
-                        this.props['usersRights'].filters['usersRight']
-                      );
-                     }
-                   }
-                />
-              </div>
-          </div> 
-          <div className={styles['rights-filterWrapper']}>
-            <div>
-              <span>Filter by right: </span>
-              {checkBoxes['simples']}
-              <span>Read</span>
-              {checkBoxes['owners']}
-              <span>Write</span>
+    render() {
+        let menuProjectsItems = new Array();
+        const {projectsList,current,filters} = this.props['usersRights'];
+        for(let i in projectsList) menuProjectsItems.push(
+            <MenuItem key={projectsList[i].id}  primaryText={projectsList[i].projectName}
+                style={this.state['projectListStyles']} value={projectsList[i].id} />);
+
+        return (
+            <div className={styles['rights-toolBar']}>
+                <RaisedButton label="Save changes" onClick={()=>{
+                    this.props.saveProjectUsers(current['projectId'],{
+                        users: current['users'],
+                        usersRight: filters['usersRight']
+                    });
+                }}  autoWidth={false} />
+                <CheckBox label="Write" checked={(filters['usersRight'] == 'owners')}
+                    onCheck={(e)=>{
+                        let right = "";
+                        if(e.target['checked']) right = "owners";
+                        this.props.fetchUsers(current['projectId'],filters['name'],right);
+                    }} className={styles['filters-CheckBox']} />    
+                <CheckBox label="Read" checked={(filters['usersRight'] == 'simples')}
+                    onCheck={(e)=>{
+                        let right = "";
+                        if(e.target['checked']) right = "simples";
+                        this.props.fetchUsers(current['projectId'],filters['name'],right);
+                    }} className={styles['filters-CheckBox']} />  
+                <MuiThemeProvider>
+                    <TextField floatingLabelText="Filter by users` name"
+                      value={filters['name']} onChange={(e)=>{
+                          this.props.fetchUsers(current['projectId'],
+                              e['target'].value.trim().replace(/['"]+/g,''),
+                              filters['usersRight']
+                          );
+                      }}  className={styles['filters-TextInput']} />
+                </MuiThemeProvider>   
+                <MuiThemeProvider>
+                    <DropDownMenu value={current['projectId']} className={styles['projects-list']} 
+                        onChange={(event, index, value)=>{
+                            this.props.fetchUsers(value,filters['name'],filters['usersRight']);
+                        }}
+                    >{menuProjectsItems}</DropDownMenu>
+                </MuiThemeProvider>
             </div>
-            <div>
-              <span>Select project: </span>
-              <CustomDropDownComponent className={styles['rights-comboBox']}
-                data={this.props['usersRights'].projectsList}
-                valueField={'id'} visibleField={'projectName'} 
-                current={this.props['usersRights'].current['projectId']}
-                onItemClick={(projectId)=>{
-                  this.props.fetchUsers(
-                      projectId,
-                      this.props['usersRights'].filters['name'],
-                      this.props['usersRights'].filters['usersRight']
-                  );
-                }}
-              />
-            </div>
-          </div>
-        </div>
-    )
-	}
+        )
+    }
 };
 
 function mapDispatchToProps(dispatch) {
@@ -127,7 +85,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-    return {usersRights: state['UsersRightsReducer']};
+    return { usersRights: state['UsersRightsReducer'] };
 }
 
 const RightsToolbarConnected = connect(mapStateToProps, mapDispatchToProps)(RightsToolbar);

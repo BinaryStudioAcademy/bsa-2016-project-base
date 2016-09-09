@@ -10,7 +10,7 @@ export default class Home extends Component {
       
     }
 
-    componentDidMount() {
+    componentWillMount() {
         const self = this;
         const {model} = this.state;
         model.component = this;

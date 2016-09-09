@@ -37,7 +37,7 @@ var Project = new Schema({
     timeEnd: Date,
 
     tags: [{type: Schema.Types.ObjectId, ref: 'Tag'}],
-        
+
     // stage: {type: Schema.Types.ObjectId, ref: 'Stage'},
 
     // condition: {type: Schema.Types.ObjectId, ref: 'Condition'},

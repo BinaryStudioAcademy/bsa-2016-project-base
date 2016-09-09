@@ -13,12 +13,14 @@ import Gallery from './gallery/gallery';
 import UsersList from './users/usersList';
 import Questions from './questions/Questions';
 import TagsListItem from './tags/tagsListItem';
-import FeaturesList from './features/featuresList';;
+import FeaturesList from './features/featuresList';
 import FeaturesListItem from './features/featuresListItem';
 import TechnologiesList from './technologies/technologiesList';
 import TechnologiesListItem from './technologies/technologiesListItem';
+import UsersTimeLine from './usersTimeLine/UsersTimeLine';
 import EstimationFile from "./estimationFile/EstimationFileReceiverComponentWithLinkField";
 import SimilarProjects from "./similarProjects/View"
+import Attachment from "./attachment/View"
 /* icons */
 import FaPlus from 'react-icons/lib/fa/plus';
 import FaList from 'react-icons/lib/fa/list';
@@ -28,6 +30,7 @@ import ActionUndo from 'material-ui/svg-icons/content/undo';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import ActionBuild from 'material-ui/svg-icons/action/build';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
+import TimeLine from 'material-ui/svg-icons/action/timeline';
 import ContentSend from 'material-ui/svg-icons/content/send';
 import ContentInbox from 'material-ui/svg-icons/content/inbox';
 import ContentDrafts from 'material-ui/svg-icons/content/drafts';
@@ -172,15 +175,16 @@ class ProjectView extends Component {
 								<Tab label="Users">
 									<UsersList />
 								</Tab>
-								<Tab label="Locations">
-								</Tab>
 								<Tab label="Features">
 									<FeaturesList>{features}</FeaturesList>
 								</Tab>
 								<Tab label="Screenshots" >
 									<Gallery data={projectDetail['screenShots']} />
 								</Tab>
-						        <Tab label="Questions" >
+								<Tab label="Attachment">
+									<Attachment project={this.props.project}/>
+								</Tab>
+								<Tab label="Questions" >
 				 					<Questions id="q-and-a" questions={projectDetail['questions']} />
 						        </Tab>
 							</Tabs>

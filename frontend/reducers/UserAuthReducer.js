@@ -1,13 +1,9 @@
 const initialState = {
-    userEmail: null,
-    userRole: null
+    userEmail: "",
+    userRole: ""
 };
 export default function UserAuthReducer(state = initialState, action) {
-    switch(action.type){
-        case 'SET_AUTH_USER': {
-            var newState = Object.assign({},state,action['user']);
-            return newState;
-        }
-        default: return state;
-    }
+    if(action['type'] == "SET_AUTH_USER")
+        return Object.assign({},state,action['user']);
+    return state;
 }
