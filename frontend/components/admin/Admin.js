@@ -1,22 +1,29 @@
-import React, { Component } from 'react';
+/* general */
+import React from 'react';
 import { Link } from 'react-router';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Nav, NavItem } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+import { bindActionCreators } from 'redux';
+import { browserHistory } from 'react-router';
+
+/* styles */
 import styles from './admin.sass';
-import FaCog from 'react-icons/lib/fa/cog';
-class Admin extends Component {
+
+export default class Admin extends React.Component {
+
 	constructor(props) {
 	    super(props);
 	}
+	
  	render() {
 	    return (
 	    	<div className={styles.adminContent} id="adminContent">
 	    		<div className={styles.row}>
 	        	<ul className={styles["tab-bar"]}>
 	        		<li key={1}>
-	        			<Link to="/admin/rights/" activeClassName={styles["admin-nav-item-active"]}>
+	        			<Link to="/admin/rights/" className={
+	        				location.pathname == '/admin' ? 
+	        				styles["admin-nav-item-active"] : ""
+						} activeClassName={styles["admin-nav-item-active"]}>
 	        				Rights
 	        			</Link>
 	        		</li>
@@ -32,11 +39,8 @@ class Admin extends Component {
 	        		</li>
 				</ul>
 				</div>
-	       		{this.props.children || <h3>'In this section you can manage predefined stuff and users rights'</h3>}
-    	</div>
+	       		{this.props.children}
+    		</div>
 	    )
 	}
 };
-
-
-export default Admin;

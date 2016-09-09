@@ -24,7 +24,7 @@ class Tags extends Component {
 	    this.setTagName = this.setTagName.bind(this);
 	    this.deleteMany = this.deleteMany.bind(this);
 	}
-	componentDidMount() {
+	componentWillMount() {
 		this.props.getTags();
 		this.props.setFilterTerm('');
 		this.props.filterTags();
