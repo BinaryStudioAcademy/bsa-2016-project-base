@@ -94,7 +94,7 @@ export default class View extends React.Component {
         return (
             <div>
                 <div  style={{display:"flex",justifyContent:"center"}}><h1>Related Projects</h1></div>
-                <div style={{display:"flex", flexFlow:"row wrap", justifyContent:"space-between", width:"100%"}}>
+                <div>
                     {projectsComponent}
                 </div>
                 <div style={{display:"flex", flexFlow:"row wrap", justifyContent:"space-between", width:"100%"}}>
