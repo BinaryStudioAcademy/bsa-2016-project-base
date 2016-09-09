@@ -1,7 +1,7 @@
 describe("users should be able to login and use Extended Search", function(){
-	it ("to fill in user information and login", function(){
+	/*it ("to fill in user information and login", function(){
 		//"to fill in user information and login",
-		/*browser.get("http://localhost:2020/#/");
+		browser.get("http://localhost:2020/#/");
 		//fill in login
 		element(by.model("authLoginCtrl.user.email")).sendKeys("admin@default.com");
 		//fill in password
@@ -9,26 +9,19 @@ describe("users should be able to login and use Extended Search", function(){
 		//press Login button
 		var loginButton = element(by.cssContainingText(".btn", "Log in"));
 		loginButton.click()
-		//console.log("Hello");*/
-		browser.get("http://localhost:6500/");
-		 element(by.buttonText('Show Extended Search')).click();
-	})
+		//console.log("Hello");
+		
+	})*/
 
   describe('extended search', function() {
-	it (" All by AND", function(){
+it (" All by AND", function(){
+		browser.get("http://localhost:6500/");
+		element(by.buttonText('Show Extended Search')).click();
+		//select All by AND
 		element(by.xpath('//*[@id="home-root"]/div[1]/div[3]/header/div/div[2]/div[2]/input')).click();
 	});
-    beforeEach(function() {
-    // browser.get("http://localhost:6500/");
-	// element(by.buttonText('Show Extended Search')).click();
-	 
-	  
-    });
-
-		
-		it ("search by Users", function(){
-		
-		//element(by.css('input[value="All by "AND""]')).click();
+	
+	it ("search by Users", function(){
 		
 		element(by.partialButtonText('Users')).click();
 		//fill in search field
@@ -42,24 +35,23 @@ describe("users should be able to login and use Extended Search", function(){
 		browser.wait(EC.elementToBeClickable(user), 5000);
 		
 		user.click();
-		//console.log("search");
+
 		element(by.buttonText('Extended Search!')).click();
 		
 		//verify search results
 		var numberOfResults = element(by.css('.count'));
 		numberOfResults.getText().then(function(text){
+			console.log("Users");
 			console.log(text)
 		});
 		expect(numberOfResults.getText()).toContain('4');
-		//console.log("we have texts ");
-		//browser.sleep(10000);
+
+		//browser.sleep(5000);
 		
 	})
 	
 		it ("search by Techs", function(){
-		
-		//element(by.css('input[value="All by "AND""]')).click();
-		
+
 		element(by.partialButtonText('Technologies')).click();
 		//fill in search field
 		var searchText = "node";
@@ -78,11 +70,12 @@ describe("users should be able to login and use Extended Search", function(){
 		//verify search results
 		var numberOfResults = element(by.css('.count'));
 		numberOfResults.getText().then(function(text){
+			console.log("Techs");
 			console.log(text)
 		});
 		expect(numberOfResults.getText()).toContain('1');
-		//console.log("we have texts ");
-		//browser.sleep(10000);
+
+		//browser.sleep(5000);
 		
 	})
 	
@@ -100,23 +93,23 @@ describe("users should be able to login and use Extended Search", function(){
 		browser.wait(EC.elementToBeClickable(tag), 5000);
 		
 		tag.click();
-		//console.log("search");
+
 		element(by.buttonText('Extended Search!')).click();
 		
 		//verify search results
 		var numberOfResults = element(by.css('.count'));
 		numberOfResults.getText().then(function(text){
+			console.log("Tags");
 			console.log(text)
 		});
 		expect(numberOfResults.getText()).toContain('1');
-		//console.log("we have texts ");
+
+		//browser.sleep(5000);
 		
 	})
 	
 	it ("search by Owners", function(){
-		
-		//element(by.css('input[value="All by "AND""]')).click();
-		
+	
 		element(by.partialButtonText('Owners')).click();
 		//fill in search field
 		var searchText = "ni";
@@ -129,29 +122,27 @@ describe("users should be able to login and use Extended Search", function(){
 		browser.wait(EC.elementToBeClickable(owner), 5000);
 		
 		owner.click();
-		//console.log("search");
 		element(by.buttonText('Extended Search!')).click();
 		
 		//verify search results
 		var numberOfResults = element(by.css('.count'));
 		numberOfResults.getText().then(function(text){
+			console.log("Owners");
 			console.log(text)
 		});
 		expect(numberOfResults.getText()).toContain('1');
-		//console.log("we have texts ");
-		//browser.sleep(10000);
+
+		//browser.sleep(5000);
 		
 	})
 
 
 	it ("search by Dates", function(){
 		
-		//element(by.css('input[value="All by "AND""]')).click();
-		
 		element(by.partialButtonText('Dates')).click();
 		var EC = protractor.ExpectedConditions;
 		var dates = element(by.xpath('//*[@id="home-root"]/div[1]/div[3]/div[1]/div[3]/div[5]/div/div/div[2]/div/div[1]'));
-		// Waits for the element with id 'abc' to be clickable.
+		// Waits for the element dates to be clickable.
 		browser.wait(EC.elementToBeClickable(dates), 5000);
 		//browser.sleep(3000);
 		
@@ -160,11 +151,9 @@ describe("users should be able to login and use Extended Search", function(){
 		
 		var start = element(by.xpath('//*[@id="home-root"]/div[1]/div[3]/div[1]/div[3]/div[5]/div/div/div[1]/div[1]/div[1]'));
 		start.click();
-		//browser.sleep(1500);
-		//element(by.xpath('/html/body/div[3]/div/div[1]/div/div/div/div/div[2]/div[1]/div[1]/button[1]')).click();
+		
 		element(by.xpath('/html/body/div[3]/div/div[1]/div/div/div/div/div[2]/div[1]/div[3]/div/div/div[1]/button[1]')).click();
-		//browser.wait(EC.elementToBeClickable(start), 10000);
-		//browser.wait(EC.elementToBeClickable(element(by.buttonText('Add Interval'))),5000);
+		
 		browser.sleep(1500);
 		
 		//End date
@@ -184,11 +173,12 @@ describe("users should be able to login and use Extended Search", function(){
 		//verify search results
 		var numberOfResults = element(by.css('.count'));
 		numberOfResults.getText().then(function(text){
+			console.log("Dates");
 			console.log(text)
 		});
 		expect(numberOfResults.getText()).toContain('not');
-		//console.log("we have texts ");
-		//browser.sleep(10000);
+		
+		//browser.sleep(5000);
 		
 	})
 });

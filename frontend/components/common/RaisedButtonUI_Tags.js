@@ -19,7 +19,7 @@ const RaisedButtonUI = ({id, label, disabled, onClick, style, backgroundColor, c
             fontSize: '0.9rem',
             textTransform: 'none'
         }}
-        backgroundColor= {backgroundColor || '#627484'}
+        backgroundColor= {backgroundColor || '#8D97A4'}
         className={className}
       />
     </MuiThemeProvider>

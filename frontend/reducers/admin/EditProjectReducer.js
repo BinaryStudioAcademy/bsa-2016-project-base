@@ -205,6 +205,15 @@ export default function EditProjectReducer(state=initialState, action) {
             });
         }
 
+        case types.UP_POST_SECTION_DELETE_ED: {
+            const {data} = action;
+            const {sections} = state;
+            console.log('DELETE_SECTION_SUCCESS',sections);
+            return Object.assign({}, state, {
+                sections: [].concat(data)
+            });
+        }
+
         case types.UP_POST_PROJECT_ERROR_ED: {
             const error = action.error;
             const {added} = state;

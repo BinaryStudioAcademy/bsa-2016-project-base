@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component,PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
@@ -34,29 +34,38 @@ const styles = {
 
 };
 
-const TextFieldTags = ({hintText, defaultValue, onChange, style, inputStyle, onBlur, value}) => {
-    return (
-        <div>
-        <MuiThemeProvider>
-            <TextField
-              hintText={hintText}
-              defaultValue={defaultValue}
-              onChange={onChange}
-              onBlur={onBlur}
-              style={style}
-              inputStyle={{
-                  color: '#555',
-                  fontFamily: 'Play'
-              }}
-              underlineFocusStyle={styles.underlineFocusStyle}
-              underlineStyle={styles.underlineStyle}
-              inputStyle={styles.inputStyle}
-              hintStyle={styles.hintStyle}
-              value={value}
-            />
-          </MuiThemeProvider>
-        </div>
-    );
+class TextFieldTags extends Component {
+    constructor(props) {
+        super(props);
+    }
+    shouldComponentUpdate(nextProps, nextState){
+        return nextProps.value !== this.props.value;
+    }
+    render(){
+        const {hintText, defaultValue, onChange, style, inputStyle, onBlur, value} = this.props;
+        return (
+            <div>
+            <MuiThemeProvider>
+                <TextField
+                  placeholder={hintText}
+                  defaultValue={defaultValue}
+                  onChange={onChange}
+                  onBlur={onBlur}
+                  style={style}
+                  inputStyle={{
+                      color: '#555',
+                      fontFamily: 'Play'
+                  }}
+                  underlineFocusStyle={styles.underlineFocusStyle}
+                  underlineStyle={styles.underlineStyle}
+                  inputStyle={styles.inputStyle}
+                  hintStyle={styles.hintStyle}
+                  value={value}
+                />
+              </MuiThemeProvider>
+            </div>
+        );
+    } 
 };
 
 export default TextFieldTags;
