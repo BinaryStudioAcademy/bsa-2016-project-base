@@ -10,7 +10,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 /* actions */
 import * as authActions from '../actions/UserAuthActions';
-import * as guideActions from '../actions/appGuideActions';
+import * as guideActions from '../actions/AppGuideActions';
 
 /* styles */
 import styles from './app.sass';
