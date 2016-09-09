@@ -341,7 +341,7 @@ class SearchServiceSubTools {
         }
         console.log('projQueryObj', projQueryObj);
         queriesArr[0] = Projects.find(projQueryObj, 
-                                        {features: 0, questions: 0,  attachments: 0},
+                                        {features: 0, questions: 0, attachments: 0},
                                         {skip: searchFilters.queryProjSkip, limit: searchFilters.queryProjLimit, sort: {_id: -1}})
                                     .populate([{
                                         path: 'users',
