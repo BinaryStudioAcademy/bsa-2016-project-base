@@ -44,7 +44,7 @@ export default class Project extends Component {
                         }
                     </div>
                     <div className={styles.image}>
-                        <img src="http://electron.atom.io/images/apps/particle.png" />
+                        <img src={project.screenShots[0]} />
                     </div>
                     <div className={styles['description-t']}>
                         {project.description.descrText} 
