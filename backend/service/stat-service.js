@@ -48,6 +48,8 @@ class StatService {
 			});
 		
 	}
+
+	
 }
 
 const statService = new StatService();

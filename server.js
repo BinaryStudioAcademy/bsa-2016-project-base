@@ -1,6 +1,4 @@
-﻿/* eslint no-console: 0 */
-
-const path = require('path');
+﻿const path = require('path');
 const express = require('express');
 const webpack = require('webpack');
 const webpackMiddleware = require('webpack-dev-middleware');
@@ -41,7 +39,7 @@ if (isDeveloping) {
   app.use('/upload',express.static(__dirname + '/upload'));
   app.use('/icons',express.static(__dirname + '/icons'));
   app.use('/resources',express.static(__dirname + '/resources'));
-  app.use('/backend', express.static(__dirname + '/backend'))
+  app.use('/backend', express.static(__dirname + '/backend'));
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
   app.get('*', function response(req, res) {

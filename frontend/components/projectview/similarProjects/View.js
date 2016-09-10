@@ -1,7 +1,9 @@
 import React from "react"
 import {PropTypes} from "react"
 import searchService from "./../../../services/SearchService"
-import ProjectView from "./../../home/components/Project"
+import ListProjects from "./../../home/components/ListProjects"
+
+
 export default class View extends React.Component {
     constructor() {
         super()
@@ -82,9 +84,8 @@ export default class View extends React.Component {
             this.loadProjects();
             return null;
         }
-        var projectsComponent = error ? error :
-            projects.map((p, i)=>
-                <ProjectView key={i} project={p.data}/>)
+        var projectsComponent = <ListProjects projects={projects.map(p=>p.data)}/>
+
         var projectsPrompts = error ? error :
             projects.map((p, i)=>
                 <span style={{width:`${80/2.96}%`,margin:"1.5%"}} key={i}>{p.prompt}</span>)
@@ -93,10 +94,10 @@ export default class View extends React.Component {
         return (
             <div>
                 <div  style={{display:"flex",justifyContent:"center"}}><h1>Related Projects</h1></div>
-                <div style={{display:"flex", flexFlow:"row wrap", width:"100%"}}>
+                <div>
                     {projectsComponent}
                 </div>
-                <div style={{display:"flex", flexFlow:"row wrap", width:"100%"}}>
+                <div style={{display:"flex", flexFlow:"row wrap", justifyContent:"space-between", width:"100%"}}>
                     {projectsPrompts}
                 </div>
             </div>

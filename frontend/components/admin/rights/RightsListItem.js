@@ -1,46 +1,53 @@
-import React, { Component, PropTypes } from 'react';
-import styles from './Rights.sass';
+/* general */
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {updateUserRight} from '../../../actions/admin/UsersRightsActions';
-import FaChecked from 'react-icons/lib/fa/check-square-o';
-import FaNotChecked from 'react-icons/lib/fa/square-o';
 
-class RightsUsersListItem extends Component {
+/* dependencies */
+import { DEFAULT } from '../../../constants/Api';
+import {updateUserRight} from '../../../actions/admin/UsersRightsActions';
+
+/* components */
+import CheckBox from '../../common/CheckBox-ui.js';
+
+/* styles */
+import styles from './Rights.sass';
+
+class RightsUsersListItem extends React.Component {
+
 	constructor(props) {
 	    super(props);
+	    this.state = {
+	    	defaultImage: DEFAULT + "user.png"
+	    }
 	}
- 	render() {
- 		let item = this['props'].usersRights['current'].users[this.props['data-id']],
- 		checkbox = React.createElement((item['isOwner'] ? FaChecked:FaNotChecked),{
-			size: 18,
-			style:{
-			    cursor:'pointer',
-			    color: (item['isOwner'] ? '#2ECC71' : '#FC5A5A')
-			},onClick: ()=>{
-				this.props.updateUserRight(this.props['data-id'],!item['isOwner']);
-			}
- 		});
 
+ 	render() {
+ 		let item = this['props'].usersRights['current'].users[this.props['data-id']];
  		return (<div>
- 			<div>
- 				{checkbox}
- 				<span> 
- 					{item['userName'] + " " + item['userSurname']}
- 				</span>		
+ 			<div className={styles['image-Container']}>
+ 				<img src={this.state.defaultImage
+                    /*(item.avatar ? item.avatar : this.state.defaultImage)*/
+                } />
  			</div>
- 			<div>
- 				Position:
- 				<span>{item['position']}</span>
- 			</div>	
+ 			<div className={styles['description-Container']}>
+	 			<div>
+	 				<CheckBox checked={item.isOwner} onCheck={(e)=>{
+	 					this.props.updateUserRight(this.props['data-id'],e.target['checked']);
+	 				}}/>
+	 				<span>{item['userName'] + ' ' + item['userSurname']}</span>		
+	 			</div>
+	 			<div>
+	 				Position:
+	 				<span>{item['position']}</span>
+	 			</div>	
+ 			</div>
  		</div>);
 	}
 };
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-    	updateUserRight: updateUserRight
-    }, dispatch);
+    return bindActionCreators({updateUserRight}, dispatch);
 }
 
 function mapStateToProps(state) {

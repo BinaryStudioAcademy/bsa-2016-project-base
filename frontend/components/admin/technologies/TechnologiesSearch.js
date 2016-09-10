@@ -14,11 +14,7 @@ class TechnologiesSearch extends Component {
     }
 
     onChange(e) {
-        this.setState(
-            {
-                item: e.target.value
-            }
-        );
+        this.setState({ item: e.target.value });
         this.props.technologiesSearch(e.target.value);
     }
 

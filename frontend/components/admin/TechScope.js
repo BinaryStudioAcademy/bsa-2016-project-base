@@ -13,11 +13,4 @@ class TechScopeTab extends Component {
 	}
 };
 
-/*TechScopeTab.propTypes = {
-	tech: PropTypes.array.isRequired,
-  	addTechScope: PropTypes.func.isRequired,
-  	removeTechScope: PropTypes.func.isRequired
-};*/
-
-
 export default TechScopeTab;
