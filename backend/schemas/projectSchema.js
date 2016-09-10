@@ -97,5 +97,9 @@ Project.path('technologies').validate(function(technologies){
     return true;
 }, 'You must add a technology');
 
+Project.path("timeBegin").validate(function(begin){
+    return !this.timeEnd || this.timeEnd.getTime() > begin.getTime()
+}, "Start date must be lower then end");
+
 
 module.exports = mongoose.model('Project', Project);
