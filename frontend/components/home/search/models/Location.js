@@ -3,6 +3,8 @@ import LocationView from "./../components/Location"
 import searchService from "./../../../../services/SearchService"
 import SmallProjectView from "./../../components/Project"
 import React from "react"
+import Project from "./../../components/Project"
+import ReactDom from "react-dom"
 export default class Location extends MultiSelectModel {
     constructor({component}) {
         super({
@@ -24,9 +26,14 @@ export default class Location extends MultiSelectModel {
         searchService.getProject(projectId)
             .then(res=>{
                 var project = res.project;
-                mapContentToDestination(`
-<h3>${project.projectName}</h3>
-${project.description.descrText}`);//TODO: make better layout
+                var div = document.createElement("div");
+                var container = document.createElement("div");
+                container.appendChild(div);
+                div.setAttribute("class", "div-small");
+                var comp = <Project project={project}/>;
+                ReactDom.render(comp, div, function(){
+                    mapContentToDestination(container.innerHTML)
+                })
             })
     }
 
@@ -67,7 +74,7 @@ ${project.description.descrText}`);//TODO: make better layout
                         var text = tip.label;
                         var infoWindow = new google.maps.InfoWindow({
                             content: text,
-                            disableAutoPan: true
+                            //disableAutoPan: true
                         });
 
                         var newTip = {
