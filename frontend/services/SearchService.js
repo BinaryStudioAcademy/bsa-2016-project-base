@@ -10,8 +10,8 @@ class SearchService {
     }
 
     getProject(id){
-        console.log(`${this.url}projects/${id}`)
-        return fetch(`${this.url}projects/${id}`, constants.cookieMarker)
+        console.log(`${this.url}project-view/${id}`)
+        return fetch(`${constants.URL}project-view/${id}`, constants.cookieMarker)
             .then(res => res.json())
             .then(json => ({project:json}))
             .catch(error => ({err:error}))
