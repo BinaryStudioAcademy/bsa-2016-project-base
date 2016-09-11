@@ -1,5 +1,7 @@
 import techService from "./../services/TechnologieService"
 import tagService from "./../services/admin/AdminTagService"
+import chartService from "./../services/chartService"
+
 export function addData(data){
     return {
         type:"CHART_ADD_DATA",
@@ -20,18 +22,18 @@ export function loadData(){
         /*mock*/
         const type = getState().ChartReducer.chartType;
         if (type == "Circle"){
-            techService.getAllTechnologies()
-                .then(res=>res.json())
-                .then(techs=>{
-                    const labels = techs.map(tech=>tech.techName)
-                    const data = labels
-                        .map(tech=>tech.split("")
-                            .reduce((s,char)=>s+char.charCodeAt(0),0)%13+5)
+            chartService.getTechs()
+                .then(arrTechs =>{
+                    //console.log('loadData() -> arrTechs: ', arrTechs);
+                    const labels = arrTechs.map(tech =>tech.techName);
+                    console.log('Techs labels: ', labels);
+                    const data = arrTechs.map(tech => tech.count);
+                    console.log('Techs data: ', data);
                     dispatch(addData({
                         options:{
                             title: {
                                 display:true,
-                                text:"Modern IT Technologies used on projects"
+                                text:"Most popular Technologies used in the projects:"
                             }
                         },
                         labels,
@@ -44,16 +46,19 @@ export function loadData(){
                 });
         }
         else if (type == "Bar"){
-            tagService.getAllTags()
-                .then(res=>res.json())
-                .then(tags=>{
-                    const labels = tags.slice(0,9).map(tag=>tag.tagName).concat(["Other"])
-                    const data = [110,94,78,65,45,32,21,18,14,150]
+            chartService.getTags()
+                .then(arrTags => {
+                    console.log('arrTags: ', arrTags);
+                    // const labels = arrTags.slice(0,9).map(tag=> tag.tagName).concat(["Other"]);
+                    const labels = arrTags.map(tag => tag.tagName);
+                    console.log('Tags labels: ', labels);
+                    const data = arrTags.map(tag => tag.count);
+                    console.log('Tags data: ', data);
                     dispatch(addData({
                         options:{
                             title: {
                                 display:true,
-                                text:"Most popular Tags on projects"
+                                text:"Most popular Tags in the projects"
                             }
                         },
                         labels,
