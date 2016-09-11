@@ -23,6 +23,8 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 files: [],
                 errors: null,
                 activeSection: {},
+                activeUser: null,
+                userStory: {},
                 projectName:'',
                 projectLink:'',
                 timeBegin:{},
@@ -38,6 +40,40 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 technologies: setDefaults(technologies,{inProject: false})
             });
         }
+        case types.UP_SELECT_USER: {
+            const {userId} = action;
+            const {activeUser} = state;
+            return Object.assign({}, state, {
+                activeUser: userId
+            });
+        }
+        case types.UP_SET_USER_START_DATE: {
+            const {date,userId} = action;
+            const {activeUser,userStory} = state;
+            console.log('userId ',userId);
+            return Object.assign({}, state, {
+                userStory: {
+                    ...userStory,
+                    [userId]: {
+                        ...userStory[userId],
+                        dateFrom: date
+                    }
+                }
+            });
+        }
+         case types.UP_SET_USER_END_DATE: {
+            const {date,userId} = action;
+            const {activeUser,userStory} = state;
+            return Object.assign({}, state, {
+                userStory: {
+                    ...userStory,
+                    [userId]: {
+                        ...userStory[userId],
+                        dateTo: date
+                    }
+                }
+            });
+        }
         case types.UP_ADD_USER_TO_PROJECT: {
             const {_id} = action;
             const {users} = state;
@@ -47,9 +83,14 @@ export default function UpsertProjectReducer(state=initialState, action) {
         }
         case types.UP_REMOVE_USER_FROM_PROJECT: {
             const {_id} = action;
-            const {users} = state;
+            const {users,userStory} = state;
             return Object.assign({}, state, {
-                users: removeUserFromProject(users, _id)
+                users: removeUserFromProject(users, _id),
+                userStory: (() => {
+                    delete userStory[_id];
+                    return userStory;
+                })()
+                
             });
         }
         case types.UP_CHANGE_OWNERSHIP: {
@@ -424,6 +465,8 @@ const initialState = {
     features: [],
 	files: [],
     activeSection: {},
+    activeUser: null,
+    userStory: {},
 	tagExists: false,
     added: false,
     iconLoaded: false,
