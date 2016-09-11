@@ -173,6 +173,7 @@ class ProjectView extends Component {
 								</Tab>
 								<Tab label="Users">
 									<UsersList />
+									<UsersTimeLine />
 								</Tab>
 								<Tab label="Locations">
 								</Tab>

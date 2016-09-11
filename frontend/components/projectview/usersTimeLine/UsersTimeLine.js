@@ -4,15 +4,53 @@ import * as actions from '../../../actions/ProjectViewActions';
 import {connect} from 'react-redux';
 import TimeLine from 'material-ui/svg-icons/action/timeline';
 import styles from './usersTimeLine.sass';
+const LENGTH_ALL_LINE = 87;
 
 class UsersTimeLine extends Component {
 
     constructor(props) {
         super(props);
-    this.createLine = this.createLine.bind(this);
+        this.createLine = this.createLine.bind(this);
+        this.showDateAtLine = this.showDateAtLine.bind(this);
+        this.hidePopover = this.hidePopover.bind(this);
+        this.formatDate = this.formatDate.bind(this);
     }
 
-    createDataLine(dataBegin, dataEnd, status) {
+    formatDate(date) {
+        let dd = date.getDate();
+        if (dd < 10) dd = '0' + dd;
+        let mm = date.getMonth() + 1;
+        if (mm < 10) mm = '0' + mm;
+        //let yy = date.getFullYear() % 100;
+        let yy = date.getFullYear();
+        if (yy < 10) yy = '0' + yy;
+        alert(yy+ '-' + mm + '-' + dd );
+        return yy+ '-' + mm + '-' + dd ;
+    }
+
+    hidePopover() {
+        this.refs.popover.style.display = "none";
+    }
+
+    showDateAtLine(e) {
+        var a = e.target.getBoundingClientRect();
+        var numberDaysProject;
+        var oneDay = 24*60*60*1000;
+        if(this.props.project.timeEnd != null) {
+            numberDaysProject = (new Date(this.props.project.timeEnd) - new Date(this.props.project.timeBegin) ) / oneDay;
+        } else {
+            numberDaysProject = (new Date() - new Date(this.props.project.timeBegin) ) / oneDay;
+        }
+        var daysInOneProcent = numberDaysProject / 100;
+
+        var lengthHoverLine = Math.sqrt((e.clientX - a.left) * (e.clientX - a.left));
+        var lengthAllLine = Math.sqrt((a.right - a.left) * (a.right - a.left));
+        var lenthInProcent = lengthHoverLine / (lengthAllLine / 100);
+        var allDaysAtHoverLine = daysInOneProcent * lenthInProcent;
+        this.refs.popover.style.display = "flex";
+        this.refs.popover.style.top += "40px";
+        this.refs.popover.style.left = lengthHoverLine + 70 + "px";
+        this.refs.popover.innerText = Math.round(allDaysAtHoverLine) + " of days";
 
     }
 
@@ -23,7 +61,6 @@ class UsersTimeLine extends Component {
             numberDaysProject = null,
             arrayUsers;
 
-        const LENGTH_ALL_LINE = 87;
 
         if(this.props.project.timeEnd != null) {
             numberDaysProject = (new Date(this.props.project.timeEnd) - new Date(this.props.project.timeBegin) ) / oneDay;
@@ -46,8 +83,12 @@ class UsersTimeLine extends Component {
                 }
             });
 
+             var dataTo = "now",
+                 dataFrom = dataObj.dateFrom;
+
             if(dataObj.dateTo) {
                 numberDaysUser = (new Date(dataObj.dateTo) - new Date(dataObj.dateFrom) ) / oneDay;
+                dataTo = dataObj.dateTo
             } else {
                 numberDaysUser = (new Date() - new Date(dataObj.dateFrom) ) / oneDay;
             }
@@ -64,13 +105,16 @@ class UsersTimeLine extends Component {
                         <span>{el.userName} {el.userSurname}</span>
                     </div>
                     <div className="offsetLine" style={{"flex-basis": userOffset + "%"}}></div>
-                    <div className="line" style={{"flex-basis": lineLengthUser + "%"}}></div>
+                    <div className="line" style={{"flex-basis": lineLengthUser + "%"}}>
+                        <span className="userTimeBegin">{self.formatDate(new Date(dataFrom))}</span>
+                        <span className="userTimeEnd">{dataTo == "now" ? dataTo : self.formatDate(new Date(dataTo))}</span>
+
+                    </div>
                 </div>
             )
         });
         return arrayUsers;
     }
-
 
     render() {
         if(!Array.isArray(this.props.users) || !Array.isArray(this.props.owners)) {
@@ -78,10 +122,8 @@ class UsersTimeLine extends Component {
         }
 
         var arrayUsers = this.createLine();
+        var self = this;
 
-
-
-var self = this;
         return (
         <div id="usersTimeLine">
             <div className="headerTimeLine">
@@ -89,9 +131,16 @@ var self = this;
                 <span className="textHeader">Users TimeLine</span>
             </div>
             <div className="mainContent">
+                <div className="AllUsersLine">
                 { arrayUsers }
+                </div>
                 <div className="dataLine">
-                    <div className="dataLine-line"></div>
+                    <div className="dataLine-line" onMouseMove={this.showDateAtLine} onMouseLeave={this.hidePopover}></div>
+                    <div className="timeOnLine">
+                        <span>{this.formatDate(new Date(this.props.project.timeBegin))}</span>
+                        <span>{this.formatDate(new Date(this.props.project.timeEnd))}</span>
+                    </div>
+                    <div className="popover" ref="popover"></div>
                 </div>
             </div>
 
