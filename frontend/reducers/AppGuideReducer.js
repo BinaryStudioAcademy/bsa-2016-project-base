@@ -7,7 +7,7 @@ const initialState = {
         direction: 'home'
     },{
         title: 'Projects search panel',
-        text: '',
+        text: 'Еhis section allows you to search for existing projects in advanced mode',
         selector: '.inputs-tool',
         position: 'bottom',
         direction: 'review'

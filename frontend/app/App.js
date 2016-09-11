@@ -16,8 +16,8 @@ import * as guideActions from '../actions/appGuideActions';
 import styles from './app.sass';
 
 /* icons */
-import FaIntro from 'react-icons/lib/fa/blind';
 import FaList from 'react-icons/lib/fa/list';
+import FaIntro from 'react-icons/lib/fa/blind';
 import FaExit from 'react-icons/lib/fa/sign-out';
 import FaUser from 'react-icons/lib/fa/user-secret';
 

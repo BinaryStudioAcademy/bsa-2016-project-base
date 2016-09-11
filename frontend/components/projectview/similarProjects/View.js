@@ -89,14 +89,13 @@ export default class View extends React.Component {
             projects.map((p, i)=>
                 <span style={{width:`${80/2.96}%`,margin:"1.5%"}} key={i}>{p.prompt}</span>)
 
-
         return (
             <div>
-                <div  style={{display:"flex",justifyContent:"center"}}><h1>Related Projects</h1></div>
-                <div style={{display:"flex", flexFlow:"row wrap", width:"100%"}}>
+                <div style={{display:"flex",justifyContent:"center", margin: 10 }}><h1>Related Projects</h1></div>
+                <div style={{display:"flex",justifyContent:"space-around", flexFlow:"row wrap", width:"100%"}}>
                     {projectsComponent}
                 </div>
-                <div style={{display:"flex", flexFlow:"row wrap", width:"100%"}}>
+                <div style={{display:"flex",justifyContent:"center", flexFlow:"row wrap", width:"100%"}}>
                     {projectsPrompts}
                 </div>
             </div>
