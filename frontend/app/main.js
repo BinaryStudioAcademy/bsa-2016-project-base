@@ -11,7 +11,7 @@ import { createStore, combineReducers, applyMiddleware, compose  } from 'redux';
 /* components */
 import App from './App.js';
 import Home from '../components/home/Home';
-//import Stats from '../components/stats/Stats';
+import Stats from '../components/stats/Stats';
 import Review from '../components/review/Review';
 import NotFound from '../components/not-found/NotFound';
 import {Admin, Rights, Tags, Tech} from '../components/admin/';
@@ -50,6 +50,7 @@ render(
                 <Route path="add-project" component={UpsertProject} title='add project'/>
                 <Route path="edit-project/:id" component={EditProject} title='edit project'/>
                 <Route path="review" component={Review} title='review'/>
+                <Route path="stats" component={Stats} title='statistics'/>
                 <Route path="admin" component={Admin} title='admin menu'>
                     <IndexRoute component={Rights}/>
                     <Route path="rights" component={Rights} />

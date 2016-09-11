@@ -23,8 +23,10 @@ exports.config = {
     'date2_search.js',
     'tech_more_extended_search.js',
     'tag_more_extended_search.js',
-	  'owner_more_extended_search.js',
-	  'user_more_extended_search.js'
+    'owner_more_extended_search.js',
+    'user_more_extended_search.js',
+    'AND_more_extended_search.js',
+    'OR_more_extended_search.js'
     ],
 
   // Options to be passed to Jasmine.

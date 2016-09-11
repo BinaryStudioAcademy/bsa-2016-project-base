@@ -16,7 +16,7 @@ export default class Home extends Component {
         model.component = this;
         model.searchContainer.component = this;
         model.searchContainer.searchModels.forEach(model=>model.component = self);
-        if (!model.projects.length) {
+        if (!model.projects.length && !model.isLoading) {
             //not to upload projects if there are some (on repeated visit)
             model.goSearch();
         }
