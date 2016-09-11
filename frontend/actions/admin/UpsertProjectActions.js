@@ -487,6 +487,48 @@ export function selectSection(_id) {
     };
 };
 
+export function setVisibleUploadByLinkAttachments(hideFile, hideForm) {
+    return {
+        type: types.SET_VISIBLE_FORM_BY_LINK_ATTACHMENTS,
+        hideFile: hideFile,
+        hideForm: hideForm
+    }
+}
+export function uploadFileByLinkAttachments(link) {
+    let target='file';
+    return dispatch=> {
+        return uploadService.uploadFileByLink(link)
+            .then(response => {
+                if (response.status != 201) {
+                    throw Error(response.statusText);
+                }
+                return response.json();
+            })
+            .then(json => {
+                let data = json;
+                if (!json.hasOwnProperty('error')) {
+                    data = fileThumbService.setThumb(json);
+                }
+
+                dispatch({
+                    type: types.UP_UPLOAD_FILE_SUCCESS,
+                    data: data,
+                    target
+                });
+
+            })
+            .catch(error => {
+                dispatch({
+                    type: types.UP_UPLOAD_FILE_ERROR,
+                    error: error,
+                    target
+
+                });
+            });
+
+    }
+}
+
 export function errorHandler(error) {
     return {
         type: 'SOMETHING_GONE_WRONG',

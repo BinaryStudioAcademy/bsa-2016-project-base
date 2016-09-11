@@ -1,6 +1,5 @@
 import * as types from '../../actions/admin/UpsertProjectActionTypes';
 
-
 export default function UpsertProjectReducer(state=initialState, action) {
 	switch (action.type) {
 		 case types.UP_GET_DATA_SUCCESS: {
@@ -236,6 +235,13 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 technologies: removeTechFromProject(technologies, _id)
             });
         }
+        case types.SET_VISIBLE_FORM_BY_LINK_ATTACHMENTS: {
+            const {hideFile,hideForm} = action;
+            return Object.assign({}, state, {
+                hideFile,
+                hideForm
+            })
+        }
         default: {
             return state;        
         }
@@ -431,8 +437,9 @@ const initialState = {
     techIconError: '',
     description:{
         descrFullText: ''
-    } 
-
+    },
+    hideFile : 'visible',
+    hideForm : 'hidden'
 };
 
 
