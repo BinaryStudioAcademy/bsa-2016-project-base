@@ -35,9 +35,34 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 description:{
                     descrFullText: ''
                 },
+                contacts: {
+                    countryCode: '',
+                    countryName: '',
+                    postalIndex: '',
+                    state_region: '',
+                    city: '',
+                    street: '',
+                    building: '',
+                    appartment: '',
+                    contactPerson: '',
+                    phone: '',
+                    email: '',
+                    skype: ''
+                },
                 users: setDefaults(users,{inProject: false,owner:false}),
                 tags: setDefaults(tags,{inProject: false}),
                 technologies: setDefaults(technologies,{inProject: false})
+            });
+        }
+        
+         case types.UP_SET_CONTACT_FIELD: {
+            const {field, data} = action;
+            const {contacts} = state;
+            return Object.assign({}, state, {
+                contacts: {
+                    ...contacts,
+                    [field]: data
+                }
             });
         }
         case types.UP_SELECT_USER: {
@@ -474,7 +499,21 @@ const initialState = {
     techIconError: '',
     description:{
         descrFullText: ''
-    } 
+    },
+    contacts: {
+        countryCode: '',
+        countryName: '',
+        postalIndex: '',
+        state_region: '',
+        city: '',
+        street: '',
+        building: '',
+        appartment: '',
+        contactPerson: '',
+        phone: '',
+        email: '',
+        skype: ''
+    }
 
 };
 

@@ -523,3 +523,11 @@ export function setUserEndDate(userId, date) {
     }
 }
 
+export function setContactFieldData(field, data) {
+    return {
+        type: 'UP_SET_CONTACT_FIELD',
+        field,
+        data
+    }
+}
+
