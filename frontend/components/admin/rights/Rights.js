@@ -1,12 +1,19 @@
-import React, { Component, PropTypes } from 'react';
+/* general */
+import React  from 'react';
+
+/* components */
 import RightsToolbar from './RightsToolbar';
 import RightsUsersList from './RightsUsersList';
+
+/* styles */
 import styles from './Rights.sass';
 
-class RightsTab extends Component {
+export default class RightsTab extends React.Component {
+
 	constructor(props) {
 	    super(props);
 	}
+
  	render() {
 	    return (
 	    	<div className={styles['rights-container']}>
@@ -16,4 +23,3 @@ class RightsTab extends Component {
 	    )
 	}
 };
-export default RightsTab;

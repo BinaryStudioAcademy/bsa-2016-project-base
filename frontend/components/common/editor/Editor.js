@@ -1,7 +1,6 @@
 import React,{ PropTypes } from "react";
 import ReactDOM from "react-dom";
 import TinyMCE from "react-tinymce";
-//import fileService from "./../../../services/FileService"
 import uploadService from '../../../services/UploadService';
 
 export default class MyEditor extends React.Component {

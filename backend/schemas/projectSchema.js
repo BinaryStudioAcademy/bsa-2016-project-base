@@ -37,7 +37,7 @@ var Project = new Schema({
     timeEnd: Date,
 
     tags: [{type: Schema.Types.ObjectId, ref: 'Tag'}],
-        
+
     // stage: {type: Schema.Types.ObjectId, ref: 'Stage'},
 
     // condition: {type: Schema.Types.ObjectId, ref: 'Condition'},
@@ -97,5 +97,12 @@ Project.path('technologies').validate(function(technologies){
     return true;
 }, 'You must add a technology');
 
+Project.path("timeBegin").validate(function(begin){
+    return !this.timeEnd || this.timeEnd.getTime() > begin.getTime()
+}, "Start date must be lower then end");
+
+Project.path("projectName").validate(function(value){
+    return value.length < 40
+}, "Project name must be shorter then 40 symbols");
 
 module.exports = mongoose.model('Project', Project);
