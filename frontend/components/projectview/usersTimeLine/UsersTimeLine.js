@@ -24,7 +24,6 @@ class UsersTimeLine extends Component {
         //let yy = date.getFullYear() % 100;
         let yy = date.getFullYear();
         if (yy < 10) yy = '0' + yy;
-        alert(yy+ '-' + mm + '-' + dd );
         return yy+ '-' + mm + '-' + dd ;
     }
 
