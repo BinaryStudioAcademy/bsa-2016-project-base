@@ -504,18 +504,18 @@ export function setVisibleUploadByLinkScreenshoots(hideFile, hideForm) {
 export function uploadFileByLinkAttachments(link) {
     let target='file';
     const ext =  link.slice(link.lastIndexOf('.'));
+    let name = link.slice(link.lastIndexOf('/')+1,link.lastIndexOf('.'));
     const allowedTypes = (target === 'file') ? FILE_TYPES : IMG_TYPES;
-
     return dispatch=> {
         dispatch({
             type: types.UP_UPLOAD_FILE,
-            name: 'wrong file format',
+            name: name,
             target
         });
 
         if (!allowedTypes.includes(ext)) {
             const data = {
-                name: 'wrong file format',
+                name: name,
                 error: 'Unsupported file type. Allowed ' + allowedTypes.join('/')
             }
             dispatch(uploadFileValidation(data,target));
@@ -528,18 +528,10 @@ export function uploadFileByLinkAttachments(link) {
                     return response.json();
                 })
                 .then(json => {
-                    console.log(json);
                     let data = json;
                     if (!json.hasOwnProperty('error')) {
                         data = fileThumbService.setThumb(json);
                     }
-
-                    dispatch({
-                        type: types.UP_UPLOAD_FILE,
-                        name: data.name,
-                        target
-                    });
-
                     dispatch({
                         type: types.UP_UPLOAD_FILE_SUCCESS,
                         data: data,
@@ -563,10 +555,16 @@ export function uploadFileByLinkScreenshoots(link) {
     let target='screenshot';
     const ext =  link.slice(link.lastIndexOf('.'));
     const allowedTypes = (target === 'file') ? FILE_TYPES : IMG_TYPES;
+    let name = link.slice(link.lastIndexOf('/')+1,link.lastIndexOf('.'));
     return dispatch=> {
+        dispatch({
+            type: types.UP_UPLOAD_FILE,
+            name: name,
+            target
+        });
         if (!allowedTypes.includes(ext)) {
             const data = {
-                name: 'wrong file format',
+                name: name,
                 error: 'Unsupported file type. Allowed ' + allowedTypes.join('/')
             }
             dispatch(uploadFileValidation(data,target));
@@ -583,13 +581,6 @@ export function uploadFileByLinkScreenshoots(link) {
                     if (!json.hasOwnProperty('error')) {
                         data = fileThumbService.setThumb(json);
                     }
-
-                    dispatch({
-                        type: types.UP_UPLOAD_FILE,
-                        name: data.name,
-                        target
-                    });
-
                     dispatch({
                         type: types.UP_UPLOAD_FILE_SUCCESS,
                         data: data,
@@ -602,7 +593,6 @@ export function uploadFileByLinkScreenshoots(link) {
                         type: types.UP_UPLOAD_FILE_ERROR,
                         error: error,
                         target
-
                     });
                 });
         }

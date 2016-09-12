@@ -57,7 +57,7 @@ class Screenshots extends Component {
 
     uploadFileByLink() {
         this.props.uploadFileByLinkScreenshoots(this.state.fileLinkScreenshoots);
-        this.setState({fileLinkScreenshoots: ''})
+        this.setState({fileLinkScreenshoots: ''});
     }
 
     saveFileLink(e) {
