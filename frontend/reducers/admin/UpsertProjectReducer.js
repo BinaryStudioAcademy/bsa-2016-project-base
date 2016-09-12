@@ -182,6 +182,8 @@ export default function UpsertProjectReducer(state=initialState, action) {
         case types.UP_UPLOAD_FILE: {
             const {name, target} = action;
             const {files} = state;
+            console.log('ff');
+            console.log(action);
             return Object.assign({}, state, {
                 files: files.concat({
                     name,
@@ -192,6 +194,8 @@ export default function UpsertProjectReducer(state=initialState, action) {
             });
         }
         case types.UP_UPLOAD_FILE_SUCCESS: {
+            console.log('qq');
+            console.log(action);
             const {data,target} = action;
             const {files} = state;
             return Object.assign({}, state, {
@@ -242,6 +246,13 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 hideForm
             })
         }
+        case types.SET_VISIBLE_FORM_BY_LINK_SCREENSHOOTS: {
+            const {hideFileScreenshoots,hideFormScreenshoots} = action;
+            return Object.assign({}, state, {
+                hideFileScreenshoots,
+                hideFormScreenshoots
+            })
+        }
         default: {
             return state;        
         }
@@ -279,11 +290,11 @@ const updateFileSuccess = (files, data, target) => {
                 file.error = error;
             }
         });
-
      }
+     console.log('hello');
+     console.log(files);
     return [].concat(files);
 }
-
 
 
 const updateFileFailure = (files, error) => {
@@ -439,7 +450,9 @@ const initialState = {
         descrFullText: ''
     },
     hideFile : 'visible',
-    hideForm : 'hidden'
+    hideForm : 'hidden',
+    hideFileScreenshoots : 'visible',
+    hideFormScreenshoots : 'hidden'
 };
 
 

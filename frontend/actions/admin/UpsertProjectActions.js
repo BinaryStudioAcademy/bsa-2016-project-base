@@ -494,21 +494,35 @@ export function setVisibleUploadByLinkAttachments(hideFile, hideForm) {
         hideForm: hideForm
     }
 }
+export function setVisibleUploadByLinkScreenshoots(hideFile, hideForm) {
+    return {
+        type: types.SET_VISIBLE_FORM_BY_LINK_SCREENSHOOTS,
+        hideFileScreenshoots: hideFile,
+        hideFormScreenshoots: hideForm
+    }
+}
 export function uploadFileByLinkAttachments(link) {
     let target='file';
     return dispatch=> {
-        return uploadService.uploadFileByLink(link)
+        return uploadService.uploadFileByLinkAttachments(link)
             .then(response => {
-                if (response.status != 201) {
+                if (response.status != 200) {
                     throw Error(response.statusText);
                 }
                 return response.json();
             })
             .then(json => {
+                console.log(json);
                 let data = json;
                 if (!json.hasOwnProperty('error')) {
                     data = fileThumbService.setThumb(json);
                 }
+
+                dispatch({
+                    type: types.UP_UPLOAD_FILE,
+                    name: data.name,
+                    target
+                });
 
                 dispatch({
                     type: types.UP_UPLOAD_FILE_SUCCESS,
@@ -528,7 +542,47 @@ export function uploadFileByLinkAttachments(link) {
 
     }
 }
+export function uploadFileByLinkScreenshoots(link) {
+    let target='screenshot';
+    return dispatch=> {
+        return uploadService.uploadFileByLinkAttachments(link)
+            .then(response => {
+                if (response.status != 200) {
+                    throw Error(response.statusText);
+                }
+                return response.json();
+            })
+            .then(json => {
+                console.log(json);
+                let data = json;
+                if (!json.hasOwnProperty('error')) {
+                    data = fileThumbService.setThumb(json);
+                }
 
+                dispatch({
+                    type: types.UP_UPLOAD_FILE,
+                    name: data.name,
+                    target
+                });
+
+                dispatch({
+                    type: types.UP_UPLOAD_FILE_SUCCESS,
+                    data: data,
+                    target
+                });
+
+            })
+            .catch(error => {
+                dispatch({
+                    type: types.UP_UPLOAD_FILE_ERROR,
+                    error: error,
+                    target
+
+                });
+            });
+
+    }
+}
 export function errorHandler(error) {
     return {
         type: 'SOMETHING_GONE_WRONG',

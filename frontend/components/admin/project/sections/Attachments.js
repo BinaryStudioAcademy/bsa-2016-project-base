@@ -59,6 +59,7 @@ class Attachments extends Component {
 
     uploadFileByLink() {
         this.props.uploadFileByLinkAttachments(this.state.fileLink);
+        this.setState({fileLink: ''})
     }
 
     saveFileLink(e) {
@@ -104,6 +105,7 @@ class Attachments extends Component {
                                 label="File Link"
                                 onChange={this.saveFileLink}
                                 placeholder="File link"
+                                value={this.state.fileLink}
                             />
                             <input type="button"
                                    label='UploadByLink'

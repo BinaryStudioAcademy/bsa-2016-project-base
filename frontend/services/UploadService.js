@@ -32,6 +32,17 @@ class UploadService {
         ));
     }
 
+    uploadFileByLinkAttachments(link){
+        return fetch("/api/uploadByLinkAttachments/", Object.assign({
+                method: 'POST',
+                body: JSON.stringify({
+                    link:link
+                })
+            }, constants.cookieMarker,
+            constants.jsonHedeaders
+        ));
+    }
+
     uploadFileByFile(file){
         return fetch("/api/file/", Object.assign({
                 method: 'POST',
