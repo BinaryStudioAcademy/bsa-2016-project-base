@@ -33,7 +33,7 @@ module.exports = function(app) {
 		download(req.body.link,method[0],folder+newFileName,function (el) {
 			res.json({
 				'name' : newFileName,
-				'path' : origin+'/upload/' + newFileName
+				'path' : origin+'upload/' + newFileName
 			})
 		})
 	});
