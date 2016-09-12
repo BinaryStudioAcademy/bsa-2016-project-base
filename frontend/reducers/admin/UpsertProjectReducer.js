@@ -182,8 +182,6 @@ export default function UpsertProjectReducer(state=initialState, action) {
         case types.UP_UPLOAD_FILE: {
             const {name, target} = action;
             const {files} = state;
-            console.log('ff');
-            console.log(action);
             return Object.assign({}, state, {
                 files: files.concat({
                     name,
@@ -194,8 +192,6 @@ export default function UpsertProjectReducer(state=initialState, action) {
             });
         }
         case types.UP_UPLOAD_FILE_SUCCESS: {
-            console.log('qq');
-            console.log(action);
             const {data,target} = action;
             const {files} = state;
             return Object.assign({}, state, {
@@ -291,8 +287,6 @@ const updateFileSuccess = (files, data, target) => {
             }
         });
      }
-     console.log('hello');
-     console.log(files);
     return [].concat(files);
 }
 

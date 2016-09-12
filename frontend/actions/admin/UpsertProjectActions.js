@@ -503,84 +503,115 @@ export function setVisibleUploadByLinkScreenshoots(hideFile, hideForm) {
 }
 export function uploadFileByLinkAttachments(link) {
     let target='file';
+    const ext =  link.slice(link.lastIndexOf('.'));
+    const allowedTypes = (target === 'file') ? FILE_TYPES : IMG_TYPES;
+
     return dispatch=> {
-        return uploadService.uploadFileByLinkAttachments(link)
-            .then(response => {
-                if (response.status != 200) {
-                    throw Error(response.statusText);
-                }
-                return response.json();
-            })
-            .then(json => {
-                console.log(json);
-                let data = json;
-                if (!json.hasOwnProperty('error')) {
-                    data = fileThumbService.setThumb(json);
-                }
+        dispatch({
+            type: types.UP_UPLOAD_FILE,
+            name: 'wrong file format',
+            target
+        });
 
-                dispatch({
-                    type: types.UP_UPLOAD_FILE,
-                    name: data.name,
-                    target
+        if (!allowedTypes.includes(ext)) {
+            const data = {
+                name: 'wrong file format',
+                error: 'Unsupported file type. Allowed ' + allowedTypes.join('/')
+            }
+            dispatch(uploadFileValidation(data,target));
+        }else{
+            return uploadService.uploadFileByLinkAttachments(link)
+                .then(response => {
+                    if (response.status != 200) {
+                        throw Error(response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(json => {
+                    console.log(json);
+                    let data = json;
+                    if (!json.hasOwnProperty('error')) {
+                        data = fileThumbService.setThumb(json);
+                    }
+
+                    dispatch({
+                        type: types.UP_UPLOAD_FILE,
+                        name: data.name,
+                        target
+                    });
+
+                    dispatch({
+                        type: types.UP_UPLOAD_FILE_SUCCESS,
+                        data: data,
+                        target
+                    });
+
+                })
+                .catch(error => {
+                    dispatch({
+                        type: types.UP_UPLOAD_FILE_ERROR,
+                        error: error,
+                        target
+
+                    });
                 });
-
-                dispatch({
-                    type: types.UP_UPLOAD_FILE_SUCCESS,
-                    data: data,
-                    target
-                });
-
-            })
-            .catch(error => {
-                dispatch({
-                    type: types.UP_UPLOAD_FILE_ERROR,
-                    error: error,
-                    target
-
-                });
-            });
+        }
 
     }
 }
 export function uploadFileByLinkScreenshoots(link) {
     let target='screenshot';
+    const ext =  link.slice(link.lastIndexOf('.'));
+    const allowedTypes = (target === 'file') ? FILE_TYPES : IMG_TYPES;
     return dispatch=> {
-        return uploadService.uploadFileByLinkAttachments(link)
-            .then(response => {
-                if (response.status != 200) {
-                    throw Error(response.statusText);
-                }
-                return response.json();
-            })
-            .then(json => {
-                console.log(json);
-                let data = json;
-                if (!json.hasOwnProperty('error')) {
-                    data = fileThumbService.setThumb(json);
-                }
+        if (!allowedTypes.includes(ext)) {
+            const data = {
+                name: 'wrong file format',
+                error: 'Unsupported file type. Allowed ' + allowedTypes.join('/')
+            }
+            dispatch(uploadFileValidation(data,target));
+        }else {
+            return uploadService.uploadFileByLinkAttachments(link)
+                .then(response => {
+                    if (response.status != 200) {
+                        throw Error(response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(json => {
+                    let data = json;
+                    if (!json.hasOwnProperty('error')) {
+                        data = fileThumbService.setThumb(json);
+                    }
 
-                dispatch({
-                    type: types.UP_UPLOAD_FILE,
-                    name: data.name,
-                    target
+                    dispatch({
+                        type: types.UP_UPLOAD_FILE,
+                        name: data.name,
+                        target
+                    });
+
+                    dispatch({
+                        type: types.UP_UPLOAD_FILE_SUCCESS,
+                        data: data,
+                        target
+                    });
+
+                })
+                .catch(error => {
+                    dispatch({
+                        type: types.UP_UPLOAD_FILE_ERROR,
+                        error: error,
+                        target
+
+                    });
                 });
+        }
 
-                dispatch({
-                    type: types.UP_UPLOAD_FILE_SUCCESS,
-                    data: data,
-                    target
-                });
-
-            })
-            .catch(error => {
-                dispatch({
-                    type: types.UP_UPLOAD_FILE_ERROR,
-                    error: error,
-                    target
-
-                });
-            });
-
+    }
+}
+export function uploadLinkFormatError() {
+    return {
+        type: 'WRONG_LINK_FORMAT'
     }
 }
 export function errorHandler(error) {
