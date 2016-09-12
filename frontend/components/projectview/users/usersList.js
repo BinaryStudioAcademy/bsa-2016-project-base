@@ -25,7 +25,6 @@ class UserList extends React.Component {
                         <MuiThemeProvider>
                             <TextField floatingLabelText="Search" fullWidth={true} onChange={(e)=>{ 
                                 tempFilters['user'].name = e.target['value'].trim().replace(/\ /g, '').toLowerCase();
-                                alert();
                                 this.props.getProject(_id,tempFilters);
                             }} />
                         </MuiThemeProvider>

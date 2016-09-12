@@ -26,7 +26,7 @@ import EstimationFile from "./estimationFile/EstimationFileReceiverComponentWith
 /* icons */
 import FaPlus from 'react-icons/lib/fa/plus';
 import FaList from 'react-icons/lib/fa/list';
-import FaMinus from 'react-icons/lib/fa/minus'; 
+import FaMinus from 'react-icons/lib/fa/minus';
 
 import ActionUndo from 'material-ui/svg-icons/content/undo';
 import ActionInfo from 'material-ui/svg-icons/action/info';
@@ -62,43 +62,153 @@ class ProjectView extends Component {
         );
     }
 
+    getAvgRating(rating) {
+        let ranking = 0;
+        if(rating.length){
+            rating.forEach((value) =>{ ranking += value; });
+            return Math.round(ranking/length);
+        }
+        return renking;
+    }
+
     render() {
-        const {features,users,filters} = this.props['project'];
-        let featuresItems = [], usersItems = [];
-        if(features) features.forEach((item)=>{ 
+        let featuresItems = [], usersItems = [],tagsItems = [], technologiesItems = [];
+        
+        const projectDetail = this.props['project'],
+            currentFeature = projectDetail['filters'].feature,
+            name = (projectDetail['projectName'] ? projectDetail['projectName'] : this.state['undefinedText']),
+            description = (projectDetail['description'] ? projectDetail.description['descrFullText'] : this.state['undefinedText']),
+            rating = (projectDetail['rating'] ? this.getAvgRating(projectDetail.rating) : this.state['undefinedText']);
+
+        if(projectDetail.tags) projectDetail['tags'].forEach((item)=>{
+            tagsItems.push(<TagsListItem name={item.tagName} key={item._id} />);
+        });
+
+        if(projectDetail.technologies) projectDetail['technologies'].forEach((item)=>{
+            technologiesItems.push(<TechnologiesListItem key={item._id} data={item} />);
+        });
+
+        if(projectDetail.features) projectDetail['features'].forEach((item)=>{ 
             let options = {
                 ref: item._id,
                 key: item._id,
                 data: item,
                 onClick: ()=>{
-                    let tempFilters = Object.assign({},filters), flag = true;
-                    if(filters.feature == item._id){
+
+                    let tempFilters = Object.assign({},projectDetail.filters),
+                        flag = true;
+
+                    if(currentFeature == item._id){
                         tempFilters['feature'] = null;
                         flag = false;
                     }
+
                     if(flag){
                         let index = features.findIndex(el => el._id == item._id);
                         if(!features[index].childFeatures.length) return;
                         tempFilters['feature'] = item._id;
                     }
+
                     this.props.getProject(this.props['routeParams'].id,tempFilters);
                 }
             };
-            if(filters['feature'] == item._id) options['className'] = "featureItem-Main";
+            if(currentFeature == item._id) options['className'] = "featureItem-Main";
             featuresItems.push(React.createElement(FeaturesListItem,options));
         });
 
-        if(users) users.forEach((item)=>{
+        if(projectDetail.users) projectDetail['users'].forEach((item)=>{
             usersItems.push(<UsersListItem id={item._id} key={item._id} data={item} />);
         }); 
 
     	return (
             <div id={styles["project-view-content"]}>
+                <div className={styles['project-view-navigation']}>
+                    <div>
+                        <MuiThemeProvider>
+                            <ActionUndo size={13} className={styles['redirect-to-list']} />
+                        </MuiThemeProvider>
+                        <label>
+                            <Link to={'/home/'}>Back to projects list</Link>
+                        </label>
+                    </div>
+                    <div>
+                        <MuiThemeProvider>
+                            <ActionBuild size={10} className={styles['redirect-to-list']} />
+                        </MuiThemeProvider>
+                        <label>
+                            <Link to={'/edit-project/' + projectDetail['_id']}>Edit</Link>
+                        </label>
+                    </div>
+                </div>
+                <div className={styles['projectMain']}>
+                    <div className={styles["descrpition-row"]}>
+                        <div className={styles['description-block']}>
+                            <header className={styles['description-block-header']}>
+                                <h1>{name}</h1>
+                                <div className={styles['description-block-tags']}>
+                                    {tagsItems}
+                                </div>
+                            </header>
+                            <div className={styles['description-block-content']}>
+                                <div className={styles['description-block-text']}>
+                                    <div className={styles['description-block-html']}
+                                        dangerouslySetInnerHTML={{__html: description}}/>
+
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                Status
+                                            </td>
+                                            <td>
+                                                {projectDetail['status'] ? projectDetail['status'] : this.state.undefinedText }
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Started
+                                            </td>
+                                            <td>
+                                                {projectDetail['timeBegin'] ? (new Date(projectDetail['timeBegin'])
+                                                .toLocaleString("en-US",this.state.timeOptions)) : this.state.undefinedText}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Finished</td>
+                                            <td>
+                                                {projectDetail['timeEnd'] ? (new Date(projectDetail['timeEnd'])
+                                                .toLocaleString("en-US",this.state.timeOptions)) : ""}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                               Average Rating
+                                            </td>
+                                            <td>
+                                                {rating}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div className={styles['description-block-technologies']}>
+                                    {technologiesItems}
+                                </div>
+                            </div>
+                        </div>
+                        <div className={styles['screenshots-block-inner']}>
+                            <header className={styles['screenshots-block-header']}>
+                                <h4>Screenshots</h4>
+                            </header>
+                            <Gallery data={projectDetail['screenShots']} />
+                        </div>
+                    </div>
+                </div>
                 <div className={styles['secondRow']}>
                     <UsersList>{usersItems}</UsersList>
                     <FeaturesList>{featuresItems}</FeaturesList>
                 </div>
-			</div>
+            </div>    
         )
     }
 }

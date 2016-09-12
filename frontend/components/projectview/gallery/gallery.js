@@ -1,5 +1,5 @@
 import React from 'react';
-import Gallery from 'react-photo-gallery';
+import Gallery from '../../common/gal';
 import styles from '../project-view.sass';
 
 class Screenshots extends React.Component {
@@ -9,7 +9,7 @@ class Screenshots extends React.Component {
         this.state = {
             width: 600,
             height: 300,
-            aspectRatio: 1.5
+            aspectRatio: 2.5
         }
     }
 
@@ -31,6 +31,6 @@ class Screenshots extends React.Component {
             </div>
         );
     }
-}    
+}
 
 export default Screenshots;
