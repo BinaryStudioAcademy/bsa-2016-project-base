@@ -24,7 +24,7 @@ import Attachment from "./attachment/View"
 /* icons */
 import FaPlus from 'react-icons/lib/fa/plus';
 import FaList from 'react-icons/lib/fa/list';
-import FaMinus from 'react-icons/lib/fa/minus'; 
+import FaMinus from 'react-icons/lib/fa/minus';
 
 import ActionUndo from 'material-ui/svg-icons/content/undo';
 import ActionInfo from 'material-ui/svg-icons/action/info';
@@ -98,12 +98,23 @@ class ProjectView extends Component {
     componentWillReceiveProps(props) {
         this.loadProject(props)
     }
+    getAvgRating(rating) {
+        let ranking = 0,
+            length = rating.length;
+
+        for(let i = 0; i < length; i++){
+            ranking += rating[i].value;
+        }
+
+        if (!length) return 0;
+        return Math.round(ranking/length);
+    }
     render() {
     	let tags = [], technologies=[], features=[];
     	const projectDetail = this.props['project'],
     		  name = (projectDetail['projectName'] ? projectDetail['projectName'] : this.state['undefinedText']),
-    		  description = (projectDetail['description'] ? projectDetail.description['descrFullText'] : this.state['undefinedText']);
-		
+    		  description = (projectDetail['description'] ? projectDetail.description['descrFullText'] : this.state['undefinedText']),
+              rating = (projectDetail['rating'] ? this.getAvgRating(projectDetail.rating) : this.state['undefinedText']);
 		for(var i in projectDetail.tags) tags.push(<TagsListItem name={projectDetail.tags[i].tagName} key={i} />);
 		for(var i in projectDetail.technologies) technologies.push(<TechnologiesListItem key={i} data={projectDetail.technologies[i]} />);
   		for(var i in projectDetail.features) features.push(<FeaturesListItem key={i} data={projectDetail.features[i]} />);
@@ -111,9 +122,9 @@ class ProjectView extends Component {
             <div id={styles["project-view-content"]}>
             	<div className={styles['project-view-navigation']}>
 	            	<div>
-	        			<MuiThemeProvider >
+	        			<MuiThemeProvider>
 	        				<ActionUndo size={13} className={styles['redirect-to-list']} />
-	        			</MuiThemeProvider >
+	        			</MuiThemeProvider>
 	        			<label>
 	        				<Link to={'/home/'}>
 	        					Back to projects list
@@ -121,86 +132,94 @@ class ProjectView extends Component {
 	        			</label>
 	        		</div>
 	        		<div>
-	        			<MuiThemeProvider >
+	        			<MuiThemeProvider>
 	        				<ActionBuild size={10} className={styles['redirect-to-list']} />
-	        			</MuiThemeProvider >
+	        			</MuiThemeProvider>
 	        			<label>
 	        				<Link to={'/edit-project/' + projectDetail['_id']}>
 	        					Edit
 	        				</Link>
 	        			</label>
 	        		</div>
-            	</div>	
+            	</div>
+
+
+
 				<div className={styles['projectMain']}>
-					<div className={styles['project-view-firstPart']}>
-						<span className={styles['project-name']}>{name}</span>
-						<TagsList>{tags}</TagsList>
-						<div className={styles['project-description']} 
-						dangerouslySetInnerHTML={{__html: description}}  />
-						<TechnologiesList>{technologies}</TechnologiesList>
-						<MuiThemeProvider >
-							<Tabs tabItemContainerStyle={tabsStyles.tabItemContainerStyle} contentContainerStyle={tabsStyles.tabBlock} inkBarStyle={tabsStyles.inkBarStyle}>
-								<Tab label="General">
-									<Table  selectable={false} multiSelectable={false}>
-										<TableBody displayRowCheckbox={false}>
-											<TableRow>
-												<TableRowColumn>Status</TableRowColumn>
-												<TableRowColumn>
-													{ projectDetail['status'] ? projectDetail['status'] : this.state.undefinedText }
-												</TableRowColumn>
-											</TableRow>
-											<TableRow>
-												<TableRowColumn>Started</TableRowColumn>
-												<TableRowColumn>{ 
-													projectDetail['timeBegin'] ? (new Date(projectDetail['timeBegin'])
-													.toLocaleString("en-US",this.state.timeOptions)) : this.state.undefinedText
-												}</TableRowColumn>
-											</TableRow>
-											<TableRow>
-												<TableRowColumn>Completed</TableRowColumn>
-												<TableRowColumn>
-													{ projectDetail['isCompleted'] ? <FaPlus />: <FaMinus /> }
-												</TableRowColumn>
-											</TableRow>
-					                        <TableRow>
-					                            <TableRowColumn>Average Rating</TableRowColumn>
-												<TableRowColumn>{ 
-													projectDetail['timeEnd'] ? (new Date(projectDetail['timeEnd'])
-													.toLocaleString("en-US",this.state.timeOptions)) : ""
-												}</TableRowColumn>
-					                        </TableRow>
-										</TableBody>
-									</Table>
-								</Tab>
-								<Tab label="Users">
-									<UsersList />
-								</Tab>
-								<Tab label="Features">
-									<FeaturesList>{features}</FeaturesList>
-								</Tab>
-								<Tab label="Screenshots" >
-									<Gallery data={projectDetail['screenShots']} />
-								</Tab>
-								<Tab label="Attachment">
-									<Attachment project={this.props.project}/>
-								</Tab>
-								<Tab label="Questions" >
-				 					<Questions id="q-and-a" questions={projectDetail['questions']} />
-						        </Tab>
-							</Tabs>
-						</MuiThemeProvider>
-					</div>
+
+                    <div className={styles["descrpition-row"]}>
+
+                        <div className={styles['description-block']}>
+
+                            <header className={styles['description-block-header']}>
+                                <h1>{name}</h1>
+                                <div className={styles['description-block-tags']}>
+                                    {tags}
+                                </div>
+                            </header>
+
+
+                            <div className={styles['description-block-content']}>
+                                <div className={styles['description-block-text']}>
+                                    <div className={styles['description-block-html']}
+                                        dangerouslySetInnerHTML={{__html: description}}/>
+
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                Status
+                                            </td>
+                                            <td>
+                                                {projectDetail['status'] ? projectDetail['status'] : this.state.undefinedText }
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Started
+                                            </td>
+                                            <td>
+                                                {projectDetail['timeBegin'] ? (new Date(projectDetail['timeBegin'])
+                                                .toLocaleString("en-US",this.state.timeOptions)) : this.state.undefinedText}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Finished</td>
+                                            <td>
+                                                {projectDetail['timeEnd'] ? (new Date(projectDetail['timeEnd'])
+                                                .toLocaleString("en-US",this.state.timeOptions)) : ""}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                               Average Rating
+                                            </td>
+                                            <td>
+                                                {rating}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div className={styles['description-block-technologies']}>
+                                    {technologies}
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                            <div className={styles['screenshots-block-inner']}>
+                                <header className={styles['screenshots-block-header']}>
+                                    <h4>
+                                        Screenshots
+                                    </h4>
+                                </header>
+                                <Gallery data={projectDetail['screenShots']} />
+                            </div>
+                
+                    </div>
 				</div>
-                <SimilarProjects project={this.props.project}/>
-				<div className={styles['button-redirect-container']}>
-		    		<RaisedButtonUI
-		    			href="/"
-		    			label="Back to Project List"
-		    			icon={<ActionUndo  style={{size:14}}/>}
-		    			style={{width: '75%'}}
-		    		/>
-	    		</div>
-			</div>
+			 </div>
         )
     }
 }

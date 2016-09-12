@@ -1,7 +1,7 @@
 @import "../common/styles/common";
 @import url(//fonts.googleapis.com/css?family=Russo+One)
 @import url(//fonts.googleapis.com/css?family=Play)
-
+ 
 $tomatoColor: #F97E76
 $lightCadetBlueColor: #C1CFD9
 $toolBarColor: #EFEFEF
@@ -11,22 +11,8 @@ $activeBlue: #337ab7
 
 
 
-.screenshots > div
-    margin: 0 auto
 
-.features-list-header > th
-    color: black !important
-    font-size: 15px !important
 
-.feature-item-column-center
-    width: 120px
-    text-align: center !important
-
-    .feature-notChecked > *
-        color: tomato
-
-    .feature-checked > *
-        color: green   
 
 #project-view-content
     font-size: 0.7em
@@ -41,12 +27,8 @@ $activeBlue: #337ab7
     ::-webkit-scrollbar-thumb
         background: rgba(0, 0, 0, 0.5)
 
-    .secondPart
-        display: flex
-        justify-content: center
 
-        table
-            font-size: 14px
+   
 
     .project-view-navigation
         width: 100%
@@ -74,186 +56,187 @@ $activeBlue: #337ab7
                 cursor: pointer
                 color: #93A6AF
 
-            &:hover 
-                color: black   
+            &:hover
+                color: black
                 .redirect-to-list > *, a
                     color: #293541
 
     .projectMain
         display: flex
-        flex-direction: row
+        flex-direction: column
         justify-content: center
-
-        .project-view-firstPart
+        
+        .descrpition-row
             display: flex
-            flex-basis: 80%
-            flex-direction: column
-            align-items: flex-start
-
-            .project-name
-                display: flex
-                font-size: 3em
-                font-family: Play
-                margin-bottom: 20px
-                justify-content: center
+            justify-content: space-between
+            padding: 0 1rem 0 2.5rem
+            margin-bottom: 5rem
+            
+            .description-block
+                background-color: #fff
+                width: 60%
+                box-shadow: 0px 1px 15px -6px #777;
+                margin-right: 1.5rem;
                 
-            .project-description
-                margin: 0px 20px  
-                font-size: 14px
-                text-indent: 20px
-                width: calc(100% - 40px)
-                font-family: "Open Sans"
-                padding: 10px 0px 30px 0px 
-                border-bottom: 1px solid #F0F0F3
-
-            .project-tags
-                width: 100%
-                display: block
-                margin-bottom: 30px
-
-                span
-                    color: white
-                    font-size: 13px
-                    padding: 5px 12px
-                    font-family: Lato
-                    border-radius: 4px
-                    display: inline-block  
-                    margin: 8px 4px 8px 0px
-                    background-color: cadetBlue           
-
-
-    .screenshots
-        display: flex
-        width: 100%
-        flex-wrap: nowrap
-
-        #Gallery
-            display: flex
-            justify-content: center
-            flex-wrap: nowrap
-
-            div
-                img
-                    width: 250px
-                    height: 200px
-
-
-    .technologies
-        width: 100%
-        display: flex
-        flex-wrap: wrap
-        margin: 25px 0px
-
-        div
-            margin: 13px 10px
-            padding: 0px 10px
-            display: flex
-            height: 60px
-
-            img 
-                width: 60px
-                height: 60px
-                cursor: pointer
-
-            div
-                dislay: flex
-                padding: 0px
-                min-width: 140px
-                align-items: center
-                flex-direction: column
-                justify-content: center
-                margin: -4px 2px 2px 0px
-
-                div:first-child
-                    color: #555
-                    font-size: 15px 
-                        
-                div:last-child
-                    text-align: center
-
+                .description-block-header
+                    border-bottom: 1px solid #efefef
+                    padding: 1rem
+                    border-left: 3px solid #8D97A4
+                    padding-bottom: 0.5rem
+                    
+                    h1
+                        margin: 0
+                        display: flex
+                        align-items: center
+                        font-weight: 700
+                        height: 100%
+                        margin-bottom: 1.2rem
+            
+                .description-block-tags
+                    vertical-align: top
+                   
                     span
-                        width: auto
-                        border-top: 2px solid cadetBlue 
-                        padding-top: 8px
+                        display: inline-block
+                        font-size: 0.6rem
+                        vertical-align: top
+                        background-color: #E9f0f6
+                        color: #8D97A4
+                        padding: .2rem
+                        margin-right: 0.7rem
+                        margin-bottom: 0.7rem
+                        border-radius: 5px
+                
+                .description-block-content
+                    display: flex
+                    
+                
+                    .description-block-text
+                        font-size: 1rem
+                        font-weight: 300
+                        padding-top: 1.5rem
+                        padding-left: 1.7rem
+                        padding-right: 1.7rem
+                        width: 75%
+                        border-right: 1px solid #efefef
+                        
+                        .description-block-html
+                            overflow: auto
+                            font-weight: 300;
+                            font-size: 1rem;
+                            margin-bottom: 3rem
+                            line-height: 1.5rem
+                            word-wrap: break-word
+                        
+                        table 
+                            border-collapse: collapse
+                            width: 100%
+                            margin-bottom: 2rem
+                        
+                        tr
+                            border-bottom: 1px solid #E1E3EB
+                        
+                        tr 
+                            
+                            td 
+                                padding: .8rem
+                                font-weight: 700
+                                font-size: 0.8rem
+                            
+                            td + td
+                                border-left: 1px solid #E1E3EB
+                        
+                        tr:nth-child(1n)
+                            background-color: #F1F2F6
+                        
+                        tr:nth-child(2n)
+                            background-color: #EDEEF3
 
-                        span
-                            color: white
-                            font-size: 14px 
-                            padding: 4px 10px
+                    .description-block-technologies
+                        width: 25%
+                        overflow-x: hidden
+                        
+                        img
+                            widht: 20px
+                            height: 20px
+                        
+                        .tech:nth-of-type(1)
+                            margin-top: 1rem
+                        
+                        .tech:last-of-type
                             border: none
-                            height: calc(100% - 8px)
+                       
+                        .tech
+              
+                            cursor: pointer
+                            display: flex
+                            font-size: 0.7rem
+                            margin-bottom: 1rem
+                            margin: 0.5rem
+                            padding: 0.5rem
+                            border-radius: 5px
+                            border-bottom: 1px solid #efefef
+                            
+                            .tech-name
+                                margin-left: 0.3rem
+                                font-weight: 700
+                            
+                        
+            .screenshots-block-inner
+                display: flex
+                flex-direction: column
+                width: 40% 
+                background-color: #fff
+                height: 350px
+                height: 350px
+                max-height: 220px
+                box-shadow: 0px 1px 15px -6px #777;
+                margin-bottom: 1.5rem
+                
+                .screenshots-block-header
+                    border-bottom: 1px solid #efefef
+                    height: 50px
+                    
+                    h4
+                        margin: 0
+                        display: flex
+                        align-items: center
+                        font-size: 1rem
+                        font-weight: 700
+                        height: 100%
+                        border-left: 3px solid #8D97A4;
+                        padding-left: 1.5rem
 
-                        span:first-child
-                            background-color: #2ECC71
+                .screenshots
+                    display: flex
+                    width: 100%
+                    flex-wrap: nowrap
+                    height: 170px
+                    
+                    #Gallery  
+                        display: flex
+                        justify-content: space-between
+                        flex-wrap: wrap
+                        padding: 1rem 2rem
+                        width: 100%
+                        hegight: 100%
+                        overflow: auto
 
-                        span:last-child
-                            background-color: #2196F3
+                        div
+                            width: 28%
+                            margin-top: 1rem
+                            margin-bottom: 1.4rem
+                            height: 100px
+                            cursor: pointer
+                            
+                            img
+                                max-width: 100%
+                                height: 94.5px
+
+                        div:hover img
+                            opacity: .7
 
 
-    .button-redirect-container
-        text-align: center
-        margin: 20px 
+   
+    
 
 
-    span
-        background-color: transparent //!important
-
-    ul>li
-        list-style-type: none
-
-    .component
-        margin: 20px auto
-        font-size: 14pt
-
-
-    .header
-        font-family: 'Russo One'
-        font-size: 1.5em
-        color: $activeBlue
-
-    .brief
-        text-align: center
-        color: $mainTextColor
-
-    .row
-        text-align: left
-
-    .cell
-        padding: 0 10px
-        line-height: 40px
-
-    .tab
-        display: inline-block
-        padding: 10px
-
-    .tabpanels
-        text-align: left
-        font-size: 1em
-        background-color: $lightCadetBlueColor
-
-    .questionPanel
-        background-color: $listItemColor
-        font-size: .8em
-
-    .questionHeader
-        font-family: 'Russo One'
-        color: $activeBlue
-
-    .questions
-        text-align: left
-        color: $mainTextColor
-        cursor: pointer
-
-    .userName
-        color: $tomatoColor
-        &+p
-            cursor: text
-
-    .tdbut
-        text-align: center
-
-    .gallery
-        width: 100%
-        height: 300px
-        overflow: auto
-        margin: 0 auto
