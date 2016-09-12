@@ -68,7 +68,8 @@ class ProjectView extends Component {
             rating.forEach((value) =>{ ranking += value; });
             return Math.round(ranking/length);
         }
-        return renking;
+        
+        return ranking;
     }
 
     render() {
