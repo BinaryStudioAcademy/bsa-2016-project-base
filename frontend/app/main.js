@@ -49,6 +49,7 @@ render(
                 <Route path="project-summary/:id" component={ProjectSummary}/>
                 <Route path="add-project" component={UpsertProject} title='add project'/>
                 <Route path="edit-project/:id" component={EditProject} title='edit project'/>
+                <Route path="review" component={Review} title='review'/>
                 <Route path="stats" component={Stats} title='statistics'/>
                 <Route path="admin" component={Admin} title='admin menu'>
                     <IndexRoute component={Rights}/>
