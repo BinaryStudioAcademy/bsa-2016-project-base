@@ -35,7 +35,21 @@ class ChartsService{
 	  });
 
 	}
+	getProjsByStartDate(){
+	  return fetch (`${this.url}dates/start`, constants.cookieMarker).then(res=>{
+	  	let retData = res.json();
+	  	return retData;
+	  	//res.json()
+	  });
+	}
 
+	getProjsByEndDate(){
+	  return fetch (`${this.url}dates/end`, constants.cookieMarker).then(res=>{
+	  	let retData = res.json();
+	  	return retData;
+	  	//res.json()
+	  });
+	}
 }
 
 const ChartService = new ChartsService();

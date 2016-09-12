@@ -8,8 +8,8 @@ class InputFilter extends Component {
 
     getButtons() {
         const {onChange, chartType} = this.props,
-            prompts = ["Active Projects", "Used Technologies", "Most Popular Tags", "Project by Countries"],
-            chartTypes = ["Linear", "Circle", "Bar", "Bar2"];
+            prompts = ["Project by Countries", "Used Technologies", "Most Popular Tags", "Started projects by date", "Completed projects by date"],
+            chartTypes = ["projCountries", "projTechs", "projTags", "projStartDate", "projEndDate"];
         let buttons = [];
         for (let i = 0; i < prompts.length; i += 1) {
             const className=chartType==chartTypes[i]?"btn btn-primary active":"btn";
