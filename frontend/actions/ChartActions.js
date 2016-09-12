@@ -82,6 +82,20 @@ export function loadData(){
                     data: [23,25,14,16,21,16,27]
                 }]
             }));
+        } else if (type == "Bar2"){
+            dispatch(addData({
+                options:{
+                    title: {
+                        display:true,
+                        text:"Test"
+                    }
+                },
+                labels: ['1st January', '1st February', '1st March', '1st April', '1st May', '1st June', '1st July'],
+                datasets:[{
+                    label:"Active projects",
+                    data: [30,30,30,16,21,16,27]
+                }]
+            }));
         }
 
     }

@@ -7,6 +7,7 @@ import Inputs from './sections/Inputs';
 import UsersList from './sections/UsersList';
 import Tags from './sections/Tags';
 import Techs from './sections/Techs';
+import Contacts from './sections/Contacts';
 import Features from './sections/Features';
 import Attachments from './sections/Attachments';
 import Screenshots from './sections/Screenshots';
@@ -59,6 +60,11 @@ const TabsUI = () => (
       <Tags/>
       </div>
     </Tab>
+    <Tab label="Contacts" >
+      <div>
+      <Contacts/>
+      </div>
+    </Tab>
   </Tabs>
 </MuiThemeProvider>
 );
@@ -86,7 +92,7 @@ class UpsertProject extends Component {
 	}
 	createProject(e) {
 		console.log('createProject');
-        const {projectName,projectLink,timeBegin,timeEnd,status,description} = this.props.store;
+        const {projectName,projectLink,timeBegin,timeEnd,status,description,contacts} = this.props.store;
         const {users,tags,technologies,sections,features,files} = this.props.store;
         console.log('features ',features);
         console.log('sections ',sections);
@@ -186,6 +192,7 @@ class UpsertProject extends Component {
             owners: inProject.owners,
             users: inProject.users,
             status: status.value,
+            contacts,
             description: {
                 descrFullText: inProject.descrFullText
             } 

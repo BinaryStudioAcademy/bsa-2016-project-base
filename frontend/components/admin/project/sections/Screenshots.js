@@ -6,6 +6,9 @@ import { Button, TextInput, TextArea, FileUpload } from '../../../common/';
 import File from './File';
 import styles from './styles/Screenshots.sass';
 
+import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 const fileTypes = 'image/jpeg,image/png,image/gif';
 
 class Screenshots extends Component {
@@ -49,12 +52,21 @@ class Screenshots extends Component {
                 </header>
                 <div className={styles.row}>
                     <div className={styles['field-container']}>
-                        <FileUpload
-							className={styles["upload-container"]}
-                            accept={fileTypes}
-                            multiple={true}
-                            onChange={this.onFilePathChange}
-                        />
+                    <MuiThemeProvider>
+                        <RaisedButton
+                            label="Upload screenshots"
+                            labelPosition="before"
+                            className={styles["btn-upload"]}
+                        >
+                            <FileUpload
+                                accept={fileTypes}
+                                multiple={true}
+                                onChange={this.onFilePathChange}
+                                className={styles["file-input"]}
+                            />
+                            
+                        </RaisedButton>
+                    </MuiThemeProvider>
                     
                         <div className={styles["list"]}>
                             {list}

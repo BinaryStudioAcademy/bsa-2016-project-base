@@ -77,6 +77,7 @@ class Stats extends Component {
             case "Linear":return <div className={styles['chart-wrap']} ><LineChartComp data={data} /></div>
             case "Bar": return <div className={styles['chart-wrap']} ><BarChartComp data={data} /></div>
             case "Circle": return <div className={styles['chart-wrap']} ><PieChartComp data={data} /></div>
+            case "Bar2": return <div className={styles['chart-wrap']} ><BarChartComp data={data} /></div>
         }
     }
 

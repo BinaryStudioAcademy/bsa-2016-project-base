@@ -22,10 +22,6 @@ export default class HomeProjects extends React.Component {
 
     render() {
         const {model} = this.props;
-        /*const {startGet,endGet,errorGet} = this.props;
-         model.onStartSearch = model.onStartSearch || startGet;
-         model.onEndSearch = model.onEndSearch || endGet;
-         model.onErrorSearch = model.onErrorSearch || errorGet;*/
         const projects = model.projects;
         const {activePage,recordsPerPage,total} = model.pagination;
         return (
@@ -52,7 +48,6 @@ export default class HomeProjects extends React.Component {
                         />
                         <div style={{display:"flex"}}>
                             {model.projects.length?<Waypoint onEnter={model.loadMore}/> : ""}
-                            
 
                             {/* <RaisedButton
                                 label="Load More"
@@ -61,6 +56,7 @@ export default class HomeProjects extends React.Component {
                             {model.loadMoreErrorMessage}
                             {model.isLoading ? <CircularProgress size={0.6}/> : ""}
                         </div>
+                        <br/>
                     </div>
                 </div>
             </div>

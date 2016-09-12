@@ -6,6 +6,7 @@ import ExpandTransition from 'material-ui/internal/ExpandTransition';
 import ProjectsList from './ProjectsList';
 import FeaturesList from './FeaturesList';
 import documentService from "../../../services/DocumentService";
+import {toastr} from 'react-redux-toastr';
 
 import styles from "../review.sass"
 
@@ -38,7 +39,7 @@ export default class EstimationStepper extends Component {
             documentService.getAuthLink().then(json=>{
                 const link = json.link;
                 this.setState({authLink: link, loading: true, form: form});
-            })
+            }).catch((err)=>toastr.warning('Error', `Handle rejected promise ${err} here.)`));
         }
         if (stepIndex === 2) {
             this.doRequest();
@@ -68,9 +69,7 @@ export default class EstimationStepper extends Component {
 
     inputChangeHandler(){
         var allTokens = JSON.parse(ReactDom.findDOMNode(this.refs.tokens).value);
-        this.setState({tokens:allTokens}, function(){
-            this.receiveFileLink();
-        }.bind(this));
+        this.setState({tokens:allTokens}, ()=>this.receiveFileLink());
     }
 
     receiveFileLink(){
@@ -83,7 +82,7 @@ export default class EstimationStepper extends Component {
             .then(res=>res.json()).then(data=>{
             const link = data.link;
             this.setState({link, finished: true});
-        })
+        }).catch((err)=>toastr.warning('Error', `Handle rejected promise ${err} here.)`));
     }
 
     getDataFromForm () {
@@ -152,7 +151,7 @@ export default class EstimationStepper extends Component {
             return (
                 <div className={styles["contentStyle"]}>
                     <input type="hidden" id="tokens" ref="tokens"/>
-                    <input type="hidden" id="auth-success" onClick={this.inputChangeHandler.bind(this)}/>
+                    <input type="hidden" id="auth-success" onClick={::this.inputChangeHandler}/>
 
                     {(link)?
                         <div>

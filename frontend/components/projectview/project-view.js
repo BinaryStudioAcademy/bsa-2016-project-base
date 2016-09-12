@@ -22,11 +22,11 @@ import TechnologiesList from './technologies/technologiesList';
 import TechnologiesListItem from './technologies/technologiesListItem';
 import UsersTimeLine from './usersTimeLine/UsersTimeLine';
 import EstimationFile from "./estimationFile/EstimationFileReceiverComponentWithLinkField";
-
+import Location from './location/Location';
 /* icons */
 import FaPlus from 'react-icons/lib/fa/plus';
 import FaList from 'react-icons/lib/fa/list';
-import FaMinus from 'react-icons/lib/fa/minus';
+import FaMinus from 'react-icons/lib/fa/minus'; 
 
 import ActionUndo from 'material-ui/svg-icons/content/undo';
 import ActionInfo from 'material-ui/svg-icons/action/info';
@@ -209,6 +209,7 @@ class ProjectView extends Component {
                     <UsersList>{usersItems}</UsersList>
                     <FeaturesList>{featuresItems}</FeaturesList>
                 </div>
+		<Location location={projectDetail['location']} />
             </div>    
         )
     }

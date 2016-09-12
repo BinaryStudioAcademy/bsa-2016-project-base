@@ -89,7 +89,7 @@ export default class Location extends MultiSelect {
 
     getLeftBlock() {
         return (
-            <div style={{height: `350px`,width:"70%"}}
+            <div style={{height: `450px`,width:"70%"}}
                  ref={this.setMapElementReference.bind(this)}>
             </div>
         )
