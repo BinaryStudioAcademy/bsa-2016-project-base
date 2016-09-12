@@ -499,3 +499,35 @@ export function clearData() {
         type: 'UP_CLEAR_DATA'
     }
 }
+
+export function selectUser(userId) {
+    return {
+        type: 'UP_SELECT_USER',
+        userId
+    }
+}
+
+export function setUserStartDate(userId, date) {
+    return {
+        type: 'UP_SET_USER_START_DATE',
+        userId,
+        date
+    }
+}
+
+export function setUserEndDate(userId, date) {
+    return {
+        type: 'UP_SET_USER_END_DATE',
+        userId,
+        date
+    }
+}
+
+export function setContactFieldData(field, data) {
+    return {
+        type: 'UP_SET_CONTACT_FIELD',
+        field,
+        data
+    }
+}
+

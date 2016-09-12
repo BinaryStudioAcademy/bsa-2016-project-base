@@ -19,14 +19,14 @@ class DeveloperItem extends Component {
         });
     }
     shouldComponentUpdate(nextProps, nextState){
-        return nextState.checked !== this.state.checked;
+        return nextState.checked !== this.state.checked || nextProps.selected !== this.props.selected;
     }
     render(){
-        const {user, onRemoveClick, onCheckboxChange} = this.props;
-      
+        const {user, onRemoveClick, onCheckboxChange, onUserSelect, selected} = this.props;
+      console.log('selected ',selected);
        
         return (
-            <div className={styles.listItem}>
+            <div className={styles.listItem + ' ' + (selected ? styles["user-selected"] : '' )} onClick={(e) => onUserSelect(e, user._id)}>
                 {/*<img src={user.avatar} alt="user avatar"/>*/}
                 <div className={styles.userImage}>
                     <img src={ this.state.defaultImage } alt="user avatar"/>
@@ -52,6 +52,7 @@ class DeveloperItem extends Component {
 
 DeveloperItem.propTypes = {
     user: PropTypes.object,
+    selected: PropTypes.bool,
     onRemoveClick: PropTypes.func.isRequired
 };
 

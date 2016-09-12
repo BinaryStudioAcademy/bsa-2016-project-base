@@ -21,6 +21,7 @@ import UsersTimeLine from './usersTimeLine/UsersTimeLine';
 import EstimationFile from "./estimationFile/EstimationFileReceiverComponentWithLinkField";
 import SimilarProjects from "./similarProjects/View"
 import Attachment from "./attachment/View"
+import Location from './location/Location';
 /* icons */
 import FaPlus from 'react-icons/lib/fa/plus';
 import FaList from 'react-icons/lib/fa/list';
@@ -174,12 +175,16 @@ class ProjectView extends Component {
 								</Tab>
 								<Tab label="Users">
 									<UsersList />
+									<UsersTimeLine />
 								</Tab>
 								<Tab label="Features">
 									<FeaturesList>{features}</FeaturesList>
 								</Tab>
 								<Tab label="Screenshots" >
 									<Gallery data={projectDetail['screenShots']} />
+								</Tab>
+								<Tab label="Location">
+									<Location location={projectDetail['location']} />
 								</Tab>
 								<Tab label="Attachment">
 									<Attachment project={this.props.project}/>
