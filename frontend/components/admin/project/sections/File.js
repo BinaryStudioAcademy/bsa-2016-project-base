@@ -2,6 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import { Button, RaisedButtonUITags } from '../../../common/';
 import styles from './styles/File.sass';
 import * as constants  from '../../../../constants/Api';
+
+import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 const {ORIGIN} = constants;
 
 class File extends Component {
@@ -34,13 +38,13 @@ class File extends Component {
                     </a>
                     <div>
                         <span className={styles["name"]}>{name}</span>                        
-
-                        <RaisedButtonUITags
+                        <MuiThemeProvider>
+                        <RaisedButton
                             className={styles["btnCopy"]}
                             label='Copy url'
-                            onClick={()=>{this.CopyToClip(this.refs.inputcopy);}}
-                            backgroundColor= '#8d97a4'                         
+                            onClick={()=>{this.CopyToClip(this.refs.inputcopy);}}                      
                         />
+                        </MuiThemeProvider>
                         <input className={styles["copyInput"]} type="text"
                             ref='inputcopy'
                             defaultValue={path}

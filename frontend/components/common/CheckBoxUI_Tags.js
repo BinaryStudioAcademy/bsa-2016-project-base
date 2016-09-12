@@ -38,11 +38,14 @@ export default class CheckBoxTags extends Component {
                         onCheck={this.props.onSelect}
                         labelStyle={{
                             color: '#555',
-                            fontFamily: 'Play',
-                            width: "calc(100% - 30px)",
+                            width: "calc(100% - 40px)",
                             color: '#8D97A4',
                             fontFamily: "Lato, sans-serif",
-                            fontSize: "0.9rem"
+                            fontSize: "0.9rem",
+                            overflow: 'hidden',
+                            whiteSpace: 'nowrap',
+                            textOverflow: 'ellipsis'
+
                         }}
                         iconStyle={{
                             marginRight: "10px"

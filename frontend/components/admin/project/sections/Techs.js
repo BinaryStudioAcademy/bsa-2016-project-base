@@ -6,6 +6,11 @@ import { Button, TextInput, TextArea, FileUpload, TextFieldTags, RaisedButtonUIT
 import styles from './styles/Techs.sass';
 import { DEFAULT } from '../../../../constants/Api';
 
+import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+const fileTypes = 'image/jpeg,image/png,image/gif'
+
 class Techs extends Component {
     constructor(props) {
         super(props);
@@ -182,6 +187,22 @@ class Techs extends Component {
                                     onChange={this.onTechDescriptionChange}
                                 />
                             </div>
+
+                           {/* <MuiThemeProvider>
+                                <RaisedButton
+                                    label="Upload files"
+                                    labelPosition="before"
+                                    className={styles["btn-upload"]}
+                                >
+                                    <FileUpload                                
+                                        accept={fileTypes}
+                                        multiple={true}
+                                        onChange={this.onFilePathChange}
+                                        className={styles["file-input"]}
+                                    />
+                                    
+                                </RaisedButton>
+                        </MuiThemeProvider><br/><br/> */}
             
                                 <FileUpload
                                     id={'tech-icon'}
@@ -197,7 +218,6 @@ class Techs extends Component {
                                         label='Add'
                                         disabled={!this.state.addBtnEnabled}
                                         onClick={this.addNewTechToProject}
-                                        backgroundColor='#8D97A4'
                                     />
                             </div>
                             {/*<Button 

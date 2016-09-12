@@ -3,6 +3,19 @@ import { Subheader, Divider } from 'material-ui';
 import { List, ListItem, MakeSelectable} from 'material-ui/List';
 import wrapState from './wrapState';
 
+const styles = {
+    listItem: {
+        color: '#555',
+        fontFamily: 'Lato',
+        fontSize: '1.1rem',
+        backgroundColor: '#fff' 
+    },
+    secondaryText: {
+        color: '#555'
+    },
+
+}
+
 let SelectableList = wrapState(MakeSelectable(List));
 export default class ProjectsList extends Component {
 
@@ -16,7 +29,8 @@ export default class ProjectsList extends Component {
                     key={key}
                     value={project._id}
                     primaryText={project.projectName}
-                    secondaryText={project.description.descrText}
+                    secondaryText={<span style={styles.secondaryText}>{project.description.descrText}</span>}
+                    style={styles.listItem}
                 />);
         });
 
