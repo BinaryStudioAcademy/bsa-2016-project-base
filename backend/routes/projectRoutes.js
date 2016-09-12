@@ -216,9 +216,11 @@ module.exports = function(app) {
 	}, apiResponse);
 
 	app.get('/api/project-view/:id', function(req, res, next) {
+		console.log(req.body);
 		projectRepository.getDetailsById(req.params.id, function (err,data) {
 			res.data = data;
 			res.err = err;
+			//res.json(data);
 			next();
 		});
 	}, apiResponse);

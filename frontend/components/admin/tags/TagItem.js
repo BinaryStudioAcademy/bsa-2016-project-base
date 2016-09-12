@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { Checkbox, FormControl } from 'react-bootstrap';
 import CheckBoxTags from '../../common/CheckBoxUI_Tags';
 import styles from './tags.sass';
-
 
 export default class TagItem extends Component {
     constructor(props){

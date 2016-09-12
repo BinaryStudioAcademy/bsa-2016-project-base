@@ -36,11 +36,9 @@ body::-webkit-scrollbar-thumb
     .row
         display: flex
         width: 100%;
-        justify-content: flex-start
-        flex-flow: row wrap
+        min-height: 100%
 
         +forSmallScreens(768)
-            flex-flow: column
             height: auto
 
 // Main Container (right side)

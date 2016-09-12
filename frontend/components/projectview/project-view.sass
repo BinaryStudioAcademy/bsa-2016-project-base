@@ -2,258 +2,272 @@
 @import url(//fonts.googleapis.com/css?family=Russo+One)
 @import url(//fonts.googleapis.com/css?family=Play)
 
-$tomatoColor: #F97E76
-$lightCadetBlueColor: #C1CFD9
-$toolBarColor: #EFEFEF
-$listItemColor: #FAFDFE
-$mainTextColor: #3C3C3C
-$activeBlue: #337ab7
-
-
-
-.screenshots > div
-    margin: 0 auto
-
-.features-list-header > th
-    color: black !important
-    font-size: 15px !important
-
-.feature-item-column-center
-    width: 120px
-    text-align: center !important
-
-    .feature-notChecked > *
-        color: tomato
-
-    .feature-checked > *
-        color: green   
-
 #project-view-content
     font-size: 0.7em
-    background-color: #f3f6f8
+    padding-bottom: 30px
+    background-color: #F3F6F8
 
     ::-webkit-scrollbar
-        width: 3px
+        width: 5px
 
     ::-webkit-scrollbar-track
         background: rgba(0, 0, 0, 0.1)
 
     ::-webkit-scrollbar-thumb
-        background: rgba(0, 0, 0, 0.5)
+        background: rgba(0, 0, 0, 0.5)	
+     
 
-    .secondPart
-        display: flex
-        justify-content: center
+    .secondRow
+    	width: 100%
+    	height: 360px
+    	display: flex
+    	flex-direction: row
 
-        table
-            font-size: 14px
+    	>div	
+    		margin: 15px
+    		height: 100%
+    		border-radius: 4px
+    		background-color: white
+    		border: 1px solid EDEDED
 
-    .project-view-navigation
-        width: 100%
-        padding: 25px 0px 25px 50px
-        display: flex
-        flex-direction: row
-        justify-content: space-between
+    	.usersList-Container
+    		width: 25%
+    		min-width: 220px
+    		height: 100%
 
-        div
-            width: 170px
-            display: flex
-            color: #93A6AF
-            font-size: 15px
-            flex-direction: row
-            align-items: center
-            padding-bottom: 8px
+    		.owners,.users
+    			width: 8px
+    			height: 8px
+    			border-radius: 50%
 
-            label
-                margin-left: 8px
-                font-family: "Open Sans"
-                a
-                    color:#93A6AF
+    		.users
+    			background-color: cadetBlue
 
-            .redirect-to-list > *
-                cursor: pointer
-                color: #93A6AF
+    		.owners
+    			background-color: #20d127	
 
-            &:hover 
-                color: black   
-                .redirect-to-list > *, a
-                    color: #293541
+    		.usersList-filterTab
+    			width: 100%
+    			font-family: 'Lato', sans-serif
 
-    .projectMain
-        display: flex
-        flex-direction: row
-        justify-content: center
+    			.usersList-SearchInputContainer
+    				width: calc(100% - 20px)
+    				margin: -16px 10px 0px 10px
 
-        .project-view-firstPart
-            display: flex
-            flex-basis: 80%
-            flex-direction: column
-            align-items: flex-start
+    			.usersList-Description
+    				display: flex
+    				flex-direction: row
+    				align-items: center
+    				justify-content: center
 
-            .project-name
-                display: flex
-                font-size: 3em
-                font-family: Play
-                margin-bottom: 20px
-                justify-content: center
-                
-            .project-description
-                margin: 0px 20px  
-                font-size: 14px
-                text-indent: 20px
-                width: calc(100% - 40px)
-                font-family: "Open Sans"
-                padding: 10px 0px 30px 0px 
-                border-bottom: 1px solid #F0F0F3
+	    			span
+	    				margin: 4px
+	    				font-size: 14px
 
-            .project-tags
-                width: 100%
-                display: block
-                margin-bottom: 30px
+	    			span:nth-child(2n)
+	    				cursor: pointer
+	    				font-weight: 600
+	    				margin-right: 10px
+	    				transition: color 0.4s
 
-                span
-                    color: white
-                    font-size: 13px
-                    padding: 5px 12px
-                    font-family: Lato
-                    border-radius: 4px
-                    display: inline-block  
-                    margin: 8px 4px 8px 0px
-                    background-color: cadetBlue           
+	    				&:hover
+	    					color: tomato
+	    			span:nth-child(2n).checked
+	    				color: black
+
+	    			span:nth-child(2n).default
+	    				color: #6D848E
 
 
-    .screenshots
-        display: flex
-        width: 100%
-        flex-wrap: nowrap
 
-        #Gallery
-            display: flex
-            justify-content: center
-            flex-wrap: nowrap
+    		.usersList-Content //ul
+    			width: 100%
+    			padding: 0px
+    			display: flex
+    			flex-wrap: wrap
+    			overflow-y: auto
+    			list-style: none
+    			margin-bottom: 15px
+    			height: calc(100% - 100px)
 
-            div
-                img
-                    width: 250px
-                    height: 200px
+    			li
+                    padding: 6px
+                    flex-direction: row
+                    background-color: white
+                   	margin: 6px 0px 6px 15px
+                    border-bottom: 1px solid #E4ECEE
+
+                    .link
+                        display: flex
+                        text-decoration: none
+                        color: inherit
+
+                        img
+                            width: 45px
+                            height: 45px
+                            border-radius: 50%
+
+                        div
+                            width: 150px
+                            display: flex
+                            flex-direction: column
+                            align-items: flex-start
+                            margin-left: 14px
+
+                            span
+                                font-size: 14px
+                                font-weight: 600
+                                font-family: "Open Sans"
+
+                            div
+                                display: flex
+                                color: #a2a2a2
+                                font-size: 12px
+                                flex-direction: row
+                                align-items: center
+                                font-family: "Lato", sans-serif
+
+                                span
+                                	margin: 2px 6px 0px -12px 
+
+    	.featuresList-Container
+    		width: 75%
+    		height: 100%
+    		margin-left: 10px
+    		background-color: #FEFEFE
+
+    		.featuresList-Content
+            	width: 100%   
+            	height: 100%
+            	overflow-y: auto
+
+            	.featureItem-Main
+            		background-color: red
+
+            	>div
+            		dispaly: flex
+            		font-size: 14px
+            		min-height: 60px 
+            		padding: 15px 0px
+            		flex-direction: row
+            		align-items: center
+            		vertical-align: middle
+            		border-bottom: 1px solid #EAEEEF
+
+            		>span
+            			width: 125px
+            			padding-left: 10px
+            			display: inline-block
+            			word-wrap: break-word
+            			vertical-align: middle
+
+            		>span:last-child	
+            			color: cadetBlue
+            		    font-weight: bold
+            					
+            		>span:first-child
+            			div 
+            				color: white
+            				height: 25px
+            				padding: 2px 
+            				margin-left: 15px
+            				text-align: center
+            				background-color: tomato
+            				border-top-left-radius: 50px
+            				border-bottom-left-radius: 50px
+
+            			span         			
+            				border-right: 1px solid grey
+            				display: inline-block 
+            				padding-right: 5px  
+            				color: cadetBlue
+            				font-size: 12px
+            				float: right
+
+            			div.implementedFeature
+            				background-color: #293541	
+            				
+            		>span:nth-child(4)
+            			width: 175px
+
+            		>span:nth-child(3)
+            			text-align: center
+
+            			svg
+            				path
+            				    color: tomato
+
+            			svg.feature-NessesaryMarker
+            				path
+            					color: SeaGreen		    
 
 
-    .technologies
-        width: 100%
-        display: flex
-        flex-wrap: wrap
-        margin: 25px 0px
+            		>span:nth-child(3),
+            		>span:nth-child(5)
+            			width: 100px
 
-        div
-            margin: 13px 10px
-            padding: 0px 10px
-            display: flex
-            height: 60px
+            		>span:nth-child(2)
+            			cursor: pointer
+            			min-width: 100px
+            			width: calc(100% - 500px)
 
-            img 
-                width: 60px
-                height: 60px
-                cursor: pointer
+            			&:hover
+            				color: grey
+            			
+            			&:hover span
+            				margin-left: -50px
 
-            div
-                dislay: flex
-                padding: 0px
-                min-width: 140px
-                align-items: center
-                flex-direction: column
-                justify-content: center
-                margin: -4px 2px 2px 0px
+            			span	
+            				width: 250px	
+            				padding: 10px	
+            				color: #FAFAFA
+            				z-index: 1000
+            				position: absolute
+            				border-radius: 6px
+            				margin: 30px 0px 0px -30000px
+            				background-color: rgba(73,81,88,0.9)
 
-                div:first-child
-                    color: #555
-                    font-size: 15px 
-                        
-                div:last-child
-                    text-align: center
-
-                    span
-                        width: auto
-                        border-top: 2px solid cadetBlue 
-                        padding-top: 8px
-
-                        span
-                            color: white
-                            font-size: 14px 
-                            padding: 4px 10px
-                            border: none
-                            height: calc(100% - 8px)
-
-                        span:first-child
-                            background-color: #2ECC71
-
-                        span:last-child
-                            background-color: #2196F3
+            				&:after
+            					content: ''
+            					display: block
+            					position: absolute
+            					left: 20px
+            					bottom: 100%
+            					width: 0
+            					height: 0
+            					border-bottom: 10px solid #495158
+            					border-top: 10px solid transparent
+            					border-left: 10px solid transparent
+            					border-right: 10px solid transparent
 
 
-    .button-redirect-container
-        text-align: center
-        margin: 20px 
+    		.featuresList-Header
+    			display: flex
+    			padding: 18px 0px
+    			flex-direction: row
+    			padding-left: 135px
+    			background-color: #EAEEF0
+    			border-top-left-radius: 4px
+    			border-top-right-radius: 4px
+    			font-family: 'Lato', sans-serif
+    			height: 55px
 
+    			span:nth-child(2)
+    				width: 100px
 
-    span
-        background-color: transparent //!important
+    			span:nth-child(3)
+    				width: 175px	
 
-    ul>li
-        list-style-type: none
+    			span:first-child
+    				min-width: 100px
+    				width: calc(100% - 365px)	
 
-    .component
-        margin: 20px auto
-        font-size: 14pt
+    			span
+    				color: #6D848E
+    				font-size: 14px
+    				font-weight: 600
+    				vertical-align: middle	
+                	text-transform: uppercase
 
+    			
 
-    .header
-        font-family: 'Russo One'
-        font-size: 1.5em
-        color: $activeBlue
-
-    .brief
-        text-align: center
-        color: $mainTextColor
-
-    .row
-        text-align: left
-
-    .cell
-        padding: 0 10px
-        line-height: 40px
-
-    .tab
-        display: inline-block
-        padding: 10px
-
-    .tabpanels
-        text-align: left
-        font-size: 1em
-        background-color: $lightCadetBlueColor
-
-    .questionPanel
-        background-color: $listItemColor
-        font-size: .8em
-
-    .questionHeader
-        font-family: 'Russo One'
-        color: $activeBlue
-
-    .questions
-        text-align: left
-        color: $mainTextColor
-        cursor: pointer
-
-    .userName
-        color: $tomatoColor
-        &+p
-            cursor: text
-
-    .tdbut
-        text-align: center
-
-    .gallery
-        width: 100%
-        height: 300px
-        overflow: auto
-        margin: 0 auto

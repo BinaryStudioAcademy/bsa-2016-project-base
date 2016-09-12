@@ -9,9 +9,14 @@ class ProjectViewService {
 		this.url = constants.URL + "project-view/";
 	}
 
-	getProject(projectId) {
-		console.log(this.url + projectId);
-		return fetch(this.url + projectId,constants.cookieMarker);
+	getProject(projectId,filters) {
+		console.log("11");
+		return fetch(this.url + projectId,
+			Object.assign({ body: filters},
+				constants.cookieMarker,
+	         	constants.jsonHedeaders
+	        )
+	    );
 	}
 
 }

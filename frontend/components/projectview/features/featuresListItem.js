@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react';
 import styles from '../project-view.sass';
-import {TableRowColumn, TableRow} from 'material-ui/Table';
-import ActionDone from 'material-ui/svg-icons/action/done';
-import ActionMinus from 'material-ui/svg-icons/content/remove';
+import FaNessesary from 'react-icons/lib/fa/check';
+import FaNotNessesary from 'react-icons/lib/fa/close';
 
 class FeaturesListItem extends React.Component {
 
@@ -16,22 +15,28 @@ class FeaturesListItem extends React.Component {
     }
 
     render(){
-    	let item = this.props.data;
+    	const data = this.props['data'] || {}
+    	let implementedBox = (data.isImplemented ?
+    			<div className={styles['implementedFeature']}>Implemented</div>
+    		:   <div>In progress</div>
+    	);
     	return (
-			<TableRow>
-				<TableRowColumn>{item['featureName']}</TableRowColumn>
-				<TableRowColumn>{(new Date(item.created)).toLocaleString("en-US",this.state)}</TableRowColumn>
-				<TableRowColumn>{item['section'].name}</TableRowColumn>
-				<TableRowColumn width={100}>{item['featureOrder']}</TableRowColumn>
-				<TableRowColumn className={styles['feature-item-column-center']}>{(item.isNessesary ? 
-						<ActionDone className={styles['feature-checked']}/> :
-						<ActionMinus className={styles['feature-notChecked']}/> )}
-				</TableRowColumn>
-				<TableRowColumn className={styles['feature-item-column-center']}>{(item.isImplemented ?
-					<ActionDone className={styles['feature-checked']}/> : 
-					<ActionMinus className={styles['feature-notChecked']}/> )}
-				</TableRowColumn>
-			</TableRow>
+    		<div onClick={this.props.onClick}>
+    			<span>
+    				{implementedBox}
+    				<span>{(new Date(data.created)).toLocaleString("en-US",this.state)}</span>
+    			</span>
+    			<span>
+    				{data.featureName}
+    				<span>{data.descriptionText}</span>
+    			</span>
+    			<span>{data.isNessesary ? 
+    				<FaNessesary className={styles['feature-NessesaryMarker']}/>
+    				: <FaNotNessesary/>
+    			}</span>
+    			<span>{data.section['name']}</span>
+    			<span>{data.featureOrder}</span>
+    		</div>
 		);
 	}
 };

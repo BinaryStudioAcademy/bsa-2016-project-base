@@ -11,11 +11,7 @@ ProjectRepository.prototype = new Repository();
 
 ProjectRepository.prototype.getByIdWithStakeholders = function(id, callback){
 	var model = this.model;
-	var query = model.findOne({_id:id})
-				// .populate('stage')
-//				.populate('condition')
-				.populate('users')
-				.populate('owners');
+	var query = model.findOne({_id:id}).populate('users').populate('owners');
 	query.exec(callback);
 };
 
@@ -36,24 +32,19 @@ ProjectRepository.prototype.getByAllData = function(id, callback) {
 
 ProjectRepository.prototype.getByIdWithTags = function(id, callback){
 	var model = this.model;
-	var query = model.findOne({_id:id})
-				// .populate('stage')
-//				.populate('condition')
-				.populate('tags');
+	var query = model.findOne({_id:id}).populate('tags');
 	query.exec(callback);
 };
 
 ProjectRepository.prototype.getByIdWithTechnologies = function(id, callback){
 	var model = this.model;
-	var query = model.findOne({_id:id})
-				.populate('technologies');
+	var query = model.findOne({_id:id}).populate('technologies');
 	query.exec(callback);
 };
 
 Repository.prototype.getByIdWithFeatures = function(id, callback){
 	var model = this.model;
-	var query = model.findOne({_id:id})
-					.populate('features');
+	var query = model.findOne({_id:id}).populate('features');
 	query.exec(callback);
 };
 
@@ -92,12 +83,8 @@ ProjectRepository.prototype.getAllwithLocations = function(callback){
     var query = model.find({},{features: 0, questions: 0, screenShots: 0,
     	attachments: 0, users: 0, owners: 0, tags: 0, technologies: 0, 
     	description: 0, rating: 0, status: 0, timeBegin: 0, timeEnd: 0});
-    //query.exec(callback);
     query.exec((err, result)=>{
-    	if (err) {
-            console.log('Get all locations Error');
-        }
-        //console.log(result);
+    	if (err) console.log('Get all locations Error');
         let projLocations = [];
         result.forEach((elem, ind, arr)=>{
         	projLocations.push({
@@ -113,8 +100,7 @@ ProjectRepository.prototype.getAllwithLocations = function(callback){
 ProjectRepository.prototype.getByIdForLocations = function(id, callback){
 	var model = this.model;
 	var query = model.findOne({_id:id}, 
-		{features: 0, questions: 0, screenShots: 0,
-    	attachments: 0, users: 0, owners: 0, tags: 0, technologies: 0});
+		{ features: 0, questions: 0, screenShots: 0, attachments: 0, users: 0, owners: 0, tags: 0, technologies: 0});
 	query.exec(callback);
 };
 

@@ -13,7 +13,6 @@ export default function FeaturesDetailsReducer(state = initialState, action) {
 
         case types.FILTER_FEATURES_DETAILS:
             const { search } = action;
-
             return Object.assign({}, state, {
                 search: search
             });
