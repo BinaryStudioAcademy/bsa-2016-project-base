@@ -198,11 +198,11 @@ export default function EditProjectReducer(state=initialState, action) {
             });
         }
         case types.UP_POST_PROJECT_SUCCESS_ED: {
-            const {data} = action;
+            const {data, error} = action;
             const {added} = state;
             return Object.assign({}, state, {
                 added: true
-            });
+            }, {error: error});
         }
 
         case types.UP_POST_SECTION_DELETE_ED: {
@@ -522,7 +522,7 @@ const initialState = {
     initialSections: false,
     initialFiles: false,
     iconLoaded: false,
-    errors: {nameError: false, technologiesError: false, timeBeginError: false, usersError: false},
+    errors: {nameError: false, technologiesError: false, timeBeginError: false, usersError: false, timeEndError: false},
     techIcon: {},
     techIconError: '',
     description:{
