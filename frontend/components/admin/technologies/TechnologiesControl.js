@@ -63,7 +63,7 @@ class TechnologiesTab extends Component {
                             label="Mark all"
                             id = "delete_all"
                             onClick={this.setAllChecked}
-                            defaultChecked={this.state.allChecked}
+                            checked={this.state.allChecked}
                             labelStyle={{
                                 width: "auto",
                                 color: '#8D97A4 !important',
@@ -92,7 +92,6 @@ class TechnologiesTab extends Component {
         )
     }
 }
-;
 
 
 export default TechnologiesTab;
