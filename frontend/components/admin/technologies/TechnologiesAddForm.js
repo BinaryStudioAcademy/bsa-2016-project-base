@@ -63,24 +63,34 @@ class TechnologiesAddForm extends Component {
 
     submitForm(e) {
         e.preventDefault();
+        let valid = 0;
         let form = e.target;
-      //  var file = document.getElementById('file').files[0];
         let data = {
             techName: this.state.techName,
             techDescription: this.state.techDescription,
             techAvatar: this.state.techAvatar,
             techVersion: this.state.techVersion
         };
-      // document.getElementById('img').remove();
-       form.reset();
-       this.props.saveTechnologie(data);
-        this.setState({
-            techName: '',
-            techDescription:'',
-            techVersion:'',
-            fileLink:'',
-            techAvatar: ''
-        });
+        for (let i in data) {
+            if (i !== 'techAvatar') {
+                if (data[i].length === 0) {
+                    valid++;
+                }
+            }
+        }
+        if (valid === 0) {
+            this.props.saveTechnologie(data);
+            this.setState({
+                techName: '',
+                techDescription: '',
+                techVersion: '',
+                fileLink: '',
+                techAvatar: ''
+            });
+            form.reset();
+        } else {
+            this.props.validateSubmit();
+        }
 
 
     }
@@ -148,7 +158,7 @@ class TechnologiesAddForm extends Component {
         this.props.uploadFileByLink(this.state.fileLink);
     }
 
-    deleteImage(){
+    deleteImage() {
         this.props.deleteImageList();
     }
 
@@ -216,9 +226,9 @@ class TechnologiesAddForm extends Component {
                     <div className="inputField">
                         <div id="error" className={styles['error'] + " hidden"}>Wrong file formant</div>
                         {(!this.props.techAvatar) ?
-                        <input className={this.state.hideFile} type="file" id="file" name="afile"
-                               onChange={this.upload}/>
-                            :''}
+                            <input className={this.state.hideFile} type="file" id="file" name="afile"
+                                   onChange={this.upload}/>
+                            : ''}
 
 
                         <RaisedButtonUI

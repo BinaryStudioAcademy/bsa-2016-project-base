@@ -33,7 +33,6 @@ class TechnologiesList extends Component {
     render() {
 
         let {listOfTechnologies} = this.state;
-        console.log(listOfTechnologies);
         return (
             (listOfTechnologies.length > 0) ?
                 <div className={styles['list_container']}>

@@ -22,6 +22,7 @@ class Technologies extends Component {
         this.setVisibleUploadByLink = this.setVisibleUploadByLink.bind(this);
         this.deleteImageList = this.deleteImageList.bind(this);
         this.uploadFileByFile = this.uploadFileByFile.bind(this);
+        this.validateSubmit = this.validateSubmit.bind(this);
     }
 
     componentWillMount() {
@@ -103,7 +104,6 @@ class Technologies extends Component {
     }
 
     controlCheckeditems(id, action) {
-        console.log(action);
         let {listOfTechnologies,setAllChecked}
             = this.props.stateFromReducer.TechnologiesReducer;
         let checked,unchecked = 0;
@@ -143,6 +143,7 @@ class Technologies extends Component {
 
 
     saveTechnologie(data) {
+
         this.props.saveTechology(data);
     }
 
@@ -152,6 +153,10 @@ class Technologies extends Component {
 
     uploadFileByFile(file) {
         this.props.uploadFileByFile(file);
+    }
+
+    validateSubmit(){
+        toastr.error('All inputs are required');
     }
 
     render() {
@@ -177,7 +182,7 @@ class Technologies extends Component {
                     </div>
                 </div>
                 <TechnologiesList listOfTechnologies={list} controlCheckeditems={this.controlCheckeditems}/>
-                <TechnologiesAddForm hideFile={hideFile} hideForm={hideForm} techAvatar={techAvatar}
+                <TechnologiesAddForm validateSubmit={this.validateSubmit}  hideFile={hideFile} hideForm={hideForm} techAvatar={techAvatar}
                                      formState={formState} saveTechnologie={this.saveTechnologie}
                                      uploadFileByLink={this.uploadFileByLink}
                                      setVisibleUploadByLink={this.setVisibleUploadByLink}
