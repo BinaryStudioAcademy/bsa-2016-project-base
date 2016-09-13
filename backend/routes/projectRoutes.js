@@ -3,6 +3,8 @@ var projectRepository = require('../repositories/projectRepository');
 var featureRepository = require('../repositories/featureRepository');
 var searchService = require('../service/search-service');
 var statsService = require('../service/stat-service');
+var saveProjectAndUserStory = require('../services/saveProjectAndUserStory');
+
 
 module.exports = function(app) {
 	app.get('/api/projects/', function (req,res,next) {
@@ -160,8 +162,8 @@ module.exports = function(app) {
 	}, apiResponse);
 
 	app.post('/api/projects/', function(req, res, next) {
-		projectRepository.add(req.body, function(err, data) {
-			if (err) {
+		saveProjectAndUserStory(req, function(err, data) {
+        	if (err) {
 				let errors =  {};
 				Object.keys(err.errors).forEach((key) => {
 					errors[key] = err.errors[key].message;
