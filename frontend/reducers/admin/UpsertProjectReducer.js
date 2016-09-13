@@ -309,6 +309,20 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 technologies: removeTechFromProject(technologies, _id)
             });
         }
+        case types.SET_VISIBLE_FORM_BY_LINK_ATTACHMENTS: {
+            const {hideFile,hideForm} = action;
+            return Object.assign({}, state, {
+                hideFile,
+                hideForm
+            })
+        }
+        case types.SET_VISIBLE_FORM_BY_LINK_SCREENSHOOTS: {
+            const {hideFileScreenshoots,hideFormScreenshoots} = action;
+            return Object.assign({}, state, {
+                hideFileScreenshoots,
+                hideFormScreenshoots
+            })
+        }
         default: {
             return state;        
         }
@@ -657,8 +671,12 @@ const initialState = {
         phone: '',
         email: '',
         skype: ''
-    }
-
+    },
+    hideFile : 'visible',
+    hideForm : 'hidden',
+    hideFileScreenshoots : 'visible',
+    hideFormScreenshoots : 'hidden'
+	
 };
 
 

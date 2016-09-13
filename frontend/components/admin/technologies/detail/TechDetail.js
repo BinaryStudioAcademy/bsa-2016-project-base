@@ -18,12 +18,19 @@ class TechDetailPage extends Component {
         this.deleteImage = this.deleteImage.bind(this);
         this.submitForm = this.submitForm.bind(this);
         this.saveVersion = this.saveVersion.bind(this);
+        this.upload = this.upload.bind(this);
+        this.setVisibleLinkForm = this.setVisibleLinkForm.bind(this);
+        this.uploadFileByLink = this.uploadFileByLink.bind(this);
+        this.saveFileLink = this.saveFileLink.bind(this);
         this.state = {
             techName: '',
             techDescription: '',
             techAvatar: '',
             doc: '',
-            techVersion: ''
+            techVersion: '',
+            hideFile: '',
+            hideForm: '',
+            fileLink: ''
         }
     }
 
@@ -38,6 +45,10 @@ class TechDetailPage extends Component {
         this.props.updateData(this.props.routeParams.id, data);
     }
 
+    uploadFileByLink(e) {
+        e.preventDefault();
+        this.props.uploadFileByLink(this.state.fileLink);
+    }
 
     changeTechName(e) {
         if (e.target.value.length < 50) {
@@ -69,14 +80,21 @@ class TechDetailPage extends Component {
             pic = this.state.techAvatar
         }
         let data = {
-            techName: form.elements['techName'].value,
-            techDescription: form.elements['techDescription'].value,
+            techName: this.state.techName,
+            techDescription: this.state.techDescription,
             techAvatar: pic,
-            techVersion: form.elements['techVersion'].value,
+            techVersion: this.state.techVersion,
         };
         form.reset();
         this.props.updateData(this.props.routeParams.id, data);
         document.getElementById('return_to_list').click();
+        this.setState({
+            techName: '',
+            techDescription:'',
+            techVersion:'',
+            fileLink:'',
+            techAvatar: ''
+        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -84,8 +102,10 @@ class TechDetailPage extends Component {
                 techName: nextProps.state.listOfTechnologies.techName,
                 techDescription: nextProps.state.listOfTechnologies.techDescription,
                 techAvatar: nextProps.state.listOfTechnologies.techAvatar,
-                doc: nextProps.state.doc,
                 techVersion: nextProps.state.listOfTechnologies.techVersion,
+                hideFile: nextProps.state.hideFile,
+                hideForm: nextProps.state.hideForm,
+                fileLink: nextProps.state.fileLink
             }
         );
     }
@@ -98,21 +118,23 @@ class TechDetailPage extends Component {
         var xhr = new XMLHttpRequest();
         var fd = new FormData();
         fd.append("afile", file);
-        xhr.open("POST", "/api/file/", true);
-        xhr.send(fd);
-        xhr.onreadystatechange = function () {
-            if (this.readyState != 4) return;
-            if (this.status === 200) {
-                var result = JSON.parse(xhr.responseText);
-                if (result.type === 'success') {
-                    document.getElementById('file_path').value = result.file;
-                } else {
-                    error.classList.remove('hidden');
-                    error.classList.add('visible');
-                }
-            }
-        }
+        this.props.uploadFileByFile(fd);
 
+    }
+
+    setVisibleLinkForm() {
+        let {hideFile, hideForm} = this.state;
+        if (hideFile === 'visible') {
+            hideFile = 'hidden'
+        } else {
+            hideFile = 'visible'
+        }
+        if (hideForm === 'visible') {
+            hideForm = 'hidden'
+        } else {
+            hideForm = 'visible'
+        }
+        this.props.setVisibleUploadByLink(hideFile, hideForm);
     }
 
     componentWillMount() {
@@ -123,12 +145,16 @@ class TechDetailPage extends Component {
         this.setState({techVersion: e.target.value})
     }
 
+    saveFileLink(e) {
+        this.setState({fileLink: e.target.value})
+    }
+
     render() {
         return (
             <div id="technologies">
                 <div className={styles['technologies-tab']}>
 
-                    {(this.state.techAvatar.length > 0) ?
+                    {(this.state.techAvatar && this.state.techAvatar !== '') ?
                         <div className={styles['detail_picture_wrapper']}>
                             <img src={this.state.techAvatar}/>
                             <a href="javascript:void(0);" onClick={this.deleteImage}>Delete Image</a>
@@ -170,14 +196,36 @@ class TechDetailPage extends Component {
                                value={this.state.techDescription}
                            />
                         </div>
+                        {(!this.state.techAvatar) ?
+                            <div className="inputField">
+                                <a href="javascript:void(0)"
+                                   onClick={this.setVisibleLinkForm}>{(this.state.hideForm === 'hidden') ? 'UploadByLink' : 'UploadByFile'}</a>
+                            </div>
+                            : ''}
+                        {(!this.state.techAvatar) ?
 
+                            <div className={this.state.hideForm + " inputField"}>
+                                <TextInput
+                                    label="File Link"
+                                    onChange={this.saveFileLink}
+                                    placeholder="File link"
+                                />
+                                <input type="button"
+                                       label='UploadByLink'
+                                       onClick={this.uploadFileByLink}
+                                       style={{display: 'block', marginTop: '20px'}}
+                                       value='UploadByLink'
+                                />
+                            </div>
+                            : ''}
                         <div className="inputField">
-                            {(this.state.techAvatar.length === 0) ?
+                            {(!this.state.techAvatar || this.state.techAvatar === '') ?
                                 <div>
                                     <input type="hidden" id="file_path" name="techAvatar"
                                            value={this.state.techAvatar}/>
                                     <div id="error" className={styles['error'] + " hidden"}>Wrong file formant</div>
-                                    <input type="file" id="file" name="afile" onChange={this.upload}/>
+                                    <input className={this.state.hideFile} type="file" id="file" name="afile"
+                                           onChange={this.upload}/>
                                 </div>
                                 : ''
                             }

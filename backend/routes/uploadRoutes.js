@@ -4,6 +4,7 @@ var uuid = require('node-uuid');
 var fs = require('fs');
 var http = require('http');
 var https = require('https');
+var origin = 'http://localhost:6500/';
 module.exports = function(app) {
 	app.post('/api/upload/', function(req, res, next) {
 		uploadMedia(req, function(data){
@@ -20,6 +21,20 @@ module.exports = function(app) {
 		download(req.body.link,method[0],folder+newFileName,function (el) {
 			res.json({
 				'link' : newFileName
+			})
+		})
+	});
+
+	app.post('/api/uploadByLinkAttachments/',function (req,res,next) {
+		var folder = './upload/';
+		var fileExt = req.body.link.slice(req.body.link.lastIndexOf('.'));
+		var newFileName = String(uuid.v1()) + fileExt;
+		var method = req.body.link.split(':');
+		let name = req.body.link.slice(req.body.link.lastIndexOf('/')+1,req.body.link.lastIndexOf('.'));
+		download(req.body.link,method[0],folder+newFileName,function (el) {
+			res.json({
+				'name' : name,
+				'path' : origin+'upload/' + newFileName
 			})
 		})
 	});
