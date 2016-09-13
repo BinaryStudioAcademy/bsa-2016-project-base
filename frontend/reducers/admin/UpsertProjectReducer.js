@@ -78,13 +78,6 @@ export default function UpsertProjectReducer(state=initialState, action) {
             console.log('userId ',userId);
             return Object.assign({}, state, {
                 userStory: updateUserStory(userStory,userId,date,null,{timeBegin,timeEnd})
-                /*userStory: {
-                    ...userStory,
-                    [userId]: {
-                        ...userStory[userId],
-                        dateFrom: date
-                    }
-                }*/
             });
         }
         case types.UP_SET_USER_END_DATE: {
@@ -92,13 +85,6 @@ export default function UpsertProjectReducer(state=initialState, action) {
             const {activeUser,userStory,timeBegin,timeEnd} = state;
             return Object.assign({}, state, {
                 userStory: updateUserStory(userStory,userId,null,date,{timeBegin,timeEnd})
-                /*userStory: {
-                    ...userStory,
-                    [userId]: {
-                        ...userStory[userId],
-                        dateTo: date
-                    }
-                }*/
             });
         }
         case types.UP_ADD_USER_TO_PROJECT: {
@@ -333,7 +319,6 @@ const updateUserStory = (story, userId, start, end, projectPeriod) => {
     if (userId) {
         if (story.hasOwnProperty(userId)) {
             if (projectPeriod) {
-                console.log('projectPeriod ',projectPeriod);
                 const {timeBegin,timeEnd} = projectPeriod;
                 const {dateFrom, dateTo} =  story[userId];
                 const dateFromSeconds = Date.parse(dateFrom);
@@ -342,8 +327,6 @@ const updateUserStory = (story, userId, start, end, projectPeriod) => {
                 const dateUserEndSeconds = Date.parse(end);
 
                 if (timeBegin) {
-                    console.log('timeBegin ',timeBegin);
-                    //const dateUserStartSeconds = Date.parse(start);
                     const dateProjectStartSeconds = Date.parse(timeBegin);
                     if (dateUserStartSeconds >= dateProjectStartSeconds) {
                         if (dateUserStartSeconds <= dateToSeconds) {
@@ -355,8 +338,6 @@ const updateUserStory = (story, userId, start, end, projectPeriod) => {
                     story[userId].dateFrom = start;
                 }
                 if (timeEnd) {
-                     console.log('timeEnd ',timeEnd);
-                    //const dateUserEndSeconds = Date.parse(end);
                     const dateProjectEndSeconds = Date.parse(timeEnd);
                     if (dateUserEndSeconds <= dateProjectEndSeconds) {
                         if (dateUserEndSeconds >= dateFromSeconds) {
@@ -370,16 +351,11 @@ const updateUserStory = (story, userId, start, end, projectPeriod) => {
 
 
                 if(!timeBegin && !timeEnd) {
-                    console.log('!timeBegin && !timeEnd');
                     let newStartDate;
                     let newEndDate;
-
-
-                    
                         if (dateTo) {
                             if (dateToSeconds) {
                                 if(dateUserStartSeconds < dateToSeconds) {
-                                    //newStartDate = dateFrom ? dateFrom : start;
                                     newStartDate = start;
                                 }
                             }
@@ -392,7 +368,6 @@ const updateUserStory = (story, userId, start, end, projectPeriod) => {
                         if (dateFrom) {
                             if (dateFromSeconds) {
                                 if(dateUserEndSeconds > dateFromSeconds) {
-                                    //newEndDate = dateTo ? end : dateTo ;
                                     newEndDate = end;
                                 }
                             }
@@ -408,22 +383,12 @@ const updateUserStory = (story, userId, start, end, projectPeriod) => {
                 }
 
             } else {
-                 console.log('NO projectPeriod ');
                 story[userId] = {
                     dateFrom: start,
                     dateTo:end
                  };
             }
 
-                //let newStartDate = dateFrom ? dateFrom : start;
-                //let newEndDate = dateTo ? dateTo : end ;
-
-
-                /*story[userId] = {
-                    dateFrom: newStartDate,
-                    dateTo: newEndDate
-                };*/
-           
         } else {
            
             story[userId] = {
