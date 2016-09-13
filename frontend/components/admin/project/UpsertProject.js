@@ -93,9 +93,7 @@ class UpsertProject extends Component {
 	createProject(e) {
 		console.log('createProject');
         const {projectName,projectLink,timeBegin,timeEnd,status,description,contacts} = this.props.store;
-        const {users,tags,technologies,sections,features,files} = this.props.store;
-        console.log('features ',features);
-        console.log('sections ',sections);
+        const {users,tags,technologies,sections,features,files,userStory} = this.props.store;
 
         const inProject = {
             tags: (() => {
@@ -152,7 +150,6 @@ class UpsertProject extends Component {
                     }
                     
                 });
-                console.log('temp ',temp);
                 return temp;
             })(),
             screenshots: (() => {
@@ -164,7 +161,6 @@ class UpsertProject extends Component {
                     }
                     
                 });
-                console.log('temp ',temp);
                 return temp;
             })(),
             descrFullText: (() => {
@@ -174,32 +170,29 @@ class UpsertProject extends Component {
 
             
         }
-        console.log('inProject.sections ',inProject.sections);
-        console.log('inProject.features ',inProject.features);
-        console.log('inProject.users ',inProject.users);
-        console.log('inProject.owners ',inProject.owners);
-        const project = {
-            projectName,
-            linkToProject:projectLink,
-            timeBegin: new Date(timeBegin),
-            timeEnd: new Date(timeEnd),
-            attachments: inProject.attachments,
-            screenShots: inProject.screenshots,
-            sections: inProject.sections,
-            features: inProject.features,
-            tags: inProject.tags,
-            technologies: inProject.technologies,
-            owners: inProject.owners,
-            users: inProject.users,
-            status: status.value,
-            contacts,
-            description: {
-                descrFullText: inProject.descrFullText
-            } 
-           
+        const projectData = {
+            userStory,
+            project: {
+                projectName,
+                linkToProject:projectLink,
+                timeBegin: new Date(timeBegin),
+                timeEnd: new Date(timeEnd),
+                attachments: inProject.attachments,
+                screenShots: inProject.screenshots,
+                sections: inProject.sections,
+                features: inProject.features,
+                tags: inProject.tags,
+                technologies: inProject.technologies,
+                owners: inProject.owners,
+                users: inProject.users,
+                status: status.value,
+                contacts,
+                description: {
+                    descrFullText: inProject.descrFullText
+                } 
+            }
         };
-        console.log('project ',project);
-        this.props.postProject(project);
+        this.props.postProject(projectData);
         window.scrollTo(0, 0);
 	}
 	
