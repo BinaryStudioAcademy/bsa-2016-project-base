@@ -37,37 +37,16 @@ export function getPredefinedData() {
     };
 };
 
-export function updateProject(project) {
-    let error = {};
-    if(project.projectName == '') {
-        error.nameError = true;
-    } else {
-        error.nameError = false;
-    }
+export function updateProject(project, errors) {
 
-    if(project.technologies.length == 0) {
-        error.technologiesError = true;
-    } else {
-        error.technologiesError = false;
-    }
-
-    if(project.timeBegin == '') {
-        error.timeBeginError = true;
-    } else {
-        error.timeBeginError = false;
-    }
-
-    if(project.users.length == 0 || project.owners.length == 0) {
-        error.usersError = true;
-    } else {
-        error.usersError = false;
-    }
-
-    if(error.nameError || error.technologiesError || error.timeBeginError || error.usersError) {
-        return {
-            type: "UP_POST_PROJECT_ERROR_ED",
-            error: error,
-        }
+    if(errors.nameError || errors.technologiesError || errors.timeBeginError || errors.usersError || errors.timeEndError) {
+        return dispatch => {
+            dispatch(errorHandler('Bad Request!'));
+            dispatch({
+                type: "UP_POST_PROJECT_ERROR_ED",
+                error: errors,
+            });
+        };
     }
 
     return dispatch => {
@@ -81,7 +60,8 @@ export function updateProject(project) {
                         if(response.ok) {
                             dispatch({
                                 type: types.UP_POST_PROJECT_SUCCESS_ED,
-                                data: json
+                                data: json,
+                                error: errors,
                             });
                             return json;
                         }
@@ -92,8 +72,9 @@ export function updateProject(project) {
                     .catch(error => {
                         dispatch({
                             type: types.UP_POST_PROJECT_ERROR_ED,
-                            error: error
+                            error: errors
                         });
+                        dispatch(errorHandler('Bad Request!'));
                     });
             });
     };
