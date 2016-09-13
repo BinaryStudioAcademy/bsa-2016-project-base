@@ -19,16 +19,6 @@ class TechnologiesList extends Component {
         });
     }
 
-        // shouldComponentUpdate(nextProps, nextState) {
-    //
-    //
-    //     if (nextProps.listOfTechnologies.length !== this.props.listOfTechnologies.length || nextProps.allChecked !== this.props.allChecked) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
-
     addTechnologiesToDeleteData(idEl, checked) {
         let id = idEl;
         let action;
@@ -40,11 +30,10 @@ class TechnologiesList extends Component {
         this.props.controlCheckeditems(id, action);
     }
 
-
-
     render() {
 
         let {listOfTechnologies} = this.state;
+        console.log(listOfTechnologies);
         return (
             (listOfTechnologies.length > 0) ?
                 <div className={styles['list_container']}>
@@ -53,7 +42,7 @@ class TechnologiesList extends Component {
                             <CheckBox onChange={this.addTechnologiesToDeleteData}
                                       checked={elem.checked} type="checkbox"
                                       id={elem._id} value={elem.techName}
-                            label={elem.techName}/>
+                                      label={elem.techName}/>
 
                             <Link to={'/admin/tech/' + elem._id} className="editLabel">Edit</Link>
                             <div className={styles['hidden_block']}>

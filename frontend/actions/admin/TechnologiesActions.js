@@ -96,10 +96,11 @@ export function searchTechnology(params) {
     };
     return action;
 };
-export function selectAllTechs(technologies) {
+export function selectAllTechs(technologies,setAllChecked) {
     return {
         type: "SELECT_ALL_TECHS",
-        listOfTechnologies: technologies
+        listOfTechnologies: technologies,
+        setAllChecked: setAllChecked
     }
 }
 export function setAddFormState(state) {

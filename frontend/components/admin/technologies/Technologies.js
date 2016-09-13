@@ -50,8 +50,9 @@ class Technologies extends Component {
     }
 
     setAllChecked(action) {
-        const {listOfTechnologies}
+        let {listOfTechnologies,setAllChecked}
             = this.props.stateFromReducer.TechnologiesReducer;
+        let checked,unchecked = 0;
         if (action === 'add') {
             listOfTechnologies.forEach(function (el, indx) {
                 listOfTechnologies[indx].checked = 'checked';
@@ -60,8 +61,21 @@ class Technologies extends Component {
             listOfTechnologies.forEach(function (el, indx) {
                 listOfTechnologies[indx].checked = false;
             });
+
         }
-        this.props.selectAllTechs(listOfTechnologies);
+        listOfTechnologies.forEach(function (el, indx) {
+            if (listOfTechnologies[indx].checked === 'checked') {
+                checked++;
+            }else{
+                unchecked++;
+            }
+        });
+        if(unchecked !== 0){
+            setAllChecked = false;
+        }else{
+            setAllChecked = true;
+        }
+        this.props.selectAllTechs(listOfTechnologies,setAllChecked);
     }
 
     deleteChecked() {
@@ -89,14 +103,17 @@ class Technologies extends Component {
     }
 
     controlCheckeditems(id, action) {
-        const {listOfTechnologies}
+        console.log(action);
+        let {listOfTechnologies,setAllChecked}
             = this.props.stateFromReducer.TechnologiesReducer;
+        let checked,unchecked = 0;
         if (action === 'add') {
             listOfTechnologies.forEach(function (el, indx) {
                 if (el._id === id) {
                     listOfTechnologies[indx].checked = 'checked';
                 }
             });
+
         } else {
             listOfTechnologies.forEach(function (el, indx) {
                 if (el._id === id) {
@@ -104,7 +121,19 @@ class Technologies extends Component {
                 }
             });
         }
-        this.props.selectAllTechs(listOfTechnologies);
+        listOfTechnologies.forEach(function (el, indx) {
+            if (listOfTechnologies[indx].checked === 'checked') {
+               checked++;
+            }else{
+                unchecked++;
+            }
+        });
+        if(unchecked !== 0){
+            setAllChecked = false;
+        }else{
+            setAllChecked = true;
+        }
+        this.props.selectAllTechs(listOfTechnologies,setAllChecked);
     }
 
     deleteImageList() {
@@ -126,9 +155,8 @@ class Technologies extends Component {
     }
 
     render() {
-
         let list;
-        const {listOfTechnologies, listOfTechnologiesFiltered, formState, techAvatar, hideFile, hideForm}
+        const {listOfTechnologies, listOfTechnologiesFiltered, formState, techAvatar, hideFile, hideForm,setAllChecked}
             = this.props.stateFromReducer.TechnologiesReducer;
         if (listOfTechnologiesFiltered.length > 0) {
             list = listOfTechnologiesFiltered;
@@ -143,7 +171,7 @@ class Technologies extends Component {
                             <TechnologiesSearch technologiesSearch={this.technologiesSearch}/>
                         </div>
                         <div className="technologiesControlBlock">
-                            <TechnologiesControl formState={formState} formAddControlState={this.formAddControlState}
+                            <TechnologiesControl allChecked={setAllChecked} formState={formState} formAddControlState={this.formAddControlState}
                                                  deleteChecked={this.deleteChecked} setAllChecked={this.setAllChecked}/>
                         </div>
                     </div>

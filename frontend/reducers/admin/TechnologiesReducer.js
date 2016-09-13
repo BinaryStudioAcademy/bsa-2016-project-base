@@ -6,7 +6,8 @@ const initialState = {
     listOfTechnologiesFiltered:[],
     formState: 'hidden',
     hideFile : 'visible',
-    hideForm : 'hidden'
+    hideForm : 'hidden',
+    setAllChecked: false
 };
 
 
@@ -51,9 +52,11 @@ export default function technologiesReducer(state = initialState, action) {
             });
         }
         case 'SELECT_ALL_TECHS': {
-            const {listOfTechnologies} = action;
+            const {listOfTechnologies,setAllChecked} = action;
+            console.log(setAllChecked);
             return Object.assign({}, state, {
-                listOfTechnologies
+                listOfTechnologies,
+                setAllChecked
             });
         }
         case 'SEARCH_TECHNOLOGY': {

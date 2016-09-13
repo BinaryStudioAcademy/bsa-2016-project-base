@@ -22,7 +22,8 @@ class TechnologiesTab extends Component {
         this.showAddForm = this.showAddForm.bind(this);
         this.state = {
             checked: false,
-            formState: this.props.formState
+            formState: this.props.formState,
+            allChecked: this.props.allChecked
         }
     }
 
@@ -31,18 +32,21 @@ class TechnologiesTab extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log('hello');
+        console.log(nextProps);
         this.setState({
-            formState: nextProps.formState
+            formState: nextProps.formState,
+            allChecked: nextProps.allChecked
         });
     }
 
     setAllChecked(e) {
         let action = e.target.checked ? 'add' : 'delete';
-        this.setState(
-            {
-                checked: e.target.checked
-            }
-        );
+        // this.setState(
+        //     {
+        //         checked: e.target.checked
+        //     }
+        // );
         this.props.setAllChecked(action);
     }
 
@@ -59,7 +63,7 @@ class TechnologiesTab extends Component {
                             label="Mark all"
                             id = "delete_all"
                             onClick={this.setAllChecked}
-                            defaultChecked={this.state.checked}
+                            defaultChecked={this.state.allChecked}
                             labelStyle={{
                                 width: "auto",
                                 color: '#8D97A4 !important',
