@@ -10,6 +10,23 @@ function UserRepository() {
 UserRepository.prototype = new Repository();
 
 
+UserRepository.prototype.addToProject = function(userId, obj, callback) {
+	var model = this.model;
+	var query = model.findByIdAndUpdate(
+		userId,
+		{$push: {"userHistory":
+		{
+			projectId: obj.projectId,
+			dateFrom: obj.dateFrom,
+			dateTo: obj.dateTo
+
+		}}},
+		{}
+	);
+
+	query.exec(callback);
+};
+
 UserRepository.prototype.addinProgressProject = function(userId, obj, callback) {
 	var model = this.model;
 	var query = model.findByIdAndUpdate(
