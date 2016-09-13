@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../../actions/admin/UsersRightsActions';
+import AutoComplete from 'material-ui/AutoComplete';
 
 
 /* component */
@@ -15,6 +16,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 /* styles */
 import styles from './Rights.sass';
+
 
 class RightsToolbar extends React.Component {
 
@@ -38,7 +40,7 @@ class RightsToolbar extends React.Component {
         for(let i in projectsList) menuProjectsItems.push(
             <MenuItem key={projectsList[i].id}  primaryText={projectsList[i].projectName}
                 style={this.state['projectListStyles']} value={projectsList[i].id} />);
-
+        var self = this;
         return (
             <div className={styles['rights-toolBar']}>
                 <RaisedButton label="Save changes" onClick={()=>{
@@ -69,11 +71,22 @@ class RightsToolbar extends React.Component {
                       }}  className={styles['filters-TextInput']} />
                 </MuiThemeProvider>   
                 <MuiThemeProvider>
-                    <DropDownMenu value={current['projectId']} className={styles['projects-list']} 
-                        onChange={(event, index, value)=>{
-                            this.props.fetchUsers(value,filters['name'],filters['usersRight']);
+                    <AutoComplete
+                        floatingLabelText="Input project name"
+                        filter={AutoComplete.caseInsensitiveFilter}
+                        dataSource={projectsList.map(p=> p.projectName)}
+                        openOnFocus={true}
+                        listStyle={{WebkitAppearance:"none"}}
+                        style={{WebkitAppearance:"none"}}
+                        menuStyle={{WebkitAppearance:"none"}}
+                        maxSearchResults={12}
+                        onNewRequest={(unneeded,index)=>{
+                            if (index >= 0){
+                                self.props.fetchUsers(projectsList[index].id,filters['name'],filters['usersRight']);
+                            }
                         }}
-                    >{menuProjectsItems}</DropDownMenu>
+                    />
+
                 </MuiThemeProvider>
             </div>
         )
@@ -90,3 +103,10 @@ function mapStateToProps(state) {
 
 const RightsToolbarConnected = connect(mapStateToProps, mapDispatchToProps)(RightsToolbar);
 export default RightsToolbarConnected;
+/*
+ <DropDownMenu value={current['projectId']} className={styles['projects-list']}
+ onChange={(event, index, value)=>{
+ this.props.fetchUsers(value,filters['name'],filters['usersRight']);
+ }}
+ >{menuProjectsItems}</DropDownMenu>
+ */

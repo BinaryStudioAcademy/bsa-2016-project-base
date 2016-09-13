@@ -1,5 +1,6 @@
 import * as types from '../../constants/UsersRightsActionTypes';
 import usersRightsService from '../../services/admin/UsersRightsService';
+import {toastr} from 'react-redux-toastr';
 
 var concatUsers = function(data){
     let users = {},concat = function(marker,flag){
@@ -91,8 +92,14 @@ export function saveProjectUsers(projectId,data){
         return usersRightsService.saveProjectUsers(projectId,request)
             .then(response => response.json())
             .then(data =>{
+                toastr.success(`Successfully updated`, {
+                    timeOut: 10000
+                });
                 dispatch ({ type: types.SAVE_PROJECT_USERS });
             }).catch( error => {
+                toastr.error(`Error while updating`, {
+                    timeOut: 10000
+                });
                 dispatch({
                     type: types.SAVE_PROJECT_USERS_ERROR,
                     error

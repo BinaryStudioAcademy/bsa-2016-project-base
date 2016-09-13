@@ -64,10 +64,12 @@ class Tags extends Component {
 	}
 	deleteMany(e){
 		let { tags } = this.props;
-		let trash = []
+		let trash = [];
+		let tagNamesToRemove = [];
 		tags.forEach(tag => {
 			if (tag.checked) {
 				trash.push(tag._id);
+				tagNamesToRemove.push(tag.tagName)
 			}
 		});
 		/*if (trash.length) {
@@ -82,7 +84,8 @@ class Tags extends Component {
 				},
 				onCancel: () => ''
 			};
-			toastr.confirm('Are you sure about that?', toastrConfirmOptions)
+			toastr.confirm('Are you sure about removing following tags: ' +
+					tagNamesToRemove.map(name=>`"${name}"`).join(", ") + " ?", toastrConfirmOptions)
 		}
 		
 	}
@@ -102,11 +105,13 @@ class Tags extends Component {
 				  				/>
 				  			</div>
 				    		<div className={styles.col}>
-				    		<CheckBoxTags
-				    			label="Mark All"
-				    			checked={isAllChecked}
-				    			onSelect={this.selectAll}
-				    		/>
+
+
+
+
+
+
+
 				    		<Button
 				    			className={styles["button-add-tags"]}
 				    			label='Remove'
@@ -156,3 +161,11 @@ function mapStateToProps(state) {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tags);
+/*
+Removed MarkAll
+ <CheckBoxTags
+ label="Mark All"
+ checked={isAllChecked}
+ onSelect={this.selectAll}
+ />
+ */
