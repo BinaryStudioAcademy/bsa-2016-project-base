@@ -24,11 +24,11 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 errors: null,
                 activeSection: {},
                 activeUser: null,
-                userStory: [],
+                userStory: {},
                 projectName:'',
                 projectLink:'',
-                timeBegin:{},
-                timeEnd:{},
+                timeBegin:null,
+                timeEnd:null,
                 status:{value:'Estimation', name:'Estimation'},
                 techIcon:{},
                 techIconError: '',
@@ -74,10 +74,10 @@ export default function UpsertProjectReducer(state=initialState, action) {
         }
         case types.UP_SET_USER_START_DATE: {
             const {date,userId} = action;
-            const {activeUser,userStory} = state;
+            const {activeUser,userStory,timeBegin,timeEnd} = state;
             console.log('userId ',userId);
             return Object.assign({}, state, {
-                userStory: updateUserStory(userStory,userId,true,date,null)
+                userStory: updateUserStory(userStory,userId,date,null,{timeBegin,timeEnd})
                 /*userStory: {
                     ...userStory,
                     [userId]: {
@@ -87,11 +87,11 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 }*/
             });
         }
-         case types.UP_SET_USER_END_DATE: {
+        case types.UP_SET_USER_END_DATE: {
             const {date,userId} = action;
-            const {activeUser,userStory} = state;
+            const {activeUser,userStory,timeBegin,timeEnd} = state;
             return Object.assign({}, state, {
-                userStory: updateUserStory(userStory,userId,true,null,date)
+                userStory: updateUserStory(userStory,userId,null,date,{timeBegin,timeEnd})
                 /*userStory: {
                     ...userStory,
                     [userId]: {
@@ -103,9 +103,10 @@ export default function UpsertProjectReducer(state=initialState, action) {
         }
         case types.UP_ADD_USER_TO_PROJECT: {
             const {_id} = action;
-            const {users} = state;
+            const {users,userStory,timeBegin,timeEnd} = state;
             return Object.assign({}, state, {
-                users: addUserToProject(users, _id)
+                users: addUserToProject(users, _id),
+                userStory: updateUserStory(userStory,_id,timeBegin,timeEnd,null)
             });
         }
         case types.UP_REMOVE_USER_FROM_PROJECT: {
@@ -141,14 +142,18 @@ export default function UpsertProjectReducer(state=initialState, action) {
         }
         case types.UP_CHANGE_START_DATE: {
             const {date} = action;
+            const {userStory} = state;
             return Object.assign({}, state, {
-            	timeBegin: date
+            	timeBegin: date,
+                userStory: updateUserStory(userStory,null,date,null,null)
             });
         }
         case types.UP_CHANGE_FINISH_DATE: {
             const {date} = action;
+            const {userStory} = state;
             return Object.assign({}, state, {
-            	timeEnd: date
+            	timeEnd: date,
+                userStory: updateUserStory(userStory,null,null,date,null)
             });
         }
         case types.UP_CHANGE_STATUS: {
@@ -310,22 +315,141 @@ export default function UpsertProjectReducer(state=initialState, action) {
     }
 };
 
-const updateUserStory(story, userId, isSetManually, start, end) => {
-     story.forEach( (item, index) => {
-        if (item._id === userId)
-           if (isSetManually) {
-                item.dateFrom = start
-                item.dateTo = end;
-           } else {
-               if (typeof item.dateFrom === string) {
-                    const dateFrom = Date.parse(item.dateFrom);
-                    const newDateFrom = 
-               }
+const updateUserStory = (story, userId, start, end, projectPeriod) => {
+    if (userId) {
+        if (story.hasOwnProperty(userId)) {
+            if (projectPeriod) {
+                console.log('projectPeriod ',projectPeriod);
+                const {timeBegin,timeEnd} = projectPeriod;
+                const {dateFrom, dateTo} =  story[userId];
+                const dateFromSeconds = Date.parse(dateFrom);
+                const dateToSeconds = Date.parse(dateTo);
+                const dateUserStartSeconds = Date.parse(start);
+                const dateUserEndSeconds = Date.parse(end);
 
+                if (timeBegin) {
+                    console.log('timeBegin ',timeBegin);
+                    //const dateUserStartSeconds = Date.parse(start);
+                    const dateProjectStartSeconds = Date.parse(timeBegin);
+                    if (dateUserStartSeconds >= dateProjectStartSeconds) {
+                        if (dateUserStartSeconds <= dateToSeconds) {
+                            story[userId].dateFrom = start;
+                        }
+                        
+                    }
+                } else {
+                    story[userId].dateFrom = start;
+                }
+                if (timeEnd) {
+                     console.log('timeEnd ',timeEnd);
+                    //const dateUserEndSeconds = Date.parse(end);
+                    const dateProjectEndSeconds = Date.parse(timeEnd);
+                    if (dateUserEndSeconds <= dateProjectEndSeconds) {
+                        if (dateUserEndSeconds >= dateFromSeconds) {
+                            story[userId].dateTo = end;
+                        }
+                       
+                    }
+                } else {
+                    story[userId].dateTo = end;
+                }
+
+
+                if(!timeBegin && !timeEnd) {
+                    console.log('!timeBegin && !timeEnd');
+                    let newStartDate;
+                    let newEndDate;
+
+
+                    
+                        if (dateTo) {
+                            if (dateToSeconds) {
+                                if(dateUserStartSeconds < dateToSeconds) {
+                                    //newStartDate = dateFrom ? dateFrom : start;
+                                    newStartDate = start;
+                                }
+                            }
+                        } else {
+                            newStartDate = start;
+                        }
+                    
+                   
+                 
+                        if (dateFrom) {
+                            if (dateFromSeconds) {
+                                if(dateUserEndSeconds > dateFromSeconds) {
+                                    //newEndDate = dateTo ? end : dateTo ;
+                                    newEndDate = end;
+                                }
+                            }
+                        } else {
+                            newEndDate = end;
+                        }
+                    
+                     
+                    story[userId] = {
+                        dateFrom: newStartDate ? newStartDate : dateFrom,
+                        dateTo: newEndDate ? newEndDate : dateTo
+                     };
+                }
+
+            } else {
+                 console.log('NO projectPeriod ');
+                story[userId] = {
+                    dateFrom: start,
+                    dateTo:end
+                 };
+            }
+
+                //let newStartDate = dateFrom ? dateFrom : start;
+                //let newEndDate = dateTo ? dateTo : end ;
+
+
+                /*story[userId] = {
+                    dateFrom: newStartDate,
+                    dateTo: newEndDate
+                };*/
+           
+        } else {
+           
+            story[userId] = {
+                dateFrom: start,
+                dateTo:end
+            };
+        }
+       
+
+    } else {
+        for (let id in story) {
+            const {dateFrom, dateTo} = story[id];
+            if (start) {
+                if (dateFrom) {
+                    const dateFromSeconds = Date.parse(dateFrom);
+                    const dateProjectStartSeconds = Date.parse(start);
+                    if (dateProjectStartSeconds > dateFromSeconds) {
+                        story[id].dateFrom = start;
+                    }
+                } else {
+                    story[id].dateFrom = start;
+                }
                 
-           }
-    });
+            }
+            if(end) {
+                if (dateTo) {
+                    const dateToSeconds = Date.parse(dateTo);
+                    const dateProjectEndSeconds = Date.parse(end);
+                    if (dateProjectEndSeconds < dateToSeconds) {
+                        story[id].dateTo = end;
+                    }
+                } else {
+                    story[id].dateTo = end;
+                }
+               
+            } 
+        }
 
+    }
+    return Object.assign({},story);
 }
 
 
@@ -499,8 +623,8 @@ const feature = {
 const initialState = {
     projectName:'',
     projectLink:'',
-    timeBegin:{},
-    timeEnd:{},
+    timeBegin:null,
+    timeEnd:null,
     status: {value:'Estimation', name:'Estimation'},
 	users: [],
 	tags: [],
