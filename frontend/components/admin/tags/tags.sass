@@ -34,7 +34,7 @@
 	border-color: transparent !important
 	border: 0 !important
 	border-radius: 0 !important
-    box-shadow: none !important
+	box-shadow: none !important
 
 #tags
 	display: flex
@@ -84,7 +84,7 @@
 		height: 500px
 		//max-height: 20%
 		overflow-y: auto
-		display: flex
+		display: flex 
 		flex-wrap: wrap
 		align-content: flex-start
 		margin-top: 2rem
@@ -104,8 +104,8 @@
 		text-align: left
 		display: inline-flex
 		align-items: center
-		flex: 1 0 calc(25% - 10px);
-		//border: 1px solid #eee !important
+		//flex-grow: 1
+		//flex-shrink: 0
 		overflow: hidden
 		white-space: nowrap
 		text-overflow: ellipsis
@@ -113,7 +113,7 @@
 	.tags-item
 		background: #E9f0f6
 		border-radius: 2rem
-		flex-basis: 10%
+		//flex-basis: 10%
 		padding-left: 1rem
 		height: 30px
 		cursor: pointer
@@ -139,13 +139,10 @@
 	    	margin: 15px 0px
 
 	.tags-panel-top
-		+default-panel
-		margin-bottom: 20px !important
+		//margin-bottom: 20px !important
 		//border: 1px solid #eee !important
 		//background: rgb(250, 250, 250) !important
-		background: #fff !important
-		border-radius: 0 !important
-		box-shadow: none !important
+		//background: #fff !important
 		display: flex
 		height: 120px
 		align-items: center
