@@ -1,5 +1,4 @@
 import MultiSelectModel from "./MultiSelectModel"
-import searchService from "./../../../../services/SearchService"
 import UsersClass from "./../components/Users"
 export default class Users extends MultiSelectModel{
     constructor({component,title}) {
@@ -22,7 +21,7 @@ export default class Users extends MultiSelectModel{
         })
     }
     getTips(value,callback){
-        searchService.getUsers(value)
+        this.searchService.getUsers(value)
             .then(res=>{callback(res.err,
                 (res.tips||[]).map(tip=>({
                     login:tip.login,
