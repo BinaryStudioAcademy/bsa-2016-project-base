@@ -120,7 +120,7 @@ class Attachments extends Component {
                         <RaisedButton
                             label="Upload files"
                             labelPosition="before"
-                            className={styles["btn-upload"]}
+                            className={styles["btn-upload"] + ' '+this.state.hideFile}
                         >
                             <FileUpload                                
                                 accept={fileTypes}

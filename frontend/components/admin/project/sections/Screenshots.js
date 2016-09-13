@@ -119,10 +119,10 @@ class Screenshots extends Component {
                         <RaisedButton
                             label="Upload screenshots"
                             labelPosition="before"
-                            className={styles["btn-upload"]}
+                            className={styles["btn-upload"] + ' '+this.state.hideFileScreenshoots}
                         >
                             <FileUpload
-				className={this.state.hideFileScreenshoots
+				                
                                 accept={fileTypes}
                                 multiple={true}
                                 onChange={this.onFilePathChange}
