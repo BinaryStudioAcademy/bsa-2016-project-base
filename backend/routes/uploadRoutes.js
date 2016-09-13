@@ -30,9 +30,10 @@ module.exports = function(app) {
 		var fileExt = req.body.link.slice(req.body.link.lastIndexOf('.'));
 		var newFileName = String(uuid.v1()) + fileExt;
 		var method = req.body.link.split(':');
+		let name = req.body.link.slice(req.body.link.lastIndexOf('/')+1,req.body.link.lastIndexOf('.'));
 		download(req.body.link,method[0],folder+newFileName,function (el) {
 			res.json({
-				'name' : newFileName,
+				'name' : name,
 				'path' : origin+'upload/' + newFileName
 			})
 		})

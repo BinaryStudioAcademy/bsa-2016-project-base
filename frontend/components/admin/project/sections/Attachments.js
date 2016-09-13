@@ -58,7 +58,7 @@ class Attachments extends Component {
     }
 
     uploadFileByLink() {
-        this.props.uploadFileByLinkAttachments(this.state.fileLink);
+        this.props.uploadFileByLinkAddProject(this.state.fileLink);
         this.setState({fileLink: ''})
     }
 
