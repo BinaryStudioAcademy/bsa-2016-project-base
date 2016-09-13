@@ -24,7 +24,7 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 errors: null,
                 activeSection: {},
                 activeUser: null,
-                userStory: {},
+                userStory: [],
                 projectName:'',
                 projectLink:'',
                 timeBegin:{},
@@ -77,26 +77,28 @@ export default function UpsertProjectReducer(state=initialState, action) {
             const {activeUser,userStory} = state;
             console.log('userId ',userId);
             return Object.assign({}, state, {
-                userStory: {
+                userStory: updateUserStory(userStory,userId,true,date,null)
+                /*userStory: {
                     ...userStory,
                     [userId]: {
                         ...userStory[userId],
                         dateFrom: date
                     }
-                }
+                }*/
             });
         }
          case types.UP_SET_USER_END_DATE: {
             const {date,userId} = action;
             const {activeUser,userStory} = state;
             return Object.assign({}, state, {
-                userStory: {
+                userStory: updateUserStory(userStory,userId,true,null,date)
+                /*userStory: {
                     ...userStory,
                     [userId]: {
                         ...userStory[userId],
                         dateTo: date
                     }
-                }
+                }*/
             });
         }
         case types.UP_ADD_USER_TO_PROJECT: {
@@ -307,6 +309,24 @@ export default function UpsertProjectReducer(state=initialState, action) {
         }
     }
 };
+
+const updateUserStory(story, userId, isSetManually, start, end) => {
+     story.forEach( (item, index) => {
+        if (item._id === userId)
+           if (isSetManually) {
+                item.dateFrom = start
+                item.dateTo = end;
+           } else {
+               if (typeof item.dateFrom === string) {
+                    const dateFrom = Date.parse(item.dateFrom);
+                    const newDateFrom = 
+               }
+
+                
+           }
+    });
+
+}
 
 
 const setDefaults = (source, props) => {
