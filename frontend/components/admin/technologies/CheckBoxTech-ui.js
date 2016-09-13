@@ -31,7 +31,7 @@ export default class CheckBox extends Component {
                         label={label}
                         id = {id}
                         onClick={this.handleCheck}
-                        defaultChecked={checked}
+                        checked={checked}
                         labelStyle={{
                             width: "calc(100% - 30px)",
                             color: '#8D97A4 !important',
