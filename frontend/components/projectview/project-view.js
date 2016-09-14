@@ -190,7 +190,7 @@ class ProjectView extends Component {
 									<Attachment project={this.props.project}/>
 								</Tab>
 								<Tab label="Questions" >
-				 					<Questions id="q-and-a" questions={projectDetail['questions']} />
+				 					<Questions id="q-and-a" />
 						        </Tab>
 							</Tabs>
 						</MuiThemeProvider>
