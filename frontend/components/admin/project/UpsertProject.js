@@ -168,8 +168,8 @@ class UpsertProject extends Component {
             project: {
                 projectName,
                 linkToProject:projectLink,
-                timeBegin: new Date(timeBegin),
-                timeEnd: new Date(timeEnd),
+                timeBegin: timeBegin ? new Date(timeBegin) : '',
+                timeEnd: timeEnd ? new Date(timeEnd) : '',
                 attachments: inProject.attachments,
                 screenShots: inProject.screenshots,
                 sections: inProject.sections,
