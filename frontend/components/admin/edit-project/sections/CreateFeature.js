@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { Button, TextInput, Editor } from '../../../common/';
-import styles from './styles/CreateFeature.sass';
+import { Button, TextInput, Editor, RaisedButtonUITags } from '../../../common/';
+import styles from '../../project/sections/styles/CreateFeature.sass';
 
 class CreateFeature extends Component {
     constructor(props) {
@@ -33,9 +33,13 @@ class CreateFeature extends Component {
             <div className={styles["modal"]} >
                 <div className="modal-content">
                     <div className="modal-header">
-                      <span className="close">
-                        <Button value="Close" onClick={onClose}/>
-                      </span>
+                     <Button
+                            className={styles["btnIcon"] + ' ' + styles["btnClose"]}
+                            label='Close'
+                            onClick={onClose}
+                        >
+                            <i className="fa fa-times" aria-hidden="true"></i>
+                        </Button>
                         <h2>Create Feature</h2>
                     </div>
                     <div className="modal-body">
@@ -46,8 +50,9 @@ class CreateFeature extends Component {
                         />
                     </div>
                     <div className="modal-footer">
-                        <Button
-                            value="Save"
+                        <RaisedButtonUITags
+                            //className={styles.btnCreate}
+                            label="Save"
                             onClick={onSave && (() => onSave(descriptionHTMLText))}
                         />
                     </div>

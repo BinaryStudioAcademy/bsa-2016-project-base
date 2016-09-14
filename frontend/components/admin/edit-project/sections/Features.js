@@ -28,9 +28,12 @@ class Features extends Component {
         this.removeFeature = this.removeFeature.bind(this);
     }
     setNewSectionName(e){
-        this.setState({
-            sectionName: e.target.value
-        });
+        let sectionName = e.target.value;
+        if (sectionName.length <= 30) {
+            this.setState({
+                sectionName: sectionName
+            });
+        }
     }
     addNewSection(e) {
         const {sectionName} = this.state;
@@ -102,9 +105,12 @@ class Features extends Component {
         });
     }
     setNewFeatureName(e) {
-        this.setState({
-            featureName: e.target.value
-        });
+        let featureName = e.target.value;
+        if (featureName.length <= 30) {
+            this.setState({
+                featureName: featureName
+            });
+        }
     }
 
     renderFeatures(featuresList, sectionsList){

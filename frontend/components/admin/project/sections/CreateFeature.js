@@ -33,7 +33,6 @@ class CreateFeature extends Component {
                 <div id={styles["create-feature"]} className={styles["modal"]} >
                     <div className="modal-content">
                     <div className="modal-header">
-
                         <Button
                             className={styles["btnIcon"] + ' ' + styles["btnClose"]}
                             label='Close'
