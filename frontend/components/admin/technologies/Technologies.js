@@ -81,12 +81,20 @@ class Technologies extends Component {
 
     deleteChecked() {
         const {listOfTechnologies} = this.props.stateFromReducer.TechnologiesReducer;
+        let checked = 0;
+        listOfTechnologies.forEach(function (el, indx) {
+            if (listOfTechnologies[indx].checked === 'checked') {
+                checked++;
+            }
+        });
         // this.props.removeSelectedTechs(listOfTechnologies);
-        const toastrConfirmOptions = {
-            onOk: () => this.props.removeSelectedTechs(listOfTechnologies),
-            onCancel: () => ''
-        };
-        toastr.confirm('Are you sure about that?', toastrConfirmOptions)
+        if(checked !== 0) {
+            const toastrConfirmOptions = {
+                onOk: () => this.props.removeSelectedTechs(listOfTechnologies),
+                onCancel: () => ''
+            };
+            toastr.confirm('Are you sure about that?', toastrConfirmOptions)
+        }
     }
 
     formAddControlState() {
