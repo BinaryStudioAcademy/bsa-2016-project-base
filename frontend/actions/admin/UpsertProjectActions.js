@@ -306,7 +306,6 @@ export function uploadFile(file, target='file') {
     const name = file.name;
     const ext = name.slice(name.lastIndexOf('.'),name.legth);
     const allowedTypes = (target === 'file') ? FILE_TYPES : IMG_TYPES;
-    console.log('ext',ext);
     return dispatch => {
         dispatch({
             type: types.UP_UPLOAD_FILE,
@@ -318,33 +317,13 @@ export function uploadFile(file, target='file') {
                 name: file.name,
                 error: 'Unsupported file type. Allowed ' + allowedTypes.join('/')
             }
-            //const data = {
-            //    name: file.name
-            //}
-            //const error = 'Unsupported file type. Allowed ' + FILE_TYPES.join(',');
             dispatch(uploadFileValidation(data,target));
         } else if (file.size > MAX_SIZE) {
             const data = {
                 name: file.name,
                 error: 'File size is ' + (file.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + (MAX_SIZE / 1024 / 1024).toFixed(2) + ' MB.'
             }
-            //const data = {
-            //    name: file.name
-            //}
-            //const error = 'File size is ' + (file.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + (MAX_SIZE / 1024 / 1024).toFixed(2) + ' MB.'
             dispatch(uploadFileValidation(data,target));
-        /*} else {
-
-        if (file.size > MAX_SIZE) {
-            const data = {
-                name: file.name,
-                error: 'File size is ' + (file.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + (MAX_SIZE / 1024 / 1024).toFixed(2) + ' MB.'
-            }
-            dispatch({
-                type: types.UP_UPLOAD_FILE_SUCCESS,
-                data: data,
-                target
-            });*/
         } else {
             return uploadService.upload(file)
                 .then(response => {
