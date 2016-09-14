@@ -10,6 +10,8 @@ import {Link} from 'react-router'
 import TextArea from '../../../common/TextArea.js';
 import TextInput from '../../../common/TextInput.js';
 import RaisedButtonUI from '../../../common/RaisedButton-ui.js';
+import ReduxToastr, {toastr} from 'react-redux-toastr'
+const IMG_TYPES = ['.jpeg', '.jpg', '.png', '.gif'];
 class TechDetailPage extends Component {
     constructor() {
         super();
@@ -47,7 +49,14 @@ class TechDetailPage extends Component {
 
     uploadFileByLink(e) {
         e.preventDefault();
-        this.props.uploadFileByLink(this.state.fileLink);
+        const ext =  this.state.fileLink.slice(this.state.fileLink.lastIndexOf('.'));
+
+        if (IMG_TYPES.includes(ext)) {
+            this.props.uploadFileByLink(this.state.fileLink);
+        }else{
+            toastr.error("It's wrong link or file format");
+        }
+
     }
 
     changeTechName(e) {

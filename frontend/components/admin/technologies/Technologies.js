@@ -9,6 +9,7 @@ import  TechnologiesAddForm from "./TechnologiesAddForm";
 import {Grid, Row, Panel, Col} from 'react-bootstrap';
 import styles from  './styles.sass';
 import ReduxToastr, {toastr} from 'react-redux-toastr'
+const IMG_TYPES = ['.jpeg', '.jpg', '.png', '.gif'];
 class Technologies extends Component {
     constructor() {
         super();
@@ -156,7 +157,13 @@ class Technologies extends Component {
     }
 
     uploadFileByLink(link) {
-        this.props.uploadFileByLink(link);
+        const ext =  link.slice(link.lastIndexOf('.'));
+
+        if (IMG_TYPES.includes(ext)) {
+            this.props.uploadFileByLink(link);
+        }else{
+            toastr.error("It's wrong link or file format");
+        }
     }
 
     uploadFileByFile(file) {
