@@ -9,6 +9,7 @@ import Techs from './sections/Techs';
 import Features from './sections/Features';
 import Attachments from './sections/Attachments';
 import Screenshots from './sections/Screenshots'
+import Contacts from './sections/Contacts';
 
 import styles from './sections/styles/EditProject.sass';
 import {Tabs, Tab} from 'material-ui/Tabs';
@@ -62,6 +63,11 @@ const TabsUI = () => (
                     <Tags/>
                 </div>
             </Tab>
+            <Tab label="Contacts" >
+                <div>
+                    <Contacts />
+                </div>
+            </Tab>
         </Tabs>
     </MuiThemeProvider>
 );
@@ -103,7 +109,7 @@ class EditProject extends Component {
     }
     updateProject(e) {
         console.log('createProject');
-        const {projectName,projectLink,timeBegin,timeEnd,status,description, projectId} = this.props.store;
+        const {projectName,projectLink,timeBegin,timeEnd,status,description, projectId, contacts} = this.props.store;
         const {predefinedUsers,predefinedTags,predefinedTechnologies,sections,features,files} = this.props.store;
         console.log('features ',features);
         console.log('sections ',sections);
@@ -245,6 +251,7 @@ class EditProject extends Component {
             owners: inProject.owners,
             users: inProject.users,
             status: status.value,
+            contacts,
             description: {
                 descrFullText: inProject.descrFullText
             }
@@ -279,7 +286,7 @@ class EditProject extends Component {
 
                     {this.state.errors.usersError && <div className={styles.validationUser} style={this.state.errors.technologiesError ? {marginLeft: '3rem'} : {marginLeft: '17rem'}}><div className={styles.tool}>You must add user and owner</div></div>}
                 </div>
-                <TabsUI/>
+                <TabsUI load={load} />
                 <br/>
                 <Attachments/>
                 <br/>

@@ -106,7 +106,7 @@ class UsersTimeLine extends Component {
                              <span>{el.userName} {el.userSurname}</span>
                          </div>
                          <div className="offsetLine" style={{"flex-basis": userOffset + "%"}}></div>
-                         <div className="line tooltip" data-tooltip={self.formatDate(new Date(dataFrom)) + " - " + (dataTo == "now" ? dataTo : self.formatDate(new Date(dataTo)))} style={{"flex-basis": lineLengthUser + "%"}}>
+                         <div className="line tooltip" data-tooltip={"from " + self.formatDate(new Date(dataFrom)) + " to " + (dataTo == "now" ? dataTo : self.formatDate(new Date(dataTo)))} style={{"flex-basis": lineLengthUser + "%"}}>
                          </div>
                      </div>
                  )
