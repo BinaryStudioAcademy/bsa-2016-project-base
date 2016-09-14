@@ -51,7 +51,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-    console.log(state.ProjectViewReducer);
     return { stateFromReducer: state.ProjectViewReducer };
 }
 

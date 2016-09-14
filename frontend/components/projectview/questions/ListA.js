@@ -16,7 +16,6 @@ class List extends Component {
     }
 
     handleAddATextarea(e) {
-        console.log(e.target.value);
         this.props.newMessageInAddATextarea(e.target.value, this.props.index);
     }
 

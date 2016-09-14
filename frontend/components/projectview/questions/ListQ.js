@@ -20,17 +20,14 @@ class List extends Component {
     }
 
     handleHideA(i) { // свернуть/развернуть перечень ответов на i-ый вопрос, по умолчанию свернут
-        console.log('inside handleHideA');
         this.props.showOrHideA(i);
     }
 
     handleAddQTextarea(e) {
-        console.log(e.target.value);
         this.props.newMessageInAddQTextarea(e.target.value);
     }
 
     handleAddQCheckBox(e) {
-        console.log(e.target.checked);
         this.props.newCheckAttrInAddQCheckBox(e.target.checked);
     }
 
