@@ -28,7 +28,7 @@ class Features extends Component {
         this.removeFeature = this.removeFeature.bind(this);
     }
     setNewSectionName(e){
-        let sectionName = e.target.value.trim();
+        let sectionName = e.target.value;
         if (sectionName.length <= 30) {
             this.setState({
                 sectionName: sectionName
@@ -105,8 +105,7 @@ class Features extends Component {
         });
     }
      setNewFeatureName(e) {
-
-        let featureName = e.target.value.trim();
+        let featureName = e.target.value;
         if (featureName.length <= 30) {
             this.setState({
                 featureName: featureName
