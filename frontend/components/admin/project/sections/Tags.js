@@ -19,15 +19,13 @@ class Tags extends Component {
     }
    
     addTagToProject(e, tagId) {
-        console.log('addTagToProject');
         if (tagId) this.props.addTagToProject(tagId);
     }
     removeTagFromProject(e, tagId) {
-         console.log('removeTagFromProject');
         if (tagId) this.props.removeTagFromProject(tagId);
     }
     onTagNameChange(e){
-        let tagName = e.target.value.trim();
+        let tagName = e.target.value;
         if (tagName.length <= 14) {
         	this.setState({
         		tagName: tagName

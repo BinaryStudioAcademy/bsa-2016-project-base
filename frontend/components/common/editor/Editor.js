@@ -105,7 +105,6 @@ export default class MyEditor extends React.Component {
     render() {
         const self = this;
         const {className,initialContent} = this.props
-        console.log('EDITOR Rerender',this.props.initialContent);
         return (<div className={className}>
                 <TinyMCE
                     content={this.props.initialContent}

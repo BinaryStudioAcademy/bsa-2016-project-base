@@ -45,8 +45,6 @@ class Techs extends Component {
                 addBtnEnabled: false
             });
         }
-        console.log('addBtnEnabled ', this.state.addBtnEnabled);
-        
     }
     onTechNameChange(e){
         this.setState({
@@ -67,18 +65,15 @@ class Techs extends Component {
         this.isAllFilled();
     }
     onTechLogoChange(e){
-        console.log('onTechLogoChange ',e.target.value);
         const file = e.target.files[0];
         if (file) {
             this.props.uploadIcon(file);
         }
     }
     addTechToProject(e, techId) {
-        console.log('addTechToProject ',techId);
         if (techId)  this.props.addTechToProject(techId);
     }
     removeTechFromProject(e, techId) {
-        console.log('removeTechFromProject ',techId);
         if (techId) this.props.removeTechFromProject(techId);
     }
     addNewTechToProject(e) {
@@ -98,8 +93,6 @@ class Techs extends Component {
         }
         const fileInput = document.querySelector('#tech-icon');
         fileInput.value = '';
-        
-        
     }
     removeNewTechFromProject(e, tech) {
     	if (tech) this.props.removeNewTechFromProject(tech);

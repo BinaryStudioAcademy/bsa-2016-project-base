@@ -27,9 +27,7 @@ class Screenshots extends Component {
     }
 
     onFilePathChange(e) {
-        console.log('onFilePathChange url', e.target.value);
         const files = e.target.files;
-        console.log(e.target.files.length);
         if (files.length) {
             for (let i = 0; i < files.length; i++) {
                 this.props.uploadFile(files[i], 'screenshot');
@@ -39,7 +37,6 @@ class Screenshots extends Component {
     }
 
     removeFile(e, name) {
-        console.log('removeFile ', name);
         this.props.removeFile(name);
     }
 

@@ -17,18 +17,14 @@ class UsersList extends Component {
         this.renderuserHistoryDates = this.renderuserHistoryDates.bind(this);
         this.setUserStartDate = this.setUserStartDate.bind(this);
         this.setUserEndDate = this.setUserEndDate.bind(this);
-        
     }
     addUserToProject(e, userId) {
-        console.log('addUserToProject ',userId);
         if (userId)  this.props.addUserToProject(userId);
     }
     removeUserFromProject(e, userId) {
-        console.log('removeUserFromProject ',userId);
         if (userId) this.props.removeUserFromProject(userId);
     }
     onOwnershipChange(e, userId) {
-        console.log('onOwnershipChange ',userId);
         const checked = e.target.checked;
         if (userId) this.props.changeOwnership(userId, checked);
     }
@@ -41,8 +37,6 @@ class UsersList extends Component {
         this.props.setUserEndDate(activeUser, date);
     }
     selectUser(e, userId) {
-        //console.log('selectUser ', userId);
-        console.log('selectUser', userId);
         if (e.target.nodeName === "DIV" || e.target.nodeName === "IMG") {
             const {activeUser} = this.props;
             if (activeUser === userId) {
@@ -51,13 +45,9 @@ class UsersList extends Component {
                 this.props.selectUser(userId);
             }
         }
-        //console.log('this.props.activeUser ', this.props.activeUser);
     }
     renderuserHistoryDates() {
         const { users,activeUser,userStory } = this.props;
-
-        console.log('userStory ',userStory);
-
         const selectedUser = users.filter(user => {
             return user.inProject && user._id === activeUser;
         })[0];
@@ -72,12 +62,9 @@ class UsersList extends Component {
              }
             
         } 
-
-
-
         if (activeUser) {
             return <div className={styles['dates']}>
-                            <div className={styles['col-1-3']}>
+                        <div className={styles['col-1-3']}>
                             <DatePickerControlled
                                 value={startDate}
                                 hint='Start Date'
@@ -99,12 +86,7 @@ class UsersList extends Component {
         }
     }
     render() {
-        console.log('UsersList LLLLLLL');
-
         const { users, activeUser } = this.props;
-      
-
-        let opts = [];
     	const usersList = users.map(user => {
             if (!user.inProject) {
                 return (
@@ -168,9 +150,7 @@ class UsersList extends Component {
                                 <h3>Period</h3>
                             </div>
                         </header>
-                        
                         {this.renderuserHistoryDates()}
-                       
                        </div>      
                 </div>  
                                         
@@ -180,15 +160,11 @@ class UsersList extends Component {
 };
 
 
-
-
-
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(actions, dispatch);
 };
 
 function mapStateToProps(state) {
-    console.log('developersList mapStateToProps')
     return {
         users: state.UpsertProjectReducer.users,
         activeUser: state.UpsertProjectReducer.activeUser,

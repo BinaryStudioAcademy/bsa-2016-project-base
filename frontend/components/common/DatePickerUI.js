@@ -59,9 +59,7 @@ export default class DatePickerControlled extends React.Component {
   };
 
   render() {
-    console.log('this.props.value ',this.props.value)
     return (
-
       <div>
       <div className='calendar-icon'>
         <FaCalendar />

@@ -68,15 +68,12 @@ class Features extends Component {
 		const {features} = this.props;
     	this.props.selectSection(id,features);
     }
-
     showCreateFeatureModal() {
-    	console.log('showCreateFeatureModal');
     	this.setState({
     		isModalActive: true
     	})
     }
     closeCreateFeatureModal() {
-    	console.log('closeCreateFeatureModal');
     	this.setState({
     		isModalActive: false
     	});
@@ -89,11 +86,9 @@ class Features extends Component {
     	this.setState({
     		isModalActive: false
     	})
+
     	const {featureName} = this.state;
     	const {activeSection} = this.props;
-
-    	console.log('addNewFeature featureName',featureName);
-    	console.log('addNewFeature featureName',descriptionHTMLText);
 
     	this.props.postFeature({
     		featureName,
@@ -135,8 +130,6 @@ class Features extends Component {
             </div>
         );
 
-
-
     	if (featuresList.length) {
     		return (
     			<div>
@@ -167,14 +160,11 @@ class Features extends Component {
 	            </div>
     		);
     	}
-    	//{(featuresList.length ? featuresList : `There are no features in ${activeSection.name} yet. Start adding new features...`)}
     }
 
     render(){
     	const {sections, features, activeSection} = this.props;
-    	console.log('sections ',sections);
     	const sectionsList = sections.map( section => {
-            console.log('section ',section)
     		return (
     			<Section
     				 key={section._id}
@@ -200,7 +190,6 @@ class Features extends Component {
     		
     	});
     	
-    	//<div key={section._id}>{section.name}</div>
     	return (
 
     		<div id={styles['features-list']}>

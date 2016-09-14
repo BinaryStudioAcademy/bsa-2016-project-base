@@ -70,8 +70,6 @@ const TabsUI = () => (
 );
 
                 
-
-
 class UpsertProject extends Component {
 	constructor(props) {
 	    super(props);
@@ -91,7 +89,6 @@ class UpsertProject extends Component {
 		this.props.getPredefinedData();
 	}
 	createProject(e) {
-		console.log('createProject');
         const {projectName,projectLink,timeBegin,timeEnd,status,description,contacts} = this.props.store;
         const {users,tags,technologies,sections,features,files,userStory} = this.props.store;
 
@@ -140,7 +137,6 @@ class UpsertProject extends Component {
             })(),
             attachments: (() => {
                 const temp = [];
-                console.log('files ',files);
                 files.forEach( file => {
                     if (file.target === 'file' && file.good) {
                         temp.push({
@@ -154,7 +150,6 @@ class UpsertProject extends Component {
             })(),
             screenshots: (() => {
                 const temp = [];
-                console.log('files ',files);
                 files.forEach( file => {
                     if (file.target === 'screenshot' && file.good) {
                         temp.push(file.path);
@@ -167,8 +162,6 @@ class UpsertProject extends Component {
                 const text = description.descrFullText;
                 return text.replace(/<img src="upload/g,'<img src="'+ORIGIN+'/upload');
             })()
-
-            
         }
         const projectData = {
             userStory,
@@ -196,14 +189,7 @@ class UpsertProject extends Component {
         window.scrollTo(0, 0);
 	}
 	
-
-
-
-
-
  	render() {
-        console.log('Rerender Upsert');
-        console.log(this.props.store);
 	    return (
 	    	<div id={styles['add-project-wrapper']}>
 	    		<Inputs/>
@@ -234,7 +220,6 @@ function mapDispatchToProps(dispatch) {
 };
 
 function mapStateToProps(state) {
-    console.log(state);
     return {
         store: state.UpsertProjectReducer
     };
