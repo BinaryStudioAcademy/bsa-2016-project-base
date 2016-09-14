@@ -197,6 +197,16 @@ export default function EditProjectReducer(state=initialState, action) {
                 predefinedTechnologies: addTechToProject(predefinedTechnologies, _id)
             });
         }
+        case types.UP_SET_CONTACT_FIELD_ED: {
+            const {field, data} = action;
+            const {contacts} = state;
+            return Object.assign({}, state, {
+                contacts: {
+                    ...contacts,
+                    [field]: data
+                }
+            });
+        }
         case types.UP_POST_PROJECT_SUCCESS_ED: {
             const {data, error} = action;
             const {added} = state;
@@ -254,6 +264,7 @@ export default function EditProjectReducer(state=initialState, action) {
                 tags: project.tags,
                 technologies: project.technologies,
                 conditions: project.conditions,
+                contacts: project.contacts,
                 features: project.features,
                 files: data.map(function(el) {
                     return Object.assign({}, el, {ready: true}, {good: true}, {inBase: true})
@@ -524,6 +535,20 @@ const initialState = {
     iconLoaded: false,
     errors: {nameError: false, technologiesError: false, timeBeginError: false, usersError: false, timeEndError: false},
     techIcon: {},
+    contacts: {
+        countryCode: '',
+        countryName: '',
+        postalIndex: '',
+        state_region: '',
+        city: '',
+        street: '',
+        building: '',
+        appartment: '',
+        contactPerson: '',
+        phone: '',
+        email: '',
+        skype: ''
+    },
     techIconError: '',
     description:{
         descrFullText: 'Description'

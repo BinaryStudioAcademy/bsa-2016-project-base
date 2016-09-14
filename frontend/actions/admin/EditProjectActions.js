@@ -653,3 +653,12 @@ export function uploadIcon(file) {
         }
     };
 };
+
+export function setContactFieldData(field, data) {
+    return {
+        type: 'UP_SET_CONTACT_FIELD_ED',
+        field,
+        data
+    }
+}
+
