@@ -65,10 +65,9 @@ class ProjectView extends Component {
     getAvgRating(rating) {
         let ranking = 0;
         if(rating.length){
-            rating.forEach((value) =>{ ranking += value; });
-            return Math.round(ranking/length);
+            rating.forEach((item) =>{ ranking += item.value; });
+            return Math.round(ranking/rating.length);
         }
-        
         return ranking;
     }
 
@@ -77,22 +76,30 @@ class ProjectView extends Component {
         
         const projectDetail = this.props['project'],
             currentFeature = projectDetail['filters'].feature,
-            name = (projectDetail['projectName'] ? projectDetail['projectName'] : this.state['undefinedText']),
+            locationData = (projectDetail['location'] ? {
+                contacts: projectDetail.contacts,
+                location: {
+                    lat: +projectDetail['location'].Latitude,
+                    lng: +projectDetail['location'].Longitude
+                }
+            }:{
+                contacts:{},
+                location:{ lat: 0 , lng: 0}
+            }), name = (projectDetail['projectName'] ? projectDetail['projectName'] : this.state['undefinedText']),
             description = (projectDetail['description'] ? projectDetail.description['descrFullText'] : this.state['undefinedText']),
-            rating = (projectDetail['rating'] ? this.getAvgRating(projectDetail.rating) : this.state['undefinedText']);
-
-        if(projectDetail.tags) projectDetail['tags'].forEach((item)=>{
-            tagsItems.push(<TagsListItem name={item.tagName} key={item._id} />);
+            rating = (projectDetail.rating ? this.getAvgRating(projectDetail['rating']) : this.state['undefinedText']);
+   
+        if(projectDetail['tags']) projectDetail['tags'].forEach((item,index)=>{
+            tagsItems.push(<TagsListItem name={item.tagName} key={index} />);
         });
 
-        if(projectDetail.technologies) projectDetail['technologies'].forEach((item)=>{
-            technologiesItems.push(<TechnologiesListItem key={item._id} data={item} />);
+        if(projectDetail['technologies']) projectDetail['technologies'].forEach((item,index)=>{
+            technologiesItems.push(<TechnologiesListItem key={index} data={item} />);
         });
 
-        if(projectDetail.features) projectDetail['features'].forEach((item)=>{ 
+        if(projectDetail['features']) projectDetail['features'].forEach((item,index)=>{ 
             let options = {
-                ref: item._id,
-                key: item._id,
+                key: index,
                 data: item,
                 onClick: ()=>{
 
@@ -104,10 +111,17 @@ class ProjectView extends Component {
                         flag = false;
                     }
 
+                    if(currentFeature == item._id){
+                        tempFilters['feature'] = new Array();
+                        flag = false;
+                    }
+
                     if(flag){
-                        let index = features.findIndex(el => el._id == item._id);
-                        if(!features[index].childFeatures.length) return;
-                        tempFilters['feature'] = item._id;
+                        let index = features.findIndex(el => el._id == item._id),
+                            children = features[index].childFeatures;
+                        if(!children.length) return;
+                        tempFilters['feature'] = [item._id];
+                        children.forEach((item)=>{ tempFilters['feature'].push(item._id); });
                     }
 
                     this.props.getProject(this.props['routeParams'].id,tempFilters);
@@ -116,14 +130,18 @@ class ProjectView extends Component {
             if(currentFeature == item._id) options['className'] = "featureItem-Main";
             featuresItems.push(React.createElement(FeaturesListItem,options));
         });
+      
+        if(projectDetail['users']) projectDetail['users'].forEach((item,index)=>{
+            usersItems.push(<UsersListItem key={index+item._id} data={item} marker={"users"}/>);
+        }); 
 
-        if(projectDetail.users) projectDetail['users'].forEach((item)=>{
-            usersItems.push(<UsersListItem id={item._id} key={item._id} data={item} />);
+        if(projectDetail['owners']) projectDetail['owners'].forEach((item,index)=>{
+            usersItems.push(<UsersListItem key={index+item._id} data={item} marker={"owners"}/>);
         }); 
 
     	return (
             <div id={styles["project-view-content"]}>
-                <div className={styles['project-view-navigation']}>
+                <div className={styles['projectMain-Navigation']}>
                     <div>
                         <MuiThemeProvider>
                             <ActionUndo size={13} className={styles['redirect-to-list']} />
@@ -141,7 +159,7 @@ class ProjectView extends Component {
                         </label>
                     </div>
                 </div>
-                <div className={styles['projectMain']}>
+                <div className={styles['projectMain-firstRow']}>
                     <div className={styles["descrpition-row"]}>
                         <div className={styles['description-block']}>
                             <header className={styles['description-block-header']}>
@@ -205,11 +223,14 @@ class ProjectView extends Component {
                         </div>
                     </div>
                 </div>
-                <div className={styles['secondRow']}>
+                <div className={styles['projectMain-secondRow']}>
                     <UsersList>{usersItems}</UsersList>
                     <FeaturesList>{featuresItems}</FeaturesList>
                 </div>
-		<Location location={projectDetail['location']} />
+                <div className={styles['projectMain-thirdRow']}>
+                    <Location data={locationData} />
+                    <SimilarProjects project={projectDetail}/>
+                </div>
             </div>    
         )
     }
@@ -227,3 +248,6 @@ function mapStateToProps(state) {
 
 const ProjectViewConnected = connect(mapStateToProps, mapDispatchToProps)(ProjectView);
 export default ProjectViewConnected;
+
+//<SimilarProjects project={projectDetail}/>
+                

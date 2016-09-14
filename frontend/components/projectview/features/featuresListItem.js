@@ -3,7 +3,7 @@ import styles from '../project-view.sass';
 import FaNessesary from 'react-icons/lib/fa/check';
 import FaNotNessesary from 'react-icons/lib/fa/close';
 
-class FeaturesListItem extends React.Component {
+export default class FeaturesListItem extends React.Component {
 
     constructor(props){
         super(props);
@@ -40,4 +40,3 @@ class FeaturesListItem extends React.Component {
 		);
 	}
 };
-export default FeaturesListItem;

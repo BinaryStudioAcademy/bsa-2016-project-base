@@ -8,20 +8,16 @@ module.exports = function(req, res, next) {
         token = cookies.get('x-access-token');
     if (token){
         JWT.verify(token, configTocken['key'], function (err, decoded) {
-            if (err) {
-                res.status(403).send({
-                    success: false,
-                    message: "Failed to authenticate user"
-                });
-            }
-            else {
+            if (err) res.status(403).send({
+                success: false,
+                message: "Failed to authenticate user"
+            });
+            else{
                 req.decoded = decoded;
-                //console.log(decoded);
                 cookies.set('userEmail', decoded.email, { httpOnly: false });
                 cookies.set('userRole', decoded.role, { httpOnly: false });
                 cookies.set('referer', configHost['autHost']);
                 next();
-
             }
         })
     }else {

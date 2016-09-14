@@ -16,11 +16,11 @@
     ::-webkit-scrollbar-thumb
         background: rgba(0, 0, 0, 0.5)	
 
-    .project-view-navigation
+    .projectMain-Navigation
         width: 100%
-        padding: 25px 0px 25px 50px
         display: flex
         flex-direction: row
+        padding: 25px 0px 25px 50px
         justify-content: space-between
 
         div
@@ -35,6 +35,7 @@
             label
                 margin-left: 8px
                 font-family: "Open Sans"
+
                 a
                     color:#93A6AF
 
@@ -43,12 +44,11 @@
                 color: #93A6AF
 
             &:hover
-                color: black
+            
                 .redirect-to-list > *, a
-                    color: #293541    
-     
+                    color: #293541 
 
-    .secondRow
+    .projectMain-secondRow
     	width: 100%
     	height: 360px
     	display: flex
@@ -232,7 +232,6 @@
             				path
             					color: SeaGreen		    
 
-
             		>span:nth-child(3),
             		>span:nth-child(5)
             			width: 100px
@@ -271,7 +270,6 @@
             					border-left: 10px solid transparent
             					border-right: 10px solid transparent
 
-
     		.featuresList-Header
     			display: flex
     			padding: 18px 0px
@@ -300,7 +298,51 @@
     				vertical-align: middle	
                 	text-transform: uppercase
 
-    .projectMain
+    .projectMain-thirdRow
+    	display: flex
+    	padding-top: 50px
+    	flex-direction: row
+    	justify-content: center
+
+    	.locationMap-Container
+    		width: 450px
+    		height: 500px
+    		background-color: white
+
+    		.locationMap-Content
+    			width: 450px
+    			height: 450px
+
+    			.locationMap-MarkerContent
+    				width: 250px
+    				height: 150px
+    				font-size: 14px
+    				padding-top: 10px
+
+    				span
+    					margin: 8px
+
+    				span:first-child
+    					font-weight: 600
+
+    				div:first-child,
+    				div:nth-child(4)
+    					border-bottom: 1px solid grey
+    					padding-bottom: 4px
+    					margin-bottom: 5px
+
+    		.locationMap-Header
+    			width: 100%
+    			height: 50px
+    			padding: 1px 0px 0px 15px
+    			border-left: 3px solid #8D97A4
+                border-bottom: 1px solid #efefef
+
+                h2          
+                    font-weight: 700
+                    text-align: center
+
+    .projectMain-firstRow
         display: flex
         flex-direction: column
         justify-content: center
@@ -336,14 +378,14 @@
                    
                     span
                         display: inline-block
-                        font-size: 0.6rem
+                        font-size: 0.7rem
                         vertical-align: top
                         background-color: #E9f0f6
-                        color: #8D97A4
-                        padding: .2rem
-                        margin-right: 0.7rem
-                        margin-bottom: 0.7rem
+                        color: black
+                        padding: .2rem .5rem
+                        margin: 0 0.5rem 0.7rem 0
                         border-radius: 5px
+
                 
                 .description-block-content
                     display: flex

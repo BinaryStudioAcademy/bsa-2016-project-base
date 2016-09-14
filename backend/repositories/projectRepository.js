@@ -22,8 +22,7 @@ ProjectRepository.prototype.getByAllData = function(id, callback) {
 		.populate({
 			path: "features",
 			populate: {path: "section"}
-		})
-		.populate("technologies")
+		}).populate("technologies")
 		.populate("owners")
 		.populate("users");
 	query.exec(callback);
@@ -62,27 +61,85 @@ ProjectRepository.prototype.getAll = function(callback){
 
 ProjectRepository.prototype.getAllInProgress = function(callback){
 	var model = this.model;
-	var query = model.find({status: {$not: { $eq: 'Completed' }}, features: {$not: {$size: 0}}}, {_id: 1, projectName: 1, description: 1});
+	var query = model.find({
+		status: {$not: { $eq: 'Completed' }}, 
+		features: {$not: {$size: 0}}
+	}, {
+		_id: 1, 
+		projectName: 1, 
+		description: 1
+	});
 	query.exec(callback);
 };
 
-ProjectRepository.prototype.getDetailsById = function(id,callback){
-	var model = this.model;
-	var query = model.findOne({_id:id})
-		.populate(['technologies', 'tags', 'users','owners','features'])
-		.populate({
-   			path: 'features',
-   			populate: { path: 'section' }
-  		});
-  
-	query.exec(callback);
+ProjectRepository.prototype.getAllByFilters = function(filters,callback){
+	var model = this.model,population = {
+			users: {},
+			features:{
+				path: 'features',
+   				populate: { path: 'section' }
+			}
+		}, query = model.findOne({_id:filters['projectId']})
+			.populate(['technologies', 'tags']);
+
+  	if(filters['userName']){
+
+		filters['userName'] = {
+			'$regex' : filters['userName'],
+			'$options' : 'i'
+		};
+
+		population.users['match'] = {
+			$or: [{ 
+					userName: filters['userName'] 
+				},{ 
+					userSurname: filters['userName'] 	
+			}]
+		}
+	}
+
+	if(filters['userRight'] != "users") {
+		population.users['path'] = "owners";
+		query = query.populate(population['users']);
+	}
+
+	if(filters['userRight'] != "owners") {
+		population.users['path'] = "users";
+		query = query.populate(population['users']);
+	}
+	if(filters['featuresIds']) 
+		population.features['match'] = {
+			_id:{ 
+				$in: filters['featuresIds']
+			}
+		}
+	query.populate(population['features']);
+	query.exec((err, result)=>{
+		if(!err){
+			if(filters['userRight'] == "users") result['owners'] = null;
+			if(filters['userRight'] == "owners") result['users'] = null;
+		}
+		callback(err, result);
+	});
 };
 
 ProjectRepository.prototype.getAllwithLocations = function(callback){
     var model = this.model;
-    var query = model.find({},{features: 0, questions: 0, screenShots: 0,
-    	attachments: 0, users: 0, owners: 0, tags: 0, technologies: 0, 
-    	description: 0, rating: 0, status: 0, timeBegin: 0, timeEnd: 0});
+    var query = model.find({},{
+    		features: 0, 
+    		questions: 0, 
+    		screenShots: 0,
+    		attachments: 0, 
+    		users: 0,
+    		owners: 0, 
+    		tags: 0, 
+    		technologies: 0, 
+    		description: 0, 
+    		rating: 0, 
+    		status: 0, 
+    		timeBegin: 0, 
+    		timeEnd: 0
+    });
     query.exec((err, result)=>{
     	if (err) console.log('Get all locations Error');
         let projLocations = [];
@@ -99,8 +156,16 @@ ProjectRepository.prototype.getAllwithLocations = function(callback){
 
 ProjectRepository.prototype.getByIdForLocations = function(id, callback){
 	var model = this.model;
-	var query = model.findOne({_id:id}, 
-		{ features: 0, questions: 0, screenShots: 0, attachments: 0, users: 0, owners: 0, tags: 0, technologies: 0});
+	var query = model.findOne({_id:id}, { 
+		features: 0, 
+		questions: 0, 
+		screenShots: 0, 
+		attachments: 0, 
+		users: 0, 
+		owners: 0, 
+		tags: 0, 
+		technologies: 0
+	});
 	query.exec(callback);
 };
 

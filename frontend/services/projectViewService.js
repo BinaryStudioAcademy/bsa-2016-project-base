@@ -10,13 +10,11 @@ class ProjectViewService {
 	}
 
 	getProject(projectId,filters) {
-		console.log("11");
-		return fetch(this.url + projectId,
-			Object.assign({ body: filters},
-				constants.cookieMarker,
-	         	constants.jsonHedeaders
-	        )
-	    );
+		let query = `${this.url}projectId=${projectId}`;
+		if(filters['user'].right) query += `&userRight=${filters['user'].right}`;
+		if(filters['user'].name) query += `&userName=${filters['user'].name}`;
+		if(filters['features'].length) query += `&featureIds=${filters['features'].join(',')}`;
+		return fetch(query,constants.cookieMarker);
 	}
 
 }

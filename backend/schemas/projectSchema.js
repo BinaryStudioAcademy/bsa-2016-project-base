@@ -65,13 +65,8 @@ var Project = new Schema({
     contacts: {
         countryCode: String,
         countryName: String,
-        postalIndex: String,
-        state_region: String,
-        city: String,
-        street: String,
-        building: String,
-        appartment: String,
         contactPerson: String,
+        city: String,
         phone: String,
         email: String,
         skype: String

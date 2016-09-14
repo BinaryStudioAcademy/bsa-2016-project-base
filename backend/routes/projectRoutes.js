@@ -5,11 +5,11 @@ var searchService = require('../service/search-service');
 var statsService = require('../service/stat-service');
 
 module.exports = function(app) {
+
 	app.get('/api/projects/', function (req,res,next) {
 		projectRepository.getAll(function (err,data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	},apiResponse);
@@ -18,7 +18,6 @@ module.exports = function(app) {
 		projectRepository.getAllDataMainPage(function (err,data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	},apiResponse);
@@ -27,7 +26,6 @@ module.exports = function(app) {
 		projectRepository.getAllDataMainPageOrderBy(req.params.orderBy, function (err,data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	},apiResponse);
@@ -36,7 +34,6 @@ module.exports = function(app) {
 		projectRepository.getById(req.params.id, function(err, data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -45,7 +42,6 @@ module.exports = function(app) {
 		projectRepository.getByAllData(req.params.id, function(err, data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -53,7 +49,6 @@ module.exports = function(app) {
 	app.get('/api/projects/:id/features', function(req, res, next) {
 		projectRepository.getByIdWithFeatures(req.params.id, function(err, data) {
 			res.data = data;
-			//res.json(data);
 			res.err = err;
 			next();
 		});
@@ -64,7 +59,6 @@ module.exports = function(app) {
 		projectRepository.getByIdWithStakeholders(req.params.id, function(err, data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -73,7 +67,6 @@ module.exports = function(app) {
 		projectRepository.getByIdWithTags(req.params.id, function(err, data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -83,15 +76,14 @@ module.exports = function(app) {
 		projectRepository.getByIdWithTechnologies(req.params.id, function(err, data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
+
 	app.get('/api/search/projects', function (req, res, next) {
 		searchService.getFilteredProjects(req, function (err, data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -100,7 +92,6 @@ module.exports = function(app) {
 		projectRepository.getByIdForLocations(req.params.id, function(err, data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -109,7 +100,6 @@ module.exports = function(app) {
 		projectRepository.getAllwithLocations(function (err,data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -118,7 +108,6 @@ module.exports = function(app) {
 		statsService.getProjectsCountriesStat(req, function (err,data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -127,7 +116,6 @@ module.exports = function(app) {
 		statsService.getProjectsTagsStat(req, function (err,data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -136,7 +124,6 @@ module.exports = function(app) {
 		statsService.getProjectsTechsStat(req, function (err,data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -145,7 +132,6 @@ module.exports = function(app) {
 		statsService.getProjectsDatesStart(req, function (err,data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -162,7 +148,6 @@ module.exports = function(app) {
 			}
 			else {
 				res.data = data;
-				//res.json(data);
 				res.err = err;
 			}
 			next();
@@ -172,7 +157,6 @@ module.exports = function(app) {
 	app.put('/api/projects/:id', function(req, res, next) {
 		projectRepository.update(req.params.id, req.body,function(err, data) {
 			res.data = data;
-			//res.json(data);
 			res.err = err;
 			next();
 		});
@@ -181,7 +165,6 @@ module.exports = function(app) {
 	app.delete('/api/projects/:id', function(req, res, next) {
 		projectRepository.delete(req.params.id, function(err, data) {
 			res.data = data;
-			//res.json(data);
 			res.err = err;
 			next();
 		});
@@ -191,7 +174,6 @@ module.exports = function(app) {
 		projectRepository.getAllInProgress(function (err,data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -209,18 +191,21 @@ module.exports = function(app) {
 
 				res.data = sortData;
 				res.err = err;
-				//res.json(data);
 				next();
 			});
 		});
 	}, apiResponse);
 
-	app.get('/api/project-view/:id', function(req, res, next) {
-		console.log(req.body);
-		projectRepository.getDetailsById(req.params.id, function (err,data) {
+	app.get('/api/project-view/:filter', function(req, res, next) {
+		let params = req.params['filter'].split('&'),filters = {};
+		for(let i in params) {
+			params[i] = params[i].split('=');
+			filters[params[i][0]] = params[i][1];
+		}
+		if(filters['featureIds']) filters['featureIds'] = filters['featureIds'].splice(',');
+		projectRepository.getAllByFilters(filters, function (err,data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);

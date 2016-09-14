@@ -7,7 +7,6 @@ module.exports = function(app) {
 		featureRepository.getById(req.params.id, function(err, data) {
 			res.data = data;
 			res.err = err;
-			// res.json(data); //0408
 			next();
 		});
 	}, apiResponse);
@@ -16,7 +15,6 @@ module.exports = function(app) {
 		featureRepository.getAll(function (err,data) {
 			res.data = data;
 			res.err = err;
-			// res.json(data);//0408
 			next();
 		});
 	},apiResponse);
@@ -25,7 +23,6 @@ module.exports = function(app) {
 		featureRepository.getAllFeaturesWithSection(function (err,data) {
 			res.data = data;
 			res.err = err;
-			// res.json(data);//0408
 			next();
 		});
 	},apiResponse);
@@ -34,7 +31,6 @@ module.exports = function(app) {
 		featureRepository.getByIdWithSection(req.params.id, function(err, data) {
 			res.data = data;
 			res.err = err;
-			// res.json(data); //0408
 			next();
 		});
 	}, apiResponse);
@@ -42,7 +38,6 @@ module.exports = function(app) {
 	app.put('/api/features/:id', function(req, res, next) {
 		featureRepository.update(req.params.id,req.body,function(err, data) {
 			res.data = data;
-			// res.json(data);//0408
 			res.err = err;
 			next();
 		});
@@ -52,7 +47,6 @@ module.exports = function(app) {
 		featureRepository.add(req.body, function(err, data) {
 			res.data = data;
 			res.err = err;
-			// res.json(data);//0408
 			next();
 		});
 	}, apiResponse);
@@ -60,7 +54,6 @@ module.exports = function(app) {
 	app.delete('/api/features/:id', function(req, res, next) {
 		featureRepository.delete(req.params.id,function(err, data) {
 			res.data = data;
-			// res.json(data);//0408
 			res.err = err;
 			next();
 		});
@@ -69,14 +62,9 @@ module.exports = function(app) {
 	app.delete('/api/features/', function(req, res, next) {
 		featureRepository.deleteMany(req.body,function(err, data) {
 			res.data = data;
-			// res.json(data);//0408
 			res.err = err;
 			next();
 		});
 	}, apiResponse);
-
-
-
-
-
+	
 };

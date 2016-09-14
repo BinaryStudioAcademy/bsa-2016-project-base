@@ -2,7 +2,7 @@ import React from 'react';
 import Gallery from '../../common/gal';
 import styles from '../project-view.sass';
 
-class Screenshots extends React.Component {
+export default class Screenshots extends React.Component {
 
     constructor(props){
         super(props);
@@ -32,5 +32,3 @@ class Screenshots extends React.Component {
         );
     }
 }
-
-export default Screenshots;

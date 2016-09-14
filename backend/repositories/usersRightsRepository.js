@@ -28,14 +28,17 @@ UsersRightsRepository.prototype.getUsersToProject = function(data,callback){
 			]
 		}
 	}
+	
 	if(isOwner) {
 		populate['path'] = 'owners';
 		query = query.populate(populate);
 	}
+
 	if(isSimple){
 		populate['path'] = 'users';
 		query = query.populate(populate);
 	}
+
 	query.exec(function(err,result){
 		if(result) result = {
 			projectId: result['_id'],

@@ -36,8 +36,8 @@ class UserList extends React.Component {
                             this.props.getProject(_id,tempFilters);
                         }}>Owner</span>
                         <span className={styles['users']}/>
-                        <span className={((right == "simples") ? "checked" : "default")} onClick={()=>{
-                            tempFilters['user'].right = ((right != "simples") ? "simples" : "");
+                        <span className={((right == "users") ? "checked" : "default")} onClick={()=>{
+                            tempFilters['user'].right = ((right != "users") ? "users" : "");
                             this.props.getProject(_id,tempFilters);
                         }}>Programmer</span>
                     </div>

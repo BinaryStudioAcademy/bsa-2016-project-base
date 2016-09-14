@@ -24,7 +24,7 @@ class userListItem extends React.Component {
                     <div>
                         <span>{item['userName'] + ' ' + item['userSurname']}</span>
                         <div>
-                           <span className={styles[(item.isOwner ? 'owners' : 'users')]} />
+                           <span className={styles[this.props['marker']]} />
                            {item.position}
                         </div>
                     </div>
