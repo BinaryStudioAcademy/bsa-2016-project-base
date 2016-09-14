@@ -32,7 +32,7 @@ export default class MultiSelect extends Modelable {
         const {model} = this.props
         const values = <DeletableList model={model}/>;
 
-        return (<div style={{width:this.rightBlockWidth,overflow:"auto", "maxHeight":"300px"}}>
+        return (<div style={{width:this.rightBlockWidth,overflow:"auto", "maxHeight":"300px"}} className='custom-scroll'>
             {values}
         </div>)
     }
@@ -60,7 +60,7 @@ export default class MultiSelect extends Modelable {
                     receiver={model.setCustom}/>
                 {model.isLoading ? <CircularProgress size={0.5}/> : ""}
             </div>
-            <div style={{"marginTop":"60px", overflow:"auto", "maxHeight":"260px"}}>
+            <div style={{"marginTop":"60px", overflow:"auto", "maxHeight":"260px"}} className='custom-scroll'>
                 {tips}</div>
         </div>)
     }
