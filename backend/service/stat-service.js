@@ -21,7 +21,7 @@ class StatService {
 					let returnObj = [];
 					tagsResult.forEach((tagElem, ind, arr) =>{
 						returnObj.push({
-							tagName: tagElem._id.tagName,
+							tagName: tagElem._id.tagName || 'No tags',
 							count: tagElem.count
 						});
 					});
