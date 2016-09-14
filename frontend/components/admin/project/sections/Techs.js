@@ -47,22 +47,31 @@ class Techs extends Component {
         }
     }
     onTechNameChange(e){
-        this.setState({
-            techName: e.target.value
-        });
-        this.isAllFilled();
+        const techName = e.target.value;
+        if (techName.length <= 20) {
+            this.setState({
+                techName 
+            });
+            this.isAllFilled();
+        }
     }
     onTechVersionChange(e){
-        this.setState({
-            techVersion: e.target.value
-        });
-        this.isAllFilled();
+        const techVersion = e.target.value;
+        if (techVersion.length <= 10) {
+            this.setState({
+                techVersion
+            });
+            this.isAllFilled();
+        }
     }
     onTechDescriptionChange(e){
-        this.setState({
-            techDescription: e.target.value
-        });
-        this.isAllFilled();
+        const techDescription = e.target.value;
+        if (techDescription.length <= 100) {
+            this.setState({
+                techDescription
+            });
+            this.isAllFilled();
+        }
     }
     onTechLogoChange(e){
         const file = e.target.files[0];

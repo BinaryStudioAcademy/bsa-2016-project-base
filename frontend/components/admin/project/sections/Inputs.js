@@ -19,11 +19,15 @@ class Inputs extends Component {
    
     onProjectNameChange(e, id){
     	const name = e.target.value;
-    	this.props.changeProjectName(name);
+        if (name.length <= 50) {
+            this.props.changeProjectName(name);
+        }
     }
     onProjectLinkChange(e, id){
     	const link = e.target.value;
-    	this.props.changeProjectLink(link);
+        if (link.length <= 100) {
+            this.props.changeProjectLink(link);
+        }
     }
     onStartDateChange(e, d){
     	const date = d;
