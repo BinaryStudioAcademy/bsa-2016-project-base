@@ -8,6 +8,7 @@ import { bindActionCreators, combineReducers} from 'redux';
 import * as actions from '../../actions/ProjectViewActions';
 
 /* developers components */
+import Description from './description/description';
 import TagsList from './tags/tagsList';
 import Gallery from './gallery/gallery';
 import UsersList from './users/usersList';
@@ -27,6 +28,7 @@ import Location from './location/Location';
 import FaPlus from 'react-icons/lib/fa/plus';
 import FaList from 'react-icons/lib/fa/list';
 import FaMinus from 'react-icons/lib/fa/minus'; 
+import FaPaperclip from 'react-icons/lib/fa/paperclip';
 
 import ActionUndo from 'material-ui/svg-icons/content/undo';
 import ActionInfo from 'material-ui/svg-icons/action/info';
@@ -63,13 +65,15 @@ class ProjectView extends Component {
     }
 
     getAvgRating(rating) {
-        let ranking = 0;
-        if(rating.length){
-            rating.forEach((value) =>{ ranking += value; });
-            return Math.round(ranking/length);
+        let ranking = 0,
+            length = rating.length;
+
+        for(let i = 0; i < length; i++){
+            ranking += rating[i].value;
         }
-        
-        return ranking;
+
+        if (!length) return 0;
+        return Math.round(ranking/length);
     }
 
     render() {
@@ -143,65 +147,36 @@ class ProjectView extends Component {
                 </div>
                 <div className={styles['projectMain']}>
                     <div className={styles["descrpition-row"]}>
-                        <div className={styles['description-block']}>
-                            <header className={styles['description-block-header']}>
-                                <h1>{name}</h1>
-                                <div className={styles['description-block-tags']}>
-                                    {tagsItems}
-                                </div>
-                            </header>
-                            <div className={styles['description-block-content']}>
-                                <div className={styles['description-block-text']}>
-                                    <div className={styles['description-block-html']}
-                                        dangerouslySetInnerHTML={{__html: description}}/>
 
-                                    <table>
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                Status
-                                            </td>
-                                            <td>
-                                                {projectDetail['status'] ? projectDetail['status'] : this.state.undefinedText }
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Started
-                                            </td>
-                                            <td>
-                                                {projectDetail['timeBegin'] ? (new Date(projectDetail['timeBegin'])
-                                                .toLocaleString("en-US",this.state.timeOptions)) : this.state.undefinedText}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Finished</td>
-                                            <td>
-                                                {projectDetail['timeEnd'] ? (new Date(projectDetail['timeEnd'])
-                                                .toLocaleString("en-US",this.state.timeOptions)) : ""}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                               Average Rating
-                                            </td>
-                                            <td>
-                                                {rating}
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div className={styles['description-block-technologies']}>
-                                    {technologiesItems}
-                                </div>
+                        <Description
+                            name={name}
+                            tagsItems={tagsItems}
+                            description={description}
+                            projectDetail={projectDetail}
+                            undefinedText={this.state.undefinedText}
+                            timeOptions={this.state.timeOptions}
+                            rating={rating}
+                            technologiesItems={technologiesItems}
+                        />
+
+                        <div className={styles['screenshots-attachments-container']}>
+                            <div className={styles['screenshots-block-inner']}>
+                                <header className={styles['screenshots-block-header']}>
+                                    <h4>Screenshots</h4>
+                                </header>
+                                <Gallery data={projectDetail['screenShots']} />
                             </div>
-                        </div>
-                        <div className={styles['screenshots-block-inner']}>
-                            <header className={styles['screenshots-block-header']}>
-                                <h4>Screenshots</h4>
-                            </header>
-                            <Gallery data={projectDetail['screenShots']} />
+                            
+                            <div className={styles['attachments-block']}>
+                                 <header className={styles['screenshots-block-header']}>
+                                    <div className={styles['attach-icon']}>
+                                        <FaPaperclip size={19}/>
+                                    </div>
+                                    <h4>Attachments</h4>
+                                </header>
+                                <Attachment project={this.props.project}/>
+                            </div>
+
                         </div>
                     </div>
                 </div>
