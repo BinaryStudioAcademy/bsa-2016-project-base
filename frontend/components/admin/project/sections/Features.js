@@ -28,9 +28,12 @@ class Features extends Component {
         this.removeFeature = this.removeFeature.bind(this);
     }
     setNewSectionName(e){
-    	this.setState({
-    		sectionName: e.target.value
-    	});
+        let sectionName = e.target.value.trim();
+        if (sectionName.length <= 30) {
+            this.setState({
+                sectionName: sectionName
+            });
+        }
     }
     addNewSection(e) {
     	const {sectionName} = this.state;
@@ -102,9 +105,13 @@ class Features extends Component {
         });
     }
      setNewFeatureName(e) {
-        this.setState({
-            featureName: e.target.value
-        });
+
+        let featureName = e.target.value.trim();
+        if (featureName.length <= 30) {
+            this.setState({
+                featureName: featureName
+            });
+        }
     }
 
     renderFeatures(featuresList, sectionsList){
@@ -124,7 +131,6 @@ class Features extends Component {
                     <RaisedButtonUITags
                         label='Add'
                         onClick={this.showCreateFeatureModal}
-                        backgroundColor='#8D97A4'
                     />
                 </div>
             </div>
@@ -225,7 +231,6 @@ class Features extends Component {
                                 <RaisedButtonUITags
                                     label='Add'
                                     onClick={this.addNewSection}
-                                    backgroundColor='#8D97A4'
                                 />
                             </div>
 
