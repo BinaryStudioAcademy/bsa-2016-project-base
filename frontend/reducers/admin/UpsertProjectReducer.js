@@ -128,17 +128,17 @@ export default function UpsertProjectReducer(state=initialState, action) {
         }
         case types.UP_CHANGE_START_DATE: {
             const {date} = action;
-            const {userStory} = state;
+            const {userStory,timeEnd,timeBegin} = state;
             return Object.assign({}, state, {
-            	timeBegin: date,
+            	timeBegin: updateProjectStartDate(date, timeEnd, timeBegin),
                 userStory: updateUserStory(userStory,null,date,null,null)
             });
         }
         case types.UP_CHANGE_FINISH_DATE: {
             const {date} = action;
-            const {userStory} = state;
+            const {userStory,timeBegin,timeEnd} = state;
             return Object.assign({}, state, {
-            	timeEnd: date,
+            	timeEnd: updateProjectEndDate(timeBegin, date,timeEnd),
                 userStory: updateUserStory(userStory,null,null,date,null)
             });
         }
@@ -314,6 +314,35 @@ export default function UpsertProjectReducer(state=initialState, action) {
         }
     }
 };
+
+
+const updateProjectStartDate = (timeBegin, timeEnd, currDate) => {
+    if (timeEnd) {
+        const dateProjectStartSeconds = Date.parse(timeBegin);
+        const dateProjectEndSeconds = Date.parse(timeEnd);
+        if(dateProjectStartSeconds <= dateProjectEndSeconds) {
+            return timeBegin;
+        } else {
+            return currDate;
+        }
+    } else {
+        return timeBegin;
+    }
+}
+
+const updateProjectEndDate = (timeBegin, timeEnd, currDate) => {
+    if (timeBegin) {
+        const dateProjectStartSeconds = Date.parse(timeBegin);
+        const dateProjectEndSeconds = Date.parse(timeEnd);
+        if(dateProjectEndSeconds >= dateProjectStartSeconds) {
+            return timeEnd;
+        } else {
+            return currDate;
+        }
+    } else {
+        return timeEnd;
+    }
+}
 
 const updateUserStory = (story, userId, start, end, projectPeriod) => {
     if (userId) {
