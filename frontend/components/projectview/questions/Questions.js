@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions from '../../../actions/ProjectViewActions';
 
-import List from './List';
+import ListQ from './ListQ';
 
 import styles from './questions.sass';
 import styles_anime from './animation.sass';
@@ -10,50 +13,46 @@ class Questions extends Component {
     constructor(props){
         super(props);
 
-        this.state = {
-            show_q: true,
-            show_a: []
-        }
-
         this.handleHideQ = this.handleHideQ.bind(this);
-        this.handleHideA = this.handleHideA.bind(this);
     }
 
     get qIsShown() {
-        return this.state.show_q;
+        return this.props.stateFromReducer.questionsOptions.showMess.showQ;
     }
 
-    handleHideQ() {
-        this.setState({
-            show_q: !this.state.show_q,
-            show_a: []
-        });
-    }
-
-    handleHideA(i) {
-        let my_show_a = this.state.show_a;
-        my_show_a[i] = !my_show_a[i];
-        this.setState({ show_a: my_show_a });
+    handleHideQ() { // свернуть/развернуть перечень вопросов, по умолчанию развернут
+        this.props.showOrHideQ();
     }
 
     render() {
 
-        let q = this.props.questions || [];
+        let qCol = this.props.stateFromReducer.questions || []; // перечень вопросов в проекте
 
         return(
             <div id={this.props.id} >
                 <div className={styles['section-title']} >
                     Questions & Answers
-                    <button onClick={this.handleHideQ} >
-                        {this.qIsShown ? 'Hide questions' : 'Show questions'}
-                    </button>
+                    {qCol.length ?
+                        <button onClick={this.handleHideQ} >
+                            {this.qIsShown ? 'Hide questions' : 'Show questions'}
+                        </button> : null
+                    }
                 </div>
                 <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-                {this.qIsShown ? <List type="q" collection={q} handleHideA={this.handleHideA} show_a={this.state.show_a} /> : null}
+                    {this.qIsShown ? <ListQ /> : null }
                 </ReactCSSTransitionGroup>
             </div>
         )
     }
 }
 
-export default Questions;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(actions, dispatch);
+}
+
+function mapStateToProps(state) {
+    return { stateFromReducer: state.ProjectViewReducer };
+}
+
+const QuestionsConnected = connect(mapStateToProps, mapDispatchToProps)(Questions);
+export default QuestionsConnected;

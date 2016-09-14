@@ -45,40 +45,44 @@ class Techs extends Component {
                 addBtnEnabled: false
             });
         }
-        console.log('addBtnEnabled ', this.state.addBtnEnabled);
-        
     }
     onTechNameChange(e){
-        this.setState({
-            techName: e.target.value
-        });
-        this.isAllFilled();
+        const techName = e.target.value;
+        if (techName.length <= 20) {
+            this.setState({
+                techName 
+            });
+            this.isAllFilled();
+        }
     }
     onTechVersionChange(e){
-        this.setState({
-            techVersion: e.target.value
-        });
-        this.isAllFilled();
+        const techVersion = e.target.value;
+        if (techVersion.length <= 10) {
+            this.setState({
+                techVersion
+            });
+            this.isAllFilled();
+        }
     }
     onTechDescriptionChange(e){
-        this.setState({
-            techDescription: e.target.value
-        });
-        this.isAllFilled();
+        const techDescription = e.target.value;
+        if (techDescription.length <= 100) {
+            this.setState({
+                techDescription
+            });
+            this.isAllFilled();
+        }
     }
     onTechLogoChange(e){
-        console.log('onTechLogoChange ',e.target.value);
         const file = e.target.files[0];
         if (file) {
             this.props.uploadIcon(file);
         }
     }
     addTechToProject(e, techId) {
-        console.log('addTechToProject ',techId);
         if (techId)  this.props.addTechToProject(techId);
     }
     removeTechFromProject(e, techId) {
-        console.log('removeTechFromProject ',techId);
         if (techId) this.props.removeTechFromProject(techId);
     }
     addNewTechToProject(e) {
@@ -98,8 +102,6 @@ class Techs extends Component {
         }
         const fileInput = document.querySelector('#tech-icon');
         fileInput.value = '';
-        
-        
     }
     removeNewTechFromProject(e, tech) {
     	if (tech) this.props.removeNewTechFromProject(tech);

@@ -5,7 +5,6 @@ import styles from './styles/Tags.sass';
 class TagItem extends Component {
     constructor(props) {
         super(props);
-        
     }
     shouldComponentUpdate(nextProps, nextState){
         return nextProps.tag.inProject !== this.props.tag.inProject;

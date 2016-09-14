@@ -18,32 +18,29 @@ class Inputs extends Component {
     }
    
     onProjectNameChange(e, id){
-        //console.log('onProjectNameChange: ',e.target.value, id);
     	const name = e.target.value;
-    	this.props.changeProjectName(name);
+        if (name.length <= 50) {
+            this.props.changeProjectName(name);
+        }
     }
     onProjectLinkChange(e, id){
-    	//console.log('onProjectLinkChange: ',e.target.value, id);
     	const link = e.target.value;
-    	this.props.changeProjectLink(link);
+        if (link.length <= 100) {
+            this.props.changeProjectLink(link);
+        }
     }
     onStartDateChange(e, d){
-    	console.log('onStartDateChange: ', d);
     	const date = d;
     	this.props.changeStartDate(date);
     }
     onFinishDateChange(e, d){
-    	console.log('onFinishDateChange: ', d);
     	const date = d;
     	this.props.changeFinishDate(date);
     }
     onConditionChange(e,option){
-    	console.log('onConditionChange: ',option);
-    	//const option = e.target.value;
     	this.props.changeCondition(option);
     }
     onDescriptionChange(html){
-    	console.log('onDescriptionChange: ',html);
         const {setEditorRerender} = this.props;
     	this.props.changeDescription(html);
     }
@@ -54,7 +51,6 @@ class Inputs extends Component {
             {value:'InProgress', name:'InProgress'},
             {value:'Completed', name:'Completed'}
         ]
-        console.log('Rerender Inputs');
     	return (
 	        <div id={styles['basic-information']}>
                 <header>

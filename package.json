@@ -32,6 +32,7 @@
     "babel-cli": "^6.11.4",
     "babel-polyfill": "^6.9.1",
     "body-parser": "^1.15.2",
+    "classnames": "^2.2.5",
     "compute-cluster": "0.0.9",
     "cookies": "^0.6.1",
     "docxtemplater": "^2.1.3",

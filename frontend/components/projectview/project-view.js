@@ -23,6 +23,8 @@ import TechnologiesList from './technologies/technologiesList';
 import TechnologiesListItem from './technologies/technologiesListItem';
 import UsersTimeLine from './usersTimeLine/UsersTimeLine';
 import EstimationFile from "./estimationFile/EstimationFileReceiverComponentWithLinkField";
+import SimilarProjects from "./similarProjects/View"
+import Attachment from "./attachment/View"
 import Location from './location/Location';
 /* icons */
 import FaPlus from 'react-icons/lib/fa/plus';
@@ -71,11 +73,15 @@ class ProjectView extends Component {
         for(let i = 0; i < length; i++){
             ranking += rating[i].value;
         }
+    }
 
         if (!length) return 0;
         return Math.round(ranking/length);
     }
 
+    componentWillReceiveProps(props) {
+        this.loadProject(props)
+    }
     render() {
         let featuresItems = [], usersItems = [],tagsItems = [], technologiesItems = [];
         
@@ -180,10 +186,14 @@ class ProjectView extends Component {
                         </div>
                     </div>
                 </div>
+		</div><Questions id="q-and-a" /></div.
                 <div className={styles['secondRow']}>
                     <UsersList>{usersItems}</UsersList>
+		    
                     <FeaturesList>{featuresItems}</FeaturesList>
+			
                 </div>
+		<UsersTimeLine />
 		<Location location={projectDetail['location']} />
             </div>    
         )

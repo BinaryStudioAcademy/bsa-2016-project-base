@@ -21,7 +21,7 @@ export function getTags() {
                 });
                 dispatch(filterTags()); 
             })
-            .catch(error => dispatch(errorHandler('Bad Request')));
+            .catch(error => dispatch(errorHandler(`Can't get tags`)));
     };
 };
 
@@ -40,7 +40,7 @@ export function deleteTags(tags) {
                 });
                 return dispatch(getTags());
             })
-            .catch(error => dispatch(errorHandler('Bad Request')));
+            .catch(error => dispatch(errorHandler(`Can't delete tags: ${tags.map(t=>tag.tagName).join(", ")}`)));
     };
 };
 
@@ -59,7 +59,7 @@ export function addTag(tag) {
                 });
                 return dispatch(getTags());
             })
-            .catch(error => dispatch(errorHandler('Bad Request')));
+            .catch(error => dispatch(errorHandler(`Can't add tag: ${tag.tagName}`)));
     };
 };
 

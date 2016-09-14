@@ -16,7 +16,6 @@ class Section extends Component {
     }
     render() {
         const {section,  isActive, onClick} = this.props;
-        console.log('isActive ',isActive);
         return (
             <div 
                 className={styles["section"]}  

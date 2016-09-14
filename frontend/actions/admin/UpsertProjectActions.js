@@ -306,7 +306,6 @@ export function uploadFile(file, target='file') {
     const name = file.name;
     const ext = name.slice(name.lastIndexOf('.'),name.legth);
     const allowedTypes = (target === 'file') ? FILE_TYPES : IMG_TYPES;
-    console.log('ext',ext);
     return dispatch => {
         dispatch({
             type: types.UP_UPLOAD_FILE,
@@ -318,33 +317,13 @@ export function uploadFile(file, target='file') {
                 name: file.name,
                 error: 'Unsupported file type. Allowed ' + allowedTypes.join('/')
             }
-            //const data = {
-            //    name: file.name
-            //}
-            //const error = 'Unsupported file type. Allowed ' + FILE_TYPES.join(',');
             dispatch(uploadFileValidation(data,target));
         } else if (file.size > MAX_SIZE) {
             const data = {
                 name: file.name,
                 error: 'File size is ' + (file.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + (MAX_SIZE / 1024 / 1024).toFixed(2) + ' MB.'
             }
-            //const data = {
-            //    name: file.name
-            //}
-            //const error = 'File size is ' + (file.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + (MAX_SIZE / 1024 / 1024).toFixed(2) + ' MB.'
             dispatch(uploadFileValidation(data,target));
-        /*} else {
-
-        if (file.size > MAX_SIZE) {
-            const data = {
-                name: file.name,
-                error: 'File size is ' + (file.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + (MAX_SIZE / 1024 / 1024).toFixed(2) + ' MB.'
-            }
-            dispatch({
-                type: types.UP_UPLOAD_FILE_SUCCESS,
-                data: data,
-                target
-            });*/
         } else {
             return uploadService.upload(file)
                 .then(response => {
@@ -487,6 +466,74 @@ export function selectSection(_id) {
     };
 };
 
+export function setVisibleUploadByLinkAttachments(hideFile, hideForm) {
+    return {
+        type: types.SET_VISIBLE_FORM_BY_LINK_ATTACHMENTS,
+        hideFile: hideFile,
+        hideForm: hideForm
+    }
+}
+export function setVisibleUploadByLinkScreenshoots(hideFile, hideForm) {
+    return {
+        type: types.SET_VISIBLE_FORM_BY_LINK_SCREENSHOOTS,
+        hideFileScreenshoots: hideFile,
+        hideFormScreenshoots: hideForm
+    }
+}
+export function uploadFileByLinkAddProject(link, target='file') {
+    const ext =  link.slice(link.lastIndexOf('.'));
+    let name = link.slice(link.lastIndexOf('/')+1,link.lastIndexOf('.'));
+    const allowedTypes = (target === 'file') ? FILE_TYPES : IMG_TYPES;
+    return dispatch=> {
+        dispatch({
+            type: types.UP_UPLOAD_FILE,
+            name: name,
+            target
+        });
+
+        if (!allowedTypes.includes(ext)) {
+            const data = {
+                name: name,
+                error: 'Unsupported file type. Allowed ' + allowedTypes.join('/')
+            }
+            dispatch(uploadFileValidation(data,target));
+        }else{
+            return uploadService.uploadFileByLinkAttachments(link)
+                .then(response => {
+                    if (response.status != 200) {
+                        throw Error(response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(json => {
+                    let data = json;
+                    if (!json.hasOwnProperty('error')) {
+                        data = fileThumbService.setThumb(json);
+                    }
+                    dispatch({
+                        type: types.UP_UPLOAD_FILE_SUCCESS,
+                        data: data,
+                        target
+                    });
+
+                })
+                .catch(error => {
+                    dispatch({
+                        type: types.UP_UPLOAD_FILE_ERROR,
+                        error: error,
+                        target
+
+                    });
+                });
+        }
+
+    }
+}
+export function uploadLinkFormatError() {
+    return {
+        type: 'WRONG_LINK_FORMAT'
+    }
+}
 export function errorHandler(error) {
     return {
         type: 'SOMETHING_GONE_WRONG',

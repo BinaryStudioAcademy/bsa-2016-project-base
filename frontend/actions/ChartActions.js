@@ -19,9 +19,8 @@ export function changeChartType(chartType){
 export function loadData(){
 
     return (dispatch, getState)=>{
-        /*mock*/
         const type = getState().ChartReducer.chartType;
-        if (type == "Circle"){
+        if (type == "projTechs"){
             chartService.getTechs()
                 .then(arrTechs =>{
                     //console.log('loadData() -> arrTechs: ', arrTechs);
@@ -45,7 +44,7 @@ export function loadData(){
                     }))
                 });
         }
-        else if (type == "Bar"){
+        else if (type == "projTags"){
             chartService.getTags()
                 .then(arrTags => {
                     console.log('arrTags: ', arrTags);
@@ -68,34 +67,75 @@ export function loadData(){
                         }]
                     }))
                 });
-        }else if (type == "Linear"){
-            dispatch(addData({
-                options:{
-                    title: {
-                        display:true,
-                        text:"Active projects quantity by the time"
-                    }
-                },
-                labels: ['1st January', '1st February', '1st March', '1st April', '1st May', '1st June', '1st July'],
-                datasets:[{
-                    label:"Active projects",
-                    data: [23,25,14,16,21,16,27]
-                }]
-            }));
-        } else if (type == "Bar2"){
-            dispatch(addData({
-                options:{
-                    title: {
-                        display:true,
-                        text:"Test"
-                    }
-                },
-                labels: ['1st January', '1st February', '1st March', '1st April', '1st May', '1st June', '1st July'],
-                datasets:[{
-                    label:"Active projects",
-                    data: [30,30,30,16,21,16,27]
-                }]
-            }));
+        } else if (type == "projCountries"){
+            chartService.getCountries()
+                .then(arrCountr => {
+                    console.log('arrCountr: ', arrCountr);
+                    const labels = arrCountr.map(countryName => (countryName._id.length > 0)? countryName._id : 'Undefined');
+                    console.log('Country labels: ', labels);
+                    const data = arrCountr.map(countryCount => countryCount.count);
+                    console.log('Country data: ', data);
+                    dispatch(addData({
+                        options:{
+                            title: {
+                                display:true,
+                                text:"Project's country distribution"
+                            }
+                        },
+                        labels,
+                        datasets:[{
+                            label:"Quantity of projects origin",
+                            data
+                        }]
+                    }))
+                });
+        } else if (type == "projStartDate"){
+            chartService.getProjsByStartDate()
+                .then(arrIntervals => {
+                    console.log('arrIntervals: ', arrIntervals);
+                    // const labels = arrTags.slice(0,9).map(tag=> tag.tagName).concat(["Other"]);
+                    //const labels = arrIntervals.cummulatIntervals.map(interval => interval.dateTo);
+                    const labels = arrIntervals.labels;
+                    console.log('Interval labels: ', labels);
+                    // const data = arrIntervals.cummulatIntervals.map(interval => interval.count);
+                    const data = arrIntervals.data;
+                    console.log('Intervals data: ', data);
+                    dispatch(addData({
+                        options:{
+                            title: {
+                                display:true,
+                                text:"The count of Projects by start date:"
+                            }
+                        },
+                        labels,
+                        datasets:[{
+                            label:"Count of started",
+                            data
+                        }]
+                    }))
+                });
+        } else if (type == "projEndDate"){
+            chartService.getProjsByEndDate()
+                .then(arrIntervals => {
+                    console.log('arrIntervals: ', arrIntervals);
+                    const labels = arrIntervals.labels;
+                    console.log('Interval labels: ', labels);
+                    const data = arrIntervals.data;
+                    console.log('Intervals data: ', data);
+                    dispatch(addData({
+                        options:{
+                            title: {
+                                display:true,
+                                text:"The count of Projects by End date:"
+                            }
+                        },
+                        labels,
+                        datasets:[{
+                            label:"Count of completed",
+                            data
+                        }]
+                    }))
+                });
         }
 
     }

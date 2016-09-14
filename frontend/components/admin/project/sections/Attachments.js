@@ -18,11 +18,17 @@ class Attachments extends Component {
         super(props);
         this.onFilePathChange = this.onFilePathChange.bind(this);
         this.removeFile = this.removeFile.bind(this);
+        this.setVisibleLinkForm = this.setVisibleLinkForm.bind(this);
+        this.uploadFileByLink = this.uploadFileByLink.bind(this);
+        this.saveFileLink = this.saveFileLink.bind(this);
+        this.state = {
+            hideFile: this.props.hideFile,
+            hideForm: this.props.hideForm,
+            fileLink: ''
+        };
     }
     onFilePathChange(e) {
-        console.log('onFilePathChange url', e.target.value);
         const files = e.target.files;
-        console.log(e.target.files.length);
         if (files.length) {
             for (let i = 0; i < files.length; i++) {
                 this.props.uploadFile(files[i]);
@@ -30,13 +36,48 @@ class Attachments extends Component {
             e.target.value = '';
         }
     }
+
     removeFile(e, name) {
-        console.log('removeFile ',name);
         this.props.removeFile(name);
     }
+
+    setVisibleLinkForm() {
+        let {hideFile, hideForm} = this.state;
+        if (hideFile === 'visible') {
+            hideFile = 'hidden'
+        } else {
+            hideFile = 'visible'
+        }
+        if (hideForm === 'visible') {
+            hideForm = 'hidden'
+        } else {
+            hideForm = 'visible'
+        }
+        this.props.setVisibleUploadByLinkAttachments(hideFile, hideForm);
+    }
+
+    uploadFileByLink() {
+        this.props.uploadFileByLinkAddProject(this.state.fileLink);
+        this.setState({fileLink: ''})
+    }
+
+    saveFileLink(e) {
+        this.setState({fileLink: e.target.value})
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+                files: nextProps.files,
+                hideFile: nextProps.hideFile,
+                hideForm: nextProps.hideForm,
+                fileLink: nextProps.fileLink
+            }
+        );
+    }
+
     render() {
         const {files} = this.props;
-        const list = files.map( (file, index) => {
+        const list = files.map((file, index) => {
             if (file.target === 'file') {
                 return (
                     <File
@@ -54,11 +95,29 @@ class Attachments extends Component {
                 </header>
                 <div className={styles.row}>
                     <div className={styles['field-container']}>
+			<div className="inputField">
+                            <a href="javascript:void(0)"
+                               onClick={this.setVisibleLinkForm}>{(this.state.hideForm === 'hidden') ? 'UploadByLink' : 'UploadByFile'}</a>
+                        </div>
+                        <div className={this.state.hideForm + " inputField"}>
+                            <TextInput
+                                label="File Link"
+                                onChange={this.saveFileLink}
+                                placeholder="File link"
+                                value={this.state.fileLink}
+                            />
+                            <input type="button"
+                                   label='UploadByLink'
+                                   onClick={this.uploadFileByLink}
+                                   style={{display: 'block', marginTop: '20px'}}
+                                   value='UploadByLink'
+                            />
+                        </div>
                     <MuiThemeProvider>
                         <RaisedButton
                             label="Upload files"
                             labelPosition="before"
-                            className={styles["btn-upload"]}
+                            className={styles["btn-upload"] + ' '+this.state.hideFile}
                         >
                             <FileUpload                                
                                 accept={fileTypes}
@@ -94,7 +153,9 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
     return {
-        files: state.UpsertProjectReducer.files
+        files: state.UpsertProjectReducer.files,
+        hideFile: state.UpsertProjectReducer.hideFile,
+        hideForm: state.UpsertProjectReducer.hideForm
     };
 };
 

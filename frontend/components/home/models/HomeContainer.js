@@ -13,6 +13,7 @@ export default class HomeContainer extends Updatable {
             total: 0,
             recordsPerPage: 3
         };
+        this.searchService = searchService;
         this.setActivePage = this.setActivePage.bind(this)
         this.projects = [];
         this.loadMore = this.loadMore.bind(this)
@@ -57,7 +58,7 @@ export default class HomeContainer extends Updatable {
         //query.activePage = this.pagination.activePage;
         query.push(`limit=${this.pagination.recordsPerPage}`);
         query.push(`skip=${this.pagination.recordsPerPage * (this.pagination.activePage)}`);
-        searchService.getProjects(query.join("&"))
+        this.searchService.getProjects(query.join("&"))
             //.then(res=>res.json())
             .then(data=> {
                 //self.projects = data.projects || [];

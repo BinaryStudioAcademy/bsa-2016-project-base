@@ -9,6 +9,7 @@ import Techs from './sections/Techs';
 import Features from './sections/Features';
 import Attachments from './sections/Attachments';
 import Screenshots from './sections/Screenshots'
+import Contacts from './sections/Contacts';
 
 import styles from './sections/styles/EditProject.sass';
 import {Tabs, Tab} from 'material-ui/Tabs';
@@ -62,6 +63,11 @@ const TabsUI = () => (
                     <Tags/>
                 </div>
             </Tab>
+            <Tab label="Contacts" >
+                <div>
+                    <Contacts />
+                </div>
+            </Tab>
         </Tabs>
     </MuiThemeProvider>
 );
@@ -77,12 +83,15 @@ class EditProject extends Component {
             nameError: false,
             timeBeginError: false,
             technologiesError: false,
-            usersError: false
+            usersError: false,
+            errors: {nameError: false, technologiesError: false, timeBeginError: false, usersError: false, timeEndError: false}
         }
     }
     componentWillReceiveProps(nextProps){
-        const {nameError, technologiesError, timeBeginError, usersError} = this.props.store.errors;
-        if(nextProps.store.added && !nameError && !technologiesError && !timeBeginError && !usersError) {
+        const {nameError, technologiesError, timeBeginError, usersError, timeEndError} = this.state.errors;
+        //alert(nextProps.store.added);
+        if(nextProps.store.added && !nameError && !technologiesError && !timeBeginError && !usersError && !timeEndError) {
+
             window.scrollTo(0, 0);
             toastr.success('Project', `${nextProps.store.projectName} was updated!`, {
                 timeOut: 10000
@@ -100,7 +109,7 @@ class EditProject extends Component {
     }
     updateProject(e) {
         console.log('createProject');
-        const {projectName,projectLink,timeBegin,timeEnd,status,description, projectId} = this.props.store;
+        const {projectName,projectLink,timeBegin,timeEnd,status,description, projectId, contacts} = this.props.store;
         const {predefinedUsers,predefinedTags,predefinedTechnologies,sections,features,files} = this.props.store;
         console.log('features ',features);
         console.log('sections ',sections);
@@ -185,6 +194,47 @@ class EditProject extends Component {
         console.log('inProject.features ',inProject.features);
         console.log('inProject.users ',inProject.users);
         console.log('inProject.owners ',inProject.owners);
+
+        let errors = {};
+        if(projectName == "") {
+            errors.nameError = true;
+        } else {
+            errors.nameError = false;
+        }
+
+        if(inProject.technologies.length == 0) {
+            errors.technologiesError = true;
+        } else {
+            errors.technologiesError = false;
+        }
+
+        if(timeBegin == '') {
+            errors.timeBeginError = true;
+        } else {
+            errors.timeBeginError = false;
+        }
+
+        if(new Date(timeBegin) > new Date(timeEnd)) {
+            errors.timeEndError = true;
+        } else {
+            errors.timeEndError = false;
+        }
+
+        if(inProject.users.length == 0 || inProject.owners.length == 0) {
+            errors.usersError = true;
+        } else {
+            errors.usersError = false;
+        }
+
+        if(errors.nameError || errors.technologiesError || errors.timeBeginError || errors.usersError || errors.timeEndError) {
+            window.scrollTo(0, 0);
+            toastr.error('Bad Request!', {
+                timeOut: 10000
+            });
+        }
+
+        this.state.errors = errors;
+
         const project = {
             _id: projectId,
             linkToProject:projectLink,
@@ -201,30 +251,15 @@ class EditProject extends Component {
             owners: inProject.owners,
             users: inProject.users,
             status: status.value,
+            contacts,
             description: {
                 descrFullText: inProject.descrFullText
             }
 
         };
         console.log('project ',project);
-        /*const project = {
-         users: ["57a262f6b42bbf5a2daa98c1"],
-         owners: ["57a262f6b42bbf5a2daa98c1"],
-         technologies : ["57a2f5f3d50c16908d4e0c2f"],
-         tags: ["57a26314b42bbf5a2daa9970"],
-         projectName : "Cool Web Projects",
-         isCompleted: false,
-         timeBegin: new Date('2014-02-09'),
-         timeEnd: new Date('2015-02-09'),
-         stage : "57a2fac7d50c16908d4e0c33",
-         condition : "57ac5379204135dfe49f780b",
-         description: [{
-         descrText: 'Short desc!',
-         descrFullText: '<p>long description goes here!</p>'
-         }],
-         }*/
-
-        this.props.updateProject(project);
+        this.props.updateProject(project, errors);
+       // window.scrollTo(0, 0);
     }
 
 
@@ -244,14 +279,14 @@ class EditProject extends Component {
                 <Loading />
             </div>
                 <div  className={"visible-" + load}>
-                <Inputs load={load} fff="2"/>
+                <Inputs load={load} fff="2" errors={this.state.errors}/>
                 <br/>
                 <div className={styles['valid-container']}>
-                    {this.props.store.errors.technologiesError && <div className={styles.validationTech}><div className={styles.tool}>You must add a technology</div></div>}
+                    {this.state.errors.technologiesError && <div className={styles.validationTech}><div className={styles.tool}>You must add a technology</div></div>}
 
-                    {this.props.store.errors.usersError && <div className={styles.validationUser} style={this.props.store.errors.technologiesError ? {marginLeft: '3rem'} : {marginLeft: '17rem'}}><div className={styles.tool}>You must add user and owner</div></div>}
+                    {this.state.errors.usersError && <div className={styles.validationUser} style={this.state.errors.technologiesError ? {marginLeft: '3rem'} : {marginLeft: '17rem'}}><div className={styles.tool}>You must add user and owner</div></div>}
                 </div>
-                <TabsUI/>
+                <TabsUI load={load} />
                 <br/>
                 <Attachments/>
                 <br/>

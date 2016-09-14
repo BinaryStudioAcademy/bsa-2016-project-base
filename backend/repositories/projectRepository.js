@@ -104,4 +104,43 @@ ProjectRepository.prototype.getByIdForLocations = function(id, callback){
 	query.exec(callback);
 };
 
+// Questions and Answers section
+
+ProjectRepository.prototype.addQ = function(id,body,callback){
+	var model = this.model;
+	var query = model.update({_id:id},{$push: {questions:body}});
+	query.exec(callback);
+};
+
+ProjectRepository.prototype.addA = function(id,qId,body,callback){
+	var model = this.model;
+	var query = model.update({_id:id,'questions._id':qId}, {$push: {'questions.$.answers':body}});
+	query.exec(callback);
+};
+
+ProjectRepository.prototype.editQ = function(id,qId,body,callback){
+	var model = this.model;
+	var query = model.update({_id:id,'questions._id':qId},{$set:{'questions.$.isPrivate':body.isChecked,'questions.$.question.text':body.message}});
+	query.exec(callback);
+};
+
+ProjectRepository.prototype.editA = function(id,qId,aId,body,callback){
+	var model = this.model;
+	var str = `questions.$.answers.${body.numA}.text`;
+	var query = model.update({_id:id,'questions._id':qId,'questions.answers._id':aId},{$set:{[str]:body.message}});
+	query.exec(callback);
+};
+
+ProjectRepository.prototype.removeQ = function(id,qId,callback){
+	var model = this.model;
+	var query = model.update({_id:id},{$pull:{questions:{_id:qId}}});
+	query.exec(callback);
+};
+
+ProjectRepository.prototype.removeA = function(id,qId,aId,callback){
+	var model = this.model;
+	var query = model.update({_id:id,'questions._id':qId},{$pull:{'questions.$.answers':{_id:aId}}});
+	query.exec(callback);
+};
+
 module.exports = new ProjectRepository();

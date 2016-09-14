@@ -27,27 +27,27 @@ class Stats extends Component {
         this.state={selectAll:false}
     }
 
-    getData() {
-        return [{
-                "name": "<5",
-                "value": 2704659}, {
-                "name": "5-13",
-                "value": 4499890}, {
-                "name": "14-17",
-                "value": 2159981}, {
-                "name": "18-24",
-                "value": 3853788}, {
-                "name": "25-44",
-                "value": 14106543}, {
-                "name": "45-64",
-                "value": 8819342}, {
-                "name": "≥65",
-                "value": 612463}
-        ];
-    }
+    // getData() {
+    //     return [{
+    //             "name": "<5",
+    //             "value": 2704659}, {
+    //             "name": "5-13",
+    //             "value": 4499890}, {
+    //             "name": "14-17",
+    //             "value": 2159981}, {
+    //             "name": "18-24",
+    //             "value": 3853788}, {
+    //             "name": "25-44",
+    //             "value": 14106543}, {
+    //             "name": "45-64",
+    //             "value": 8819342}, {
+    //             "name": "≥65",
+    //             "value": 612463}
+    //     ];
+    // }
 
 	componentDidMount(){
-        this.props.changeChartType("Bar");
+        this.props.changeChartType("projCountries");
         this.props.loadData();
     }
 
@@ -74,10 +74,11 @@ class Stats extends Component {
             </div>
         }
         switch (chartType){
-            case "Linear":return <div className={styles['chart-wrap']} ><LineChartComp data={data} /></div>
-            case "Bar": return <div className={styles['chart-wrap']} ><BarChartComp data={data} /></div>
-            case "Circle": return <div className={styles['chart-wrap']} ><PieChartComp data={data} /></div>
-            case "Bar2": return <div className={styles['chart-wrap']} ><BarChartComp data={data} /></div>
+            case "projCountries": return <div className={styles['chart-wrap']} ><PieChartComp data={data} /></div>
+            case "projStartDate": return <div className={styles['chart-wrap']} ><LineChartComp data={data} /></div>
+            case "projEndDate": return <div className={styles['chart-wrap']} ><LineChartComp data={data} /></div>
+            case "projTechs": return <div className={styles['chart-wrap']} ><BarChartComp data={data} /></div>
+            case "projTags": return <div className={styles['chart-wrap']} ><BarChartComp data={data} /></div>
         }
     }
 

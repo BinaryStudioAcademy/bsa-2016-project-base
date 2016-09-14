@@ -4,16 +4,14 @@ import { connect } from 'react-redux';
 import * as actions from '../../../../actions/admin/EditProjectActions';
 import { Button, TextInput, TextArea, FileUpload } from '../../../common/';
 import File from './File';
-import styles from './styles/Attachments.sass';
+import styles from './styles/Screenshots.sass';
 
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-const fileTypes = 'image/jpeg,image/png,image/gif,application/xml,text/xml,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,\
-application/msword,application/zip,application/x-rar-compressed,application/octet-stream,text/plain,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+const fileTypes = 'image/jpeg,image/png,image/gif';
 
-
-class Attachments extends Component {
+class Screenshots extends Component {
     constructor(props) {
         super(props);
         this.onFilePathChange = this.onFilePathChange.bind(this);
@@ -25,7 +23,7 @@ class Attachments extends Component {
         console.log(e.target.files.length);
         if (files.length) {
             for (let i = 0; i < files.length; i++) {
-                this.props.uploadFile(files[i]);
+                this.props.uploadFile(files[i],'screenshot');
             }
             e.target.value = '';
         }
@@ -37,7 +35,7 @@ class Attachments extends Component {
     render() {
         const {files} = this.props;
         const list = files.map( (file, index) => {
-            if (file.target === 'file') {
+            if (file.target === 'screenshot') {
                 return (
                     <File
                         key={index}
@@ -50,13 +48,13 @@ class Attachments extends Component {
         return (
             <div id={styles["attachments"]}>
                 <header>
-                    <h2>Attachments</h2>
+                    <h2>Screenshots</h2>
                 </header>
                 <div className={styles.row}>
                     <div className={styles['field-container']}>
                         <MuiThemeProvider>
                             <RaisedButton
-                                label="Upload files"
+                                label="Upload screenshots"
                                 labelPosition="before"
                                 className={styles["btn-upload"]}
                             >
@@ -81,14 +79,11 @@ class Attachments extends Component {
     }
 }
 
-Attachments.propTypes = {
+Screenshots.propTypes = {
     id: PropTypes.string,
     value: PropTypes.string,
     onChange: PropTypes.func
 };
-
-
-
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(actions, dispatch);
@@ -100,4 +95,4 @@ function mapStateToProps(state) {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Attachments);
+export default connect(mapStateToProps, mapDispatchToProps)(Screenshots);
