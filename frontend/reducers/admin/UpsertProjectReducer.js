@@ -27,8 +27,8 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 userStory: {},
                 projectName:'',
                 projectLink:'',
-                timeBegin:{},
-                timeEnd:{},
+                timeBegin:null,
+                timeEnd:null,
                 status:{value:'Estimation', name:'Estimation'},
                 techIcon:{},
                 techIconError: '',
@@ -74,36 +74,25 @@ export default function UpsertProjectReducer(state=initialState, action) {
         }
         case types.UP_SET_USER_START_DATE: {
             const {date,userId} = action;
-            const {activeUser,userStory} = state;
+            const {activeUser,userStory,timeBegin,timeEnd} = state;
             console.log('userId ',userId);
             return Object.assign({}, state, {
-                userStory: {
-                    ...userStory,
-                    [userId]: {
-                        ...userStory[userId],
-                        dateFrom: date
-                    }
-                }
+                userStory: updateUserStory(userStory,userId,date,null,{timeBegin,timeEnd})
             });
         }
-         case types.UP_SET_USER_END_DATE: {
+        case types.UP_SET_USER_END_DATE: {
             const {date,userId} = action;
-            const {activeUser,userStory} = state;
+            const {activeUser,userStory,timeBegin,timeEnd} = state;
             return Object.assign({}, state, {
-                userStory: {
-                    ...userStory,
-                    [userId]: {
-                        ...userStory[userId],
-                        dateTo: date
-                    }
-                }
+                userStory: updateUserStory(userStory,userId,null,date,{timeBegin,timeEnd})
             });
         }
         case types.UP_ADD_USER_TO_PROJECT: {
             const {_id} = action;
-            const {users} = state;
+            const {users,userStory,timeBegin,timeEnd} = state;
             return Object.assign({}, state, {
-                users: addUserToProject(users, _id)
+                users: addUserToProject(users, _id),
+                userStory: updateUserStory(userStory,_id,timeBegin,timeEnd,null)
             });
         }
         case types.UP_REMOVE_USER_FROM_PROJECT: {
@@ -139,14 +128,18 @@ export default function UpsertProjectReducer(state=initialState, action) {
         }
         case types.UP_CHANGE_START_DATE: {
             const {date} = action;
+            const {userStory} = state;
             return Object.assign({}, state, {
-            	timeBegin: date
+            	timeBegin: date,
+                userStory: updateUserStory(userStory,null,date,null,null)
             });
         }
         case types.UP_CHANGE_FINISH_DATE: {
             const {date} = action;
+            const {userStory} = state;
             return Object.assign({}, state, {
-            	timeEnd: date
+            	timeEnd: date,
+                userStory: updateUserStory(userStory,null,null,date,null)
             });
         }
         case types.UP_CHANGE_STATUS: {
@@ -302,11 +295,141 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 technologies: removeTechFromProject(technologies, _id)
             });
         }
+        case types.SET_VISIBLE_FORM_BY_LINK_ATTACHMENTS: {
+            const {hideFile,hideForm} = action;
+            return Object.assign({}, state, {
+                hideFile,
+                hideForm
+            })
+        }
+        case types.SET_VISIBLE_FORM_BY_LINK_SCREENSHOOTS: {
+            const {hideFileScreenshoots,hideFormScreenshoots} = action;
+            return Object.assign({}, state, {
+                hideFileScreenshoots,
+                hideFormScreenshoots
+            })
+        }
         default: {
             return state;        
         }
     }
 };
+
+const updateUserStory = (story, userId, start, end, projectPeriod) => {
+    if (userId) {
+        if (story.hasOwnProperty(userId)) {
+            if (projectPeriod) {
+                const {timeBegin,timeEnd} = projectPeriod;
+                const {dateFrom, dateTo} =  story[userId];
+                const dateFromSeconds = Date.parse(dateFrom);
+                const dateToSeconds = Date.parse(dateTo);
+                const dateUserStartSeconds = Date.parse(start);
+                const dateUserEndSeconds = Date.parse(end);
+
+                if (timeBegin) {
+                    const dateProjectStartSeconds = Date.parse(timeBegin);
+                    if (dateUserStartSeconds >= dateProjectStartSeconds) {
+                        if (dateUserStartSeconds <= dateToSeconds) {
+                            story[userId].dateFrom = start;
+                        }
+                        
+                    }
+                } else {
+                    story[userId].dateFrom = start;
+                }
+                if (timeEnd) {
+                    const dateProjectEndSeconds = Date.parse(timeEnd);
+                    if (dateUserEndSeconds <= dateProjectEndSeconds) {
+                        if (dateUserEndSeconds >= dateFromSeconds) {
+                            story[userId].dateTo = end;
+                        }
+                       
+                    }
+                } else {
+                    story[userId].dateTo = end;
+                }
+
+
+                if(!timeBegin && !timeEnd) {
+                    let newStartDate;
+                    let newEndDate;
+                        if (dateTo) {
+                            if (dateToSeconds) {
+                                if(dateUserStartSeconds < dateToSeconds) {
+                                    newStartDate = start;
+                                }
+                            }
+                        } else {
+                            newStartDate = start;
+                        }
+                    
+                   
+                 
+                        if (dateFrom) {
+                            if (dateFromSeconds) {
+                                if(dateUserEndSeconds > dateFromSeconds) {
+                                    newEndDate = end;
+                                }
+                            }
+                        } else {
+                            newEndDate = end;
+                        }
+                    
+                     
+                    story[userId] = {
+                        dateFrom: newStartDate ? newStartDate : dateFrom,
+                        dateTo: newEndDate ? newEndDate : dateTo
+                     };
+                }
+
+            } else {
+                story[userId] = {
+                    dateFrom: start,
+                    dateTo:end
+                 };
+            }
+
+        } else {
+           
+            story[userId] = {
+                dateFrom: start,
+                dateTo:end
+            };
+        }
+       
+
+    } else {
+        for (let id in story) {
+            const {dateFrom, dateTo} = story[id];
+            if (start) {
+                if (dateFrom) {
+                    const dateFromSeconds = Date.parse(dateFrom);
+                    const dateProjectStartSeconds = Date.parse(start);
+                    if (dateProjectStartSeconds > dateFromSeconds) {
+                        story[id].dateFrom = start;
+                    }
+                } else {
+                    story[id].dateFrom = start;
+                }
+                
+            }
+            if(end) {
+                if (dateTo) {
+                    const dateToSeconds = Date.parse(dateTo);
+                    const dateProjectEndSeconds = Date.parse(end);
+                    if (dateProjectEndSeconds < dateToSeconds) {
+                        story[id].dateTo = end;
+                    }
+                } else {
+                    story[id].dateTo = end;
+                }
+               
+            } 
+        }
+
+    }
+    return Object.assign({},story);
+}
 
 
 const setDefaults = (source, props) => {
@@ -479,8 +602,8 @@ const feature = {
 const initialState = {
     projectName:'',
     projectLink:'',
-    timeBegin:{},
-    timeEnd:{},
+    timeBegin:null,
+    timeEnd:null,
     status: {value:'Estimation', name:'Estimation'},
 	users: [],
 	tags: [],
@@ -513,8 +636,12 @@ const initialState = {
         phone: '',
         email: '',
         skype: ''
-    }
-
+    },
+    hideFile : 'visible',
+    hideForm : 'hidden',
+    hideFileScreenshoots : 'visible',
+    hideFormScreenshoots : 'hidden'
+	
 };
 
 

@@ -1,6 +1,4 @@
 import Model from "./Model"
-import React from "react"
-import {Tabs, Tab} from 'material-ui/Tabs';
 import DateSelect from "./../components/RangeDateSelect"
 export default class Dates extends Model{
     constructor({component}) {
@@ -11,7 +9,8 @@ export default class Dates extends Model{
             component
         });
         this.addValue = this.addValue.bind(this);
-        this.getText = this.getText.bind(this)
+        this.getText = this.getText.bind(this);
+        this.ComponentClass = DateSelect;
     }
     getText(value){
         return value.lower.toLocaleDateString()+
@@ -45,12 +44,6 @@ export default class Dates extends Model{
         this.notifyUpdated()
     }
 
-    getView(){
-        return <Tab key={this.number} value={this.number}
-                    label={`${this.title} (${this.values.length})`}>
-            <div><DateSelect model={this}/></div>
-        </Tab>
-    }
     addValue(){
         if (this.isFilled()){
             const custom = this.custom;

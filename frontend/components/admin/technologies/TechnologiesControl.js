@@ -54,23 +54,22 @@ class TechnologiesTab extends Component {
         return (
             <div className="section-control">
                 <div className="checkAndButton">
-                    <MuiThemeProvider muiTheme={muiTheme}>
-                        <Checkbox
-                            label="Mark all"
-                            id = "delete_all"
-                            onClick={this.setAllChecked}
-                            defaultChecked={this.state.checked}
-                            labelStyle={{
-                                width: "auto",
-                                color: '#8D97A4 !important',
-                                fontFamily: "Lato, sans-serif",
-                                fontSize: "0.9rem"
-                            }}
-                            iconStyle={{
-                                marginRight: "10px"
-                            }}
-                        />
-                    </MuiThemeProvider>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     <Button
                         className="technologies-btn-remove"
                         label='Remove'

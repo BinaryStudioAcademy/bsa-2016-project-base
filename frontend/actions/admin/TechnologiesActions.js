@@ -5,7 +5,7 @@ import TechnologieService  from '../../services/TechnologieService';
 import UploadService  from '../../services/UploadService';
 export function getTechnologies() {
     return dispatch=> {
-        TechnologieService.getAllTechnologies()
+        return TechnologieService.getAllTechnologies()
             .then(response => response.json())
             .then(json => dispatch(initTechnology(json)))
             .catch(error => {
@@ -16,7 +16,7 @@ export function getTechnologies() {
 }
 export function uploadFileByLink(link) {
     return dispatch=> {
-        UploadService.uploadFileByLink(link)
+        return UploadService.uploadFileByLink(link)
             .then(response => response.json())
             .then(json => dispatch(setImageFromLink(json)))
             .catch(error=> {
@@ -27,7 +27,7 @@ export function uploadFileByLink(link) {
 }
 export function uploadFileByFile(file) {
     return dispatch=> {
-        UploadService.uploadFileByFile(file)
+        return UploadService.uploadFileByFile(file)
             .then(response => response.json())
             .then(json => dispatch(setImageFromLink(json)))
             .catch(error=> {
@@ -51,7 +51,7 @@ export function setVisibleUploadByLink(hideFile, hideForm) {
 }
 export function deleteImageFromList(img) {
     return dispatch => {
-        UploadService.deleteFile(img)
+        return UploadService.deleteFile(img)
             .then(dispatch(setImageFromLinkAfterDelete()))
             .catch(error=> {
                 dispatch(errorHandler('Bad Request'))
@@ -74,12 +74,17 @@ export function initTechnology(listOfTechno) {
 }
 export function saveTechology(params) {
     return dispatch=> {
-        TechnologieService.saveTechnology(params)
-            .catch(error=> {
-                dispatch(errorHandler('Bad Request'))
-            });
-        dispatch(getTechnologies());
-        dispatch(setImageFromLinkAfterDelete());
+        return TechnologieService.saveTechnology(params)
+            .then(response => {
+                    if (response.status != 201) {
+                        throw Error(response.statusText);
+                    } else {
+                        dispatch(getTechnologies());
+                        dispatch(setImageFromLinkAfterDelete());
+                    }
+                }
+            )
+            .catch(error => dispatch(errorHandler('Bad Request')));
 
     }
 }
@@ -91,10 +96,11 @@ export function searchTechnology(params) {
     };
     return action;
 };
-export function selectAllTechs(technologies) {
+export function selectAllTechs(technologies,setAllChecked) {
     return {
         type: "SELECT_ALL_TECHS",
-        listOfTechnologies: technologies
+        listOfTechnologies: technologies,
+        setAllChecked: setAllChecked
     }
 }
 export function setAddFormState(state) {
@@ -108,7 +114,7 @@ export function removeSelectedTechs(technologies) {
     return dispatch=> {
         technologies.forEach(tech=> {
             if (tech.checked === 'checked') {
-                TechnologieService.deleteTechnology(tech._id)
+                return TechnologieService.deleteTechnology(tech._id)
                     .catch(error => dispatch(errorHandler('Bad Request')));
             }
         });

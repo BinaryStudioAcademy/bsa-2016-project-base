@@ -124,6 +124,7 @@ class Inputs extends Component {
 							onChange={this.onStartDateChange}
 						/>
 						{this.props.errors.timeBeginError && <div className={styles.validation}><div className={styles.tool}>This field is required</div></div>}
+						{this.props.errors.timeEndError && <div className={styles.validation}><div className={styles.tool}>Start date must be lower then end</div></div>}
 					</div>
 					<div className={styles['col-1-3']}>
 						<DatePickerControlled
@@ -178,7 +179,6 @@ function mapStateToProps(state) {
 		timeEnd: state.EditProjectReducer.timeEnd,
 		status: state.EditProjectReducer.status,
 		description: state.EditProjectReducer.description,
-		errors: state.EditProjectReducer.errors
     };
 };
 

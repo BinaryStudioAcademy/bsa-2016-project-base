@@ -117,6 +117,7 @@ class App extends React.Component {
                     scrollToFirstStep={settings['scrollToFirstStep']}
 		            showStepsProgress={settings['showStepsProgress']}
 			    />
+                <div id="__header"></div>
                 <div className={styles.row}>
                     <Navbar />
                     <div id={styles["main-content"]}>
