@@ -12,7 +12,7 @@ module.exports = {
   ],
   output: {
     path: path.join(__dirname, '/dist/'),
-    filename: '/projects/[name].js',
+    filename: 'projects/[name].js',
     publicPath: '/'
   },
   plugins: [
