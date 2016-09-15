@@ -190,7 +190,7 @@ class Techs extends Component {
                         </div>
 
                         <div className={styles['field-container']}>
-                         <div className="inputField">
+                         <div className={styles["change-mode"]}>
                             <a href="javascript:void(0)"
                                onClick={this.setVisibleTechForm}>
                                <i className="fa fa-exchange" aria-hidden="true"></i> {(this.state.hideTechForm === 'hidden') ? ' Add new technology' : ' Hide form'}
@@ -240,15 +240,8 @@ class Techs extends Component {
                                         className={styles["file-input"]}
                                     />                                    
                                 </RaisedButton>
-                        </MuiThemeProvider>
+                            </MuiThemeProvider>
             
-                               {/* <FileUpload
-                                    id={'tech-icon'}
-                                    multiple={false}
-                                    accept='image/jpeg,image/png,image/gif'
-                                    onChange={this.onTechLogoChange}
-                                    error={techIconError}
-                                />*/}
                                 {iconLoaded && <img src={techIcon.path} alt="tech icon"/>} <br/>
                             
                             <div className="btnField">
@@ -258,11 +251,6 @@ class Techs extends Component {
                                         onClick={this.addNewTechToProject}
                                     />
                             </div>
-                            {/*<Button 
-                                value="Add" 
-                                disabled = {!this.state.addBtnEnabled}
-                                onClick={this.addNewTechToProject}
-                            />  */}
                    
                 </div>                        
                         
