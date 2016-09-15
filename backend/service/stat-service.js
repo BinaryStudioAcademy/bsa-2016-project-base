@@ -34,7 +34,7 @@ class StatService {
 		Projects.aggregate([{$unwind: "$technologies"}, {$group: {_id: "$technologies", count:{$sum:1}}}, {$sort: {count: -1}}])
 			.exec((err, result)=>{
 				Techs.populate(result, {path: '_id'}, function(err2, techsResult){
-					//console.log(tagsResult);
+					//console.log(techsResult);
 					let returnObj = [];
 					techsResult.forEach((techElem, ind, arr) =>{
 						returnObj.push({
