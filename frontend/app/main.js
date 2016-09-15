@@ -42,7 +42,7 @@ const store = createStore(
 render(
     (<Provider store={store}>
         <Router history={browserHistory} onUpdate={() => window.scrollTo(0, 0)} >
-            <Route path="/" component={App}>
+            <Route path="/projects" component={App}>
                 <IndexRoute component={Home}/>
                 <Route path="home" component={Home} title='projects'/>
                 <Route path="project-view/:id" component={ProjectView} title='project summary'/>
