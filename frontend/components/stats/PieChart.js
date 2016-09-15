@@ -3,6 +3,8 @@ import {PropTypes} from "react"
 import {Pie} from 'react-chartjs-2'
 import AbstractChart from "./AbstractChart"
 import ChartWrapper from "./ChartWrapper"
+import styles from "./stats.sass"
+
 export default class PieChart extends AbstractChart {
     constructor() {
         super()
@@ -17,9 +19,11 @@ export default class PieChart extends AbstractChart {
     render() {
         let {data} = this.props;
         this.colors.different(data);
-        return <ChartWrapper>
-            <Pie data={data} options={data.options}/>
-        </ChartWrapper>
+        return (
+            <ChartWrapper>
+                <Pie data={data} options={data.options} />
+            </ChartWrapper>
+        )
     }
 }
 
