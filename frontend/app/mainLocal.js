@@ -29,25 +29,25 @@ const rootReducer = combineReducers({
 });
 
 const errorHandler = store => next => action => {
-    if(action.type === 'SOMETHING_GONE_WRONG')
+    if (action.type === 'SOMETHING_GONE_WRONG')
         toastr.error('' + action.error + '');
     return next(action);
 };
 
 const store = createStore(
-    rootReducer,{},
-    compose(applyMiddleware(thunk,errorHandler),
+    rootReducer, {},
+    compose(applyMiddleware(thunk, errorHandler),
         window.devToolsExtension ? window.devToolsExtension() : f => f)
 );
 
 const history = useRouterHistory(createHistory)({
-    basename: '/projects'
+    basename: '/'
 });
-const LOCAL = "NOLOCALLLLLLLLLLLLLLLLLLLLL"
 
+const LOCAL = "LOCALLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"
 render(
     (<Provider store={store}>
-        <Router history={history} onUpdate={() => window.scrollTo(0, 0)} >
+        <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>
             <Route path="/" component={App}>
                 <IndexRoute component={Home}/>
                 <Route path="home" component={Home} title='projects'/>
@@ -59,12 +59,12 @@ render(
                 <Route path="stats" component={Stats} title='statistics'/>
                 <Route path="admin" component={Admin} title='admin menu'>
                     <IndexRoute component={Rights}/>
-                    <Route path="rights" component={Rights} />
-                    <Route path="tags" component={Tags} />
-                    <Route path="tech" component={Tech} />
+                    <Route path="rights" component={Rights}/>
+                    <Route path="tags" component={Tags}/>
+                    <Route path="tech" component={Tech}/>
                     <Route path="tech/:id" component={TechDetail}/>
                 </Route>
-            </Route>    
+            </Route>
         </Router>
     </Provider>),
     document.getElementById('root')
