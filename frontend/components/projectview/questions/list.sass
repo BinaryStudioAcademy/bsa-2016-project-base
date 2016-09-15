@@ -1,6 +1,64 @@
 #q-and-a
+  .outer-list
+    padding-left: 0
+
   .outer-list > li,
   .inner-list > li
     margin-top: 15px
 
     list-style-type: none
+
+    &.comment-new
+      display: flex
+      flex-flow: row nowrap
+      justify-content: space-between
+      align-items: stretch
+
+      .comment-new-wrap
+        display: flex
+        flex-flow: column nowrap
+        justify-content: space-between
+        align-items: stretch
+
+        width: 100%
+
+        textarea
+          border: 0
+          border-radius: 0
+          //border-bottom: 1px solid #505e6b
+
+          width: 100%
+
+          font-size: 15px
+
+          //box-shadow: inset 0px 0px 10px 1px rgba(0,0,0,0.5)
+        .comment-privacy-option
+          background: #78909c
+          color: #f3f6f8
+
+          font-size: 12px
+          font-style: italic
+          text-align: center
+
+          &>input
+            vertical-align: middle
+
+      &>button
+        //margin-left: 2px
+
+        border: 0
+        border-radius: 0
+
+        width: 24px
+        background: #505e6b
+
+        text-transform: uppercase
+        color: #f3f6f8
+        line-height: 100%
+        font-size: 12px
+        font-weight: 200
+
+        &>span
+          //writing-mode: vertical-rl
+          vertical-align: middle
+          word-wrap: break-word

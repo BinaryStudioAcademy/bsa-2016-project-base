@@ -74,7 +74,7 @@ export default class Location extends MultiSelectModel {
                         var text = tip.label;
                         var infoWindow = new google.maps.InfoWindow({
                             content: text,
-                            //disableAutoPan: true
+                            disableAutoPan: true
                         });
 
                         var newTip = {

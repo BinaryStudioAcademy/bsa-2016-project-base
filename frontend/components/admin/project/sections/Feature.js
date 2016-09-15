@@ -16,7 +16,6 @@ class Feature extends Component {
     }
     render() {
         const {feature,  isActive, onClick} = this.props;
-        console.log('isActive ',isActive);
         return (
             <div
                 className={styles["feature"]}  

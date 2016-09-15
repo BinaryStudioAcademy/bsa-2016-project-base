@@ -13,16 +13,11 @@ export default class View extends React.Component {
     render() {
         var {project} = this.props;
         return (
-            <div style={{display:"flex"}}>
-                {project.attachments?<div style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    justifyContent: "flex-start",
-                    marginTop: "0.5rem"}}>
-                    {project.attachments.map(att=><FileAdapter file={att}/>)}
-                </div>:"No Attachments"}
+            <ul className='attach-list'>
+                {project.attachments?project.attachments.map(att=><FileAdapter file={att}/>)
+                :"No Attachments"}
 
-            </div>
+            </ul>
         )
     }
 }

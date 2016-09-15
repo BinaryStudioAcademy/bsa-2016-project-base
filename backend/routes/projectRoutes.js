@@ -3,6 +3,9 @@ var projectRepository = require('../repositories/projectRepository');
 var featureRepository = require('../repositories/featureRepository');
 var searchService = require('../service/search-service');
 var statsService = require('../service/stat-service');
+var saveProjectAndUserStory = require('../services/saveProjectAndUserStory');
+var mongoose = require('mongoose');
+
 
 module.exports = function(app) {
 
@@ -136,9 +139,18 @@ module.exports = function(app) {
 		});
 	}, apiResponse);
 
+	app.get('/api/stats/dates/end', function (req,res,next) {
+		statsService.getProjectsDatesEnd(req, function (err,data) {
+			res.data = data;
+			res.err = err;
+			//res.json(data);
+			next();
+		});
+	}, apiResponse);
+
 	app.post('/api/projects/', function(req, res, next) {
-		projectRepository.add(req.body, function(err, data) {
-			if (err) {
+		saveProjectAndUserStory(req, function(err, data) {
+        	if (err) {
 				let errors =  {};
 				Object.keys(err.errors).forEach((key) => {
 					errors[key] = err.errors[key].message;
@@ -209,6 +221,63 @@ module.exports = function(app) {
 			next();
 		});
 	}, apiResponse);
+
+	// Questions and Answers section
+
+	app.post('/api/project-view/:id/questions', function(req,res,next) { // add question
+		var newId = new mongoose.Types.ObjectId;
+		req.body._id = newId;
+		projectRepository.addQ(req.params.id, req.body, function(err,data) {
+			res.data = data;
+			res.data.addedId = newId;
+			res.err = err;
+			next();
+		});
+	}, apiResponse);
+
+	app.post('/api/project-view/:id/questions/:qId/answers', function(req,res,next) { // add answer
+		var newId = new mongoose.Types.ObjectId;
+		req.body._id = newId;
+		projectRepository.addA(req.params.id, req.params.qId, req.body, function(err,data) {
+			res.data = data;
+			res.data.addedId = newId;
+			res.err = err;
+			next();
+		});
+	}, apiResponse);
+
+	app.put('/api/project-view/:id/questions/:qId', function(req,res,next){ // edit question
+		projectRepository.editQ(req.params.id, req.params.qId, req.body, function(err,data) {
+			res.data = data;
+			res.err = err;
+			next();
+		});
+	}, apiResponse);
+
+	app.put('/api/project-view/:id/questions/:qId/answers/:aId', function(req,res,next){ // edit answer
+		projectRepository.editA(req.params.id, req.params.qId, req.params.aId, req.body, function(err,data) {
+			res.data = data;
+			res.err = err;
+			next();
+		});
+	}, apiResponse);
+
+	app.delete('/api/project-view/:id/questions/:qId', function(req,res,next){ // delete question
+		projectRepository.removeQ(req.params.id, req.params.qId, function(err,data) {
+			res.data = data;
+			res.err = err;
+			next();
+		});
+	}, apiResponse);
+
+	app.delete('/api/project-view/:id/questions/:qId/answers/:aId', function(req,res,next){ // delete answer
+		projectRepository.removeA(req.params.id, req.params.qId, req.params.aId, function(err,data) {
+			res.data = data;
+			res.err = err;
+			next();
+		});
+	}, apiResponse);
+	
 };
 
 

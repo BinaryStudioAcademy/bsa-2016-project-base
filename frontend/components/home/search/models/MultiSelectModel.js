@@ -1,7 +1,6 @@
 import Model from "./Model"
-import {Tab} from 'material-ui/Tabs';
 import MultiSelect  from "./../components/MultiSelect"
-import React from "react"
+import searchService from "./../../../../services/SearchService"
 
 export default class MultiSelectModel extends Model{
     constructor(params){
@@ -10,15 +9,9 @@ export default class MultiSelectModel extends Model{
         this.getText = this.getText.bind(this);
         this.setCustom = this.setCustom.bind(this);
         this.ComponentClass = MultiSelect;
+        this.searchService = searchService;
     }
-    getView(){
-        return <Tab key={this.number} value={this.number}
-                    label={`${this.title} (${this.values.length})`}>
-            <div>{React.createElement(this.ComponentClass, {
-                model: this
-            })}</div>
-        </Tab>;
-    }
+
     getText(value){
         return value.text;
     }

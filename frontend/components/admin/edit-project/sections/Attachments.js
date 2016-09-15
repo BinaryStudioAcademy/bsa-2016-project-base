@@ -6,6 +6,9 @@ import { Button, TextInput, TextArea, FileUpload } from '../../../common/';
 import File from './File';
 import styles from './styles/Attachments.sass';
 
+import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 const fileTypes = 'image/jpeg,image/png,image/gif,application/xml,text/xml,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,\
 application/msword,application/zip,application/x-rar-compressed,application/octet-stream,text/plain,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
@@ -51,12 +54,21 @@ class Attachments extends Component {
                 </header>
                 <div className={styles.row}>
                     <div className={styles['field-container']}>
-                        <FileUpload
-                            className={styles["upload-container"]}
-                            accept={fileTypes}
-                            multiple={true}
-                            onChange={this.onFilePathChange}
-                        />
+                        <MuiThemeProvider>
+                            <RaisedButton
+                                label="Upload files"
+                                labelPosition="before"
+                                className={styles["btn-upload"]}
+                            >
+                                <FileUpload
+                                    accept={fileTypes}
+                                    multiple={true}
+                                    onChange={this.onFilePathChange}
+                                    className={styles["file-input"]}
+                                />
+
+                            </RaisedButton>
+                        </MuiThemeProvider>
 
                         <div className={styles["list"]}>
                             {list}

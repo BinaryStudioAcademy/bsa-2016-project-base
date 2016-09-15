@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import * as actions from '../../../actions/ProjectViewActions';
 import {connect} from 'react-redux';
+import {Tooltip, OverlayTrigger} from 'react-bootstrap'
 import TimeLine from 'material-ui/svg-icons/action/timeline';
 import styles from './usersTimeLine.sass';
 const LENGTH_ALL_LINE = 87;
@@ -98,16 +99,28 @@ class UsersTimeLine extends Component {
             lineLengthUser = numberDaysUser / oneUnit;
             console.log("lineLengthUser - " + lineLengthUser);
 
+             if(lineLengthUser < 19.5) {
+                 return (
+                     <div className="userLine">
+                         <div className="userInfo">
+                             <span>{el.userName} {el.userSurname}</span>
+                         </div>
+                         <div className="offsetLine" style={{"flex-basis": userOffset + "%"}}></div>
+                         <div className="line tooltip" data-tooltip={"from " + self.formatDate(new Date(dataFrom)) + " to " + (dataTo == "now" ? dataTo : self.formatDate(new Date(dataTo)))} style={{"flex-basis": lineLengthUser + "%"}}>
+                         </div>
+                     </div>
+                 )
+             }
+
             return (
                 <div className="userLine">
                     <div className="userInfo">
                         <span>{el.userName} {el.userSurname}</span>
                     </div>
                     <div className="offsetLine" style={{"flex-basis": userOffset + "%"}}></div>
-                    <div className="line" style={{"flex-basis": lineLengthUser + "%"}}>
+                    <div className="line"  style={{"flex-basis": lineLengthUser + "%"}}>
                         <span className="userTimeBegin">{self.formatDate(new Date(dataFrom))}</span>
                         <span className="userTimeEnd">{dataTo == "now" ? dataTo : self.formatDate(new Date(dataTo))}</span>
-
                     </div>
                 </div>
             )

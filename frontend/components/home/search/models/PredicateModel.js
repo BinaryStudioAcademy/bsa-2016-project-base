@@ -2,26 +2,7 @@ import Updatable from "./../../models/Updatable"
 const skipSymbols = "&|->+()! ";
 import SearchStrategy from "./../const/SearchStratrgy"
 import parse from "./parser/parse"
-function doGetCaretPosition (ctrl) {
 
-    var CaretPos = 0;
-    // IE Support
-    if (document.selection) {
-
-        ctrl.focus ();
-        var Sel = document.selection.createRange ();
-
-        Sel.moveStart ('character', -ctrl.value.length);
-
-        CaretPos = Sel.text.length;
-    }
-    // Firefox support
-    else if (ctrl.selectionStart || ctrl.selectionStart == '0')
-        CaretPos = ctrl.selectionStart;
-
-    return (CaretPos);
-
-}
 function names(p) {
     const result = [];
     let i;

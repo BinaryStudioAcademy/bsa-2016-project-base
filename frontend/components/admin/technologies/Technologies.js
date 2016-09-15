@@ -9,6 +9,7 @@ import  TechnologiesAddForm from "./TechnologiesAddForm";
 import {Grid, Row, Panel, Col} from 'react-bootstrap';
 import styles from  './styles.sass';
 import ReduxToastr, {toastr} from 'react-redux-toastr'
+const IMG_TYPES = ['.jpeg', '.jpg', '.png', '.gif'];
 class Technologies extends Component {
     constructor() {
         super();
@@ -22,6 +23,7 @@ class Technologies extends Component {
         this.setVisibleUploadByLink = this.setVisibleUploadByLink.bind(this);
         this.deleteImageList = this.deleteImageList.bind(this);
         this.uploadFileByFile = this.uploadFileByFile.bind(this);
+        this.validateSubmit = this.validateSubmit.bind(this);
     }
 
     componentWillMount() {
@@ -50,8 +52,9 @@ class Technologies extends Component {
     }
 
     setAllChecked(action) {
-        const {listOfTechnologies}
+        let {listOfTechnologies,setAllChecked}
             = this.props.stateFromReducer.TechnologiesReducer;
+        let checked,unchecked = 0;
         if (action === 'add') {
             listOfTechnologies.forEach(function (el, indx) {
                 listOfTechnologies[indx].checked = 'checked';
@@ -60,18 +63,39 @@ class Technologies extends Component {
             listOfTechnologies.forEach(function (el, indx) {
                 listOfTechnologies[indx].checked = false;
             });
+
         }
-        this.props.selectAllTechs(listOfTechnologies);
+        listOfTechnologies.forEach(function (el, indx) {
+            if (listOfTechnologies[indx].checked === 'checked') {
+                checked++;
+            }else{
+                unchecked++;
+            }
+        });
+        if(unchecked !== 0){
+            setAllChecked = false;
+        }else{
+            setAllChecked = true;
+        }
+        this.props.selectAllTechs(listOfTechnologies,setAllChecked);
     }
 
     deleteChecked() {
         const {listOfTechnologies} = this.props.stateFromReducer.TechnologiesReducer;
+        let checked = 0;
+        listOfTechnologies.forEach(function (el, indx) {
+            if (listOfTechnologies[indx].checked === 'checked') {
+                checked++;
+            }
+        });
         // this.props.removeSelectedTechs(listOfTechnologies);
-        const toastrConfirmOptions = {
-            onOk: () => this.props.removeSelectedTechs(listOfTechnologies),
-            onCancel: () => ''
-        };
-        toastr.confirm('Are you sure about that?', toastrConfirmOptions)
+        if(checked !== 0) {
+            const toastrConfirmOptions = {
+                onOk: () => this.props.removeSelectedTechs(listOfTechnologies),
+                onCancel: () => ''
+            };
+            toastr.confirm('Are you sure about that?', toastrConfirmOptions)
+        }
     }
 
     formAddControlState() {
@@ -89,14 +113,16 @@ class Technologies extends Component {
     }
 
     controlCheckeditems(id, action) {
-        const {listOfTechnologies}
+        let {listOfTechnologies,setAllChecked}
             = this.props.stateFromReducer.TechnologiesReducer;
+        let checked,unchecked = 0;
         if (action === 'add') {
             listOfTechnologies.forEach(function (el, indx) {
                 if (el._id === id) {
                     listOfTechnologies[indx].checked = 'checked';
                 }
             });
+
         } else {
             listOfTechnologies.forEach(function (el, indx) {
                 if (el._id === id) {
@@ -104,7 +130,19 @@ class Technologies extends Component {
                 }
             });
         }
-        this.props.selectAllTechs(listOfTechnologies);
+        listOfTechnologies.forEach(function (el, indx) {
+            if (listOfTechnologies[indx].checked === 'checked') {
+               checked++;
+            }else{
+                unchecked++;
+            }
+        });
+        if(unchecked !== 0){
+            setAllChecked = false;
+        }else{
+            setAllChecked = true;
+        }
+        this.props.selectAllTechs(listOfTechnologies,setAllChecked);
     }
 
     deleteImageList() {
@@ -114,21 +152,31 @@ class Technologies extends Component {
 
 
     saveTechnologie(data) {
+
         this.props.saveTechology(data);
     }
 
     uploadFileByLink(link) {
-        this.props.uploadFileByLink(link);
+        const ext =  link.slice(link.lastIndexOf('.'));
+
+        if (IMG_TYPES.includes(ext)) {
+            this.props.uploadFileByLink(link);
+        }else{
+            toastr.error("It's wrong link or file format");
+        }
     }
 
     uploadFileByFile(file) {
         this.props.uploadFileByFile(file);
     }
 
-    render() {
+    validateSubmit(){
+        toastr.error('All inputs are required');
+    }
 
+    render() {
         let list;
-        const {listOfTechnologies, listOfTechnologiesFiltered, formState, techAvatar, hideFile, hideForm}
+        const {listOfTechnologies, listOfTechnologiesFiltered, formState, techAvatar, hideFile, hideForm,setAllChecked}
             = this.props.stateFromReducer.TechnologiesReducer;
         if (listOfTechnologiesFiltered.length > 0) {
             list = listOfTechnologiesFiltered;
@@ -143,13 +191,13 @@ class Technologies extends Component {
                             <TechnologiesSearch technologiesSearch={this.technologiesSearch}/>
                         </div>
                         <div className="technologiesControlBlock">
-                            <TechnologiesControl formState={formState} formAddControlState={this.formAddControlState}
+                            <TechnologiesControl allChecked={setAllChecked} formState={formState} formAddControlState={this.formAddControlState}
                                                  deleteChecked={this.deleteChecked} setAllChecked={this.setAllChecked}/>
                         </div>
                     </div>
                 </div>
                 <TechnologiesList listOfTechnologies={list} controlCheckeditems={this.controlCheckeditems}/>
-                <TechnologiesAddForm hideFile={hideFile} hideForm={hideForm} techAvatar={techAvatar}
+                <TechnologiesAddForm validateSubmit={this.validateSubmit}  hideFile={hideFile} hideForm={hideForm} techAvatar={techAvatar}
                                      formState={formState} saveTechnologie={this.saveTechnologie}
                                      uploadFileByLink={this.uploadFileByLink}
                                      setVisibleUploadByLink={this.setVisibleUploadByLink}

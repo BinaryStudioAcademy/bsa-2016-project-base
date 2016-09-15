@@ -23,7 +23,6 @@ class DeveloperItem extends Component {
     }
     render(){
         const {user, onRemoveClick, onCheckboxChange, onUserSelect, selected} = this.props;
-      console.log('selected ',selected);
        
         return (
             <div className={styles.listItem + ' ' + (selected ? styles["user-selected"] : '' )} onClick={(e) => onUserSelect(e, user._id)}>
