@@ -16,7 +16,12 @@
     font-size: 0.7rem
     width: 100%
 
-
+    .custom-scroll::webkit-scrollbar 
+        width: 7px
+    .custom-scroll::-webkit-scrollbar-track
+        background: rgba(0, 0, 0, 0.1)
+    .custom-scroll::-webkit-scrollbar-thumb 
+        background: rgba(0, 0, 0, 0.5)
     .row
         display: flex
         width: 100%;
@@ -144,11 +149,18 @@
             font-family: "Lato", sans-serif
             font-weight: 300;
             font-size: 1.1rem;
+    .seach-pre-list::-webkit-scrollbar 
+        width: 7px
+    .seach-pre-list::-webkit-scrollbar-track
+        background: rgba(0, 0, 0, 0.1)
+    .seach-pre-list::-webkit-scrollbar-thumb 
+        background: rgba(0, 0, 0, 0.5)
     .seach-pre-list
         padding: 0 0.6rem
         max-height: 150px
         overflow: auto
         margin: 0
+
         .search-pre-item + .search-pre-item
             margin-top: 1rem
             padding-top: 0
@@ -192,6 +204,7 @@
         //overflow: auto
         position: relative
         //border: 1px solid #efefef;
+        
         .extended-search-header
             height: 45px
             display: flex
@@ -216,3 +229,11 @@
     display: flex
     flex-flow: row wrap
     justify-content: space-between
+
+
+.custom-scroll::-webkit-scrollbar 
+    width: 7px
+.custom-scroll::-webkit-scrollbar-track
+    background: rgba(0, 0, 0, 0.1)
+.custom-scroll::-webkit-scrollbar-thumb 
+    background: rgba(0, 0, 0, 0.5)
