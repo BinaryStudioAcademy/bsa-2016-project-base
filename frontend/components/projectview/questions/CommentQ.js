@@ -145,16 +145,19 @@ class Comment extends Component {
                                           defaultValue={expr.text}
                                           onChange={this.handleEditQTextarea}
                                 />
-                                <div className={styles['comment-privacy-option']} >
-                                    <input type="checkbox"
-                                           id={`private-check-${i}`}
-                                           checked={checkStatus == undefined ? qCol[i].isPrivate : checkStatus}
-                                           onChange={this.handleEditQCheckBox}
-                                    />
-                                    <label htmlFor={`private-check-${i}`}> I want to edit this message as a private one</label>
+                                <div className={styles['comment-options-row']}>
+                                    <div className={styles['comment-privacy-option']} >
+                                        <input type="checkbox"
+                                               id={`private-check-${i}`}
+                                               checked={checkStatus == undefined ? qCol[i].isPrivate : checkStatus}
+                                               onChange={this.handleEditQCheckBox}
+                                        />
+                                        <label htmlFor={`private-check-${i}`}> I want to edit this message as a private one</label>
+                                    </div>
+                                    <button onClick={this.handleSendEditQ} ><span>send</span></button>
                                 </div>
                             </div>
-                            <button onClick={this.handleSendEditQ} ><span>send</span></button>
+                            
                         </div>
                     </div>
                 </div>

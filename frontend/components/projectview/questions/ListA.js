@@ -55,8 +55,10 @@ class List extends Component {
                                   placeholder={' Give your answer, please'}
                                   onChange={this.handleAddATextarea}
                         />
+                        <div className={styles['comment-options-row']}>
+                            <button onClick={this.handleAddA} ><span>send</span></button>
+                        </div>
                     </div>
-                    <button onClick={this.handleAddA} ><span>send</span></button>
                 </li>
             </ul>
         )

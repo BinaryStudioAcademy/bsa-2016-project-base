@@ -89,6 +89,7 @@
       width: 100%
 
       .comment-new-wrap
+        border-radius: 5px
         display: flex
         flex-flow: column nowrap
         justify-content: space-between
@@ -97,45 +98,59 @@
         width: 100%
 
         textarea
+          border-radius: 5px 5px 0 0 
           border: 0
           border-radius: 0
           //border-bottom: 1px solid #505e6b
-
+          // border-color: transparent
           width: 100%
-
+          padding: 1rem 0 0 1rem
           font-size: 15px
 
-        //box-shadow: inset 0px 0px 10px 1px rgba(0,0,0,0.5)
-        .comment-privacy-option
-          background: #78909c
-          color: #f3f6f8
+          //box-shadow: inset 0px 0px 10px 1px rgba(0,0,0,0.5)
+        .comment-options-row
+          // border-radius: 0 0 5px 5px
+          background: #F3F7F8
+          height: 40px
+          display: flex
+          align-items: center
+          .comment-privacy-option
+            // background: #78909c
+            color: #99ABB3
+            height: 100%
+            font-size: .8rem
+            // font-style: italic
+            padding-left: 1rem;
+            // text-align: center
+            display: flex
+            align-items: center
+            width: 90%
+            &>input
+              vertical-align: middle
+              margin-right: .3rem
 
-          font-size: 12px
-          font-style: italic
-          text-align: center
+          &>button
+            //margin-left: 2px
+            height: 100%
+            border: 0
+            border-radius: 0
 
-          &>input
-            vertical-align: middle
-
-      &>button
-        //margin-left: 2px
-
-        border: 0
-        border-radius: 0
-
-        width: 24px
-        background: #505e6b
-
-        text-transform: uppercase
-        color: #f3f6f8
-        line-height: 100%
-        font-size: 12px
-        font-weight: 200
-
-        &>span
-          //writing-mode: vertical-rl
-          vertical-align: middle
-          word-wrap: break-word
+            width: 10%
+            // background: #505e6b
+            background: #8D97A4
+            // background: #293340
+            text-transform: uppercase
+            color: #f3f6f8
+            line-height: 100%
+            font-size: .8rem
+            font-weight: 700
+            transition: background .2s
+            &:hover
+              background: #BBC1C8
+            &>span
+              //writing-mode: vertical-rl
+              vertical-align: middle
+              word-wrap: break-word
 
   .comment-avatar
     margin-left: 7px

@@ -205,8 +205,11 @@ class ProjectView extends Component {
                     <Location data={locationData} />
                    
                 </div>
-                <UsersTimeLine /> 
-                <Questions id="q-and-a" />
+                <UsersTimeLine />
+                <div className={styles['projectMain-qa-row']}>
+                    <Questions id="q-and-a" />
+                </div> 
+                
             </div>  
         )
     }
