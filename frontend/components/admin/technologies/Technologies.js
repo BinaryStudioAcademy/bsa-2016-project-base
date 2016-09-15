@@ -57,7 +57,7 @@ class Technologies extends Component {
         let checked,unchecked = 0;
         if (action === 'add') {
             listOfTechnologies.forEach(function (el, indx) {
-                listOfTechnologies[indx].checked = 'checked';
+                listOfTechnologies[indx].checked = true;
             });
         } else {
             listOfTechnologies.forEach(function (el, indx) {
@@ -66,7 +66,7 @@ class Technologies extends Component {
 
         }
         listOfTechnologies.forEach(function (el, indx) {
-            if (listOfTechnologies[indx].checked === 'checked') {
+            if (listOfTechnologies[indx].checked === true) {
                 checked++;
             }else{
                 unchecked++;
@@ -84,7 +84,7 @@ class Technologies extends Component {
         const {listOfTechnologies} = this.props.stateFromReducer.TechnologiesReducer;
         let checked = 0;
         listOfTechnologies.forEach(function (el, indx) {
-            if (listOfTechnologies[indx].checked === 'checked') {
+            if (listOfTechnologies[indx].checked === true) {
                 checked++;
             }
         });
@@ -119,7 +119,7 @@ class Technologies extends Component {
         if (action === 'add') {
             listOfTechnologies.forEach(function (el, indx) {
                 if (el._id === id) {
-                    listOfTechnologies[indx].checked = 'checked';
+                    listOfTechnologies[indx].checked =true;
                 }
             });
 
@@ -131,7 +131,7 @@ class Technologies extends Component {
             });
         }
         listOfTechnologies.forEach(function (el, indx) {
-            if (listOfTechnologies[indx].checked === 'checked') {
+            if (listOfTechnologies[indx].checked ===true) {
                checked++;
             }else{
                 unchecked++;
