@@ -16,11 +16,6 @@ module.exports = {
     publicPath: '/projects/'
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: 'frontend/app/index.tpl.html',
-      inject: 'body',
-      filename: 'index.html'
-    }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
