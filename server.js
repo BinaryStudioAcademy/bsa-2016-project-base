@@ -11,7 +11,6 @@ const bodyParser = require('body-parser');
 const port = 6500;
 const app = express();
 //app.use(bodyParser());
-app.set('base', '/projects');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(function(req, res, next) {

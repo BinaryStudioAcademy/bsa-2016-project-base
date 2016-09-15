@@ -10,7 +10,7 @@ class FeatureService {
     }
 
     getAllFeatures(projectId) {
-        return fetch(`${constants.URL}projects/${projectId}/features`,
+        return fetch(`${constants.URL}project/${projectId}/features`,
          constants.cookieMarker);
     }
 

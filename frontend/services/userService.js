@@ -7,7 +7,7 @@ class UsersService {
 
     constructor(){
         this.url = {
-            projects: `${constants.URL}projects/`,
+            projects: `${constants.URL}project/`,
             users: `${constants.URL}users/`
         };
     }

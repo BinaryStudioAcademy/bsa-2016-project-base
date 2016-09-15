@@ -10,7 +10,7 @@ class UpsertProjectService {
     }
 
     addProject(project) {
-        return fetch(constants.URL + "projects/", 
+        return fetch(constants.URL + "project/", 
             Object.assign({
                 method: "POST",
                 body: JSON.stringify(project)
