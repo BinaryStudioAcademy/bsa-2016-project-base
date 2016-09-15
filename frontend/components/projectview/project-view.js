@@ -205,6 +205,7 @@ class ProjectView extends Component {
                     <Location data={locationData} />
                    
                 </div>
+                <Questions id="q-and-a" />
             </div>  
         )
     }
