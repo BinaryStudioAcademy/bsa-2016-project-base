@@ -5,7 +5,8 @@ import thunk from "redux-thunk";
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import ReduxToastr, {toastr} from 'react-redux-toastr';
-import { IndexRoute, Route, Router, browserHistory } from 'react-router';
+import { IndexRoute, Route, Router, browserHistory, useRouterHistory } from 'react-router';
+import { createHistory } from 'history';
 import { createStore, combineReducers, applyMiddleware, compose  } from 'redux';
 
 /* components */
@@ -39,10 +40,14 @@ const store = createStore(
         window.devToolsExtension ? window.devToolsExtension() : f => f)
 );
 
+const history = useRouterHistory(createHistory)({
+    basename: '/projects'
+});
+
 render(
     (<Provider store={store}>
-        <Router history={browserHistory} onUpdate={() => window.scrollTo(0, 0)} >
-            <Route path="/projects" component={App}>
+        <Router history={history} onUpdate={() => window.scrollTo(0, 0)} >
+            <Route path="/" component={App}>
                 <IndexRoute component={Home}/>
                 <Route path="home" component={Home} title='projects'/>
                 <Route path="project-view/:id" component={ProjectView} title='project summary'/>
