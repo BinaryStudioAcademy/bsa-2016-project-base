@@ -6,8 +6,7 @@ var Techs = require('../schemas/technologySchema');
 class StatService {
 
 	getProjectsCountriesStat(req, callback){
-		console.log('getProjectsCountriesStat() called.');
-		
+		//console.log('getProjectsCountriesStat() called.');
 		Projects.aggregate([{"$group" : {_id:"$contacts.countryName", count:{$sum:1}}}]).exec(callback);
 
 		//callback(null, countriesDistribution);

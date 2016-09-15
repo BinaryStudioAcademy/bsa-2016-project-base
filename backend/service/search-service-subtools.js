@@ -111,9 +111,14 @@ class SearchServiceSubTools {
                     console.log('Error');
                 }
                 //console.log(result);
-                queryArr.forEach((elem, ind, arr)=>{
-                    selectedUsersId.push(result.find(elem_=> elem_.fullName == elem)._id);
-                });
+                try {
+                    queryArr.forEach((elem, ind, arr)=>{
+                        selectedUsersId.push(result.find(elem_=> elem_.fullName == elem)._id);
+                    });
+                } catch (err){
+                    console.log('getStrictUsersIdFromSearchQuery() - Uncorrect parameters acquired from query.');
+                    callback(err, null);
+                }
                 //console.log('selectedUsersId: ', selectedUsersId);
                 callback(null, selectedUsersId);
             });
@@ -178,9 +183,14 @@ class SearchServiceSubTools {
                     console.log('Error');
                 }
                 //console.log(result);
-                queryArr.forEach((elem, ind, arr)=>{
-                    selectedOwnersId.push(result.find(elem_=> elem_.fullName == elem)._id);
-                });
+                try {
+                    queryArr.forEach((elem, ind, arr)=>{
+                        selectedOwnersId.push(result.find(elem_=> elem_.fullName == elem)._id);
+                    });
+                } catch (err){
+                    console.log('getStrictOwnersIdFromSearchQuery() - Uncorrect parameters acquired from query.');
+                    callback(err, null);
+                }
                 callback(null, selectedOwnersId);
             });
         } else {callback(null, null)}
@@ -225,9 +235,14 @@ class SearchServiceSubTools {
                     console.log('Error');
                 }
                 //console.log(result);
-                queryArr.forEach((elem, ind, arr)=>{
-                    selectedTagsId.push(result.find(elem_=> elem_.tagName == elem)._id);
-                });
+                try{
+                    queryArr.forEach((elem, ind, arr)=>{
+                        selectedTagsId.push(result.find(elem_=> elem_.tagName == elem)._id);
+                    });
+                } catch (err){
+                    console.log('getStrictTagsIdFromSearchQuery() - Uncorrect parameters acquired from query.');
+                    callback(err, null);
+                }
                 callback(null, selectedTagsId);
             });
         } else {callback(null, null)}
@@ -273,10 +288,15 @@ class SearchServiceSubTools {
                     console.log('Error');
                 }
                 //console.log('getStrictTechsIdFromSearchQuery() -> result: ', result);
-                queryArr.forEach((elem, ind, arr)=>{
-                    console.log('Techs find: ', result.find(elem_=> elem_.techName == elem));
-                    selectedTechsId.push(result.find(elem_=> elem_.techName == elem)._id);
-                });
+                try {
+                    queryArr.forEach((elem, ind, arr)=>{
+                        console.log('Techs find: ', result.find(elem_=> elem_.techName == elem));
+                        selectedTechsId.push(result.find(elem_=> elem_.techName == elem)._id);
+                    });
+                } catch (err){
+                    console.log('getStrictTechsIdFromSearchQuery() - Uncorrect parameters acquired from query.');
+                    callback(err, null);
+                }
                 console.log('getStrictTechsIdFromSearchQuery -> selectedTechsId: ', selectedTechsId);
                 callback(null, selectedTechsId);
             });

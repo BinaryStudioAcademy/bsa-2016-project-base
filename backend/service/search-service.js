@@ -87,6 +87,13 @@ class SearchService {
 	    	}, function(err, res){
 	    		console.log('async res: ', res);
 	    		//searchReturn.selectedIds = res;
+	    		if (err){
+	    			searchReturn.error = {
+	    				text: err.message,
+	    				request: req.url
+	    			}
+	    			callback(null, searchReturn);
+	    		}
 
 	    		try{
 	    			var [projQuery, projCounter] = subtools.prepareMainQuery(searchReturn, searchFilters, res);
