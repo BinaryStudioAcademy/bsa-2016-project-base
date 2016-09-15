@@ -9,6 +9,7 @@
   min-width: 500px
   width: 100%
   padding: 10px 30px
+  overflow: auto
   height: 100vh
   +forSmallScreens(768)
     width: 100%
@@ -27,6 +28,7 @@
     display: flex
     flex-flow: row nowrap
     justify-content: space-around
+    height: 40px
 
     .btn
       border: 1px solid #505e6b
@@ -38,7 +40,7 @@
       cursor: pointer
       outline: none
     .btn:not(:last-of-type)
-      margin-right: 2px
+      margin-right: 9px
     .btn:first-of-type
       border-top-left-radius: 3px
       border-bottom-left-radius: 3px
@@ -62,12 +64,12 @@
 
   .chart-wrap
     padding-bottom: 1px
-    margin: 15px auto
-    width: 80%
+    margin: 5px auto
+    width: 95%
 
   .chart-wrap-small
     padding-bottom: 1px
-    margin: 15px auto
+    margin: auto
     width: 50%
 
   .chart

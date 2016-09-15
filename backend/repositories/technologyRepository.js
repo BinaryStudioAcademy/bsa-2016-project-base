@@ -10,6 +10,7 @@ function TechnologyRepository() {
     Repository.prototype.constructor.call(this);
     this.model = Technology;
 }
+TechnologyRepository.prototype = new Repository();
 
 TechnologyRepository.prototype.deleteMany = function(array, callback){
 	var model = this.model;
@@ -25,5 +26,16 @@ TechnologyRepository.prototype.deleteMany = function(array, callback){
 	});
 };
 
-TechnologyRepository.prototype = new Repository();
+TechnologyRepository.prototype.delete = function(id, callback){
+	var model = this.model;
+	var query = model.remove({_id:id});
+	query.exec((err, result)=>{
+		Projects.update({}, {$pull: {technologies: id}}, {multi: true}, (_err, _result)=>{
+			if(_err) {
+	          callback(_err, null);
+	        } else callback(null, result);
+		});
+	});
+};
+
 module.exports = new TechnologyRepository();

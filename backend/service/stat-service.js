@@ -6,8 +6,7 @@ var Techs = require('../schemas/technologySchema');
 class StatService {
 
 	getProjectsCountriesStat(req, callback){
-		console.log('getProjectsCountriesStat() called.');
-		
+		//console.log('getProjectsCountriesStat() called.');
 		Projects.aggregate([{"$group" : {_id:"$contacts.countryName", count:{$sum:1}}}]).exec(callback);
 
 		//callback(null, countriesDistribution);
@@ -21,7 +20,7 @@ class StatService {
 					let returnObj = [];
 					tagsResult.forEach((tagElem, ind, arr) =>{
 						returnObj.push({
-							tagName: tagElem._id.tagName,
+							tagName: (tagElem._id.tagName)? tagElem._id.tagName : 'No tags',
 							count: tagElem.count
 						});
 					});
@@ -35,11 +34,11 @@ class StatService {
 		Projects.aggregate([{$unwind: "$technologies"}, {$group: {_id: "$technologies", count:{$sum:1}}}, {$sort: {count: -1}}])
 			.exec((err, result)=>{
 				Techs.populate(result, {path: '_id'}, function(err2, techsResult){
-					//console.log(tagsResult);
+					//console.log(techsResult);
 					let returnObj = [];
 					techsResult.forEach((techElem, ind, arr) =>{
 						returnObj.push({
-							techName: techElem._id.techName,
+							techName: (techElem._id.techName)? techElem._id.techName : 'No techs',
 							count: techElem.count
 						});
 					});

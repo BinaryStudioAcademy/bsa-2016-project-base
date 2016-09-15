@@ -25,4 +25,16 @@ TagRepository.prototype.deleteMany = function(array, callback){
 	});
 };
 
+TagRepository.prototype.delete = function(id, callback){
+	var model = this.model;
+	var query = model.remove({_id:id});
+	query.exec((err, result)=>{
+		Projects.update({}, {$pull: {tags: id}}, {multi: true}, (_err, _result)=>{
+			if(_err) {
+	          callback(_err, null);
+	        } else callback(null, result);
+		});
+	});
+};
+
 module.exports = new TagRepository();
