@@ -203,8 +203,8 @@ class ProjectView extends Component {
                 </div>
                 <div className={styles['projectMain-thirdRow']}>
                     <Location data={locationData} />
-                   
                 </div>
+                <UsersTimeLine /> 
             </div>  
         )
     }
