@@ -16,11 +16,11 @@ class StatService {
 		Projects.aggregate([{$unwind: "$tags"}, {$group: {_id: "$tags", count:{$sum:1}}}, {$sort: {count: -1}}])
 			.exec((err, result)=>{
 				Tags.populate(result, {path: '_id'}, function(err2, tagsResult){
-					//console.log(tagsResult);
+					console.log(tagsResult);
 					let returnObj = [];
 					tagsResult.forEach((tagElem, ind, arr) =>{
 						returnObj.push({
-							tagName: (tagElem._id.hasOwnProperty('tagName'))? tagElem._id.tagName : 'No tags',
+							tagName: (tagElem._id.tagName)? tagElem._id.tagName : 'No tags',
 							count: tagElem.count
 						});
 					});
@@ -38,7 +38,7 @@ class StatService {
 					let returnObj = [];
 					techsResult.forEach((techElem, ind, arr) =>{
 						returnObj.push({
-							techName: (techElem._id.hasOwnProperty('techName'))? techElem._id.techName : 'No techs',
+							techName: (techElem._id.techName)? techElem._id.techName : 'No techs',
 							count: techElem.count
 						});
 					});
