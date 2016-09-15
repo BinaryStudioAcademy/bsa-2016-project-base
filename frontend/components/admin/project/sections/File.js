@@ -31,7 +31,7 @@ class File extends Component {
          const {onClick} = this.props;
          if (ready && good) {
             return (
-                <div>
+                <div className={styles["file-block"]}>
                     {this.getRemoveButton()}
                     <a href={path} target="_blank">
                         <img src={thumb} alt={name} />
@@ -55,7 +55,7 @@ class File extends Component {
         } else if (ready && !good) {
             const {error} = this.props.file;
             return (
-                <div>
+                <div className={styles["file-block"]}>
                     <Button className={styles["btnIcon"]} onClick={onClick && ((e) => onClick(e,name))}>
                             <i className="fa fa-times" aria-hidden="true"></i>
                     </Button>

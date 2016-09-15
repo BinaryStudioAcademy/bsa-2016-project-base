@@ -21,14 +21,15 @@ const styles = {
     color: '#2ecc71'
   },
   inputStyle: { 
-    color: '#627484',
+    color: '#555',
     fontfamily: 'Lato, sans-serif',
     paddingLeft: ".5rem"
   },
   hintStyle: {
     fontFamily: 'Lato, sans-serif',
     marginLeft: ".5rem",
-    fontSize: "0.9rem"
+    fontSize: "0.9rem",
+    color: 'rgba(85, 85, 85, .8)'
   }
 
 
