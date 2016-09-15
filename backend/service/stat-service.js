@@ -20,7 +20,7 @@ class StatService {
 					let returnObj = [];
 					tagsResult.forEach((tagElem, ind, arr) =>{
 						returnObj.push({
-							tagName: tagElem._id.tagName || 'No tags',
+							tagName: (tagElem._id.tagName)? tagElem._id.tagName : 'No tags',
 							count: tagElem.count
 						});
 					});
@@ -38,7 +38,7 @@ class StatService {
 					let returnObj = [];
 					techsResult.forEach((techElem, ind, arr) =>{
 						returnObj.push({
-							techName: techElem._id.techName,
+							techName: (techElem._id.techName)? techElem._id.techName : 'No techs',
 							count: techElem.count
 						});
 					});
