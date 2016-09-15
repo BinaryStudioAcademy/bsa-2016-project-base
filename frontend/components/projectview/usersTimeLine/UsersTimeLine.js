@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import * as actions from '../../../actions/ProjectViewActions';
 import {connect} from 'react-redux';
-import {Tooltip, OverlayTrigger} from 'react-bootstrap'
 import TimeLine from 'material-ui/svg-icons/action/timeline';
 import styles from './usersTimeLine.sass';
 const LENGTH_ALL_LINE = 87;
@@ -67,11 +66,10 @@ class UsersTimeLine extends Component {
         } else {
             numberDaysProject = (new Date() - new Date(this.props.project.timeBegin) ) / oneDay;
         }
-        console.log("numberDaysProject - " + numberDaysProject);
-
+        
         oneUnit = numberDaysProject / LENGTH_ALL_LINE;
 
-         arrayUsers = this.props.users.map(function(el, index) {
+        arrayUsers = this.props.users.map(function(el, index) {
             var lineLengthUser,
                 dataObj = null,
                 numberDaysUser = null,
@@ -95,17 +93,14 @@ class UsersTimeLine extends Component {
 
              userOffset = (((new Date(dataObj.dateFrom) - new Date(self.props.project.timeBegin)) / oneDay) / oneUnit);
 
-            console.log("numberDaysUser - " + numberDaysUser);
             lineLengthUser = numberDaysUser / oneUnit;
-            console.log("lineLengthUser - " + lineLengthUser);
-
-             if(lineLengthUser < 19.5) {
+            if(lineLengthUser < 19.5) {
                  return (
-                     <div className="userLine">
+                     <div className="userLine" key={index} >
                          <div className="userInfo">
                              <span>{el.userName} {el.userSurname}</span>
                          </div>
-                         <div className="offsetLine" style={{"flex-basis": userOffset + "%"}}></div>
+                         <div className="offsetLine" style={{flexBasis: userOffset + "%"}}></div>
                          <div className="line tooltip" data-tooltip={"from " + self.formatDate(new Date(dataFrom)) + " to " + (dataTo == "now" ? dataTo : self.formatDate(new Date(dataTo)))} style={{"flex-basis": lineLengthUser + "%"}}>
                          </div>
                      </div>
@@ -113,11 +108,11 @@ class UsersTimeLine extends Component {
              }
 
             return (
-                <div className="userLine">
+                <div className="userLine" key={index}>
                     <div className="userInfo">
                         <span>{el.userName} {el.userSurname}</span>
                     </div>
-                    <div className="offsetLine" style={{"flex-basis": userOffset + "%"}}></div>
+                    <div className="offsetLine" style={{flexBasis: userOffset + "%"}}></div>
                     <div className="line"  style={{"flex-basis": lineLengthUser + "%"}}>
                         <span className="userTimeBegin">{self.formatDate(new Date(dataFrom))}</span>
                         <span className="userTimeEnd">{dataTo == "now" ? dataTo : self.formatDate(new Date(dataTo))}</span>
@@ -139,7 +134,8 @@ class UsersTimeLine extends Component {
         return (
         <div id="usersTimeLine">
             <div className="headerTimeLine">
-                <span className="iconTimeLine"><TimeLine style={{color: "#fff"}}/></span>
+                <span className="iconTimeLine">
+                </span>
                 <span className="textHeader">Users TimeLine</span>
             </div>
             <div className="mainContent">
