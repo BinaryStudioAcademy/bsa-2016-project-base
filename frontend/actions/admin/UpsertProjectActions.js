@@ -466,6 +466,15 @@ export function selectSection(_id) {
     };
 };
 
+export function setVisibleAddTechForm(hideTechForm) {
+    console.log('action');
+    console.log(hideTechForm);
+    return {
+        type: types.SET_VISIBLE_ADD_TECH_FORM,
+        hideTechForm: hideTechForm
+    }
+}
+
 export function setVisibleUploadByLinkAttachments(hideFile, hideForm) {
     return {
         type: types.SET_VISIBLE_FORM_BY_LINK_ATTACHMENTS,

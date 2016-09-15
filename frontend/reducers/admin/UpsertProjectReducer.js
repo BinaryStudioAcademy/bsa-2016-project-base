@@ -295,6 +295,14 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 technologies: removeTechFromProject(technologies, _id)
             });
         }
+        case types.SET_VISIBLE_ADD_TECH_FORM: {
+            const {hideTechForm} = action;
+            console.log('reducer');
+            console.log(hideTechForm);
+            return Object.assign({}, state, {
+                hideTechForm
+            })
+        }
         case types.SET_VISIBLE_FORM_BY_LINK_ATTACHMENTS: {
             const {hideFile,hideForm} = action;
             return Object.assign({}, state, {
@@ -669,7 +677,8 @@ const initialState = {
     hideFile : 'visible',
     hideForm : 'hidden',
     hideFileScreenshoots : 'visible',
-    hideFormScreenshoots : 'hidden'
+    hideFormScreenshoots : 'hidden',
+    hideTechForm : 'hidden'
 	
 };
 
