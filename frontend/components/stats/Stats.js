@@ -27,25 +27,6 @@ class Stats extends Component {
         this.state={selectAll:false}
     }
 
-    // getData() {
-    //     return [{
-    //             "name": "<5",
-    //             "value": 2704659}, {
-    //             "name": "5-13",
-    //             "value": 4499890}, {
-    //             "name": "14-17",
-    //             "value": 2159981}, {
-    //             "name": "18-24",
-    //             "value": 3853788}, {
-    //             "name": "25-44",
-    //             "value": 14106543}, {
-    //             "name": "45-64",
-    //             "value": 8819342}, {
-    //             "name": "≥65",
-    //             "value": 612463}
-    //     ];
-    // }
-
 	componentDidMount(){
         this.props.changeChartType("projCountries");
         this.props.loadData();
