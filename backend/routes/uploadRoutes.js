@@ -4,7 +4,7 @@ var uuid = require('node-uuid');
 var fs = require('fs');
 var http = require('http');
 var https = require('https');
-var origin = 'http://localhost:6500/';
+var origin = require("./../config/host").projectHost+"/"
 module.exports = function(app) {
 	app.post('/api/upload/', function(req, res, next) {
 		uploadMedia(req, function(data){
