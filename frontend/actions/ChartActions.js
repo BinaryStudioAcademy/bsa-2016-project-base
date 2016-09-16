@@ -137,7 +137,6 @@ export function loadData(){
                     }))
                 });
         }
-
     }
 }
 export function errorHandler(error) {

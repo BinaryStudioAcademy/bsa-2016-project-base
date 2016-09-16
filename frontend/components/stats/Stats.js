@@ -47,13 +47,13 @@ class Stats extends Component {
         const {selectAll} = this.state;
         let {data, chartType} = this.props.store.ChartReducer;
 
-        if (selectAll){
-            return <div className={styles['charts-wrap']} >
-                <div className={styles['chart-wrap-small']} ><LineChartComp data={data} /></div>
-                <div className={styles['chart-wrap-small']} ><BarChartComp data={data} /></div>
-                <div className={styles['chart-wrap-small']} ><PieChartComp data={data} /></div>
-            </div>
-        }
+        // if (selectAll){
+        //     return <div className={styles['charts-wrap']} >
+        //         <div className={styles['chart-wrap-small']} ><LineChartComp data={data} /></div>
+        //         <div className={styles['chart-wrap-small']} ><BarChartComp data={data} /></div>
+        //         <div className={styles['chart-wrap-small']} ><PieChartComp data={data} /></div>
+        //     </div>
+        // }
         switch (chartType){
             case "projCountries": return <div className={styles['chart-wrap']} ><PieChartComp data={data} /></div>
             case "projStartDate": return <div className={styles['chart-wrap']} ><LineChartComp data={data} /></div>
