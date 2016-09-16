@@ -12,6 +12,7 @@ const port = 6500;
 const app = express();
 var isProduction = process.env.NODE_ENV === "production"
 //app.use(bodyParser());
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(function(req, res, next) {
@@ -20,6 +21,15 @@ app.use(function(req, res, next) {
   next();
 });
 app.use(tockenMiddleware);
+//set userRole to "admin"
+{
+  var Cookies = require("cookies")
+  app.use(function(req, res, next){
+    var cookies = new Cookies(req, res)
+    cookies.set('userRole', "admin", { httpOnly: false });
+    next()
+  })
+}
 app.use(rightsMiddleware);
 var indexHtmlFIleName;
 if (isProduction){
