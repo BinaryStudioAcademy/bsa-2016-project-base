@@ -40,7 +40,6 @@ class RightsToolbar extends React.Component {
         for(let i in projectsList) menuProjectsItems.push(
             <MenuItem key={projectsList[i].id}  primaryText={projectsList[i].projectName}
                 style={this.state['projectListStyles']} value={projectsList[i].id} />);
-        var self = this;
         return (
             <div className={styles['rights-toolBar']}>
                 <RaisedButton label="Save changes" onClick={()=>{
@@ -71,8 +70,7 @@ class RightsToolbar extends React.Component {
                       }}  className={styles['filters-TextInput']} />
                 </MuiThemeProvider>   
                 <MuiThemeProvider>
-                    <AutoComplete
-                        floatingLabelText="Input project name"
+                    <AutoComplete  floatingLabelText="Input project name"
                         filter={AutoComplete.caseInsensitiveFilter}
                         dataSource={projectsList.map(p=> p.projectName)}
                         openOnFocus={true}
@@ -80,10 +78,15 @@ class RightsToolbar extends React.Component {
                         style={{WebkitAppearance:"none"}}
                         menuStyle={{WebkitAppearance:"none"}}
                         maxSearchResults={12}
-                        onNewRequest={(unneeded,index)=>{
-                            if (index >= 0){
-                                self.props.fetchUsers(projectsList[index].id,filters['name'],filters['usersRight']);
-                            }
+                        searchText={((projectsList.length) ? 
+                            projectsList[0].projectName : "" )}
+                        onNewRequest={(item,index)=>{
+                            if (index < 0) return;
+                            this.props.fetchUsers(
+                                projectsList[index].id,
+                                filters['name'],
+                                filters['usersRight']
+                            );
                         }}
                     />
 

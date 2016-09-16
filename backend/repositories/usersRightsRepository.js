@@ -55,12 +55,12 @@ UsersRightsRepository.prototype.updateUsersToProject = function(id,data,callback
 	var update = {};
 	switch(data['usersRight']){
 		case 'owners':
-			update['$set'] =  { owners: data['owners'] };
+			update['$pop'] ={ owners:{ $each: data['simples'] }};
 			update['$push'] = { users:{ $each: data['simples'] }}
 		break;
 		case 'simples':
-			update['$set'] = { users: data['simples'] };
-			update['$push'] ={ owners:{ $each: data['owners'] }}
+			update['$pop'] ={ users:{ $each: data['owners'] }};
+			update['$push'] ={ owners:{ $each: data['owners'] }};
 		break;
 		default:
 			update['$set'] = {

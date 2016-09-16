@@ -101,7 +101,7 @@ class UsersTimeLine extends Component {
                              <span>{el.userName} {el.userSurname}</span>
                          </div>
                          <div className="offsetLine" style={{flexBasis: userOffset + "%"}}></div>
-                         <div className="line tooltip" data-tooltip={"from " + self.formatDate(new Date(dataFrom)) + " to " + (dataTo == "now" ? dataTo : self.formatDate(new Date(dataTo)))} style={{"flex-basis": lineLengthUser + "%"}}>
+                         <div className="line tooltip" data-tooltip={"from " + self.formatDate(new Date(dataFrom)) + " to " + (dataTo == "now" ? dataTo : self.formatDate(new Date(dataTo)))} style={{flexBasis: lineLengthUser + "%"}}>
                          </div>
                      </div>
                  )
@@ -113,7 +113,7 @@ class UsersTimeLine extends Component {
                         <span>{el.userName} {el.userSurname}</span>
                     </div>
                     <div className="offsetLine" style={{flexBasis: userOffset + "%"}}></div>
-                    <div className="line"  style={{"flex-basis": lineLengthUser + "%"}}>
+                    <div className="line"  style={{flexBasis: lineLengthUser + "%"}}>
                         <span className="userTimeBegin">{self.formatDate(new Date(dataFrom))}</span>
                         <span className="userTimeEnd">{dataTo == "now" ? dataTo : self.formatDate(new Date(dataTo))}</span>
                     </div>
