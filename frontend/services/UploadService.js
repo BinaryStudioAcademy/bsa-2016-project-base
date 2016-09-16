@@ -2,7 +2,7 @@ import promise from 'es6-promise';
 promise.polyfill();
 import fetch from 'isomorphic-fetch';
 import * as constants from '../constants/Api';
-
+var url = constants.URL
 class UploadService {
 
 	constructor(){
@@ -22,7 +22,7 @@ class UploadService {
     }
 
     uploadFileByLink(link){
-        return fetch("/api/uploadByLink/", Object.assign({
+        return fetch(`${url}/uploadByLink/`, Object.assign({
                 method: 'POST',
                 body: JSON.stringify({
                     link:link
@@ -33,7 +33,7 @@ class UploadService {
     }
 
     uploadFileByLinkAttachments(link){
-        return fetch("/api/uploadByLinkAttachments/", Object.assign({
+        return fetch(`${url}/uploadByLinkAttachments/`, Object.assign({
                 method: 'POST',
                 body: JSON.stringify({
                     link:link
@@ -44,7 +44,7 @@ class UploadService {
     }
 
     uploadFileByFile(file){
-        return fetch("/api/file/", Object.assign({
+        return fetch(`${url}/file/`, Object.assign({
                 method: 'POST',
                 body: file
             }, constants.cookieMarker
@@ -52,7 +52,7 @@ class UploadService {
     }
 
     deleteFile(file){
-        return fetch('/api/file/', Object.assign({
+        return fetch(`${url}/file/`, Object.assign({
                 method: 'DELETE',
                 body: JSON.stringify({file: file})
             }, constants.cookieMarker,

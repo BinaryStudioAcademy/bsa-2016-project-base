@@ -26,18 +26,19 @@ app.use(tockenMiddleware);
   var Cookies = require("cookies")
   app.use(function(req, res, next){
     var cookies = new Cookies(req, res)
-    cookies.set('userRole', "admin", { httpOnly: false });
+    cookies.set('userRole', "ADMIN", { httpOnly: false });
     next()
   })
 }
-app.use(rightsMiddleware);
-var indexHtmlFIleName;
+app.use(rightsMiddleware)
+app.use(require("./backend/middleware/userSync"))
+var indexHtmlFileName;
 if (isProduction){
-  indexHtmlFIleName = "/index.html"
+  indexHtmlFileName = "/index.html"
   require('./backend/routes/routes')(app);
 }else {
   var routes = express.Router()
-  indexHtmlFIleName = "/indexLocal.html"
+  indexHtmlFileName = "/indexLocal.html"
   require('./backend/routes/routes')(routes);
   app.use("/projects", routes)
 }
@@ -63,7 +64,7 @@ app.use('/backend', express.static(__dirname + '/backend'));
 app.use(middleware);
 app.use(webpackHotMiddleware(compiler));
 app.get('*', function response(req, res) {
-  res.write(fs.readFileSync(path.join(__dirname, indexHtmlFIleName)));
+  res.write(fs.readFileSync(path.join(__dirname, indexHtmlFileName)));
   res.end();
 });
 

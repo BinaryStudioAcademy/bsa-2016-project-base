@@ -29,7 +29,7 @@ export default class DeletableList extends React.Component {
                                  key={index}
                                  primaryText={model.getText(value)}
                                  rightIcon={<Delete onClick={_onClick}
-                                   hoverColor={"#b00000"}/>}/>
+                                 hoverColor={"#b00000"}/>}/>
 
             })}</List>;
     }

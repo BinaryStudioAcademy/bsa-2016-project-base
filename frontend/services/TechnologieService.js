@@ -2,7 +2,7 @@ import promise from 'es6-promise';
 promise.polyfill();
 import fetch from 'isomorphic-fetch';
 import * as constants from '../constants/Api';
-
+var url = constants.URL
 class TechnologieService {
 
     constructor() {
@@ -24,11 +24,11 @@ class TechnologieService {
     }
 
     getTech(id) {
-        return fetch(`/api/technologies/` + id, constants.cookieMarker)
+        return fetch(`${url}/technologies/${id}`, constants.cookieMarker)
     }
 
     updateData(id, data) {
-        return fetch(`/api/technologies/${id}`,
+        return fetch(`${url}/technologies/${id}`,
             Object.assign({
                     method: 'PUT',
                     body: JSON.stringify(data)
@@ -46,7 +46,7 @@ class TechnologieService {
     }
 
     deleteTechnology(id) {
-        return fetch(`/api/technologies/${id}`, Object.assign({
+        return fetch(`${url}/technologies/${id}`, Object.assign({
                 method: 'DELETE',
             }, constants.cookieMarker
         ))
