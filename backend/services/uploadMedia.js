@@ -1,7 +1,8 @@
 var fs = require('fs');
 var multiparty = require('multiparty');
-var uuid = require('node-uuid');
-var origin = 'http://localhost:6500/'
+var uuid = require('node-uuid')
+var origin = require("./../config/host").projectHost+"/"
+//var origin = 'http://localhost:6500/'
 var supportMimeTypes = [
 		'image/jpg', 
 		'image/jpeg', 

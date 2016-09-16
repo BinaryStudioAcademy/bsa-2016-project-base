@@ -10,6 +10,7 @@ const config = require('./webpack.config.js');
 const bodyParser = require('body-parser');
 const port = 6500;
 const app = express();
+var isProduction = process.env.NODE_ENV === "production"
 //app.use(bodyParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -20,7 +21,17 @@ app.use(function(req, res, next) {
 });
 app.use(tockenMiddleware);
 app.use(rightsMiddleware);
-var routes = require('./backend/routes/routes')(app);
+var indexHtmlFIleName;
+if (isProduction){
+  indexHtmlFIleName = "/index.html"
+  require('./backend/routes/routes')(app);
+}else {
+  var routes = express.Router()
+  indexHtmlFIleName = "/indexLocal.html"
+  require('./backend/routes/routes')(routes);
+  app.use("/projects", routes)
+}
+
 
 const compiler = webpack(config);
 const middleware = webpackMiddleware(compiler, {
@@ -42,7 +53,7 @@ app.use('/backend', express.static(__dirname + '/backend'));
 app.use(middleware);
 app.use(webpackHotMiddleware(compiler));
 app.get('*', function response(req, res) {
-  res.write(fs.readFileSync(path.join(__dirname, '/index.html')));
+  res.write(fs.readFileSync(path.join(__dirname, indexHtmlFIleName)));
   res.end();
 });
 

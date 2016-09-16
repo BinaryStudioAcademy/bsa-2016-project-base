@@ -3,26 +3,39 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var mainJsFileName;
+var plugins = [
+  new webpack.optimize.OccurenceOrderPlugin(),
+  new webpack.HotModuleReplacementPlugin(),
+  new webpack.NoErrorsPlugin()
+];
 
+var isProduction = process.env.NODE_ENV === "production"
+if (isProduction){
+  plugins.push(new webpack.optimize.UglifyJsPlugin({
+    compress: { warnings: false }
+  }));
+  mainJsFileName = "frontend/app/main.js"
+}else {
+  mainJsFileName = 'frontend/app/mainLocal.js'
+}
 module.exports = {
-  devtool: 'eval-source-map',
+  devtool: isProduction?"":'eval-source-map',
   entry: [
     'webpack-hot-middleware/client?reload=true',
-    path.join(__dirname, 'frontend/app/main.js')
+    path.join(__dirname, mainJsFileName)
   ],
   output: {
     path: path.join(__dirname, '/dist/'),
     filename: '[name].js',
     publicPath: '/'
   },
-  plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new webpack.DefinePlugin({
+  plugins: plugins
+
+    /*new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
-    })
-  ],
+    })*/
+  ,
   module: {
     loaders: [{
       test: /\.jsx?$/,
