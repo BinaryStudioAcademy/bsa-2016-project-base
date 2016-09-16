@@ -70,19 +70,21 @@ class List extends Component {
                 },this)}
                 <li className={styles['comment-new']}>
                     <div className={styles['comment-new-wrap']} >
-                        <textarea rows="3"
+                        <textarea rows="6"
                                   placeholder={' Ask your question, please'}
                                   onChange={this.handleAddQTextarea}
                         />
-                        <div className={styles['comment-privacy-option']} >
-                            <input type="checkbox"
-                                   id="private-check"
-                                   onChange={this.handleAddQCheckBox}
-                            />
-                            <label htmlFor="private-check"> I want to sent this message as a private one</label>
+                        <div className={styles['comment-options-row']}>
+                            <div className={styles['comment-privacy-option']} >
+                                <input type="checkbox"
+                                       id="private-check"
+                                       onChange={this.handleAddQCheckBox}
+                                />
+                                <label htmlFor="private-check"> I want to sent this message as a private one</label>
+                            </div>
+                            <button onClick={this.handleAddQ} ><span>send</span></button>
                         </div>
                     </div>
-                    <button onClick={this.handleAddQ} ><span>send</span></button>
                 </li>
             </ul>
         )
