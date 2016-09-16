@@ -2,7 +2,7 @@ import React from "react"
 import {PropTypes} from "react"
 import {Pie} from 'react-chartjs-2'
 import AbstractChart from "./AbstractChart"
-import ChartWrapper from "./ChartWrapper"
+import ChartWrapper from "./ChartWrapperInitial"
 import styles from "./stats.sass"
 
 export default class PieChart extends AbstractChart {
