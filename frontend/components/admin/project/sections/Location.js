@@ -18,34 +18,46 @@ class Location extends Component {
             Longitude: position.lng()
         });
     }
+    componentWillReceiveProps(nextProps){
+        const {location} = nextProps.props;
+        const locationBase = location ? location : {Latitude: 49.844182, Longitude: 24.026997};
+        const position = {lat: +locationBase.Latitude, lng: +locationBase.Longitude};
+        that.marker.setMap(null);
+            that.marker = new google.maps.Marker({
+                position,
+                map: that.map
+            });
+            
+        that.map.panTo(position);
+    }
 
     componentDidMount() {
         const {location} = this.props;
         const locationBase = location ? location : {Latitude: 49.844182, Longitude: 24.026997};
         const position = {lat: +locationBase.Latitude, lng: +locationBase.Longitude};
 
-        let map = new google.maps.Map(this.refs.map, {
+        this.map = new google.maps.Map(this.refs.map, {
             center: position,
             zoom: this.mapZoom
         });
 
-        let marker = new google.maps.Marker({
-            map,
+        this.marker = new google.maps.Marker({
+            map:this.map,
             position
         });
 
         let that = this;
 
-        google.maps.event.addListener( map, 'click', function(e) {
+        google.maps.event.addListener(this.map, 'click', function(e) {
             const position =  e.latLng;
 
-            marker.setMap(null);
-            marker = new google.maps.Marker({
-                  position,
-                  map
+            that.marker.setMap(null);
+            that.marker = new google.maps.Marker({
+                position,
+                map: that.map
             });
             
-            map.panTo(position);
+            that.map.panTo(position);
 
             that.setLocation(position);
         });

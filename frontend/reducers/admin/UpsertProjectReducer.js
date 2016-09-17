@@ -32,7 +32,7 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 status:{value:'Estimation', name:'Estimation'},
                 techIcon:{},
                 techIconError: '',
-                location:{Latitude: -34.397, Longitude: 150.644},
+                location: {Latitude: 49.844182, Longitude: 24.026997},
                 description:{
                     descrFullText: ''
                 },
@@ -665,7 +665,7 @@ const initialState = {
     iconLoaded: false,
     techIcon: {},
     techIconError: '',
-    location:{Latitude: -34.397, Longitude: 150.644},
+    location: {Latitude: 49.844182, Longitude: 24.026997},
     description:{
         descrFullText: ''
     },
