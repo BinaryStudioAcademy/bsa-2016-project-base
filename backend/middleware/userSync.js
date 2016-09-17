@@ -9,7 +9,7 @@ module.exports = function(req, res, next){
     try {
         userSync(req, res)
     }catch (e){
-        console.log("***CATCH ERROR WHILE USER SYNC", e)
+        console.error("CATCH ERROR WHILE USER SYNC", e)
     }
     next()
 
@@ -28,14 +28,13 @@ function userSync(req, res){
     }
 }
 function _userSync(req, res){
-    console.log("***USER SYNC")
+    console.log("USER SYNC")
     var j = request.jar();
     var cookie = new Cookie(req, res);
-    j.setCookie(request.cookie(`userRole=${cookie.get("userRole")}`), url);//is this needed?
     j.setCookie(request.cookie(`x-access-token=${cookie.get("x-access-token")}`), url);//this is required
     request({url: url, jar: j}, function (error, res, body) {
         if (error){
-            return console.log("***ERROR SYNC USERS")
+            return console.error("ERROR SYNC USERS")
         }
         JSON.parse(body).forEach(function(user){
             var [name, surname] = user.name.split(" ");
@@ -49,11 +48,11 @@ function _userSync(req, res){
             };
             userRepository.add( toAdd, function(err, res){
                 if (err){
-                    console.log(`ERROR AFTER ADD USER. EXPECTED ERROR OF TYPE 'DUPLICATED PRIMARY KEY'. MESSAGE: ${err.message}`)
+                    console.warn(`ERROR AFTER ADD USER. EXPECTED ERROR OF TYPE 'DUPLICATED PRIMARY KEY'. MESSAGE: ${err.message}`)
                     console.log(`TRY TO UPDATE INFO`);
                     userRepository.update(toAdd._id, toAdd, function(err, res){
                         if (err){
-                            console.log("ERROR WHILE UPDATE", err)
+                            console.error("ERROR WHILE UPDATE", err)
                         }
                         console.log("UPDATE SUCCESSFUL")
                     })

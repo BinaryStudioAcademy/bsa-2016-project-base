@@ -76,6 +76,7 @@ class RightsToolbar extends React.Component {
                         filter={AutoComplete.caseInsensitiveFilter}
                         dataSource={projectsList.map(p=> p.projectName)}
                         openOnFocus={true}
+                        searchText={current.projectId && projectsList.find(p=>p.id == current.projectId).projectName}
                         listStyle={{WebkitAppearance:"none"}}
                         style={{WebkitAppearance:"none"}}
                         menuStyle={{WebkitAppearance:"none"}}

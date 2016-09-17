@@ -1,4 +1,4 @@
-
+import {ORIGIN} from "./../constants/Api"
 
 const iconsPath = '/icons/';
 const typesNeedThumb = ['doc','docx','txt','xml','pdf','zip','rar','xls','xlsx'];
@@ -20,6 +20,7 @@ class FileThumbService {
 				item.thumb = iconsPath + 'unknown.png';
 			}
 		}
+		item.thumb = ORIGIN + "/" + item.thumb;
 		return item;
 	}
 
