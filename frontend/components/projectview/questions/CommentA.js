@@ -17,6 +17,25 @@ class Comment extends Component {
         this.handleSendEditA     = this.handleSendEditA.bind(this);
     }
 
+    get canIModify() {
+        let can = ( this.props.authUser['userRole'] == 'ADMIN' );
+        let owners = this.props.stateFromReducer.owners;
+        let qCol = this.props.stateFromReducer.questions || [];  // перечень вопросов в проекте
+        let i = this.props.i;                                    // порядковый номер вопроса в перечне (начинается с нуля, сортировка в порядке добавления)
+        let aCol = qCol[i].answers;                              // перечень ответов на i-ый вопрос
+        let j = this.props.index;                                // порядковый номер ответа в перечне (начинается с нуля, сортировка в порядке добавления)
+        let expr = aCol[j];                                      // тело j-ого ответа
+        let authorInfo = expr.author;
+        let userInfo = this.props.authUser.userInfo;
+
+        owners.forEach(function(item){
+            can = ( can || userInfo._id == item._id );
+        });
+        can = ( can || userInfo._id == authorInfo._id );
+
+        return can;
+    }
+
     handleRemoveA() {
         let id = this.props.stateFromReducer._id;                // _id проекта в БД
         let qCol = this.props.stateFromReducer.questions || [];  // перечень вопросов в проекте
@@ -116,7 +135,7 @@ class Comment extends Component {
                             <Link to={`/api/users/${authorLink}`} className={styles['comment-author-name']} >{authorName}</Link>
                             <span className={styles['comment-author-position']} >{authorPosition}</span>
                         </div>
-                        { this.props.authUser['userRole'] == 'ADMIN' || userInfo._id == authorInfo._id ?
+                        { this.canIModify ?
                             <div className={styles['comment-manipulate']} >
                                 { !editingStatus ?
                                     <button className={styles['comment-manipulate-button']}

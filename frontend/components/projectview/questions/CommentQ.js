@@ -19,6 +19,23 @@ class Comment extends Component {
         this.handleSendEditQ     = this.handleSendEditQ.bind(this);
     }
 
+    get canIModify() {
+        let can = ( this.props.authUser['userRole'] == 'ADMIN' );
+        let owners = this.props.stateFromReducer.owners;
+        let qCol = this.props.stateFromReducer.questions || [];  // перечень вопросов в проекте
+        let i = this.props.index;                                // порядковый номер вопроса в перечне (начинается с нуля, сортировка в порядке добавления)
+        let expr = qCol[i].question;                             // тело i-ого вопроса
+        let authorInfo = expr.author;
+        let userInfo = this.props.authUser.userInfo;
+
+        owners.forEach(function(item){
+            can = ( can || userInfo._id == item._id );
+        });
+        can = ( can || userInfo._id == authorInfo._id );
+
+        return can;
+    }
+
     handleRemoveQ() {
         let id = this.props.stateFromReducer._id;                // _id проекта в БД
         let qCol = this.props.stateFromReducer.questions || [];  // перечень вопросов в проекте
@@ -114,14 +131,14 @@ class Comment extends Component {
                             <span className={styles['comment-author-position']} >{authorPosition}</span>
                         </div>
                         <div className={styles['comment-manipulate']} >
-                            { this.props.authUser['userRole'] == 'ADMIN' || userInfo._id == authorInfo._id ? !editingStatus ?
+                            { this.canIModify ? !editingStatus ?
                                 <button className={styles['comment-manipulate-button']}
                                         onClick={this.handleShowEditQ}
                                 >
                                     Edit
                                 </button> : null : null
                             }
-                            { this.props.authUser['userRole'] == 'ADMIN' || userInfo._id == authorInfo._id ? <button className={styles['comment-manipulate-button']}
+                            { this.canIModify ? <button className={styles['comment-manipulate-button']}
                                     onClick={this.handleRemoveQ}
                             >
                                 Delete
