@@ -71,5 +71,10 @@ UserRepository.prototype.changeProject = function(userId, arr, callback) {
 	query.exec(callback);
 };
 
+UserRepository.prototype.getAuthUser = function(uid, callback) {
+	var model = this.model;
+	var query = model.find({login:uid});
+	query.exec(callback);
+};
 
 module.exports = new UserRepository();

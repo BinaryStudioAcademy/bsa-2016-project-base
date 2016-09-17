@@ -80,4 +80,12 @@ module.exports = function(app) {
 			next();
 		});
 	}, apiResponse);
+
+	app.get('/api/user/:uid', function (req, res, next) {
+		userRepository.getAuthUser(req.params.uid, function(err,data) {
+			res.data = data;
+			res.err = err;
+			next();
+		});
+	}, apiResponse);
 };
