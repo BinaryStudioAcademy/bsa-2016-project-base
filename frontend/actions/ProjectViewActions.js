@@ -52,7 +52,7 @@ export  function newCheckAttrInAddQCheckBox(checkAttr) { // хранилище �
     return action;
 }
 
-export function addingQ(projectId, newQuestion) { // добавление нового вопроса
+export function addingQ(projectId, newQuestion, senderInfo) { // добавление нового вопроса
     return (dispatch) => {
         return projectViewService.addingQ(projectId, newQuestion)
             .then(response => response.json())
@@ -60,7 +60,8 @@ export function addingQ(projectId, newQuestion) { // добавление нов
                 newQuestion._id = data.addedId;
                 dispatch({
                     type: types.ADDING_Q_SUCCESS,
-                    newQuestion: newQuestion
+                    newQuestion: newQuestion,
+                    senderInfo
                 });
             }).catch(error => {
                 dispatch({
@@ -80,7 +81,7 @@ export  function newMessageInAddATextarea(message, num) { // хранилище 
     return action;
 }
 
-export function addingA(projectId, newAnswer, num, qId) { // добавление нового ответа
+export function addingA(projectId, newAnswer, senderInfo, num, qId) { // добавление нового ответа
     return (dispatch) => {
         return projectViewService.addingA(projectId, newAnswer, qId)
             .then(response => response.json())
@@ -89,6 +90,7 @@ export function addingA(projectId, newAnswer, num, qId) { // добавлени�
                 dispatch({
                     type: types.ADDING_A_SUCCESS,
                     newAnswer: newAnswer,
+                    senderInfo,
                     num: num
                 });
             }).catch(error => {

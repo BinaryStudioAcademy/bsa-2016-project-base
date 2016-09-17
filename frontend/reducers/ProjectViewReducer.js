@@ -80,7 +80,9 @@ export default function ProjectViewReducer(state = initialState, action) {
         case types.ADDING_Q_SUCCESS:
 
             var questions = state.questions;
-            questions.push(action.newQuestion);
+            var newQ = action.newQuestion;
+            newQ.question.author = action.senderInfo;
+            questions.push(newQ);
 
             return { ...state, questions: questions };
 
@@ -94,7 +96,9 @@ export default function ProjectViewReducer(state = initialState, action) {
         case types.ADDING_A_SUCCESS:
 
             var questions = state.questions;
-            questions[action.num].answers.push(action.newAnswer);
+            var newA = action.newAnswer;
+            newA.author = action.senderInfo;
+            questions[action.num].answers.push(newA);
 
             return { ...state, questions: questions };
 
