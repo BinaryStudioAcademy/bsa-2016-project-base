@@ -11,7 +11,6 @@ export default function ProjectsDeleteReducer(state = initialState, action) {
     switch (action.type) {
         case types.INIT_PROJECTS_FOR_DELETE: {
             const {listOfProjects} = action;
-            console.log(listOfProjects);
             return Object.assign({}, state, {
                 listOfProjects
             })

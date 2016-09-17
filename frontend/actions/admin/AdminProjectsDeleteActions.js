@@ -21,5 +21,10 @@ export function initProjects(projects) {
         listOfProjects: projects
     }
 }
-
+export function errorHandler(error) {
+    return {
+        type: 'SOMETHING_GONE_WRONG',
+        error: error
+    }
+}
 
