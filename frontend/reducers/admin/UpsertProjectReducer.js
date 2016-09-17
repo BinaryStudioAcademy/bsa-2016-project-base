@@ -32,6 +32,7 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 status:{value:'Estimation', name:'Estimation'},
                 techIcon:{},
                 techIconError: '',
+                location:{Latitude: -34.397, Longitude: 150.644},
                 description:{
                     descrFullText: ''
                 },
@@ -55,6 +56,13 @@ export default function UpsertProjectReducer(state=initialState, action) {
             });
         }
         
+        case types.UP_SET_LOCATION: {
+            const {position} = action;
+            const {location} = state;
+            return Object.assign({}, state, {
+                location:position
+            });
+        }
          case types.UP_SET_CONTACT_FIELD: {
             const {field, data} = action;
             const {contacts} = state;
@@ -657,6 +665,7 @@ const initialState = {
     iconLoaded: false,
     techIcon: {},
     techIconError: '',
+    location:{Latitude: -34.397, Longitude: 150.644},
     description:{
         descrFullText: ''
     },
