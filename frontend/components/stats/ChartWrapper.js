@@ -17,8 +17,8 @@ export default class ChartWrapper extends React.Component {
           height={450}
           minWidth={300}
           minHeight={300}
-          maxWidth={950}
-          maxHeight={1200}
+          maxWidth={152vh}
+          maxHeight={76vh}
           isResizable={{
             top: false,
             right: false,
