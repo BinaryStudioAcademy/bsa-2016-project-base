@@ -1,11 +1,23 @@
 var async = require('async');
+var htmlToText = require('html-to-text');
 var userRepository = require('../repositories/userRepository');
 var projectRepository = require('../repositories/projectRepository');
 
 module.exports = function(req,onResult) {
     async.waterfall([
         function(callback){
-            projectRepository.add(req.body.project, function(err, data) {
+            var project = req.body.project;
+            var html = project.description.descrFullText;
+            project.description = {
+                descrText: htmlToText.fromString(html, {
+                    wordwrap: 130,
+                    ignoreHref: true,
+                    ignoreImage: true
+                }),
+                descrFullText: html
+            };
+
+            projectRepository.add(project, function(err, data) {
                 if (err) return callback (err, data);
                 callback (null, data);
             });
