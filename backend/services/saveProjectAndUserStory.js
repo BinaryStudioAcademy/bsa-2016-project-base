@@ -12,7 +12,8 @@ module.exports = function(req,onResult) {
                 descrText: htmlToText.fromString(html, {
                     wordwrap: 130,
                     ignoreHref: true,
-                    ignoreImage: true
+                    ignoreImage: true,
+                    preserveNewlines: true
                 }),
                 descrFullText: html
             };
