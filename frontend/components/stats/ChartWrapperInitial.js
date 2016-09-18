@@ -10,8 +10,8 @@ export default class ChartWrapperInitial extends React.Component {
         this.initialHeight = 450;
         this.initialMinWidth = 300;
         this.initialMinHeight = 150;
-        this.initialMaxWidth = 950;
-        this.initialMaxHeight = 1200;
+        this.initialMaxWidth = 1400;
+        this.initialMaxHeight = 700;
     }
 
     update() {
