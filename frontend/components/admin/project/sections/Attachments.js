@@ -10,7 +10,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 const fileTypes = 'image/jpeg,image/png,image/gif,application/xml,text/xml,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,\
-application/msword,application/zip,application/x-rar-compressed,application/octet-stream,text/plain,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+application/msword,application/zip,application/x-rar-compressed,application/octet-stream,text/plain,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,\
+application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation';
 
 
 class Attachments extends Component {
@@ -31,14 +32,14 @@ class Attachments extends Component {
         const files = e.target.files;
         if (files.length) {
             for (let i = 0; i < files.length; i++) {
-                this.props.uploadFile(files[i]);
+                this.props.uploadFile(files[i],'file');
             }
             e.target.value = '';
         }
     }
 
-    removeFile(e, name) {
-        this.props.removeFile(name);
+    removeFile(e, file, index) {
+        this.props.removeFile(file, index);
     }
 
     setVisibleLinkForm() {
@@ -83,6 +84,7 @@ class Attachments extends Component {
                     <File
                         key={index}
                         file={file}
+                        index={index}
                         onClick={this.removeFile}
                     />
                 );

@@ -1,7 +1,7 @@
 
 
 const iconsPath = '/icons/';
-const typesNeedThumb = ['doc','docx','txt','xml','pdf','zip','rar','xls','xlsx'];
+const typesNeedThumb = ['doc','docx','txt','xml','pdf','zip','rar','xls','xlsx','ppt','pptx'];
 const imageTypes = ['png','jpg','jpeg','rtf'];
 
 
