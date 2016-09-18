@@ -54,6 +54,9 @@ export default class PredicateModel extends Updatable {
     }
     clearSearch(){
         this.searchContainer.clearSearch();
+        this._clearSearch()
+    }
+    _clearSearch(){
         this.predicate = "";
         this.validateMessage = "";
     }

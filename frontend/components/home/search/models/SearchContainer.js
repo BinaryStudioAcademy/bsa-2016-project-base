@@ -99,6 +99,7 @@ export default class SearchContainer extends Updatable{
         this.searchModels.forEach(model=>{
             model.clear();
         });
+        this.predicateModel._clearSearch()
         this.notifyUpdatedAll();
     }
     notifyUpdatedAll(){
