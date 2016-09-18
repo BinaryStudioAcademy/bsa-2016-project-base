@@ -315,13 +315,15 @@ export function uploadFile(file, target='file') {
         if (!allowedTypes.includes(ext)) {
             const data = {
                 name: file.name,
-                error: 'Unsupported file type. Allowed ' + allowedTypes.join('/')
+                error: 'Unsupported file type. Allowed ' + allowedTypes.join('/'),
+                target
             }
             dispatch(uploadFileValidation(data,target));
         } else if (file.size > MAX_SIZE) {
             const data = {
                 name: file.name,
-                error: 'File size is ' + (file.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + (MAX_SIZE / 1024 / 1024).toFixed(2) + ' MB.'
+                error: 'File size is ' + (file.size / 1024 / 1024).toFixed(2) + ' MB. Limit is ' + (MAX_SIZE / 1024 / 1024).toFixed(2) + ' MB.',
+                target
             }
             dispatch(uploadFileValidation(data,target));
         } else {
@@ -359,10 +361,11 @@ export function uploadFile(file, target='file') {
 };
 
 
-export function removeFile(name) {
+export function removeFile(file,index) {
     return {
         type: types.UP_REMOVE_FILE,
-        name
+        file,
+        index
     };
 };
 

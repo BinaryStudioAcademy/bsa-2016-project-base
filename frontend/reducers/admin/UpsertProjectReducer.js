@@ -276,10 +276,10 @@ export default function UpsertProjectReducer(state=initialState, action) {
             });
         }
         case types.UP_REMOVE_FILE: {
-            const {name} = action;
+            const {file, index} = action;
             const {files} = state;
             return Object.assign({}, state, {
-                files: removeFile(files, name)
+                files: removeFile(files, file, index)
             });
         }
         case types.UP_REMOVE_NEW_TAG_FROM_PROJECT: {
@@ -537,9 +537,10 @@ const selectSection = (sections, _id) => {
     return null;
 }
 
-const removeFile = (files, name) => {
+const removeFile = (files, fileToRemove, fileIndex) => {
 	files.forEach( (file, index) => {
-		if (file.name === name) {
+		if (file.name === fileToRemove.name && 
+            file.target === fileToRemove.target && index === fileIndex ) {
 			files.splice(index, 1);
 		}
 	});
