@@ -77,8 +77,6 @@ module.exports = function(app) {
 		});
 	}, apiResponse);
 
-<<<<<<< HEAD
-=======
 	app.get('/api/user/:uid', function (req, res, next) {
 		userRepository.getAuthUser(req.params.uid, function(err,data) {
 			res.data = data;
@@ -86,5 +84,4 @@ module.exports = function(app) {
 			next();
 		});
 	}, apiResponse);
->>>>>>> 5a62bf041cc80b7e8129db43c4daffeeb04ccca3
 };
