@@ -110,7 +110,7 @@ class EditProject extends Component {
     updateProject(e) {
         console.log('createProject');
         const {projectName,projectLink,timeBegin,timeEnd,status,description, projectId, contacts} = this.props.store;
-        const {predefinedUsers,predefinedTags,predefinedTechnologies,sections,features,files} = this.props.store;
+        const {predefinedUsers,predefinedTags,predefinedTechnologies,sections,features,files, userStory} = this.props.store;
         console.log('features ',features);
         console.log('sections ',sections);
 
@@ -142,6 +142,29 @@ class EditProject extends Component {
                     if (user.inProject) temp.push(user._id);
                 });
                 return temp;
+            })(),
+            userHistory: (() => {
+                var temp = [];
+                var obj = {};
+                predefinedUsers.forEach( user => {
+                    if (user.inProject == true) {
+                        console.log("user.inProject " + user.inProject);
+                        temp = user.userHistory.map(function(history) {
+                            if(history.projectId == projectId) {
+                                return {
+                                    projectId: projectId,
+                                    dateFrom: userStory[user._id].dateFrom,
+                                    dateTo: userStory[user._id].dateTo
+                                }
+                            } else {
+                                return history;
+                            }
+                        })
+                        obj[user._id] = temp;
+                    };
+
+                });
+                return obj;
             })(),
             sections: (() => {
                 const temp = [];
@@ -187,7 +210,7 @@ class EditProject extends Component {
             descrFullText: (() => {
                 const text = description.descrFullText;
                 return text.replace(/<img src="upload/g,'<img src="'+ORIGIN+'/upload');
-            })()
+            })(),
         }
 
         console.log('inProject.sections ',inProject.sections);
@@ -214,7 +237,7 @@ class EditProject extends Component {
             errors.timeBeginError = false;
         }
 
-        if(new Date(timeBegin) > new Date(timeEnd)) {
+        if( timeEnd != null && (new Date(timeBegin) > new Date(timeEnd)) ) {
             errors.timeEndError = true;
         } else {
             errors.timeEndError = false;
@@ -235,7 +258,9 @@ class EditProject extends Component {
 
         this.state.errors = errors;
 
-        const project = {
+        const projectData = {
+            userHistory: inProject.userHistory,
+        project: {
             _id: projectId,
             linkToProject:projectLink,
             projectName,
@@ -255,10 +280,12 @@ class EditProject extends Component {
             description: {
                 descrFullText: inProject.descrFullText
             }
+        }
+
 
         };
-        console.log('project ',project);
-        this.props.updateProject(project, errors);
+        console.log('project ',projectData);
+        this.props.updateProject(projectData, errors);
        // window.scrollTo(0, 0);
     }
 

@@ -64,7 +64,7 @@ UserRepository.prototype.changeProject = function(userId, arr, callback) {
 	var model = this.model;
 	var query = model.findByIdAndUpdate(
 		userId,
-		{set: {"userHistory": arr}},
+		{$set: {"userHistory": arr}},
 		{}
 	);
 

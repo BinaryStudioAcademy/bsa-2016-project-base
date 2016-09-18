@@ -342,7 +342,28 @@ export function errorHandler(error) {
     }
 }
 
+export function selectUser(userId) {
+    return {
+        type: 'UP_SELECT_USER_ED',
+        userId
+    }
+}
 
+export function setUserStartDate(userId, date) {
+    return {
+        type: 'UP_SET_USER_START_DATE_ED',
+        userId,
+        date
+    }
+}
+
+export function setUserEndDate(userId, date) {
+    return {
+        type: 'UP_SET_USER_END_DATE_ED',
+        userId,
+        date
+    }
+}
 
 export function removeFile(name) {
     return {
