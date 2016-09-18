@@ -1,7 +1,6 @@
 import * as types from '../../actions/admin/UpsertProjectActionTypes';
 
-
-export default function UpsertProjectReducer(state=initialState, action) {
+export default function UpsertProjectReducer(state = initialState, action) {
 	switch (action.type) {
 		 case types.UP_GET_DATA_SUCCESS: {
             const {users, tags, technologies, conditions } = action.data;
@@ -607,26 +606,6 @@ const changeOwnership = (users, _id, value) => {
 	});
 	return [].concat(users);
 }
-
-
-
-
-
-const feature = {
-        _id : "57a2631ab42bbf5a2daa9997",
-        featureName : "5184",
-        section : "57b9c2e4acd14b1840a00c5c",
-        featureOrder : "Necesary",
-        isNecessary : false,
-        created : "24/04/2015",
-        isImplemented : false,
-        childFeatures : "57a237d2fc13ae319e002654",
-        isItSubFeature : false,
-        descriptionText : "Description Sample Text",
-        descriptionHTMLText : "Description HTML Sample Text"
-}
-
-
 
 const initialState = {
     projectName:'',

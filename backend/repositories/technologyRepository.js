@@ -1,10 +1,7 @@
-/**
- * Created by razor on 03.08.16.
- */
 var connection = require('../db/dbconnect');
 var Repository = require('./generalRepository');
-var Technology = require('../schemas/technologySchema');
 var Projects = require('../schemas/projectSchema');
+var Technology = require('../schemas/technologySchema');
 
 function TechnologyRepository() {
     Repository.prototype.constructor.call(this);

@@ -214,7 +214,7 @@ module.exports = function(app) {
 			params[i] = params[i].split('=');
 			filters[params[i][0]] = params[i][1];
 		}
-		if(filters['featureIds']) filters['featureIds'] = filters['featureIds'].splice(',');
+		if(filters['featureIds']) filters['featureIds'] = filters['featureIds'].split(',');
 		projectRepository.getAllByFilters(filters, function (err,data) {
 			res.data = data;
 			res.err = err;

@@ -47,7 +47,7 @@ Repository.prototype.getByIdWithFeatures = function(id, callback){
 
 Repository.prototype.getAllDataMainPage = function(callback){
 	var model = this.model;
-	var query = model.find().populate(['technologies', 'tags', 'users']);
+	var query = model.find().populate(['technologies', 'tags', 'users','owners']);
 	query.exec(callback);
 };
 
@@ -116,8 +116,14 @@ ProjectRepository.prototype.getAllByFilters = function(filters,callback){
 	query.populate(population['features']);
 	query.exec((err, result)=>{
 		if(!err){
-			if(filters['userRight'] == "users") result['owners'] = null; //?
-			if(filters['userRight'] == "owners") result['users'] = null; //?
+			switch(filters['userRight']){
+				case 'users':
+					result['owners'] = null;
+					break;
+				case 'owners':
+					result['userss'] = null;
+					break;
+			}
 		}
 		callback(err, result);
 	});

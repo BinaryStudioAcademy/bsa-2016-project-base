@@ -43,7 +43,6 @@ class ProjectViewService {
 	}
 
 	removingQ(projectId, questionId) {
-		console.log(this.url + projectId + "/questions/" + questionId);
 		return fetch(
 			this.url + projectId + "/questions/" + questionId,
 			Object.assign({

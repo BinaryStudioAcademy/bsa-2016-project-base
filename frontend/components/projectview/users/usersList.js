@@ -20,6 +20,9 @@ class UserList extends React.Component {
         let tempFilters = Object.assign({},filters);
         return (
             <div className={styles['usersList-Container']}>
+                <header className={styles['usersList-Header']}>
+                    <h2>Users List</h2>
+                </header>
                 <div className={styles['usersList-filterTab']}>
                     <div className={styles['usersList-SearchInputContainer']}>
                         <MuiThemeProvider>

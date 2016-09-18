@@ -11,19 +11,20 @@ class SearchService {
 
     getProject(id){
         console.log(`${this.url}project-view/${id}`)
-        return fetch(`${constants.URL}project-view/${id}`, constants.cookieMarker)
-            .then(res => res.json())
+        return fetch(`${constants.URL}project-view/${id}`,
+             constants.cookieMarker).then(res => res.json())
             .then(json => ({project:json}))
             .catch(error => ({err:error}))
     }
+
     getLocations(){
         return fetch(`${this.url}locations`, constants.cookieMarker)
             .then(res => res.json())
             .then(json => ({locations:json}))
             .catch(error => ({err:error}))
     }
+
     getProjects(query) {
-        console.log("Request", `${this.url}projects?${query}`)
         return fetch(`${this.url}projects?${query}`,
             constants.cookieMarker
            ).then(res => res.json())
@@ -60,5 +61,6 @@ class SearchService {
     }
 
 }
+
 const searchService = new SearchService();
 export default searchService;

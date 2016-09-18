@@ -49,8 +49,6 @@ export default function SectionsReducer(state = initialState, action) {
             const {visibilityForm} = action;
             return Object.assign({}, state, {visibilityForm: visibilityForm});
         }
-        default: {
-            return state;
-        }
+        default: return state;
     }
 };

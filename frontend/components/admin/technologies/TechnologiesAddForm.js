@@ -1,6 +1,3 @@
-/**
- * Created by razorka on 04.08.16.
- */
 import React, {Component, PropTypes} from 'react';
 import styles from  './styles.sass';
 import TextArea from '../../common/TextArea.js';

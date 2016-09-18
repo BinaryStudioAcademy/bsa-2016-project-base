@@ -22,7 +22,8 @@ class UploadService {
     }
 
     uploadFileByLink(link){
-        return fetch("/api/uploadByLink/", Object.assign({
+        return fetch("/api/uploadByLink/", 
+            Object.assign({
                 method: 'POST',
                 body: JSON.stringify({
                     link:link
@@ -33,7 +34,8 @@ class UploadService {
     }
 
     uploadFileByLinkAttachments(link){
-        return fetch("/api/uploadByLinkAttachments/", Object.assign({
+        return fetch("/api/uploadByLinkAttachments/", 
+            Object.assign({
                 method: 'POST',
                 body: JSON.stringify({
                     link:link
@@ -44,7 +46,8 @@ class UploadService {
     }
 
     uploadFileByFile(file){
-        return fetch("/api/file/", Object.assign({
+        return fetch("/api/file/", 
+            Object.assign({
                 method: 'POST',
                 body: file
             }, constants.cookieMarker
@@ -52,7 +55,8 @@ class UploadService {
     }
 
     deleteFile(file){
-        return fetch('/api/file/', Object.assign({
+        return fetch('/api/file/', 
+            Object.assign({
                 method: 'DELETE',
                 body: JSON.stringify({file: file})
             }, constants.cookieMarker,
@@ -60,7 +64,6 @@ class UploadService {
         ))
     }
 }
-
 
 const uploadService = new UploadService();
 export default uploadService;

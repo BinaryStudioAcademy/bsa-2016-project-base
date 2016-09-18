@@ -1,4 +1,4 @@
-@import "../common/styles/common";
+@import "../common/styles/common"
 @import url(//fonts.googleapis.com/css?family=Russo+One)
 @import url(//fonts.googleapis.com/css?family=Play)
 
@@ -24,47 +24,54 @@
         justify-content: space-between
 
         div
-            width: 170px
             display: flex
             color: #93A6AF
             font-size: 15px
             flex-direction: row
             align-items: center
-            padding-bottom: 8px
+            padding: 0px 30px 8px 0px
 
             label
                 margin-left: 8px
                 font-family: "Open Sans"
 
                 a
-                    color:#93A6AF
+                    color: #93A6AF
+                    font-weight: 600
+                    text-decoration: none
+
+                    &:hover
+                     	color: #293541 
 
             .redirect-to-list > *
                 cursor: pointer
                 color: #93A6AF
 
-            &:hover
-            
-                .redirect-to-list > *, a
-                    color: #293541 
-
     .projectMain-secondRow
     	width: 100%
-    	height: 360px
+    	height: 435px
     	display: flex
     	flex-direction: row
 
     	>div	
-    		margin: 15px
     		height: 100%
-    		border-radius: 4px
     		background-color: white
     		border: 1px solid EDEDED
+    		box-shadow: 0px 1px 15px -6px #777
 
     	.usersList-Container
-    		width: 25%
-    		min-width: 220px
+    		width: 280px
     		height: 100%
+    		margin: 0px 15px 0px 45px
+
+    		.usersList-Header
+    			padding: 1px 10px
+    			border-bottom: 1px solid #efefef
+    			border-left: 3px solid #8D97A4
+
+                h2
+                    font-size: 1rem
+                    font-weight: 700
 
     		.owners,.users
     			width: 8px
@@ -75,7 +82,7 @@
     			background-color: cadetBlue
 
     		.owners
-    			background-color: #20d127	
+    			background-color: #20d127
 
     		.usersList-filterTab
     			width: 100%
@@ -119,7 +126,7 @@
     			overflow-y: auto
     			list-style: none
     			margin-bottom: 15px
-    			height: calc(100% - 100px)
+    			height: calc(100% - 150px)
 
     			li
                     padding: 6px
@@ -159,18 +166,76 @@
                                 font-family: "Lato", sans-serif
 
                                 span
-                                	margin: 2px 6px 0px -12px 
+                                	margin: 2px 6px 0px -12px
+
+    .projectMain-thirdRow
+    	display: flex
+    	height: 300px
+    	margin-top: 30px
+    	flex-direction: row
+    	justify-content: center
+
+    	>div	
+    		height: 100%
+    		background-color: white
+    		border: 1px solid EDEDED
+    		box-shadow: 0px 1px 15px -6px #777
+
+    	.locationMap-Container
+    		width: 400px
+    		background-color: white
+    		margin: 0px 15px 0px 45px
+
+    		.locationMap-Content
+    			width: 100%
+    			height: 100%
+
+    			.locationMap-MarkerContent
+    				font-size: 14px
+    				padding-top: 10px
+
+    				span
+    					margin: 8px
+
+    				span:first-child
+    					font-weight: 600
+
+    				div:first-child,
+    				div:nth-child(4)
+    					border-bottom: 1px solid grey
+    					padding-bottom: 4px
+    					margin-bottom: 5px
+
+    		.locationMap-Header
+                width: 100%
+                height: 50px
+                padding: 1px 0px 0px 15px
+                border-left: 3px solid #8D97A6
+                border-bottom: 1px solid #efefef
+
+                h2          
+                    font-weight: 700
 
     	.featuresList-Container
-    		width: 75%
-    		height: 100%
-    		margin-left: 10px
+    		margin: 0px 20px
+    		height: 350px
+    		width: calc(100% - 400px)
     		background-color: #FEFEFE
+
+    		.featuresList-Header
+                width: 100%
+                height: 50px
+                padding: 1px 0px 0px 15px
+                border-left: 3px solid #8D97A6
+                border-bottom: 1px solid #efefef
+
+                h2          
+                    font-weight: 700
 
     		.featuresList-Content
             	width: 100%   
-            	height: 100%
             	overflow-y: auto
+            	height: calc(100% - 50px)
 
             	.featureItem-Main
             		background-color: red
@@ -219,7 +284,7 @@
             				background-color: #293541	
             				
             		>span:nth-child(4)
-            			width: 175px
+            			max-width: 175px
 
             		>span:nth-child(3)
             			text-align: center
@@ -239,7 +304,7 @@
             		>span:nth-child(2)
             			cursor: pointer
             			min-width: 100px
-            			width: calc(100% - 500px)
+            			width: calc(100% - 480px)
 
             			&:hover
             				color: grey
@@ -270,14 +335,12 @@
             					border-left: 10px solid transparent
             					border-right: 10px solid transparent
 
-    		.featuresList-Header
+    		.featuresList-ContainerHeader
     			display: flex
     			padding: 18px 0px
     			flex-direction: row
     			padding-left: 135px
     			background-color: #EAEEF0
-    			border-top-left-radius: 4px
-    			border-top-right-radius: 4px
     			font-family: 'Lato', sans-serif
     			height: 55px
 
@@ -285,62 +348,18 @@
     				width: 100px
 
     			span:nth-child(3)
-    				width: 175px	
+    				width: 125px	
 
     			span:first-child
     				min-width: 100px
-    				width: calc(100% - 365px)	
+    				width: calc(100% - 360px)	
 
     			span
     				color: #6D848E
     				font-size: 14px
     				font-weight: 600
     				vertical-align: middle	
-                	text-transform: uppercase
-
-    .projectMain-thirdRow
-    	display: flex
-    	padding-top: 50px
-    	flex-direction: row
-    	justify-content: center
-
-    	.locationMap-Container
-    		width: 450px
-    		height: 500px
-    		background-color: white
-
-    		.locationMap-Content
-    			width: 450px
-    			height: 450px
-
-    			.locationMap-MarkerContent
-    				width: 250px
-    				height: 150px
-    				font-size: 14px
-    				padding-top: 10px
-
-    				span
-    					margin: 8px
-
-    				span:first-child
-    					font-weight: 600
-
-    				div:first-child,
-    				div:nth-child(4)
-    					border-bottom: 1px solid grey
-    					padding-bottom: 4px
-    					margin-bottom: 5px
-
-    		.locationMap-Header
-                width: 100%
-                height: 50px
-                padding: 1px 0px 0px 15px
-                border-left: 3px solid #8D97A6
-                border-bottom: 1px solid #efefef
-
-                h2          
-                    font-weight: 700
-                    text-align: center
+                	text-transform: uppercase            
 
     .projectMain-firstRow
         display: flex
@@ -356,10 +375,11 @@
             .description-block
                 background-color: #fff
                 width: 60%
-                box-shadow: 0px 1px 15px -6px #777;
-                margin-right: 1.5rem;
-                display: flex;
+                box-shadow: 0px 1px 15px -6px #777
+                margin-right: 1.5rem
+                display: flex
                 flex-direction: column
+
                 .description-block-header
                     border-bottom: 1px solid #efefef
                     padding: 1rem
@@ -403,8 +423,8 @@
                         
                         .description-block-html
                             overflow: auto
-                            font-weight: 300;
-                            font-size: 1rem;
+                            font-weight: 300
+                            font-size: 1rem
                             margin-bottom: 3rem
                             line-height: 1.5rem
                             word-wrap: break-word
@@ -474,7 +494,7 @@
                     height: 350px
                     height: 350px
                     max-height: 220px
-                    box-shadow: 0px 1px 15px -6px #777;
+                    box-shadow: 0px 1px 15px -6px #777
                     margin-bottom: 1.5rem
                     
                     .screenshots-block-header
@@ -488,7 +508,7 @@
                             font-size: 1rem
                             font-weight: 700
                             height: 100%
-                            border-left: 3px solid #8D97A4;
+                            border-left: 3px solid #8D97A4
                             padding-left: 1.5rem
 
                     .screenshots
@@ -527,7 +547,7 @@
                     height: 350px
                     height: 350px
                     max-height: 220px
-                    box-shadow: 0px 1px 15px -6px #777;
+                    box-shadow: 0px 1px 15px -6px #777
                     margin-bottom: 1.5rem
                     .screenshots-block-header
                         border-bottom: 1px solid #efefef
@@ -535,7 +555,7 @@
                         border-left: 3px solid #8D97A4
                         display: table
                         width: 100% 
-                        padding-left: 1.5rem;
+                        padding-left: 1.5rem
                         
                         .attach-icon
                             display: table-cell
@@ -547,7 +567,6 @@
                             align-items: center
                             font-size: 1rem
                             font-weight: 700
-                            // height: 100%
                             display: table-cell
                             vertical-align: middle
                             padding-left: .3rem
@@ -558,6 +577,8 @@
                         padding: 0
                         list-style: none
                         width: 100%
+
+
     .projectMain-qa-row
         display: flex
         width: 100%

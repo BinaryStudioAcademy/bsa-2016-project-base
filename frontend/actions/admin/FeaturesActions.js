@@ -14,7 +14,6 @@ export function changeFeature(key){
     }
 }
 
-
 export function filterFeatures(filter){
     return {
         type: 'FILTER_FEATURES',
@@ -42,14 +41,6 @@ export function getAllFeaturesOfAllProjects() {
 }
 
 export function addNewFeature(features, newFeature) {
-    /*
-    featureService.addNewFeature(newFeature);
-    return {
-        type: 'ADD_NEW_FEATURE',
-        features: features,
-        newFeature: newFeature
-    }
-*/
     return dispatch => {
         return featureService.addNewFeature(newFeature)
             .then(res=>res.json())
@@ -116,6 +107,7 @@ export function editFeature(features, editFeature, index) {
     }
 
 }
+
 export function errorHandler(error) {
     return {
         type: 'SOMETHING_GONE_WRONG',

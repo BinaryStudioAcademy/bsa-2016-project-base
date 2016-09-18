@@ -35,19 +35,7 @@ const initialState = {
         selector: '.rights-toolBar',
         position: 'bottom',
         direction: 'add-project'//'admin/tags'
-    },/*{
-        title: 'Tags',
-        text: 'Scroll',
-        selector: '.tags-panel-top', 
-        position: 'bottom',
-        direction: 'add-project'//'admin/tech'
     },{
-        title: 'Technologies',
-        text: 'Scroll',
-        selector: '.technologies-tools', 
-        position: 'bottom',
-        direction: 'add-project'
-    },*/{
         title: 'Add project page',
         text: 'In this section you can create a new project',
         selector: '#addProject-menuItem',

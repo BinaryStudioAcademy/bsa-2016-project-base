@@ -10,8 +10,11 @@ export default class FeaturesList extends React.Component {
     render(){
 		return (
 			<div className={styles['featuresList-Container']}>
-				<div className={styles['featuresList-Header']}>
-					<span>Feature name</span>
+				<header className={styles['featuresList-Header']}>
+                    <h2>Features</h2>
+                </header>
+				<div className={styles['featuresList-ContainerHeader']}>
+					<span>Name</span>
 					<span>Implemented</span>
 					<span>Section</span>
 					<span>Order</span>

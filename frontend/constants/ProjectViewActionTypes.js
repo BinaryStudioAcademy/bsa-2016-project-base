@@ -2,10 +2,6 @@ export const PROJECT_VIEW_START_LOADING = 'PROJECT_VIEW_START_LOADING';
 export const PROJECT_VIEW_END_LOADING = 'PROJECT_VIEW_END_LOADING';
 export const PROJECT_VIEW_ERROR_LOADING = 'PROJECT_VIEW_ERROR_LOADING';
 
-// Questions and Answers section
-
-// actions with questions
-
 export const SHOW_OR_HIDE_Q = 'SHOW_OR_HIDE_Q';
 
 export const NEW_MESSAGE_IN_ADD_Q_TEXTAREA = 'NEW_MESSAGE_IN_ADD_Q_TEXTAREA';
@@ -21,8 +17,6 @@ export const EDITING_Q_FAILURE = 'EDITING_Q_FAILURE';
 
 export const REMOVING_Q_SUCCESS = 'REMOVING_Q_SUCCESS';
 export const REMOVING_Q_FAILURE = 'REMOVING_Q_FAILURE';
-
-// actions with answers
 
 export const SHOW_OR_HIDE_A = 'SHOW_OR_HIDE_A';
 

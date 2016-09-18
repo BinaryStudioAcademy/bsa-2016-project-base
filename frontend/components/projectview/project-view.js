@@ -74,7 +74,6 @@ class ProjectView extends Component {
     }
 
     render() {
-        console.log(this.props['project'],"211111111111");
         let featuresItems = [], usersItems = [],tagsItems = [], technologiesItems = [];
         
         const projectDetail = this.props['project'],
@@ -105,28 +104,23 @@ class ProjectView extends Component {
                 key: index,
                 data: item,
                 onClick: ()=>{
-
-                    let tempFilters = Object.assign({},projectDetail.filters),
-                        flag = true;
-
+                    let tempFilters = Object.assign({},projectDetail['filters']),flag = true;
                     if(currentFeature == item._id){
-                        tempFilters['feature'] = null;
+                        tempFilters['features'] = [];
                         flag = false;
                     }
-
                     if(currentFeature == item._id){
-                        tempFilters['feature'] = new Array();
+                        tempFilters['features'] = new Array();
                         flag = false;
                     }
-
                     if(flag){
-                        let index = features.findIndex(el => el._id == item._id),
-                            children = features[index].childFeatures;
+                        let index = projectDetail['features'].findIndex(el => el._id == item._id),
+                            children = projectDetail.features[index].childFeatures;
                         if(!children.length) return;
-                        tempFilters['feature'] = [item._id];
-                        children.forEach((item)=>{ tempFilters['feature'].push(item._id); });
+                        tempFilters['features'] = [item._id];
+                        children.forEach((item)=>{ tempFilters['features'].push(item._id); });
                     }
-
+                    console.log(tempFilters['features']);
                     this.props.getProject(this.props['routeParams'].id,tempFilters);
                 }
             };
@@ -135,10 +129,12 @@ class ProjectView extends Component {
         });
       
         if(projectDetail['users']) projectDetail['users'].forEach((item,index)=>{
+            if(typeof item != 'object') return;
             usersItems.push(<UsersListItem key={index+item._id} data={item} marker={"users"}/>);
         }); 
 
         if(projectDetail['owners']) projectDetail['owners'].forEach((item,index)=>{
+            if(typeof item != 'object') return;
             usersItems.push(<UsersListItem key={index+item._id} data={item} marker={"owners"}/>);
         }); 
 
@@ -199,13 +195,12 @@ class ProjectView extends Component {
                 </div>
                 <div className={styles['projectMain-secondRow']}>
                     <UsersList>{usersItems}</UsersList>
-                    <FeaturesList>{featuresItems}</FeaturesList>
-                </div>
+                    <UsersTimeLine className={styles['userTimeLines-Container']}/>
+                  </div>
                 <div className={styles['projectMain-thirdRow']}>
                     <Location data={locationData} />
-                   
+                    <FeaturesList>{featuresItems}</FeaturesList>
                 </div>
-                <UsersTimeLine />
                 <div className={styles['projectMain-qa-row']}>
                     <Questions id="q-and-a" />
                 </div> 
@@ -213,8 +208,7 @@ class ProjectView extends Component {
             </div>  
         )
     }
-}
-
+}       
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(actions, dispatch);
 }
@@ -227,8 +221,3 @@ function mapStateToProps(state) {
 
 const ProjectViewConnected = connect(mapStateToProps, mapDispatchToProps)(ProjectView);
 export default ProjectViewConnected;
-
-//<SimilarProjects project={projectDetail}/>
-// <UsersTimeLine /> 
-//<div><Questions id="q-and-a" /></div> 
-                

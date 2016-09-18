@@ -1,15 +1,10 @@
-/**
- * Created by razor on 04.08.16.
- */
 const initialState = {
     listOfTechnologies: [],
     hideFile : 'visible',
     hideForm : 'hidden'
 };
 
-
 export default function technologiDetaileReducer(state = initialState, action) {
-
     switch (action.type) {
         case 'INIT_TECHNOLOGY': {
             const {listOfTechnologies} = action;
@@ -44,8 +39,6 @@ export default function technologiDetaileReducer(state = initialState, action) {
                 hideForm
             })
         }
-        default: {
-            return state;
-        }
+        default: return state;
     }
 }

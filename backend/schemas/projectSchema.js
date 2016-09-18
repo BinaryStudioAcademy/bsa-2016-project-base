@@ -22,16 +22,16 @@ var Project = new Schema({
 
     description: {
         date: {type: Date, default: Date.now},
-        descrText: String,
+        descrText: String,  //? we haven`t use this field
         descrFullText: String
     },
 
     screenShots: [String],
 
     attachments: [{
-            name: String,
-            date: {type: Date, default: Date.now},
-            link: String
+        name: String,
+        date: {type: Date, default: Date.now},
+        link: String
     }],
 
     timeBegin:{type: Date, default: Date.now, required: 'This field is required'},
@@ -57,7 +57,7 @@ var Project = new Schema({
     rating: [{
         value: Number,
         date: {type: Date, default: Date.now},
-        description: String
+        description: String //? we haven`t use this field
     }],
 
     features: [{type: Schema.Types.ObjectId, ref: 'Feature'}],
@@ -76,26 +76,26 @@ var Project = new Schema({
 
 // Custom validators for checking array-fields are empty or not
 Project.path('users').validate(function(users){
-    if(users.length === 0){return false}
+    if(users.length === 0) return false;
     return true;
 }, 'You must add user and owner');
 
 Project.path('owners').validate(function(owners){
-    if(owners.length === 0){return false}
+    if(owners.length === 0) return false;
     return true;
 }, 'You must add user and owner');
 
 Project.path('technologies').validate(function(technologies){
-    if(technologies.length === 0){return false}
+    if(technologies.length === 0) return false;
     return true;
 }, 'You must add a technology');
 
 Project.path("timeBegin").validate(function(begin){
-    return !this.timeEnd || this.timeEnd.getTime() > begin.getTime()
+    return (!this.timeEnd || this.timeEnd.getTime() > begin.getTime());
 }, "Start date must be lower then end");
 
 Project.path("projectName").validate(function(value){
-    return value.length < 40
+    return (value.length < 40);
 }, "Project name must be shorter then 40 symbols");
 
 module.exports = mongoose.model('Project', Project);
