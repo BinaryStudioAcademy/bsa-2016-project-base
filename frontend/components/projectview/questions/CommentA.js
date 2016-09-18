@@ -17,6 +17,25 @@ class Comment extends Component {
         this.handleSendEditA     = this.handleSendEditA.bind(this);
     }
 
+    get canIModify() {
+        let can = ( this.props.authUser['userRole'] == 'ADMIN' );
+        let owners = this.props.stateFromReducer.owners;
+        let qCol = this.props.stateFromReducer.questions || [];  // перечень вопросов в проекте
+        let i = this.props.i;                                    // порядковый номер вопроса в перечне (начинается с нуля, сортировка в порядке добавления)
+        let aCol = qCol[i].answers;                              // перечень ответов на i-ый вопрос
+        let j = this.props.index;                                // порядковый номер ответа в перечне (начинается с нуля, сортировка в порядке добавления)
+        let expr = aCol[j];                                      // тело j-ого ответа
+        let authorInfo = expr.author;
+        let userInfo = this.props.authUser.userInfo;
+
+        owners.forEach(function(item){
+            can = ( can || userInfo._id == item._id );
+        });
+        can = ( can || userInfo._id == authorInfo._id );
+
+        return can;
+    }
+
     handleRemoveA() {
         let id = this.props.stateFromReducer._id;                // _id проекта в БД
         let qCol = this.props.stateFromReducer.questions || [];  // перечень вопросов в проекте
@@ -67,6 +86,15 @@ class Comment extends Component {
         let expr = aCol[j];                                      // тело j-ого ответа
         let qOps = this.props.stateFromReducer.questionsOptions; // вспомогательные переменные раздела вопросов
 
+        let authorInfo = expr.author;
+        let authorName = authorInfo.userName + ' ' + authorInfo.userSurname;
+        let authorPosition = authorInfo.position;
+        let authorLink = authorInfo.globalId;
+        let authorAvatarLink = authorInfo.avatar;
+        let commentText = expr.text;
+
+        let userInfo = this.props.authUser.userInfo;
+
         var editingStatus;
         if ( qOps.editMess[i] != undefined ) {
             if ( qOps.editMess[i].editA != undefined ) {
@@ -104,34 +132,34 @@ class Comment extends Component {
                 <div className={styles['comment-content']} >
                     <div className={styles['comment-header']} >
                         <div className={styles['comment-author']} >
-                            <Link to={`/api/users/${expr.author}`} className={styles['comment-author-name']} >John Doe</Link>
-                            <span className={styles['comment-author-position']} >Junior Frontend Developer</span>
+                            <Link to={`/api/users/${authorLink}`} className={styles['comment-author-name']} >{authorName}</Link>
+                            <span className={styles['comment-author-position']} >{authorPosition}</span>
                         </div>
-                        { this.props.authUser['userRole'] == 'ADMIN' ? <div className={styles['comment-manipulate']} >
-                            { !editingStatus ?
+                        { this.canIModify ?
+                            <div className={styles['comment-manipulate']} >
+                                { !editingStatus ?
+                                    <button className={styles['comment-manipulate-button']}
+                                            onClick={this.handleShowEditA}
+                                    >
+                                        Edit
+                                    </button> : null
+                                }
                                 <button className={styles['comment-manipulate-button']}
-                                        onClick={this.handleShowEditA}
+                                        onClick={this.handleRemoveA}
                                 >
-                                    Edit
-                                </button> : null
-                            }
-                            <button className={styles['comment-manipulate-button']}
-                                    onClick={this.handleRemoveA}
-                            >
-                                Delete
-                            </button>
-                        </div> : null }
+                                    Delete
+                                </button>
+                            </div> : null
+                        }
                     </div>
                     <div className={styles['comment-body']} >
                         <div className={styles['comment-avatar']} >
-                            <Link to={`/api/users/${expr.author}`} className={styles['comment-avatar-link']} >
-                                <img src="http://placehold.it/60x60" alt="John Doe" className={styles['comment-avatar-img']} />
+                            <Link to={`/api/users/${authorLink}`} className={styles['comment-avatar-link']} >
+                                <img src={`/icons/${authorPosition}.png`} alt={`${authorName}`} className={styles['comment-avatar-img']} />
                             </Link>
                         </div>
                         <div className={commentMessageStyle} >
-                            <p className={styles['comment-message-text']} >
-                                {expr.text}
-                            </p>
+                            <p className={styles['comment-message-text']} >{commentText}</p>
                             {/*<p className={styles['comment-message-date']} >
                                 sent/edited at 12:35 20/12/2012
                             </p>*/}
@@ -140,7 +168,7 @@ class Comment extends Component {
                             <div className={styles['comment-new-wrap']} >
                                 <textarea rows="3"
                                           placeholder={' Give your answer, please'}
-                                          defaultValue={expr.text}
+                                          defaultValue={commentText}
                                           onChange={this.handleEditATextarea}
                                 />
                             </div>

@@ -19,6 +19,23 @@ class Comment extends Component {
         this.handleSendEditQ     = this.handleSendEditQ.bind(this);
     }
 
+    get canIModify() {
+        let can = ( this.props.authUser['userRole'] == 'ADMIN' );
+        let owners = this.props.stateFromReducer.owners;
+        let qCol = this.props.stateFromReducer.questions || [];  // перечень вопросов в проекте
+        let i = this.props.index;                                // порядковый номер вопроса в перечне (начинается с нуля, сортировка в порядке добавления)
+        let expr = qCol[i].question;                             // тело i-ого вопроса
+        let authorInfo = expr.author;
+        let userInfo = this.props.authUser.userInfo;
+
+        owners.forEach(function(item){
+            can = ( can || userInfo._id == item._id );
+        });
+        can = ( can || userInfo._id == authorInfo._id );
+
+        return can;
+    }
+
     handleRemoveQ() {
         let id = this.props.stateFromReducer._id;                // _id проекта в БД
         let qCol = this.props.stateFromReducer.questions || [];  // перечень вопросов в проекте
@@ -67,6 +84,15 @@ class Comment extends Component {
         let qOps = this.props.stateFromReducer.questionsOptions; // вспомогательные переменные раздела вопросов
         let showA = qOps.showMess.showA[i];                      // вспомогательный параметр, содержит булевую инфо о развернутости перечня ответов на i-ый вопрос
 
+        let authorInfo = expr.author;
+        let authorName = authorInfo.userName + ' ' + authorInfo.userSurname;
+        let authorPosition = authorInfo.position;
+        let authorLink = authorInfo.globalId;
+        let authorAvatarLink = authorInfo.avatar;
+        let commentText = expr.text;
+
+        let userInfo = this.props.authUser.userInfo;
+
         var editingStatus; var checkStatus;
         if ( qOps.editMess[i] != undefined ) {
             if ( qOps.editMess[i].editQ != undefined ) {
@@ -101,18 +127,18 @@ class Comment extends Component {
                 <div className={styles['comment-content']} >
                     <div className={styles['comment-header']} >
                         <div className={styles['comment-author']} >
-                            <Link to={`/api/users/${expr.author}`} className={styles['comment-author-name']} >John Doe</Link>
-                            <span className={styles['comment-author-position']} >Junior Frontend Developer</span>
+                            <Link to={`/api/users/${authorLink}`} className={styles['comment-author-name']} >{authorName}</Link>
+                            <span className={styles['comment-author-position']} >{authorPosition}</span>
                         </div>
                         <div className={styles['comment-manipulate']} >
-                            { this.props.authUser['userRole'] == 'ADMIN' ? !editingStatus ?
+                            { this.canIModify ? !editingStatus ?
                                 <button className={styles['comment-manipulate-button']}
                                         onClick={this.handleShowEditQ}
                                 >
                                     Edit
                                 </button> : null : null
                             }
-                            { this.props.authUser['userRole'] == 'ADMIN' ? <button className={styles['comment-manipulate-button']}
+                            { this.canIModify ? <button className={styles['comment-manipulate-button']}
                                     onClick={this.handleRemoveQ}
                             >
                                 Delete
@@ -126,14 +152,12 @@ class Comment extends Component {
                     </div>
                     <div className={styles['comment-body']} >
                         <div className={styles['comment-avatar']} >
-                            <Link to={`/api/users/${expr.author}`} className={styles['comment-avatar-link']} >
-                                <img src="http://placehold.it/60x60" alt="John Doe" className={styles['comment-avatar-img']} />
+                            <Link to={`/api/users/${authorLink}`} className={styles['comment-avatar-link']} >
+                                <img src={`/icons/${authorPosition}.png`} alt={`${authorName}`} className={styles['comment-avatar-img']} />
                             </Link>
                         </div>
                         <div className={commentMessageStyle} >
-                            <p className={styles['comment-message-text']} >
-                                {expr.text}
-                            </p>
+                            <p className={styles['comment-message-text']} >{commentText}</p>
                             <p className={styles['comment-message-date']} >
                                 {aCol.length ? aCol.length > 1 ? `${aCol.length} answers have been given.` : `${aCol.length} answer has been given.` : 'No answers have been given yet.' }
                             </p>
@@ -142,7 +166,7 @@ class Comment extends Component {
                             <div className={styles['comment-new-wrap']} >
                                 <textarea rows="3"
                                           placeholder={' Ask your question, please'}
-                                          defaultValue={expr.text}
+                                          defaultValue={commentText}
                                           onChange={this.handleEditQTextarea}
                                 />
                                 <div className={styles['comment-options-row']}>

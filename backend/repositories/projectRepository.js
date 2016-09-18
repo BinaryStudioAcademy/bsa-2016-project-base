@@ -78,7 +78,8 @@ ProjectRepository.prototype.getAllByFilters = function(filters,callback){
    				populate: { path: 'section' }
 			}
 		}, query = model.findOne({_id:filters['projectId']})
-			.populate(['technologies', 'tags']);
+			.populate(['technologies', 'tags'])
+			.populate(['questions.question.author','questions.answers.author']);
 
   	if(filters['userName']){
 

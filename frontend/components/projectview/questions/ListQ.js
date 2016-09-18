@@ -35,9 +35,10 @@ class List extends Component {
         let message = this.props.stateFromReducer.questionsOptions.newMess.newQ.textarea;
         let checked = this.props.stateFromReducer.questionsOptions.newMess.newQ.checkbox;
         if (message) {
+            var senderInfo = this.props.authUser.userInfo; // данные отправителя
             var newQuestion = {
                 question: {
-                    author: "57a262f6b42bbf5a2daa9900", //mock
+                    author: senderInfo._id,
                     text: message
                 },
                 answers: [],
@@ -45,7 +46,7 @@ class List extends Component {
             };
         }
         let id = this.props.stateFromReducer._id;
-        this.props.addingQ(id, newQuestion);
+        this.props.addingQ(id, newQuestion, senderInfo);
     }
 
     render() {
@@ -96,7 +97,10 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-    return { stateFromReducer: state.ProjectViewReducer };
+    return {
+        stateFromReducer: state.ProjectViewReducer,
+        authUser: state.UserAuthReducer
+    };
 }
 
 const ListConnected = connect(mapStateToProps, mapDispatchToProps)(List);
