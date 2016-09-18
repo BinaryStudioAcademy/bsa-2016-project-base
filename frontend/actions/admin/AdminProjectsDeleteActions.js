@@ -4,6 +4,7 @@
 import * as types from './AdminProjectsDeleteActionsTypes';
 import ProjectService  from '../../services/homeService';
 
+
 export function getAllProjectsDelete() {
     return dispatch=> {
         return ProjectService.getAllProjects()
@@ -19,6 +20,16 @@ export function initProjects(projects) {
     return {
         type: types.INIT_PROJECTS_FOR_DELETE,
         listOfProjects: projects
+    }
+}
+export function deleteProject(id) {
+    return dispatch => {
+        return ProjectService.deleteProjects(id)
+            // .then(getAllProjectsDelete())
+            // .catch(error => {
+            //     dispatch(errorHandler('Bad Request'));
+            //     dispatch(initProjects([]));
+            // })
     }
 }
 export function errorHandler(error) {

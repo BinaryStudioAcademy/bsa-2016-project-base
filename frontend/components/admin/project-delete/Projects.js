@@ -33,9 +33,8 @@ class ProjectsDeletePage extends Component {
     }
 
     deleteProject(id){
-        console.log(id);
         const toastrConfirmOptions = {
-            onOk: () => this.props.removeProject(id),
+            onOk: () => this.props.deleteProject(id),
             onCancel: () => ''
         };
         toastr.confirm('Are you sure about that?', toastrConfirmOptions)
