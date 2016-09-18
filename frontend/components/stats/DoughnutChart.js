@@ -1,8 +1,9 @@
 import React from "react"
 import {PropTypes} from "react"
 import AbstractChart from "./AbstractChart"
-import ChartWrapper from "./ChartWrapper"
+import ChartWrapper from "./ChartWrapperInitial"
 import {Doughnut} from "react-chartjs-2"
+
 export default class DoughnutChart extends AbstractChart{
     constructor() {
         super()
