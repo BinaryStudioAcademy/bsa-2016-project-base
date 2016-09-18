@@ -292,7 +292,7 @@ export function uploadIcon(file) {
 };
 
 const MAX_SIZE = 10 * 1024 * 1024;
-const FILE_TYPES = ['.jpeg', '.jpg', '.png', '.gif', '.txt','.xml','.xlsx','.xls','.doc','.docx','.pdf','.zip','.rar'];
+const FILE_TYPES = ['.jpeg', '.jpg', '.png', '.gif', '.txt','.xml','.xlsx','.xls','.doc','.docx','.pdf','.zip','.rar','.ppt','.pptx'];
 
 
 function uploadFileValidation(data, target) {
