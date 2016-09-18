@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../../actions/admin/UpsertProjectActions';
-import { Button, TextInput, TextArea, FileUpload } from '../../../common/';
+import { Button, TextInput, TextArea, FileUpload, TextFieldProject } from '../../../common/';
 import File from './File';
 import styles from './styles/Screenshots.sass';
 
@@ -88,35 +88,82 @@ class Screenshots extends Component {
             }
         });
         return (
-            <div id={styles["attachments"]}>
+            <div id={styles["screenshots"]}>
                 <header>
                     <h2>Screenshots</h2>
                 </header>
                 <div className={styles.row}>
                     <div className={styles['field-container']}>
- 		<div className="inputField">
+ 		                 <div className={styles["change-mode"]}>
                             <a href="javascript:void(0)"
-                               onClick={this.setVisibleLinkForm}>{(this.state.hideFormScreenshoots === 'hidden') ? 'UploadByLink' : 'UploadByFile'}</a>
+                               onClick={this.setVisibleLinkForm}>
+                               <i className="fa fa-exchange" aria-hidden="true"></i> {(this.state.hideFormScreenshoots === 'hidden') ? ' Upload by link' : ' Upload from computer'}
+                            </a>
                         </div>
-                        <div className={this.state.hideFormScreenshoots + " inputField"}>
-                            <TextInput
-                                label="File Link"
+
+                        <div className={styles['add-section2'] + ' ' + this.state.hideFormScreenshoots}>
+                            <div className={styles['col-1-2']}>
+                                <MuiThemeProvider>
+                                <RaisedButton
+                                    label="Upload by link"
+                                    onClick={this.uploadFileByLink}
+                                    className={styles["btn-upload"]}
+                                />
+                                </MuiThemeProvider>
+                            </div>
+                            <div className={styles['col-1-2']}>
+                                <TextFieldProject                                
+                                    hintText='File Link' 
+                                    onChange={this.saveFileLink}
+                                    value={this.state.fileLinkScreenshoots}
+                                    style={{width: '100%'}}
+                                />
+                            </div>
+                        </div>
+                    
+                    <div className={styles['add-section2'] + ' '+ this.state.hideFileScreenshoots}>
+                        <div className={styles['col-1-2']}>
+                        <MuiThemeProvider>
+                        <RaisedButton
+                            label="Upload files ..."
+                            labelPosition="before"
+                            className={styles["btn-upload"]}
+                        >
+                            <FileUpload
+                                
+                                accept={fileTypes}
+                                multiple={true}
+                                onChange={this.onFilePathChange}
+                                className={styles["file-input"]}
+                            />
+                            
+                        </RaisedButton>
+                        </MuiThemeProvider>
+                            </div>
+                        </div>
+
+
+                        {/*<div className={this.state.hideFormScreenshoots + " inputField"}>
+                           
+                             <TextFieldProject                                
+                                hintText='File Link' 
                                 onChange={this.saveFileLink}
-                                placeholder="File link"
                                 value={this.state.fileLinkScreenshoots}
+                                style={{width: '75%'}}
                             />
-                            <input type="button"
-                                   label='UploadByLink'
-                                   onClick={this.uploadFileByLink}
-                                   style={{display: 'block', marginTop: '20px'}}
-                                   value='UploadByLink'
+                            <MuiThemeProvider>
+                            <RaisedButton
+                                label="Upload by link"
+                                onClick={this.uploadFileByLink}
+                                //className={styles["btn-upload"] + ' '+this.state.hideFile}
                             />
+                            </MuiThemeProvider>
                         </div>
                     <MuiThemeProvider>
                         <RaisedButton
-                            label="Upload screenshots"
+                            label="Upload files ..."
                             labelPosition="before"
-                            className={styles["btn-upload"] + ' '+this.state.hideFileScreenshoots}
+                            className={styles["btn-upload"] + ' '+ this.state.hideFileScreenshoots}
                         >
                             <FileUpload
 				                
@@ -127,7 +174,7 @@ class Screenshots extends Component {
                             />
                             
                         </RaisedButton>
-                    </MuiThemeProvider>
+                    </MuiThemeProvider> */}
                     
                         <div className={styles["list"]}>
                             {list}

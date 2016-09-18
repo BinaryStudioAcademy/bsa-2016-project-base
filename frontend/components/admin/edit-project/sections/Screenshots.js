@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../../../actions/admin/EditProjectActions';
 import { Button, TextInput, TextArea, FileUpload } from '../../../common/';
 import File from './File';
-import styles from './styles/Screenshots.sass';
+import styles from '../../project/sections/styles/Screenshots.sass';
 
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
