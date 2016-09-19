@@ -1,9 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
+import { Grid, Row, Panel } from 'react-bootstrap';
 import * as actions from '../../../actions/admin/AdminTagActions';
+import RemoveTags from './RemoveTags';
+import TagsSearch from './TagsSearch';
 import TagsList from './TagsList';
+import AddTag from './AddTag';
 import TextFieldTags from '../../common/TextFieldUI_Tags';
 import CheckBoxTags from '../../common/CheckBoxUI_Tags';
 import Button from '../../common/RaisedButtonUI_Tags';
@@ -35,7 +38,7 @@ class Tags extends Component {
 		if (tagName.length <= 14) {
 			this.props.setTagName(tagName);
 		}
-		
+
 	}
 	addTag(e){
 		let { tagNameToAdd } = this.props;
@@ -50,7 +53,7 @@ class Tags extends Component {
 		let { isAllChecked } = this.props;
 		if (!isAllChecked) {
 			this.props.selectAll(false);
-		} 
+		}
 		this.props.setFilterTerm(term);
 		this.props.filterTags();
 	}
@@ -84,7 +87,7 @@ class Tags extends Component {
 			toastr.confirm('Are you sure about removing following tags: ' +
 					tagNamesToRemove.map(name=>`"${name}"`).join(", ") + " ?", toastrConfirmOptions)
 		}
-		
+
 	}
  	render() {
  		let { tags, isAllChecked, tagNameToAdd } = this.props;
@@ -136,7 +139,7 @@ class Tags extends Component {
 				    	tags={tags}
 				    	selectOne={this.selectOne}
 				    />
-				 
+
 	    	</div>
 	    )
 	}

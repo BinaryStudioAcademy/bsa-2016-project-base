@@ -119,9 +119,10 @@ export function setAddFormState(state) {
 }
 
 export function removeSelectedTechs(technologies) {
+    console.log(technologies);
     return dispatch=> {
         technologies.forEach(tech=> {
-            if (tech.checked === 'checked') {
+            if (tech.checked === true) {
                 return TechnologieService.deleteTechnology(tech._id)
                     .catch(error => dispatch(errorHandler('Bad Request')));
             }

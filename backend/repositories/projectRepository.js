@@ -245,5 +245,13 @@ ProjectRepository.prototype.removeA = function(id,qId,aId,callback){
 	});
 	query.exec(callback);
 };
-
+ProjectRepository.prototype.getDataForDelete = function(id, callback) {
+	var model = this.model;
+	var query = model.findOne({_id: id})
+		.populate({
+			path: "features",
+			populate: {path: "section"}
+		});
+	query.exec(callback);
+};
 module.exports = new ProjectRepository();

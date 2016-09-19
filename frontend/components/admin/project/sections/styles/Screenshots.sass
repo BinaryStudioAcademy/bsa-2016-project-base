@@ -1,6 +1,16 @@
-#attachments
+#screenshots
   display: flex
   flex-direction: column
+
+  .visible
+    display: block
+    opacity: 1
+    transition: opacity 2s linear
+
+  .hidden
+    display: none !important
+    opacity: 0
+    transition: visibility 0s 2s, opacity 2s linear !important
 
   header
       position: relative
@@ -45,8 +55,25 @@
       justify-content: flex-start
       margin-top: 0.5rem
 
+  .add-section2
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    margin-left: 5px
+    .col-1-2
+      // height: 48px
+      // align-items: center
+      //overflow: auto
+    .col-1-2:nth-of-type(1)
+      width: 20%
+      height: 48px
+    .col-1-2 + .col-1-2
+      margin-left: 1.8rem
+      flex-basis: 70%
+
   .btn-upload
-    margin: 5px
+    //margin-left: 5px
+    width: 144px
 
   .file-input
     cursor: pointer
@@ -57,3 +84,6 @@
     left: 0
     width: 100%
     opacity: 0
+  
+  .change-mode
+    float: right

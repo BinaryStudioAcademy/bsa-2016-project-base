@@ -7,6 +7,7 @@ import Inputs from './sections/Inputs';
 import UsersList from './sections/UsersList';
 import Tags from './sections/Tags';
 import Techs from './sections/Techs';
+import Location from './sections/Location';
 import Contacts from './sections/Contacts';
 import Features from './sections/Features';
 import Attachments from './sections/Attachments';
@@ -60,6 +61,11 @@ const TabsUI = () => (
       <Tags/>
       </div>
     </Tab>
+    <Tab label="Location" >
+      <div>
+      <Location/>
+      </div>
+    </Tab>
     <Tab label="Contacts" >
       <div>
       <Contacts/>
@@ -89,7 +95,7 @@ class UpsertProject extends Component {
 		this.props.getPredefinedData();
 	}
 	createProject(e) {
-        const {projectName,projectLink,timeBegin,timeEnd,status,description,contacts} = this.props.store;
+        const {projectName,projectLink,timeBegin,timeEnd,status,description,contacts,location} = this.props.store;
         const {users,tags,technologies,sections,features,files,userStory} = this.props.store;
 
         const inProject = {
@@ -167,6 +173,7 @@ class UpsertProject extends Component {
             userStory,
             project: {
                 projectName,
+                location,
                 linkToProject:projectLink,
                 timeBegin: timeBegin ? new Date(timeBegin) : '',
                 timeEnd: timeEnd ? new Date(timeEnd) : '',
@@ -185,6 +192,7 @@ class UpsertProject extends Component {
                 } 
             }
         };
+        console.log('project ',projectData);
         this.props.postProject(projectData);
         window.scrollTo(0, 0);
 	}
@@ -199,7 +207,7 @@ class UpsertProject extends Component {
 
                {this.props.store.errors && (this.props.store.errors.users || this.props.store.errors.owners) && <div className={styles.validationUser} style={this.props.store.errors.technologies ? {marginLeft: '3rem'} : {marginLeft: '17rem'}}><div className={styles.tool}>{this.props.store.errors.users || this.props.store.errors.owners}</div></div>}
                 </div>
-        		<TabsUI />
+        		<TabsUI/>
                 <br/>
                 <Attachments/>
                 <br/>

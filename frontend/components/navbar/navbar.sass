@@ -2,10 +2,15 @@
 @import url(//fonts.googleapis.com/css?family=Play);
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
+
+// Sass Mixin For Desktop first
 =forSmallScreens($media)
     @media (max-width: $media/16+em)
         @content
 
+
+
+// Sidebar
 #sidebar
     flex: 0 0 250px
     min-height: 100vh
@@ -34,6 +39,9 @@
       p
         margin: 0
 
+
+
+// Basic styles for mainNav
 #sidebar .mainNav
     list-style: none
     width: 100%
@@ -43,6 +51,7 @@
     +forSmallScreens(768)
         text-align: center
         margin-bottom: 50px
+
 
     li
         display: block
@@ -67,16 +76,15 @@
                 color: #03A9F4
                 transition: color .5s
 
+
+
+// Active Link
 #sidebar li a.active
     box-shadow: inset 12px 0 1px -8px #03A9F4
 
     +forSmallScreens(768)
         box-shadow: 0px 2px 0px 0px #03A9F4
 
+
 #sidebar li a.active .icon
     color: #03A9F4
-
-
-
-
-

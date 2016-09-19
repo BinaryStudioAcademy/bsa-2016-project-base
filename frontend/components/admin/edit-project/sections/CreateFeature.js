@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Button, TextInput, Editor, RaisedButtonUITags } from '../../../common/';
-import styles from '../../project/sections/styles/CreateFeature.sass';
+import styles from './styles/CreateFeature.sass';
 
 class CreateFeature extends Component {
     constructor(props) {
@@ -30,10 +30,10 @@ class CreateFeature extends Component {
         const {featureName, descriptionHTMLText} = this.state;
         return (
 
-            <div className={styles["modal"]} >
+            <div id={styles["create-feature"]} className={styles["modal"]} >
                 <div className="modal-content">
                     <div className="modal-header">
-                     <Button
+                        <Button
                             className={styles["btnIcon"] + ' ' + styles["btnClose"]}
                             label='Close'
                             onClick={onClose}
@@ -52,7 +52,7 @@ class CreateFeature extends Component {
                     <div className="modal-footer">
                         <RaisedButtonUITags
                             //className={styles.btnCreate}
-                            label="Save"
+                            label='Save'
                             onClick={onSave && (() => onSave(descriptionHTMLText))}
                         />
                     </div>

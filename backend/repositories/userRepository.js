@@ -63,9 +63,9 @@ UserRepository.prototype.addCompletedProject = function(userId, obj, callback) {
 UserRepository.prototype.changeProject = function(userId, arr, callback) {
 	var model = this.model;
 	var query = model.findByIdAndUpdate(
-		userId,{
-			set: {	"userHistory": arr }
-		},{}
+		userId,
+		{$set: {"userHistory": arr}},
+		{}
 	);
 
 	query.exec(callback);

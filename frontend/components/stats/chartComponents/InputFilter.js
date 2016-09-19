@@ -27,28 +27,36 @@ class InputFilter extends Component {
             </div>)
     }
 
+    // render() {
+    //     const {selectAll, selectAllChanged} = this.props;
+    //     return (
+    //         <div className={styles['controls-wrap']} >
+    //             {this.getButtons()}
+    //             <div className={styles['controls-group']} >
+    //                 <input type="checkbox" id="charts-select-all"
+    //                        checked={selectAll}
+    //                        onChange={selectAllChanged}
+    //                        className={styles.checkbox}
+    //                 />
+    //                 <label htmlFor="charts-select-all">Select All</label>
+    //                 {/*<label><input type="checkbox" checked={selectAll}
+    //                               onChange={selectAllChanged}
+    //                               className={styles.checkbox}
+    //                 />Select All</label>*/}
+    //             </div>
+    //         </div>
+    //     )
+    // }
+
     render() {
         const {selectAll, selectAllChanged} = this.props;
         return (
             <div className={styles['controls-wrap']} >
                 {this.getButtons()}
-                <div className={styles['controls-group']} >
-                    <input type="checkbox" id="charts-select-all"
-                           checked={selectAll}
-                           onChange={selectAllChanged}
-                           className={styles.checkbox}
-                    />
-                    <label htmlFor="charts-select-all">Select All</label>
-                    {/*<label><input type="checkbox" checked={selectAll}
-                                  onChange={selectAllChanged}
-                                  className={styles.checkbox}
-                    />Select All</label>*/}
-                </div>
             </div>
         )
     }
-}
-;
+};
 
 export default InputFilter;
 

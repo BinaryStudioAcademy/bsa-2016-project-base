@@ -17,7 +17,6 @@ export default function technologiesReducer(state = initialState, action) {
         }
         case 'SAVE_TECHNOLOGY': {
             const {listOfTechnologies} = action;
-            console.log(state);
             return Object.assign({}, state, {
                 listOfTechnologies
             })
@@ -49,7 +48,6 @@ export default function technologiesReducer(state = initialState, action) {
         }
         case 'SELECT_ALL_TECHS': {
             const {listOfTechnologies,setAllChecked} = action;
-            console.log(setAllChecked);
             return Object.assign({}, state, {
                 listOfTechnologies,
                 setAllChecked

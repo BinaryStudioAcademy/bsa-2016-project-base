@@ -31,6 +31,7 @@ export default function UpsertProjectReducer(state = initialState, action) {
                 status:{value:'Estimation', name:'Estimation'},
                 techIcon:{},
                 techIconError: '',
+                location: null,
                 description:{
                     descrFullText: ''
                 },
@@ -54,6 +55,13 @@ export default function UpsertProjectReducer(state = initialState, action) {
             });
         }
         
+        case types.UP_SET_LOCATION: {
+            const {position} = action;
+            const {location} = state;
+            return Object.assign({}, state, {
+                location:position
+            });
+        }
          case types.UP_SET_CONTACT_FIELD: {
             const {field, data} = action;
             const {contacts} = state;
@@ -267,10 +275,10 @@ export default function UpsertProjectReducer(state = initialState, action) {
             });
         }
         case types.UP_REMOVE_FILE: {
-            const {name} = action;
+            const {file, index} = action;
             const {files} = state;
             return Object.assign({}, state, {
-                files: removeFile(files, name)
+                files: removeFile(files, file, index)
             });
         }
         case types.UP_REMOVE_NEW_TAG_FROM_PROJECT: {
@@ -293,6 +301,14 @@ export default function UpsertProjectReducer(state = initialState, action) {
             return Object.assign({}, state, {
                 technologies: removeTechFromProject(technologies, _id)
             });
+        }
+        case types.SET_VISIBLE_ADD_TECH_FORM: {
+            const {hideTechForm} = action;
+            console.log('reducer');
+            console.log(hideTechForm);
+            return Object.assign({}, state, {
+                hideTechForm
+            })
         }
         case types.SET_VISIBLE_FORM_BY_LINK_ATTACHMENTS: {
             const {hideFile,hideForm} = action;
@@ -520,9 +536,10 @@ const selectSection = (sections, _id) => {
     return null;
 }
 
-const removeFile = (files, name) => {
+const removeFile = (files, fileToRemove, fileIndex) => {
 	files.forEach( (file, index) => {
-		if (file.name === name) {
+		if (file.name === fileToRemove.name && 
+            file.target === fileToRemove.target && index === fileIndex ) {
 			files.splice(index, 1);
 		}
 	});
@@ -628,6 +645,7 @@ const initialState = {
     iconLoaded: false,
     techIcon: {},
     techIconError: '',
+    location: null,
     description:{
         descrFullText: ''
     },
@@ -648,7 +666,8 @@ const initialState = {
     hideFile : 'visible',
     hideForm : 'hidden',
     hideFileScreenshoots : 'visible',
-    hideFormScreenshoots : 'hidden'
+    hideFormScreenshoots : 'hidden',
+    hideTechForm : 'hidden'
 	
 };
 
