@@ -57,12 +57,10 @@ export default class SearchContainer extends Updatable{
             .map(model=>model.getRequestRepresentation())
             .filter(value=>value);
         this.getPredicate(this.currentQuery);
-        if (this.homeContainer) this.homeContainer.pagination.activePage = 0;
         this.goSearch();
     }
     goFastSearch(){
         this.currentQuery = parser(this.searchString);
-        if (this.homeContainer) this.homeContainer.pagination.activePage = 0;
         this.goSearch();
     }
 

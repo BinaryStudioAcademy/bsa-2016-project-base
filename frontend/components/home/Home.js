@@ -20,16 +20,16 @@ export default class Home extends Component {
             //not to upload projects if there are some (on repeated visit)
             model.goSearch();
         }
-        if (model.shouldRefreshOnAppearence){
-            model.shouldRefreshOnAppearence = false
-            model.goSearch()
-        }
     }
 
 
 
     render() {
         const model = this.state.model;
+        if (model.shouldRefreshOnAppearence){
+            model.shouldRefreshOnAppearence = false;
+            model.goSearch()
+        }
         return (<div className='section-cont' id="home-root">
                 <MuiThemeProvider>
                     <Search model={model.searchContainer}/>
