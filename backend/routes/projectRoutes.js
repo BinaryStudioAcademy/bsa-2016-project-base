@@ -6,7 +6,7 @@ var statsService = require('../service/stat-service');
 var saveProjectAndUserStory = require('../services/saveProjectAndUserStory');
 var mongoose = require('mongoose');
 
-
+var deleteProjectService = require('../services/deleteProjectService');
 module.exports = function(app) {
 	app.get('/api/projects/', function (req,res,next) {
 		projectRepository.getAll(function (err,data) {
@@ -191,7 +191,7 @@ module.exports = function(app) {
 	}, apiResponse);
 
 	app.delete('/api/projects/:id', function(req, res, next) {
-		projectRepository.delete(req.params.id, function(err, data) {
+		deleteProjectService(req.params.id, function(err, data) {
 			res.data = data;
 			//res.json(data);
 			res.err = err;

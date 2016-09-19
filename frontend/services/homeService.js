@@ -7,6 +7,7 @@ class HomeService {
 
 	constructor(){
 		this.url = constants.URL + "mainpage/";
+        this.deleteUrl = constants.URL + "projects/";
 	}
 
     getAllProjects() {
@@ -19,6 +20,13 @@ class HomeService {
 
     getProjects(query) {
         return this.getAllProjects();
+    }
+
+    deleteProjects(id){
+        return fetch(this.deleteUrl + id, Object.assign({
+                method: 'DELETE',
+            }, constants.cookieMarker
+        ))
     }
 
 }
