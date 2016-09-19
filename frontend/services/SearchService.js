@@ -10,10 +10,11 @@ class SearchService {
     }
 
     getProject(id){
-        console.log(`${this.url}project-view/${id}`)
-        return fetch(`${constants.URL}project-view/${id}`,
+        var query = `id=${id}&skip=0&limit=1`
+        console.log(query);
+        return fetch(`${this.url}projects?${query}`,
              constants.cookieMarker).then(res => res.json())
-            .then(json => ({project:json}))
+            .then(json => ({project:json.sortedProjList[0]}))
             .catch(error => ({err:error}))
     }
 

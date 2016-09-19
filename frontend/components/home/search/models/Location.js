@@ -26,14 +26,16 @@ export default class Location extends MultiSelectModel {
         searchService.getProject(projectId)
             .then(res=>{
                 var project = res.project;
-                var div = document.createElement("div");
-                var container = document.createElement("div");
-                container.appendChild(div);
-                div.setAttribute("class", "div-small");
-                var comp = <Project project={project}/>;
-                ReactDom.render(comp, div, function(){
-                    mapContentToDestination(container.innerHTML)
-                })
+                if (project && project._id){
+                    var div = document.createElement("div");
+                    var container = document.createElement("div");
+                    container.appendChild(div);
+                    div.setAttribute("class", "div-small");
+                    var comp = <Project project={project}/>;
+                    ReactDom.render(comp, div, function(){
+                        mapContentToDestination(container.innerHTML)
+                    })
+                }
             })
     }
 
