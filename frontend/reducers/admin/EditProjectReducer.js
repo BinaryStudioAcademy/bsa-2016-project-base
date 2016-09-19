@@ -387,17 +387,43 @@ export default function EditProjectReducer(state=initialState, action) {
             const {files} = action;
             return Object.assign({}, state, {files: files}, {initialFiles: true});
         }
+
+        case types.SET_VISIBLE_FORM_BY_LINK_SCREENSHOOTS_ED: {
+            const {hideFileScreenshoots,hideFormScreenshoots} = action;
+            return Object.assign({}, state, {
+                hideFileScreenshoots,
+                hideFormScreenshoots
+            })
+        }
+
+        case types.SET_VISIBLE_FORM_BY_LINK_ATTACHMENTS_ED: {
+            const {hideFile,hideForm} = action;
+            return Object.assign({}, state, {
+                hideFile,
+                hideForm
+            })
+        }
+
+        case types.SET_VISIBLE_ADD_TECH_FORM_ED: {
+            const {hideTechForm} = action;
+            console.log('reducer');
+            console.log(hideTechForm);
+            return Object.assign({}, state, {
+                hideTechForm
+            })
+        }
+
         default: {
             return state;
         }
     }
 };
 
-const updateFileSuccess = (files, data) => {
+const updateFileSuccess = (files, data, target) => {
     if (!data.hasOwnProperty('error')) {
         files.forEach( file => {
             const {name, path, thumb} = data;
-            if (!file.ready && file.name === name) {
+            if (!file.ready && file.name === name && file.target === target) {
                 file.path = path;
                 file.thumb = thumb;
                 file.ready = true;
@@ -746,7 +772,12 @@ const initialState = {
     predefinedUsers: [],
     predefinedTags: [],
     predefinedTechnologies: [],
-    predefinedConditions: []
+    predefinedConditions: [],
+    hideFile : 'visible',
+    hideForm : 'hidden',
+    hideFileScreenshoots : 'visible',
+    hideFormScreenshoots : 'hidden',
+    hideTechForm : 'hidden'
 
 };
 

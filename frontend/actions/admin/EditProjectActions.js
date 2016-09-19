@@ -295,6 +295,14 @@ export function uploadFile(file, target='file') {
     };
 };
 
+export function setVisibleUploadByLinkScreenshoots(hideFile, hideForm) {
+    return {
+        type: types.SET_VISIBLE_FORM_BY_LINK_SCREENSHOOTS_ED,
+        hideFileScreenshoots: hideFile,
+        hideFormScreenshoots: hideForm
+    }
+}
+
 export function deleteSection(id, sections, feturesToDelete,featuresToStay) {
     sections.forEach(function (el, indx) {
         if (el._id === id) {
@@ -592,6 +600,23 @@ export function initialStateUsers(users, predefinedUsers, owners) {
     return action;
 }
 
+export function setVisibleUploadByLinkAttachments(hideFile, hideForm) {
+    return {
+        type: types.SET_VISIBLE_FORM_BY_LINK_ATTACHMENTS_ED,
+        hideFile: hideFile,
+        hideForm: hideForm
+    }
+}
+
+export function setVisibleAddTechForm(hideTechForm) {
+    console.log('action');
+    console.log(hideTechForm);
+    return {
+        type: types.SET_VISIBLE_ADD_TECH_FORM_ED,
+        hideTechForm: hideTechForm
+    }
+}
+
 export function initialStateSections(features) {
 
     const action = {
@@ -674,6 +699,56 @@ export function uploadIcon(file) {
         }
     };
 };
+
+export function uploadFileByLinkAddProject(link, target='file') {
+    const ext =  link.slice(link.lastIndexOf('.'));
+    let name = link.slice(link.lastIndexOf('/')+1,link.lastIndexOf('.'));
+    const allowedTypes = (target === 'file') ? FILE_TYPES : IMG_TYPES;
+    return dispatch=> {
+        dispatch({
+            type: types.UP_UPLOAD_FILE_ED,
+            name: name,
+            target
+        });
+
+        if (!allowedTypes.includes(ext)) {
+            const data = {
+                name: name,
+                error: 'Unsupported file type. Allowed ' + allowedTypes.join('/')
+            }
+            dispatch(uploadFileValidation(data,target));
+        }else{
+            return uploadService.uploadFileByLinkAttachments(link)
+                .then(response => {
+                    if (response.status != 200) {
+                        throw Error(response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(json => {
+                    let data = json;
+                    if (!json.hasOwnProperty('error')) {
+                        data = fileThumbService.setThumb(json);
+                    }
+                    dispatch({
+                        type: types.UP_UPLOAD_FILE_SUCCESS_ED,
+                        data: data,
+                        target
+                    });
+
+                })
+                .catch(error => {
+                    dispatch({
+                        type: types.UP_UPLOAD_FILE_ERROR_ED,
+                        error: error,
+                        target
+
+                    });
+                });
+        }
+
+    }
+}
 
 export function setContactFieldData(field, data) {
     return {
