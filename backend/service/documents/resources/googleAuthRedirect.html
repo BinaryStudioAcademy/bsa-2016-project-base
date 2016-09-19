@@ -11,9 +11,12 @@
     if (window.opener){
         var tokens = $.url().param('tokens');
         if (tokens){
-            window.opener.document.getElementById("tokens").value = tokens;
-            window.opener.document.getElementById("auth-success").click();
-            window.close();
+            setTimeout(function(){
+                window.opener.document.getElementById("tokens").value = tokens;
+                window.opener.document.getElementById("auth-success").click();
+                window.close();
+            }, 500)
+
         }
     }
 </script>

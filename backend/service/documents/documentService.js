@@ -5,7 +5,7 @@ var path = require("path");
 var docxGenerator = require("./docxGenerator");
 var config = require("./config.js");
 var projectRepo = require("./../../repositories/projectRepository");
-var basePath = require("./../../config/host").basePath
+var projectHost = require("./../../config/host").projectHost
 class DocumentService {
     constructor() {
         var OAuth2 = google.auth.OAuth2;
@@ -23,13 +23,17 @@ class DocumentService {
         callback(null, url);
     }
     getData(query, callback) {
-        /*projectRepo.update(query.projectId,{estimation: query.estimation}, function(err){
-            if (err){
-                console.log("ERROR WHILE UPDATE ESTIMATION", err)
-            }
-        })
-        callback(null, query.estimation);*/
-        callback(null, query);
+        if (!query.projectId && !query.estimation){
+            callback(null, query);
+        }else{
+            projectRepo.update(query.projectId,{estimation: query.estimation}, function(err){
+                if (err){
+                    console.log("ERROR WHILE UPDATE ESTIMATION", err)
+                }
+            })
+            callback(null, query.estimation);
+        }
+
         // callback(null, [
         //      [
         //     {
@@ -147,7 +151,7 @@ class DocumentService {
                 res.err = error
             }
             var tokensStr = JSON.stringify(tokens);
-            res.redirect(`${basePath}google_auth_redirect/?tokens=${tokensStr}`);
+            res.redirect(`${projectHost}/google_auth_redirect/?tokens=${tokensStr}`);
         }.bind(this));
     }
 }

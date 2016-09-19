@@ -37,10 +37,11 @@ if (isProduction){
   indexHtmlFileName = "/index.html"
   require('./backend/routes/routes')(app);
 }else {
-  var routes = express.Router()
+  //var routes = express.Router()
   indexHtmlFileName = "/indexLocal.html"
-  require('./backend/routes/routes')(routes);
-  app.use("/projects", routes)
+  //require('./backend/routes/routes')(routes);
+  require('./backend/routes/routes')(app);
+  //app.use("/projects", routes)
 }
 
 
