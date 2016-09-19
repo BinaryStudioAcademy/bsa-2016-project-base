@@ -22,13 +22,13 @@ class DocumentService {
         callback(null, url);
     }
     getData(query, callback) {
-        //if (query.estimation && query.projectId){
+        if (query.estimation && query.projectId){
         console.log("query", query)
             projectRepository.update(query.projectId, {estimation:query.estimation})
             callback(null, query.estimation)
-        //}else{
-        //    callback(null, query);
-        //}
+        }else{
+            callback(null, query);
+        }
         // callback(null, [
         //      [
         //     {

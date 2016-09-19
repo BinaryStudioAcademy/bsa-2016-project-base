@@ -220,12 +220,12 @@ module.exports = function(app) {
 					sortData[sectionName].push(data[i]);
 				}
 
-				//res.data = sortData;
-				res.data = {
+				res.data = sortData;
+				/*res.data = {
 					sections: sortData,
 					projectId:project._id,
 					estimation: project.estimation
-				};
+				};*/
 				res.err = err;
 				next();
 			});
