@@ -24,7 +24,7 @@ export function initProjects(projects) {
         listOfProjects: projects
     }
 }
-export function deleteProject(id) {
+export function deleteProject(id,projects) {
     return dispatch => {
         async.waterfall([
             function (callback) {
@@ -38,7 +38,7 @@ export function deleteProject(id) {
                 }
             }
         ],function (err,result) {
-            dispatch(getAllProjectsDelete());
+            dispatch(initProjects(projects));
         });
     }
 }

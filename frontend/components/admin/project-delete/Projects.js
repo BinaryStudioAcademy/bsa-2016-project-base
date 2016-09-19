@@ -5,7 +5,7 @@ import React, {Component, PropTypes} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as actions from "../../../actions/admin/AdminProjectsDeleteActions";
-import ReduxToastr, {toastr} from 'react-redux-toastr'
+import {toastr} from 'react-redux-toastr'
 import styles from  './styles.sass';
 import {Link} from 'react-router';
 class ProjectsDeletePage extends Component {
@@ -33,8 +33,16 @@ class ProjectsDeletePage extends Component {
     }
 
     deleteProject(id){
+        let {listOfProjects} = this.props.state;
+        let deletedProjects = [];
+
+        listOfProjects.forEach(function (el,indx) {
+            if(el._id !== id){
+                deletedProjects.push(el);
+            }
+        });
         const toastrConfirmOptions = {
-            onOk: () => this.props.deleteProject(id),
+            onOk: () => this.props.deleteProject(id,deletedProjects),
             onCancel: () => ''
         };
         toastr.confirm('Are you sure about that?', toastrConfirmOptions)
@@ -47,8 +55,11 @@ class ProjectsDeletePage extends Component {
                 {(listOfProjects.length > 0) ?
                     <div>
                         { listOfProjects.map((elem, index, array) => {
+                            let data_end;
                             let data_start = elem.timeBegin.split('T');
-                            let data_end = elem.timeEnd.split('T');
+                            if(elem.timeEnd) {
+                                data_end = elem.timeEnd.split('T');
+                            }
                             return <div key={elem._id} className={styles['project-elem']}>
                                 <Link to={'/project-view/' + elem._id}>{elem.projectName}</Link>
                                 {
@@ -63,7 +74,9 @@ class ProjectsDeletePage extends Component {
                                 }
                                 <div className={styles['date_block']}>
                                     <span>Start date :{data_start[0]}</span>
-                                    <span>End date :{data_end[0]}</span>
+                                    {
+                                        (data_end)?<span>End date :{data_end[0]}</span> :''
+                                    }
                                 </div>
                                 <button className={styles['remove_button']} onClick={(ev)=>{this.deleteProject(elem._id)}}>
                                     Remove Project
