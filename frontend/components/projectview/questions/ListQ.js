@@ -22,16 +22,11 @@ class List extends Component {
     get canISee() {
         let can = ( this.props.authUser['userRole'] == 'ADMIN' );
         let owners = this.props.stateFromReducer.owners;
-        /*let qCol = this.props.stateFromReducer.questions || [];  // перечень вопросов в проекте
-        let i = this.props.index;                                // порядковый номер вопроса в перечне (начинается с нуля, сортировка в порядке добавления)
-        let expr = qCol[i].question;                             // тело i-ого вопроса
-        let authorInfo = expr.author;*/
         let userInfo = this.props.authUser.userInfo;
 
         owners.forEach(function(item){
             can = ( can || userInfo._id == item._id );
         });
-        //can = ( can || userInfo._id == authorInfo._id );
 
         return can;
     }
