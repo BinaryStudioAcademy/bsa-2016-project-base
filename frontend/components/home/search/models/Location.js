@@ -47,11 +47,11 @@ export default class Location extends MultiSelectModel {
         this.getTips(map, function(error, tips){
             this.tips.forEach(tip=>tip.marker.setMap(null));
             this.tips = tips;
-            new MarkerClusterer(map, tips.map(tip=>tip.marker), {
+            /*new MarkerClusterer(map, tips.map(tip=>tip.marker), {
                 imagePath: 'https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/images/m',
                 gridSize: 100,
                 minimumClusterSize:3
-            });
+            });*/
             this.notifyUpdated();
         }.bind(this))
     }
