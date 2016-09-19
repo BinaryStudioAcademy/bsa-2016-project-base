@@ -7,6 +7,7 @@ import UsersList from './sections/UsersList';
 import Tags from './sections/Tags';
 import Techs from './sections/Techs';
 import Features from './sections/Features';
+import Location from './sections/Location';
 import Attachments from './sections/Attachments';
 import Screenshots from './sections/Screenshots'
 import Contacts from './sections/Contacts';
@@ -63,15 +64,19 @@ const TabsUI = () => (
                     <Tags/>
                 </div>
             </Tab>
+            <Tab label="Location" >
+                <div>
+                    <Location/>
+                </div>
+            </Tab>
             <Tab label="Contacts" >
                 <div>
-                    <Contacts />
+                    <Contacts/>
                 </div>
             </Tab>
         </Tabs>
     </MuiThemeProvider>
 );
-
 
 
 
@@ -109,7 +114,7 @@ class EditProject extends Component {
     }
     updateProject(e) {
         console.log('createProject');
-        const {projectName,projectLink,timeBegin,timeEnd,status,description, projectId, contacts} = this.props.store;
+        const {projectName,projectLink,timeBegin,timeEnd,status,description, projectId, contacts, location} = this.props.store;
         const {predefinedUsers,predefinedTags,predefinedTechnologies,sections,features,files, userStory} = this.props.store;
         console.log('features ',features);
         console.log('sections ',sections);
@@ -262,6 +267,7 @@ class EditProject extends Component {
             userHistory: inProject.userHistory,
         project: {
             _id: projectId,
+            location,
             linkToProject:projectLink,
             projectName,
             /*projectLink,*/

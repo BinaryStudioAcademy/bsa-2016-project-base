@@ -297,6 +297,7 @@ export default function EditProjectReducer(state=initialState, action) {
             }
             return Object.assign({}, state, {
                 projectId: project._id,
+                location: project.location,
                 projectName: project.projectName,
                 projectLink: project.linkToProject,
                 timeBegin: project.timeBegin,
@@ -411,6 +412,14 @@ export default function EditProjectReducer(state=initialState, action) {
             return Object.assign({}, state, {
                 hideTechForm
             })
+        }
+
+        case types.UP_SET_LOCATION_ED: {
+            const {position} = action;
+            const {location} = state;
+            return Object.assign({}, state, {
+                location:position
+            });
         }
 
         default: {
@@ -749,6 +758,7 @@ const initialState = {
     initialSections: false,
     initialFiles: false,
     iconLoaded: false,
+    location: null,
     errors: {nameError: false, technologiesError: false, timeBeginError: false, usersError: false, timeEndError: false},
     techIcon: {},
     contacts: {

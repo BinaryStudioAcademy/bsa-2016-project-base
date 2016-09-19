@@ -758,3 +758,11 @@ export function setContactFieldData(field, data) {
     }
 }
 
+export function setLocation(position) {
+    return {
+        type: 'UP_SET_LOCATION_ED',
+        position
+    }
+}
+
+
