@@ -35,7 +35,7 @@ export default class HomeProjects extends React.Component {
                                 fontSize: "1rem",
                                 marginBottom: "2rem",
                                 justifyContent: "flex-end",
-                                paddingRight: "1.1rem"
+                                paddingRight: "2.5rem"
                             }
                         }>
                             <GeneralInformation
