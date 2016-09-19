@@ -436,8 +436,12 @@ class SearchServiceSubTools {
                                     {selectionsConditionsAnd.namesIn.push(searchReturn.queryProjNames[parseInt(keyParts[2])])}
                                 else {selectionsConditionsAnd.techsNin.push(searchReturn.queryProjNames[parseInt(keyParts[2])])};
                                 break;
+//<<<<<<< HEAD
                     //should name location!!
                     case 'location':   if (elem.vars[elem_] == '1') 
+/*=======
+                    case 'id':   if (elem.vars[elem_] == '1') 
+>>>>>>> 429da1d35df12a5d79e45d5c1cb58ce0f0235827*/
                                     {selectionsConditionsAnd.idsIn.push(searchReturn.queryIds[parseInt(keyParts[2])])}
                                 else {selectionsConditionsAnd.idsNin.push(searchReturn.queryIds[parseInt(keyParts[2])])};
                                 break;

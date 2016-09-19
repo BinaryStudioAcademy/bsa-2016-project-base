@@ -70,7 +70,8 @@ var Project = new Schema({
         phone: String,
         email: String,
         skype: String
-    }
+    },
+    estimation: []
 });
 
 
