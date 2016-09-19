@@ -436,7 +436,7 @@ class SearchServiceSubTools {
                                     {selectionsConditionsAnd.namesIn.push(searchReturn.queryProjNames[parseInt(keyParts[2])])}
                                 else {selectionsConditionsAnd.techsNin.push(searchReturn.queryProjNames[parseInt(keyParts[2])])};
                                 break;
-                    case 'location':   if (elem.vars[elem_] == '1') 
+                    case 'id':   if (elem.vars[elem_] == '1') 
                                     {selectionsConditionsAnd.idsIn.push(searchReturn.queryIds[parseInt(keyParts[2])])}
                                 else {selectionsConditionsAnd.idsNin.push(searchReturn.queryIds[parseInt(keyParts[2])])};
                                 break;
