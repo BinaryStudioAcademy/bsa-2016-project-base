@@ -6,6 +6,11 @@ import { Button, TextInput, TextArea, FileUpload, TextFieldTags, RaisedButtonUIT
 import styles from './styles/Techs.sass';
 import { DEFAULT } from '../../../../constants/Api';
 
+import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+const fileTypes = 'image/jpeg,image/png,image/gif'
+
 class Techs extends Component {
     constructor(props) {
         super(props);
@@ -14,8 +19,9 @@ class Techs extends Component {
             techVersion: '',
             techDescription: '',
             addBtnEnabled: false,
-            defaultImage: DEFAULT + "technology.png"
-        }
+            defaultImage: DEFAULT + "technology.png",
+            hideTechForm: this.props.hideTechForm
+        };
         this.addTechToProject = this.addTechToProject.bind(this);
         this.removeTechFromProject = this.removeTechFromProject.bind(this);
         this.addNewTechToProject = this.addNewTechToProject.bind(this);
@@ -24,9 +30,16 @@ class Techs extends Component {
         this.onTechVersionChange = this.onTechVersionChange.bind(this);
         this.onTechDescriptionChange = this.onTechDescriptionChange.bind(this);
         this.onTechLogoChange = this.onTechLogoChange.bind(this);
+        this.setVisibleTechForm = this.setVisibleTechForm.bind(this);
     }
-    componentWillReceiveProps(newProps) {
-        this.isAllFilled(newProps);
+    componentWillReceiveProps(nextProps) {
+        console.log('componentWillReceiveProps');
+        this.isAllFilled(nextProps);
+        this.setState({
+            hideTechForm: nextProps.hideTechForm
+        });
+        console.log('hideTechForm WILL');
+        console.log(this.state.hideTechForm);
     }
     isAllFilled(newProps){
         const {techName, techVersion, techDescription} = this.state;
@@ -40,40 +53,62 @@ class Techs extends Component {
                 addBtnEnabled: false
             });
         }
-        console.log('addBtnEnabled ', this.state.addBtnEnabled);
-
+    }
+    setVisibleTechForm() {
+        console.log('START');
+        console.log(this.state.hideTechForm);
+        let {hideTechForm} = this.state;
+        console.log('1')
+        if (hideTechForm === 'visible') {
+            hideTechForm = 'hidden';
+            console.log('2')
+        } else {
+            hideTechForm = 'visible';
+            console.log('3')
+        }
+        console.log('4')
+        this.props.setVisibleAddTechForm(hideTechForm);
+        console.log('hideTechForm SET');
+        console.log(hideTechForm);
+        console.log(this.state.hideTechForm);
     }
     onTechNameChange(e){
-        this.setState({
-            techName: e.target.value
-        });
-        this.isAllFilled();
+        const techName = e.target.value;
+        if (techName.length <= 20) {
+            this.setState({
+                techName
+            });
+            this.isAllFilled();
+        }
     }
     onTechVersionChange(e){
-        this.setState({
-            techVersion: e.target.value
-        });
-        this.isAllFilled();
+        const techVersion = e.target.value;
+        if (techVersion.length <= 10) {
+            this.setState({
+                techVersion
+            });
+            this.isAllFilled();
+        }
     }
     onTechDescriptionChange(e){
-        this.setState({
-            techDescription: e.target.value
-        });
-        this.isAllFilled();
+        const techDescription = e.target.value;
+        if (techDescription.length <= 100) {
+            this.setState({
+                techDescription
+            });
+            this.isAllFilled();
+        }
     }
     onTechLogoChange(e){
-        console.log('onTechLogoChange ',e.target.value);
         const file = e.target.files[0];
         if (file) {
             this.props.uploadIcon(file);
         }
     }
     addTechToProject(e, techId) {
-        console.log('addTechToProject ',techId);
         if (techId)  this.props.addTechToProject(techId);
     }
     removeTechFromProject(e, techId) {
-        console.log('removeTechFromProject ',techId);
         if (techId) this.props.removeTechFromProject(techId);
     }
     addNewTechToProject(e) {
@@ -93,8 +128,6 @@ class Techs extends Component {
         }
         const fileInput = document.querySelector('#tech-icon');
         fileInput.value = '';
-
-
     }
     removeNewTechFromProject(e, tech) {
         if (tech) this.props.removeNewTechFromProject(tech);
@@ -106,13 +139,14 @@ class Techs extends Component {
             //alert("AGA!");
             this.props.initialStateTechnologies(technologies, predefinedTechnologies);
         }
+
         const allUnUsedTechnologies = predefinedTechnologies.map( tech => {
             if (!tech.inProject) {
                 return (
                     <div key={tech._id} className={styles.techItem}>
                         <div>
-                            <img src={ this.state.defaultImage } alt="tech logo"/>
-                            {/*<img src={tech.techAvatar} alt="tech logo"/>*/}
+                            {/*<img src={ this.state.defaultImage } alt="tech logo"/>*/}
+                            <img src={tech.techAvatar} alt="tech logo"/>
                         </div>
                         <div className={styles.nameAndVers}>
                             <span>{tech.techName} {tech.techVersion}</span>
@@ -129,9 +163,9 @@ class Techs extends Component {
             if (tech.inProject) {
                 return (
                     <div key={tech._id} className={styles.techItem}>
-                        {/*<img src={tech.techAvatar} alt="tech logo"/>*/}
                         <div>
-                            <img src={ this.state.defaultImage } alt="tech logo"/>
+                            <img src={tech.techAvatar} alt="tech logo"/>
+                            {/*<img src={ this.state.defaultImage } alt="tech logo"/>*/}
                         </div>
                         <div className={styles.nameAndVers}>
                             <span>{tech.techName} {tech.techVersion}</span>
@@ -160,7 +194,16 @@ class Techs extends Component {
                             {allUnUsedTechnologies}
                         </div>
 
-                        <div className={styles['add-tech-block']}>
+                        <div className={styles['field-container']}>
+                            <div className={styles["change-mode"]}>
+                                <a href="javascript:void(0)"
+                                   onClick={this.setVisibleTechForm}>
+                                    <i className="fa fa-exchange" aria-hidden="true"></i> {(this.state.hideTechForm === 'hidden') ? ' Add new technology' : ' Hide form'}
+                                </a>
+                            </div>
+                        </div>
+
+                        <div className={styles['add-tech-block'] + ' ' + this.state.hideTechForm}>
                             <div className="inputField">
                                 <TextInput
                                     value={this.state.techName}
@@ -187,28 +230,32 @@ class Techs extends Component {
                                 />
                             </div>
 
-                            <FileUpload
-                                id={'tech-icon'}
-                                multiple={false}
-                                accept='image/jpeg,image/png,image/gif'
-                                onChange={this.onTechLogoChange}
-                                error={techIconError}
-                            />
-                            {iconLoaded && <img src={techIcon.path} alt="tech icon"/>}
+                            <MuiThemeProvider>
+                                <RaisedButton
+                                    label="Upload file ..."
+                                    labelPosition="before"
+                                    className={styles["inputField"]}
+                                >
+                                    <FileUpload
+                                        id={'tech-icon'}
+                                        multiple={false}
+                                        accept='image/jpeg,image/png,image/gif'
+                                        onChange={this.onTechLogoChange}
+                                        error={techIconError}
+                                        className={styles["file-input"]}
+                                    />
+                                </RaisedButton>
+                            </MuiThemeProvider>
+
+                            {iconLoaded && <img src={techIcon.path} alt="tech icon"/>} <br/>
 
                             <div className="btnField">
                                 <RaisedButtonUITags
                                     label='Add'
                                     disabled={!this.state.addBtnEnabled}
                                     onClick={this.addNewTechToProject}
-                                    backgroundColor='#8D97A4'
                                 />
                             </div>
-                            {/*<Button
-                             value="Add"
-                             disabled = {!this.state.addBtnEnabled}
-                             onClick={this.addNewTechToProject}
-                             />  */}
 
                         </div>
 
@@ -231,7 +278,6 @@ class Techs extends Component {
     }
 }
 
-
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(actions, dispatch);
 };
@@ -243,7 +289,8 @@ function mapStateToProps(state) {
         initialTechnologies: state.EditProjectReducer.initialTechnologies,
         techIconError: state.EditProjectReducer.techIconError,
         iconLoaded: state.EditProjectReducer.iconLoaded,
-        techIcon: state.EditProjectReducer.techIcon
+        techIcon: state.EditProjectReducer.techIcon,
+        hideTechForm: state.EditProjectReducer.hideTechForm
     };
 };
 

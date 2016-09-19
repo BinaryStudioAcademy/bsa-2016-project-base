@@ -1,11 +1,19 @@
 var async = require('async');
+var striptags = require('striptags');
 var userRepository = require('../repositories/userRepository');
 var projectRepository = require('../repositories/projectRepository');
 
 module.exports = function(req,onResult) {
     async.waterfall([
         function(callback){
-            projectRepository.add(req.body.project, function(err, data) {
+            var project = req.body.project;
+            var html = project.description.descrFullText;
+            project.description = {
+                descrText: striptags(html,['img']).replace(/<img[^>]*>/g," "),
+                descrFullText: html
+            };
+
+            projectRepository.add(project, function(err, data) {
                 if (err) return callback (err, data);
                 callback (null, data);
             });

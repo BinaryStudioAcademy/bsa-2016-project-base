@@ -18,20 +18,20 @@ class File extends Component {
        document.execCommand("Copy");
     }
     getRemoveButton(){
-        const {onClick} = this.props;
+        const {onClick, index} = this.props;
         const {path, thumb, name, ready, good}  = this.props.file;
 
-        return <Button className={styles["btnIcon"]} onClick={onClick && ((e) => onClick(e,name))}>
+        return <Button className={styles["btnIcon"]} onClick={onClick && ((e) => onClick(e,this.props.file, index))}>
             <i className="fa fa-times" aria-hidden="true"></i>
         </Button>
     }
     renderStatus(){
 
          const {path, thumb, name, ready, good}  = this.props.file;
-         const {onClick} = this.props;
+         const {onClick, index} = this.props;
          if (ready && good) {
             return (
-                <div>
+                <div className={styles["file-block"]}>
                     {this.getRemoveButton()}
                     <a href={path} target="_blank">
                         <img src={thumb} alt={name} />
@@ -55,8 +55,8 @@ class File extends Component {
         } else if (ready && !good) {
             const {error} = this.props.file;
             return (
-                <div>
-                    <Button className={styles["btnIcon"]} onClick={onClick && ((e) => onClick(e,name))}>
+                <div className={styles["file-block"]}>
+                    <Button className={styles["btnIcon"]} onClick={onClick && ((e) => onClick(e,this.props.file,index))}>
                             <i className="fa fa-times" aria-hidden="true"></i>
                     </Button>
                     <span className={styles["error"]}>Error: </span>
@@ -86,7 +86,8 @@ class File extends Component {
 }
 
 File.propTypes = {
-    id: PropTypes.string
+    id: PropTypes.string,
+    index: PropTypes.number
 };
 
 export default File;

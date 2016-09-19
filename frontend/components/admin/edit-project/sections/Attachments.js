@@ -2,9 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../../../actions/admin/EditProjectActions';
-import { Button, TextInput, TextArea, FileUpload } from '../../../common/';
+import { Button, TextInput, TextArea, FileUpload, TextFieldProject } from '../../../common/';
 import File from './File';
-import styles from './styles/Attachments.sass';
+import styles from '../../project/sections/styles/Attachments.sass';
 
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -18,11 +18,17 @@ class Attachments extends Component {
         super(props);
         this.onFilePathChange = this.onFilePathChange.bind(this);
         this.removeFile = this.removeFile.bind(this);
+        this.setVisibleLinkForm = this.setVisibleLinkForm.bind(this);
+        this.uploadFileByLink = this.uploadFileByLink.bind(this);
+        this.saveFileLink = this.saveFileLink.bind(this);
+        this.state = {
+            hideFile: this.props.hideFile,
+            hideForm: this.props.hideForm,
+            fileLink: ''
+        };
     }
     onFilePathChange(e) {
-        console.log('onFilePathChange url', e.target.value);
         const files = e.target.files;
-        console.log(e.target.files.length);
         if (files.length) {
             for (let i = 0; i < files.length; i++) {
                 this.props.uploadFile(files[i]);
@@ -30,13 +36,48 @@ class Attachments extends Component {
             e.target.value = '';
         }
     }
+
     removeFile(e, name) {
-        console.log('removeFile ',name);
         this.props.removeFile(name);
     }
+
+    setVisibleLinkForm() {
+        let {hideFile, hideForm} = this.state;
+        if (hideFile === 'visible') {
+            hideFile = 'hidden'
+        } else {
+            hideFile = 'visible'
+        }
+        if (hideForm === 'visible') {
+            hideForm = 'hidden'
+        } else {
+            hideForm = 'visible'
+        }
+        this.props.setVisibleUploadByLinkAttachments(hideFile, hideForm);
+    }
+
+    uploadFileByLink() {
+        this.props.uploadFileByLinkAddProject(this.state.fileLink);
+        this.setState({fileLink: ''})
+    }
+
+    saveFileLink(e) {
+        this.setState({fileLink: e.target.value})
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+                files: nextProps.files,
+                hideFile: nextProps.hideFile,
+                hideForm: nextProps.hideForm,
+                fileLink: nextProps.fileLink
+            }
+        );
+    }
+
     render() {
         const {files} = this.props;
-        const list = files.map( (file, index) => {
+        const list = files.map((file, index) => {
             if (file.target === 'file') {
                 return (
                     <File
@@ -54,21 +95,52 @@ class Attachments extends Component {
                 </header>
                 <div className={styles.row}>
                     <div className={styles['field-container']}>
-                        <MuiThemeProvider>
-                            <RaisedButton
-                                label="Upload files"
-                                labelPosition="before"
-                                className={styles["btn-upload"]}
-                            >
-                                <FileUpload
-                                    accept={fileTypes}
-                                    multiple={true}
-                                    onChange={this.onFilePathChange}
-                                    className={styles["file-input"]}
-                                />
+                        <div className={styles["change-mode"]}>
+                            <a href="javascript:void(0)"
+                               onClick={this.setVisibleLinkForm}>
+                                <i className="fa fa-exchange" aria-hidden="true"></i> {(this.state.hideForm === 'hidden') ? ' Upload by link' : ' Upload from computer'}
+                            </a>
+                        </div>
 
-                            </RaisedButton>
-                        </MuiThemeProvider>
+                        <div className={styles['add-section2'] + ' ' + this.state.hideForm}>
+                            <div className={styles['col-1-2']}>
+                                <MuiThemeProvider>
+                                    <RaisedButton
+                                        label="Upload by link"
+                                        onClick={this.uploadFileByLink}
+                                        className={styles["btn-upload"]}
+                                    />
+                                </MuiThemeProvider>
+                            </div>
+                            <div className={styles['col-1-2']}>
+                                <TextFieldProject
+                                    hintText='File Link'
+                                    onChange={this.saveFileLink}
+                                    value={this.state.fileLink}
+                                    style={{width: '100%'}}
+                                />
+                            </div>
+                        </div>
+
+                        <div className={styles['add-section2'] + ' '+this.state.hideFile}>
+                            <div className={styles['col-1-2']}>
+                                <MuiThemeProvider>
+                                    <RaisedButton
+                                        label="Upload files ..."
+                                        labelPosition="before"
+                                        className={styles["btn-upload"]}
+                                    >
+                                        <FileUpload
+                                            accept={fileTypes}
+                                            multiple={true}
+                                            onChange={this.onFilePathChange}
+                                            className={styles["file-input"]}
+                                        />
+
+                                    </RaisedButton>
+                                </MuiThemeProvider>
+                            </div>
+                        </div>
 
                         <div className={styles["list"]}>
                             {list}
@@ -96,7 +168,9 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
     return {
-        files: state.EditProjectReducer.files
+        files: state.EditProjectReducer.files,
+        hideFile: state.EditProjectReducer.hideFile,
+        hideForm: state.EditProjectReducer.hideForm
     };
 };
 

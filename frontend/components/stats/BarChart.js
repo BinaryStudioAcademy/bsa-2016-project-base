@@ -2,8 +2,8 @@ import React from "react"
 import {PropTypes} from "react"
 import AbstractChart from "./AbstractChart"
 import {Bar} from 'react-chartjs-2';
+import ChartWrapper from "./ChartWrapperInitial"
 
-import ChartWrapper from "./ChartWrapper"
 export default class BarChart extends AbstractChart {
     constructor() {
         super()

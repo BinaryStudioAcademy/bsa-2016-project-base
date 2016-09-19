@@ -137,7 +137,9 @@ class App extends React.Component {
                                         }}>{menuStepsItems}</DropDownMenu>
                                     </MuiThemeProvider>
                                 </div>
-                                <FaExit size={20}  onClick={this.onExit}/>
+                                <div>
+                                    <FaExit size={20}  onClick={this.onExit}/>
+                                </div>
                             </div>
                             {children}
 							<ReduxToastr timeOut={3000} newestOnTop={true} position="bottom-left"/>

@@ -47,8 +47,9 @@ export default class HomeProjects extends React.Component {
                             projects={projects}/>
 
                         <div style={{display:"flex"}}>
-                            {model.projects.length?<Waypoint onEnter={model.loadMore}/> : ""}
-                            {model.isLoading ? <CircularProgress size={0.6}/> : ""}
+                            {model.projects.length && !model.isLoading?
+                                <Waypoint onEnter={model.loadMore}/> :
+                                <CircularProgress size={0.6}/>}
                         </div>
                         <br/>
                         <br/>
