@@ -1,12 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Grid, Row, Panel } from 'react-bootstrap';
 import * as actions from '../../../actions/admin/AdminTagActions';
-import RemoveTags from './RemoveTags';
-import TagsSearch from './TagsSearch';
 import TagsList from './TagsList';
-import AddTag from './AddTag';
 import TextFieldTags from '../../common/TextFieldUI_Tags';
 import CheckBoxTags from '../../common/CheckBoxUI_Tags';
 import Button from '../../common/RaisedButtonUI_Tags';
