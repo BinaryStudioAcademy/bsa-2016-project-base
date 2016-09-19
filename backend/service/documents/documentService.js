@@ -5,6 +5,7 @@ var path = require("path");
 var docxGenerator = require("./docxGenerator");
 var config = require("./config.js");
 var projectRepo = require("./../../repositories/projectRepository");
+var basePath = require("./../../config/host").basePath
 class DocumentService {
     constructor() {
         var OAuth2 = google.auth.OAuth2;
@@ -146,7 +147,7 @@ class DocumentService {
                 res.err = error
             }
             var tokensStr = JSON.stringify(tokens);
-            res.redirect(`/google_auth_redirect/?tokens=${tokensStr}`);
+            res.redirect(`${basePath}google_auth_redirect/?tokens=${tokensStr}`);
         }.bind(this));
     }
 }
