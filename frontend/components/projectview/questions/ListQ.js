@@ -19,6 +19,23 @@ class List extends Component {
         this.handleAddQ         = this.handleAddQ.bind(this);
     }
 
+    get canISee() {
+        let can = ( this.props.authUser['userRole'] == 'ADMIN' );
+        let owners = this.props.stateFromReducer.owners;
+        /*let qCol = this.props.stateFromReducer.questions || [];  // перечень вопросов в проекте
+        let i = this.props.index;                                // порядковый номер вопроса в перечне (начинается с нуля, сортировка в порядке добавления)
+        let expr = qCol[i].question;                             // тело i-ого вопроса
+        let authorInfo = expr.author;*/
+        let userInfo = this.props.authUser.userInfo;
+
+        owners.forEach(function(item){
+            can = ( can || userInfo._id == item._id );
+        });
+        //can = ( can || userInfo._id == authorInfo._id );
+
+        return can;
+    }
+
     handleHideA(i) { // свернуть/развернуть перечень ответов на i-ый вопрос, по умолчанию свернут
         this.props.showOrHideA(i);
     }
@@ -59,14 +76,16 @@ class List extends Component {
             <ul className={styles['outer-list']} >
                 {qCol.map(function(item, index){
                     return(
-                        <li key={index} >
-                            <CommentQ index={index}
-                                      handleHideA={this.handleHideA.bind(this,index)}
-                            />
-                            <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-                            {showA[index] ? <ListA index={index} /> : null}
-                            </ReactCSSTransitionGroup>
-                        </li>
+                        !item.isPrivate || ( item.isPrivate && ( this.canISee || item.question.author._id == this.props.authUser.userInfo._id ) ) ?
+                            <li key={index} >
+                                <CommentQ index={index}
+                                          handleHideA={this.handleHideA.bind(this,index)}
+                                />
+                                <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+                                {showA[index] ? <ListA index={index} /> : null}
+                                </ReactCSSTransitionGroup>
+                            </li>
+                        : null
                     );
                 },this)}
                 <li className={styles['comment-new']}>
