@@ -1,13 +1,13 @@
+var tagRoutes = require('./tagRoutes');
 var userRoutes = require('./userRoutes');
+var uploadRoutes = require("./uploadRoutes");
 var sectionRoutes = require('./sectionRoutes');
-var techologieRoutes = require('./technologyRoutes');
 var projectRoutes = require('./projectRoutes');
 var featureRoutes = require('./featureRoutes');
-var tagRoutes = require('./tagRoutes');
 var documentRoutes = require('./documentRoutes');
-var uploadRoutes = require("./uploadRoutes");
-var predefinedDataRoutes = require('./predefinedDataRoutes');
+var techologieRoutes = require('./technologyRoutes');
 var usersRightsRoutes = require('./usersRightsRoutes');
+var predefinedDataRoutes = require('./predefinedDataRoutes');
 
 module.exports = function(app) {
 	return {

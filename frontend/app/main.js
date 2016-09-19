@@ -21,6 +21,7 @@ import UpsertProject from '../components/admin/project/UpsertProject';
 import EditProject from '../components/admin/edit-project/EditProject';
 import ProjectSummary from '../components/project-summary/ProjectSummary';
 import TechDetail from '../components/admin/technologies/detail/TechDetail';
+import Projects from '../components/admin/project-delete/Projects';
 
 import * as reducers from '../reducers/';
 
@@ -63,12 +64,11 @@ render(
                     <Route path="tags" component={Tags} />
                     <Route path="tech" component={Tech} />
                     <Route path="tech/:id" component={TechDetail}/>
+                    <Route path="projects-delete" component={Projects}/>
                 </Route>
             </Route>    
         </Router>
     </Provider>),
     document.getElementById('root')
 );
-
-// <Route path="stats" component={Stats} title='statistics'/>
 

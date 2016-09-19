@@ -1,6 +1,6 @@
-import techService from "./../services/TechnologieService"
-import tagService from "./../services/admin/AdminTagService"
-import chartService from "./../services/chartService"
+import chartService from "./../services/chartService";
+import techService from "./../services/TechnologieService";
+import tagService from "./../services/admin/AdminTagService";
 
 export function addData(data){
     return {

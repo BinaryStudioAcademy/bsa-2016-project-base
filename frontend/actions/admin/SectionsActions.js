@@ -62,9 +62,7 @@ export function removeSections(listCheckedSections) {
 export function editSection(sections, editSection, index) {
     return dispatch => {
         return sectionService.editSection(editSection)
-            .then(
-                dispatch (getAllSections())
-            )
+            .then(dispatch (getAllSections()))
             .catch(error => dispatch(errorHandler('Bad Request')));
     }
 

@@ -1,10 +1,8 @@
-/**
- * Created by razor on 04.08.16.
- */
-import TechnologieService  from '../../services/TechnologieService';
-import UploadService  from '../../services/UploadService';
 import fetch from 'isomorphic-fetch'
 import * as constants from '../../constants/Api';
+import UploadService  from '../../services/UploadService';
+import TechnologieService  from '../../services/TechnologieService';
+
 export function getTechnologies(id) {
     return dispatch=> {
         return TechnologieService.getTech(id)
@@ -13,6 +11,7 @@ export function getTechnologies(id) {
             .catch(error => dispatch(errorHandler('Bad Request')));
     }
 }
+
 export function initTechnology(listOfTechno) {
     let listOfTechnologies = listOfTechno || [];
     return {
@@ -20,6 +19,7 @@ export function initTechnology(listOfTechno) {
         listOfTechnologies: listOfTechnologies
     }
 }
+
 export function deleteImage(path, id) {
     return dispatch => {
         return UploadService.deleteFile(path)
@@ -34,6 +34,7 @@ export function deleteImage(path, id) {
 
     }
 }
+
 export function updateData(id, data) {
     return dispatch=> {
         return TechnologieService.updateData(id, data)
@@ -47,6 +48,7 @@ export function updateData(id, data) {
         dispatch(getTechnologies(id))
     }
 }
+
 export function uploadFileByLink(link) {
     return dispatch=> {
         return UploadService.uploadFileByLink(link)
@@ -58,6 +60,7 @@ export function uploadFileByLink(link) {
 
     }
 }
+
 export function uploadFileByFile(file) {
     return dispatch=> {
         return UploadService.uploadFileByFile(file)
@@ -69,12 +72,14 @@ export function uploadFileByFile(file) {
 
     }
 }
+
 export function setImageFromLinkDetail(img) {
     return {
         type: 'SET_IMAGE_FROM_LINK_DETAIL',
         techAvatar: '/upload/resources/tech/' + img.link
     }
 }
+
 export function setVisibleUploadByLink(hideFile, hideForm) {
     return {
         type: 'SET_VISIBLE_FORM_BY_LINK',
@@ -82,6 +87,7 @@ export function setVisibleUploadByLink(hideFile, hideForm) {
         hideForm: hideForm
     }
 }
+
 export function errorHandler(error) {
     return {
         type: 'SOMETHING_GONE_WRONG',

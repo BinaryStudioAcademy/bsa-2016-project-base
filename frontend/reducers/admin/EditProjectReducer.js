@@ -1,8 +1,7 @@
 import * as types from '../../actions/admin/EditProjectActionsTypes';
 import fileThumbService from '../../services/FileThumbService';
 
-
-export default function EditProjectReducer(state=initialState, action) {
+export default function EditProjectReducer(state = initialState, action) {
     switch (action.type) {
         case types.UP_GET_DATA_SUCCESS_ED: {
             const {users, tags, technologies, conditions } = action.data;
@@ -37,52 +36,43 @@ export default function EditProjectReducer(state=initialState, action) {
         case types.UP_CHANGE_PROJECT_NAME_ED: {
             const {name} = action;
             return Object.assign({}, state, {
-
                 projectName: name
-
             });
         }
         case types.UP_CHANGE_PROJECT_LINK_ED: {
             const {link} = action;
             return Object.assign({}, state, {
-
                 projectLink: link
-
             });
         }
         case types.UP_CHANGE_START_DATE_ED: {
             const {date} = action;
+            const {userStory,timeEnd,timeBegin} = state;
             return Object.assign({}, state, {
-
-                timeBegin: date
-
+                timeBegin: updateProjectStartDate(date, timeEnd, timeBegin),
+                userStory: updateUserStory(userStory,null,date,null,null)
             });
         }
         case types.UP_CHANGE_FINISH_DATE_ED: {
             const {date} = action;
+            const {userStory,timeBegin,timeEnd} = state;
             return Object.assign({}, state, {
-
-                timeEnd: date
-
-
+                timeEnd: updateProjectEndDate(timeBegin, date,timeEnd),
+                userStory: updateUserStory(userStory,null,null,date,null)
             });
         }
         case types.UP_CHANGE_CONDITION_ED: {
             const {option} = action;
             return Object.assign({}, state, {
-
                 status: option
-
             });
         }
         case types.UP_CHANGE_DESCRIPTION_ED: {
             const {text} = action;
             return Object.assign({}, state, {
-
                 description:{
                     descrFullText:text
                 }
-
             });
         }
         case types.UP_ADD_TAG_TO_PROJECT_ED: {
@@ -116,7 +106,6 @@ export default function EditProjectReducer(state=initialState, action) {
         case types.UP_POST_TECH_SUCCESS_ED: {
             const {data, iconLoaded} = action;
             const {predefinedTechnologies} = state;
-            console.log('POST_TECH',data);
             return Object.assign({}, state, {
                 predefinedTechnologies: addNewTech(predefinedTechnologies, data),
                 iconLoaded
@@ -125,7 +114,6 @@ export default function EditProjectReducer(state=initialState, action) {
         case types.UP_POST_SECTION_SUCCESS_ED: {
             const {data} = action;
             const {sections} = state;
-            console.log('POST_SECTION_SUCCESS',data);
             return Object.assign({}, state, {
                 sections: sections.concat(data)
             });
@@ -142,12 +130,10 @@ export default function EditProjectReducer(state=initialState, action) {
         case types.UP_POST_FEATURE_DELETE_ED: {
             const {data} = action;
             const {features} = state;
-            console.log('DELETE_FEATURES_SUCCESS',data);
             return Object.assign({}, state, {
                 features: [].concat(data)
             });
         }
-
         case types.UP_SELECT_SECTION_ED: {
             const {_id} = action;
             const {sections, activeSection} = state;
@@ -155,7 +141,6 @@ export default function EditProjectReducer(state=initialState, action) {
                 activeSection: selectSection(sections, _id)
             });
         }
-
         case types.UP_UPLOAD_FILE_ED: {
             const {name, target} = action;
             const {files} = state;
@@ -168,7 +153,6 @@ export default function EditProjectReducer(state=initialState, action) {
                 })
             });
         }
-
         case types.UP_UPLOAD_FILE_SUCCESS_ED: {
             const {data,target} = action;
             const {files} = state;
@@ -214,13 +198,36 @@ export default function EditProjectReducer(state=initialState, action) {
                 added: true
             }, {error: error});
         }
-
         case types.UP_POST_SECTION_DELETE_ED: {
             const {data} = action;
             const {sections} = state;
-            console.log('DELETE_SECTION_SUCCESS',sections);
             return Object.assign({}, state, {
                 sections: [].concat(data)
+            });
+        }
+
+        case types.UP_SELECT_USER_ED: {
+            const {userId} = action;
+            const {activeUser} = state;
+            return Object.assign({}, state, {
+                activeUser: userId
+            });
+        }
+
+        case types.UP_SET_USER_START_DATE_ED: {
+            const {date,userId} = action;
+            const {activeUser,userStory,timeBegin,timeEnd} = state;
+            console.log('userId ',userId);
+            return Object.assign({}, state, {
+                userStory: updateUserStory(userStory,userId,date,null,{timeBegin,timeEnd})
+            });
+        }
+
+        case types.UP_SET_USER_END_DATE_ED: {
+            const {date,userId} = action;
+            const {activeUser,userStory,timeBegin,timeEnd} = state;
+            return Object.assign({}, state, {
+                userStory: updateUserStory(userStory,userId,null,date,{timeBegin,timeEnd})
             });
         }
 
@@ -231,7 +238,6 @@ export default function EditProjectReducer(state=initialState, action) {
                 errors: error
             });
         }
-
         case types.UP_REMOVE_TECH_FROM_PROJECT_ED: {
             const {_id} = action;
             const {predefinedTechnologies} = state;
@@ -242,6 +248,7 @@ export default function EditProjectReducer(state=initialState, action) {
         case 'INITIAL_STATE_FROM_DB': {
             const {project} = action;
             var data = [];
+            var userStory = {};
             if(project.attachments.length != 0) {
                 data = project.attachments.map(function (el) {
                     return fileThumbService.setThumb(Object.assign({}, el, {path: el.link}, {target: "file"}));
@@ -252,8 +259,27 @@ export default function EditProjectReducer(state=initialState, action) {
                      data.push(fileThumbService.setThumb(Object.assign({}, {path: el}, {target: "screenshot"})));
                 });
             }
+            if(project.users.length != 0) {
+                project.users.forEach(function (el) {
+                    el.userHistory.forEach(function(history) {
+                        if (history.projectId == project._id) {
+                                //userStory[el._id].dateFrom = history.dateFrom;
+                                //userStory[el._id].dateTo = history.dateTo;
+                                //userStory[el._id].projectId = history.projectId;
+                            var b = {
+                                dateFrom: history.dateFrom,
+                                dateTo : history.dateTo,
+                                projectId : history.projectId,
+                            }
+                            userStory[el._id] = Object.assign({}, b);
+                        }
+
+                    })
+                });
+            }
             return Object.assign({}, state, {
                 projectId: project._id,
+                location: project.location,
                 projectName: project.projectName,
                 projectLink: project.linkToProject,
                 timeBegin: project.timeBegin,
@@ -265,6 +291,7 @@ export default function EditProjectReducer(state=initialState, action) {
                 technologies: project.technologies,
                 conditions: project.conditions,
                 contacts: project.contacts,
+                userStory: userStory,
                 features: project.features,
                 files: data.map(function(el) {
                     return Object.assign({}, el, {ready: true}, {good: true}, {inBase: true})
@@ -343,17 +370,51 @@ export default function EditProjectReducer(state=initialState, action) {
             const {files} = action;
             return Object.assign({}, state, {files: files}, {initialFiles: true});
         }
+
+        case types.SET_VISIBLE_FORM_BY_LINK_SCREENSHOOTS_ED: {
+            const {hideFileScreenshoots,hideFormScreenshoots} = action;
+            return Object.assign({}, state, {
+                hideFileScreenshoots,
+                hideFormScreenshoots
+            })
+        }
+
+        case types.SET_VISIBLE_FORM_BY_LINK_ATTACHMENTS_ED: {
+            const {hideFile,hideForm} = action;
+            return Object.assign({}, state, {
+                hideFile,
+                hideForm
+            })
+        }
+
+        case types.SET_VISIBLE_ADD_TECH_FORM_ED: {
+            const {hideTechForm} = action;
+            console.log('reducer');
+            console.log(hideTechForm);
+            return Object.assign({}, state, {
+                hideTechForm
+            })
+        }
+
+        case types.UP_SET_LOCATION_ED: {
+            const {position} = action;
+            const {location} = state;
+            return Object.assign({}, state, {
+                location:position
+            });
+        }
+
         default: {
             return state;
         }
     }
 };
 
-const updateFileSuccess = (files, data) => {
+const updateFileSuccess = (files, data, target) => {
     if (!data.hasOwnProperty('error')) {
         files.forEach( file => {
             const {name, path, thumb} = data;
-            if (!file.ready && file.name === name) {
+            if (!file.ready && file.name === name && file.target === target) {
                 file.path = path;
                 file.thumb = thumb;
                 file.ready = true;
@@ -374,10 +435,7 @@ const updateFileSuccess = (files, data) => {
     return [].concat(files);
 }
 
-
-
 const updateFileFailure = (files, error) => {
-    console.log('updateFileFailure ',error.name);
     const {message, name} = error;
     files.forEach( file => {
         if (!file.ready && file.name === name) {
@@ -390,15 +448,12 @@ const updateFileFailure = (files, error) => {
     return [].concat(files);
 }
 
-
-
 const selectSection = (sections, _id) => {
     for(let i = 0; i < sections.length; i++) {
         if (sections[i]._id === _id) {
             return sections[i];
         }
     }
-    console.log('selectSection');
     return null;
 };
 
@@ -423,7 +478,6 @@ const addTechToProject = (techs, _id) => {
             item.inProject = true;
         }
     });
-    console.log('addTechToProject 22');
     return [].concat(techs);
 }
 
@@ -489,6 +543,150 @@ const changeOwnership = (predefinedUsers, _id, value) => {
     return [].concat(predefinedUsers);
 }
 
+const updateProjectStartDate = (timeBegin, timeEnd, currDate) => {
+    if (timeEnd) {
+        const dateProjectStartSeconds = Date.parse(timeBegin);
+        const dateProjectEndSeconds = Date.parse(timeEnd);
+        if(dateProjectStartSeconds <= dateProjectEndSeconds) {
+            return timeBegin;
+        } else {
+            return currDate;
+        }
+    } else {
+        return timeBegin;
+    }
+}
+
+const updateProjectEndDate = (timeBegin, timeEnd, currDate) => {
+    if (timeBegin) {
+        const dateProjectStartSeconds = Date.parse(timeBegin);
+        const dateProjectEndSeconds = Date.parse(timeEnd);
+        if(dateProjectEndSeconds >= dateProjectStartSeconds) {
+            return timeEnd;
+        } else {
+            return currDate;
+        }
+    } else {
+        return timeEnd;
+    }
+}
+
+const updateUserStory = (story, userId, start, end, projectPeriod) => {
+    if (userId) {
+        if (story.hasOwnProperty(userId)) {
+            if (projectPeriod) {
+                const {timeBegin,timeEnd} = projectPeriod;
+                const {dateFrom, dateTo} =  story[userId];
+                const dateFromSeconds = Date.parse(dateFrom);
+                const dateToSeconds = Date.parse(dateTo);
+                const dateUserStartSeconds = Date.parse(start);
+                const dateUserEndSeconds = Date.parse(end);
+
+                if (timeBegin) {
+                    const dateProjectStartSeconds = Date.parse(timeBegin);
+                    if (dateUserStartSeconds >= dateProjectStartSeconds) {
+                        if (dateUserStartSeconds <= dateToSeconds) {
+                            story[userId].dateFrom = start;
+                        }
+
+                    }
+                } else {
+                    story[userId].dateFrom = start;
+                }
+                if (timeEnd) {
+                    const dateProjectEndSeconds = Date.parse(timeEnd);
+                    if (dateUserEndSeconds <= dateProjectEndSeconds) {
+                        if (dateUserEndSeconds >= dateFromSeconds) {
+                            story[userId].dateTo = end;
+                        }
+
+                    }
+                } else {
+                    story[userId].dateTo = end;
+                }
+
+
+                if(!timeBegin && !timeEnd) {
+                    let newStartDate;
+                    let newEndDate;
+                    if (dateTo) {
+                        if (dateToSeconds) {
+                            if(dateUserStartSeconds < dateToSeconds) {
+                                newStartDate = start;
+                            }
+                        }
+                    } else {
+                        newStartDate = start;
+                    }
+
+
+
+                    if (dateFrom) {
+                        if (dateFromSeconds) {
+                            if(dateUserEndSeconds > dateFromSeconds) {
+                                newEndDate = end;
+                            }
+                        }
+                    } else {
+                        newEndDate = end;
+                    }
+
+
+                    story[userId] = {
+                        dateFrom: newStartDate ? newStartDate : dateFrom,
+                        dateTo: newEndDate ? newEndDate : dateTo
+                    };
+                }
+
+            } else {
+                story[userId] = {
+                    dateFrom: start,
+                    dateTo:end
+                };
+            }
+
+        } else {
+
+            story[userId] = {
+                dateFrom: start,
+                dateTo:end
+            };
+        }
+
+
+    } else {
+        for (let id in story) {
+            const {dateFrom, dateTo} = story[id];
+            if (start) {
+                if (dateFrom) {
+                    const dateFromSeconds = Date.parse(dateFrom);
+                    const dateProjectStartSeconds = Date.parse(start);
+                    if (dateProjectStartSeconds > dateFromSeconds) {
+                        story[id].dateFrom = start;
+                    }
+                } else {
+                    story[id].dateFrom = start;
+                }
+
+            }
+            if(end) {
+                if (dateTo) {
+                    const dateToSeconds = Date.parse(dateTo);
+                    const dateProjectEndSeconds = Date.parse(end);
+                    if (dateProjectEndSeconds < dateToSeconds) {
+                        story[id].dateTo = end;
+                    }
+                } else {
+                    story[id].dateTo = end;
+                }
+
+            }
+        }
+
+    }
+    return Object.assign({},story);
+}
+
 
 
 
@@ -526,6 +724,8 @@ const initialState = {
     filesS: [],
     activeSection: {},
     tagExists: false,
+    activeUser: null,
+    userStory: {},
     added: false,
     initialTags: false,
     initialTechnologies: false,
@@ -533,6 +733,7 @@ const initialState = {
     initialSections: false,
     initialFiles: false,
     iconLoaded: false,
+    location: null,
     errors: {nameError: false, technologiesError: false, timeBeginError: false, usersError: false, timeEndError: false},
     techIcon: {},
     contacts: {
@@ -556,8 +757,11 @@ const initialState = {
     predefinedUsers: [],
     predefinedTags: [],
     predefinedTechnologies: [],
-    predefinedConditions: []
+    predefinedConditions: [],
+    hideFile : 'visible',
+    hideForm : 'hidden',
+    hideFileScreenshoots : 'visible',
+    hideFormScreenshoots : 'hidden',
+    hideTechForm : 'hidden'
 
 };
-
-

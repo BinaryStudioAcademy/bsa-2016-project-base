@@ -25,9 +25,6 @@ class FeaturesTab extends Component {
 	}
 
 	removeChecked() {
-		//this.state.listCheckedFeatures = [];
-		//this.state.flagChecked = false;
-
 		this.setState({
 			listCheckedFeatures: [],
 			flagChecked: false
@@ -86,15 +83,5 @@ class FeaturesTab extends Component {
 		)
 	}
 }
-
-
-
-
-
-
-/*FeaturesTab.propTypes = {
- features: PropTypes.array.isRequired,
- addFuture: PropTypes.func.isRequired
- };*/
 
 export default FeaturesTab;

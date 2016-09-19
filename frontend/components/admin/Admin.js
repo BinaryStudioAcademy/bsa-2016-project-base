@@ -1,9 +1,6 @@
 /* general */
 import React from 'react';
 import { Link } from 'react-router';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { browserHistory } from 'react-router';
 
 /* styles */
 import styles from './admin.sass';
@@ -37,6 +34,11 @@ export default class Admin extends React.Component {
 	        				Tech
 	        			</Link>
 	        		</li>
+					<li key={4}>
+						<Link to="/admin/projects-delete/" activeClassName={styles["admin-nav-item-active"]}>
+							Projects
+						</Link>
+					</li>
 				</ul>
 				</div>
 	       		{this.props.children}

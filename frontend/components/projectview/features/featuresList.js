@@ -1,8 +1,7 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import styles from '../project-view.sass';
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow} from 'material-ui/Table';
 
-class FeaturesList extends React.Component {
+export default class FeaturesList extends React.Component {
 
     constructor(props){
         super(props);
@@ -10,23 +9,20 @@ class FeaturesList extends React.Component {
 
     render(){
 		return (
-			<Table>
-			    <TableHeader displaySelectAll={false}>
-			      <TableRow className={styles['features-list-header']}>
-			        <TableHeaderColumn>Name</TableHeaderColumn>
-			        <TableHeaderColumn>Date</TableHeaderColumn>
-			        <TableHeaderColumn>Section</TableHeaderColumn>
-			        <TableHeaderColumn width={100}>Order</TableHeaderColumn>
-			        <TableHeaderColumn width={120}>Nessesary</TableHeaderColumn>
-			        <TableHeaderColumn width={120}>Implemented</TableHeaderColumn>
-			      </TableRow>
-			    </TableHeader>
-			    <TableBody displayRowCheckbox={false}>
+			<div className={styles['featuresList-Container']}>
+				<header className={styles['featuresList-Header']}>
+                    <h2>Features</h2>
+                </header>
+				<div className={styles['featuresList-ContainerHeader']}>
+					<span>Name</span>
+					<span>Implemented</span>
+					<span>Section</span>
+					<span>Order</span>
+				</div>
+				<div className={styles['featuresList-Content']}>
 			    	{this.props.children}
-			    </TableBody>
-			</Table>
+			    </div>
+			</div>
 		);
 	}
 };
-
-export default FeaturesList;

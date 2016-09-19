@@ -192,6 +192,7 @@ class UpsertProject extends Component {
                 } 
             }
         };
+        console.log('project ',projectData);
         this.props.postProject(projectData);
         window.scrollTo(0, 0);
 	}

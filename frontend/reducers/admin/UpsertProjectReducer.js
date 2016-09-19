@@ -1,7 +1,6 @@
 import * as types from '../../actions/admin/UpsertProjectActionTypes';
 
-
-export default function UpsertProjectReducer(state=initialState, action) {
+export default function UpsertProjectReducer(state = initialState, action) {
 	switch (action.type) {
 		 case types.UP_GET_DATA_SUCCESS: {
             const {users, tags, technologies, conditions } = action.data;
@@ -32,7 +31,7 @@ export default function UpsertProjectReducer(state=initialState, action) {
                 status:{value:'Estimation', name:'Estimation'},
                 techIcon:{},
                 techIconError: '',
-                location: {Latitude: 49.844182, Longitude: 24.026997},
+                location: null,
                 description:{
                     descrFullText: ''
                 },
@@ -276,10 +275,10 @@ export default function UpsertProjectReducer(state=initialState, action) {
             });
         }
         case types.UP_REMOVE_FILE: {
-            const {name} = action;
+            const {file, index} = action;
             const {files} = state;
             return Object.assign({}, state, {
-                files: removeFile(files, name)
+                files: removeFile(files, file, index)
             });
         }
         case types.UP_REMOVE_NEW_TAG_FROM_PROJECT: {
@@ -537,9 +536,10 @@ const selectSection = (sections, _id) => {
     return null;
 }
 
-const removeFile = (files, name) => {
+const removeFile = (files, fileToRemove, fileIndex) => {
 	files.forEach( (file, index) => {
-		if (file.name === name) {
+		if (file.name === fileToRemove.name && 
+            file.target === fileToRemove.target && index === fileIndex ) {
 			files.splice(index, 1);
 		}
 	});
@@ -624,26 +624,6 @@ const changeOwnership = (users, _id, value) => {
 	return [].concat(users);
 }
 
-
-
-
-
-const feature = {
-        _id : "57a2631ab42bbf5a2daa9997",
-        featureName : "5184",
-        section : "57b9c2e4acd14b1840a00c5c",
-        featureOrder : "Necesary",
-        isNecessary : false,
-        created : "24/04/2015",
-        isImplemented : false,
-        childFeatures : "57a237d2fc13ae319e002654",
-        isItSubFeature : false,
-        descriptionText : "Description Sample Text",
-        descriptionHTMLText : "Description HTML Sample Text"
-}
-
-
-
 const initialState = {
     projectName:'',
     projectLink:'',
@@ -665,7 +645,7 @@ const initialState = {
     iconLoaded: false,
     techIcon: {},
     techIconError: '',
-    location: {Latitude: 49.844182, Longitude: 24.026997},
+    location: null,
     description:{
         descrFullText: ''
     },

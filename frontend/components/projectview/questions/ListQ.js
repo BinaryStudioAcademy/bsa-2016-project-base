@@ -19,6 +19,18 @@ class List extends Component {
         this.handleAddQ         = this.handleAddQ.bind(this);
     }
 
+    get canISee() {
+        let can = ( this.props.authUser['userRole'] == 'ADMIN' );
+        let owners = this.props.stateFromReducer.owners;
+        let userInfo = this.props.authUser.userInfo;
+
+        owners.forEach(function(item){
+            can = ( can || userInfo._id == item._id );
+        });
+
+        return can;
+    }
+
     handleHideA(i) { // свернуть/развернуть перечень ответов на i-ый вопрос, по умолчанию свернут
         this.props.showOrHideA(i);
     }
@@ -35,9 +47,10 @@ class List extends Component {
         let message = this.props.stateFromReducer.questionsOptions.newMess.newQ.textarea;
         let checked = this.props.stateFromReducer.questionsOptions.newMess.newQ.checkbox;
         if (message) {
+            var senderInfo = this.props.authUser.userInfo; // данные отправителя
             var newQuestion = {
                 question: {
-                    author: "57a262f6b42bbf5a2daa9900", //mock
+                    author: senderInfo._id,
                     text: message
                 },
                 answers: [],
@@ -45,7 +58,7 @@ class List extends Component {
             };
         }
         let id = this.props.stateFromReducer._id;
-        this.props.addingQ(id, newQuestion);
+        this.props.addingQ(id, newQuestion, senderInfo);
     }
 
     render() {
@@ -58,31 +71,35 @@ class List extends Component {
             <ul className={styles['outer-list']} >
                 {qCol.map(function(item, index){
                     return(
-                        <li key={index} >
-                            <CommentQ index={index}
-                                      handleHideA={this.handleHideA.bind(this,index)}
-                            />
-                            <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-                            {showA[index] ? <ListA index={index} /> : null}
-                            </ReactCSSTransitionGroup>
-                        </li>
+                        !item.isPrivate || ( item.isPrivate && ( this.canISee || item.question.author._id == this.props.authUser.userInfo._id ) ) ?
+                            <li key={index} >
+                                <CommentQ index={index}
+                                          handleHideA={this.handleHideA.bind(this,index)}
+                                />
+                                <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+                                {showA[index] ? <ListA index={index} /> : null}
+                                </ReactCSSTransitionGroup>
+                            </li>
+                        : null
                     );
                 },this)}
                 <li className={styles['comment-new']}>
                     <div className={styles['comment-new-wrap']} >
-                        <textarea rows="3"
+                        <textarea rows="6"
                                   placeholder={' Ask your question, please'}
                                   onChange={this.handleAddQTextarea}
                         />
-                        <div className={styles['comment-privacy-option']} >
-                            <input type="checkbox"
-                                   id="private-check"
-                                   onChange={this.handleAddQCheckBox}
-                            />
-                            <label htmlFor="private-check"> I want to sent this message as a private one</label>
+                        <div className={styles['comment-options-row']}>
+                            <div className={styles['comment-privacy-option']} >
+                                <input type="checkbox"
+                                       id="private-check"
+                                       onChange={this.handleAddQCheckBox}
+                                />
+                                <label htmlFor="private-check"> I want to sent this message as a private one</label>
+                            </div>
+                            <button onClick={this.handleAddQ} ><span>send</span></button>
                         </div>
                     </div>
-                    <button onClick={this.handleAddQ} ><span>send</span></button>
                 </li>
             </ul>
         )
@@ -94,7 +111,10 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-    return { stateFromReducer: state.ProjectViewReducer };
+    return {
+        stateFromReducer: state.ProjectViewReducer,
+        authUser: state.UserAuthReducer
+    };
 }
 
 const ListConnected = connect(mapStateToProps, mapDispatchToProps)(List);

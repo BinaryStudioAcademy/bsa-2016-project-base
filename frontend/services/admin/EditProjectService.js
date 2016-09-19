@@ -5,12 +5,13 @@ import * as constants from '../../constants/Api';
 
 class EditProjectService {
     getByAllData(projectId) {
-        return fetch(`${constants.URL}project/${projectId}/allData`,
+        return fetch(`${constants.URL}projects/${projectId}/allData`,
             constants.cookieMarker);
     }
 
     updateProjectService(project) {
-        return fetch(`${constants.URL}project/${project._id}/`,
+        //alert("AGA!!!");
+        return fetch(`${constants.URL}projects/${project.project._id}/`,
             Object.assign({
                     method: 'PUT',
                     body: JSON.stringify(project)
@@ -18,7 +19,22 @@ class EditProjectService {
                 constants.jsonHedeaders
             )
         );
+
     }
+
+    updateUsersProjectService(id, userHistory) {
+        //alert("AGA!!!");
+        return fetch(`${constants.URL}users/${id}/changeproject`,
+            Object.assign({
+                    method: 'PUT',
+                    body: JSON.stringify(userHistory)
+                }, constants.cookieMarker,
+                constants.jsonHedeaders
+            )
+        );
+
+    }
+
 }
 const editProjectService = new EditProjectService();
 export default editProjectService;

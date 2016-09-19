@@ -1,8 +1,8 @@
 var apiResponse = require('express-api-response');
 var usersRightsRepository = require('../repositories/usersRightsRepository');
 
-
 module.exports = function(app) {
+
 	app.get('/api/rights/', function (req,res,next) {
 		usersRightsRepository.getProjectList(function(err, data) {
 			res.data = data;
@@ -40,4 +40,5 @@ module.exports = function(app) {
 			next();
 		});
 	},apiResponse);
+
 }

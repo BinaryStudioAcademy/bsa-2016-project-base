@@ -1,36 +1,46 @@
 import * as types from '../constants/ProjectViewActionTypes';
 
-export default function ProjectViewReducer(state = {}, action) {
+const initialState = {
+    filters: {
+        features: [],
+        user: {
+            name: "",
+            right: ""
+        }
+    },
+    questionsOptions: {
+        showMess: {
+            showQ: true,
+            showA: []
+        },
+        newMess: {
+            newQ: {
+                textarea: '',
+                checkbox: false
+            },
+            newA: []
+        },
+        editMess: []
+    }
+}
+
+export default function ProjectViewReducer(state = initialState, action) {
     switch (action.type) {
         case types.PROJECT_VIEW_START_LOADING : 
-            return {
-                isLoading: true,
-                questionsOptions: {
-                    showMess: {
-                        showQ: true,
-                        showA: []
-                    },
-                    newMess: {
-                        newQ: {
-                            textarea: '',
-                            checkbox: false
-                        },
-                        newA: []
-                    },
-                    editMess: []
-                }
-            };
+            return Object.assign({
+                isLoading: true,   
+            },state);
+
         case types.PROJECT_VIEW_END_LOADING: 
-            return Object.assign({},
-                state,
+            return Object.assign({},state,
                 { isLoading: false },
-                action.projectData
+                action['project']
             );
+
         case types.PROJECT_VIEW_ERROR_LOADING: 
-            return Object.assign({},
-                state,
+            return Object.assign({},state,
                 { isLoading: false },
-                action.error
+                action['error']
             );
 
         case types.SHOW_OR_HIDE_Q:
@@ -70,7 +80,9 @@ export default function ProjectViewReducer(state = {}, action) {
         case types.ADDING_Q_SUCCESS:
 
             var questions = state.questions;
-            questions.push(action.newQuestion);
+            var newQ = action.newQuestion;
+            newQ.question.author = action.senderInfo;
+            questions.push(newQ);
 
             return { ...state, questions: questions };
 
@@ -84,7 +96,9 @@ export default function ProjectViewReducer(state = {}, action) {
         case types.ADDING_A_SUCCESS:
 
             var questions = state.questions;
-            questions[action.num].answers.push(action.newAnswer);
+            var newA = action.newAnswer;
+            newA.author = action.senderInfo;
+            questions[action.num].answers.push(newA);
 
             return { ...state, questions: questions };
 

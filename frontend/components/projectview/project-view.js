@@ -8,24 +8,27 @@ import { bindActionCreators, combineReducers} from 'redux';
 import * as actions from '../../actions/ProjectViewActions';
 
 /* developers components */
+import Description from './description/description';
 import TagsList from './tags/tagsList';
 import Gallery from './gallery/gallery';
 import UsersList from './users/usersList';
+import Attachment from "./attachment/View";
 import Questions from './questions/Questions';
 import TagsListItem from './tags/tagsListItem';
+import UsersListItem from './users/usersListItem';
 import FeaturesList from './features/featuresList';
+import SimilarProjects from "./similarProjects/View";
 import FeaturesListItem from './features/featuresListItem';
 import TechnologiesList from './technologies/technologiesList';
 import TechnologiesListItem from './technologies/technologiesListItem';
 import UsersTimeLine from './usersTimeLine/UsersTimeLine';
 import EstimationFile from "./estimationFile/EstimationFileReceiverComponentWithLinkField";
-import SimilarProjects from "./similarProjects/View"
-import Attachment from "./attachment/View"
 import Location from './location/Location';
 /* icons */
 import FaPlus from 'react-icons/lib/fa/plus';
 import FaList from 'react-icons/lib/fa/list';
 import FaMinus from 'react-icons/lib/fa/minus'; 
+import FaPaperclip from 'react-icons/lib/fa/paperclip';
 
 import ActionUndo from 'material-ui/svg-icons/content/undo';
 import ActionInfo from 'material-ui/svg-icons/action/info';
@@ -38,36 +41,7 @@ import ContentDrafts from 'material-ui/svg-icons/content/drafts';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 /* material-ui components */
-import Slider from 'material-ui/Slider';
-import Divider from 'material-ui/Divider';
-import {Tabs, Tab} from 'material-ui/Tabs';
-import {List, ListItem} from 'material-ui/List';
-import RaisedButtonUI from '../common/RaisedButton-ui';
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, averageRating} from 'material-ui/Table';
-import {Link} from 'react-router'
-
-const tabsStyles = {
-  headline: {
-        fontSize: 24,
-        paddingTop: 16,
-        marginBottom: 12,
-        fontWeight: 400
-    },
-    tabItemContainerStyle: {
-        backgroundColor: "#8D97A4"
-    },
-
-    tabBlock: {
-        marginTop: 20
-    },
-    inkBarStyle: {
-        backgroundColor: "#2ecc71"
-    }
-};
-
-function handleActive(tab) {
-	alert(`A tab with this route property ${tab.props['data-route']} was activated.`);
-}
+import {Link} from 'react-router';
 
 class ProjectView extends Component {
 
@@ -83,139 +57,166 @@ class ProjectView extends Component {
         }
     }
 
-    loadProject(props) {
-        var projectId = (props||this.props)['routeParams'].id;
-
-        if (!this.currentProjectId || this.currentProjectId !== projectId) {
-            this.currentProjectId = projectId;
-            this.props.getProject(projectId);
-        }
-    }
-
     componentWillMount() {
-        this.loadProject()
+        this.props.getProject(
+            this.props['routeParams'].id,
+            this.props['project'].filters
+        );
     }
 
-    componentWillReceiveProps(props) {
-        this.loadProject(props)
+    getAvgRating(rating) {
+        let ranking = 0;
+        if(rating.length){
+            rating.forEach((item) =>{ ranking += item.value; });
+            return Math.round(ranking/rating.length);
+        }
+        return ranking;
     }
+
     render() {
-    	let tags = [], technologies=[], features=[];
-    	const projectDetail = this.props['project'],
-    		  name = (projectDetail['projectName'] ? projectDetail['projectName'] : this.state['undefinedText']),
-    		  description = (projectDetail['description'] ? projectDetail.description['descrFullText'] : this.state['undefinedText']);
-		
-		for(var i in projectDetail.tags) tags.push(<TagsListItem name={projectDetail.tags[i].tagName} key={i} />);
-		for(var i in projectDetail.technologies) technologies.push(<TechnologiesListItem key={i} data={projectDetail.technologies[i]} />);
-  		for(var i in projectDetail.features) features.push(<FeaturesListItem key={i} data={projectDetail.features[i]} />);
+        let featuresItems = [], usersItems = [],tagsItems = [], technologiesItems = [];
+        
+        const projectDetail = this.props['project'],
+            currentFeature = projectDetail['filters'].feature,
+            locationData = (projectDetail['location'] ? {
+                contacts: projectDetail.contacts,
+                location: {
+                    lat: +projectDetail['location'].Latitude,
+                    lng: +projectDetail['location'].Longitude
+                }
+            }:{
+                contacts:{},
+                location:{ lat: 0 , lng: 0}
+            }), name = (projectDetail['projectName'] ? projectDetail['projectName'] : this.state['undefinedText']),
+            description = (projectDetail['description'] ? projectDetail.description['descrFullText'] : this.state['undefinedText']),
+            rating = (projectDetail.rating ? this.getAvgRating(projectDetail['rating']) : this.state['undefinedText']);
+   
+        if(projectDetail['tags']) projectDetail['tags'].forEach((item,index)=>{
+            tagsItems.push(<TagsListItem name={item.tagName} key={index} />);
+        });
+
+        if(projectDetail['technologies']) projectDetail['technologies'].forEach((item,index)=>{
+            technologiesItems.push(<TechnologiesListItem key={index} data={item} />);
+        });
+
+        if(projectDetail['features']) projectDetail['features'].forEach((item,index)=>{ 
+            let options = {
+                key: index,
+                data: item,
+                onClick: ()=>{
+                    let tempFilters = Object.assign({},projectDetail['filters']),flag = true;
+                    if(currentFeature == item._id){
+                        tempFilters['features'] = [];
+                        flag = false;
+                    }
+                    if(currentFeature == item._id){
+                        tempFilters['features'] = new Array();
+                        flag = false;
+                    }
+                    if(flag){
+                        let index = projectDetail['features'].findIndex(el => el._id == item._id),
+                            children = projectDetail.features[index].childFeatures;
+                        if(!children.length) return;
+                        tempFilters['features'] = [item._id];
+                        children.forEach((item)=>{ tempFilters['features'].push(item._id); });
+                    }
+                    console.log(tempFilters['features']);
+                    this.props.getProject(this.props['routeParams'].id,tempFilters);
+                }
+            };
+            if(currentFeature == item._id) options['className'] = "featureItem-Main";
+            featuresItems.push(React.createElement(FeaturesListItem,options));
+        });
+      
+        if(projectDetail['users']) projectDetail['users'].forEach((item,index)=>{
+            if(typeof item != 'object') return;
+            usersItems.push(<UsersListItem key={index+item._id} data={item} marker={"users"}/>);
+        }); 
+
+        if(projectDetail['owners']) projectDetail['owners'].forEach((item,index)=>{
+            if(typeof item != 'object') return;
+            usersItems.push(<UsersListItem key={index+item._id} data={item} marker={"owners"}/>);
+        }); 
+
     	return (
             <div id={styles["project-view-content"]}>
-            	<div className={styles['project-view-navigation']}>
-	            	<div>
-	        			<MuiThemeProvider >
-	        				<ActionUndo size={13} className={styles['redirect-to-list']} />
-	        			</MuiThemeProvider >
-	        			<label>
-	        				<Link to={'/home/'}>
-	        					Back to projects list
-	        				</Link>
-	        			</label>
-	        		</div>
-	        		<div>
-	        			<MuiThemeProvider >
-	        				<ActionBuild size={10} className={styles['redirect-to-list']} />
-	        			</MuiThemeProvider >
-	        			<label>
-	        				<Link to={'/edit-project/' + projectDetail['_id']}>
-	        					Edit
-	        				</Link>
-	        			</label>
-	        		</div>
-            	</div>	
-				<div className={styles['projectMain']}>
-					<div className={styles['project-view-firstPart']}>
-						<span className={styles['project-name']}>{name}</span>
-						<TagsList>{tags}</TagsList>
-						<div className={styles['project-description']} 
-						dangerouslySetInnerHTML={{__html: description}}  />
-						<TechnologiesList>{technologies}</TechnologiesList>
-						<MuiThemeProvider >
-							<Tabs tabItemContainerStyle={tabsStyles.tabItemContainerStyle} contentContainerStyle={tabsStyles.tabBlock} inkBarStyle={tabsStyles.inkBarStyle}>
-								<Tab label="General">
-									<Table  selectable={false} multiSelectable={false}>
-										<TableBody displayRowCheckbox={false}>
-											<TableRow>
-												<TableRowColumn>Status</TableRowColumn>
-												<TableRowColumn>
-													{ projectDetail['status'] ? projectDetail['status'] : this.state.undefinedText }
-												</TableRowColumn>
-											</TableRow>
-											<TableRow>
-												<TableRowColumn>Started</TableRowColumn>
-												<TableRowColumn>{ 
-													projectDetail['timeBegin'] ? (new Date(projectDetail['timeBegin'])
-													.toLocaleString("en-US",this.state.timeOptions)) : this.state.undefinedText
-												}</TableRowColumn>
-											</TableRow>
-											<TableRow>
-												<TableRowColumn>Completed</TableRowColumn>
-												<TableRowColumn>
-													{ projectDetail['isCompleted'] ? <FaPlus />: <FaMinus /> }
-												</TableRowColumn>
-											</TableRow>
-					                        <TableRow>
-					                            <TableRowColumn>Average Rating</TableRowColumn>
-												<TableRowColumn>{ 
-													projectDetail['timeEnd'] ? (new Date(projectDetail['timeEnd'])
-													.toLocaleString("en-US",this.state.timeOptions)) : ""
-												}</TableRowColumn>
-					                        </TableRow>
-										</TableBody>
-									</Table>
-								</Tab>
-								<Tab label="Users">
-									<UsersList />
-									<UsersTimeLine />
-								</Tab>
-								<Tab label="Features">
-									<FeaturesList>{features}</FeaturesList>
-								</Tab>
-								<Tab label="Screenshots" >
-									<Gallery data={projectDetail['screenShots']} />
-								</Tab>
-								<Tab label="Location">
-									<Location location={projectDetail['location']} />
-								</Tab>
-								<Tab label="Attachment">
-									<Attachment project={this.props.project}/>
-								</Tab>
-								<Tab label="Questions" >
-				 					<Questions id="q-and-a" />
-						        </Tab>
-							</Tabs>
-						</MuiThemeProvider>
-					</div>
-				</div>
-                <SimilarProjects project={this.props.project}/>
-				<div className={styles['button-redirect-container']}>
-		    		<RaisedButtonUI
-		    			href="/"
-		    			label="Back to Project List"
-		    			icon={<ActionUndo  style={{size:14}}/>}
-		    			style={{width: '75%'}}
-		    		/>
-	    		</div>
-			</div>
+                <div className={styles['projectMain-Navigation']}>
+                    <div>
+                        <MuiThemeProvider>
+                            <ActionUndo size={13} className={styles['redirect-to-list']} />
+                        </MuiThemeProvider>
+                        <label>
+                            <Link to={'/home/'}>Back to projects list</Link>
+                        </label>
+                    </div>
+                    <div>
+                        <MuiThemeProvider>
+                            <ActionBuild size={10} className={styles['redirect-to-list']} />
+                        </MuiThemeProvider>
+                        <label>
+                            <Link to={'/edit-project/' + projectDetail['_id']}>Edit</Link>
+                        </label>
+                    </div>
+                </div>
+                <div className={styles['projectMain-firstRow']}>
+                    <div className={styles["descrpition-row"]}>
+
+                        <Description
+                            name={name}
+                            tagsItems={tagsItems}
+                            description={description}
+                            projectDetail={projectDetail}
+                            undefinedText={this.state.undefinedText}
+                            timeOptions={this.state.timeOptions}
+                            rating={rating}
+                            technologiesItems={technologiesItems}
+                        />
+
+                        <div className={styles['screenshots-attachments-container']}>
+                            <div className={styles['screenshots-block-inner']}>
+                                <header className={styles['screenshots-block-header']}>
+                                    <h4>Screenshots</h4>
+                                </header>
+                                <Gallery data={projectDetail['screenShots']} />
+                            </div>
+                            
+                            <div className={styles['attachments-block']}>
+                                 <header className={styles['screenshots-block-header']}>
+                                    <div className={styles['attach-icon']}>
+                                        <FaPaperclip size={19}/>
+                                    </div>
+                                    <h4>Attachments</h4>
+                                </header>
+                                <Attachment project={this.props.project}/>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div className={styles['projectMain-secondRow']}>
+                    <UsersList>{usersItems}</UsersList>
+                    <UsersTimeLine className={styles['userTimeLines-Container']}/>
+                  </div>
+                <div className={styles['projectMain-thirdRow']}>
+                    <Location data={locationData} />
+                    <FeaturesList>{featuresItems}</FeaturesList>
+                </div>
+                <div className={styles['projectMain-qa-row']}>
+                    <Questions id="q-and-a" />
+                </div> 
+                
+            </div>  
         )
     }
-}
-
+}       
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(actions, dispatch);
 }
 
 function mapStateToProps(state) {
-    return { project: state['ProjectViewReducer'] };
+    return { 
+    	project: state['ProjectViewReducer'] 
+    };
 }
 
 const ProjectViewConnected = connect(mapStateToProps, mapDispatchToProps)(ProjectView);

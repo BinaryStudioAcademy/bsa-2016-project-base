@@ -1,5 +1,5 @@
 var async = require('async');
-var htmlToText = require('html-to-text');
+var striptags = require('striptags');
 var userRepository = require('../repositories/userRepository');
 var projectRepository = require('../repositories/projectRepository');
 
@@ -9,12 +9,7 @@ module.exports = function(req,onResult) {
             var project = req.body.project;
             var html = project.description.descrFullText;
             project.description = {
-                descrText: htmlToText.fromString(html, {
-                    wordwrap: 130,
-                    ignoreHref: true,
-                    ignoreImage: true,
-                    preserveNewlines: true
-                }),
+                descrText: striptags(html,['img']).replace(/<img[^>]*>/g," "),
                 descrFullText: html
             };
 

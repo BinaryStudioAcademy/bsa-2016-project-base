@@ -80,7 +80,7 @@
     "redux-thunk": "^2.1.0",
     "request": "latest",
     "semantic-ui-accordion": "^2.2.3",
-    "cookie": "latest"
+    "striptags": "^2.1.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.7",

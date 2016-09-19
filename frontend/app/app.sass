@@ -42,11 +42,9 @@ body::-webkit-scrollbar-thumb
     .row
         display: flex
         width: 100%;
-        justify-content: flex-start
-        flex-flow: row wrap
+        min-height: 100%
 
         +forSmallScreens(768)
-            flex-flow: column
             height: auto
 
 // Main Container (right side)
@@ -254,9 +252,9 @@ body::-webkit-scrollbar-thumb
         padding: 5px
         margin: 5px 0px
         font-size: 16px
-        border-bottom: 3px solid cadetBlue
-
         transition: color 1s
+        text-decoration: none  
+        border-bottom: 3px solid cadetBlue
         transition: border-bottom-color 0.5s
 
         &:hover

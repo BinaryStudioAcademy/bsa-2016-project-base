@@ -9,15 +9,16 @@ class ProjectViewService {
 		this.url = constants.URL + "project-view/";
 	}
 
-	getProject(projectId) {
-		console.log(this.url + projectId);
-		return fetch(this.url + projectId,constants.cookieMarker);
+	getProject(projectId,filters) {
+		let query = `${this.url}projectId=${projectId}`;
+		if(filters['user'].right) query += `&userRight=${filters['user'].right}`;
+		if(filters['user'].name) query += `&userName=${filters['user'].name}`;
+		if(filters['features'].length) query += `&featureIds=${filters['features'].join(',')}`;
+		return fetch(query,constants.cookieMarker);
 	}
 
 	addingQ(projectId, newQuestion) {
-		console.log(this.url + projectId + "/questions");
-		return fetch(
-			this.url + projectId + "/questions",
+		return fetch(this.url + projectId + "/questions",
 			Object.assign({
 					method: 'POST',
 					body: JSON.stringify(newQuestion)
@@ -29,7 +30,6 @@ class ProjectViewService {
 	}
 
 	addingA(projectId, newAnswer, qId) {
-		console.log(this.url + projectId + "/questions/" + qId + "/answers");
 		return fetch(
 			this.url + projectId + "/questions/" + qId + "/answers",
 			Object.assign({
@@ -43,7 +43,6 @@ class ProjectViewService {
 	}
 
 	removingQ(projectId, questionId) {
-		console.log(this.url + projectId + "/questions/" + questionId);
 		return fetch(
 			this.url + projectId + "/questions/" + questionId,
 			Object.assign({
@@ -56,12 +55,9 @@ class ProjectViewService {
 	}
 
 	removingA(projectId, questionId, answerId) {
-		console.log(this.url + projectId + "/questions/" + questionId + "/answers/" + answerId);
 		return fetch(
 			this.url + projectId + "/questions/" + questionId + "/answers/" + answerId,
-			Object.assign({
-					method: 'DELETE'
-				},
+			Object.assign({ method: 'DELETE' },
 				constants.cookieMarker,
 				constants.jsonHedeaders
 			)
@@ -69,16 +65,14 @@ class ProjectViewService {
 	}
 
 	sendingEditedQ(projectId, questionId, message, checked) {
-		console.log(this.url + projectId + "/questions/" + questionId);
-		var body = {
-			message: message,
-			isChecked: checked
-		};
 		return fetch(
 			this.url + projectId + "/questions/" + questionId,
 			Object.assign({
 					method: 'PUT',
-					body: JSON.stringify(body)
+					body: JSON.stringify({
+						message: message,
+						isChecked: checked
+					})
 				},
 				constants.cookieMarker,
 				constants.jsonHedeaders
@@ -87,16 +81,14 @@ class ProjectViewService {
 	}
 
 	sendingEditedA(projectId, questionId, numA, answerId, message) {
-		console.log(this.url + projectId + "/questions/" + questionId + "/answers/" + answerId);
-		var body = {
-			numA: numA,
-			message: message
-		};
 		return fetch(
 			this.url + projectId + "/questions/" + questionId + "/answers/" + answerId,
 			Object.assign({
 					method: 'PUT',
-					body: JSON.stringify(body)
+					body: JSON.stringify({
+						numA: numA,
+						message: message
+					})
 				},
 				constants.cookieMarker,
 				constants.jsonHedeaders

@@ -26,8 +26,8 @@ class RightsUsersListItem extends React.Component {
  		let item = this['props'].usersRights['current'].users[this.props['data-id']];
  		return (<div>
  			<div className={styles['image-Container']}>
- 				<img src={this.state.defaultImage
-                    /*(item.avatar ? item.avatar : this.state.defaultImage)*/
+ 				<img src={
+                    (item.avatar ? item.avatar : this.state.defaultImage)
                 } />
  			</div>
  			<div className={styles['description-Container']}>

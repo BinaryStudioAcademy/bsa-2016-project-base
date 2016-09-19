@@ -4,6 +4,16 @@
   display: flex
   flex-direction: column
 
+  .visible
+    display: block
+    opacity: 1
+    transition: opacity 2s linear
+
+  .hidden
+    display: none !important
+    opacity: 0
+    transition: visibility 0s 2s, opacity 2s linear !important
+
   .row
     display: flex
     justify-content: space-between
@@ -95,3 +105,22 @@
       margin-top: 15px
     textarea
       width: 100%
+      resize: vertical
+
+  .btn-upload
+    margin-left: 5px
+
+  .file-input
+    cursor: pointer
+    position: absolute
+    top: 0
+    bottom: 0
+    right: 0
+    left: 0
+    width: 100%
+    opacity: 0
+
+  .change-mode
+    float: right;
+    margin-bottom: 1rem
+    margin-right: 2rem

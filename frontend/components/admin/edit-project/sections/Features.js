@@ -52,7 +52,7 @@ class Features extends Component {
         let featuresToDelete = [];
         let featuresToStay = [];
         features.forEach(function (el,indx) {
-            if(el.section === id){
+            if(el.section._id === id){
                 featuresToDelete.push(el);
             }else{
                 featuresToStay.push(el);

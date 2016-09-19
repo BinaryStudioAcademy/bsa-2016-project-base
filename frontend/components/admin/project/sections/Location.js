@@ -12,7 +12,6 @@ class Location extends Component {
         this.setLocation = this.setLocation.bind(this);
     }
     setLocation(position) {
-       
         this.props.setLocation({
             Latitude: position.lat(),
             Longitude: position.lng()
@@ -51,17 +50,7 @@ class Location extends Component {
         let that = this;
 
         google.maps.event.addListener(this.map, 'click', function(e) {
-            const position =  e.latLng;
-
-            /*that.marker.setMap(null);
-            that.marker = new google.maps.Marker({
-                position,
-                map: that.map
-            });
-            
-            that.map.panTo(position);*/
-
-            that.setLocation(position);
+            that.setLocation(e.latLng);
         });
 
     }

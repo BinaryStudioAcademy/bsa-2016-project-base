@@ -36,8 +36,8 @@ class Screenshots extends Component {
         }
     }
 
-    removeFile(e, name) {
-        this.props.removeFile(name);
+    removeFile(e, file, index) {
+        this.props.removeFile(file, index);
     }
 
     setVisibleLinkForm() {
@@ -82,6 +82,7 @@ class Screenshots extends Component {
                     <File
                         key={index}
                         file={file}
+                        index={index}
                         onClick={this.removeFile}
                     />
                 );

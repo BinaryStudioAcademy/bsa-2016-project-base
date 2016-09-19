@@ -19,17 +19,19 @@ var Project = new Schema({
         Latitude: String,
         Longitude: String
     },
+
     description: {
         date: {type: Date, default: Date.now},
-        descrText: String,
+        descrText: String,  //? we haven`t use this field
         descrFullText: String
     },
+
     screenShots: [String],
 
     attachments: [{
-            name: String,
-            date: {type: Date, default: Date.now},
-            link: String
+        name: String,
+        date: {type: Date, default: Date.now},
+        link: String
     }],
 
     timeBegin:{type: Date, default: Date.now, required: 'This field is required'},
@@ -37,11 +39,7 @@ var Project = new Schema({
     timeEnd: Date,
 
     tags: [{type: Schema.Types.ObjectId, ref: 'Tag'}],
-
-    // stage: {type: Schema.Types.ObjectId, ref: 'Stage'},
-
-    // condition: {type: Schema.Types.ObjectId, ref: 'Condition'},
-
+    
     status: {type: String, enum: ['Estimation', 'InProgress', 'Completed']},
 
     questions:[{
@@ -59,7 +57,7 @@ var Project = new Schema({
     rating: [{
         value: Number,
         date: {type: Date, default: Date.now},
-        description: String
+        description: String //? we haven`t use this field
     }],
 
     features: [{type: Schema.Types.ObjectId, ref: 'Feature'}],
@@ -67,13 +65,8 @@ var Project = new Schema({
     contacts: {
         countryCode: String,
         countryName: String,
-        postalIndex: String,
-        state_region: String,
-        city: String,
-        street: String,
-        building: String,
-        appartment: String,
         contactPerson: String,
+        city: String,
         phone: String,
         email: String,
         skype: String
@@ -84,26 +77,26 @@ var Project = new Schema({
 
 // Custom validators for checking array-fields are empty or not
 Project.path('users').validate(function(users){
-    if(users.length === 0){return false}
+    if(users.length === 0) return false;
     return true;
 }, 'You must add user and owner');
 
 Project.path('owners').validate(function(owners){
-    if(owners.length === 0){return false}
+    if(owners.length === 0) return false;
     return true;
 }, 'You must add user and owner');
 
 Project.path('technologies').validate(function(technologies){
-    if(technologies.length === 0){return false}
+    if(technologies.length === 0) return false;
     return true;
 }, 'You must add a technology');
 
 Project.path("timeBegin").validate(function(begin){
-    return !this.timeEnd || this.timeEnd.getTime() > begin.getTime()
+    return (!this.timeEnd || this.timeEnd.getTime() > begin.getTime());
 }, "Start date must be lower then end");
 
 Project.path("projectName").validate(function(value){
-    return value.length < 40
+    return (value.length < 40);
 }, "Project name must be shorter then 40 symbols");
 
 module.exports = mongoose.model('Project', Project);

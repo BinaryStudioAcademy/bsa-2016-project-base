@@ -1,12 +1,13 @@
- var apiResponse = require('express-api-response');
-var multer = require('multer');
-var upload = multer({dest: 'upload/resources/tech/'});
 var fs = require('fs');
 var path = require('path');
-var technologieRepository = require('../repositories/technologyRepository');
+var multer = require('multer');
+var apiResponse = require('express-api-response');
+var upload = multer({dest: 'upload/resources/tech/'});
 var searchService = require('../service/search-service');
+var technologieRepository = require('../repositories/technologyRepository');
 
 module.exports = function (app) {
+
     app.get('/api/technologies/:id', function (req, res, next) {
         technologieRepository.getById(req.params.id, function (err, data) {
             res.data = data;
@@ -30,13 +31,6 @@ module.exports = function (app) {
             next();
         });
     }, apiResponse);
-
-    // app.post('/api/file/', function(req, res, next) {
-    //     uploadMedia(req, function(data){
-    //         res.data = data;
-    //         next();
-    //     });
-    // },apiResponse);
 
     app.post('/api/file/', upload.single('afile'), function (req, res, next) {
         if (req.file.mimetype.indexOf('image/') === 0) {
@@ -85,11 +79,9 @@ module.exports = function (app) {
     }, apiResponse);
 
     app.get('/api/search/techs', function (req, res, next) {
-        console.log('GET request on "/api/search/tech" acquired.');
         searchService.getFilteredTechs(req, function (err, data) {
             res.data = data;
             res.err = err;
-            //res.json(data);
             next();
         });
     }, apiResponse);

@@ -1,6 +1,6 @@
+import {toastr} from 'react-redux-toastr';
 import * as types from '../../constants/UsersRightsActionTypes';
 import usersRightsService from '../../services/admin/UsersRightsService';
-import {toastr} from 'react-redux-toastr';
 
 var concatUsers = function(data){
     let users = {},concat = function(marker,flag){
@@ -40,6 +40,7 @@ export function fetchUsers(projectId,nameFilter,usersRight) {
             });    
     };
 }
+
 export function fetchProjectsList(onLoadUsersByFirstPage){
     return (dispatch) => {
         dispatch({ type: types.PROJECTS_LIST_START_LOADING });
@@ -69,6 +70,7 @@ export function fetchProjectsList(onLoadUsersByFirstPage){
             });
     };
 }
+
 export function updateUserRight(key,value){
     return {
         type: types.UPDATE_USER_RIGHT,
@@ -76,6 +78,7 @@ export function updateUserRight(key,value){
         value: value 
     }
 }
+
 export function saveProjectUsers(projectId,data){
     return (dispatch) => {
         let request = {
@@ -84,22 +87,23 @@ export function saveProjectUsers(projectId,data){
             simples:new Array()
         };
 
-        for(var i in data['users']){
-            if(data.users[i].isOwner) request['owners'].push(i);
-            else request['simples'].push(i);   
-        }
+        for(let i in data['users']) request[(data.users[i] ? 'owners' : 'simples')].push(i); 
             
         return usersRightsService.saveProjectUsers(projectId,request)
             .then(response => response.json())
             .then(data =>{
-                toastr.success(`Successfully updated`, {
-                    timeOut: 10000
-                });
-                dispatch ({ type: types.SAVE_PROJECT_USERS });
+                toastr.success(`Successfully updated`, { timeOut: 10000 });
+                usersRightsService.getProjectUsers(projectId)
+                    .then(responseCurrent => responseCurrent.json())
+                    .then(current =>{
+                        current['users'] = concatUsers(current['users']);
+                        dispatch({
+                            type: types.SAVE_PROJECT_USERS,
+                            current:current
+                        });
+                    });
             }).catch( error => {
-                toastr.error(`Error while updating`, {
-                    timeOut: 10000
-                });
+                toastr.error(`Error while updating`, { timeOut: 10000 });
                 dispatch({
                     type: types.SAVE_PROJECT_USERS_ERROR,
                     error

@@ -36,6 +36,7 @@ class TechnologieService {
                 constants.jsonHedeaders
             ))
     }
+    
     saveTechnology(technology) {
         return fetch(this.url, Object.assign({
                 method: 'POST',

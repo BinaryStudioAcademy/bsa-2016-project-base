@@ -8,7 +8,7 @@ class TagsListItem extends React.Component {
     }
     
     render(){
-		return (<span>{this.props['name']}</span>);
+		return (<span>#{this.props['name']}</span>);
 	}
 };
 

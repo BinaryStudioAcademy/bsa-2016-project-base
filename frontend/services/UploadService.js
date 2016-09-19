@@ -61,6 +61,5 @@ class UploadService {
     }
 }
 
-
 const uploadService = new UploadService();
 export default uploadService;

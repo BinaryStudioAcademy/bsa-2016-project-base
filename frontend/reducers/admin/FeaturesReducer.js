@@ -13,22 +13,18 @@ export default function FeaturesReducer(state = initialState, action) {
             const {listCheckedSections} = action;
             return Object.assign({}, state, {listCheckedSections: listCheckedSections})
         }
-
         case 'CHANGE_VISIBILITY_FORM': {
             const {visibilityForm} = action;
             return Object.assign({}, state, {visibilityForm: visibilityForm});
-    }
-
+        }
         case 'FILTER_FEATURES': {
             const {filter} = action;
             return Object.assign({}, state, {filter: filter});
         }
-
         case 'MARKED_ALL_FEATURES': {
             const {listCheckedFeatures, flagChecked} = action;
             return Object.assign({}, state, {listCheckedFeatures: listCheckedFeatures}, {flagChecked: flagChecked});
         }
-
         case 'ADD_CHECKED_FEATURE' : {
             const {listCheckedFeatures} = action;
             return Object.assign({}, state, {listCheckedFeatures: listCheckedFeatures})
@@ -56,7 +52,6 @@ export default function FeaturesReducer(state = initialState, action) {
             return Object.assign({}, state, {features: features.concat(newFeature)});
         case 'REMOVE_SELECTED_FEATURES':
             return Object.assign({}, state, {listCheckedFeatures: []});
-        default:
-            return state;
+        default: return state;
     }
 };

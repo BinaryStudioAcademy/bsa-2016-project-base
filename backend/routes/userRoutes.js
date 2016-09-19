@@ -1,8 +1,9 @@
 var apiResponse = require('express-api-response');
-var userRepository = require('../repositories/userRepository');
 var searchService = require('../service/search-service');
+var userRepository = require('../repositories/userRepository');
 
 module.exports = function(app) {
+
 	app.get('/api/users/:id', function(req, res, next) {
 		userRepository.getById(req.params.id, function(err, data) {
 			res.data = data;
@@ -23,7 +24,6 @@ module.exports = function(app) {
 		userRepository.addinProgressProject(req.params.id, req.body, function(err, data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -32,7 +32,6 @@ module.exports = function(app) {
 		userRepository.addCompletedProject(req.params.id, req.body, function(err, data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -41,7 +40,6 @@ module.exports = function(app) {
 		userRepository.changeProject(req.params.id, req.body, function(err, data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -72,11 +70,17 @@ module.exports = function(app) {
 	}, apiResponse);
 
 	app.get('/api/search/users', function (req, res, next) {
-		console.log('GET request on "/api/search/users" acquired.');
 		searchService.getFilteredUsers(req, function (err, data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
+			next();
+		});
+	}, apiResponse);
+
+	app.get('/api/user/:uid', function (req, res, next) {
+		userRepository.getAuthUser(req.params.uid, function(err,data) {
+			res.data = data;
+			res.err = err;
 			next();
 		});
 	}, apiResponse);
