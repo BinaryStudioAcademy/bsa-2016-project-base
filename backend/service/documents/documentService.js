@@ -23,16 +23,7 @@ class DocumentService {
         callback(null, url);
     }
     getData(query, callback) {
-        if (!query.projectId && !query.estimation){
-            callback(null, query);
-        }else{
-            projectRepo.update(query.projectId,{estimation: query.estimation}, function(err){
-                if (err){
-                    console.log("ERROR WHILE UPDATE ESTIMATION", err)
-                }
-            })
-            callback(null, query.estimation);
-        }
+        callback(null, query);
 
         // callback(null, [
         //      [
