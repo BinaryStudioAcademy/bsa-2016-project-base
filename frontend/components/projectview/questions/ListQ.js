@@ -67,6 +67,9 @@ class List extends Component {
         let qOps = this.props.stateFromReducer.questionsOptions; // вспомогательные переменные раздела вопросов
         let showA = qOps.showMess.showA;                         // вспомогательный массив, содержит булевую инфо о развернутости перечней ответов
 
+        let commentText = qOps.newMess.newQ.textarea;
+        let isChecked = qOps.newMess.newQ.checkbox;
+
         return(
             <ul className={styles['outer-list']} >
                 {qCol.map(function(item, index){
@@ -87,12 +90,14 @@ class List extends Component {
                     <div className={styles['comment-new-wrap']} >
                         <textarea rows="6"
                                   placeholder={' Ask your question, please'}
+                                  value={commentText}
                                   onChange={this.handleAddQTextarea}
                         />
                         <div className={styles['comment-options-row']}>
                             <div className={styles['comment-privacy-option']} >
                                 <input type="checkbox"
                                        id="private-check"
+                                       checked={isChecked}
                                        onChange={this.handleAddQCheckBox}
                                 />
                                 <label htmlFor="private-check"> I want to sent this message as a private one</label>
