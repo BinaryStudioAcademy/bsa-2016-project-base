@@ -8,6 +8,7 @@ export default class HomeContainer extends Updatable {
         this.goSearch = this.goSearch.bind(this)
         this.searchContainer.goSearch = this.goSearch;
         this.searchContainer.homeContainer = this;
+        this.shouldRefreshOnAppearence = false
         this.pagination = {
             activePage: 0,
             total: 0,

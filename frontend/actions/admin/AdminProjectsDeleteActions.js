@@ -5,6 +5,7 @@ import async from 'async';
 import * as types from './AdminProjectsDeleteActionsTypes';
 import ProjectService  from '../../services/homeService';
 
+import {refreshProjectList} from "./../../components/home/models/HomeInitialState"
 
 export function getAllProjectsDelete() {
 
@@ -34,7 +35,8 @@ export function deleteProject(id,projects) {
                         dispatch(initProjects([]));
                     });
                 if(result){
-                        callback(null);
+                    callback(null);
+                    refreshProjectList()
                 }
             }
         ],function (err,result) {

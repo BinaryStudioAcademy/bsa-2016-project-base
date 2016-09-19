@@ -43,5 +43,5 @@ export default function (that) {
 };
 
 export function refreshProjectList(){
-    state.model.goSearch()
+    state.model.shouldRefreshOnAppearence = true
 }
