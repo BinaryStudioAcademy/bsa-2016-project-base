@@ -72,7 +72,7 @@ body::-webkit-scrollbar-thumb
                 justify-content: space-between
                 font-family: 'Lato', sans-serif
                 border-bottom: 1px solid #CED1D6
-                padding: 1.87rem 1rem 1.87rem 2.5rem
+                padding: 1.87rem 2.5rem 1.87rem 2.5rem
 
                 >*:nth-child(2)
                     margin: -20px 100px 0px 0px
@@ -95,13 +95,13 @@ body::-webkit-scrollbar-thumb
                 div>svg:last-child
                     cursor: pointer
 
-.joyride-beacon 
+.joyride-beacon
     width: 36px
     height: 36px
     display: none
-    position: relative 
+    position: relative
 
-    .joyride-beacon__inner 
+    .joyride-beacon__inner
         top: 50%
         left: 50%
         width: 50%
@@ -114,13 +114,13 @@ body::-webkit-scrollbar-thumb
         transform: translate(-50%, -50%)
         animation: joyride-beacon-inner 1.2s infinite ease-in-out
 
-    .joyride-beacon__outer 
+    .joyride-beacon__outer
         top: 0
         left: 0
-        width: 100% 
+        width: 100%
         opacity: 0.9
         height: 100%
-        display: block 
+        display: block
         position: absolute
         border-radius: 50%
         transform-origin: center
@@ -128,30 +128,30 @@ body::-webkit-scrollbar-thumb
         transform: translateY(-50%)
         background-color: rgba(141, 151, 164, 0.2)
         animation: joyride-beacon-outer 1.2s infinite ease-in-out
-        
-.joyride-overlay 
+
+.joyride-overlay
     top: 0
     left: 0
     right: 0
     bottom: 0
-    z-index: 1500 
+    z-index: 1500
     position: absolute
 
 .joyride-hole
-    position: absolute  
+    position: absolute
     box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 0, 0, 0.5)
 
-.joyride-tooltip.right 
-    margin: -5px 0px 0px 25px 
+.joyride-tooltip.right
+    margin: -5px 0px 0px 25px
 
-    .joyride-tooltip__triangle 
+    .joyride-tooltip__triangle
         margin: -10px -40px
         border-right: 20px solid white
         border-top: 20px solid transparent
         border-bottom: 20px solid transparent
 
 .joyride-tooltip.bottom
-    margin-top: 25px 
+    margin-top: 25px
 
     .joyride-tooltip__triangle
         top: -20px
@@ -161,7 +161,7 @@ body::-webkit-scrollbar-thumb
         border-right: 20px solid transparent
 
 .joyride-tooltip.top
-    margin-bottom: 25px 
+    margin-bottom: 25px
 
     .joyride-tooltip__triangle
       bottom: 0
@@ -170,8 +170,8 @@ body::-webkit-scrollbar-thumb
       border-left: 20px solid transparent
       border-right: 20px solid transparent
 
-.joyride-tooltip.left 
-    margin: -5px 25px 0px 0px 
+.joyride-tooltip.left
+    margin: -5px 25px 0px 0px
 
     .joyride-tooltip__triangle
         right: 0
@@ -180,11 +180,11 @@ body::-webkit-scrollbar-thumb
         border-top: 20px solid transparent;
         border-bottom: 20px solid transparent;
 
-.joyride-tooltip--animate 
+.joyride-tooltip--animate
     animation: joyride-tooltip 0.4s forwards
     animation-timing-function: cubic-bezier(0, 1.05, 0.55, 1.18)
 
-.joyride-tooltip 
+.joyride-tooltip
     color: #555
     z-index: 1000
     cursor: default
@@ -194,41 +194,41 @@ body::-webkit-scrollbar-thumb
     padding: 20px 25px 10px 25px
     filter: drop-shadow(-1px -2px 3px rgba(0, 0, 0, 0.3)), drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.3))
 
-    .joyride-tooltip__triangle 
+    .joyride-tooltip__triangle
         width: 0
         height: 0
-        position: absolute 
+        position: absolute
 
-    .joyride-tooltip__close 
+    .joyride-tooltip__close
         top: 8px
         right: 8px
         z-index: 10
-        display: block 
+        display: block
         font-size: 30px
         line-height: 12px
         position: absolute
         text-decoration: none
         color: rgba(85, 85, 85, 0.5)
 
-        &:hover, &:focus 
+        &:hover, &:focus
             color: black
             outline: none
 
 
-    .joyride-tooltip__header 
+    .joyride-tooltip__header
         font-size: 18px
-        position: relative 
+        position: relative
         padding: 14px 8px 6px 8px
         border-bottom: 1px solid cadetBlue
 
-    .joyride-tooltip__main 
+    .joyride-tooltip__main
         font-size: 16px
         padding: 15px 0px
 
-    .joyride-tooltip__footer 
-        text-align: right 
+    .joyride-tooltip__footer
+        text-align: right
 
-    .joyride-tooltip__button--primary 
+    .joyride-tooltip__button--primary
         color: #fff
         float: right
         outline: none
@@ -240,20 +240,20 @@ body::-webkit-scrollbar-thumb
 
         &:active,
         &:focus,
-        &:hover 
+        &:hover
             color: #fff
-            text-decoration: none 
+            text-decoration: none
             background-color: #555
 
     .joyride-tooltip__button--secondary,
-    .joyride-tooltip__button--skip 
+    .joyride-tooltip__button--skip
         float: left
         color: #ccc
         padding: 5px
         margin: 5px 0px
         font-size: 16px
         transition: color 1s
-        text-decoration: none  
+        text-decoration: none
         border-bottom: 3px solid cadetBlue
         transition: border-bottom-color 0.5s
 
@@ -262,67 +262,62 @@ body::-webkit-scrollbar-thumb
             border-bottom-color: #03A9F4
 
 
-    .joyride-tooltip--standalone .joyride-tooltip__main 
-        padding-bottom: 0 
+    .joyride-tooltip--standalone .joyride-tooltip__main
+        padding-bottom: 0
 
-    .joyride-tooltip--standalone .joyride-tooltip__footer 
-        display: none        
+    .joyride-tooltip--standalone .joyride-tooltip__footer
+        display: none
 
-@-webkit-keyframes joyride-tooltip 
-    0% 
-        transform: scale(0.1) 
+@-webkit-keyframes joyride-tooltip
+    0%
+        transform: scale(0.1)
 
-    100% 
+    100%
         opacity: 1
-        transform: perspective(1px) scale(1)  
+        transform: perspective(1px) scale(1)
 
-@keyframes joyride-tooltip 
-    0% 
-        transform: scale(0.1) 
+@keyframes joyride-tooltip
+    0%
+        transform: scale(0.1)
 
-    100% 
+    100%
         opacity: 1
-        transform: perspective(1px) scale(1)  
+        transform: perspective(1px) scale(1)
 
-@-webkit-keyframes joyride-beacon-inner 
-    20% 
-        opacity: 0.9 
-
-    90% 
-        opacity: 0.7  
-
-@keyframes joyride-beacon-inner 
-    20% 
+@-webkit-keyframes joyride-beacon-inner
+    20%
         opacity: 0.9
 
-    90% 
-        opacity: 0.7  
-
-@-webkit-keyframes joyride-beacon-outer 
-    0% 
-        transform: scale(1) 
-
-    45% 
+    90%
         opacity: 0.7
-        transform: scale(0.75) 
 
-    100% 
+@keyframes joyride-beacon-inner
+    20%
         opacity: 0.9
-        transform: scale(1)  
 
-@keyframes joyride-beacon-outer 
-    0% 
-        transform: scale(1) 
-
-    45% 
+    90%
         opacity: 0.7
-        transform: scale(0.75) 
 
-    100% 
+@-webkit-keyframes joyride-beacon-outer
+    0%
+        transform: scale(1)
+
+    45%
+        opacity: 0.7
+        transform: scale(0.75)
+
+    100%
         opacity: 0.9
-        transform: scale(1)  
+        transform: scale(1)
 
+@keyframes joyride-beacon-outer
+    0%
+        transform: scale(1)
 
+    45%
+        opacity: 0.7
+        transform: scale(0.75)
 
-
-
+    100%
+        opacity: 0.9
+        transform: scale(1)

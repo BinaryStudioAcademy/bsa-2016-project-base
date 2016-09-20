@@ -39,7 +39,8 @@ export function getPredefinedData() {
 
 export function updateProject(project, errors) {
 
-    if(errors.nameError || errors.technologiesError || errors.timeBeginError || errors.usersError || errors.timeEndError) {
+    if(errors.nameError || errors.technologiesError || errors.timeBeginError || errors.usersError || errors.timeEndError
+    || errors.nameLengthError) {
         return dispatch => {
             dispatch(errorHandler('Bad Request!'));
             dispatch({
