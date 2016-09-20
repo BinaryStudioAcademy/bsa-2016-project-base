@@ -1,6 +1,3 @@
-/**
- * Created by razor on 04.08.16.
- */
 const initialState = {
     listOfTechnologies: [],
     listOfTechnologiesFiltered:[],
@@ -9,7 +6,6 @@ const initialState = {
     hideForm : 'hidden',
     setAllChecked: false
 };
-
 
 export default function technologiesReducer(state = initialState, action) {
     switch (action.type) {
@@ -64,8 +60,6 @@ export default function technologiesReducer(state = initialState, action) {
                 listOfTechnologiesFiltered
             })
         }
-        default: {
-            return state;
-        }
+        default: return state;
     }
 }

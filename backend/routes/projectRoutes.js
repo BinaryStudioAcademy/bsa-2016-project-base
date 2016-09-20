@@ -7,13 +7,13 @@ var saveProjectAndUserStory = require('../services/saveProjectAndUserStory');
 var updateProjectAndUserStory = require('../services/updateProjectAndUserStory');
 var mongoose = require('mongoose');
 
-
+var deleteProjectService = require('../services/deleteProjectService');
 module.exports = function(app) {
+
 	app.get('/api/projects/', function (req,res,next) {
 		projectRepository.getAll(function (err,data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	},apiResponse);
@@ -22,7 +22,6 @@ module.exports = function(app) {
 		projectRepository.getAllDataMainPage(function (err,data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	},apiResponse);
@@ -31,7 +30,6 @@ module.exports = function(app) {
 		projectRepository.getAllDataMainPageOrderBy(req.params.orderBy, function (err,data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	},apiResponse);
@@ -40,7 +38,6 @@ module.exports = function(app) {
 		projectRepository.getById(req.params.id, function(err, data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -49,7 +46,6 @@ module.exports = function(app) {
 		projectRepository.getByAllData(req.params.id, function(err, data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -57,7 +53,6 @@ module.exports = function(app) {
 	app.get('/api/projects/:id/features', function(req, res, next) {
 		projectRepository.getByIdWithFeatures(req.params.id, function(err, data) {
 			res.data = data;
-			//res.json(data);
 			res.err = err;
 			next();
 		});
@@ -68,7 +63,6 @@ module.exports = function(app) {
 		projectRepository.getByIdWithStakeholders(req.params.id, function(err, data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -77,7 +71,6 @@ module.exports = function(app) {
 		projectRepository.getByIdWithTags(req.params.id, function(err, data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -87,15 +80,14 @@ module.exports = function(app) {
 		projectRepository.getByIdWithTechnologies(req.params.id, function(err, data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
+
 	app.get('/api/search/projects', function (req, res, next) {
 		searchService.getFilteredProjects(req, function (err, data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -104,7 +96,6 @@ module.exports = function(app) {
 		projectRepository.getByIdForLocations(req.params.id, function(err, data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -113,7 +104,6 @@ module.exports = function(app) {
 		projectRepository.getAllwithLocations(function (err,data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -122,7 +112,6 @@ module.exports = function(app) {
 		statsService.getProjectsCountriesStat(req, function (err,data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -131,7 +120,6 @@ module.exports = function(app) {
 		statsService.getProjectsTagsStat(req, function (err,data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -140,7 +128,6 @@ module.exports = function(app) {
 		statsService.getProjectsTechsStat(req, function (err,data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -149,7 +136,6 @@ module.exports = function(app) {
 		statsService.getProjectsDatesStart(req, function (err,data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
@@ -175,7 +161,6 @@ module.exports = function(app) {
 			}
 			else {
 				res.data = data;
-				//res.json(data);
 				res.err = err;
 			}
 			next();
@@ -203,16 +188,14 @@ module.exports = function(app) {
 
 		/*projectRepository.update(req.params.id, req.body,function(err, data) {
 			res.data = data;
-			//res.json(data);
 			res.err = err;
 			next();
 		});*/
 	}, apiResponse);
 
 	app.delete('/api/projects/:id', function(req, res, next) {
-		projectRepository.delete(req.params.id, function(err, data) {
+		deleteProjectService(req.params.id, function(err, data) {
 			res.data = data;
-			//res.json(data);
 			res.err = err;
 			next();
 		});
@@ -222,14 +205,13 @@ module.exports = function(app) {
 		projectRepository.getAllInProgress(function (err,data) {
 			res.data = data;
 			res.err = err;
-			//res.json(data);
 			next();
 		});
 	}, apiResponse);
 
 	app.get('/api/review/:id', function(req, res, next) {
-		projectRepository.getById(req.params.id, function (err,data) {
-			featureRepository.getFeaturesWithSections(data, function (err, data) {
+		projectRepository.getById(req.params.id, function (err,project) {
+			featureRepository.getFeaturesWithSections(project, function (err, data) {
 				var sortData = {};
 
 				for(var i = 0, l = data.length; i < l; i++){
@@ -239,15 +221,25 @@ module.exports = function(app) {
 				}
 
 				res.data = sortData;
+				/*res.data = {
+					sections: sortData,
+					projectId:project._id,
+					estimation: project.estimation
+				};*/
 				res.err = err;
-				//res.json(data);
 				next();
 			});
 		});
 	}, apiResponse);
 
-	app.get('/api/project-view/:id', function(req, res, next) {
-		projectRepository.getDetailsById(req.params.id, function (err,data) {
+	app.get('/api/project-view/:filter', function(req, res, next) {
+		let params = req.params['filter'].split('&'),filters = {};
+		for(let i in params) {
+			params[i] = params[i].split('=');
+			filters[params[i][0]] = params[i][1];
+		}
+		if(filters['featureIds']) filters['featureIds'] = filters['featureIds'].split(',');
+		projectRepository.getAllByFilters(filters, function (err,data) {
 			res.data = data;
 			res.err = err;
 			next();
@@ -309,6 +301,7 @@ module.exports = function(app) {
 			next();
 		});
 	}, apiResponse);
+	
 };
 
 

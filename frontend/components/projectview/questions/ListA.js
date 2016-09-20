@@ -22,8 +22,9 @@ class List extends Component {
     handleAddA() {
         let message = this.props.stateFromReducer.questionsOptions.newMess.newA[this.props.index];
         if (message) {
+            var senderInfo = this.props.authUser.userInfo; // данные отправителя
             var newAnswer = {
-                author: "57a262f6b42bbf5a2daa9900", //mock
+                author: senderInfo._id,
                 text: message
             };
         }
@@ -31,14 +32,17 @@ class List extends Component {
         let qCol = this.props.stateFromReducer.questions || [];  // перечень вопросов в проекте
         let i = this.props.index;                                // порядковый номер вопроса в перечне (начинается с нуля, сортировка в порядке добавления)
         let qId = qCol[i]._id;                                   // _id вопроса в БД
-        this.props.addingA(id, newAnswer, this.props.index, qId);
+        this.props.addingA(id, newAnswer, senderInfo, this.props.index, qId);
     }
 
     render() {
 
         let qCol = this.props.stateFromReducer.questions || [];  // перечень вопросов в проекте
+        let qOps = this.props.stateFromReducer.questionsOptions; // вспомогательные переменные раздела вопросов
         let i = this.props.index;                                // порядковый номер вопроса в перечне (начинается с нуля, сортировка в порядке добавления)
         let aCol = qCol[i].answers;                              // перечень ответов на i-ый вопрос
+
+        let commentText = qOps.newMess.newA[i];
 
         return(
             <ul className={styles['inner-list']} >
@@ -53,10 +57,13 @@ class List extends Component {
                     <div className={styles['comment-new-wrap']} >
                         <textarea rows="3"
                                   placeholder={' Give your answer, please'}
+                                  value={commentText}
                                   onChange={this.handleAddATextarea}
                         />
+                        <div className={styles['comment-options-row']}>
+                            <button onClick={this.handleAddA} ><span>send</span></button>
+                        </div>
                     </div>
-                    <button onClick={this.handleAddA} ><span>send</span></button>
                 </li>
             </ul>
         )
@@ -68,7 +75,10 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-    return { stateFromReducer: state.ProjectViewReducer };
+    return {
+        stateFromReducer: state.ProjectViewReducer,
+        authUser: state.UserAuthReducer
+    };
 }
 
 const ListConnected = connect(mapStateToProps, mapDispatchToProps)(List);

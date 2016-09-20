@@ -36,19 +36,18 @@ class RightsToolbar extends React.Component {
 
     render() {
         let menuProjectsItems = new Array();
-        const {projectsList,current,filters} = this.props['usersRights'];
+        const {projectsList,current,filters,updated} = this.props['usersRights'];
         for(let i in projectsList) menuProjectsItems.push(
             <MenuItem key={projectsList[i].id}  primaryText={projectsList[i].projectName}
                 style={this.state['projectListStyles']} value={projectsList[i].id} />);
-        var self = this;
         return (
             <div className={styles['rights-toolBar']}>
                 <RaisedButton label="Save changes" onClick={()=>{
                     this.props.saveProjectUsers(current['projectId'],{
-                        users: current['users'],
+                        users: updated,
                         usersRight: filters['usersRight']
                     });
-                }}  autoWidth={false} />
+                 }}  autoWidth={false} />
                 <CheckBox label="Write" checked={(filters['usersRight'] == 'owners')}
                     onCheck={(e)=>{
                         let right = "";
@@ -64,26 +63,31 @@ class RightsToolbar extends React.Component {
                 <MuiThemeProvider>
                     <TextField floatingLabelText="Filter by users` name"
                       value={filters['name']} onChange={(e)=>{
-                          this.props.fetchUsers(current['projectId'],
-                              e['target'].value.trim().replace(/['"]+/g,''),
-                              filters['usersRight']
-                          );
+                            this.props.fetchUsers(current['projectId'],
+                                e['target'].value.trim().replace(/['"]+/g,''),
+                                filters['usersRight']
+                            );
                       }}  className={styles['filters-TextInput']} />
                 </MuiThemeProvider>   
                 <MuiThemeProvider>
-                    <AutoComplete
+                    <AutoComplete  className={styles['projects-list']}
                         floatingLabelText="Input project name"
                         filter={AutoComplete.caseInsensitiveFilter}
-                        dataSource={projectsList.map(p=> p.projectName)}
+                        dataSource={projectsList.map(item => item.projectName)}
                         openOnFocus={true}
                         listStyle={{WebkitAppearance:"none"}}
                         style={{WebkitAppearance:"none"}}
                         menuStyle={{WebkitAppearance:"none"}}
                         maxSearchResults={12}
-                        onNewRequest={(unneeded,index)=>{
-                            if (index >= 0){
-                                self.props.fetchUsers(projectsList[index].id,filters['name'],filters['usersRight']);
-                            }
+                        searchText={((projectsList.length) ? 
+                            projectsList[0].projectName : "" )}
+                        onNewRequest={(item,index)=>{
+                            if (index < 0) return;
+                            this.props.fetchUsers(
+                                projectsList[index].id,
+                                filters['name'],
+                                filters['usersRight']
+                            );
                         }}
                     />
 
@@ -103,10 +107,3 @@ function mapStateToProps(state) {
 
 const RightsToolbarConnected = connect(mapStateToProps, mapDispatchToProps)(RightsToolbar);
 export default RightsToolbarConnected;
-/*
- <DropDownMenu value={current['projectId']} className={styles['projects-list']}
- onChange={(event, index, value)=>{
- this.props.fetchUsers(value,filters['name'],filters['usersRight']);
- }}
- >{menuProjectsItems}</DropDownMenu>
- */

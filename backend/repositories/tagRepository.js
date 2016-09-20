@@ -1,6 +1,6 @@
+var Tag = require('../schemas/tagSchema');
 var connection = require('../db/dbconnect');
 var Repository = require('./generalRepository');
-var Tag = require('../schemas/tagSchema');
 var Projects = require('../schemas/projectSchema');
 
 function TagRepository() {

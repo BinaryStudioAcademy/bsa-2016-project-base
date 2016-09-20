@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import { Grid, Row, Panel, Nav,NavItem } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
 import styles from './navbar.sass';
 import {FaHome, FaAsterisk, FaBarChart, FaCog, FaPlus} from 'react-icons/lib/fa';
 class Navbar extends Component {

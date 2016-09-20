@@ -1,8 +1,6 @@
-/**
- * Created by razor on 04.08.16.
- */
-import TechnologieService  from '../../services/TechnologieService';
 import UploadService  from '../../services/UploadService';
+import TechnologieService  from '../../services/TechnologieService';
+
 export function getTechnologies() {
     return dispatch=> {
         return TechnologieService.getAllTechnologies()
@@ -14,6 +12,7 @@ export function getTechnologies() {
             })
     }
 }
+
 export function uploadFileByLink(link) {
     return dispatch=> {
         return UploadService.uploadFileByLink(link)
@@ -25,6 +24,7 @@ export function uploadFileByLink(link) {
 
     }
 }
+
 export function uploadFileByFile(file) {
     return dispatch=> {
         return UploadService.uploadFileByFile(file)
@@ -36,12 +36,14 @@ export function uploadFileByFile(file) {
 
     }
 }
+
 export function setImageFromLink(img) {
     return {
         type: 'SET_IMAGE_FROM_LINK',
         techAvatar: '/upload/resources/tech/' + img.link
     }
 }
+
 export function setVisibleUploadByLink(hideFile, hideForm) {
     return {
         type: 'SET_VISIBLE_FORM_BY_LINK',
@@ -49,6 +51,7 @@ export function setVisibleUploadByLink(hideFile, hideForm) {
         hideForm: hideForm
     }
 }
+
 export function deleteImageFromList(img) {
     return dispatch => {
         return UploadService.deleteFile(img)
@@ -58,6 +61,7 @@ export function deleteImageFromList(img) {
             });
     }
 }
+
 export function setImageFromLinkAfterDelete() {
     return {
         type: 'SET_IMAGE_FROM_LINK',
@@ -72,6 +76,7 @@ export function initTechnology(listOfTechno) {
         listOfTechnologies: listOfTechnologies
     }
 }
+
 export function saveTechology(params) {
     return dispatch=> {
         return TechnologieService.saveTechnology(params)
@@ -88,6 +93,7 @@ export function saveTechology(params) {
 
     }
 }
+
 export function searchTechnology(params) {
     const action = {
         type: 'SEARCH_TECHNOLOGY',
@@ -95,7 +101,8 @@ export function searchTechnology(params) {
         listOfTechnologiesFiltered: params.listOfTechnologiesFiltered
     };
     return action;
-};
+}
+
 export function selectAllTechs(technologies,setAllChecked) {
     return {
         type: "SELECT_ALL_TECHS",
@@ -103,6 +110,7 @@ export function selectAllTechs(technologies,setAllChecked) {
         setAllChecked: setAllChecked
     }
 }
+
 export function setAddFormState(state) {
     return {
         type: "SET_ADD_FORM_STATE",
@@ -122,6 +130,7 @@ export function removeSelectedTechs(technologies) {
         dispatch(getTechnologies())
     }
 }
+
 export function errorHandler(error) {
     return {
         type: 'SOMETHING_GONE_WRONG',

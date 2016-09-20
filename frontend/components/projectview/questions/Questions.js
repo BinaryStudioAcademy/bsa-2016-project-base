@@ -3,7 +3,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../../actions/ProjectViewActions';
-
+ 
 import ListQ from './ListQ';
 
 import styles from './questions.sass';
@@ -31,7 +31,7 @@ class Questions extends Component {
         return(
             <div id={this.props.id} >
                 <div className={styles['section-title']} >
-                    Questions & Answers
+                    <h4>Questions & Answers</h4>
                     {qCol.length ?
                         <button onClick={this.handleHideQ} >
                             {this.qIsShown ? 'Hide questions' : 'Show questions'}

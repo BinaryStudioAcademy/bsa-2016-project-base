@@ -5,9 +5,11 @@ export default class HomeContainer extends Updatable {
     constructor({searchContainer, component}) {
         super(component);
         this.searchContainer = searchContainer;
-        this.goSearch = this.goSearch.bind(this)
-        this.searchContainer.goSearch = this.goSearch;
+        this.goSearch = this.goSearch.bind(this);
+        this.goSearchFromScratch = this.goSearchFromScratch.bind(this);
+        this.searchContainer.goSearch = this.goSearchFromScratch;
         this.searchContainer.homeContainer = this;
+        this.shouldRefreshOnAppearence = false
         this.pagination = {
             activePage: 0,
             total: 0,
@@ -44,7 +46,10 @@ export default class HomeContainer extends Updatable {
         }
     }
 
-
+    goSearchFromScratch(){
+        this.pagination.activePage = 0
+        this.goSearch()
+    }
     goSearch() {
         const self = this;
         this.isLoading = true;
@@ -54,14 +59,10 @@ export default class HomeContainer extends Updatable {
          * @type {Array.<"name=value">}
          */
         var query = this.searchContainer.getQuery().slice();
-        //query.recordsPerPage = this.pagination.recordsPerPage;
-        //query.activePage = this.pagination.activePage;
         query.push(`limit=${this.pagination.recordsPerPage}`);
         query.push(`skip=${this.pagination.recordsPerPage * (this.pagination.activePage)}`);
         this.searchService.getProjects(query.join("&"))
-            //.then(res=>res.json())
             .then(data=> {
-                //self.projects = data.projects || [];
                 if (self.pagination.activePage>0){
                     self.projects.push(...data.projects)
                 }else {

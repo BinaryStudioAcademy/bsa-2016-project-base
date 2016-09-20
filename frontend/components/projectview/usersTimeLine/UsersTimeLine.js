@@ -1,31 +1,25 @@
+import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
-import * as actions from '../../../actions/ProjectViewActions';
-import {connect} from 'react-redux';
-import {Tooltip, OverlayTrigger} from 'react-bootstrap'
-import TimeLine from 'material-ui/svg-icons/action/timeline';
+
 import styles from './usersTimeLine.sass';
-const LENGTH_ALL_LINE = 87;
+import * as actions from '../../../actions/ProjectViewActions';
 
 class UsersTimeLine extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            locale: {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            },oneDay: 24 * 36 * 100000
+        };
         this.createLine = this.createLine.bind(this);
-        this.showDateAtLine = this.showDateAtLine.bind(this);
+        this.dateFormat = this.dateFormat.bind(this);
         this.hidePopover = this.hidePopover.bind(this);
-        this.formatDate = this.formatDate.bind(this);
-    }
-
-    formatDate(date) {
-        let dd = date.getDate();
-        if (dd < 10) dd = '0' + dd;
-        let mm = date.getMonth() + 1;
-        if (mm < 10) mm = '0' + mm;
-        //let yy = date.getFullYear() % 100;
-        let yy = date.getFullYear();
-        if (yy < 10) yy = '0' + yy;
-        return yy+ '-' + mm + '-' + dd ;
+        this.showDateAtLine = this.showDateAtLine.bind(this);
     }
 
     hidePopover() {
@@ -33,145 +27,87 @@ class UsersTimeLine extends Component {
     }
 
     showDateAtLine(e) {
-        var a = e.target.getBoundingClientRect();
-        var numberDaysProject;
-        var oneDay = 24*60*60*1000;
-        if(this.props.project.timeEnd != null) {
-            numberDaysProject = (new Date(this.props.project.timeEnd) - new Date(this.props.project.timeBegin) ) / oneDay;
-        } else {
-            numberDaysProject = (new Date() - new Date(this.props.project.timeBegin) ) / oneDay;
-        }
-        var daysInOneProcent = numberDaysProject / 100;
+        let rect = e['target'].getBoundingClientRect(),
+            lengthHoverLine = (e.clientX - rect.left),
+            beginDate = new Date(this.props['project'].timeBegin),
+            numberDaysProject = ((this.props['project'].timeEnd != null) ?
+            (new Date(this.props['project'].timeEnd) - beginDate) : (new Date() - beginDate));
 
-        var lengthHoverLine = Math.sqrt((e.clientX - a.left) * (e.clientX - a.left));
-        var lengthAllLine = Math.sqrt((a.right - a.left) * (a.right - a.left));
-        var lenthInProcent = lengthHoverLine / (lengthAllLine / 100);
-        var allDaysAtHoverLine = daysInOneProcent * lenthInProcent;
-        this.refs.popover.style.display = "flex";
-        this.refs.popover.style.top += "40px";
+        this.refs.popover.style.display = "block";
         this.refs.popover.style.left = lengthHoverLine + 70 + "px";
-        this.refs.popover.innerText = Math.round(allDaysAtHoverLine) + " of days";
+        this.refs.popover.innerText = Math.round(numberDaysProject / this.state['oneDay'] * lengthHoverLine / (rect.right - rect.left)) + " days";
+    }
 
+    dateFormat(date){
+        return (new Date(date)).toLocaleString("en-US",this.state['locale']);
     }
 
     createLine() {
-        var self = this,
-            oneDay = 24*60*60*1000,
-            oneUnit = null,
-            numberDaysProject = null,
-            arrayUsers;
+        const {users,timeEnd,timeBegin} = this.props['project'];
+        if(!users  || !users.length) return null;
 
+        var numberDaysProject = ((timeEnd != null) ?
+            (new Date(timeEnd) - new Date(timeBegin)):
+            (new Date() - new Date(timeBegin))) / this.state['oneDay'],
+            oneUnit  = numberDaysProject / 82,
+            arrayUsers = users.map((el, index)=>{
+                if(typeof el != 'object') return null;
+                var dataObj = null, dateTo = "Now",numberDaysUser = new Date();
+                el['userHistory'].find((item)=>{
+                    if(item.projectId == this.props['project']._id) 
+                        dataObj = item;
+                });
 
-        if(this.props.project.timeEnd != null) {
-            numberDaysProject = (new Date(this.props.project.timeEnd) - new Date(this.props.project.timeBegin) ) / oneDay;
-        } else {
-            numberDaysProject = (new Date() - new Date(this.props.project.timeBegin) ) / oneDay;
-        }
-        console.log("numberDaysProject - " + numberDaysProject);
-
-        oneUnit = numberDaysProject / LENGTH_ALL_LINE;
-
-         arrayUsers = this.props.users.map(function(el, index) {
-            var lineLengthUser,
-                dataObj = null,
-                numberDaysUser = null,
-                userOffset = null;
-
-            el.userHistory.map(function(el) {
-                if(el.projectId == self.props.project._id) {
-                    dataObj = Object.assign({}, el)
+                if(dataObj.dateTo) {
+                    dateTo = this.dateFormat(dataObj.dateTo);
+                    numberDaysUser = new Date(dataObj.dateTo);
                 }
+
+                let userOffset = (((new Date(dataObj.dateFrom) - new Date(timeBegin)) / this.state['oneDay']) / oneUnit),
+                    lineLengthUser = ((numberDaysUser - new Date(dataObj.dateFrom))/ this.state['oneDay'] /oneUnit);
+
+                return (<div className={styles["userLine"]} key={index}>
+                    <div className={styles["userInfo"]}>
+                        <label>{el.userName} {el.userSurname}</label>
+                    </div>
+                    <div className={styles["offsetLine"]} style={{flexBasis: userOffset + "%"}}/>
+                    <div className={styles["line"]}  style={{flexBasis: lineLengthUser + "%"}}>
+                        <span>{"From  " + this.dateFormat(dataObj.dateFrom) + "  to  " + dateTo}</span>
+                    </div>
+                </div>);
             });
-
-             var dataTo = "now",
-                 dataFrom = dataObj.dateFrom;
-
-            if(dataObj.dateTo) {
-                numberDaysUser = (new Date(dataObj.dateTo) - new Date(dataObj.dateFrom) ) / oneDay;
-                dataTo = dataObj.dateTo
-            } else {
-                numberDaysUser = (new Date() - new Date(dataObj.dateFrom) ) / oneDay;
-            }
-
-             userOffset = (((new Date(dataObj.dateFrom) - new Date(self.props.project.timeBegin)) / oneDay) / oneUnit);
-
-            console.log("numberDaysUser - " + numberDaysUser);
-            lineLengthUser = numberDaysUser / oneUnit;
-            console.log("lineLengthUser - " + lineLengthUser);
-
-             if(lineLengthUser < 19.5) {
-                 return (
-                     <div className="userLine">
-                         <div className="userInfo">
-                             <span>{el.userName} {el.userSurname}</span>
-                         </div>
-                         <div className="offsetLine" style={{"flex-basis": userOffset + "%"}}></div>
-                         <div className="line tooltip" data-tooltip={"from " + self.formatDate(new Date(dataFrom)) + " to " + (dataTo == "now" ? dataTo : self.formatDate(new Date(dataTo)))} style={{"flex-basis": lineLengthUser + "%"}}>
-                         </div>
-                     </div>
-                 )
-             }
-
-            return (
-                <div className="userLine">
-                    <div className="userInfo">
-                        <span>{el.userName} {el.userSurname}</span>
-                    </div>
-                    <div className="offsetLine" style={{"flex-basis": userOffset + "%"}}></div>
-                    <div className="line"  style={{"flex-basis": lineLengthUser + "%"}}>
-                        <span className="userTimeBegin">{self.formatDate(new Date(dataFrom))}</span>
-                        <span className="userTimeEnd">{dataTo == "now" ? dataTo : self.formatDate(new Date(dataTo))}</span>
-                    </div>
-                </div>
-            )
-        });
         return arrayUsers;
     }
 
     render() {
-        if(!Array.isArray(this.props.users) || !Array.isArray(this.props.owners)) {
-            return null;
-        }
-
-        var arrayUsers = this.createLine();
-        var self = this;
-
         return (
-        <div id="usersTimeLine">
-            <div className="headerTimeLine">
-                <span className="iconTimeLine"><TimeLine style={{color: "#fff"}}/></span>
-                <span className="textHeader">Users TimeLine</span>
-            </div>
-            <div className="mainContent">
-                <div className="AllUsersLine">
-                { arrayUsers }
-                </div>
-                <div className="dataLine">
-                    <div className="dataLine-line" onMouseMove={this.showDateAtLine} onMouseLeave={this.hidePopover}></div>
-                    <div className="timeOnLine">
-                        <span>{this.formatDate(new Date(this.props.project.timeBegin))}</span>
-                        <span>{this.formatDate(new Date(this.props.project.timeEnd))}</span>
+            <div id="usersTimeLine">
+                <header className={styles['usersTimeLines-Header']}>
+                    <h2> & TimeLines</h2>
+                </header>
+                <div className={styles["mainContent"]}>
+                    <div className={styles["allUsers-Lines"]}>{this.createLine()}</div>
+                    <div className={styles["dataLine"]}>
+                        <div className="dataLine-line" onMouseMove={this.showDateAtLine} onMouseLeave={this.hidePopover}></div>
+                        <div className={styles["timeOnLine"]}>
+                            <label>{this.dateFormat(this.props['project'].timeBegin)}</label>
+                            <label>{this.dateFormat(this.props['project'].timeEnd)}</label>
+                        </div>
+                        <div className={styles["popover"]} ref="popover"/>
                     </div>
-                    <div className="popover" ref="popover"></div>
                 </div>
             </div>
-
-        </div>
         )
     }
 
 }
-
+            
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(actions, dispatch)
 }
 
 function mapStateToProps(state) {
-    return {
-        project: state.ProjectViewReducer,
-        users: state.ProjectViewReducer.users,
-        owners: state.ProjectViewReducer.owners
-    }
+    return { project: state['ProjectViewReducer'] }
 }
 
 const UsersTimeLineConnected = connect(mapStateToProps,mapDispatchToProps)(UsersTimeLine);

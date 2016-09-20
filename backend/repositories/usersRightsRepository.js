@@ -11,37 +11,39 @@ UsersRightsRepository.prototype = new Repository();
 
 UsersRightsRepository.prototype.getUsersToProject = function(data,callback){
 	if(typeof data == 'string') data = {projectId : data};
-	var query = this.model.findOne({ _id: data['projectId'] }),
-		isOwner = (!data['usersRight'] || data['usersRight'] == 'owners'),
-		isSimple = (!data['usersRight'] || data['usersRight'] == 'simples'),
-		populate = {};
+	var query = this.model.findOne({ _id: data['projectId'] });
+	var population = {};
 
 	if(data['filterName']){
-		data['filterName'] = {
+		population['match'] = {
 			'$regex' : data['filterName'],
 			'$options' : 'i'
 		};
-		populate['match'] = {
-			$or: [
-				{ userName: data['filterName'] },
-				{ userSurname: data['filterName'] }
-			]
+		population['match'] = {
+			$or: [{ 
+				userName: population['match']
+			},{ 
+				userSurname: population['match']
+			}]
 		}
 	}
-	if(isOwner) {
-		populate['path'] = 'owners';
-		query = query.populate(populate);
+	
+	if(data['usersRight'] != "simples"){
+		population['path'] = 'owners';
+		query = query.populate(population);
 	}
-	if(isSimple){
-		populate['path'] = 'users';
-		query = query.populate(populate);
+
+	if(data['usersRight'] != "owners"){
+		population['path'] = 'users';
+		query = query.populate(population);
 	}
+
 	query.exec(function(err,result){
 		if(result) result = {
 			projectId: result['_id'],
 			users:{
-				owners: ((isOwner) ? result['owners'] :  []),
-				simples:((isSimple) ? result['users'] :  [])
+				owners: ((data['usersRight'] != "simples") ? result['owners'] :  []),
+				simples:((data['usersRight'] != "owners") ? result['users'] :  [])
 			}
 		}
 		callback(err,result);
@@ -49,30 +51,40 @@ UsersRightsRepository.prototype.getUsersToProject = function(data,callback){
 }
 
 UsersRightsRepository.prototype.updateUsersToProject = function(id,data,callback){
-	var update = {};
+	var updation;
 	switch(data['usersRight']){
 		case 'owners':
-			update['$set'] =  { owners: data['owners'] };
-			update['$push'] = { users:{ $each: data['simples'] }}
+			var filter =  { $each: data['simples'] };
+			updation = {
+				$pop: { owners: filter  },
+				$push: { users: filter  }
+			};
 		break;
 		case 'simples':
-			update['$set'] = { users: data['simples'] };
-			update['$push'] ={ owners:{ $each: data['owners'] }}
+			var  filter =  { $each: data['owners'] };
+			updation = {
+				$pop: { owners: filter },
+				$push: { users: filter }
+			};
 		break;
 		default:
-			update['$set'] = {
-				owners: data['owners'],
-				users: data['simples']
-			}
+			updation = {
+				$pop:{
+					owners: { $each: data['simples'] },
+					users: { $each: data['owners'] }
+				},$push: {
+					owners: { $each: data['owners'] },
+					users: { $each: data['simples'] }
+				}
+			};
 		break;
 	}
-	console.log(update);
-	this.model.update({_id: id},update,callback);
+	this.model.update({_id: id},updation,callback);
 }
 
 UsersRightsRepository.prototype.getProjectList = function(callback){
 	this.model.find(function(err, data) {
-		if(data) for(var i in data) data[i] = {
+		if(!err) for(let i in data) data[i] = {
 			id: data[i]._id,
 			projectName: data[i].projectName
 		};

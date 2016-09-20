@@ -9,13 +9,11 @@ var userSchema = new Schema({
     avatar: String,
     rights: [String],
     position: String,
-    userHistory: [
-        {
-            projectId: {type: Schema.Types.ObjectId, ref: 'Project'},
-            dateFrom: {type: Date},
-            dateTo: {type: Date},
-        }
-]
+    userHistory: [{
+        projectId: {type: Schema.Types.ObjectId, ref: 'Project'},
+        dateFrom: {type: Date},
+        dateTo: {type: Date},
+    }]
 });
 
 module.exports = mongoose.model('User', userSchema); 

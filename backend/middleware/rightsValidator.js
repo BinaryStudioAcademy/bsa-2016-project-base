@@ -9,7 +9,7 @@ module.exports = function(req, res, next) {
     switch(req.method.toLowerCase()){
     	case 'get':
     		if(role != 'admin'){
-    			directions = ['technologies','tags','users'];
+    			directions.push('technologies','tags','users');
     			if(role == 'user' && currentDirection == 'documents'){
     				directions.push('directions','test');
     				currentDirection = matches[3];
@@ -32,12 +32,14 @@ module.exports = function(req, res, next) {
     	case 'delete':
     		directions.push('users');
     		if(role != 'admin'){
-    			directions = ['technologies','tags','stages','projects','conditions','file'];
+    			directions.push('technologies','tags','stages','projects','conditions','file');
     			if(role == 'user') directions.push('file','sections','features');
     		}
     		break;
     }
-    //console.log(currentDirection,directions.indexOf(currentDirection),directions);
-	if(directions.indexOf(currentDirection) != -1) res.send(500, { error: 'You have not rights' });
-	next();
+	if(directions.indexOf(currentDirection) != -1) res.send(500,{
+        error: 'You have not rights' 
+    });
+	
+    next();
 }

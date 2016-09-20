@@ -1,8 +1,7 @@
 import * as types from '../../actions/admin/EditProjectActionsTypes';
 import fileThumbService from '../../services/FileThumbService';
 
-
-export default function EditProjectReducer(state=initialState, action) {
+export default function EditProjectReducer(state = initialState, action) {
     switch (action.type) {
         case types.UP_GET_DATA_SUCCESS_ED: {
             const {users, tags, technologies, conditions } = action.data;
@@ -40,17 +39,13 @@ export default function EditProjectReducer(state=initialState, action) {
         case types.UP_CHANGE_PROJECT_NAME_ED: {
             const {name} = action;
             return Object.assign({}, state, {
-
                 projectName: name
-
             });
         }
         case types.UP_CHANGE_PROJECT_LINK_ED: {
             const {link} = action;
             return Object.assign({}, state, {
-
                 projectLink: link
-
             });
         }
         case types.UP_CHANGE_START_DATE_ED: {
@@ -72,19 +67,15 @@ export default function EditProjectReducer(state=initialState, action) {
         case types.UP_CHANGE_CONDITION_ED: {
             const {option} = action;
             return Object.assign({}, state, {
-
                 status: option
-
             });
         }
         case types.UP_CHANGE_DESCRIPTION_ED: {
             const {text} = action;
             return Object.assign({}, state, {
-
                 description:{
                     descrFullText:text
                 }
-
             });
         }
         case types.UP_ADD_TAG_TO_PROJECT_ED: {
@@ -118,7 +109,6 @@ export default function EditProjectReducer(state=initialState, action) {
         case types.UP_POST_TECH_SUCCESS_ED: {
             const {data, iconLoaded} = action;
             const {predefinedTechnologies} = state;
-            console.log('POST_TECH',data);
             return Object.assign({}, state, {
                 predefinedTechnologies: addNewTech(predefinedTechnologies, data),
                 iconLoaded
@@ -127,7 +117,6 @@ export default function EditProjectReducer(state=initialState, action) {
         case types.UP_POST_SECTION_SUCCESS_ED: {
             const {data} = action;
             const {sections} = state;
-            console.log('POST_SECTION_SUCCESS',data);
             return Object.assign({}, state, {
                 sections: sections.concat(data)
             });
@@ -144,12 +133,10 @@ export default function EditProjectReducer(state=initialState, action) {
         case types.UP_POST_FEATURE_DELETE_ED: {
             const {data} = action;
             const {features} = state;
-            console.log('DELETE_FEATURES_SUCCESS',data);
             return Object.assign({}, state, {
                 features: [].concat(data)
             });
         }
-
         case types.UP_SELECT_SECTION_ED: {
             const {_id} = action;
             const {sections, activeSection} = state;
@@ -157,7 +144,6 @@ export default function EditProjectReducer(state=initialState, action) {
                 activeSection: selectSection(sections, _id)
             });
         }
-
         case types.UP_UPLOAD_FILE_ED: {
             const {name, target} = action;
             const {files} = state;
@@ -170,7 +156,6 @@ export default function EditProjectReducer(state=initialState, action) {
                 })
             });
         }
-
         case types.UP_UPLOAD_FILE_SUCCESS_ED: {
             const {data,target} = action;
             const {files} = state;
@@ -216,11 +201,9 @@ export default function EditProjectReducer(state=initialState, action) {
                 added: true
             }, {error: error});
         }
-
         case types.UP_POST_SECTION_DELETE_ED: {
             const {data} = action;
             const {sections} = state;
-            console.log('DELETE_SECTION_SUCCESS',sections);
             return Object.assign({}, state, {
                 sections: [].concat(data)
             });
@@ -258,7 +241,6 @@ export default function EditProjectReducer(state=initialState, action) {
                 errors: error
             });
         }
-
         case types.UP_REMOVE_TECH_FROM_PROJECT_ED: {
             const {_id} = action;
             const {predefinedTechnologies} = state;
@@ -456,10 +438,7 @@ const updateFileSuccess = (files, data, target) => {
     return [].concat(files);
 }
 
-
-
 const updateFileFailure = (files, error) => {
-    console.log('updateFileFailure ',error.name);
     const {message, name} = error;
     files.forEach( file => {
         if (!file.ready && file.name === name) {
@@ -472,15 +451,12 @@ const updateFileFailure = (files, error) => {
     return [].concat(files);
 }
 
-
-
 const selectSection = (sections, _id) => {
     for(let i = 0; i < sections.length; i++) {
         if (sections[i]._id === _id) {
             return sections[i];
         }
     }
-    console.log('selectSection');
     return null;
 };
 
@@ -505,7 +481,6 @@ const addTechToProject = (techs, _id) => {
             item.inProject = true;
         }
     });
-    console.log('addTechToProject 22');
     return [].concat(techs);
 }
 
@@ -793,5 +768,3 @@ const initialState = {
     hideTechForm : 'hidden'
 
 };
-
-

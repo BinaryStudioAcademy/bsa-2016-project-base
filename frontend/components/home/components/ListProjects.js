@@ -28,14 +28,15 @@ export default class ListProjects extends Component {
                 (projects.length > 0) ?
                 <ul className={styles["project-list-home"]}>
                     {projects.map( (project, index) =>
-                        <div style={{width:"30%", marginBottom: "2rem"}}>
+                        <li key={index}style={{width:"30%", marginBottom: "2rem", marginRight: '2.1rem'}}>
                             <Project
                                 id={project._id}
-                                key={index}
+                                // id={index}
+                                // key={index}
                                 data-id={project._id}
                                 project={project}
                                 ranking={this.ranking(project.rating)}/>
-                        </div>
+                        </li>
                     )}
                 </ul> : null
         )

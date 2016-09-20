@@ -30,15 +30,15 @@ UserRepository.prototype.addToProject = function(userId, obj, callback) {
 UserRepository.prototype.addinProgressProject = function(userId, obj, callback) {
 	var model = this.model;
 	var query = model.findByIdAndUpdate(
-		userId,
-		{$push: {"userHistory":
-		{
-			projectId: obj.ProjectId,
-			dateFrom: obj.DateFrom,
-			dateTo: null,
-
-		}}},
-		{}
+		userId,{
+			$push: {
+				"userHistory":{
+					projectId: obj.ProjectId,
+					dateFrom: obj.DateFrom,
+					dateTo: null,
+				}
+			}
+		},{}
 	);
 
 	query.exec(callback);
@@ -47,19 +47,19 @@ UserRepository.prototype.addinProgressProject = function(userId, obj, callback) 
 UserRepository.prototype.addCompletedProject = function(userId, obj, callback) {
 	var model = this.model;
 	var query = model.findByIdAndUpdate(
-		userId,
-		{$push: {"userHistory": {
-			ProjectId: obj.ProjectId,
-			DateFrom: obj.DateFrom,
-			DateTo: obj.DateTo,
-
-		}}},
-		{}
+		userId,{
+			$push: {
+				"userHistory": {
+					ProjectId: obj.ProjectId,
+					DateFrom: obj.DateFrom,
+					DateTo: obj.DateTo,
+				}
+			}
+		},{}
 	);
 
 	query.exec(callback);
 };
-//if we need change dates for any object, we modify userHistory in front-end, and send full array "userHistory"
 UserRepository.prototype.changeProject = function(userId, arr, callback) {
 	var model = this.model;
 	var query = model.findByIdAndUpdate(
@@ -71,5 +71,10 @@ UserRepository.prototype.changeProject = function(userId, arr, callback) {
 	query.exec(callback);
 };
 
+UserRepository.prototype.getAuthUser = function(uid, callback) {
+	var model = this.model;
+	var query = model.find({login:uid});
+	query.exec(callback);
+};
 
 module.exports = new UserRepository();

@@ -1,5 +1,5 @@
-import * as types from '../constants/ReviewActionTypes';
 import reviewService from '../services/reviewService';
+import * as types from '../constants/ReviewActionTypes';
 
 export function setSelectedProject(selectedProject) {
     return {

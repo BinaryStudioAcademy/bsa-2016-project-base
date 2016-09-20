@@ -1,152 +1,104 @@
 #usersTimeLine
-  background-color: white
-  border: 1.8px solid #e6e9eb
-  border-radius: 5px
-  margin-top: 15px
-  display: flex
-  flex-direction: column
-
-  .headerTimeLine
+    height: 100%
     display: flex
-    align-items: center
-    border-radius: 5px 5px 0 0
-    height: 40px
-    background-color: #5f9ea0
+    margin: 0px 15px
+    flex-direction: column
+    background-color: white
+    width: calc(100% - 280px)
 
-    .textHeader
-      color: #fff
-      padding-left: 5px
+    .usersTimeLines-Header
+        padding: 1px 10px
+        border-bottom: 1px solid #efefef
+        border-left: 3px solid #8D97A4
+        h2
+            font-size: 1rem
+            font-weight: 700
 
-    .iconTimeLine
-      width: 45px
-      border-radius: 5px 0 0 0
-      display: flex
-      justify-content: center
-      align-items: center
-      height: inherit
-      background-color: #54888a
+    .mainContent
+        padding: 10px
+        height: calc(100% - 50px)
 
-  .mainContent
-    padding: 10px
+        .allUsers-Lines
+            height: calc(100% - 80px)
+            overflow-y: scroll
 
+        .userLine
+            margin: 5px
+            display: flex
+            align-items: center
+            flex-direction: row
 
-    .AllUsersLine
-      height: 400px
-      overflow-y: scroll
+            .userInfo
+                color: grey
+                font-size: 14px
+                flex-basis: 18%
+                font-weight: 600
+                text-align: left
+                padding: 5px 10px
 
-    .userLine
-      display: flex
-      flex-direction: row
+            .line:hover
+                span
+                    z-index: 999
+                    width: 200px
+                    cursor: help
+                    color: white
+                    display: block
+                    font-size: 14px
+                    font-weight: 600
+                    margin-top: 10px
+                    padding: 6px 15px
+                    border-radius: 5px
+                    position: absolute
+                    text-align: center
+                    background-color: rgba(73,81,88,0.9)
 
-      align-items: center
-      margin: 2.5px 0
-      border-radius: 5px
+            .line
+                display: flex
+                cursor: help
+                position: relative
+                justify-content: space-between
+                background-color: cadetBlue
+                border-radius: 1px
+                height: 7px
 
-      .userInfo
-        color: #555
-        text-align: right
-        flex-basis: 13%
-        padding-right: 5px
-        font-family: "Open Sans"
-
-      .line
-        display: flex
-        cursor: help
-        justify-content: space-between
-        background-color: #2196f3
-        border-radius: 1px
-        height: 5px
-
-        span
-          font-family: "Open Sans"
-          margin-top: 5px
-          color: white
-
-
-      .line:hover
-        span
-          margin-right: 10px
-          display: flex
-          justify-content: center
-          align-items: center
-          color: white
-          margin-top: 10px
-          z-index: 10
-          width: 80px
-          height: 20px
-          background-color: #43A047
-          border-radius: 5px
+                span
+                    display: none
 
     .dataLine
-      position: relative
-      display: flex
-      justify-content: flex-end
-      margin-top: 15px
-      flex-direction: column
-      padding-left: calc(13% + 5px)
-
-      .dataLine-line
-        flex-basis: 87%
-        height: 15px
-        border-radius: 5px
-        background-color: #739baa
-
-      .timeOnLine
         display: flex
-        justify-content: space-between
+        padding-left: 18%
+        margin-top: 15px
+        position: relative
+        flex-direction: column
+        justify-content: flex-end
 
-        span
-          font-family: "Open Sans"
-          color: #555
+        .dataLine-line
+            height: 20px
+            flex-basis: 82%
+            background-color: #739baa
+            border-left: 2px solid #596068
+            border-right: 2px solid #596068
 
+        .timeOnLine
+            display: flex
+            justify-content: space-between
 
+            label
+                color: #596068
+                font-size: 14px
+                padding: 4px 0px
+                font-weight: 700
+                margin: 8px 0px 20px 0px
 
-      .popover
-        display: none
-        cursor: help
-        justify-content: center
-        align-items: center
-        color: white
-        position: absolute
-        z-index: 10
-        height: 35px
-        width: 80px
-        background-color: #43A047
-        border-radius: 5px
-
-      .popover:after
-        bottom: 100%
-        left: 50%
-        border: solid transparent
-        content: " "
-        position: absolute
-        border-bottom-color: #43A047
-        border-width: 7px
-        margin-left: -7px
-
-
-.tooltip
-  border-bottom: 1px dotted #0077AA
-  cursor: help
-
-
-.tooltip::after
-  background-color: #43A047
-  border-radius: 8px 8px 8px 0px
-  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5)
-  color: #FFF
-  content: attr(data-tooltip) /* Главная часть кода, определяющая содержимое всплывающей подсказки */
-  margin-top: -24px
-  opacity: 0 /* Наш элемент прозрачен... */
-  padding: 3px 7px
-  position: absolute
-  visibility: hidden /* ...и скрыт. */
-
-  /* transition: all 0.4s ease-in-out  Добавить плавности по вкусу */
-
-
-.tooltip:hover::after
-  opacity: 1  /* Показываем его */
-  visibility: visible
-
-
+        .popover
+            z-index: 10
+            cursor: help
+            color: white
+            display: none
+            font-size: 14px
+            font-weight: 600
+            padding: 6px 15px
+            border-radius: 5px
+            position: absolute
+            text-align: center
+            background-color: rgba(73,81,88,0.9)

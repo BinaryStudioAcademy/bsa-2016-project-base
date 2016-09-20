@@ -16,3 +16,4 @@ export {default as UsersRightsReducer} from './admin/UsersRightsReducer';
 export {default as TechnologiesReducer} from './admin/TechnologiesReducer';
 export {default as UpsertProjectReducer} from './admin/UpsertProjectReducer';
 export {default as TechnologiesDetailReducer} from './admin/TechnologiesDetailReducer';
+export {default as ProjectsDeleteReducer} from './admin/ProjectsDeleteReducer';

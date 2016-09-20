@@ -1,5 +1,5 @@
-import * as types from '../constants/UsersActionTypes';
 import userService from '../services/userService';
+import * as types from '../constants/UsersActionTypes';
 
 export function fetchUsers() {
     return (dispatch) => {
@@ -16,9 +16,7 @@ export function fetchUsers() {
                             project.users[i].isOwner = true;
                             break;
                         }
-                        else {
-                            project.users[i].isOwner = false;
-                        }
+                        else project.users[i].isOwner = false;
                     }
                 }
                 dispatch({

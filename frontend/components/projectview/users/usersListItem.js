@@ -1,32 +1,30 @@
 import React from 'react';
-import styles from './users.sass';
 import { Link } from 'react-router';
 import { DEFAULT } from '../../../constants/Api';
+
+import styles from '../project-view.sass';
 
 class userListItem extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = { 
-        	search: '',
         	defaultImage: DEFAULT + "user.png"
         };
     }
   
     render() {
-    	let item = this.props['data']; 
+    	const item = this.props['data']; 
     	return (
-    	    <li className={styles['user-item']}>
+    	    <li className={styles['usersList-Item']}>
                 <Link to={`/api/users/${item._id}`} className={styles['link']}>
                     <img src={this.state.defaultImage
                     	/*(item.avatar ? item.avatar : this.state.defaultImage)*/
                     } />
                     <div>
-                        <div className={styles['user-name']}>
-                            {item['userName'] + ' ' + item['userSurname']}
-                        </div>
-                        <div className={styles['user-position']}>
-                           <span className={styles[item.marker]} />
+                        <span>{item['userName'] + ' ' + item['userSurname']}</span>
+                        <div>
+                           <span className={styles[this.props['marker']]} />
                            {item.position}
                         </div>
                     </div>

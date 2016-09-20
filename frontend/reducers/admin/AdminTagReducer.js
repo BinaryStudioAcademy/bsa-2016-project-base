@@ -1,6 +1,14 @@
 import * as types from '../../actions/admin/ActionTypes';
 
-export default function AdminTagReducer(state=initialState, action) {
+const initialState = {
+    isAllChecked: false,
+    tagNameToAdd: '',
+    searchTerm: '',
+    tags: [],
+    error: ''
+};
+
+export default function AdminTagReducer(state = initialState, action) {
     switch (action.type) {
         case types.GET_TAGS_SUCCESS: {
             const {data} = action;
@@ -93,16 +101,6 @@ export default function AdminTagReducer(state=initialState, action) {
         }
     }
 }
-
-
-const initialState = {
-    isAllChecked: false,
-    tagNameToAdd: '',
-    searchTerm: '',
-    tags: [],
-    error: ''
-};
-
 
 const filter = (array, term, isAllChecked) => {
     const phrase = term.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");

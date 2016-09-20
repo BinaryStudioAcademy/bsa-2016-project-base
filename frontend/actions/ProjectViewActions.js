@@ -1,15 +1,16 @@
-import projectViewService from '../services/projectViewService';
 import * as types from '../constants/ProjectViewActionTypes';
+import projectViewService from '../services/projectViewService';
 
-export function getProject(projectId) {
+export function getProject(projectId,filters) {
     return (dispatch) => {
         dispatch({ type: types.PROJECT_VIEW_START_LOADING });
-        return projectViewService.getProject(projectId)
+        return projectViewService.getProject(projectId,filters)
             .then(response => response.json())
             .then(project => {
+                project['filters'] = filters;
                 dispatch({
                     type: types.PROJECT_VIEW_END_LOADING,
-                    projectData: project
+                    project: project
                 });
             }).catch(error => {
                 dispatch({
@@ -20,14 +21,13 @@ export function getProject(projectId) {
     };
 }
 
-export function showOrHideQ() { // развернуть/свернуть вопросы
-    const action = {
+export function showOrHideQ() { 
+    return {
         type: types.SHOW_OR_HIDE_Q
     }
-    return action;
 }
 
-export function showOrHideA(index) { // развернуть/свернуть ответы
+export function showOrHideA(index) {
     const action = {
         type: types.SHOW_OR_HIDE_A,
         index
@@ -35,23 +35,21 @@ export function showOrHideA(index) { // развернуть/свернуть о
     return action;
 }
 
-export  function newMessageInAddQTextarea(message) { // хранилище поля ввода нового вопроса
-    const action = {
+export  function newMessageInAddQTextarea(message) { 
+    return {
         type: types.NEW_MESSAGE_IN_ADD_Q_TEXTAREA,
         message
     }
-    return action;
 }
 
-export  function newCheckAttrInAddQCheckBox(checkAttr) { // хранилище состояния чекбокса нового вопроса
-    const action = {
+export  function newCheckAttrInAddQCheckBox(checkAttr) {
+    return {
         type: types.NEW_CHECK_ATTR_IN_ADD_Q_CHECKBOX,
         checkAttr
     }
-    return action;
 }
 
-export function addingQ(projectId, newQuestion) { // добавление нового вопроса
+export function addingQ(projectId, newQuestion, senderInfo) { // добавление нового вопроса
     return (dispatch) => {
         return projectViewService.addingQ(projectId, newQuestion)
             .then(response => response.json())
@@ -59,7 +57,8 @@ export function addingQ(projectId, newQuestion) { // добавление нов
                 newQuestion._id = data.addedId;
                 dispatch({
                     type: types.ADDING_Q_SUCCESS,
-                    newQuestion: newQuestion
+                    newQuestion: newQuestion,
+                    senderInfo
                 });
             }).catch(error => {
                 dispatch({
@@ -70,16 +69,16 @@ export function addingQ(projectId, newQuestion) { // добавление нов
     };
 }
 
-export  function newMessageInAddATextarea(message, num) { // хранилище поля ввода нового ответа
-    const action = {
+export function newMessageInAddATextarea(message, num) { 
+    return {
         type: types.NEW_MESSAGE_IN_ADD_A_TEXTAREA,
         message,
         num
     }
-    return action;
 }
 
-export function addingA(projectId, newAnswer, num, qId) { // добавление нового ответа
+
+export function addingA(projectId, newAnswer, senderInfo, num, qId) { // добавление нового ответа
     return (dispatch) => {
         return projectViewService.addingA(projectId, newAnswer, qId)
             .then(response => response.json())
@@ -88,6 +87,7 @@ export function addingA(projectId, newAnswer, num, qId) { // добавлени�
                 dispatch({
                     type: types.ADDING_A_SUCCESS,
                     newAnswer: newAnswer,
+                    senderInfo,
                     num: num
                 });
             }).catch(error => {
@@ -99,35 +99,32 @@ export function addingA(projectId, newAnswer, num, qId) { // добавлени�
     };
 }
 
-export function showEditQ(numQ,message,isChecked) { // перевод комментария в режим редактирования
-    const action = {
+export function showEditQ(numQ,message,isChecked) { 
+    return {
         type: types.NEW_EDIT_Q_IS_SHOWN,
         numQ: numQ,
         message: message,
         isChecked: isChecked
     }
-    return action;
 }
 
-export function newMessageInEditQTextarea(numQ,message) { // хранилище поля ввода редактируемого ответа
-    const action = {
+export function newMessageInEditQTextarea(numQ,message) { 
+    return {
         type: types.NEW_MESSAGE_IN_EDIT_Q_TEXTAREA,
         numQ: numQ,
         message: message
     }
-    return action;
 }
 
-export function newCheckAttrInEditQCheckBox(numQ, isChecked) { // хранилище состояния чекбокса редактируемого ответа
-    const action = {
+export function newCheckAttrInEditQCheckBox(numQ, isChecked) { 
+    return {
         type: types.NEW_CHECK_ATTR_IN_EDIT_Q_CHECKBOX,
         numQ: numQ,
         isChecked: isChecked
     }
-    return action;
 }
 
-export function sendEditQ(projectId, numQ, qId, message, checked) { // отправка отредактированного вопроса в БД
+export function sendEditQ(projectId, numQ, qId, message, checked) { 
     return (dispatch) => {
         return projectViewService.sendingEditedQ(projectId, qId, message, checked)
             .then(response => response.json())
@@ -147,27 +144,25 @@ export function sendEditQ(projectId, numQ, qId, message, checked) { // отпр�
     };
 }
 
-export function showEditA(numQ,numA,message) { // перевод комментария в режим редактирования
-    const action = {
+export function showEditA(numQ,numA,message) { 
+    return {
         type: types.NEW_EDIT_A_IS_SHOWN,
         numQ: numQ,
         numA: numA,
         message: message
     }
-    return action;
 }
 
-export function newMessageInEditATextarea(numQ,numA,message) { // хранилище поля ввода редактируемого ответа
-    const action = {
+export function newMessageInEditATextarea(numQ,numA,message) {
+    return {
         type: types.NEW_MESSAGE_IN_EDIT_A_TEXTAREA,
         numQ: numQ,
         numA: numA,
         message: message
     }
-    return action;
 }
 
-export function sendEditA(projectId, numQ, qId, numA, aId, message) { // отправка отредактированного ответа в БД
+export function sendEditA(projectId, numQ, qId, numA, aId, message) {
     return (dispatch) => {
         return projectViewService.sendingEditedA(projectId, qId, numA, aId, message)
             .then(response => response.json())
@@ -187,7 +182,7 @@ export function sendEditA(projectId, numQ, qId, numA, aId, message) { // отп�
     };
 }
 
-export function removingQ(projectId, num, qId) { // удаление вопроса
+export function removingQ(projectId, num, qId) {
     return (dispatch) => {
         return projectViewService.removingQ(projectId, qId)
             .then(response => response.json())
@@ -205,7 +200,7 @@ export function removingQ(projectId, num, qId) { // удаление вопро�
     };
 }
 
-export function removingA(projectId, numQ, qId, numA, aId) { // удаление ответа
+export function removingA(projectId, numQ, qId, numA, aId) {
     return (dispatch) => {
         return projectViewService.removingA(projectId, qId, aId)
             .then(response => response.json())

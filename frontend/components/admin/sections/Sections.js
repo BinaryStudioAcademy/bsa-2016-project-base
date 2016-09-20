@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 
-import InsertSection from './InsertSection'
-import SectionsToolBar from './SectionsToolBar'
-import SectionsList from './SectionsList'
+import InsertSection from './InsertSection';
+import SectionsToolBar from './SectionsToolBar';
+import SectionsList from './SectionsList';
 
 import styles from './styles/Sections.sass';
+
 class SectionsTab extends Component {
 	constructor(props) {
 		super(props);
@@ -25,9 +26,6 @@ class SectionsTab extends Component {
 	}
 
 	removeChecked() {
-		//this.state.listCheckedFeatures = [];
-		//this.state.flagChecked = false;
-
 		this.setState({
 			listCheckedSections: [],
 			flagChecked: false
@@ -42,22 +40,16 @@ class SectionsTab extends Component {
 		}
 		else if(!check) {
 			this.state.listCheckedSections = this.state.listCheckedSections.filter(function(el) {
-				if(el == sectionId) {
-					return false
-				} else {
-					return true;
-				}
+				if(el == sectionId) return false
+				else return true;
 			})
 
 		}
-		//alert(featureLength);
 		this.state.listCheckedSections.length == sectionLength && sectionLength!=0 ? this.setState({flagChecked: true}) : this.setState({flagChecked: false});
 	}
 
 	markedAllSections(sections, flagChecked) {
-		if(sections.length == 0) {
-			return;
-		}
+		if(sections.length == 0) return;
 		if (flagChecked) {
 			this.setState({
 				listCheckedSections: sections.map(function(section) {
@@ -86,14 +78,5 @@ class SectionsTab extends Component {
 		)
 	}
 }
-/*
- <FeaturesToolBar />
- <FeaturesList />
- */
-
-/*FeaturesTab.propTypes = {
- features: PropTypes.array.isRequired,
- addFuture: PropTypes.func.isRequired
- };*/
 
 export default SectionsTab;
