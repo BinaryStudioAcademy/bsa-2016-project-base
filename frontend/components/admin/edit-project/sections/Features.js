@@ -52,7 +52,7 @@ class Features extends Component {
         let featuresToDelete = [];
         let featuresToStay = [];
         features.forEach(function (el,indx) {
-            if(el.section._id === id){
+            if(el.section._id === id || el.section === id){
                 featuresToDelete.push(el);
             }else{
                 featuresToStay.push(el);
@@ -70,13 +70,11 @@ class Features extends Component {
     }
 
     showCreateFeatureModal() {
-        console.log('showCreateFeatureModal');
         this.setState({
             isModalActive: true
         })
     }
     closeCreateFeatureModal() {
-        console.log('closeCreateFeatureModal');
         this.setState({
             isModalActive: false
         });
@@ -91,9 +89,6 @@ class Features extends Component {
         })
         const {featureName} = this.state;
         const {activeSection} = this.props;
-
-        console.log('addNewFeature featureName',featureName);
-        console.log('addNewFeature featureName',descriptionHTMLText);
 
         this.props.postFeature({
             featureName,
@@ -130,7 +125,6 @@ class Features extends Component {
                     <RaisedButtonUITags
                         label='Add'
                         onClick={this.showCreateFeatureModal}
-                        backgroundColor='#8D97A4'
                     />
                 </div>
             </div>
@@ -176,9 +170,7 @@ class Features extends Component {
             //alert("AGA!");
             this.props.initialStateSections(features);
         }
-        console.log('sections ',sections);
         const sectionsList = sections.map( section => {
-            console.log('section ',section)
             return (
                 <Section
                     key={section._id}

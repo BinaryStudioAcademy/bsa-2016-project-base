@@ -13,13 +13,16 @@ export default function EditProjectReducer(state=initialState, action) {
                 predefinedConditions: conditions
             });
         }
+
         case types.UP_ADD_USER_TO_PROJECT_ED: {
             const {_id} = action;
-            const {predefinedUsers} = state;
+            const {predefinedUsers,userStory,timeBegin,timeEnd} = state;
             return Object.assign({}, state, {
-                predefinedUsers: addUserToProject(predefinedUsers, _id)
+                predefinedUsers: addUserToProject(predefinedUsers, _id),
+                userStory: updateUserStory(userStory,_id,timeBegin,timeEnd,null)
             });
         }
+
         case types.UP_REMOVE_USER_FROM_PROJECT_ED: {
             const {_id} = action;
             const {predefinedUsers} = state;

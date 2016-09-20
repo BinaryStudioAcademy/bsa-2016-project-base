@@ -114,7 +114,7 @@ class EditProject extends Component {
     }
     updateProject(e) {
         console.log('createProject');
-        const {projectName,projectLink,timeBegin,timeEnd,status,description, projectId, contacts, location} = this.props.store;
+        const {projectName,projectLink,timeBegin,timeEnd,status,description, projectId, contacts, location, users} = this.props.store;
         const {predefinedUsers,predefinedTags,predefinedTechnologies,sections,features,files, userStory} = this.props.store;
         console.log('features ',features);
         console.log('sections ',sections);
@@ -153,19 +153,31 @@ class EditProject extends Component {
                 var obj = {};
                 predefinedUsers.forEach( user => {
                     if (user.inProject == true) {
-                        console.log("user.inProject " + user.inProject);
-                        temp = user.userHistory.map(function(history) {
-                            if(history.projectId == projectId) {
-                                return {
-                                    projectId: projectId,
-                                    dateFrom: userStory[user._id].dateFrom,
-                                    dateTo: userStory[user._id].dateTo
-                                }
-                            } else {
-                                return history;
+                        if(!users.some(function (el) {
+                                return el._id == user._id
+                            })) {
+                            obj[user._id] = {
+                                projectId: projectId,
+                                dateFrom: userStory[user._id].dateFrom,
+                                dateTo: userStory[user._id].dateTo,
                             }
-                        })
-                        obj[user._id] = temp;
+                        } else {
+                            temp = user.userHistory.map(function(history) {
+                                if(history.projectId == projectId) {
+                                    return {
+                                        projectId: projectId,
+                                        dateFrom: userStory[user._id].dateFrom,
+                                        dateTo: userStory[user._id].dateTo,
+                                        inProject: users.some(function (el) {
+                                            return el._id == user._id
+                                        })
+                                    }
+                                } else {
+                                    return history;
+                                }
+                            })
+                            obj[user._id] = temp;
+                        }
                     };
 
                 });
