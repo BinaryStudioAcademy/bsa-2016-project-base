@@ -737,7 +737,8 @@ const initialState = {
     initialFiles: false,
     iconLoaded: false,
     location: null,
-    errors: {nameError: false, technologiesError: false, timeBeginError: false, usersError: false, timeEndError: false},
+    errors: {nameError: false, technologiesError: false, timeBeginError: false, usersError: false, timeEndError: false,
+        nameLengthError: false},
     techIcon: {},
     contacts: {
         countryCode: '',

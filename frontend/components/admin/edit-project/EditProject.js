@@ -89,7 +89,8 @@ class EditProject extends Component {
             timeBeginError: false,
             technologiesError: false,
             usersError: false,
-            errors: {nameError: false, technologiesError: false, timeBeginError: false, usersError: false, timeEndError: false}
+            errors: {nameError: false, technologiesError: false, timeBeginError: false, usersError: false, timeEndError: false,
+                nameLengthError: false}
         }
     }
     componentWillReceiveProps(nextProps){
@@ -242,6 +243,12 @@ class EditProject extends Component {
             errors.nameError = false;
         }
 
+        if(projectName.length >= 40) {
+            errors.nameLengthError = true
+        } else {
+            errors.nameLengthError = false
+        }
+
         if(inProject.technologies.length == 0) {
             errors.technologiesError = true;
         } else {
@@ -266,7 +273,8 @@ class EditProject extends Component {
             errors.usersError = false;
         }
 
-        if(errors.nameError || errors.technologiesError || errors.timeBeginError || errors.usersError || errors.timeEndError) {
+        if(errors.nameError || errors.technologiesError || errors.timeBeginError || errors.usersError || errors.timeEndError
+        || errors.nameLengthError) {
             window.scrollTo(0, 0);
             toastr.error('Bad Request!', {
                 timeOut: 10000

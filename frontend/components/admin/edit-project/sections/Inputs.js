@@ -96,6 +96,8 @@ class Inputs extends Component {
 							style={{width: '100%'}}
 						/>
 						{this.props.errors.nameError && <div className={styles.validation}><div className={styles.tool}>This field is required</div></div>}
+						{this.props.errors.nameLengthError && <div className={styles.validation}><div className={styles.tool}>Project name must be shorter then 40 symbols</div></div>}
+
 					</div>
 					<div className={styles['field-container']}>
 						<TextFieldProject
