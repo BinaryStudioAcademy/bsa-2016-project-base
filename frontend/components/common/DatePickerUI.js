@@ -3,6 +3,14 @@ import DatePicker from 'material-ui/DatePicker';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FaCalendar from 'react-icons/lib/fa/calendar';
 
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
+const muiTheme = getMuiTheme({
+  datePicker: {
+      selectColor: '#8D97A4',
+    }
+});
+
 /**
  * `DatePicker` can be implemented as a controlled input,
  * where `value` is handled by state in the parent component.
@@ -71,7 +79,6 @@ export default class DatePickerControlled extends React.Component {
           onChange={(e, date) => { this.handleChange(e, date); this.props.onChange(e, date)}}
           textFieldStyle={styles.textFieldStyle}
           hintStyle={styles.hintStyle}
-          // underLineStyle={styles.underlineStyle}
           underlineStyle={styles.underlineStyle}
           style={this.props.style}
           inputStyle={styles.inputStyle}
