@@ -603,7 +603,12 @@ const updateUserStory = (story, userId, start, end, projectPeriod) => {
 
                     }
                 } else {
-                    story[userId].dateTo = end;
+                    if(story[userId].dateTo && end == null) {
+
+                    }
+                    else {
+                        story[userId].dateTo = end;
+                    }
                 }
 
 
