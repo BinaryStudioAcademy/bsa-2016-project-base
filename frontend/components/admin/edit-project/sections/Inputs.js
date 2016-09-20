@@ -97,7 +97,8 @@ class Inputs extends Component {
 					<div className={styles['field-container']}>
 						<TextFieldProject
 							value={this.props.projectName}
-							hintText='Project name'
+							hintText='Enter the project name'
+							floatingLabelText='Project name *'
 							placeholder='My first project'
 							onChange={this.onProjectNameChange}
 							style={{width: '100%'}}
@@ -107,7 +108,8 @@ class Inputs extends Component {
 					<div className={styles['field-container']}>
 						<TextFieldProject
 							value={this.props.projectLink}
-							hintText='Link to project'
+							hintText='Enter the link to project'
+							floatingLabelText='Link to project'
 							placeholder='Link to project'
 							onChange={this.onProjectLinkChange}
 							style={{width: '100%'}}
