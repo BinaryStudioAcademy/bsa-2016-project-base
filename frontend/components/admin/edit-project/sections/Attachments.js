@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../../../actions/admin/EditProjectActions';
 import { Button, TextInput, TextArea, FileUpload, TextFieldProject } from '../../../common/';
 import File from './File';
-import styles from '../../project/sections/styles/Attachments.sass';
+import styles from './styles/Attachments.sass';
 
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -89,7 +89,7 @@ class Attachments extends Component {
             }
         });
         return (
-            <div id={styles["attachments"]}>
+            <div id={styles["attachments-edit"]}>
                 <header>
                     <h2>Attachments</h2>
                 </header>
