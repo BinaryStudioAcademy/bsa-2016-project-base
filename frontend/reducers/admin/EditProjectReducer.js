@@ -392,8 +392,6 @@ export default function EditProjectReducer(state = initialState, action) {
 
         case types.SET_VISIBLE_ADD_TECH_FORM_ED: {
             const {hideTechForm} = action;
-            console.log('reducer');
-            console.log(hideTechForm);
             return Object.assign({}, state, {
                 hideTechForm
             })

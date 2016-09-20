@@ -610,8 +610,6 @@ export function setVisibleUploadByLinkAttachments(hideFile, hideForm) {
 }
 
 export function setVisibleAddTechForm(hideTechForm) {
-    console.log('action');
-    console.log(hideTechForm);
     return {
         type: types.SET_VISIBLE_ADD_TECH_FORM_ED,
         hideTechForm: hideTechForm
