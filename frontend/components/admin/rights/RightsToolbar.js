@@ -45,7 +45,8 @@ class RightsToolbar extends React.Component {
                 <RaisedButton label="Save changes" onClick={()=>{
                     this.props.saveProjectUsers(current['projectId'],{
                         users: updated,
-                        usersRight: filters['usersRight']
+                        usersRight: filters['usersRight'],
+                        nameFilter: filters['name']
                     });
                  }}  autoWidth={false} />
                 <CheckBox label="Write" checked={(filters['usersRight'] == 'owners')}

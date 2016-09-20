@@ -127,16 +127,21 @@ class ProjectView extends Component {
             if(currentFeature == item._id) options['className'] = "featureItem-Main";
             featuresItems.push(React.createElement(FeaturesListItem,options));
         });
-      
-        if(projectDetail['users']) projectDetail['users'].forEach((item,index)=>{
-            if(typeof item != 'object') return;
-            usersItems.push(<UsersListItem key={index+item._id} data={item} marker={"users"}/>);
-        }); 
 
         if(projectDetail['owners']) projectDetail['owners'].forEach((item,index)=>{
             if(typeof item != 'object') return;
             usersItems.push(<UsersListItem key={index+item._id} data={item} marker={"owners"}/>);
-        }); 
+        });
+
+        if(projectDetail['users']) projectDetail['users'].forEach((item,index)=>{
+            if(typeof item != 'object') return;
+            if(projectDetail['owners']) {
+                var isOwner = projectDetail['owners'].reduce(function(status, current) {
+                    return status || ( item._id == current._id );
+                }, false);
+            }
+            if(!isOwner) usersItems.push(<UsersListItem key={index+item._id} data={item} marker={"users"}/>);
+        });
 
     	return (
             <div id={styles["project-view-content"]}>

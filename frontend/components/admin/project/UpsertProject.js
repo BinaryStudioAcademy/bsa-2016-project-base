@@ -123,7 +123,7 @@ class UpsertProject extends Component {
             users: (() => {
                 const temp = [];
                 users.forEach( user => {
-                    if (user.inProject) temp.push(user._id);
+                    if (user.inProject && !user.owner) temp.push(user._id);
                 });
                 return temp;
             })(),
