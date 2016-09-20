@@ -41,3 +41,7 @@ export default function (that) {
     });
     return state;
 };
+
+export function refreshProjectList(){
+    state.model.shouldRefreshOnAppearence = true
+}

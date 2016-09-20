@@ -210,8 +210,8 @@ module.exports = function(app) {
 	}, apiResponse);
 
 	app.get('/api/review/:id', function(req, res, next) {
-		projectRepository.getById(req.params.id, function (err,data) {
-			featureRepository.getFeaturesWithSections(data, function (err, data) {
+		projectRepository.getById(req.params.id, function (err,project) {
+			featureRepository.getFeaturesWithSections(project, function (err, data) {
 				var sortData = {};
 
 				for(var i = 0, l = data.length; i < l; i++){
@@ -221,6 +221,11 @@ module.exports = function(app) {
 				}
 
 				res.data = sortData;
+				/*res.data = {
+					sections: sortData,
+					projectId:project._id,
+					estimation: project.estimation
+				};*/
 				res.err = err;
 				next();
 			});

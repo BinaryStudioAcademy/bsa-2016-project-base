@@ -20,17 +20,13 @@ class UsersList extends Component {
     }
 
     addUserToProject(e, userId) {
-        console.log('addUserToProject ',userId);
         if (userId)  this.props.addUserToProject(userId);
     }
     removeUserFromProject(e, userId) {
-        console.log('removeUserFromProject ',userId);
         if (userId) this.props.removeUserFromProject(userId);
     }
     onOwnershipChange(e, userId) {
-        console.log('onOwnershipChange ',userId);
         const checked = e.target.checked;
-        console.log('checked = ' + checked);
         if (userId) this.props.changeOwnership(userId, checked);
     }
 
@@ -40,7 +36,6 @@ class UsersList extends Component {
     }
     setUserEndDate(e, date){
         const { activeUser } = this.props.store;
-        alert(JSON.stringify(date));
         this.props.setUserEndDate(activeUser, date);
     }
 
@@ -71,8 +66,6 @@ class UsersList extends Component {
             if (userStory.hasOwnProperty(activeUser)){
                 startDate = new Date(userStory[activeUser].dateFrom);
                 endDate = new Date(userStory[activeUser].dateTo);
-                console.log("startDate " + startDate);
-                console.log("endDate " + endDate);
             }
 
         }
@@ -101,10 +94,8 @@ class UsersList extends Component {
     }
 
     render() {
-        console.log('UsersList LLLLLLL');
         const { users, owners, predefinedUsers, initialUsers, activeUser } = this.props.store;
         if(users!= null && initialUsers == false) {
-            //alert("AGA!");
             this.props.initialStateUsers(users, predefinedUsers, owners);
         }
         let opts = [];
@@ -188,7 +179,6 @@ function mapDispatchToProps(dispatch) {
 };
 
 function mapStateToProps(state) {
-    console.log('developersList mapStateToProps');
     return {
         store: state.EditProjectReducer
     };

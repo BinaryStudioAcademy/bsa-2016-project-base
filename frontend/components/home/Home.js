@@ -26,6 +26,10 @@ export default class Home extends Component {
 
     render() {
         const model = this.state.model;
+        if (model.shouldRefreshOnAppearence){
+            model.shouldRefreshOnAppearence = false;
+            model.goSearchFromScratch()
+        }
         return (<div className='section-cont' id="home-root">
                 <MuiThemeProvider>
                     <Search model={model.searchContainer}/>

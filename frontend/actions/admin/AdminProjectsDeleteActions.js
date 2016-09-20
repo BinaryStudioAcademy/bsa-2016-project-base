@@ -5,6 +5,7 @@ import async from 'async';
 import * as types from './AdminProjectsDeleteActionsTypes';
 import ProjectService  from '../../services/homeService';
 
+import {refreshProjectList} from "./../../components/home/models/HomeInitialState"
 
 export function getAllProjectsDelete() {
 
@@ -24,7 +25,7 @@ export function initProjects(projects) {
         listOfProjects: projects
     }
 }
-export function deleteProject(id) {
+export function deleteProject(id,projects) {
     return dispatch => {
         async.waterfall([
             function (callback) {
@@ -34,11 +35,12 @@ export function deleteProject(id) {
                         dispatch(initProjects([]));
                     });
                 if(result){
-                        callback(null);
+                    callback(null);
+                    refreshProjectList()
                 }
             }
         ],function (err,result) {
-            dispatch(getAllProjectsDelete());
+            dispatch(initProjects(projects));
         });
     }
 }

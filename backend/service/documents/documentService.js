@@ -4,7 +4,7 @@ var fs = require("fs");
 var path = require("path");
 var docxGenerator = require("./docxGenerator");
 var config = require("./config.js");
-
+var projectRepository = require("./../../repositories/projectRepository")
 class DocumentService {
     constructor() {
         var OAuth2 = google.auth.OAuth2;
@@ -22,7 +22,13 @@ class DocumentService {
         callback(null, url);
     }
     getData(query, callback) {
-        callback(null, query);
+        if (query.estimation && query.projectId){
+        console.log("query", query)
+            projectRepository.update(query.projectId, {estimation:query.estimation})
+            callback(null, query.estimation)
+        }else{
+            callback(null, query);
+        }
         // callback(null, [
         //      [
         //     {

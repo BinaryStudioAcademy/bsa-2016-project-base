@@ -26,14 +26,16 @@ export default class Location extends MultiSelectModel {
         searchService.getProject(projectId)
             .then(res=>{
                 var project = res.project;
-                var div = document.createElement("div");
-                var container = document.createElement("div");
-                container.appendChild(div);
-                div.setAttribute("class", "div-small");
-                var comp = <Project project={project}/>;
-                ReactDom.render(comp, div, function(){
-                    mapContentToDestination(container.innerHTML)
-                })
+                if (project && project._id){
+                    var div = document.createElement("div");
+                    var container = document.createElement("div");
+                    container.appendChild(div);
+                    div.setAttribute("class", "div-small");
+                    var comp = <Project project={project}/>;
+                    ReactDom.render(comp, div, function(){
+                        mapContentToDestination(container.innerHTML)
+                    })
+                }
             })
     }
 
@@ -47,11 +49,11 @@ export default class Location extends MultiSelectModel {
         this.getTips(map, function(error, tips){
             this.tips.forEach(tip=>tip.marker.setMap(null));
             this.tips = tips;
-            new MarkerClusterer(map, tips.map(tip=>tip.marker), {
+            /*new MarkerClusterer(map, tips.map(tip=>tip.marker), {
                 imagePath: 'https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/images/m',
                 gridSize: 100,
                 minimumClusterSize:3
-            });
+            });*/
             this.notifyUpdated();
         }.bind(this))
     }

@@ -13,12 +13,17 @@ module.exports = function(req,onResult) {
         function(data, callback){
             var projectId = data._id;
             var userHistory = req.body.userHistory;
-            console.log("userHistory!!! " + userHistory);
             for(var key in userHistory) {
-                console.log("userHistory[key]!!! " + userHistory[key]);
-                userRepository.changeProject(key, userHistory[key], function(err, data) {
-                     if (err) return callback (err, data);
-                });
+                if(Array.isArray(userHistory[key])) {
+                    userRepository.changeProject(key, userHistory[key], function(err, data) {
+                        if (err) return callback (err, data);
+                    });
+                } else {
+                    userRepository.addToProject(key, userHistory[key], function(err, data) {
+                        if (err) return callback (err, data);
+                    });
+                }
+
            }
            callback (null, data);
         }],

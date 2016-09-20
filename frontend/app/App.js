@@ -48,7 +48,7 @@ class App extends React.Component {
     }
 
     startGuide(){
-        browserHistory.push('/' + this.props['guideData'].steps[0].direction);                      
+        browserHistory.push('/' + this.props['guideData'].steps[0].direction);
         this.refs['joyride'].reset(true);
         this.refs['joyride'].start(true);
     }
@@ -67,12 +67,12 @@ class App extends React.Component {
         let index = 0;
         if(data['action'] == 'next' || data['action'] == 'back'){
             let progress = this.refs['joyride'].getProgress();
-            if(progress['index'] != this.props['guideData'].steps['length'])  
-                index = progress['index'];            
+            if(progress['index'] != this.props['guideData'].steps['length'])
+                index = progress['index'];
             if(data.step && data.step['direction'] != window['location'])
                 browserHistory.push('/' + data.step['direction']);
         }
-        this.props.setGuideProgress(index);     
+        this.props.setGuideProgress(index);
     }
 
     onExit(){
@@ -98,20 +98,20 @@ class App extends React.Component {
         }
 
         for(let i in steps)   menuStepsItems.push(
-            <MenuItem key={i} value={steps[i].selector} 
+            <MenuItem key={i} value={steps[i].selector}
                 style={{
-                    backgroundColor: "white", 
+                    backgroundColor: "white",
                     webkitAppearance: "none"
-                }} primaryText={steps[i].title} 
+                }} primaryText={steps[i].title}
             />
         );
 
         return (
             <div id={styles["app-container"]}>
-            	<Joyride ref="joyride" steps={steps} 
+            	<Joyride ref="joyride" steps={steps}
                     callback={this.onGuideProgress}
-                    debug={true}
-                    type={settings['type']} 
+                    debug={false}
+                    type={settings['type']}
             		locale={settings['locale']}
                     showOverlay={settings['showOverlay']}
                     scrollToFirstStep={settings['scrollToFirstStep']}
@@ -127,12 +127,12 @@ class App extends React.Component {
 	                                <FaList size={20} />
 	                                <span>{title}</span>
 	                            </div>
-	                            <div>    
+	                            <div>
                                 	<FaIntro size={20} onClick={this.startGuide}/>
                                 	<span onClick={this.startGuide}> Intro guide </span>
                                     <MuiThemeProvider>
                                         <DropDownMenu value={steps[index].selector}
-                                            onChange={(e,i)=>{                           
+                                            onChange={(e,i)=>{
                                             this.onGuidePageByIndex(i);
                                         }}>{menuStepsItems}</DropDownMenu>
                                     </MuiThemeProvider>
@@ -168,4 +168,3 @@ function mapStateToProps(state) {
 
 const AppConnected = connect(mapStateToProps, mapDispatchToProps)(App);
 export default AppConnected;
-
