@@ -51,35 +51,21 @@ UsersRightsRepository.prototype.getUsersToProject = function(data,callback){
 }
 
 UsersRightsRepository.prototype.updateUsersToProject = function(id,data,callback){
-	var updation;
-	switch(data['usersRight']){
-		case 'owners':
-			var filter =  { $each: data['simples'] };
-			updation = {
-				$pop: { owners: filter  },
-				$push: { users: filter  }
-			};
-		break;
-		case 'simples':
-			var  filter =  { $each: data['owners'] };
-			updation = {
-				$pop: { owners: filter },
-				$push: { users: filter }
-			};
-		break;
-		default:
-			updation = {
-				$pop:{
-					owners: { $each: data['simples'] },
-					users: { $each: data['owners'] }
-				},$push: {
-					owners: { $each: data['owners'] },
-					users: { $each: data['simples'] }
-				}
-			};
-		break;
-	}
-	this.model.update({_id: id},updation,callback);
+	var model = this.model,
+		updation = { $pullAll: {} };
+	if(data['owners']) updation['$pullAll'].owners = data['owners'];
+	if(data['users']) updation['$pullAll'].owners = data['users'];
+
+	model.update({_id: id},updation,function(err,result){
+		if(err){
+			callback(err,result);
+			return;
+		}
+		updation = { $addToSet: {} };
+		if(data['owners']) updation['$addToSet'].owners = { $each: data['owners']};
+		if(data['users']) updation['$addToSet'].users = { $each: data['users']};
+		model.update({_id: id},updation,callback);
+	});
 }
 
 UsersRightsRepository.prototype.getProjectList = function(callback){
