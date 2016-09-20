@@ -28,7 +28,7 @@ export default class ListProjects extends Component {
                 (projects.length > 0) ?
                 <ul className={styles["project-list-home"]}>
                     {projects.map( (project, index) =>
-                        <div style={{width:"30%", marginBottom: "2rem"}}>
+                        <div>
                             <Project
                                 id={project._id}
                                 key={index}

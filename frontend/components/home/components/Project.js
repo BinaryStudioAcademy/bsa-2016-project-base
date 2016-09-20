@@ -29,7 +29,7 @@ export default class Project extends Component {
 
         const { project, ranking, id} = this.props;
         let lis = this.createLis();
-        console.log(project)
+
         return (
             <li key={id} className={styles['list-group-item']}>
                 <Link to={`/project-view/${project._id}`}>

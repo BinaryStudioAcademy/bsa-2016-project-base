@@ -82,18 +82,16 @@ export function updateUserRight(key,value){
 export function saveProjectUsers(projectId,data){
     return (dispatch) => {
         let request = {
-            usersRight: data['usersRight'],
             owners: new Array(),
-            simples:new Array()
+            users: new Array()
         };
 
-        for(let i in data['users']) request[(data.users[i] ? 'owners' : 'simples')].push(i); 
-            
+        for(let i in data['users']) request[(data.users[i] ? 'owners' : 'users')].push(i);       
         return usersRightsService.saveProjectUsers(projectId,request)
             .then(response => response.json())
             .then(data =>{
                 toastr.success(`Successfully updated`, { timeOut: 10000 });
-                usersRightsService.getProjectUsers(projectId)
+                usersRightsService.getProjectUsers(projectId,data['nameFilter'],data['usersRight'])
                     .then(responseCurrent => responseCurrent.json())
                     .then(current =>{
                         current['users'] = concatUsers(current['users']);
