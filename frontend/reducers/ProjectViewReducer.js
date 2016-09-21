@@ -79,12 +79,14 @@ export default function ProjectViewReducer(state = initialState, action) {
 
         case types.ADDING_Q_SUCCESS:
 
-            var questions = state.questions;
+            var newState = Object.assign({},state);
             var newQ = action.newQuestion;
             newQ.question.author = action.senderInfo;
-            questions.push(newQ);
+            newState.questions.push(newQ);
+            newState.questionsOptions.newMess.newQ.textarea = '';
+            newState.questionsOptions.newMess.newQ.checkbox = false;
 
-            return { ...state, questions: questions };
+            return newState;
 
         case types.NEW_MESSAGE_IN_ADD_A_TEXTAREA:
 
@@ -95,12 +97,13 @@ export default function ProjectViewReducer(state = initialState, action) {
 
         case types.ADDING_A_SUCCESS:
 
-            var questions = state.questions;
+            var newState = Object.assign({},state);
             var newA = action.newAnswer;
             newA.author = action.senderInfo;
-            questions[action.num].answers.push(newA);
+            newState.questions[action.num].answers.push(newA);
+            newState.questionsOptions.newMess.newA[action.num] = '';
 
-            return { ...state, questions: questions };
+            return newState;
 
         case types.REMOVING_Q_SUCCESS:
 

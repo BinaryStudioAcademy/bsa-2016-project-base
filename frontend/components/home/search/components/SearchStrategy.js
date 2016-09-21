@@ -1,6 +1,6 @@
 import React from "react"
 import {PropTypes} from "react"
-import SearchContainer from "./../models/SearchContainer";
+import SearchContainer from "./containers/SearchContainerModel";
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import SearchStrategy from "./../const/SearchStratrgy";
 import getMuiTheme from 'material-ui/styles/getMuiTheme';

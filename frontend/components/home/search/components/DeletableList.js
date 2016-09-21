@@ -4,7 +4,7 @@ import {List, ListItem} from 'material-ui/List';
 import Delete from "material-ui/svg-icons/action/delete"
 import RaisedButton from 'material-ui/RaisedButton';
 import Subheader from 'material-ui/Subheader';
-import Model from "./../models/Model"
+import Model from "./tabs/Model"
 export default class DeletableList extends React.Component {
     constructor(props) {
         super(props)

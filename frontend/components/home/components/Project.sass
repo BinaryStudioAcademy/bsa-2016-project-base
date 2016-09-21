@@ -4,8 +4,6 @@
   @media (max-width: $media/16+em)
     @content
 
-//#_project-view
-
 .list-group-item img
   max-width: 100%
   max-height: 100px
@@ -18,12 +16,9 @@
     font-size: 0.7rem
     background: #efefef
     background-color: #FFFFFF
-    // border: 1px solid #E4E7EA
-    //cursor: pointer
     border-radius: 0px
 
     transition: box-shadow .3s
-    //padding: 1.1875rem 1.875rem
     box-shadow: border-box
     box-shadow: 0px 1px 15px -6px #777
 
@@ -62,17 +57,15 @@
                 padding-left: 1.25rem
                 display: flex
                 align-items: center
-
-
-
                 border-left: 3px solid #8D97A4
-            .status-completed, .status-inprogress
+            .status-completed, .status-inprogress, .status-estimation
                 flex-basis: 30%
-                // display: flex
                 display: flex
                 align-items: center
                 justify-content: center
-                .status-completed-label, .status-inprogress-label
+                .status-completed-label, 
+                .status-inprogress-label,
+                .status-estimation-label,
                     padding: 0.3rem
                     border: 1px solid #2ECC71
                     border-radius: 5px
@@ -82,33 +75,26 @@
                 .status-inprogress-label
                     color: #FC5A5A
                     border: 1px solid #FC5A5A
-                // padding: 1.25rem 1.25rem 1.25rem 0
+                .status-estimation-label
+                    color: #e67e22
+                    border: 1px solid #e67e22
         .image
 
             text-align: center
-            // padding: 1.25rem
             margin: 1.25rem
         .description-t
-            position: relative;
+            position: relative
             text-align: center
             font-size: 0.8rem
             color: #A4A4A4
-
-            // max-height: 50px
-            // width: 60%
-            line-height: 1.2rem;
-            // max-height: 4.5rem;
-
-            // white-space: nowrap
-
+            line-height: 1.2rem
             overflow: hidden
             margin: 1.25rem
-
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            display: -webkit-box
+            -webkit-line-clamp: 3
+            -webkit-box-orient: vertical
+            overflow: hidden
+            text-overflow: ellipsis
 
         .ranking-row
             display: flex
@@ -138,7 +124,6 @@
                         margin-right: 0.4rem
                         border-radius: 50%
                         border: 1px solid #c9c9c9
-                        // background-color: grey
                         display: inline-block
                     li.ranked
                         background-color: #f1c40f
@@ -153,32 +138,27 @@
                 position: relative
                 color: #8D97A4
 
-
-
-
                 .name
                     font-weight: 700
                     vertical-align: middle
                     color: #8D97A4
                     margin-left: .2rem
-                    // vertical-align: middle
-                    // display: inline-block
 
                 .tech-list
                     position: absolute
                     background-color: #495158
                     padding: 0
                     display: flex
-                    top: 45px
-                    left: -90px
-                    flex-flow: row wrap
-                    width: 250px
+                    top: 55px;
+                    left: -120px;
+                    flex-flow: row wrap;
+                    width: 210px
                     border-radius: 5px
                     padding: 1rem
                     justify-content: flex-start
                     display: none
                     cursor: initial;
-                    
+
                     li
                         background-color: #737C85
                         color: #fff
@@ -187,9 +167,10 @@
                         font-weight: 700
                         border-radius: 10px
                         text-align: center
+
                 .tech-list:after
                     bottom: 100%
-                    left: 50%
+                    left: 75%
                     border: solid transparent
                     content: " "
                     height: 0

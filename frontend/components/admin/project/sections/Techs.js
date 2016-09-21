@@ -33,13 +33,10 @@ class Techs extends Component {
         this.setVisibleTechForm = this.setVisibleTechForm.bind(this);
     }
     componentWillReceiveProps(nextProps) {
-        console.log('componentWillReceiveProps');
         this.isAllFilled(nextProps);
         this.setState({
             hideTechForm: nextProps.hideTechForm
         });
-        console.log('hideTechForm WILL');
-        console.log(this.state.hideTechForm);
     }
     isAllFilled(newProps){
         const {techName, techVersion, techDescription} = this.state;
@@ -55,22 +52,14 @@ class Techs extends Component {
         }
     }
     setVisibleTechForm() {
-        console.log('START');
-        console.log(this.state.hideTechForm);
+
         let {hideTechForm} = this.state;
-        console.log('1')
         if (hideTechForm === 'visible') {
             hideTechForm = 'hidden';
-            console.log('2')
         } else {
             hideTechForm = 'visible';
-            console.log('3')
         }
-        console.log('4')
         this.props.setVisibleAddTechForm(hideTechForm);
-        console.log('hideTechForm SET');
-        console.log(hideTechForm);
-        console.log(this.state.hideTechForm);
     }
     onTechNameChange(e){
         const techName = e.target.value;

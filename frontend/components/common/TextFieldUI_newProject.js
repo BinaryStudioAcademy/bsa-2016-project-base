@@ -29,7 +29,7 @@ const styles = {
     fontFamily: 'Lato, sans-serif',
     marginLeft: ".5rem",
     fontSize: "0.9rem",
-    color: 'rgba(85, 85, 85, .8)'
+    color: 'rgba(85, 85, 85, .5)'
   }
 
 
@@ -44,12 +44,14 @@ export default class TextFieldProject extends Component {
         return nextProps.value !== this.props.value;
     }
     render() {
-        const {hintText, value, onChange, style, inputStyle, onBlur} = this.props;
+        const {hintText, value, onChange, style, inputStyle, onBlur, floatingLabelText} = this.props;
         return (
             <div>
             <MuiThemeProvider>
                 <TextField
                   hintText={hintText}
+                  floatingLabelText={floatingLabelText}
+                  floatingLabelFixed={true}
                   value={value}
                   onChange={onChange}
                   onBlur={onBlur}
@@ -62,6 +64,7 @@ export default class TextFieldProject extends Component {
                   underlineStyle={styles.underlineStyle}
                   inputStyle={styles.inputStyle}
                   hintStyle={styles.hintStyle}
+                  floatingLabelStyle={styles.floatingLabelStyle}
                 />
               </MuiThemeProvider>
             </div>

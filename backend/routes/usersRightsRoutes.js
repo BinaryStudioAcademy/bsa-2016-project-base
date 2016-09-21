@@ -21,6 +21,7 @@ module.exports = function(app) {
 
 	app.put('/api/rights/:id/', function (req,res,next) {
 		usersRightsRepository.updateUsersToProject(req.params.id,req.body,function(err, data) {
+			console.log(err);
 			res.data = data;
 			res.err = err;
 			next();

@@ -39,13 +39,16 @@ class SearchServiceSubTools {
         let now = new Date();
         let timeOffset = now.getTimezoneOffset();
         now = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59 - timeOffset, 59, 999);
+        let farFuture = new Date(8640000000000000);
        
         let fromArr = (datesFrom == undefined)? [new Date(0)] : datesFrom.split(',').map(elem=>new Date(new Date(elem).valueOf() - timeOffset));
-        let toArr = (datesTo == undefined)? [now]: datesTo.split(',').map(elem=>new Date(new Date(elem).valueOf() + 86399999));
+        // let toArr = (datesTo == undefined)? [now]: datesTo.split(',').map(elem=>new Date(new Date(elem).valueOf() + 86399999));
+        let toArr = (datesTo == undefined)? [farFuture]: datesTo.split(',').map(elem=>new Date(new Date(elem).valueOf() + 86399999));
         
         let datesObj = [];
         for (let i = 0; i < Math.max(fromArr.length, toArr.length); i++){
-            datesObj[i] = {dateFrom: fromArr[i] || new Date(0), dateTo: toArr[i] || now};
+            //datesObj[i] = {dateFrom: fromArr[i] || new Date(0), dateTo: toArr[i] || now};
+            datesObj[i] = {dateFrom: fromArr[i] || new Date(0), dateTo: toArr[i] || farFuture};
         }
         console.log(`Dates obj: ${datesObj}`);
         return datesObj;

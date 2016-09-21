@@ -95,7 +95,7 @@ class Attachments extends Component {
                 <header>
                     <h2>Attachments</h2>
                 </header>
-                <div className={styles.row}>
+                <div className={styles["attach-row"]}>
                     <div className={styles['field-container']}>
 			             <div className={styles["change-mode"]}>
                             <a href="javascript:void(0)"

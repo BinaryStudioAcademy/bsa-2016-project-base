@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../../actions/ProjectViewActions';
+import { DEFAULT } from '../../../constants/Api';
 var classNames = require('classnames');
 
 import styles from './comment.sass';
@@ -91,6 +92,8 @@ class Comment extends Component {
         let authorAvatarLink = authorInfo.avatar;
         let commentText = expr.text;
 
+        let defaultImage = DEFAULT + "user.png";
+
         let userInfo = this.props.authUser.userInfo;
 
         var editingStatus; var checkStatus;
@@ -153,7 +156,7 @@ class Comment extends Component {
                     <div className={styles['comment-body']} >
                         <div className={styles['comment-avatar']} >
                             <Link to={`/api/users/${authorLink}`} className={styles['comment-avatar-link']} >
-                                <img src={`/icons/${authorPosition}.png`} alt={`${authorName}`} className={styles['comment-avatar-img']} />
+                                <img src={defaultImage/*`/icons/${authorPosition}.png`*/} alt={`${authorName}`} className={styles['comment-avatar-img']} />
                             </Link>
                         </div>
                         <div className={commentMessageStyle} >

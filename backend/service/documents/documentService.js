@@ -4,8 +4,7 @@ var fs = require("fs");
 var path = require("path");
 var docxGenerator = require("./docxGenerator");
 var config = require("./config.js");
-var projectRepo = require("./../../repositories/projectRepository");
-var projectHost = require("./../../config/host").projectHost
+
 class DocumentService {
     constructor() {
         var OAuth2 = google.auth.OAuth2;
@@ -142,7 +141,7 @@ class DocumentService {
                 res.err = error
             }
             var tokensStr = JSON.stringify(tokens);
-            res.redirect(`${projectHost}/google_auth_redirect/?tokens=${tokensStr}`);
+            res.redirect(`/google_auth_redirect/?tokens=${tokensStr}`);
         }.bind(this));
     }
 }

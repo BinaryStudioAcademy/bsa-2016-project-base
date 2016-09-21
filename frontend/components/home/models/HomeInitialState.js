@@ -41,7 +41,3 @@ export default function (that) {
     });
     return state;
 };
-
-export function getHomeState(){
-    return state
-}

@@ -1,5 +1,5 @@
-import Model from "./Model"
-import DateSelect from "./../components/RangeDateSelect"
+import Model from "./../Model"
+import DateSelect from "./RangeDateSelectComponent"
 export default class Dates extends Model{
     constructor({component}) {
         super({
@@ -71,10 +71,10 @@ export default class Dates extends Model{
         if (from.length){
             return `dateFrom=${from.join(",")}&dateTo=${to.join(",")}`
         }
-        /*const date = this.values[0];
-        if (date && this.isFilled(date)){
+        /*const dates = this.values[0];
+        if (dates && this.isFilled(dates)){
 
-            return `dateFrom=${dateString(date.lower)}&dateTo=${dateString(date.upper)}`
+            return `dateFrom=${dateString(dates.lower)}&dateTo=${dateString(dates.upper)}`
         }*/
     }
     clear(){

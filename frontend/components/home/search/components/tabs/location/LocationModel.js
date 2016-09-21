@@ -26,7 +26,6 @@ export default class Location extends MultiSelectModel {
         searchService.getProject(projectId)
             .then(res=>{
                 var project = res.project;
-                debugger
                 if (project && project._id){
                     var div = document.createElement("div");
                     var container = document.createElement("div");
@@ -37,7 +36,6 @@ export default class Location extends MultiSelectModel {
                         mapContentToDestination(container.innerHTML)
                     })
                 }
-
             })
     }
 
@@ -46,20 +44,16 @@ export default class Location extends MultiSelectModel {
         value.infoWindow.open(map, value.marker);
     }
 
-    /*updateMarkerCluster(map){
-        this.markerCluster && this.markerCluster.setMap(null);
-        this.markerCluster = new MarkerClusterer(map, this.tips.map(tip=>tip.marker), {
-            imagePath: 'https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/images/m',
-            gridSize: 100,
-            minimumClusterSize:3
-        });
-    }*/
     startLoadTips(map){
         this.currentActiveMapId = map.__unique__id__;
         this.getTips(map, function(error, tips){
             this.tips.forEach(tip=>tip.marker.setMap(null));
             this.tips = tips;
-            //this.updateMarkerCluster(map)
+            /*new MarkerClusterer(map, tips.map(tip=>tip.marker), {
+                imagePath: 'https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/images/m',
+                gridSize: 100,
+                minimumClusterSize:3
+            });*/
             this.notifyUpdated();
         }.bind(this))
     }

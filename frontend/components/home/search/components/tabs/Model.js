@@ -1,4 +1,4 @@
-import Updatable from "./../../models/Updatable"
+import Updatable from "./../../../models/Updatable"
 import {Tab} from 'material-ui/Tabs';
 var counter = 0;
 import React from "react"

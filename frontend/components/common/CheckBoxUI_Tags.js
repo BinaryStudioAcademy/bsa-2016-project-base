@@ -1,13 +1,9 @@
-/*Batarey*/
 import React, {Component} from 'react';
 
 import Checkbox from 'material-ui/Checkbox';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import styles from './styles/checkbox.sass';
-
-
-
 
 const muiTheme = getMuiTheme({
   checkbox: {

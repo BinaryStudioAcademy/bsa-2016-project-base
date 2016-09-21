@@ -7,8 +7,6 @@ import sectionService from '../../services/sectionService';
 import featureService from '../../services/featureService';
 import fileThumbService from '../../services/FileThumbService';
 
-import {getHomeState} from "./../../components/home/models/HomeInitialState"
-
 export function getPredefinedData() {
     return dispatch => {
         dispatch({
@@ -50,8 +48,7 @@ export function postProject(project) {
                             type: types.UP_POST_PROJECT_SUCCESS,
                             data: json
                         });
-                        getHomeState().model.goSearch();
-                        return json; 
+                        return json;
                     }
                     else {
                         return Promise.reject(json);

@@ -12,13 +12,16 @@ export default function EditProjectReducer(state = initialState, action) {
                 predefinedConditions: conditions
             });
         }
+
         case types.UP_ADD_USER_TO_PROJECT_ED: {
             const {_id} = action;
-            const {predefinedUsers} = state;
+            const {predefinedUsers,userStory,timeBegin,timeEnd} = state;
             return Object.assign({}, state, {
-                predefinedUsers: addUserToProject(predefinedUsers, _id)
+                predefinedUsers: addUserToProject(predefinedUsers, _id),
+                userStory: updateUserStory(userStory,_id,timeBegin,timeEnd,null)
             });
         }
+
         case types.UP_REMOVE_USER_FROM_PROJECT_ED: {
             const {_id} = action;
             const {predefinedUsers} = state;
@@ -277,6 +280,25 @@ export default function EditProjectReducer(state = initialState, action) {
                     })
                 });
             }
+
+            if(project.owners.length != 0) {
+                project.owners.forEach(function (el) {
+                    el.userHistory.forEach(function(history) {
+                        if (history.projectId == project._id) {
+                            //userStory[el._id].dateFrom = history.dateFrom;
+                            //userStory[el._id].dateTo = history.dateTo;
+                            //userStory[el._id].projectId = history.projectId;
+                            var b = {
+                                dateFrom: history.dateFrom,
+                                dateTo : history.dateTo,
+                                projectId : history.projectId,
+                            }
+                            userStory[el._id] = Object.assign({}, b);
+                        }
+
+                    })
+                });
+            }
             return Object.assign({}, state, {
                 projectId: project._id,
                 location: project.location,
@@ -389,8 +411,6 @@ export default function EditProjectReducer(state = initialState, action) {
 
         case types.SET_VISIBLE_ADD_TECH_FORM_ED: {
             const {hideTechForm} = action;
-            console.log('reducer');
-            console.log(hideTechForm);
             return Object.assign({}, state, {
                 hideTechForm
             })
@@ -602,7 +622,12 @@ const updateUserStory = (story, userId, start, end, projectPeriod) => {
 
                     }
                 } else {
-                    story[userId].dateTo = end;
+                    if(story[userId].dateTo && end == null) {
+
+                    }
+                    else {
+                        story[userId].dateTo = end;
+                    }
                 }
 
 
@@ -734,7 +759,8 @@ const initialState = {
     initialFiles: false,
     iconLoaded: false,
     location: null,
-    errors: {nameError: false, technologiesError: false, timeBeginError: false, usersError: false, timeEndError: false},
+    errors: {nameError: false, technologiesError: false, timeBeginError: false, usersError: false, timeEndError: false,
+        nameLengthError: false},
     techIcon: {},
     contacts: {
         countryCode: '',

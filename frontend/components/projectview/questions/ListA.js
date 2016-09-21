@@ -38,8 +38,11 @@ class List extends Component {
     render() {
 
         let qCol = this.props.stateFromReducer.questions || [];  // перечень вопросов в проекте
+        let qOps = this.props.stateFromReducer.questionsOptions; // вспомогательные переменные раздела вопросов
         let i = this.props.index;                                // порядковый номер вопроса в перечне (начинается с нуля, сортировка в порядке добавления)
         let aCol = qCol[i].answers;                              // перечень ответов на i-ый вопрос
+
+        let commentText = qOps.newMess.newA[i];
 
         return(
             <ul className={styles['inner-list']} >
@@ -54,6 +57,7 @@ class List extends Component {
                     <div className={styles['comment-new-wrap']} >
                         <textarea rows="3"
                                   placeholder={' Give your answer, please'}
+                                  value={commentText}
                                   onChange={this.handleAddATextarea}
                         />
                         <div className={styles['comment-options-row']}>

@@ -18,6 +18,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {toastr} from 'react-redux-toastr';
 const Loading = require('react-loading-animation');
 import * as constants  from '../../../constants/Api';
+var striptags = require('striptags');
 const {ORIGIN} = constants;
 import { TabPanel, TabBody, TabHead, Button, RaisedButtonUITags } from '../../common/';
 import editProjectService from '../../../services/admin/EditProjectService';
@@ -89,7 +90,8 @@ class EditProject extends Component {
             timeBeginError: false,
             technologiesError: false,
             usersError: false,
-            errors: {nameError: false, technologiesError: false, timeBeginError: false, usersError: false, timeEndError: false}
+            errors: {nameError: false, technologiesError: false, timeBeginError: false, usersError: false, timeEndError: false,
+                nameLengthError: false}
         }
     }
     componentWillReceiveProps(nextProps){
@@ -114,7 +116,7 @@ class EditProject extends Component {
     }
     updateProject(e) {
         console.log('createProject');
-        const {projectName,projectLink,timeBegin,timeEnd,status,description, projectId, contacts, location} = this.props.store;
+        const {projectName,projectLink,timeBegin,timeEnd,status,description, projectId, contacts, location, users} = this.props.store;
         const {predefinedUsers,predefinedTags,predefinedTechnologies,sections,features,files, userStory} = this.props.store;
         console.log('features ',features);
         console.log('sections ',sections);
@@ -144,7 +146,7 @@ class EditProject extends Component {
             users: (() => {
                 const temp = [];
                 predefinedUsers.forEach( user => {
-                    if (user.inProject) temp.push(user._id);
+                    if (user.inProject) temp.push(user._id); //&& !user.owner
                 });
                 return temp;
             })(),
@@ -153,19 +155,31 @@ class EditProject extends Component {
                 var obj = {};
                 predefinedUsers.forEach( user => {
                     if (user.inProject == true) {
-                        console.log("user.inProject " + user.inProject);
-                        temp = user.userHistory.map(function(history) {
-                            if(history.projectId == projectId) {
-                                return {
-                                    projectId: projectId,
-                                    dateFrom: userStory[user._id].dateFrom,
-                                    dateTo: userStory[user._id].dateTo
-                                }
-                            } else {
-                                return history;
+                        if(!users.some(function (el) {
+                                return el._id == user._id
+                            })) {
+                            obj[user._id] = {
+                                projectId: projectId,
+                                dateFrom: userStory[user._id].dateFrom,
+                                dateTo: userStory[user._id].dateTo,
                             }
-                        })
-                        obj[user._id] = temp;
+                        } else {
+                            temp = user.userHistory.map(function(history) {
+                                if(history.projectId == projectId) {
+                                    return {
+                                        projectId: projectId,
+                                        dateFrom: userStory[user._id].dateFrom,
+                                        dateTo: userStory[user._id].dateTo,
+                                        inProject: users.some(function (el) {
+                                            return el._id == user._id
+                                        })
+                                    }
+                                } else {
+                                    return history;
+                                }
+                            })
+                            obj[user._id] = temp;
+                        }
                     };
 
                 });
@@ -218,6 +232,8 @@ class EditProject extends Component {
             })(),
         }
 
+
+
         console.log('inProject.sections ',inProject.sections);
         console.log('inProject.features ',inProject.features);
         console.log('inProject.users ',inProject.users);
@@ -228,6 +244,12 @@ class EditProject extends Component {
             errors.nameError = true;
         } else {
             errors.nameError = false;
+        }
+
+        if(projectName.length >= 40) {
+            errors.nameLengthError = true
+        } else {
+            errors.nameLengthError = false
         }
 
         if(inProject.technologies.length == 0) {
@@ -254,7 +276,8 @@ class EditProject extends Component {
             errors.usersError = false;
         }
 
-        if(errors.nameError || errors.technologiesError || errors.timeBeginError || errors.usersError || errors.timeEndError) {
+        if(errors.nameError || errors.technologiesError || errors.timeBeginError || errors.usersError || errors.timeEndError
+        || errors.nameLengthError) {
             window.scrollTo(0, 0);
             toastr.error('Bad Request!', {
                 timeOut: 10000
@@ -284,6 +307,7 @@ class EditProject extends Component {
             status: status.value,
             contacts,
             description: {
+                descrText: striptags(inProject.descrFullText,['img']).replace(/<img[^>]*>/g," "),
                 descrFullText: inProject.descrFullText
             }
         }

@@ -93,7 +93,7 @@ class Screenshots extends Component {
                 <header>
                     <h2>Screenshots</h2>
                 </header>
-                <div className={styles.row}>
+                <div className={styles["scr-row"]}>
                     <div className={styles['field-container']}>
  		                 <div className={styles["change-mode"]}>
                             <a href="javascript:void(0)"

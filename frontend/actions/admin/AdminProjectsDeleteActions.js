@@ -34,7 +34,7 @@ export function deleteProject(id,projects) {
                         dispatch(initProjects([]));
                     });
                 if(result){
-                        callback(null);
+                    callback(null);
                 }
             }
         ],function (err,result) {

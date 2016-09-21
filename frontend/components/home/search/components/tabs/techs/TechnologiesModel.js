@@ -1,4 +1,4 @@
-import MultiSelectModel from "./MultiSelectModel"
+import MultiSelectModel from "./../MultiSelectModel"
 
 export default class Technologies extends MultiSelectModel{
     constructor({component}) {

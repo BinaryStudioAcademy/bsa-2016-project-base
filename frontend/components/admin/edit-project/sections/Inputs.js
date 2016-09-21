@@ -22,32 +22,26 @@ class Inputs extends Component {
         
     }
 	onProjectNameChange(e, id){
-		//console.log('onProjectNameChange: ',e.target.value, id);
 		const name = e.target.value;
 		this.props.changeProjectName(name);
 	}
 	onProjectLinkChange(e, id){
-		//console.log('onProjectLinkChange: ',e.target.value, id);
 		const link = e.target.value;
 		this.props.changeProjectLink(link);
 	}
 	onStartDateChange(e, d){
-		console.log('onStartDateChange: ', d);
 		const date = d;
 		this.props.changeStartDate(date);
 	}
 	onFinishDateChange(e, d){
-		console.log('onFinishDateChange: ', d);
 		const date = d;
 		this.props.changeFinishDate(date);
 	}
 	onConditionChange(e,option){
-		console.log('onConditionChange: ',option);
 		//const option = e.target.value;
 		this.props.changeCondition(option);
 	}
 	onDescriptionChange(html){
-		console.log('onDescriptionChange: ',html);
 		const {setEditorRerender} = this.props;
 		this.props.changeDescription(html);
 	}
@@ -87,7 +81,6 @@ class Inputs extends Component {
 		}
 
 		var dataEnd = this.props.timeEnd == null ? {} : new Date(this.props.timeEnd);
-        console.log('Rerender Inputs');
     	return (
 			<div id={styles['basic-information']}>
 				<header>
@@ -97,17 +90,21 @@ class Inputs extends Component {
 					<div className={styles['field-container']}>
 						<TextFieldProject
 							value={this.props.projectName}
-							hintText='Project name'
+							hintText='Enter the project name'
+							floatingLabelText='Project name *'
 							placeholder='My first project'
 							onChange={this.onProjectNameChange}
 							style={{width: '100%'}}
 						/>
 						{this.props.errors.nameError && <div className={styles.validation}><div className={styles.tool}>This field is required</div></div>}
+						{this.props.errors.nameLengthError && <div className={styles.validation}><div className={styles.tool}>Project name must be shorter then 40 symbols</div></div>}
+
 					</div>
 					<div className={styles['field-container']}>
 						<TextFieldProject
 							value={this.props.projectLink}
-							hintText='Link to project'
+							hintText='Enter the link to project'
+							floatingLabelText='Link to project'
 							placeholder='Link to project'
 							onChange={this.onProjectLinkChange}
 							style={{width: '100%'}}
