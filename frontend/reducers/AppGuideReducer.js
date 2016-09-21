@@ -59,6 +59,7 @@ const initialState = {
         }
     }
 };
+initialState.steps.forEach(step=>{step.direction = "projects/"+step.direction});
 
 export default function chartReducer(state = initialState, action) {
     if(action.type == "SET_GUIDE_PROGRESS"){
