@@ -2,11 +2,11 @@ import React from "react"
 import {PropTypes} from "react"
 import {Tab, Tabs} from 'material-ui/Tabs';
 //import {Tab, Tabs} from "react-bootstrap"
-import MultiSelect  from "./MultiSelect"
-import DateSelect from "./RangeDateSelect"
+import MultiSelect  from "./../tabs/multiSelect/MultiSelectComponent"
+import DateSelect from "../tabs/dates/RangeDateSelectComponent"
 /*var injectTapEventPlugin = require("react-tap-event-plugin");
 injectTapEventPlugin();*/
-import Container from "./../models/SearchContainer"
+import Container from "./SearchContainerModel"
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 const tabsStyles = {

@@ -1,6 +1,6 @@
-import Updatable from "./../../models/Updatable"
-import parser from "./searchStringParser/parser"
-import SearchStrategy from "./../const/SearchStratrgy"
+import Updatable from "./../../../models/Updatable"
+import parser from "../../searchStringParser/parser"
+import SearchStrategy from "./../../const/SearchStratrgy"
 export default class SearchContainer extends Updatable{
     constructor({searchString,showSearch,selectedTab,
         searchModels, component}) {

@@ -5,9 +5,9 @@ import React from "react"
  *
  * Add <script src="https://maps.googleapis.com/maps/api/js"></script> to your HTML to provide google.maps reference
  */
-import MultiSelect from "./MultiSelect"
-import TextField from "./../components/TextInput"
-import DeletableList from "./DeletableList"
+import MultiSelect from "./../multiSelect/MultiSelectComponent"
+import TextField from "./../../TextInput"
+import DeletableList from "./../../DeletableList"
 
 const getUniqueMapId = (function () {
     var i = 0;

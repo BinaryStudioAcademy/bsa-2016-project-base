@@ -3,12 +3,12 @@ import {PropTypes} from "react"
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import PredicateModel from "./../models/PredicateModel";
-import TextInput from "./TextInput"
+import PredicateModel from "./PredicateModel";
+import TextInput from "./../TextInput"
 import Divider from 'material-ui/Divider';
-import ExtendedSearchTabs from "./ContainerWithTabs"
+import ExtendedSearchTabs from "./../containers/ContainerWithTabs"
 import Drawer from 'material-ui/Drawer';
-import styles from "./styles/predicate.sass"
+import styles from "./../styles/predicate.sass"
 const customContentStyle = {
     width: '100%',
     maxWidth: 'none',
@@ -19,7 +19,7 @@ const bodyStyle = {
     minHeight: '300px',
     padding: '0 0 0 28px'
 }
-import Modelable from "./Modelable"
+import Modelable from "./../tabs/Modelable"
 export default class PredicateSearch extends React.Component{
     constructor(props) {
         super(props);

@@ -1,6 +1,6 @@
 import Model from "./Model"
-import MultiSelect  from "./../components/MultiSelect"
-import searchService from "./../../../../services/SearchService"
+import MultiSelect  from "./multiSelect/MultiSelectComponent"
+import searchService from "./../../../../../services/SearchService"
 
 export default class MultiSelectModel extends Model{
     constructor(params){
