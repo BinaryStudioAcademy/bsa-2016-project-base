@@ -17,6 +17,22 @@ class ProjectViewService {
 		return fetch(query,constants.cookieMarker);
 	}
 
+	setRateInfo(projectId, newRate) {
+		return fetch(this.url + projectId + "/rating",
+			Object.assign({
+					method: 'POST',
+					body: JSON.stringify(newRate)
+				},
+				constants.cookieMarker,
+				constants.jsonHedeaders
+			)
+		);
+	}
+
+	getRateAll(projectId) {
+		return fetch(this.url + projectId + "/rating",constants.cookieMarker);
+	}
+
 	addingQ(projectId, newQuestion) {
 		return fetch(this.url + projectId + "/questions",
 			Object.assign({

@@ -21,6 +21,33 @@ export function getProject(projectId,filters) {
     };
 }
 
+export function setRate(projectId, newRate) {
+    return (dispatch) => {
+        return projectViewService.setRateInfo(projectId,newRate)
+            .then(response => response.json())
+            .then( () => {
+                return projectViewService.getRateAll(projectId)
+                    .then(response => response.json())
+                    .then( data => {
+                        dispatch({
+                            type: types.UPDATE_PROJECT_RATING,
+                            rating: data[0].rating
+                        });
+                    }).catch(error => {
+                        dispatch({
+                            type: types.GET_RATE_ALL_FAILURE,
+                            error
+                        });
+                    });
+            }).catch(error => {
+                dispatch({
+                    type: types.SET_RATE_INFO_FAILURE,
+                    error
+                });
+            });
+    };
+}
+
 export function showOrHideQ() { 
     return {
         type: types.SHOW_OR_HIDE_Q

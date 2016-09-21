@@ -189,7 +189,12 @@ class UpsertProject extends Component {
                 contacts,
                 description: {
                     descrFullText: inProject.descrFullText
-                } 
+                },
+                questions: [],
+                rating: {
+                    "rateInfo" : [],
+                    "rateDistribution" : [0.0,0.0,0.0,0.0,0.0]
+                }
             }
         };
         console.log('project ',projectData);
