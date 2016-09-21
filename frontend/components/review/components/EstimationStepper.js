@@ -200,7 +200,6 @@ export default class EstimationStepper extends Component {
 
     render() {
         const {loading, stepIndex} = this.state;
-        debugger
         return (
             <div className={styles["stepper"]}>
                 <Stepper activeStep={stepIndex}>

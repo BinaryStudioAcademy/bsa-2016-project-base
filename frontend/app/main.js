@@ -44,7 +44,6 @@ const store = createStore(
 const history = useRouterHistory(createHistory)({
     basename: '/projects'
 });
-const LOCAL = "NOLOCALLLLLLLLLLLLLLLLLLLLL"
 
 render(
     (<Provider store={store}>
