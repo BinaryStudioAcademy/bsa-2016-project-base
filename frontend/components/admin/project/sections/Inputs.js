@@ -30,11 +30,11 @@ class Inputs extends Component {
         }
     }
     onStartDateChange(e, d){
-    	const date = d;
+    	const date = new Date(d.setHours(0,0,0,0));
     	this.props.changeStartDate(date);
     }
     onFinishDateChange(e, d){
-    	const date = d;
+    	const date = new Date(d.setHours(0,0,0,0));
     	this.props.changeFinishDate(date);
     }
     onConditionChange(e,option){
