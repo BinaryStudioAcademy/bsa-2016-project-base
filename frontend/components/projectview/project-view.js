@@ -216,6 +216,7 @@ class ProjectView extends Component {
                             timeOptions={this.state.timeOptions}
                             rating={rating}
                             technologiesItems={technologiesItems}
+                            setRate={this.setRate}
                         />
 
                         <div className={styles['screenshots-attachments-container']}>
