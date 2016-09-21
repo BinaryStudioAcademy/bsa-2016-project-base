@@ -1,7 +1,7 @@
 var userRepository = require("./../repositories/userRepository");
 //var request = require("request");
 var Cookie = require("cookies");
-var url = "http://team.binary-studio.com/profile/api/users/filter";
+var url = "http://team.binary-studio.com/profile/api/users";
 var date = null;
 var request = require("request")
 var interval = 1000 * 60 * 60;
@@ -37,14 +37,16 @@ function _userSync(req, res){
             return console.error("ERROR SYNC USERS")
         }
         JSON.parse(body).forEach(function(user){
-            var [name, surname] = user.name.split(" ");
             var toAdd = {
                 _id: user.id,
-                userName: name,
-                userSurname: surname,
+                userName: user.name,
+                userSurname: user.surname,
                 userRole: user.role || "user",
-                avatar: "http://team.binary-studio.com"+user.avatar,
-                position: user.department
+                avatar: "http://team.binary-studio.com"+(user.avatar.thumbnailUrlAva || user.avatar.urlAva),
+                //avatar: "http://team.binary-studio.com"+user.avatar,
+                position: user.email,
+                login:user.email
+                //position: user.department
             };
             userRepository.add( toAdd, function(err, res){
                 if (err){
