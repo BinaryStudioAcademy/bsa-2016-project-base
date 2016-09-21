@@ -396,7 +396,7 @@ const updateUserStory = (story, userId, start, end, projectPeriod) => {
                     if(story[userId].dateTo && end == null) {
 
                     }
-                    else {
+                    else if(dateUserEndSeconds >= dateFrom){
                         story[userId].dateTo = end;
                     }
                 }
