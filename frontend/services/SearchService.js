@@ -11,7 +11,7 @@ class SearchService {
 
     getProject(id){
         var query = `id=${id}&skip=0&limit=1`
-        console.log(query);
+        //console.log(query);
         return fetch(`${this.url}projects?${query}`,
              constants.cookieMarker).then(res => res.json())
             .then(json => ({project:json.sortedProjList[0]}))
@@ -26,7 +26,7 @@ class SearchService {
     }
 
     getProjects(query) {
-        console.log(query)
+        //console.log(query)
         return fetch(`${this.url}projects?${query}`,
             constants.cookieMarker
            ).then(res => res.json())

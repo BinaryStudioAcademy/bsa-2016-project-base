@@ -1,15 +1,15 @@
 /**
  * Created by user on 23.08.2016.
  */
-import SearchContainer from "./../search/models/SearchContainer"
-import TagsModel from "./../search/models/Tags"
-import UsersModel from "./../search/models/Users"
-import TechnologieModel from "./../search/models/Technologies"
-import DateModel from "./../search/models/Dates"
-import HomeContainer from "./../models/HomeContainer"
-import OvnersModel from "./../search/models/Owners"
-import PredicateModel from "./../search/models/PredicateModel"
-import Location from "./../search/models/Location"
+import SearchContainer from "./../search/components/containers/SearchContainerModel"
+import TagsModel from "./../search/components/tabs/tags/TagsModel"
+import UsersModel from "./../search/components/tabs/users/UsersModel"
+import TechnologieModel from "./../search/components/tabs/techs/TechnologiesModel"
+import DateModel from "./../search/components/tabs/dates/DatesModel"
+import HomeContainer from "./HomeContainer"
+import OvnersModel from "./../search/components/tabs/owners/OwnersModel"
+import PredicateModel from "./../search/components/pred/PredicateModel"
+import Location from "./../search/components/tabs/location/LocationModel"
 const state = {
     model: new HomeContainer({
         searchContainer: new SearchContainer({
