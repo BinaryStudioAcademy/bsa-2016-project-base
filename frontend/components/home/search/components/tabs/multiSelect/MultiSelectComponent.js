@@ -5,7 +5,7 @@ import ActionInfo from 'material-ui/svg-icons/action/info';
 import DeferredTextInput from './../../TextInput';
 import Delete from "material-ui/svg-icons/action/delete"
 import DeletableList from "./../../DeletableList"
-import MultiSelectModel from "./../MultiSelectModel"
+import MultiSelectModel from "./MultiSelectModel"
 import CircularProgress from 'material-ui/CircularProgress';
 import Subheader from 'material-ui/Subheader';
 import Modelable from "./../Modelable"

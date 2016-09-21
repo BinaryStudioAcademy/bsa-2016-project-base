@@ -1,4 +1,4 @@
-import MultiSelectModel from "./../MultiSelectModel"
+import MultiSelectModel from "./../multiSelect/MultiSelectModel"
 import LocationView from "./LocationComponent"
 import searchService from "./../../../../../../services/SearchService"
 import SmallProjectView from "./../../../../components/Project"

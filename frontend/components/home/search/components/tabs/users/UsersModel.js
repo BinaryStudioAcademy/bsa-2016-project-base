@@ -1,4 +1,4 @@
-import MultiSelectModel from "./../MultiSelectModel"
+import MultiSelectModel from "./../multiSelect/MultiSelectModel"
 import UsersClass from "./UsersComponent"
 export default class Users extends MultiSelectModel{
     constructor({component,title}) {
