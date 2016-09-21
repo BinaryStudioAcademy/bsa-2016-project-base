@@ -146,7 +146,7 @@ class EditProject extends Component {
             users: (() => {
                 const temp = [];
                 predefinedUsers.forEach( user => {
-                    if (user.inProject) temp.push(user._id); //&& !user.owner
+                    if (user.inProject && !user.owner) temp.push(user._id); //&& !user.owner
                 });
                 return temp;
             })(),
@@ -294,8 +294,8 @@ class EditProject extends Component {
             linkToProject:projectLink,
             projectName,
             /*projectLink,*/
-            timeBegin: new Date(timeBegin),
-            timeEnd: timeEnd == null ? null : new Date(timeEnd),
+            timeBegin: new Date(timeBegin).setHours(0,0,0,0),
+            timeEnd: timeEnd == null ? null : new Date(timeEnd).setHours(0,0,0,0),
             attachments: inProject.attachments,
             screenShots: inProject.screenshots,
             sections: inProject.sections,

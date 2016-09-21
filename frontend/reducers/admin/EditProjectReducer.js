@@ -605,9 +605,14 @@ const updateUserStory = (story, userId, start, end, projectPeriod) => {
                 if (timeBegin) {
                     const dateProjectStartSeconds = Date.parse(timeBegin);
                     if (dateUserStartSeconds >= dateProjectStartSeconds) {
-                        if (dateUserStartSeconds <= dateToSeconds) {
+                        if(story[userId].dateTo != null) {
+                            if (dateUserStartSeconds <= dateToSeconds) {
+                                story[userId].dateFrom = start;
+                            }
+                        } else {
                             story[userId].dateFrom = start;
                         }
+
 
                     }
                 } else {

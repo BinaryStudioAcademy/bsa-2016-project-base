@@ -371,10 +371,15 @@ const updateUserStory = (story, userId, start, end, projectPeriod) => {
                 if (timeBegin) {
                     const dateProjectStartSeconds = Date.parse(timeBegin);
                     if (dateUserStartSeconds >= dateProjectStartSeconds) {
-                        if (dateUserStartSeconds <= dateToSeconds) {
+                        if(story[userId].dateTo != null) {
+                            if (dateUserStartSeconds <= dateToSeconds) {
+                                story[userId].dateFrom = start;
+                            }
+                        } else {
                             story[userId].dateFrom = start;
                         }
-                        
+
+
                     }
                 } else {
                     story[userId].dateFrom = start;
@@ -385,60 +390,65 @@ const updateUserStory = (story, userId, start, end, projectPeriod) => {
                         if (dateUserEndSeconds >= dateFromSeconds) {
                             story[userId].dateTo = end;
                         }
-                       
+
                     }
                 } else {
-                    story[userId].dateTo = end;
+                    if(story[userId].dateTo && end == null) {
+
+                    }
+                    else {
+                        story[userId].dateTo = end;
+                    }
                 }
 
 
                 if(!timeBegin && !timeEnd) {
                     let newStartDate;
                     let newEndDate;
-                        if (dateTo) {
-                            if (dateToSeconds) {
-                                if(dateUserStartSeconds < dateToSeconds) {
-                                    newStartDate = start;
-                                }
+                    if (dateTo) {
+                        if (dateToSeconds) {
+                            if(dateUserStartSeconds < dateToSeconds) {
+                                newStartDate = start;
                             }
-                        } else {
-                            newStartDate = start;
                         }
-                    
-                   
-                 
-                        if (dateFrom) {
-                            if (dateFromSeconds) {
-                                if(dateUserEndSeconds > dateFromSeconds) {
-                                    newEndDate = end;
-                                }
+                    } else {
+                        newStartDate = start;
+                    }
+
+
+
+                    if (dateFrom) {
+                        if (dateFromSeconds) {
+                            if(dateUserEndSeconds > dateFromSeconds) {
+                                newEndDate = end;
                             }
-                        } else {
-                            newEndDate = end;
                         }
-                    
-                     
+                    } else {
+                        newEndDate = end;
+                    }
+
+
                     story[userId] = {
                         dateFrom: newStartDate ? newStartDate : dateFrom,
                         dateTo: newEndDate ? newEndDate : dateTo
-                     };
+                    };
                 }
 
             } else {
                 story[userId] = {
                     dateFrom: start,
                     dateTo:end
-                 };
+                };
             }
 
         } else {
-           
+
             story[userId] = {
                 dateFrom: start,
                 dateTo:end
             };
         }
-       
+
 
     } else {
         for (let id in story) {
@@ -453,7 +463,7 @@ const updateUserStory = (story, userId, start, end, projectPeriod) => {
                 } else {
                     story[id].dateFrom = start;
                 }
-                
+
             }
             if(end) {
                 if (dateTo) {
@@ -465,8 +475,8 @@ const updateUserStory = (story, userId, start, end, projectPeriod) => {
                 } else {
                     story[id].dateTo = end;
                 }
-               
-            } 
+
+            }
         }
 
     }
