@@ -69,8 +69,9 @@ class App extends React.Component {
             let progress = this.refs['joyride'].getProgress();
             if(progress['index'] != this.props['guideData'].steps['length'])
                 index = progress['index'];
-            if(data.step && data.step['direction'] != window['location'])
-                browserHistory.push('/' + data.step['direction']);
+            if(data.step && data.step['direction'] != window['location']){
+                this.props.history.push('/' + data.step['direction']);
+            }
         }
         this.props.setGuideProgress(index);
     }
