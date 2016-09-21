@@ -56,11 +56,12 @@ class Inputs extends Component {
                 <header>
                     <h2>Basic information</h2>
                 </header>
-                <div className={styles.row}>
+                <div className={styles.rowA}>
                     <div className={styles['field-container']}>
 	        	        <TextFieldProject
                             value={this.props.projectName}
-		        	        hintText='Project name' 
+		        	        hintText='Enter the project name'
+                            floatingLabelText='Project name *'
 		        	        placeholder='My first project'
 		        	        onChange={this.onProjectNameChange}
                             style={{width: '100%'}}
@@ -70,18 +71,19 @@ class Inputs extends Component {
                     <div className={styles['field-container']}>
 	        	        <TextFieldProject 
                             value={this.props.projectLink}
-	        		        hintText='Link to project' 
+	        		        hintText='Enter the link to project'
+                            floatingLabelText='Link to project'
 	        	 	        placeholder='Link to project'
 	        		        onChange={this.onProjectLinkChange}
                             style={{width: '100%'}}
 	        	        />
                     </div>
                 </div>
-                <div className={styles.row}>
+                <div className={styles.rowA}>
                     <div className={styles['col-1-3']}>
                         <DatePickerControlled 
                             value={this.props.timeBegin}
-                            hint='Start Date'
+                            hint='Start Date *'
                             style={{width: '100%' ,
                                     cursor: 'pointer'}}
                             onChange={this.onStartDateChange}
@@ -114,7 +116,7 @@ class Inputs extends Component {
                 <header>
                     <h2>Description</h2>
                 </header>
-                <div className={styles.row}>
+                <div className={styles.rowA}>
                      <Editor 
                         handleChange={this.onDescriptionChange}
                         initialContent={this.props.description.descrFullText}

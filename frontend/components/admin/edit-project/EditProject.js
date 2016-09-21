@@ -18,6 +18,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {toastr} from 'react-redux-toastr';
 const Loading = require('react-loading-animation');
 import * as constants  from '../../../constants/Api';
+var striptags = require('striptags');
 const {ORIGIN} = constants;
 import { TabPanel, TabBody, TabHead, Button, RaisedButtonUITags } from '../../common/';
 import editProjectService from '../../../services/admin/EditProjectService';
@@ -145,7 +146,7 @@ class EditProject extends Component {
             users: (() => {
                 const temp = [];
                 predefinedUsers.forEach( user => {
-                    if (user.inProject) temp.push(user._id);
+                    if (user.inProject) temp.push(user._id); //&& !user.owner
                 });
                 return temp;
             })(),
@@ -231,6 +232,8 @@ class EditProject extends Component {
             })(),
         }
 
+
+
         console.log('inProject.sections ',inProject.sections);
         console.log('inProject.features ',inProject.features);
         console.log('inProject.users ',inProject.users);
@@ -304,6 +307,7 @@ class EditProject extends Component {
             status: status.value,
             contacts,
             description: {
+                descrText: striptags(inProject.descrFullText,['img']).replace(/<img[^>]*>/g," "),
                 descrFullText: inProject.descrFullText
             }
         }

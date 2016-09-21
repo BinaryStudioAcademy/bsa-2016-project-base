@@ -5,7 +5,7 @@ import styles from './SearchHome.sass';
 import FaSearch from 'react-icons/lib/fa/search';
 import DropDown from '../../common/dd';
 import DropDownF from '../../common/ddFilter';
-console.log(DropDown);
+
 export default class SearchHome extends Component {
 
     static propTypes = {

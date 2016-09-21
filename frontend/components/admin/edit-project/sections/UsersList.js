@@ -65,29 +65,51 @@ class UsersList extends Component {
         if (selectedUser){
             if (userStory.hasOwnProperty(activeUser)){
                 startDate = new Date(userStory[activeUser].dateFrom);
-                endDate = new Date(userStory[activeUser].dateTo);
+                 userStory[activeUser].dateTo == null ? endDate = null : endDate = new Date(userStory[activeUser].dateTo);
             }
 
         }
         if (activeUser) {
-            return <div className={styles['dates']}>
-                <div className={styles['col-1-3']}>
-                    <DatePickerControlled
-                        value={startDate}
-                        hint='Start Date'
-                        style={{width: '100%'}}
-                        onChange={this.setUserStartDate}
-                    />
+            if(endDate == null) {
+                return <div className={styles['dates']}>
+                    <div className={styles['col-1-3']}>
+                        <DatePickerControlled
+                            value={startDate}
+                            hint='Start Date'
+                            style={{width: '100%'}}
+                            onChange={this.setUserStartDate}
+                        />
+                    </div>
+                    <div className={styles['col-1-3']}>
+                        <DatePickerControlled
+
+                            hint='Now'
+                            style={{width: '100%'}}
+                            onChange={this.setUserEndDate}
+                        />
+                    </div>
                 </div>
-                <div className={styles['col-1-3']}>
-                    <DatePickerControlled
-                        value={endDate}
-                        hint='End Date'
-                        style={{width: '100%'}}
-                        onChange={this.setUserEndDate}
-                    />
+            }
+            else if(endDate != null) {
+                return <div className={styles['dates']}>
+                    <div className={styles['col-1-3']}>
+                        <DatePickerControlled
+                            value={startDate}
+                            hint='Start Date'
+                            style={{width: '100%'}}
+                            onChange={this.setUserStartDate}
+                        />
+                    </div>
+                    <div className={styles['col-1-3']}>
+                        <DatePickerControlled
+                            value={endDate}
+                            hint='End Date'
+                            style={{width: '100%'}}
+                            onChange={this.setUserEndDate}
+                        />
+                    </div>
                 </div>
-            </div>
+            }
         } else {
             return <div className={styles['dates']}>Select developer in the list above and set period during which he's been working on this project.</div>
         }

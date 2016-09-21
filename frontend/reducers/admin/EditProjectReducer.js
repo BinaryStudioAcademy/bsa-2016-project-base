@@ -280,6 +280,25 @@ export default function EditProjectReducer(state = initialState, action) {
                     })
                 });
             }
+
+            if(project.owners.length != 0) {
+                project.owners.forEach(function (el) {
+                    el.userHistory.forEach(function(history) {
+                        if (history.projectId == project._id) {
+                            //userStory[el._id].dateFrom = history.dateFrom;
+                            //userStory[el._id].dateTo = history.dateTo;
+                            //userStory[el._id].projectId = history.projectId;
+                            var b = {
+                                dateFrom: history.dateFrom,
+                                dateTo : history.dateTo,
+                                projectId : history.projectId,
+                            }
+                            userStory[el._id] = Object.assign({}, b);
+                        }
+
+                    })
+                });
+            }
             return Object.assign({}, state, {
                 projectId: project._id,
                 location: project.location,
@@ -392,8 +411,6 @@ export default function EditProjectReducer(state = initialState, action) {
 
         case types.SET_VISIBLE_ADD_TECH_FORM_ED: {
             const {hideTechForm} = action;
-            console.log('reducer');
-            console.log(hideTechForm);
             return Object.assign({}, state, {
                 hideTechForm
             })
@@ -605,7 +622,12 @@ const updateUserStory = (story, userId, start, end, projectPeriod) => {
 
                     }
                 } else {
-                    story[userId].dateTo = end;
+                    if(story[userId].dateTo && end == null) {
+
+                    }
+                    else {
+                        story[userId].dateTo = end;
+                    }
                 }
 
 

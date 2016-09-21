@@ -579,13 +579,16 @@ export function initialStateUsers(users, predefinedUsers, owners) {
     var predefinedUsersId = predefinedUsers.map(function(el) {
         return el._id
     });
+    var ownersId = owners.map(function(el) {
+        return el._id;
+    });
     var ownersLogins = owners.map(function(el) {
         return el.login;
     });
     const action = {
         type: 'INITIAL_STATE_USERS',
         predefinedUsers: predefinedUsers.map(function(el, index) {
-            if (usersId.indexOf(predefinedUsersId[index]) != -1) {
+            if (usersId.indexOf(predefinedUsersId[index]) != -1 || ownersId.indexOf(predefinedUsersId[index]) != -1) {
                 if(ownersLogins.indexOf(el.login) != -1) {
                     return Object.assign({}, el, {inProject: true}, {owner: true})
                 } else {
@@ -610,8 +613,6 @@ export function setVisibleUploadByLinkAttachments(hideFile, hideForm) {
 }
 
 export function setVisibleAddTechForm(hideTechForm) {
-    console.log('action');
-    console.log(hideTechForm);
     return {
         type: types.SET_VISIBLE_ADD_TECH_FORM_ED,
         hideTechForm: hideTechForm

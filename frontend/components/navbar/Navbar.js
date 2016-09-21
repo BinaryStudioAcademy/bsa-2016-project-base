@@ -21,7 +21,7 @@ class Navbar extends Component {
         return (
           <div id={styles.sidebar}>
             <div className={styles.sidebarHeader}>
-              <p>INTRANET</p>
+              <p>PROJECTS BASE</p>
             </div>
             <ul className={styles.mainNav}>
 

@@ -15,7 +15,8 @@ export default class FeaturesListItem extends React.Component {
     }
 
     render(){
-    	const data = this.props['data'] || {}
+    	const data = this.props['data'] || {};
+        console.log(data.featureName,data.section,"123456");
     	let implementedBox = (data.isImplemented ?
     			<div className={styles['implementedFeature']}>Implemented</div>
     		:   <div>In progress</div>
@@ -34,7 +35,7 @@ export default class FeaturesListItem extends React.Component {
     				<FaNessesary className={styles['feature-NessesaryMarker']}/>
     				: <FaNotNessesary/>
     			}</span>
-    			<span>{data.section['name']}</span>
+    			<span>{(data.section ? (data.section['name']) : "undefined" )}</span>
     			<span>{data.featureOrder}</span>
     		</div>
 		);
