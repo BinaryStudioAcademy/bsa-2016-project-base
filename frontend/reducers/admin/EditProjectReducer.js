@@ -711,6 +711,9 @@ const updateUserStory = (story, userId, start, end, projectPeriod) => {
                 }
 
             }
+            if(story[id].dateTo < story[id].dateFrom) {
+                story[id].dateTo = story[id].dateFrom;
+            }
         }
 
     }
