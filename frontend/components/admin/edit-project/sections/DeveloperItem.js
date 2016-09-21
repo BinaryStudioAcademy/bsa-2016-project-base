@@ -18,9 +18,9 @@ class DeveloperItem extends Component {
             checked: nextProps.user.owner
         });
     }
-    shouldComponentUpdate(nextProps, nextState){
-        return nextState.checked !== this.state.checked || nextProps.selected !== this.props.selected;
-    }
+    /*shouldComponentUpdate(nextProps, nextState){
+        return nextState.checked != this.state.checked || nextProps.selected != this.props.selected;
+    }*/
     render(){
         const {user, onRemoveClick, onCheckboxChange, onUserSelect, selected} = this.props;
 

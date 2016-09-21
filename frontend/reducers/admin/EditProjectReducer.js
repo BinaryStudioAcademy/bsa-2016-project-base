@@ -280,6 +280,25 @@ export default function EditProjectReducer(state = initialState, action) {
                     })
                 });
             }
+
+            if(project.owners.length != 0) {
+                project.owners.forEach(function (el) {
+                    el.userHistory.forEach(function(history) {
+                        if (history.projectId == project._id) {
+                            //userStory[el._id].dateFrom = history.dateFrom;
+                            //userStory[el._id].dateTo = history.dateTo;
+                            //userStory[el._id].projectId = history.projectId;
+                            var b = {
+                                dateFrom: history.dateFrom,
+                                dateTo : history.dateTo,
+                                projectId : history.projectId,
+                            }
+                            userStory[el._id] = Object.assign({}, b);
+                        }
+
+                    })
+                });
+            }
             return Object.assign({}, state, {
                 projectId: project._id,
                 location: project.location,
