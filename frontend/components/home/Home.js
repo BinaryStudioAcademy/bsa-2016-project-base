@@ -20,7 +20,9 @@ export default class Home extends Component {
             //not to upload projects if there are some (on repeated visit)
             model.goSearch();
         }*/
-        model.goSearchFromScratch()
+        if (!model.isLoading){
+            model.goSearchFromScratch()
+        }
     }
 
 
