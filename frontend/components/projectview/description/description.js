@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FaStar, FaStarHalfEmpty, FaStarO, FaThumbsUp } from 'react-icons/lib/fa';
 
 
-const Description = ({name, tagsItems, description, projectDetail, technologiesItems, undefinedText, timeOptions, rating}) => {
+const Description = ({name, tagsItems, description, projectDetail, technologiesItems, undefinedText, timeOptions, rating, setRate}) => {
 
     let stars = [];
     for (let i=1; i <= rating.avgRate.rate; i++) {
@@ -57,7 +57,9 @@ const Description = ({name, tagsItems, description, projectDetail, technologiesI
                                    Average Rating
                                 </td>
                                 <td>
-                                    {rating}
+                                    <span className='star-wrap' >{stars}</span>
+                                    {` (${rating.avgRate.rate.toFixed(2)})`}
+                                    {` (${rating.avgRate.voices} `}<FaThumbsUp size={15} />{`)`}
                                 </td>
                             </tr>
                             { !rating.canISetRate ?

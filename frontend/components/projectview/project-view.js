@@ -92,10 +92,9 @@ class ProjectView extends Component {
     canISetRate(rateInfo,userInfo){
 
         let can = rateInfo.reduce(function(prev,curr) {
-            console.log(curr.author._id);
             return prev || ( curr.author == userInfo._id );
         }, false);
-        console.log('can'+can);
+        
         return can; // return false if I can
     }
 
@@ -261,8 +260,9 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-    return { 
-    	project: state['ProjectViewReducer'] 
+    return {
+        project: state['ProjectViewReducer'],
+        authUser: state['UserAuthReducer']
     };
 }
 
