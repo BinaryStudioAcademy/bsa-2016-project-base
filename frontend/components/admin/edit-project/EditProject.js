@@ -145,7 +145,7 @@ class EditProject extends Component {
             users: (() => {
                 const temp = [];
                 predefinedUsers.forEach( user => {
-                    if (user.inProject  && !user.owner) temp.push(user._id);
+                    if (user.inProject) temp.push(user._id);
                 });
                 return temp;
             })(),
