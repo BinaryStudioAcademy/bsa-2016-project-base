@@ -10,7 +10,7 @@ var {ObjectId} = require('mongodb');
 class SearchServiceSubTools {
 
 	getSearchFiltersFromRequest(req) {
-        console.log('getSearchFiltersFromRequest() aquired request string: ', req.url);
+        //console.log('getSearchFiltersFromRequest() aquired request string: ', req.url);
         let queryFilters = {};
         queryFilters.queryProjIds = (req.query.id == undefined)? []: req.query.id.split(',').map(elem=> new ObjectId(elem)); 
         //queryFilters.queryProjIds = (req.query.id == undefined)? []: req.query.id.split(',').map(elem=> mongoose.Types.ObjectId(elem)); 
@@ -25,9 +25,9 @@ class SearchServiceSubTools {
 
         queryFilters.queryProjDates = this.transformateDates(req.query.dateFrom, req.query.dateTo);
 
-        console.log(`getFilteredProjects() -> acquired request patterns: projName= ${queryFilters.queryProjNames}, users = ${queryFilters.queryProjUsers},
+        /*console.log(`getFilteredProjects() -> acquired request patterns: projName= ${queryFilters.queryProjNames}, users = ${queryFilters.queryProjUsers},
             owners = ${queryFilters.queryProjOwners}, tags = ${queryFilters.queryProjTags}, techs = ${queryFilters.queryProjTechs}, dateFrom = ${queryFilters.queryProjDateFrom},
-            dateTo = ${queryFilters.queryProjDateTo}, skip = ${queryFilters.queryProjSkip}, limit = ${queryFilters.queryProjLimit}, description = ${queryFilters.queryProjDescription}`);
+            dateTo = ${queryFilters.queryProjDateTo}, skip = ${queryFilters.queryProjSkip}, limit = ${queryFilters.queryProjLimit}, description = ${queryFilters.queryProjDescription}`);*/
 
         queryFilters.queryProjPredicate = (req.query.predicate == undefined)? null: req.query.predicate;
 
@@ -50,7 +50,7 @@ class SearchServiceSubTools {
             //datesObj[i] = {dateFrom: fromArr[i] || new Date(0), dateTo: toArr[i] || now};
             datesObj[i] = {dateFrom: fromArr[i] || new Date(0), dateTo: toArr[i] || farFuture};
         }
-        console.log(`Dates obj: ${datesObj}`);
+        //console.log(`Dates obj: ${datesObj}`);
         return datesObj;
     }
 
@@ -119,7 +119,7 @@ class SearchServiceSubTools {
                         selectedUsersId.push(result.find(elem_=> elem_.fullName == elem)._id);
                     });
                 } catch (err){
-                    console.log('getStrictUsersIdFromSearchQuery() - Uncorrect parameters acquired from query.');
+                    //console.log('getStrictUsersIdFromSearchQuery() - Uncorrect parameters acquired from query.');
                     callback(err, null);
                 }
                 //console.log('selectedUsersId: ', selectedUsersId);
