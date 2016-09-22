@@ -12,7 +12,7 @@ var predicateCompiler = require('./search-parser/compile');
 class SearchService {
 
 	getFilteredTags(req, callback) {
-	    console.log(`getFilteredTags() -> acquired request params: tag = ${req.query.tag}`);
+	    //console.log(`getFilteredTags() -> acquired request params: tag = ${req.query.tag}`);
 	    const queryTag = (req.query.tag == undefined)? '': '^'.concat(req.query.tag);
 	    var query = Tags.find({
 	                    tagName: {$regex: queryTag, $options:"$i"}
@@ -22,7 +22,7 @@ class SearchService {
 	}
 	
 	getFilteredTechs(req, callback) {
-	    console.log(`getFilteredTechs() -> acquired request params: tech = ${req.query.tech}`);
+	    //console.log(`getFilteredTechs() -> acquired request params: tech = ${req.query.tech}`);
 	    const queryTech = (req.query.tech == undefined)? '': '^'.concat(req.query.tech);
 	    var query = Techs.find({
 	                    techName: {$regex: queryTech, $options:"$i"}
@@ -32,7 +32,7 @@ class SearchService {
 	}
 
 	getFilteredUsers(req, callback) {
-	    console.log(`getFilteredUsers() -> acquired request params: user = ${req.query.user}`);
+	    //console.log(`getFilteredUsers() -> acquired request params: user = ${req.query.user}`);
 	    const queryUser = (req.query.user == undefined)? '': '^'.concat(req.query.user);
 	    var query = Users.find({
 	                    userName: {$regex: queryUser, $options:"$i"}
@@ -44,7 +44,7 @@ class SearchService {
 	
 	getFilteredProjects(req, callback) {
 
-		console.log('req.query: ', req.query);
+		//console.log('req.query: ', req.query);
 	    let searchFilters = subtools.getSearchFiltersFromRequest(req);
 
 	    
@@ -64,13 +64,13 @@ class SearchService {
 	    };
 
 	    if (searchFilters.queryProjPredicate) {
-	    	console.log('searchFilters.queryProjPredicate == true');
+	    	//console.log('searchFilters.queryProjPredicate == true');
 	    	let queryCompiledPredicate = predicateCompiler(searchFilters.queryProjPredicate);
 	    	searchReturn.queryPredicate = searchFilters.queryProjPredicate;
 	    	searchReturn.queryCompiledPredicate = queryCompiledPredicate;
 	    
-		    console.log('searchReturn: ', searchReturn);
-			console.log('searchFilters: ', searchFilters);
+		    //console.log('searchReturn: ', searchReturn);
+			//console.log('searchFilters: ', searchFilters);
 			async.parallel({
 		        filteredUsersIds: 	function(callback_){
 		            					subtools.getStrictUsersIdFromSearchQuery(searchFilters.queryProjUsers, callback_);
@@ -85,7 +85,7 @@ class SearchService {
 		        						subtools.getStrictTechsIdFromSearchQuery(searchFilters.queryProjTechs, callback_);	
 		        					}
 	    	}, function(err, res){
-	    		console.log('async res: ', res);
+	    		//console.log('async res: ', res);
 	    		//searchReturn.selectedIds = res;
 	    		if (err){
 	    			searchReturn.error = {
@@ -116,15 +116,15 @@ class SearchService {
 
 				}, (err, result)=>{
 					searchReturn.found = result.matchProj;
-					console.log('matchProj with predicates: ', result.matchProj);
+					//console.log('matchProj with predicates: ', result.matchProj);
 					searchReturn.sortedProjList = result.projList;
 					callback(null, searchReturn);
 				});
 	    	});
 		} else {
-			console.log('searchFilters.queryProjPredicate == false');
-			console.log('searchReturn: ', searchReturn);
-			console.log('searchFilters: ', searchFilters);
+			//console.log('searchFilters.queryProjPredicate == false');
+			//console.log('searchReturn: ', searchReturn);
+			//console.log('searchFilters: ', searchFilters);
 			async.parallel({
 		        filteredUsersIds: 	function(callback_){
 		            					subtools.getUsersIdFromSearchQuery(searchFilters.queryProjUsers, callback_);
@@ -139,10 +139,10 @@ class SearchService {
 		        						subtools.getTechsIdFromSearchQuery(searchFilters.queryProjTechs, callback_);	
 		        					}
 	    	}, function(err, res){
-	    		console.log('async res: ', res);
+	    		//console.log('async res: ', res);
 	    		//searchReturn.selectedIds = res;
 
-	    		console.log('async res: ', res);
+	    		//console.log('async res: ', res);
 	    		//searchReturn.selectedIds = res;
 
 	    		var [projQuery, projCounter] = subtools.prepareMainQuery(searchReturn, searchFilters, res);
