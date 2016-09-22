@@ -54,7 +54,7 @@ const Description = ({name, tagsItems, description, projectDetail, technologiesI
                             <tr>
                                 <td>Finished</td>
                                 <td>
-                                    {projectDetail['timeEnd'] ? (new Date(projectDetail['timeEnd'])
+                                    {(projectDetail['timeEnd'] != "1970-01-01T00:00:00.000Z") ? (new Date(projectDetail['timeEnd'])
                                     .toLocaleString("en-US", timeOptions)) : ""}
                                 </td>
                             </tr>
