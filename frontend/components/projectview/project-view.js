@@ -135,7 +135,7 @@ class ProjectView extends Component {
                 location:{ lat: 0 , lng: 0}
             }), name = (projectDetail['projectName'] ? projectDetail['projectName'] : this.state['undefinedText']),
             description = (projectDetail['description'] ? projectDetail.description['descrFullText'] : this.state['undefinedText']),
-            rating = (projectDetail.rating ?
+            rating = (projectDetail.rating.rateInfo ?
                     projectDetail.rating.rateInfo.length > 0
                         ?
                     {
