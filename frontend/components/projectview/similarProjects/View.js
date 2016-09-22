@@ -31,6 +31,9 @@ export default class View extends React.Component {
         let techs = project['technologies'].map(item => encodeURIComponent(item.techName)),
             tags = project['tags'].map(item => encodeURIComponent(item.tagName));
 
+            techs.length = 3;       // !!!Important!!! maximum length for similar predicates search
+            tags.length = 3;        // absense of these limits overloading server
+
         //predicate allows to get projects than have at least one of this project's tags or technologies
         //and not to add ro related projects this project itself
         //make predicate
