@@ -42,14 +42,14 @@ export default class View extends React.Component {
             predicate += ")"
         }
         if (tagVars.length){
-            predicate+="(";
+            predicate+="&(";
             predicate+=tagVars.join("|");
             if (techVars.length){
                 addTechs();
                 predicate += "|"
             }
         }else if (techVars.length){
-            predicate += "(";
+            predicate += "&(";
             addTechs()
         }
         //end make predicate
