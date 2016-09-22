@@ -31,7 +31,7 @@ class UsersTimeLine extends Component {
             lengthHoverLine = (e.clientX - rect.left),
             beginDate = new Date(this.props['project'].timeBegin),
             numberDaysProject = ((this.props['project'].timeEnd != null) ?
-            (new Date(this.props['project'].timeEnd) - beginDate) : (new Date() - beginDate));
+                (new Date(this.props['project'].timeEnd) - beginDate) : (new Date() - beginDate));
 
         this.refs.popover.style.display = "block";
         this.refs.popover.style.left = lengthHoverLine + 70 + "px";
@@ -49,12 +49,15 @@ class UsersTimeLine extends Component {
 
     createLine() {
         const {users, owners, timeEnd,timeBegin} = this.props['project'];
-        if(!users  || !owners) return null;
-        const usersAndOwners = [...users];
-        const usersId = users.map(function (el) {
+        //if(!users  || !owners) return null;
+        var usersLocal, ownersLocal;
+        users == null ? usersLocal = [] : usersLocal = [...users];
+        owners == null ? ownersLocal = [] : ownersLocal = [...owners];
+        const usersAndOwners = [...usersLocal];
+        const usersId = usersLocal.map(function (el) {
             return el._id;
         });
-        owners.forEach(function(el) {
+        ownersLocal.forEach(function(el) {
             if(usersId.indexOf(el._id) == -1) {
                 usersAndOwners.push(el);
             }
@@ -62,14 +65,14 @@ class UsersTimeLine extends Component {
 
 
         var numberDaysProject = ((timeEnd != null) ?
-            (new Date(timeEnd) - new Date(timeBegin)):
-            (new Date() - new Date(timeBegin))) / this.state['oneDay'],
+                    (new Date(timeEnd) - new Date(timeBegin)):
+                    (new Date() - new Date(timeBegin))) / this.state['oneDay'],
             oneUnit  = numberDaysProject / 82,
             arrayUsers = usersAndOwners.map((el, index)=>{
                 if(typeof el != 'object') return null;
                 var dataObj = null, dateTo = "Now",numberDaysUser = new Date();
                 el['userHistory'].find((item)=>{
-                    if(item.projectId == this.props['project']._id) 
+                    if(item.projectId == this.props['project']._id)
                         dataObj = item;
                 });
 
@@ -116,7 +119,7 @@ class UsersTimeLine extends Component {
     }
 
 }
-            
+
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(actions, dispatch)
 }
