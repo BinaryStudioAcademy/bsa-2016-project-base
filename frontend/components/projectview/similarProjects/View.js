@@ -18,17 +18,21 @@ export default class View extends React.Component {
     }
 
     componentWillReceiveProps(props){
-        if(this.props['project']._id != props['project']._id)
-            this.loadProjects();
+        //update component when parent changed
+        this.loadProjects(props);
     }
 
-    loadProjects() {
-        const project = this.props['project'];
+    loadProjects(props) {
+        //props can by "nextProps"
+        //when project view changes this component should update too
+        const project = (props || this.props)['project'];
         if(!project) return;
         if(!project['technologies'] || !project['tags']) return;
         let techs = project['technologies'].map(item => encodeURIComponent(item.techName)),
             tags = project['tags'].map(item => encodeURIComponent(item.tagName));
 
+        //predicate allows to get projects than have at least one of this project's tags or technologies
+        //and not to add ro related projects this project itself
         //make predicate
         var techVars = techs.map((t, i)=>`tech${i}`);
         var tagVars = tags.map((t, i)=>`tag${i}`);
@@ -38,14 +42,14 @@ export default class View extends React.Component {
             predicate += ")"
         }
         if (tagVars.length){
-            predicate+="(";
+            predicate+="&(";
             predicate+=tagVars.join("|");
             if (techVars.length){
-                addTechs();
                 predicate += "|"
+                addTechs();
             }
         }else if (techVars.length){
-            predicate += "(";
+            predicate += "&(";
             addTechs()
         }
         //end make predicate
@@ -53,7 +57,7 @@ export default class View extends React.Component {
 
         predicate = encodeURIComponent(predicate)
         ///////////////////
-        searchService.getProjects(`skip=0%limit=3&id=${project._id}&${techs.length?"&techs="+techs.join(","):""}${tags.length?"&tags="+tags.join(","):""}&predicate=${predicate}`)
+        searchService.getProjects(`skip=0%limit=3&id=${project._id}${techs.length?"&techs="+techs.join(","):""}${tags.length?"&tags="+tags.join(","):""}&predicate=${predicate}`)
             .then(data=> {
                 let projects = new Array();
                 data['projects'].forEach((similarProject)=>{
@@ -89,6 +93,7 @@ export default class View extends React.Component {
                     error: data['err'] && data['err'].message,
                     projects: projects 
                 });
+
             });
     }
 
