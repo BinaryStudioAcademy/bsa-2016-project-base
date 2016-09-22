@@ -10,7 +10,7 @@ export default class ListProjects extends Component {
     };
 
     ranking(rating) {
-        if(rating.rateDistribution) {
+        if(rating.rateDistribution != undefined) {
             var pointsAmount = rating.rateDistribution.reduce(function (prev, curr, i) {
                 return prev + curr * (i + 1);
             }, 0);
