@@ -75,7 +75,7 @@ class ProjectView extends Component {
 
     render() {
         let featuresItems = [], usersItems = [],tagsItems = [], technologiesItems = [];
-        
+        console.log(this.props['project']);
         const projectDetail = this.props['project'],
             currentFeature = projectDetail['filters'].feature,
             locationData = (projectDetail['location'] ? {
@@ -165,7 +165,6 @@ class ProjectView extends Component {
                 </div>
                 <div className={styles['projectMain-firstRow']}>
                     <div className={styles["descrpition-row"]}>
-
                         <Description
                             name={name}
                             tagsItems={tagsItems}
@@ -176,15 +175,13 @@ class ProjectView extends Component {
                             rating={rating}
                             technologiesItems={technologiesItems}
                         />
-
                         <div className={styles['screenshots-attachments-container']}>
                             <div className={styles['screenshots-block-inner']}>
                                 <header className={styles['screenshots-block-header']}>
                                     <h4>Screenshots</h4>
                                 </header>
                                 <Gallery data={projectDetail['screenShots']} />
-                            </div>
-                            
+                            </div>  
                             <div className={styles['attachments-block']}>
                                  <header className={styles['screenshots-block-header']}>
                                     <div className={styles['attach-icon']}>
@@ -194,7 +191,6 @@ class ProjectView extends Component {
                                 </header>
                                 <Attachment project={this.props.project}/>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -206,6 +202,7 @@ class ProjectView extends Component {
                     <Location data={locationData} />
                     <FeaturesList>{featuresItems}</FeaturesList>
                 </div>
+                <SimilarProjects project={projectDetail}/>
                 <div className={styles['projectMain-qa-row']}>
                     <Questions id="q-and-a" />
                 </div> 

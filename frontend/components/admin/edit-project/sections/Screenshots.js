@@ -88,7 +88,7 @@ class Screenshots extends Component {
             }
         });
         return (
-            <div id={styles["screenshots"]}>
+            <div id={styles["screenshots-edit"]}>
                 <header>
                     <h2>Screenshots</h2>
                 </header>

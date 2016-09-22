@@ -56,7 +56,7 @@ class Inputs extends Component {
                 <header>
                     <h2>Basic information</h2>
                 </header>
-                <div className={styles.row}>
+                <div className={styles.rowA}>
                     <div className={styles['field-container']}>
 	        	        <TextFieldProject
                             value={this.props.projectName}
@@ -79,7 +79,7 @@ class Inputs extends Component {
 	        	        />
                     </div>
                 </div>
-                <div className={styles.row}>
+                <div className={styles.rowA}>
                     <div className={styles['col-1-3']}>
                         <DatePickerControlled 
                             value={this.props.timeBegin}
@@ -116,7 +116,7 @@ class Inputs extends Component {
                 <header>
                     <h2>Description</h2>
                 </header>
-                <div className={styles.row}>
+                <div className={styles.rowA}>
                      <Editor 
                         handleChange={this.onDescriptionChange}
                         initialContent={this.props.description.descrFullText}

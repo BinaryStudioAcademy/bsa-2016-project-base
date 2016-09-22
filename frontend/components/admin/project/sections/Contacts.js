@@ -59,7 +59,7 @@ class Contacts extends Component {
                     </div>
                 </div>
 
-                 <div className={styles.row}>
+                 {/*<div className={styles.row}>
                     <div className={styles['field-container']}>
                         <TextFieldProject
                             value={this.props.contacts.postalIndex}
@@ -78,7 +78,7 @@ class Contacts extends Component {
                             style={{width: '100%'}}
                         />
                     </div>
-                </div>
+                </div>*/}
 
                  <div className={styles.row}>
                     <div className={styles['field-container']}>
@@ -91,6 +91,15 @@ class Contacts extends Component {
                         />
                     </div>
                     <div className={styles['field-container']}>
+                        <TextFieldProject
+                            value={this.props.contacts.contactPerson}
+                            hintText='Enter the contact person'
+                            floatingLabelText='Contact person'
+                            onChange={(e) => {this.setContactFieldData(e, 'contactPerson')}}
+                            style={{width: '100%'}}
+                        />
+                    </div>
+                    {/*<div className={styles['field-container']}>
                         <TextFieldProject 
                             value={this.props.contacts.street}
                             hintText='Enter the street'
@@ -98,10 +107,10 @@ class Contacts extends Component {
                            onChange={(e) => {this.setContactFieldData(e, 'street')}}
                             style={{width: '100%'}}
                         />
-                    </div>
+                    </div>*/}
                 </div>
 
-                 <div className={styles.row}>
+                {/* <div className={styles.row}>
                     <div className={styles['field-container']}>
                         <TextFieldProject
                             value={this.props.contacts.building}
@@ -120,18 +129,9 @@ class Contacts extends Component {
                             style={{width: '100%'}}
                         />
                     </div>
-                </div>
+                </div>*/}
 
-                <div className={styles.row}>
-                    <div className={styles['field-container']}>
-                        <TextFieldProject
-                            value={this.props.contacts.contactPerson}
-                            hintText='Enter the contact person'
-                            floatingLabelText='Contact person'
-                            onChange={(e) => {this.setContactFieldData(e, 'contactPerson')}}
-                            style={{width: '100%'}}
-                        />
-                    </div>
+                <div className={styles.row}>                    
                     <div className={styles['field-container']}>
                         <TextFieldProject 
                             value={this.props.contacts.phone}
@@ -141,9 +141,7 @@ class Contacts extends Component {
                             style={{width: '100%'}}
                         />
                     </div>
-                </div>
 
-                 <div className={styles.row}>
                     <div className={styles['field-container']}>
                         <TextFieldProject
                             value={this.props.contacts.email}
@@ -153,6 +151,9 @@ class Contacts extends Component {
                             style={{width: '100%'}}
                         />
                     </div>
+                </div>
+
+                 <div className={styles.row}>                    
                     <div className={styles['field-container']}>
                         <TextFieldProject 
                             value={this.props.contacts.skype}

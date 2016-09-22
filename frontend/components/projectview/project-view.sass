@@ -259,7 +259,8 @@
             			vertical-align: middle
 
             		>span:last-child
-            			color: cadetBlue
+            			font-weight: 700
+            			color: #293541
             		    font-weight: bold
 
             		>span:first-child
@@ -278,6 +279,7 @@
             				display: inline-block
             				padding-right: 5px
             				color: cadetBlue
+            				font-weight: 600
             				font-size: 12px
             				float: right
 
@@ -362,6 +364,137 @@
     				vertical-align: middle
                 	text-transform: uppercase
 
+    .projectMain-SimilarProjects
+    	height: 350px
+    	background-color: white
+    	width: calc(100% - 55px)
+    	margin: 35px 15px 10px 40px
+    	box-shadow: 0px 1px 15px -6px #777
+
+    	.similarProjects-List
+    		width: 100%
+    		overflow-y: auto
+    		height: calc(100% - 50px)
+
+    		>div
+    			border: 0
+    			width: 100%
+    			padding: 10px
+    			display: flex
+    			align-items: center
+    			min-height: 60px
+    			border-bottom: 1px solid #EFEFEF
+
+    			&:hover
+    				background-color: #EFEFEF
+
+    				a
+    					color: black
+
+    				.projectStatus-Ignored
+    					label
+    						color: tomato
+    						border-color: tomato
+
+    				.projectStatus-Completed
+    					label
+    						color: SeaGreen
+    						border-color: SeaGreen
+
+    			.projectStatus-Ignored,
+    			.projectStatus-Completed
+    				width: 80px
+    				display: flex
+
+    				label
+    				    font-size: 13px
+    				    font-weight: 600
+    				    padding: 8px 10px 
+    				    border-radius: 7px
+    				    text-transform: uppercase
+
+
+    			.projectStatus-Completed
+    				label
+    				    color: #2ECC71
+    				    border: 2px solid #2ECC71
+
+    			.projectStatus-Ignored
+    				label
+    					color: #FC5A5A	
+    					border: 2px solid #FC5A5A    
+
+    			.project-similarTags,
+    			.project-similarTechnologies
+    				padding: 0px 15px
+    				dispaly: flex
+    				flex-wrap: wrap
+    				flex-direction: row
+
+    				span
+    					margin: 3px
+	    				padding: 6px 8px
+	    				font-weight: 600
+	    				border-radius: 7px
+	    				display: inline-block
+
+	    		.project-similarTags
+	    			span
+	    				color: black
+	    				background-color: #E9F0F6
+
+	    		.project-similarTechnologies
+	    			span
+	    				color: white
+	    				background-color: #495158
+
+	    				i
+	    					color: tomato
+	    					font-size: 13px
+	    					padding: 2px 0px 0px 3px
+
+    			.project-DateBlock
+    				width: 240px
+    				margin-left: 50px 
+
+    				.project-dateBegin
+    					font-weight: 600
+    					color: cadetBlue
+
+    				.project-dateEnd
+    					font-weight: 600
+    					color: #293541
+
+    				span
+    					padding: 5px
+    					font-size: 13px	
+
+    			a,
+    			.project-similarTags,
+    			.project-similarTechnologies
+    				padding: 10px
+    				min-width: 120px
+    				width: calc(33% - 100px)
+
+    			a
+		            height: 100%
+		            display: block
+		            color: #8D97A4
+		            font-size: 15px
+		            font-weight: 700
+		            padding-left: 1.25rem
+		            margin: 5px 40px 5px 0px
+		            font-family: 'Lato', sans-serif
+		            border-left: 2px solid #8D97A4 
+
+    	.similarProjects-Header
+    		width: 100%
+    		font-weight: 700
+    		padding-top: 5px
+    		text-align: center
+    		border-left: 3px solid #8D97A4
+    		border-bottom: 1px solid #efefef
+
     .projectMain-firstRow
         display: flex
         flex-direction: column
@@ -400,7 +533,8 @@
 
                     span
                         display: inline-block
-                        font-size: 0.7rem
+                        font-size: 0.8rem
+                        font-weight: 600
                         vertical-align: top
                         background-color: #E9f0f6
                         color: black
@@ -449,6 +583,14 @@
                             td + td
                                 border-left: 1px solid #E1E3EB
 
+                            td
+                            	span.descriptionStatus-InProgress
+                            		color: tomato
+
+                            	span.descriptionStatus-Completed
+                            		color: darkGreen
+
+
                         tr:nth-child(1n)
                             background-color: #F1F2F6
 
@@ -490,6 +632,7 @@
                 display: flex
                 flex-direction: column
                 width: 40%
+
                 .screenshots-block-inner
                     display: flex
                     flex-direction: column
@@ -543,6 +686,7 @@
 
                             div:hover img
                                 opacity: .7
+
                 .attachments-block
                     display: flex
                     flex-direction: column
@@ -553,6 +697,7 @@
                     max-height: 220px
                     box-shadow: 0px 1px 15px -6px #777
                     margin-bottom: 1.5rem
+
                     .screenshots-block-header
                         border-bottom: 1px solid #efefef
                         height: 50px

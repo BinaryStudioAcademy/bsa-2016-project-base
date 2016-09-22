@@ -20,9 +20,15 @@ const Description = ({name, tagsItems, description, projectDetail, technologiesI
                                 <td>
                                     Status
                                 </td>
-                                <td>
-                                    {projectDetail['status'] ? projectDetail['status'] : undefinedText }
-                                </td>
+                                <td>{(
+                                    projectDetail['status'] ? (
+                                        <span className={
+                                            (projectDetail['status'].toLowerCase() != "completed") ?
+                                            "descriptionStatus-InProgress" : 
+                                            "descriptionStatus-Completed"
+                                        }>{projectDetail['status']}</span>
+                                    ): undefinedText   
+                                )}</td>
                             </tr>
                             <tr>
                                 <td>
