@@ -270,7 +270,7 @@ export default function EditProjectReducer(state = initialState, action) {
                                 //userStory[el._id].dateTo = history.dateTo;
                                 //userStory[el._id].projectId = history.projectId;
                             var b = {
-                                dateFrom: history.dateFrom,
+                                dateFrom: new Date(history.dateFrom),
                                 dateTo : history.dateTo,
                                 projectId : history.projectId,
                             }
@@ -289,7 +289,7 @@ export default function EditProjectReducer(state = initialState, action) {
                             //userStory[el._id].dateTo = history.dateTo;
                             //userStory[el._id].projectId = history.projectId;
                             var b = {
-                                dateFrom: history.dateFrom,
+                                dateFrom: new Date(history.dateFrom),
                                 dateTo : history.dateTo,
                                 projectId : history.projectId,
                             }
