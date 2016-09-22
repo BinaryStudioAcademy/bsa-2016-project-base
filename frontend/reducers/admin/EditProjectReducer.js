@@ -304,7 +304,7 @@ export default function EditProjectReducer(state = initialState, action) {
                 location: project.location,
                 projectName: project.projectName,
                 projectLink: project.linkToProject,
-                timeBegin: project.timeBegin,
+                timeBegin: new Date(project.timeBegin),
                 timeEnd: project.timeEnd,
                 status: {name: project.status, value: project.status},
                 users: project.users,
