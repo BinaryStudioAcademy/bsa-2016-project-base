@@ -122,7 +122,6 @@ class ProjectView extends Component {
 
     render() {
         let featuresItems = [], usersItems = [],tagsItems = [], technologiesItems = [];
-        console.log(this.props['project']);
         const projectDetail = this.props['project'],
             currentFeature = projectDetail['filters'].feature,
             locationData = (projectDetail['location'] ? {

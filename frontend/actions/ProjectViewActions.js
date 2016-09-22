@@ -2,6 +2,15 @@ import * as types from '../constants/ProjectViewActionTypes';
 import projectViewService from '../services/projectViewService';
 
 export function getProject(projectId,filters) {
+    if(!filters){
+        filters = {
+            features: [],
+            user: {
+                name: "",
+                right: ""
+            }
+        }    
+    }
     return (dispatch) => {
         dispatch({ type: types.PROJECT_VIEW_START_LOADING });
         return projectViewService.getProject(projectId,filters)
