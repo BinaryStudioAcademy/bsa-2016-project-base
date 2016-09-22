@@ -54,16 +54,38 @@ class ProjectView extends Component {
   				day: 'numeric'
 			},
 			defaultText:'Loading... please wait!'
-        }
-
+        };
+        //this is for knowing what project is displayed now
+        this.currentProjectId = null;
         this.setRate = this.setRate.bind(this);
     }
 
+    /**
+     *
+     * @param props nextProps
+     */
+    loadProject(props) {
+        //this function can be called from this.componentWillReceiveProps
+        //so should get id from that project
+        var projectId = (props||this.props)['routeParams'].id;
+        //if next project is different from this update view
+        if (!this.currentProjectId || this.currentProjectId !== projectId) {
+            this.currentProjectId = projectId;
+            this.props.getProject(
+                projectId,
+                this.props['project'].filters
+            );
+        }
+    }
+
     componentWillMount() {
-        this.props.getProject(
-            this.props['routeParams'].id,
-            this.props['project'].filters
-        );
+        //update view on create component
+        this.loadProject()
+    }
+
+    componentWillReceiveProps(props) {
+        //when route changed update view
+        this.loadProject(props)
     }
 
     getAvgRate(distribution) {
