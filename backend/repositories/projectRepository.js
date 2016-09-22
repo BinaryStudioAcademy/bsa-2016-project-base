@@ -190,6 +190,25 @@ ProjectRepository.prototype.getByIdForLocations = function(id, callback){
 	query.exec(callback);
 };
 
+ProjectRepository.prototype.setRateInfo = function(id,body,callback){
+	var index = body.value - 1;
+	var str = `rating.rateDistribution.${index}`;
+	var model = this.model;
+	var query = model.update({_id: id},{
+		$push: { 'rating.rateInfo' : body },
+		$inc : { [str] : 1 }
+	});
+	query.exec(callback);
+};
+
+ProjectRepository.prototype.getRateAll = function(id,callback){
+	var model = this.model;
+	var query = model.find({_id: id},{
+		'rating' : 1
+	});
+	query.exec(callback);
+};
+
 ProjectRepository.prototype.addQ = function(id,body,callback){
 	var model = this.model;
 	var query = model.update({_id: id},{

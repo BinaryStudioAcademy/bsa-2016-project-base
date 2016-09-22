@@ -374,7 +374,7 @@
     	.similarProjects-List
     		width: 100%
     		overflow-y: auto
-    		height: calc(100% - 50px)
+    		height: calc(100% - 60px)
 
     		>div
     			border: 0
@@ -530,6 +530,7 @@
                 .description-block-tags
                     vertical-align: top
                     padding-bottom: 30px
+                    max-height: 200px
 
                     span
                         display: inline-block
@@ -545,8 +546,7 @@
 
                 .description-block-content
                     display: flex
-                    height: 100%
-
+                    
                     .description-block-text
                         font-size: 1rem
                         font-weight: 300
@@ -554,6 +554,7 @@
                         padding-left: 1.7rem
                         padding-right: 1.7rem
                         width: 75%
+                        height: 100%
                         border-right: 1px solid #efefef
 
                         .description-block-html
@@ -562,7 +563,6 @@
                             font-size: 1rem
                             margin-bottom: 3rem
                             line-height: 1.5rem
-                            word-wrap: break-word
                             max-height: 300px
 
                         table
@@ -579,6 +579,24 @@
                                 padding: .8rem
                                 font-weight: 700
                                 font-size: 0.8rem
+
+                                .star-wrap
+                                    color: gold
+
+                                .star-input
+                                    display: none
+
+                                .star-edit-wrap
+                                    color: white
+
+                                .star-edit-wrap:hover
+                                    color: gold
+
+                                .star-label:hover
+                                    cursor: pointer
+
+                                .star-label:hover ~ .star-label
+                                    color: white
 
                             td + td
                                 border-left: 1px solid #E1E3EB

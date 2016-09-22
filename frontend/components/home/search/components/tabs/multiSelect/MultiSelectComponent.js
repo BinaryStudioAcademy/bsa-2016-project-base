@@ -2,14 +2,14 @@ import React from "react"
 import {PropTypes} from "react"
 import {List, ListItem} from 'material-ui/List';
 import ActionInfo from 'material-ui/svg-icons/action/info';
-import DeferredTextInput from './TextInput';
+import DeferredTextInput from './../../TextInput';
 import Delete from "material-ui/svg-icons/action/delete"
-import DeletableList from "./DeletableList"
-import MultiSelectModel from "./../models/MultiSelectModel"
+import DeletableList from "./../../DeletableList"
+import MultiSelectModel from "./MultiSelectModel"
 import CircularProgress from 'material-ui/CircularProgress';
 import Subheader from 'material-ui/Subheader';
-import Modelable from "./Modelable"
-import styles from "./styles/list.sass"
+import Modelable from "./../Modelable"
+import styles from "./../../styles/list.sass"
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 export default class MultiSelect extends Modelable {

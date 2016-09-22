@@ -18,6 +18,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {toastr} from 'react-redux-toastr';
 const Loading = require('react-loading-animation');
 import * as constants  from '../../../constants/Api';
+var striptags = require('striptags');
 const {ORIGIN} = constants;
 import { TabPanel, TabBody, TabHead, Button, RaisedButtonUITags } from '../../common/';
 import editProjectService from '../../../services/admin/EditProjectService';
@@ -231,6 +232,8 @@ class EditProject extends Component {
             })(),
         }
 
+
+
         console.log('inProject.sections ',inProject.sections);
         console.log('inProject.features ',inProject.features);
         console.log('inProject.users ',inProject.users);
@@ -291,8 +294,8 @@ class EditProject extends Component {
             linkToProject:projectLink,
             projectName,
             /*projectLink,*/
-            timeBegin: new Date(timeBegin),
-            timeEnd: timeEnd == null ? null : new Date(timeEnd),
+            timeBegin: new Date(timeBegin).setHours(0,0,0,0),
+            timeEnd: timeEnd == null ? null : new Date(timeEnd).setHours(0,0,0,0),
             attachments: inProject.attachments,
             screenShots: inProject.screenshots,
             sections: inProject.sections,
@@ -304,6 +307,7 @@ class EditProject extends Component {
             status: status.value,
             contacts,
             description: {
+                descrText: striptags(inProject.descrFullText,['img']).replace(/<img[^>]*>/g," "),
                 descrFullText: inProject.descrFullText
             }
         }

@@ -10,15 +10,16 @@ export default class ListProjects extends Component {
     };
 
     ranking(rating) {
-        let ranking = 0,
-            length = rating.length;
 
-        for(let i = 0; i < length; i++){
-            ranking += rating[i].value;
-        }
+        let pointsAmount = rating.rateDistribution.reduce(function(prev,curr,i){
+            return prev + curr * (i+1);
+        }, 0);
 
-        if (!length) return 0;
-        return Math.round(ranking/length);
+        let gradesAmount = rating.rateDistribution.reduce(function(prev,curr){
+            return prev + curr;
+        });
+
+        return gradesAmount > 0 ? Math.round(pointsAmount/gradesAmount) : 0;
     }
 
     render() {

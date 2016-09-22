@@ -7,7 +7,6 @@ import sectionService from '../../services/sectionService';
 import featureService from '../../services/featureService';
 import fileThumbService from '../../services/FileThumbService';
 
-import {refreshProjectList} from "./../../components/home/models/HomeInitialState"
 export function getPredefinedData() {
     return dispatch => {
         dispatch({
@@ -49,7 +48,6 @@ export function postProject(project) {
                             type: types.UP_POST_PROJECT_SUCCESS,
                             data: json
                         });
-                        refreshProjectList()
                         return json;
                     }
                     else {

@@ -1,7 +1,7 @@
-import Updatable from "./../../models/Updatable"
+import Updatable from "./../../../models/Updatable"
 const skipSymbols = "&|->+()! ";
-import SearchStrategy from "./../const/SearchStratrgy"
-import parse from "./parser/parse"
+import SearchStrategy from "./../../const/SearchStratrgy"
+import parse from "../../parser/parse"
 
 function names(p) {
     const result = [];

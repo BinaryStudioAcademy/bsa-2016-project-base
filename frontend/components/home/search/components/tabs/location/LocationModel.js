@@ -1,9 +1,9 @@
-import MultiSelectModel from "./MultiSelectModel"
-import LocationView from "./../components/Location"
-import searchService from "./../../../../services/SearchService"
-import SmallProjectView from "./../../components/Project"
+import MultiSelectModel from "./../multiSelect/MultiSelectModel"
+import LocationView from "./LocationComponent"
+import searchService from "./../../../../../../services/SearchService"
+import SmallProjectView from "./../../../../components/Project"
 import React from "react"
-import Project from "./../../components/Project"
+import Project from "./../../../../components/Project"
 import ReactDom from "react-dom"
 export default class Location extends MultiSelectModel {
     constructor({component}) {

@@ -280,6 +280,25 @@ export default function EditProjectReducer(state = initialState, action) {
                     })
                 });
             }
+
+            if(project.owners.length != 0) {
+                project.owners.forEach(function (el) {
+                    el.userHistory.forEach(function(history) {
+                        if (history.projectId == project._id) {
+                            //userStory[el._id].dateFrom = history.dateFrom;
+                            //userStory[el._id].dateTo = history.dateTo;
+                            //userStory[el._id].projectId = history.projectId;
+                            var b = {
+                                dateFrom: history.dateFrom,
+                                dateTo : history.dateTo,
+                                projectId : history.projectId,
+                            }
+                            userStory[el._id] = Object.assign({}, b);
+                        }
+
+                    })
+                });
+            }
             return Object.assign({}, state, {
                 projectId: project._id,
                 location: project.location,
@@ -586,9 +605,14 @@ const updateUserStory = (story, userId, start, end, projectPeriod) => {
                 if (timeBegin) {
                     const dateProjectStartSeconds = Date.parse(timeBegin);
                     if (dateUserStartSeconds >= dateProjectStartSeconds) {
-                        if (dateUserStartSeconds <= dateToSeconds) {
+                        if(story[userId].dateTo != null) {
+                            if (dateUserStartSeconds <= dateToSeconds) {
+                                story[userId].dateFrom = start;
+                            }
+                        } else {
                             story[userId].dateFrom = start;
                         }
+
 
                     }
                 } else {
@@ -606,7 +630,7 @@ const updateUserStory = (story, userId, start, end, projectPeriod) => {
                     if(story[userId].dateTo && end == null) {
 
                     }
-                    else {
+                    else if(dateUserEndSeconds >= dateFrom){
                         story[userId].dateTo = end;
                     }
                 }
@@ -686,6 +710,9 @@ const updateUserStory = (story, userId, start, end, projectPeriod) => {
                     story[id].dateTo = end;
                 }
 
+            }
+            if(story[id].dateTo < story[id].dateFrom) {
+                story[id].dateTo = story[id].dateFrom;
             }
         }
 

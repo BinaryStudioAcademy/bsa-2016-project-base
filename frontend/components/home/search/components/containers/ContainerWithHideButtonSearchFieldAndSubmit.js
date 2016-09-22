@@ -5,10 +5,10 @@ import {Alert, Button} from "react-bootstrap"
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
-import Container from "./../models/SearchContainer"
-import DeferredTextInput from "./TextInput"
-import PredicateSearch from "./PredicateSearch"
-import SearchStrategy from "./SearchStrategy"
+import Container from "./SearchContainerModel"
+import DeferredTextInput from "./../TextInput"
+import PredicateSearch from "./../pred/PredicateSearchComponent"
+import SearchStrategy from "./../SearchStrategy"
 export default class ContainerWithHideButtonSearchFieldAndSubmit extends React.Component {
     constructor(props) {
         super(props)

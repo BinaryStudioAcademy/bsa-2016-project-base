@@ -1,10 +1,10 @@
 import React from "react"
 import {PropTypes} from "react"
 import DatePicker from 'material-ui/DatePicker';
-import DeletableList from "./DeletableList"
+import DeletableList from "./../../DeletableList"
 import RaisedButton from 'material-ui/RaisedButton';
-import DateModel from "./../models/Dates"
-import Modelable from "./Modelable"
+import DateModel from "./DatesModel"
+import Modelable from "./../Modelable"
 export default class RangeDateSelect extends Modelable {
     constructor(props) {
         super(props)

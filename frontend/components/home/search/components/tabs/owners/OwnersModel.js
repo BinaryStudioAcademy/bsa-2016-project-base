@@ -1,5 +1,5 @@
-import Users from "./Users"
-import UsersClass from "./../components/Users"
+import Users from "./../users/UsersModel"
+import UsersClass from "./../users/UsersComponent"
 export default class Owners extends Users{
     constructor({component}) {
         super({
