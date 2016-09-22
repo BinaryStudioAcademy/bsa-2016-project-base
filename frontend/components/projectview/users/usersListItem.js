@@ -18,9 +18,7 @@ class userListItem extends React.Component {
     	return (
     	    <li className={styles['usersList-Item']}>
                 <Link to={`/api/users/${item._id}`} className={styles['link']}>
-                    <img src={this.state.defaultImage
-                    	/*(item.avatar ? item.avatar : this.state.defaultImage)*/
-                    } />
+                    <img src={item.avatar} />
                     <div>
                         <span>{item['userName'] + ' ' + item['userSurname']}</span>
                         <div>
