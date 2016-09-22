@@ -589,7 +589,7 @@ export function initialStateUsers(users, predefinedUsers, owners) {
         type: 'INITIAL_STATE_USERS',
         predefinedUsers: predefinedUsers.map(function(el, index) {
             if (usersId.indexOf(predefinedUsersId[index]) != -1 || ownersId.indexOf(predefinedUsersId[index]) != -1) {
-                if(ownersLogins.indexOf(el.login) != -1) {
+                if(ownersId.indexOf(el._id) != -1) {
                     return Object.assign({}, el, {inProject: true}, {owner: true})
                 } else {
                     return Object.assign({}, el, {inProject: true})
