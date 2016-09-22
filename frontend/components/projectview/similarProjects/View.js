@@ -39,22 +39,12 @@ export default class View extends React.Component {
         //make predicate
         var techVars = techs.map((t, i)=>`tech${i}`);
         var tagVars = tags.map((t, i)=>`tag${i}`);
+        var vars = techVars.concat(tagVars);
         var predicate = `!location0`;
-        function addTechs(){
-            predicate += techVars.join("|");
-            predicate += ")"
+        if (vars.length > 8){
+            vars = vars.slice(0, 8);
         }
-        if (tagVars.length){
-            predicate+="&(";
-            predicate+=tagVars.join("|");
-            if (techVars.length){
-                predicate += "|"
-                addTechs();
-            }
-        }else if (techVars.length){
-            predicate += "&(";
-            addTechs()
-        }
+        predicate += `&(${vars.join("|")})`
         //end make predicate
 
 
