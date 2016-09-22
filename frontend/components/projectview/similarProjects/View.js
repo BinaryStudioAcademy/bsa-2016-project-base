@@ -42,14 +42,14 @@ export default class View extends React.Component {
             predicate += ")"
         }
         if (tagVars.length){
-            predicate+="(";
+            predicate+="&(";
             predicate+=tagVars.join("|");
             if (techVars.length){
-                addTechs();
                 predicate += "|"
+                addTechs();
             }
         }else if (techVars.length){
-            predicate += "(";
+            predicate += "&(";
             addTechs()
         }
         //end make predicate
@@ -57,7 +57,7 @@ export default class View extends React.Component {
 
         predicate = encodeURIComponent(predicate)
         ///////////////////
-        searchService.getProjects(`skip=0%limit=3&id=${project._id}&${techs.length?"&techs="+techs.join(","):""}${tags.length?"&tags="+tags.join(","):""}&predicate=${predicate}`)
+        searchService.getProjects(`skip=0%limit=3&id=${project._id}${techs.length?"&techs="+techs.join(","):""}${tags.length?"&tags="+tags.join(","):""}&predicate=${predicate}`)
             .then(data=> {
                 let projects = new Array();
                 data['projects'].forEach((similarProject)=>{
