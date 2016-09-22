@@ -122,6 +122,8 @@ class ProjectView extends Component {
 
     render() {
         let featuresItems = [], usersItems = [],tagsItems = [], technologiesItems = [];
+        let ratingTemplate = { avgRate : {rate:0,voices:0}, canISetRate : false, rateInfo : [] };
+        console.log(this.props['project']);
         const projectDetail = this.props['project'],
             currentFeature = projectDetail['filters'].feature,
             locationData = (projectDetail['location'] ? {
@@ -135,7 +137,7 @@ class ProjectView extends Component {
                 location:{ lat: 0 , lng: 0}
             }), name = (projectDetail['projectName'] ? projectDetail['projectName'] : this.state['undefinedText']),
             description = (projectDetail['description'] ? projectDetail.description['descrFullText'] : this.state['undefinedText']),
-            rating = (projectDetail.rating.rateInfo ?
+            rating = (projectDetail.rating != undefined ? projectDetail.rating.rateInfo != undefined ?
                     projectDetail.rating.rateInfo.length > 0
                         ?
                     {
@@ -143,13 +145,9 @@ class ProjectView extends Component {
                         canISetRate : this.canISetRate(projectDetail.rating.rateInfo, this.props.authUser.userInfo),
                         rateInfo : projectDetail.rating.rateInfo
                     }
-                        :
-                    {
-                        avgRate : {rate:0,voices:0},
-                        canISetRate : false,
-                        rateInfo : []
-                    }
-                : { avgRate : {rate:0,voices:0}, canISetRate : false, rateInfo : [] }
+                        :ratingTemplate
+                    : ratingTemplate
+                    : ratingTemplate
             );
    
         if(projectDetail['tags']) projectDetail['tags'].forEach((item,index)=>{
