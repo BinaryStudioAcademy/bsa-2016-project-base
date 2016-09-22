@@ -605,9 +605,14 @@ const updateUserStory = (story, userId, start, end, projectPeriod) => {
                 if (timeBegin) {
                     const dateProjectStartSeconds = Date.parse(timeBegin);
                     if (dateUserStartSeconds >= dateProjectStartSeconds) {
-                        if (dateUserStartSeconds <= dateToSeconds) {
+                        if(story[userId].dateTo != null) {
+                            if (dateUserStartSeconds <= dateToSeconds) {
+                                story[userId].dateFrom = start;
+                            }
+                        } else {
                             story[userId].dateFrom = start;
                         }
+
 
                     }
                 } else {
@@ -625,7 +630,7 @@ const updateUserStory = (story, userId, start, end, projectPeriod) => {
                     if(story[userId].dateTo && end == null) {
 
                     }
-                    else {
+                    else if(dateUserEndSeconds >= dateFrom){
                         story[userId].dateTo = end;
                     }
                 }
@@ -705,6 +710,9 @@ const updateUserStory = (story, userId, start, end, projectPeriod) => {
                     story[id].dateTo = end;
                 }
 
+            }
+            if(story[id].dateTo < story[id].dateFrom) {
+                story[id].dateTo = story[id].dateFrom;
             }
         }
 

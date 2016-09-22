@@ -116,7 +116,7 @@ class UpsertProject extends Component {
             owners: (() => {
                 const temp = [];
                 users.forEach( user => {
-                    if (user.inProject && user.owner)  temp.push(user._id); //&& user.owner
+                    if (user.inProject && user.owner)  temp.push(user._id); 
                 });
                 return temp;
             })(),
@@ -175,8 +175,8 @@ class UpsertProject extends Component {
                 projectName,
                 location,
                 linkToProject:projectLink,
-                timeBegin: timeBegin ? new Date(timeBegin) : '',
-                timeEnd: timeEnd ? new Date(timeEnd) : '',
+                timeBegin: timeBegin ? new Date(timeBegin).setHours(0,0,0,0) : '',
+                timeEnd: timeEnd ? new Date(timeEnd).setHours(0,0,0,0) : '',
                 attachments: inProject.attachments,
                 screenShots: inProject.screenshots,
                 sections: inProject.sections,
@@ -189,7 +189,12 @@ class UpsertProject extends Component {
                 contacts,
                 description: {
                     descrFullText: inProject.descrFullText
-                } 
+                },
+                questions: [],
+                rating: {
+                    "rateInfo" : [],
+                    "rateDistribution" : [0.0,0.0,0.0,0.0,0.0]
+                }
             }
         };
         console.log('project ',projectData);

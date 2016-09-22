@@ -55,6 +55,8 @@ class ProjectView extends Component {
 			},
 			defaultText:'Loading... please wait!'
         }
+
+        this.setRate = this.setRate.bind(this);
     }
 
     componentWillMount() {
@@ -64,18 +66,41 @@ class ProjectView extends Component {
         );
     }
 
-    getAvgRating(rating) {
-        let ranking = 0;
-        if(rating.length){
-            rating.forEach((item) =>{ ranking += item.value; });
-            return Math.round(ranking/rating.length);
+    getAvgRate(distribution) {
+
+        let pointsAmount = distribution.reduce(function(prev,curr,i){
+            return prev + curr * (i+1);
+        }, 0);
+
+        let gradesAmount = distribution.reduce(function(prev,curr){
+            return prev + curr;
+        });
+
+        return { rate : Math.round((pointsAmount/gradesAmount + 0.00001) * 100)/100, voices : gradesAmount};
+    }
+
+    setRate(index){
+
+        let newRate = {
+            author : this.props.authUser.userInfo._id,
+            value : index,
+            date : new Date()
         }
-        return ranking;
+        this.props.setRate(this.props.project._id,newRate);
+    }
+
+    canISetRate(rateInfo,userInfo){
+
+        let can = rateInfo.reduce(function(prev,curr) {
+            return prev || ( curr.author == userInfo._id );
+        }, false);
+        
+        return can; // return false if I can
     }
 
     render() {
         let featuresItems = [], usersItems = [],tagsItems = [], technologiesItems = [];
-        
+        console.log(this.props['project']);
         const projectDetail = this.props['project'],
             currentFeature = projectDetail['filters'].feature,
             locationData = (projectDetail['location'] ? {
@@ -89,7 +114,22 @@ class ProjectView extends Component {
                 location:{ lat: 0 , lng: 0}
             }), name = (projectDetail['projectName'] ? projectDetail['projectName'] : this.state['undefinedText']),
             description = (projectDetail['description'] ? projectDetail.description['descrFullText'] : this.state['undefinedText']),
-            rating = (projectDetail.rating ? this.getAvgRating(projectDetail['rating']) : this.state['undefinedText']);
+            rating = (projectDetail.rating ?
+                    projectDetail.rating.rateInfo.length > 0
+                        ?
+                    {
+                        avgRate : this.getAvgRate(projectDetail.rating.rateDistribution),
+                        canISetRate : this.canISetRate(projectDetail.rating.rateInfo, this.props.authUser.userInfo),
+                        rateInfo : projectDetail.rating.rateInfo
+                    }
+                        :
+                    {
+                        avgRate : {rate:0,voices:0},
+                        canISetRate : false,
+                        rateInfo : []
+                    }
+                : { avgRate : {rate:0,voices:0}, canISetRate : false, rateInfo : [] }
+            );
    
         if(projectDetail['tags']) projectDetail['tags'].forEach((item,index)=>{
             tagsItems.push(<TagsListItem name={item.tagName} key={index} />);
@@ -165,7 +205,6 @@ class ProjectView extends Component {
                 </div>
                 <div className={styles['projectMain-firstRow']}>
                     <div className={styles["descrpition-row"]}>
-
                         <Description
                             name={name}
                             tagsItems={tagsItems}
@@ -175,16 +214,15 @@ class ProjectView extends Component {
                             timeOptions={this.state.timeOptions}
                             rating={rating}
                             technologiesItems={technologiesItems}
+                            setRate={this.setRate}
                         />
-
                         <div className={styles['screenshots-attachments-container']}>
                             <div className={styles['screenshots-block-inner']}>
                                 <header className={styles['screenshots-block-header']}>
                                     <h4>Screenshots</h4>
                                 </header>
                                 <Gallery data={projectDetail['screenShots']} />
-                            </div>
-                            
+                            </div>  
                             <div className={styles['attachments-block']}>
                                  <header className={styles['screenshots-block-header']}>
                                     <div className={styles['attach-icon']}>
@@ -194,7 +232,6 @@ class ProjectView extends Component {
                                 </header>
                                 <Attachment project={this.props.project}/>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -206,6 +243,7 @@ class ProjectView extends Component {
                     <Location data={locationData} />
                     <FeaturesList>{featuresItems}</FeaturesList>
                 </div>
+                <SimilarProjects project={projectDetail}/>
                 <div className={styles['projectMain-qa-row']}>
                     <Questions id="q-and-a" />
                 </div> 
@@ -219,8 +257,9 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-    return { 
-    	project: state['ProjectViewReducer'] 
+    return {
+        project: state['ProjectViewReducer'],
+        authUser: state['UserAuthReducer']
     };
 }
 

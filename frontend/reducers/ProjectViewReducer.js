@@ -43,6 +43,10 @@ export default function ProjectViewReducer(state = initialState, action) {
                 action['error']
             );
 
+        case types.UPDATE_PROJECT_RATING:
+
+            return { ...state, rating: action.rating };
+
         case types.SHOW_OR_HIDE_Q:
 
             var newState = Object.assign({},state);
@@ -200,6 +204,8 @@ export default function ProjectViewReducer(state = initialState, action) {
             return newState;
 
 
+        case types.SET_RATE_INFO_FAILURE:
+        case types.GET_RATE_ALL_FAILURE:
         case types.ADDING_Q_FAILURE:
         case types.ADDING_A_FAILURE:
         case types.REMOVING_Q_FAILURE:

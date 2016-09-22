@@ -244,6 +244,24 @@ module.exports = function(app) {
 		});
 	}, apiResponse);
 
+	// Rating
+
+	app.get('/api/project-view/:id/rating', function(req,res,next) {
+		projectRepository.getRateAll(req.params.id, function(err,data) {
+			res.data = data;
+			res.err = err;
+			next();
+		});
+	}, apiResponse);
+
+	app.post('/api/project-view/:id/rating', function(req,res,next) {
+		projectRepository.setRateInfo(req.params.id, req.body, function(err,data) {
+			res.data = data;
+			res.err = err;
+			next();
+		});
+	}, apiResponse);
+
 	// Questions and Answers section
 
 	app.post('/api/project-view/:id/questions', function(req,res,next) { // add question

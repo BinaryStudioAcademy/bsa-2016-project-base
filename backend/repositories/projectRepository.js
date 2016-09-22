@@ -71,7 +71,8 @@ ProjectRepository.prototype.getAllInProgress = function(callback){
 };
 
 ProjectRepository.prototype.getAllByFilters = function(filters,callback){
-	var model = this.model,population = {
+	var model = this.model,
+		population = {
 			users: {},
 			features:{
 				path: 'features',
@@ -117,18 +118,28 @@ ProjectRepository.prototype.getAllByFilters = function(filters,callback){
 	query.populate(population['features']);
 	query.exec((err, result)=>{
 		if(!err){
-			switch(filters['userRight']){
-				case 'users':
-					result['owners'] = null;
-					break;
-				case 'owners':
-					result['userss'] = null;
-					break;
-			}
+			if(filters['userRight'] == "users") result['owners'] = null;
+			if(filters['userRight'] == "owners") result['simples'] = null;
 		}
 		callback(err, result);
 	});
 };
+
+/*ProjectRepository.prototype.getSimilarsProjects = function(filters,callback){
+	var model = this.model;
+	var query = model.find({ 
+		$and:[{
+			_id: { '$ne': filters.projectId }
+		},{
+			'$or': [{ 
+				tags: { '$in':  filters['tags'] }
+			}, {
+				technologies: { '$in': filters['technologies'] }
+			}]
+		}]
+	}).populate(['technologies', 'tags']);
+	query.exec(callback);
+};*/
 
 ProjectRepository.prototype.getAllwithLocations = function(callback){
     var model = this.model;
@@ -175,6 +186,25 @@ ProjectRepository.prototype.getByIdForLocations = function(id, callback){
 		owners: 0, 
 		tags: 0, 
 		technologies: 0
+	});
+	query.exec(callback);
+};
+
+ProjectRepository.prototype.setRateInfo = function(id,body,callback){
+	var index = body.value - 1;
+	var str = `rating.rateDistribution.${index}`;
+	var model = this.model;
+	var query = model.update({_id: id},{
+		$push: { 'rating.rateInfo' : body },
+		$inc : { [str] : 1 }
+	});
+	query.exec(callback);
+};
+
+ProjectRepository.prototype.getRateAll = function(id,callback){
+	var model = this.model;
+	var query = model.find({_id: id},{
+		'rating' : 1
 	});
 	query.exec(callback);
 };

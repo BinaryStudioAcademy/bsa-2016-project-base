@@ -54,11 +54,14 @@ var Project = new Schema({
         isPrivate: Boolean
     }],
 
-    rating: [{
-        value: Number,
-        date: {type: Date, default: Date.now},
-        description: String //? we haven`t use this field
-    }],
+    rating: {
+        rateInfo: [{
+            author: {type: Schema.Types.ObjectId, ref: 'User'},
+            value: Number,
+            date: {type: Date, default: Date.now}
+        }],
+        rateDistribution: [Number]
+    },
 
     features: [{type: Schema.Types.ObjectId, ref: 'Feature'}],
 

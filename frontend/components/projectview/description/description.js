@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
+import { FaStar, FaStarHalfEmpty, FaStarO, FaThumbsUp } from 'react-icons/lib/fa';
 
 
-const Description = ({name, tagsItems, description, projectDetail, technologiesItems, undefinedText, timeOptions, rating}) => {
-        return (
+const Description = ({name, tagsItems, description, projectDetail, technologiesItems, undefinedText, timeOptions, rating, setRate}) => {
+
+    let stars = [];
+    for (let i=1; i <= rating.avgRate.rate; i++) {
+        stars.push(<FaStar key={i} size={21} />);
+    }
+    parseInt(rating.avgRate.rate) < rating.avgRate.rate ? stars.push(<FaStarHalfEmpty key={stars.length+1} size={21} />) : null;
+    let emptyStarsNum = 5 - stars.length;
+    for (let i=1; i <= emptyStarsNum; i++) {
+        stars.push(<FaStarO key={stars.length+1} size={21} />);
+    }
+
+    return (
             <div className='description-block'>
                 <header className='description-block-header'>
                     <h1>{name}</h1>
@@ -20,9 +32,15 @@ const Description = ({name, tagsItems, description, projectDetail, technologiesI
                                 <td>
                                     Status
                                 </td>
-                                <td>
-                                    {projectDetail['status'] ? projectDetail['status'] : undefinedText }
-                                </td>
+                                <td>{(
+                                    projectDetail['status'] ? (
+                                        <span className={
+                                            (projectDetail['status'].toLowerCase() != "completed") ?
+                                            "descriptionStatus-InProgress" : 
+                                            "descriptionStatus-Completed"
+                                        }>{projectDetail['status']}</span>
+                                    ): undefinedText   
+                                )}</td>
                             </tr>
                             <tr>
                                 <td>
@@ -45,9 +63,62 @@ const Description = ({name, tagsItems, description, projectDetail, technologiesI
                                    Average Rating
                                 </td>
                                 <td>
-                                    {rating}
+                                    <span className='star-wrap' >{stars}</span>
+                                    {` (${rating.avgRate.rate.toFixed(2)})`}
+                                    {` (${rating.avgRate.voices} `}<FaThumbsUp size={15} />{`)`}
                                 </td>
                             </tr>
+                            { !rating.canISetRate ?
+                                <tr>
+                                    <td>
+                                        Choose Your Rating
+                                    </td>
+                                    <td>
+                                    <span className='star-edit-wrap' >
+                                        <input type="checkbox"
+                                               className='star-input'
+                                               id={`star-rate-1`}
+                                               onChange={setRate.bind(this,1)}
+                                        />
+                                        <label htmlFor={`star-rate-1`}
+                                               className='star-label'
+                                        ><FaStar size={21} /></label>
+                                        <input type="checkbox"
+                                               className='star-input'
+                                               id={`star-rate-2`}
+                                               onChange={setRate.bind(this,2)}
+                                        />
+                                        <label htmlFor={`star-rate-2`}
+                                               className='star-label'
+                                        ><FaStar size={21} /></label>
+                                        <input type="checkbox"
+                                               className='star-input'
+                                               id={`star-rate-3`}
+                                               onChange={setRate.bind(this,3)}
+                                        />
+                                        <label htmlFor={`star-rate-3`}
+                                               className='star-label'
+                                        ><FaStar size={21} /></label>
+                                        <input type="checkbox"
+                                               className='star-input'
+                                               id={`star-rate-4`}
+                                               onChange={setRate.bind(this,4)}
+                                        />
+                                        <label htmlFor={`star-rate-4`}
+                                               className='star-label'
+                                        ><FaStar size={21} /></label>
+                                        <input type="checkbox"
+                                               className='star-input'
+                                               id={`star-rate-5`}
+                                               onChange={setRate.bind(this,5)}
+                                        />
+                                        <label htmlFor={`star-rate-5`}
+                                               className='star-label'
+                                        ><FaStar size={21} /></label>
+                                    </span>
+                                    </td>
+                                </tr>
+                                : null}
                             </tbody>
                         </table>
                     </div>

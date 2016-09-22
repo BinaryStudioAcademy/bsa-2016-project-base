@@ -30,11 +30,13 @@ class UsersList extends Component {
     }
     setUserStartDate(e, date){
         const { activeUser } = this.props;
-        this.props.setUserStartDate(activeUser, date);
+        var dateWithoutHours = new Date(date.setHours(0,0,0,0));
+        this.props.setUserStartDate(activeUser, dateWithoutHours);
     }
     setUserEndDate(e, date){
         const { activeUser } = this.props;
-        this.props.setUserEndDate(activeUser, date);
+        var dateWithoutHours = new Date(date.setHours(0,0,0,0));
+        this.props.setUserEndDate(activeUser, dateWithoutHours);
     }
     selectUser(e, userId) {
         if (e.target.nodeName === "DIV" || e.target.nodeName === "IMG") {

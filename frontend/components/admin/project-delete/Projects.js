@@ -1,6 +1,3 @@
-/**
- * Created by razorka on 15.09.16.
- */
 import React, {Component, PropTypes} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -8,9 +5,18 @@ import * as actions from "../../../actions/admin/AdminProjectsDeleteActions";
 import {toastr} from 'react-redux-toastr'
 import styles from  './styles.sass';
 import {Link} from 'react-router';
+
 class ProjectsDeletePage extends Component {
+
     constructor() {
         super();
+        this.state = {
+            dateOptions: {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            }
+        };
         this.deleteProject = this.deleteProject.bind(this);
     }
 
@@ -25,11 +31,7 @@ class ProjectsDeletePage extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps.state.listOfProjects.length !== this.props.state.listOfProjects.length) {
-            return true;
-        } else {
-            return false;
-        }
+        return (nextProps.state.listOfProjects.length !== this.props.state.listOfProjects.length);
     }
 
     deleteProject(id){
@@ -53,17 +55,10 @@ class ProjectsDeletePage extends Component {
         return (
             <div id="projects-delete">
                 {(listOfProjects.length > 0) ?
-                    <div>
-                        { listOfProjects.map((elem, index, array) => {
-                            let data_end;
-                            let data_start = elem.timeBegin.split('T');
-                            if(elem.timeEnd) {
-                                data_end = elem.timeEnd.split('T');
-                            }
+                    <div>{ 
+                        listOfProjects.map((elem, index, array) => {
                             return <div key={elem._id} className={styles['project-elem']}>
-                                <Link to={'/project-view/' + elem._id}>{elem.projectName}</Link>
-                                {
-
+                                <Link to={'/project-view/' + elem._id}>{elem.projectName}</Link>{
                                     (elem.status === "Completed") ?
                                         <div className={styles["status-completed"]}>
                                             <div className={styles["status-completed-label"]}>Completed</div>
@@ -72,11 +67,16 @@ class ProjectsDeletePage extends Component {
                                             <div className={styles["status-inprogress-label"]}>In Progress</div>
                                         </div>
                                 }
-                                <div className={styles['date_block']}>
-                                    <span>Start date :{data_start[0]}</span>
-                                    {
-                                        (data_end)?<span>End date :{data_end[0]}</span> :''
-                                    }
+                                <div className={styles['date-block']}>
+                                    <span>Start date: </span>
+                                    <span className={styles['dateBlock-timeBegin']}>
+                                        {(new Date(elem.timeBegin).toLocaleString("en-US",this.state['dateOptions']))}
+                                    </span>
+                                    <br/>
+                                    <span>End date: </span>
+                                    <span className={styles['dateBlock-timeEnd']}>{(!elem.timeEnd) ? "Project in progress" :
+                                        (new Date(elem.timeEnd).toLocaleString("en-US",this.state['dateOptions']))
+                                    }</span>
                                 </div>
                                 <button className={styles['remove_button']} onClick={(ev)=>{this.deleteProject(elem._id)}}>
                                     Remove Project

@@ -39,18 +39,33 @@ class UsersTimeLine extends Component {
     }
 
     dateFormat(date){
-        return (new Date(date)).toLocaleString("en-US",this.state['locale']);
+        if(date != null) {
+            return (new Date(date)).toLocaleString("en-US",this.state['locale']);
+        } else {
+            return new Date().toLocaleString("en-US",this.state['locale']);
+        }
+
     }
 
     createLine() {
-        const {users,timeEnd,timeBegin} = this.props['project'];
-        if(!users  || !users.length) return null;
+        const {users, owners, timeEnd,timeBegin} = this.props['project'];
+        if(!users  || !owners) return null;
+        const usersAndOwners = [...users];
+        const usersId = users.map(function (el) {
+            return el._id;
+        });
+        owners.forEach(function(el) {
+            if(usersId.indexOf(el._id) == -1) {
+                usersAndOwners.push(el);
+            }
+        });
+
 
         var numberDaysProject = ((timeEnd != null) ?
             (new Date(timeEnd) - new Date(timeBegin)):
             (new Date() - new Date(timeBegin))) / this.state['oneDay'],
             oneUnit  = numberDaysProject / 82,
-            arrayUsers = users.map((el, index)=>{
+            arrayUsers = usersAndOwners.map((el, index)=>{
                 if(typeof el != 'object') return null;
                 var dataObj = null, dateTo = "Now",numberDaysUser = new Date();
                 el['userHistory'].find((item)=>{
