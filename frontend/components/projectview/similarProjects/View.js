@@ -31,27 +31,20 @@ export default class View extends React.Component {
         let techs = project['technologies'].map(item => encodeURIComponent(item.techName)),
             tags = project['tags'].map(item => encodeURIComponent(item.tagName));
 
+            techs.length = 3;       // !!!Important!!! maximum length for similar predicates search
+            tags.length = 3;        // absense of these limits overloading server
+
         //predicate allows to get projects than have at least one of this project's tags or technologies
         //and not to add ro related projects this project itself
         //make predicate
         var techVars = techs.map((t, i)=>`tech${i}`);
         var tagVars = tags.map((t, i)=>`tag${i}`);
+        var vars = techVars.concat(tagVars);
         var predicate = `!location0`;
-        function addTechs(){
-            predicate += techVars.join("|");
-            predicate += ")"
+        if (vars.length > 8){
+            vars = vars.slice(0, 8);
         }
-        if (tagVars.length){
-            predicate+="&(";
-            predicate+=tagVars.join("|");
-            if (techVars.length){
-                predicate += "|"
-                addTechs();
-            }
-        }else if (techVars.length){
-            predicate += "&(";
-            addTechs()
-        }
+        predicate += `&(${vars.join("|")})`
         //end make predicate
 
 
