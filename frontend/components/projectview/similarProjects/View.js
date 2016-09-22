@@ -51,7 +51,7 @@ export default class View extends React.Component {
         //end make predicate
 
 
-
+        predicate = encodeURIComponent(predicate)
         ///////////////////
         searchService.getProjects(`skip=0%limit=3&id=${project._id}&${techs.length?"&techs="+techs.join(","):""}${tags.length?"&tags="+tags.join(","):""}&predicate=${predicate}`)
             .then(data=> {
