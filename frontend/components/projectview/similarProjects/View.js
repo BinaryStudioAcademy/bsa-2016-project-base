@@ -29,7 +29,31 @@ export default class View extends React.Component {
         let techs = project['technologies'].map(item => encodeURIComponent(item.techName)),
             tags = project['tags'].map(item => encodeURIComponent(item.tagName));
 
-        searchService.getProjects(`skip=0&${techs.length?"techs="+techs.join(","):""}&${tags.length?"tags="+tags.join(","):""}`)
+        //make predicate
+        var techVars = techs.map((t, i)=>`tech${i}`);
+        var tagVars = tags.map((t, i)=>`tag${i}`);
+        var predicate = `!location0`;
+        function addTechs(){
+            predicate += techVars.join("|");
+            predicate += ")"
+        }
+        if (tagVars.length){
+            predicate+="(";
+            predicate+=tagVars.join("|");
+            if (techVars.length){
+                addTechs();
+                predicate += "|"
+            }
+        }else if (techVars.length){
+            predicate += "(";
+            addTechs()
+        }
+        //end make predicate
+
+
+
+        ///////////////////
+        searchService.getProjects(`skip=0%limit=3&id=${project._id}&${techs.length?"&techs="+techs.join(","):""}${tags.length?"&tags="+tags.join(","):""}&predicate=${predicate}`)
             .then(data=> {
                 let projects = new Array();
                 data['projects'].forEach((similarProject)=>{
