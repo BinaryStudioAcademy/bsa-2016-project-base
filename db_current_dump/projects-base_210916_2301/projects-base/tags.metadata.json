@@ -1,1 +1,0 @@
-{ "indexes" : [ { "v" : 1, "key" : { "_id" : 1 }, "name" : "_id_", "ns" : "projects-base.tags" }, { "v" : 1, "unique" : true, "key" : { "tagName" : 1 }, "name" : "tagName_1", "ns" : "projects-base.tags" } ] }
