@@ -141,7 +141,7 @@ class DocumentService {
                 res.err = error
             }
             var tokensStr = JSON.stringify(tokens);
-            res.redirect(`projects/google_auth_redirect/?tokens=${tokensStr}`);
+            res.redirect(`/projects/google_auth_redirect/?tokens=${tokensStr}`);
         }.bind(this));
     }
 }
