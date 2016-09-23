@@ -4,6 +4,7 @@ var featureRepository = require('../repositories/featureRepository');
 var searchService = require('../service/search-service');
 var statsService = require('../service/stat-service');
 var saveProjectAndUserStory = require('../services/saveProjectAndUserStory');
+var updateProjectAndUserStory = require('../services/updateProjectAndUserStory');
 var mongoose = require('mongoose');
 
 var deleteProjectService = require('../services/deleteProjectService');
@@ -166,21 +167,10 @@ module.exports = function(app) {
 	}, apiResponse);
 
 	app.put('/api/project/:id', function(req, res, next) {
-		//alert("AGA!!!");
 		updateProjectAndUserStory(req, function(err, data) {
-			if (err) {
-				let errors =  {};
-				Object.keys(err.errors).forEach((key) => {
-					errors[key] = err.errors[key].message;
-				});
-				res.status(400).send(errors);
-				res.err = errors;
-			}
-			else {
 				res.data = data;
 				//res.json(data);
 				res.err = err;
-			}
 			next();
 		});
 
