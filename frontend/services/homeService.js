@@ -7,7 +7,7 @@ class HomeService {
 
 	constructor(){
 		this.url = constants.URL + "mainpage/";
-        this.deleteUrl = constants.URL + "projects/";
+        this.deleteUrl = constants.URL + "project/";
 	}
 
     getAllProjects() {

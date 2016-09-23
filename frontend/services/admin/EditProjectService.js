@@ -5,13 +5,13 @@ import * as constants from '../../constants/Api';
 
 class EditProjectService {
     getByAllData(projectId) {
-        return fetch(`${constants.URL}projects/${projectId}/allData`,
+        return fetch(`${constants.URL}project/${projectId}/allData`,
             constants.cookieMarker);
     }
 
     updateProjectService(project) {
         //alert("AGA!!!");
-        return fetch(`${constants.URL}projects/${project.project._id}/`,
+        return fetch(`${constants.URL}project/${project.project._id}`,
             Object.assign({
                     method: 'PUT',
                     body: JSON.stringify(project)

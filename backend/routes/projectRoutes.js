@@ -165,7 +165,7 @@ module.exports = function(app) {
 		});
 	}, apiResponse);
 
-	app.put('/api/projects/:id', function(req, res, next) {
+	app.put('/api/project/:id', function(req, res, next) {
 		//alert("AGA!!!");
 		updateProjectAndUserStory(req, function(err, data) {
 			if (err) {
@@ -191,7 +191,7 @@ module.exports = function(app) {
 		});*/
 	}, apiResponse);
 
-	app.delete('/api/projects/:id', function(req, res, next) {
+	app.delete('/api/project/:id', function(req, res, next) {
 		deleteProjectService(req.params.id, function(err, data) {
 			res.data = data;
 			res.err = err;
