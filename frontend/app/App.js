@@ -41,7 +41,6 @@ class App extends React.Component {
     }
 
     componentWillMount(){
-        console.log(cookies);
         this.props.setAuthUser(
             cookies.load('userEmail'),
             cookies.load('userRole')

@@ -158,7 +158,7 @@ class Comment extends Component {
                     <div className={styles['comment-body']} >
                         <div className={styles['comment-avatar']} >
                             <Link to={`/api/users/${authorLink}`} className={styles['comment-avatar-link']} >
-                                <img src={defaultImage/*`/icons/${authorPosition}.png`*/} alt={`${authorName}`} className={styles['comment-avatar-img']} />
+                                <img src={authorAvatarLink} alt={`${authorName}`} className={styles['comment-avatar-img']} />
                             </Link>
                         </div>
                         <div className={commentMessageStyle} >
