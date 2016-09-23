@@ -31,7 +31,7 @@ app.use(tockenMiddleware);
   })
 }
 app.use(rightsMiddleware)
-app.use(require("./backend/middleware/userSync"))
+//app.use(require("./backend/middleware/userSync"))
 var indexHtmlFileName;
 if (isProduction){
   indexHtmlFileName = "/index.html"
