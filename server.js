@@ -63,7 +63,7 @@ app.use('/icons',express.static(__dirname + '/icons'));
 app.use('/resources',express.static(__dirname + '/resources'));
 app.use('/backend', express.static(__dirname + '/backend'));
 app.use(middleware);
-app.use(webpackHotMiddleware(compiler));
+//app.use(webpackHotMiddleware(compiler));
 app.get('*', function response(req, res) {
   res.write(fs.readFileSync(path.join(__dirname, indexHtmlFileName)));
   res.end();

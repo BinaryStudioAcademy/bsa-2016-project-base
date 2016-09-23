@@ -36,13 +36,17 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify('development')
     })*/
   ,
+  resolve: {
+      extensions: ['', '.js'],
+      modulesDirectories: ['node_modules'],
+  },
   module: {
     loaders: [{
       test: /\.jsx?$/,
       exclude: /node_modules/,
       loader: 'babel',
       query: {
-        "presets": ["react", "es2015", "stage-0", "react-hmre"]
+        "presets": ["react", "es2015", "stage-0"]
       }
     }, {
       test: /\.json?$/,
