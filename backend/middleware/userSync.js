@@ -44,7 +44,7 @@ function _userSync(req, res){
                 userRole: user.role || "user",
                 avatar: "http://team.binary-studio.com"+(user.avatar.thumbnailUrlAva || user.avatar.urlAva),
                 //avatar: "http://team.binary-studio.com"+user.avatar,
-                position: user.email,
+                position: "Developer", // position: user.email,
                 login:user.email
                 //position: user.department
             };
