@@ -1,0 +1,115 @@
+.rights-container
+    width: 100%
+    background-color: #FFF
+
+    .rights-toolBar
+        display: flex
+        padding: 10px 25px
+        flex-direction: row
+        align-items: center
+        flex-wrap: wrap
+
+        .projects-list
+            margin: 6px 0px 0px 15px
+            min-width: calc(50% -  200px)
+            width: 35%
+
+        .filters-TextInput
+            min-width: calc(50% - 200px)
+            margin: 0px 15px 0px 25px
+
+        .filters-CheckBox
+            margin: 30px 10px 0px 0px 
+
+    .rights-toolBar>*:first-child  
+        margin: 30px 50px 0px 0px
+ 
+    .rights-UsersList::-webkit-scrollbar
+        width: 7px
+
+    .rights-UsersList::-webkit-scrollbar-track
+        background: rgba(0, 0, 0, 0.1)
+
+    .rights-UsersList::-webkit-scrollbar-thumb
+        background: rgba(0, 0, 0, 0.5)
+
+    .rights-UsersList
+        display: flex
+        flex-wrap: wrap
+        padding: 5px 30px
+        justify-content: center
+
+    .rights-UsersList > div
+        margin: 10px
+        padding: 10px
+        display: flex
+        width: 300px
+        min-height: 120px
+        border-radius: 5px
+        flex-direction: row
+        background-color: #E9f0f6
+        border-bottom: 1px solid #E4E7EA
+
+    .rights-UsersList > div > .image-Container
+        height: 100%
+        width: 80px
+        display: flex
+        align-items: center
+        flex-direction: row
+        justify-content: center
+        img
+            width: 70px
+            height: 70px
+            border-radius: 50px
+
+    .rights-UsersList > div > .description-Container
+        height: 100%
+        width: calc(100% - 80px)
+
+    .rights-UsersList > div > .description-Container >
+      div:first-child
+        height: 65%
+        border-bottom: 1px solid #E4E7EA
+        padding: 0px 10px
+        font-size: 20px
+        display: flex
+        align-items: center
+
+    .rights-UsersList > div > .description-Container> 
+      div:first-child > span
+        text-align: center
+        width: calc(100% - 20px)
+
+    .rights-UsersList > div > .description-Container > 
+      div:last-child
+        font-size: 13px
+        padding-top: 10px
+        text-align: center
+        height: calc(35% - 15px)
+        font-family: "Lato", sans-serif
+        
+    .rights-UsersList > div > div:last-child > 
+      div:last-child > span:last-child
+        color: black
+        padding-left: 5px
+
+@media screen and (max-width: 1300px) 
+    .rights-container
+        .rights-toolBar 
+            .filters-TextInput, 
+            .projects-list  
+                min-width: calc(50% - 20px)
+                margin: 0px 10px
+
+            .projects-list 
+                margin-top: 7px    
+
+        .rights-toolBar>*:nth-child(2)
+            margin-left: calc(100% - 400px)        
+   
+@media screen and (max-width: 980px) 
+    .rights-container
+        .rights-toolBar 
+            .filters-TextInput, 
+            .projects-list  
+                min-width: calc(100% - 20px)

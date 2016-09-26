@@ -1,0 +1,31 @@
+//#list-projects
+=forSmallScreens($media)
+    @media (max-width: $media/16+em)
+        @content
+
+.home-content-row
+    display: flex
+    margin-bottom: 20px
+    justify-content: center
+    padding: 0 2em
+    +forSmallScreens(640)
+        display: block
+.list-group
+  margin-bottom: 0
+  display: flex
+  flex-wrap: wrap
+  justify-content: space-between
+  width: 95%
+  margin: 0 auto
+
+.project-list-home
+  display: flex
+  flex-flow: row wrap
+  justify-content: flex-start
+  padding: 0px 0.5%
+
+.project-list-home > li
+  width: 29% 
+  margin: 10px 2%
+  list-style: none
+  justify-content: flex-start

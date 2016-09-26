@@ -1,0 +1,65 @@
+$success: green
+$inconpleted: #ffd176
+
+.over
+  overflow-x: hidden
+
+
+.listgroup
+  border-radius: 0
+  font-family: 'Play'
+  height: 300px
+  overflow: auto
+
+.completedF
+  @extend .over
+  border-radius: 0
+  border: 0
+  border-left: 5px solid $success
+  margin-top: 3px
+
+.incompletedF
+  @extend .over
+  border-radius: 0
+  border: 0
+  border-left: 5px solid $inconpleted
+  margin-top: 3px
+
+.incompletedF:first-child
+  border-top-left-radius: 0
+  border-top-right-radius: 0
+
+.incompletedF:last-child
+  border-bottom-left-radius: 0
+  border-bottom-right-radius: 0
+
+.completedF:first-child
+  border-top-left-radius: 0
+  border-top-right-radius: 0
+
+.completedF:last-child
+  border-bottom-left-radius: 0
+  border-bottom-right-radius: 0
+
+.completedF:hover
+  background: #ccc
+  cursor: pointer
+
+.completedF:active,
+.completedF:focus
+  outline: none
+
+.completed
+  display: inline-block
+  border-radius: 0
+  background: green
+  font-family: 'Play'
+  font-size: 80%
+
+.inprogress
+  display: inline-block
+  border-radius: 0
+  background: orange
+  font-family: Play
+  font-size: 80%
+

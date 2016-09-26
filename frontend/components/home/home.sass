@@ -1,0 +1,241 @@
+@import "../common/styles/common"
+.div-small
+    zoom: 0.6
+    z-index: 5
+    overflow: hidden
+
+
+
+=forSmallScreens($media)
+    @media (max-width: $media/16+em)
+        @content
+
+
+#homeContent
+    background-color: #FEFEFE
+    font-size: 0.7rem
+    width: 100%
+
+    .custom-scroll::webkit-scrollbar 
+        width: 7px
+    .custom-scroll::-webkit-scrollbar-track
+        background: rgba(0, 0, 0, 0.1)
+    .custom-scroll::-webkit-scrollbar-thumb 
+        background: rgba(0, 0, 0, 0.5)
+    .row
+        display: flex
+        width: 100%;
+        justify-content: flex-start
+        flex-flow: row wrap
+
+    #sectionContent
+        background-color: #f3f6f8
+        padding-bottom: 100px
+
+        .row
+            display: flex
+            width: 100%;
+            justify-content: space-between
+            flex-flow: row wrap
+            padding: 0 2.5rem
+
+
+#inputs
+    display: flex
+    align-items: center
+    margin-left: 2.5rem
+    margin-top: 5rem
+
+.col-inputs:last-child()
+    margin-right: 0
+
+.col-inputs
+        margin-right: 2rem
+
+.inputs-tool
+    position: relative
+
+.hint 
+    background: grey
+    display: inline-block
+    position: absolute;
+    top: -70px
+    left: 40px
+    border-radius: 15px
+    color: #8D97A4
+    font-family: "Lato", sans-serif;
+    font-size: 0.7rem
+
+
+
+.s
+    position: relative
+    background: #E9f0f6
+    border: 1px solid #c9c9c9
+    border-radius: 5px
+    padding: 1rem
+.s:after, .s:before 
+    top: 100%
+    left: 10%
+    border: 1px solid transparent
+    content: " "
+    height: 0
+    width: 0
+    position: absolute
+    pointer-events: none
+
+
+.s:after 
+    border-color: rgba(233, 240, 246, 0);
+    border-top-color: #E9f0f6
+    border-width: 10px
+    margin-left: -10px
+
+.s:before 
+    border-color: rgba(201, 201, 201, 0)
+    border-top-color: #8D97A4
+    border-width: 11px
+    margin-left: -11px
+
+
+.section-cont
+    width: 100%
+    background: #f3f6f8;
+
+#home-root
+    .search-pre
+        background: #fff
+        width: 60%
+        margin-bottom: 2rem
+        margin-left: 2.5rem
+        margin-top: 2rem
+        box-shadow: 0px 1px 15px -6px #777
+        border-radius: 5px
+        //max-height: 200px
+        //overflow: auto
+        position: relative
+        //border: 1px solid #efefef;
+    
+        &:after, &:before 
+            bottom: 100%
+            left: 12%
+            border: solid transparent
+            content: " "
+            height: 0
+            width: 0
+            position: absolute
+            pointer-events: none
+
+
+        &:after 
+            border-color: rgba(255, 255, 255, 0)
+            border-bottom-color: #fff
+            border-width: 20px
+            margin-left: -20px
+        
+        &:before 
+            border-color: rgba(239, 239, 239, 0)
+            border-bottom-color: #efefef
+            border-width: 21px
+            margin-left: -21px
+    .search-pre-header
+        height: 45px
+        display: flex
+        align-items: center
+        border-left: 3px solid #8D97A4
+        padding-left: 0.6rem
+        border-bottom: 1px solid #efefef
+        h3
+            font-family: "Lato", sans-serif
+            font-weight: 300
+            font-size: 1.1rem
+            cursor: default
+    .seach-pre-list::-webkit-scrollbar 
+        width: 7px
+    .seach-pre-list::-webkit-scrollbar-track
+        background: rgba(0, 0, 0, 0.1)
+    .seach-pre-list::-webkit-scrollbar-thumb 
+        background: rgba(0, 0, 0, 0.5)
+    .seach-pre-list
+        padding: 0 0.6rem
+        max-height: 150px
+        overflow: auto
+        margin: 0
+
+        .search-pre-item + .search-pre-item
+            margin-top: 1rem
+            padding-top: 0
+            padding-bottom: 1rem
+        .search-pre-item
+            display: flex
+            font-weight: 300
+            font-size: 0.8rem
+            flex-flow: row wrap
+            padding-bottom: 1rem;
+            padding-top: 1rem;
+            border-bottom: 1px solid #efefef
+
+            .model-title
+                display: flex
+                height: 35px
+                align-items: center
+                font-weight: 400
+                font-size: 1rem
+            .mod
+                display: flex
+                flex-flow: row wrap
+            .model-value
+                display: flex
+                height: 35px
+                align-items: center
+                font-size: 1rem
+                background: #8D97A4
+                border-radius: 15px
+                color: #fff
+                font-size: 0.8rem
+                padding: 0.7rem
+                font-weight: 300
+                margin: .3rem;
+    .extended-search
+        background: #fff
+        margin: 2rem
+        box-shadow: 0px 1px 15px -6px #777
+        border-radius: 5px
+        //max-height: 200px
+        //overflow: auto
+        position: relative
+        //border: 1px solid #efefef;
+        
+        .extended-search-header
+            height: 45px
+            display: flex
+            align-items: center
+            border-left: 3px solid #8D97A4
+            padding-left: 0.6rem
+            border-bottom: 1px solid #efefef
+            justify-content: space-between;
+            h3
+                font-family: "Lato", sans-serif
+                font-weight: 400;
+                font-size: 1.1rem;
+                //cursor: default
+            .search-strategy
+                display: flex
+                align-items: center
+
+.body
+    margin-top: 2rem
+
+.row-project
+    padding: 0 2.5rem
+    display: flex
+    flex-flow: row wrap
+    justify-content: space-between
+
+
+.custom-scroll::-webkit-scrollbar 
+    width: 7px
+.custom-scroll::-webkit-scrollbar-track
+    background: rgba(0, 0, 0, 0.1)
+.custom-scroll::-webkit-scrollbar-thumb 
+    background: rgba(0, 0, 0, 0.5)

@@ -1,0 +1,90 @@
+@import "../common/styles/common";
+@import url(//fonts.googleapis.com/css?family=Play);
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+
+// Sass Mixin For Desktop first
+=forSmallScreens($media)
+    @media (max-width: $media/16+em)
+        @content
+
+
+
+// Sidebar
+#sidebar
+    flex: 0 0 250px
+    min-height: 100vh
+    background-color: #FEFEFE
+    color: #7A929D
+    font-family: 'Lato', sans-serif
+    font-weight: 900
+    font-size: 0.7rem
+    text-transform: uppercase
+    box-shadow: 3px 0 35px -18px #121212;
+    position: relative
+
+    +forSmallScreens(768)
+        width: 100%
+        min-height: auto
+        box-shadow: none
+
+    .sidebarHeader
+      background-color: #293541
+      width: 100%
+      color: #fff
+      padding: 30px 0
+      text-align: center
+      font-size: 0.82rem
+
+      p
+        margin: 0
+
+
+
+// Basic styles for mainNav
+#sidebar .mainNav
+    list-style: none
+    width: 100%
+    margin-top: 50px
+    padding: 0
+
+    +forSmallScreens(768)
+        text-align: center
+        margin-bottom: 50px
+
+
+    li
+        display: block
+        +forSmallScreens(768)
+            display: inline-block
+
+        .item-name
+            vertical-align: middle
+            margin-left: 0.7rem
+
+
+        a
+            box-sizing: border-box
+            display: block
+            padding-left: 1.5em
+            width: 100%
+            color: #7A929D
+            padding: 10px 1.7em
+            transition: box-shadow .5s
+            text-decoration: none
+            &:hover .icon
+                color: #03A9F4
+                transition: color .5s
+
+
+
+// Active Link
+#sidebar li a.active
+    box-shadow: inset 12px 0 1px -8px #03A9F4
+
+    +forSmallScreens(768)
+        box-shadow: 0px 2px 0px 0px #03A9F4
+
+
+#sidebar li a.active .icon
+    color: #03A9F4

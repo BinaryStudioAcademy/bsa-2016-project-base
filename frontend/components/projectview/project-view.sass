@@ -1,0 +1,755 @@
+@import "../common/styles/common"
+@import url(//fonts.googleapis.com/css?family=Russo+One)
+@import url(//fonts.googleapis.com/css?family=Play)
+
+#project-view-content
+    font-size: 0.7em
+    padding-bottom: 30px
+    background-color: #F3F6F8
+
+    ::-webkit-scrollbar
+        width: 5px
+
+    ::-webkit-scrollbar-track
+        background: rgba(0, 0, 0, 0.1)
+
+    ::-webkit-scrollbar-thumb
+        background: rgba(0, 0, 0, 0.5)
+
+    .projectMain-Navigation
+        width: 100%
+        display: flex
+        flex-direction: row
+        padding: 25px 0px 25px 50px
+        justify-content: space-between
+
+        div
+            display: flex
+            color: #93A6AF
+            font-size: 15px
+            flex-direction: row
+            align-items: center
+            padding: 0px 30px 8px 0px
+
+            label
+                margin-left: 8px
+                font-family: "Open Sans"
+
+                a
+                    color: #93A6AF
+                    font-weight: 600
+                    text-decoration: none
+
+                    &:hover
+                     	color: #293541
+
+            .redirect-to-list > *
+                cursor: pointer
+                color: #93A6AF
+
+    .projectMain-secondRow
+    	width: 100%
+    	height: 435px
+    	display: flex
+    	flex-direction: row
+    	margin-bottom: 3rem
+
+    	>div
+    		height: 100%
+    		background-color: white
+    		border: 1px solid EDEDED
+    		box-shadow: 0px 1px 15px -6px #777
+
+    	.usersList-Container
+    		width: 280px
+    		height: 100%
+    		margin: 0px 15px 0px 45px
+
+    		.usersList-Header
+                padding: 1px 10px
+                border-bottom: 1px solid #efefef
+                border-left: 3px solid #8D97A4
+
+                h2
+                    font-size: 1rem
+                    font-weight: 700
+
+    		.owners,.users
+    			width: 8px
+    			height: 8px
+    			border-radius: 50%
+
+    		.users
+    			background-color: cadetBlue
+
+    		.owners
+    			background-color: #20d127
+
+    		.usersList-filterTab
+    			width: 100%
+    			font-family: 'Lato', sans-serif
+
+    			.usersList-SearchInputContainer
+    				width: calc(100% - 20px)
+    				margin: -16px 10px 0px 10px
+
+    			.usersList-Description
+    				display: flex
+    				flex-direction: row
+    				align-items: center
+    				justify-content: center
+
+	    			span
+	    				margin: 4px
+	    				font-size: 14px
+
+	    			span:nth-child(2n)
+	    				cursor: pointer
+	    				font-weight: 600
+	    				margin-right: 10px
+	    				transition: color 0.4s
+
+	    				&:hover
+	    					color: tomato
+	    			span:nth-child(2n).checked
+	    				color: black
+
+	    			span:nth-child(2n).default
+	    				color: #6D848E
+
+
+
+    		.usersList-Content
+    			width: 100%
+    			padding: 0px
+    			display: flex
+    			flex-wrap: wrap
+    			overflow-y: auto
+    			list-style: none
+    			margin-bottom: 15px
+    			height: calc(100% - 150px)
+
+    			li
+                    padding: 6px
+                    flex-direction: row
+                    background-color: white
+                   	margin: 6px 0px 6px 15px
+                    border-bottom: 1px solid #E4ECEE
+
+                    .link
+                        display: flex
+                        text-decoration: none
+                        color: inherit
+
+                        img
+                            width: 45px
+                            height: 45px
+                            border-radius: 50%
+
+                        div
+                            width: 150px
+                            display: flex
+                            flex-direction: column
+                            align-items: flex-start
+                            margin-left: 14px
+
+                            span
+                                font-size: 14px
+                                font-weight: 600
+                                font-family: "Open Sans"
+
+                            div
+                                display: flex
+                                color: #a2a2a2
+                                font-size: 12px
+                                flex-direction: row
+                                align-items: center
+                                font-family: "Lato", sans-serif
+
+                                span
+                                	margin: 2px 6px 0px -12px
+
+    .projectMain-thirdRow
+    	display: flex
+    	height: 300px
+    	flex-direction: row
+    	margin-bottom: 6rem
+    	justify-content: center
+
+    	>div
+    		height: 100%
+    		background-color: white
+    		border: 1px solid EDEDED
+    		box-shadow: 0px 1px 15px -6px #777
+
+    	.locationMap-Container
+    		width: 400px
+    		background-color: white
+    		margin: 0px 15px 0px 45px
+
+    		.locationMap-Content
+    			width: 100%
+    			height: 100%
+
+    			.locationMap-MarkerContent
+    				font-size: 14px
+    				padding-top: 10px
+
+    				span
+    					margin: 8px
+
+    				span:first-child
+    					font-weight: 600
+
+    				div:first-child,
+    				div:nth-child(4)
+    					border-bottom: 1px solid grey
+    					padding-bottom: 4px
+    					margin-bottom: 5px
+
+    		.locationMap-Header
+                width: 100%
+                height: 50px
+                padding: 1px 0px 0px 15px
+                border-left: 3px solid #8D97A6
+                border-bottom: 1px solid #efefef
+
+                h2
+                    font-weight: 700
+
+    	.featuresList-Container
+    		margin: 0px 20px
+    		height: 350px
+    		width: calc(100% - 400px)
+    		background-color: #FEFEFE
+
+    		.featuresList-Header
+                width: 100%
+                height: 50px
+                padding: 1px 0px 0px 15px
+                border-left: 3px solid #8D97A6
+                border-bottom: 1px solid #efefef
+
+                h2
+                    font-weight: 700
+
+    		.featuresList-Content
+            	width: 100%
+            	overflow-y: auto
+            	height: calc(100% - 50px)
+
+            	.featureItem-Main
+            		background-color: red
+
+            	>div
+            		dispaly: flex
+            		font-size: 14px
+            		min-height: 60px
+            		padding: 15px 0px
+            		flex-direction: row
+            		align-items: center
+            		vertical-align: middle
+            		border-bottom: 1px solid #EAEEEF
+
+            		>span
+            			width: 125px
+            			padding-left: 10px
+            			display: inline-block
+            			word-wrap: break-word
+            			vertical-align: middle
+
+            		>span:last-child
+            			font-weight: 700
+            			color: #293541
+            		    font-weight: bold
+
+            		>span:first-child
+            			div
+            				color: white
+            				height: 25px
+            				padding: 2px
+            				margin-left: 15px
+            				text-align: center
+            				background-color: tomato
+            				border-top-left-radius: 50px
+            				border-bottom-left-radius: 50px
+
+            			span
+            				border-right: 1px solid grey
+            				display: inline-block
+            				padding-right: 5px
+            				color: cadetBlue
+            				font-weight: 600
+            				font-size: 12px
+            				float: right
+
+            			div.implementedFeature
+            				background-color: #293541
+
+            		>span:nth-child(4)
+            			max-width: 175px
+
+            		>span:nth-child(3)
+            			text-align: center
+
+            			svg
+            				path
+            				    color: tomato
+
+            			svg.feature-NessesaryMarker
+            				path
+            					color: SeaGreen
+
+            		>span:nth-child(3),
+            		>span:nth-child(5)
+            			width: 100px
+
+            		>span:nth-child(2)
+            			cursor: pointer
+            			min-width: 100px
+            			width: calc(100% - 480px)
+
+            			&:hover
+            				color: grey
+
+            			&:hover span
+            				margin-left: -50px
+
+            			span
+            				width: 250px
+            				padding: 10px
+            				color: #FAFAFA
+            				z-index: 1000
+            				position: absolute
+            				border-radius: 6px
+            				margin: 30px 0px 0px -30000px
+            				background-color: rgba(73,81,88,0.9)
+
+            				&:after
+            					content: ''
+            					display: block
+            					position: absolute
+            					left: 20px
+            					bottom: 100%
+            					width: 0
+            					height: 0
+            					border-bottom: 10px solid #495158
+            					border-top: 10px solid transparent
+            					border-left: 10px solid transparent
+            					border-right: 10px solid transparent
+
+    		.featuresList-ContainerHeader
+    			display: flex
+    			padding: 18px 0px
+    			flex-direction: row
+    			padding-left: 135px
+    			background-color: #EAEEF0
+    			font-family: 'Lato', sans-serif
+    			height: 55px
+
+    			span:nth-child(2)
+    				width: 100px
+
+    			span:nth-child(3)
+    				width: 125px
+
+    			span:first-child
+    				min-width: 100px
+    				width: calc(100% - 360px)
+
+    			span
+    				color: #6D848E
+    				font-size: 14px
+    				font-weight: 600
+    				vertical-align: middle
+                	text-transform: uppercase
+
+    .projectMain-SimilarProjects
+    	height: 350px
+    	background-color: white
+    	width: calc(100% - 55px)
+    	margin: 35px 15px 10px 40px
+    	box-shadow: 0px 1px 15px -6px #777
+
+    	.similarProjects-List
+    		width: 100%
+    		overflow-y: auto
+    		height: calc(100% - 60px)
+
+    		>div
+    			border: 0
+    			width: 100%
+    			padding: 10px
+    			display: flex
+    			align-items: center
+    			min-height: 60px
+    			border-bottom: 1px solid #EFEFEF
+
+    			&:hover
+    				background-color: #EFEFEF
+
+    				a
+    					color: black
+
+    				.projectStatus-Ignored
+    					label
+    						color: tomato
+    						border-color: tomato
+
+    				.projectStatus-Completed
+    					label
+    						color: SeaGreen
+    						border-color: SeaGreen
+
+    			.projectStatus-Ignored,
+    			.projectStatus-Completed
+    				width: 80px
+    				display: flex
+
+    				label
+    				    font-size: 13px
+    				    font-weight: 600
+    				    padding: 8px 10px 
+    				    border-radius: 7px
+    				    text-transform: uppercase
+
+
+    			.projectStatus-Completed
+    				label
+    				    color: #2ECC71
+    				    border: 2px solid #2ECC71
+
+    			.projectStatus-Ignored
+    				label
+    					color: #FC5A5A	
+    					border: 2px solid #FC5A5A    
+
+    			.project-similarTags,
+    			.project-similarTechnologies
+    				padding: 0px 15px
+    				dispaly: flex
+    				flex-wrap: wrap
+    				flex-direction: row
+
+    				span
+    					margin: 3px
+	    				padding: 6px 8px
+	    				font-weight: 600
+	    				border-radius: 7px
+	    				display: inline-block
+
+	    		.project-similarTags
+	    			span
+	    				color: black
+	    				background-color: #E9F0F6
+
+	    		.project-similarTechnologies
+	    			span
+	    				color: white
+	    				background-color: #495158
+
+	    				i
+	    					color: tomato
+	    					font-size: 13px
+	    					padding: 2px 0px 0px 3px
+
+    			.project-DateBlock
+    				width: 240px
+    				margin-left: 50px 
+
+    				.project-dateBegin
+    					font-weight: 600
+    					color: cadetBlue
+
+    				.project-dateEnd
+    					font-weight: 600
+    					color: #293541
+
+    				span
+    					padding: 5px
+    					font-size: 13px	
+
+    			a,
+    			.project-similarTags,
+    			.project-similarTechnologies
+    				padding: 10px
+    				min-width: 120px
+    				width: calc(33% - 100px)
+
+    			a
+		            height: 100%
+		            display: block
+		            color: #8D97A4
+		            font-size: 15px
+		            font-weight: 700
+		            padding-left: 1.25rem
+		            margin: 5px 40px 5px 0px
+		            font-family: 'Lato', sans-serif
+		            border-left: 2px solid #8D97A4 
+
+    	.similarProjects-Header
+    		width: 100%
+    		font-weight: 700
+    		padding-top: 5px
+    		text-align: center
+    		border-left: 3px solid #8D97A4
+    		border-bottom: 1px solid #efefef
+
+    .projectMain-firstRow
+        display: flex
+        flex-direction: column
+        justify-content: center
+
+        .descrpition-row
+            display: flex
+            justify-content: space-between
+            padding: 0 1rem 0 2.5rem
+            margin-bottom: 1.5rem
+
+            .description-block
+                background-color: #fff
+                width: 60%
+                height: 510px
+                box-shadow: 0px 1px 15px -6px #777
+                margin-right: 1.5rem
+                display: flex
+                flex-direction: column
+
+                .description-block-header
+                    border-bottom: 1px solid #efefef
+                    padding: 1rem
+                    border-left: 3px solid #8D97A4
+                    padding-bottom: 0.5rem
+                    display: flex
+                    flex-direction: column
+                    h1
+                        margin: 0
+                        font-weight: 700
+                        margin-bottom: 1.2rem
+
+                .description-block-tags
+                    vertical-align: top
+                    padding-bottom: 30px
+                    max-height: 200px
+
+                    span
+                        display: inline-block
+                        font-size: 0.8rem
+                        font-weight: 600
+                        vertical-align: top
+                        background-color: #E9f0f6
+                        color: black
+                        padding: .2rem .5rem
+                        margin: 0 0.5rem 0.7rem 0
+                        border-radius: 5px
+
+
+                .description-block-content
+                    display: flex
+                    height: 100%
+                    
+                    .description-block-text
+                        font-size: 1rem
+                        font-weight: 300
+                        padding-top: 1.5rem
+                        padding-left: 1.7rem
+                        padding-right: 1.7rem
+                        width: 75%
+                        height: 100%
+                        overflow-y: auto
+                        border-right: 1px solid #efefef
+
+                        .description-block-html
+                            overflow: auto
+                            font-weight: 300
+                            font-size: 1rem
+                            margin-bottom: 1rem
+                            line-height: 1.5rem
+                            max-height: 300px
+
+                        table
+                            border-collapse: collapse
+                            width: 100%
+                            margin-bottom: 2rem
+
+                        tr
+                            border-bottom: 1px solid #E1E3EB
+
+                        tr
+
+                            td
+                                padding: .8rem
+                                font-weight: 700
+                                font-size: 0.8rem
+
+                                .star-wrap
+                                    color: gold
+
+                                .star-input
+                                    display: none
+
+                                .star-edit-wrap
+                                    color: white
+
+                                .star-edit-wrap:hover
+                                    color: gold
+
+                                .star-label:hover
+                                    cursor: pointer
+
+                                .star-label:hover ~ .star-label
+                                    color: white
+
+                            td + td
+                                border-left: 1px solid #E1E3EB
+
+                            td
+                            	span.descriptionStatus-InProgress
+                            		color: tomato
+
+                            	span.descriptionStatus-Completed
+                            		color: darkGreen
+
+
+                        tr:nth-child(1n)
+                            background-color: #F1F2F6
+
+                        tr:nth-child(2n)
+                            background-color: #EDEEF3
+
+                    .description-block-technologies
+                        width: 25%
+                        height: 100%
+                        overflow-x: hidden
+                        overflow-y: auto
+
+                        img
+                            width: 20px
+                            height: 20px
+
+                        .tech:nth-of-type(1)
+                            margin-top: 1rem
+
+                        .tech:last-of-type
+                            border: none
+
+                        .tech
+
+                            cursor: pointer
+                            display: flex
+                            font-size: 0.7rem
+                            margin-bottom: 1rem
+                            margin: 0.5rem
+                            padding: 0.5rem
+                            border-radius: 5px
+                            border-bottom: 1px solid #efefef
+
+                            .tech-name
+                                margin-left: 0.3rem
+                                font-weight: 700
+
+            .screenshots-attachments-container
+                display: flex
+                flex-direction: column
+                width: 40%
+
+                .screenshots-block-inner
+                    display: flex
+                    flex-direction: column
+                    width: 100%
+                    background-color: #fff
+                    height: 350px
+                    height: 350px
+                    max-height: 220px
+                    box-shadow: 0px 1px 15px -6px #777
+                    margin-bottom: 1.5rem
+
+                    .screenshots-block-header
+                        border-bottom: 1px solid #efefef
+                        height: 50px
+
+                        h4
+                            margin: 0
+                            display: flex
+                            align-items: center
+                            font-size: 1rem
+                            font-weight: 700
+                            height: 100%
+                            border-left: 3px solid #8D97A4
+                            padding-left: 1.5rem
+
+                    .screenshots
+                        display: flex
+                        width: 100%
+                        flex-wrap: nowrap
+                        height: 170px
+
+                        #Gallery
+                            display: flex
+                            justify-content: space-between
+                            flex-wrap: wrap
+                            padding: 1rem 2rem
+                            width: 100%
+                            hegight: 100%
+                            overflow: auto
+
+                            div
+                                width: 28%
+                                margin-top: 1rem
+                                margin-bottom: 1.4rem
+                                height: 100px
+                                cursor: pointer
+
+                                img
+                                    max-width: 100%
+                                    height: 94.5px
+
+                            div:hover img
+                                opacity: .7
+
+                .attachments-block
+                    display: flex
+                    flex-direction: column
+                    width: 100%
+                    background-color: #fff
+                    height: 350px
+                    height: 350px
+                    max-height: 266px
+                    box-shadow: 0px 1px 15px -6px #777
+                    margin-bottom: 1.5rem
+
+                    .screenshots-block-header
+                        border-bottom: 1px solid #efefef
+                        height: 50px
+                        border-left: 3px solid #8D97A4
+                        display: table
+                        width: 100%
+                        padding-left: 1.5rem
+
+                        .attach-icon
+                            display: table-cell
+                            vertical-align: middle
+
+                        h4
+                            margin: 0
+                            display: flex
+                            align-items: center
+                            font-size: 1rem
+                            font-weight: 700
+                            display: table-cell
+                            vertical-align: middle
+                            padding-left: .3rem
+                            width: 100%
+
+                    .attach-list
+                        margin: 0
+                        padding: 0
+                        list-style: none
+                        width: 100%
+
+
+    .projectMain-qa-row
+        display: flex
+        width: 100%
+        padding: 0 1rem 0 2.5rem
+        margin-top: 4rem

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Projects Base</title>
+    <link href="http://allfont.ru/allfont.css?fonts=open-sans" rel="stylesheet" type="text/css" />
+    <link href="http://diegoddox.github.io/react-redux-toastr/3.0.1/react-redux-toastr.min.css" rel="stylesheet" type="text/css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://team.binary-studio.com/app/styles/css/style.css" rel="stylesheet">
+    <script src="http://team.binary-studio.com/app/javascripts/header.js"></script>
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDv9OoBDDYKjkai2Xdv273WTWdTQWyMJ_Q&libraries=geometry,places,visualization">
+    </script>
+    <script src="https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/src/markerclusterer.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      var getHeader = function() {
+        var request = new XMLHttpRequest();
+        request.open('GET', 'http://team.binary-studio.com/app/header', true);
+        request.send();
+        request.onreadystatechange = function() {
+          if (request.readyState != 4) return;
+          if (request.status != 200) {
+            alert(request.status + ': ' + request.statusText);
+          } else {
+            var headerHtml = request.responseText;
+            var headerContainer = document.getElementById('__header');
+            headerContainer.innerHTML =headerHtml;
+            headerFunction();
+          }
+        };
+      };
+      window.onload = getHeader;
+    </script>
+    <script src="/projects/main.js"></script>
+  </body>
+</html>

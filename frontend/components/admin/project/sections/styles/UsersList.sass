@@ -1,0 +1,137 @@
+@import "./UpsertProject.sass";
+
+#user-list
+	display: flex
+	flex-direction: column
+	.user-selected
+		background-color: #f3f6f8 !important
+	.dates
+		padding: 10px
+		display: flex
+		flex-direction: row
+		align-items: center
+		justify-content: space-around
+	.col-1-3
+        flex-basis: 15%
+        background-color: #fff
+        padding 0 1rem
+        border-radius: 5px
+        border: 1px solid #c9c9c9
+        position: relative
+        .calendar-icon, .angle-icon
+            position: absolute
+            top: 50%
+            left: 30px
+            transform: translate(0, -50%)
+            line-height: 0px
+            color: #627484
+
+        label
+            font-size: 0.9rem
+            color: #627484
+            position: absolute
+            top: 50%
+            transform: translate(0, -50%)
+
+        select
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            opacity: 0
+            bottom: 0
+            cursor: pointer
+            option
+                cursor: pointer
+	.row
+        display: flex 
+        justify-content: space-between
+        padding: 0 1.2rem
+        margin-bottom: 1rem
+	.date-container
+		display:flex
+		flex-basis: 100%
+		box-shadow: 0px 1px 15px -6px #777
+		background-color: #fff
+		.user-list-header
+    		display: flex
+    		height: 50px
+    		border-bottom: 1px solid #efefef
+    		.col-1-2
+    			// flex-basis: 50%
+
+    			h3
+    				font-family: 'Lato', sans-serif
+    				font-size: 1rem
+    				margin-left: 1rem
+    				// color: #c9c9c9
+    		.col-1-2:nth-of-type(1)
+    			display: flex
+    			align-items: center
+    			//flex-basis: 20%
+    			border-left: 3px solid #627484
+
+	.list-container
+		display:flex
+		flex-basis: 47%
+		box-shadow: 0px 1px 15px -6px #777
+		background-color: #fff
+		.user-list-header
+    		display: flex
+    		height: 50px
+    		border-bottom: 1px solid #efefef
+    		.col-1-2
+    			// flex-basis: 50%
+
+    			h3
+    				font-family: 'Lato', sans-serif
+    				font-size: 1rem
+    				margin-left: 1rem
+    				// color: #c9c9c9
+    		.col-1-2:nth-of-type(1)
+    			display: flex
+    			align-items: center
+    			//flex-basis: 20%
+    			border-left: 3px solid #627484
+		
+
+		.section-list1            
+      overflow-y: auto
+      height: 330px
+      margin: 1rem
+      padding: 0 1.7rem
+      .listItem
+      	cursor: default
+	      background-color: white
+	      display: flex
+	      flex-direction: row
+	      padding: 0.5rem
+	      &:hover
+        	color: #b1b1b1
+
+	      .userImage
+	        width: 50px
+	        height: 50px
+	        img
+	        	border-radius: 50%
+
+	      .nameAndPosition
+	        width: 200px
+	        display: flex
+	        flex-direction: column
+	        align-items: flex-start
+	        align-self: center
+	        margin-left: 22px
+
+	      .userName
+	        font-size: 1.2rem
+
+      	.userPosition
+	        font-size: 1rem
+	        margin-top: 0.3rem
+
+	      .checkbox
+	      	align-self: center
+	      	margin-right: 2rem
+	      	font-size: 1rem
